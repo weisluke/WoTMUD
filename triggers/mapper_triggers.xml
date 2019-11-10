@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Mapper</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Catch Name</name>
+				<script>if
+  (line == matches[1] or string.find(line, "HP:")) and
+  not (
+    string.find(line, "speaks from the") or
+    string.find(line, "answers your prayer") or
+    string.find(line, "*" .. matches[1] .. "*")
+  )
+then
+  wotmudmapper.roomname = matches[1]
+  wotmudmapper.roomdesc = ""
+  wotmudmapper.brief = true
+  if wotmudmapper.dark then
+    wotmudmapper.dark = false
+  end
+  wotmudmapper:echo("\nRoom name (" .. wotmudmapper.roomname .. ") captured.", true)
+else
+  wotmudmapper.roomname = ""
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>1</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#008080</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>ANSI_COLORS_F{006}_B{000}</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>6</integer>
+				</regexCodePropertyList>
+				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Map Description</name>
+					<script>--if current MUD line contains roomname, let trigger chain fire another line
+
+if matches[2] == wotmudmapper.roomname then
+	setTriggerStayOpen("Catch Name", 1)
+elseif wotmudmapper.roomname ~= "" then
+	--if not exit line, add line to room desc, let trigger chain fire another line
+  if not string.find(line, "obvious exits:") then
+		if wotmudmapper.brief then
+      wotmudmapper.brief = false
+    end
+    if wotmudmapper.roomdesc == "" then
+      wotmudmapper.roomdesc = wotmudmapper.roomdesc .. line
+    else
+      wotmudmapper.roomdesc = wotmudmapper.roomdesc .. "\n" .. line
+    end
+		if wotmudmapper.configs.mapbrief and not isLook(List:checkleftvalue(wotmudmapper.queue)) then
+			deleteLine()
+    end
+		setTriggerStayOpen("Catch Name", 1)
+  end
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^(.*)$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Get Exits</name>
+						<script>--puts current exits in a table of the form {"n","e","s","w","u","d"}
+wotmudmapper.roomexits = string.lower(matches[2])
+wotmudmapper:echo("\nRoom exits (" .. wotmudmapper.roomexits .. ") captured.\n", true)
+wotmudmapper.roomexits = string.split(wotmudmapper.roomexits, " ")
+while table.index_of(wotmudmapper.roomexits, "") do
+  table.remove(wotmudmapper.roomexits, table.index_of(wotmudmapper.roomexits, ""))
+end
+--loading the current room roomname that was stored from "catch name" trigger
+local currentRoomName = wotmudmapper.roomname
+--loading the current room roomdesc that was stored from "map description" trigger
+local currentRoomDesc = wotmudmapper.roomdesc
+--loading the current room exits that were stored from "get exits" trigger
+local currentRoomExits = wotmudmapper.roomexits
+local mapCommand, x, y, z, areaID, lastID, tempID
+--Specifying the type of movement. If not fleeing or following, then take from queue
+if not wotmudmapper.flee and not wotmudmapper.following then
+  mapCommand = List:popleft(wotmudmapper.queue)
+else
+  --else, fleeing or following
+  if wotmudmapper.following then
+    --treat following as a flee movement
+    mapCommand = "f"
+    --setting following at false for the following map movement
+    wotmudmapper.following = false
+  else
+    --checking if next command in line is flee
+    mapCommand = List:checkleftvalue(wotmudmapper.queue)
+    --if yes, then take command from queue
+    if isFlee(mapCommand) then
+      List:popleft(wotmudmapper.queue)
+    else
+      --if no, then it is autowimpy flee
+      mapCommand = "f"
+    end
+    --setting flee at false for the following map movement
+    wotmudmapper.flee = false
+  end
+end
+--finished specifying if movement was regular or a flee
+--loading the previous roomID.
+lastID = wotmudmapper.currentID
+local newID = {}
+--if mapCommand is a direction and you were in a valid room
+if isMovement(mapCommand) and (not table.is_empty(lastID)) then
+  --if mapping and you were in a unique room
+  if wotmudmapper.configs.mapping and table.size(lastID) == 1 then
+    tempID = wotmudmapper:findRoom(currentRoomName, currentRoomDesc, currentRoomExits)
+    --if not in an already mapped room or if forcing a room
+    if table.is_empty(tempID) or wotmudmapper.configs.forceroom then
+      x, y, z = getRoomCoordinates(lastID[1])
+      x, y, z = wotmudmapper:setCoordinatesOffset(x, y, z, mapCommand)
+      areaID = getRoomArea(lastID[1])
+      wotmudmapper.currentID = wotmudmapper:createRoom(x, y, z, areaID)
+      wotmudmapper:linkRooms(lastID[1], wotmudmapper.currentID[1], mapCommand, currentRoomExits)
+      if wotmudmapper.configs.autojoin then
+        wotmudmapper:autoJoinRooms(wotmudmapper.currentID[1])
+      end
+      wotmudmapper.configs.forceroom = false
+      --if in a known room, link with previous room
+    elseif table.size(tempID) == 1 and tempID[1] ~= lastID[1] then
+      wotmudmapper.currentID = tempID
+      wotmudmapper:linkRooms(lastID[1], wotmudmapper.currentID[1], mapCommand, currentRoomExits)
+      --else, you're just moving around in mapping mode
+    else
+      newID =
+        wotmudmapper:isNearRoom(
+          mapCommand, currentRoomName, currentRoomDesc, getRoomExits(lastID[1])
+        )
+      if table.is_empty(newID) then
+        newID = tempID
+      elseif
+        table.size(newID) &gt; 1 and
+        (not table.is_empty(wotmudmapper:findMatchingExits(newID, currentRoomExits)))
+      then
+        newID = wotmudmapper:findMatchingExits(newID, currentRoomExits)
+      end
+      wotmudmapper.currentID = newID
+    end
+    --else, you're just moving around in non-mapping mode or with multiple potential rooms
+  else
+    for k, v in pairs(lastID) do
+      local rooms =
+        wotmudmapper:isNearRoom(mapCommand, currentRoomName, currentRoomDesc, getRoomExits(v))
+      if not table.contains(newID, rooms[1]) then
+        table.insert(newID, rooms[1])
+      end
+    end
+    if table.is_empty(newID) then
+      newID = wotmudmapper:findRoom(currentRoomName, currentRoomDesc, currentRoomExits)
+    elseif
+      table.size(newID) &gt; 1 and
+      (not table.is_empty(wotmudmapper:findMatchingExits(newID, currentRoomExits)))
+    then
+      newID = wotmudmapper:findMatchingExits(newID, currentRoomExits)
+    end
+    wotmudmapper.currentID = newID
+  end
+  --handling flees
+elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
+  for k, v in pairs(lastID) do
+    local rooms =
+      wotmudmapper:findRoomAfterFlee(
+        currentRoomName, currentRoomDesc, currentRoomExits, getRoomExits(v)
+      )
+    for kk, vv in pairs(rooms) do
+      if not table.contains(newID, vv) then
+        table.insert(newID, vv)
+      end
+    end
+  end
+  if table.is_empty(newID) then
+    newID = wotmudmapper:findRoom(currentRoomName, currentRoomDesc, currentRoomExits)
+  elseif
+    table.size(newID) &gt; 1 and
+    (not table.is_empty(wotmudmapper:findMatchingExits(newID, currentRoomExits)))
+  then
+    newID = wotmudmapper:findMatchingExits(newID, currentRoomExits)
+  end
+  wotmudmapper.currentID = newID
+  --if looking at room and data is same, dont need to change ID
+elseif
+  isLook(mapCommand) and
+  table.size(lastID) == 1 and
+  currentRoomName == getRoomName(lastID[1]) and
+  currentRoomDesc == getRoomUserData(lastID[1], "description")
+then
+  --else,mapper has to search the room it is in
+else
+  wotmudmapper.currentID = wotmudmapper:findRoom(currentRoomName, currentRoomDesc, currentRoomExits)
+end
+if table.is_empty(wotmudmapper.currentID) then
+  wotmudmapper:echo("\nNo matches found.", false, true)
+elseif table.size(wotmudmapper.currentID) &gt; 1 then
+  wotmudmapper:echo("\nMultiple matches found.", false, true)
+else
+  centerview(wotmudmapper.currentID[1])
+  --note room exits that lead to unknown rooms (as they may be DTs)
+  if getExitStubs(wotmudmapper.currentID[1]) then
+    for k, v in pairs(getExitStubs(wotmudmapper.currentID[1])) do
+      wotmudmapper:echo(
+        "\nCaution. Direction " .. wotmudmapper.exitmap[v] .. " leads to an unknown room.",
+        false,
+        true
+      )
+    end
+  end
+  --displaying the zone
+  wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
+  cecho("\n&lt;turquoise&gt;Zone: " .. wotmudmapper.zone)
+  --showing the doors that have been stored
+  for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
+    local dir = string.sub(v, 1, 1)
+    if getRoomUserData(wotmudmapper.currentID[1], dir) ~= "" then
+      cecho("\n&lt;blue&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], dir))
+    end
+  end
+end</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#000000</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>^\[ obvious exits:(.*)\]$</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</TriggerGroup>
+			</TriggerGroup>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Night/Blind Movement</name>
+				<script>if not wotmudmapper.dark then
+  wotmudmapper.dark = true
+end
+local currentRoomName, currentRoomDesc, currentRoomExits
+local mapCommand, lastID
+--Specifying the type of movement. If not fleeing or following, then take from queue
+if not wotmudmapper.flee and not wotmudmapper.following then
+  mapCommand = List:popleft(wotmudmapper.queue)
+else
+  --else, fleeing or following
+  if wotmudmapper.following then
+    --treat following as a flee movement
+    mapCommand = "f"
+    --setting following at false for the following map movement
+    wotmudmapper.following = false
+  else
+    --checking if next command in line is flee
+    mapCommand = List:checkleftvalue(wotmudmapper.queue)
+    --if yes, then take command from queue
+    if isFlee(mapCommand) then
+      List:popleft(wotmudmapper.queue)
+    else
+      --if no, then it is autowimpy flee
+      mapCommand = "f"
+    end
+    --setting flee at false for the following map movement
+    wotmudmapper.flee = false
+  end
+end
+--finished specifying if movement was regular or a flee
+--loading the previous roomID.
+lastID = wotmudmapper.currentID
+currentRoomName = ""
+currentRoomDesc = ""
+currentRoomExits = {}
+local newID = {}
+--if mapCommand is a direction and you were in a valid room
+if isMovement(mapCommand) and (not table.is_empty(lastID)) then
+  for k, v in pairs(lastID) do
+    local rooms =
+      wotmudmapper:isNearRoom(mapCommand, currentRoomName, currentRoomDesc, getRoomExits(v))
+    if not table.contains(newID, rooms[1]) then
+      table.insert(newID, rooms[1])
+    end
+  end
+  wotmudmapper.currentID = newID
+  --handling flees
+elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
+  for k, v in pairs(lastID) do
+    local rooms = getRoomExits(v)
+    for kk, vv in pairs(rooms) do
+      if not table.contains(newID, vv) then
+        table.insert(newID, vv)
+      end
+    end
+  end
+  wotmudmapper.currentID = newID
+  --if looking at room, dont need to change ID
+elseif isLook(mapCommand) and table.size(lastID) == 1 then
+else
+	wotmudmapper.currentID = {}
+end
+
+if table.is_empty(wotmudmapper.currentID) then
+  wotmudmapper:echo("\nNo matches found.",false,true)
+elseif table.size(wotmudmapper.currentID) &gt; 1 then
+  wotmudmapper:echo("\nMultiple matches found.",false,true)
+else
+  centerview(wotmudmapper.currentID[1])
+  --note room exits that lead to unknown rooms (as they may be DTs)
+  if getExitStubs(wotmudmapper.currentID[1]) then
+    for k, v in pairs(getExitStubs(wotmudmapper.currentID[1])) do
+      wotmudmapper:echo(
+        "\nCaution. Direction " .. wotmudmapper.exitmap[v] .. " leads to an unknown room.",
+        false,
+        true
+      )
+    end
+  end
+  --displaying the zone
+  wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
+  cecho("\n&lt;turquoise&gt;Zone: " .. wotmudmapper.zone)
+  --showing the doors that have been stored
+  for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
+    local dir = string.sub(v, 1, 1)
+    if getRoomUserData(wotmudmapper.currentID[1], dir) ~= "" then
+      cecho("\n&lt;blue&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], dir))
+    end
+  end
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>It is pitch black\.\.\.$</string>
+					<string>You can't see a damned thing, you're blinded!$</string>
+					<string>You can't see a damned thing in this thick fog!$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Movement Failure</name>
+				<script>local mapCommand = List:popleft(wotmudmapper.queue)
+if wotmudmapper.following then
+  wotmudmapper.following = false
+end
+--reduce possible roommatches based on fact that a direction doesn't work
+if matches[1] == "Alas, you cannot go that way..." then
+  if table.size(wotmudmapper.currentID) &gt; 1 then
+    local roommatches = {}
+    for k, v in pairs(wotmudmapper.currentID) do
+      --initialiasing table
+      local exitkeys = {}
+      --create table of exit keys (grabbing first letter of "north","south",etc.)
+      for kk, vv in pairs(getRoomExits(v)) do
+        table.insert(exitkeys, string.sub(kk, 1, 1))
+      end
+      --if there are exit stubs leading to unmapped room, include those
+      if getExitStubs(v) then
+        for kk, vv in pairs(getExitStubs(v)) do
+          table.insert(exitkeys, string.sub(wotmudmapper.exitmap[vv], 1, 1))
+        end
+      end
+      --compare list of possible exits to exit that failed
+      --if possible exits doesn't contain direction that failed OR has a door (which could be hidden, and closed)
+      --then that room is a possible match
+      if (not table.contains(exitkeys, mapCommand)) or getRoomUserData(v, mapCommand) ~= "" then
+        table.insert(roommatches, v)
+      end
+    end
+    wotmudmapper.currentID = roommatches
+  end
+end
+if table.size(wotmudmapper.currentID) == 1 then
+  centerview(wotmudmapper.currentID[1])
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ffaa00</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Alas, you cannot go that way\.\.\.$</string>
+					<string>You can't ride in there\.$</string>
+					<string>A (.+) blocks the way\.$</string>
+					<string>An (.+) blocks the way\.$</string>
+					<string>No way!  You're fighting for your life!$</string>
+					<string>You need a boat to go there\.$</string>
+					<string>Your mount is too exhausted\.$</string>
+					<string>You can't ride there on a horse!$</string>
+					<string>Are you crazy? You can't just walk out of a second story window!$</string>
+					<string>Nah\.\.\. You feel too relaxed to do that\.\.$</string>
+					<string>You would need to swim there, you can't just walk it\.$</string>
+					<string>You'll have to take your chances and JUMP OUT!$</string>
+					<string>Your mount is engaged in combat!$</string>
+					<string>You shudder at the concept of crossing water\.$</string>
+					<string>(.+) blocks the path of (.+)\.$</string>
+					<string>You are too exhausted\.$</string>
+					<string>Berserk! Death! Death! Fight to the death!$</string>
+					<string>Maybe you should get on your feet first\?$</string>
+					<string>You try, but the mind-numbing cold prevents you\.\.$</string>
+					<string>The ground gives way, and you are sent hurtling down the embankment!$</string>
+					<string>You can't ride on water\.$</string>
+					<string>In your dreams, or what\?$</string>
+					<string>The Eye of the World is no longer the place for you, (.+)\.$</string>
+					<string>Your mount ought to be awake and standing first!$</string>
+					<string>You can't leave the Circle yet for (.+) since you were pkilled!$</string>
+					<string>You can't leave the Circle for (.+), since you were pkilled!$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Doors in General</name>
+				<script>local mapCommand = List:popleft(wotmudmapper.queue)
+local direction
+if mapCommand == wotmudmapper.door and mapCommand then
+  direction = wotmudmapper.door
+elseif mapCommand then
+  direction = mapCommand
+else
+  direction = wotmudmapper.door
+end
+if
+  wotmudmapper.configs.mapping and
+  table.size(wotmudmapper.currentID) == 1 and
+  getRoomUserData(wotmudmapper.currentID[1], direction) == ""
+then
+  wotmudmapper:createDoor(wotmudmapper.currentID[1], direction, 1, matches[2])
+end
+if wotmudmapper.following then
+  wotmudmapper.following = false
+end
+--if door was closed, use it to narrow down possible roommatches
+if
+  table.contains(
+    {
+      "The " .. matches[2] .. " is closed.",
+      "The " .. matches[2] .. " seems to be closed.",
+      "&gt; The " .. matches[2] .. " is closed.",
+      "&gt; The " .. matches[2] .. " seems to be closed.",
+    },
+    matches[1]
+  )
+then
+  --only try to narrow down results if room isn't already known
+  if table.size(wotmudmapper.currentID) &gt; 1 then
+    local roommatches = {}
+    --grab all possible exits from the room
+    for k, v in pairs(wotmudmapper.currentID) do
+      ---initialiasing table
+      local exitkeys = {}
+      ---create table of exit keys (grabbing first letter of "north","south",etc.)
+      for kk, vv in pairs(getRoomExits(v)) do
+        table.insert(exitkeys, string.sub(kk, 1, 1))
+      end
+      ---if there are exit stubs leading to unmapped room, include those
+      if getExitStubs(v) then
+        for kk, vv in pairs(getExitStubs(v)) do
+          table.insert(exitkeys, string.sub(wotmudmapper.exitmap[vv], 1, 1))
+        end
+      end
+      --if room has door in direction entered, add to potential matches
+      if getRoomUserData(v, mapCommand) ~= "" then
+        table.insert(roommatches, v)
+      end
+    end
+    wotmudmapper.currentID = roommatches
+  end
+end
+if table.size(wotmudmapper.currentID) == 1 then
+  centerview(wotmudmapper.currentID[1])
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^The (.+) is open\.$</string>
+					<string>^The (.+) is obviously open\.$</string>
+					<string>^The (.+) is closed\.$</string>
+					<string>^The (.+) seems to be closed\.$</string>
+					<string>&gt; The (.+) is closed\.$</string>
+					<string>&gt; The (.+) seems to be closed\.$</string>
+					<string>&gt; The (.+) is open\.$</string>
+					<string>&gt; The (.+) is obviously open\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Hidden Doors</name>
+				<script>if wotmudmapper.configs.mapping and table.size(wotmudmapper.currentID) == 1 then
+  wotmudmapper:createDoor(wotmudmapper.currentID[1], wotmudmapper.door, 2, matches[2])
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You skillfully discover a hidden (.+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Resetting Queue</name>
+				<script>wotmudmapper.queue = List:new()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You are helped out of the coach by the driver\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Resuming Trigger</name>
+				<script>if wotmudmapper.pausing then
+  wotmudmapper.pausing = false
+  wotmudmapper.queue = List:new()
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>HP:(\S+) MV:(\S+)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Pausing Trigger</name>
+				<script>wotmudmapper.pausing = true</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>\* Press \&lt;Return\&gt; to continue, q to quit \*\&gt;$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Failing Flees</name>
+				<script>if isFlee(List:checkleftvalue(wotmudmapper.queue)) then
+  List:popleft(wotmudmapper.queue)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>PANIC!  You couldn't escape!$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Fleeing</name>
+				<script>wotmudmapper.flee = true</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff007f</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You flee head over heels\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Following</name>
+				<script>wotmudmapper.following = true</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#aaff00</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You follow (.+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+	</TriggerPackage>
+</MudletPackage>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>playerNumbers</name>
+			<packageName></packageName>
+			<script>function playerNumbers(event, filename)
+  local dir = getMudletHomeDir() .. "/player_numbers.json"
+	-- is the file that downloaded ours?
+  if not filename:find("player_numbers.json", 1, true) then
+    return
+  end
+  local file = io.open(dir, "r")
+  local table = file:read("*all")
+  io.close(file)
+  player_numbers = yajl.to_value(table)
+end</script>
+			<eventHandlerList>
+				<string>sysDownloadDone</string>
+			</eventHandlerList>
+		</Script>
+	</ScriptPackage>
+</MudletPackage>

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Status Bar Script</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+</script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Status Bar</name>
+				<packageName></packageName>
+				<script>local w, h = getMainWindowSize()
+setBorderBottom(5 * h / 100)
+
+statusbar=statusbar or {}
+
+statusbar.main=Geyser.Container:new({name = "statusbar.main", x = 0, y = "-3%", width = "60%", height = "3%"})
+
+statusbar.mood = Geyser.Label:new({name = "statusbar.mood", x = "0%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
+statusbar.mood:echo("Mood", "white", "c")
+statusbar.mood:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.posture = Geyser.Label:new({name = "statusbar.posture", x = "7%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
+statusbar.posture:echo("Posture", "white", "c")
+statusbar.posture:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.health = Geyser.Label:new({name = "statusbar.health", x = "14%", y = "0%", width = "12%", height = "100%"}, statusbar.main)
+statusbar.health:echo("HP", "white", "c")
+statusbar.health:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.moves = Geyser.Label:new({name = "statusbar.moves", x = "26%", y = "0%", width = "12%", height = "100%"}, statusbar.main)
+statusbar.moves:echo("MV", "white", "c")
+statusbar.moves:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.autoflee = Geyser.Label:new({name = "statusbar.autoflee", x = "38%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
+statusbar.autoflee:echo("Autoflee", "white", "c")
+statusbar.autoflee:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.fleelag = Geyser.Label:new({name = "statusbar.fleelag", x = "48%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
+statusbar.fleelag:echo("Fleelag", "white", "c")
+statusbar.fleelag:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.chargepulses = Geyser.Label:new({name = "statusbar.chargepulses", x = "58%", y = "0%", width = "15%", height = "100%"}, statusbar.main)
+statusbar.chargepulses:echo("Charge pulses", "white", "c")
+statusbar.chargepulses:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.notice = Geyser.Label:new({name = "statusbar.notice", x = "73%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
+statusbar.notice:echo("Notice", "white", "c")
+statusbar.notice:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.sneak = Geyser.Label:new({name = "statusbar.sneak", x = "80%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
+statusbar.sneak:echo("Sneak", "white", "c")
+statusbar.sneak:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.timer = Geyser.Label:new({name = "timer", x = "87%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
+statusbar.timer:echo("Tic Timer", "white", "c")
+statusbar.timer:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update Health Min Max</name>
+				<packageName></packageName>
+				<script>function updateHealthMinMax(mindmg, maxdmg)
+  statusbar = statusbar or {}
+  char = char or {}
+  char.maxhealth = char.maxhealth or 1
+  local temphp="HP"
+  if char.health then
+    char.healthestmax = math.max(char.health - mindmg, 0)
+    char.healthestmin = math.max(char.health - maxdmg, 0)
+    temphp = "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+    char.health = nil
+  elseif char.healthestmin and char.healthestmax and char.healthestmin ~= "???" then
+    char.healthestmax = math.max(char.healthestmax - mindmg, 0)
+    char.healthestmin = math.max(char.healthestmin - maxdmg, 0)
+    temphp = "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+  elseif char.healthestmax and char.healthestmin == "???" then
+    char.healthestmax = math.max(char.healthestmax - mindmg, 0)
+    temphp = "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+  end
+  if statusbar.health then
+    statusbar.health:echo(temphp, "white", "c")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update fleelag and charge pulses</name>
+				<packageName></packageName>
+				<script>function updateFleeLagOnTic()
+  local fleelagloss = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4}
+	statusbar = statusbar or {}
+  char = char or {}
+  char.fleelag = char.fleelag or 1
+  char.wil = char.wil or 1
+  char.fleelag = math.floor(char.fleelag / fleelagloss[char.wil])
+  local totalflee = "Fleelag: " .. char.fleelag
+  if statusbar.fleelag then
+    statusbar.fleelag:echo(totalflee, "white", "c")
+  end
+  local chargepulses = math.min(7 + char.fleelag, 12)
+  chargepulses = "Charge pulses: " .. chargepulses
+  if statusbar.chargepulses then
+    statusbar.chargepulses:echo(chargepulses, "white", "c")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update health on tic</name>
+				<packageName></packageName>
+				<script>function updateHealthOnTic()
+  local hpregen = {0, 0, 0, 0, 0, 0, 0, 0, 18, 21, 22, 25, 26, 29, 30, 33, 35, 37, 39}
+  statusbar = statusbar or {}
+  char = char or {}
+  char.maxhealth = char.maxhealth or 1
+  char.con = char.con or 1
+  local temphp="HP"
+  if char.health then
+    char.healthestmin = char.health
+    char.healthestmax = math.min(char.health + hpregen[char.con], char.maxhealth)
+    if char.healthestmin == char.healthestmax then
+      temphp = "HP: " .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+    else
+      temphp =
+        "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+    end
+		char.health=nil
+  elseif char.healthestmax and char.healthestmin then
+    char.healthestmax = math.min(char.healthestmax + hpregen[char.con], char.maxhealth)
+    if char.healthestmin == char.healthestmax then
+      temphp = "HP: " .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+    else
+      temphp =
+        "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+    end
+  end
+  if statusbar.health then
+    statusbar.health:echo(temphp, "white", "c")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update health with range</name>
+				<packageName></packageName>
+				<script>function updateHealthWithRange(healthmsg)
+  statusbar = statusbar or {}
+  char = char or {}
+  char.maxhealth = char.maxhealth or 1
+  local temphp = "HP"
+  local healthrangeupper =
+    {
+      Healthy = 1,
+      Scratched = 1 - 1 / char.maxhealth,
+      Hurt = 0.9,
+      Wounded = 0.75,
+      Battered = 0.5,
+      Beaten = 0.3,
+      Critical = 0.15,
+    }
+  local healthrangelower =
+    {
+      Healthy = 1,
+      Scratched = 0.9,
+      Hurt = 0.75,
+      Wounded = 0.5,
+      Battered = 0.3,
+      Beaten = 0.15,
+      Critical = 0,
+    }
+  if char.health then
+    char.health = math.min(char.health, math.floor(healthrangeupper[healthmsg] * char.maxhealth))
+    char.health = math.max(char.health, math.ceil(healthrangelower[healthmsg] * char.maxhealth))
+    temphp = "HP: " .. char.health .. "(" .. char.maxhealth .. ")"
+  elseif char.healthestmax and char.healthestmin and char.healthestmin ~= "???" then
+    char.healthestmax =
+      math.min(char.healthestmax, math.floor(healthrangeupper[healthmsg] * char.maxhealth))
+    char.healthestmax =
+      math.max(char.healthestmax, math.ceil(healthrangelower[healthmsg] * char.maxhealth))
+    char.healthestmin =
+      math.min(char.healthestmin, math.floor(healthrangeupper[healthmsg] * char.maxhealth))
+    char.healthestmin =
+      math.max(char.healthestmin, math.ceil(healthrangelower[healthmsg] * char.maxhealth))
+    if char.healthestmin == char.healthestmax then
+      temphp = "HP: " .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+    else
+      temphp =
+        "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+    end
+  elseif char.healthestmax and char.healthestmin == "???" then
+    char.healthestmax =
+      math.min(char.healthestmax, math.floor(healthrangeupper[healthmsg] * char.maxhealth))
+    char.healthestmax =
+      math.max(char.healthestmax, math.ceil(healthrangelower[healthmsg] * char.maxhealth))
+    char.healthestmin = math.ceil(healthrangelower[healthmsg] * char.maxhealth)
+    if char.healthestmin == char.healthestmax then
+      temphp = "HP: " .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+    else
+      temphp =
+        "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+    end
+  end
+  if statusbar.health then
+    statusbar.health:echo(temphp, "white", "c")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>updateFleelag</name>
+				<packageName></packageName>
+				<script>function updateFleelag(event, command)
+  statusbar = statusbar or {}
+  char = char or {}
+  char.fleelag = char.fleelag or 0
+  local com = command
+  if com ~= nil then
+    com = string.lower(com)
+    if table.contains({"f", "fl", "fle", "flee"}, com) then
+      char.fleelag = char.fleelag + 1
+      local totalflee = "Fleelag: " .. char.fleelag
+      if statusbar.fleelag then
+        statusbar.fleelag:echo(totalflee, "white", "c")
+      end
+      local chargepulses = math.min(7 + char.fleelag, 12)
+      chargepulses = "Charge pulses: " .. chargepulses
+      if statusbar.chargepulses then
+        statusbar.chargepulses:echo(chargepulses, "white", "c")
+      end
+    end
+  end
+end</script>
+				<eventHandlerList>
+					<string>sysDataSendRequest</string>
+				</eventHandlerList>
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update moves with range</name>
+				<packageName></packageName>
+				<script>function updateMovesWithRange(mvsmsg)
+  statusbar = statusbar or {}
+  char = char or {}
+  char.maxmvs = char.maxmvs or 1
+  local tempmvs = "MV"
+  local mvsrangeupper =
+    {
+      Fresh = 1,
+      Full = 1 - 1 / char.maxmvs,
+      Strong = 0.9,
+      Tiring = 0.75,
+      Winded = 0.5,
+      Weary = 0.3,
+      Haggard = 0.15,
+    }
+  local mvsrangelower =
+    {Fresh = 1, Full = 0.9, Strong = 0.75, Tiring = 0.5, Winded = 0.3, Weary = 0.15, Haggard = 0}
+  if char.mvs then
+    char.mvsestmax = math.floor(mvsrangeupper[mvsmsg] * char.maxmvs)
+    char.mvsestmin = math.ceil(mvsrangelower[mvsmsg] * char.maxmvs)
+    if char.mvsestmin == char.mvsestmax then
+      tempmvs = "MV: " .. char.mvsestmax .. "(" .. char.maxmvs .. ")"
+    else
+      tempmvs = "MV: " .. char.mvsestmin .. "-" .. char.mvsestmax .. "(" .. char.maxmvs .. ")"
+    end
+		char.mvs=nil
+  elseif char.mvsestmax and char.mvsestmin then
+    char.mvsestmax = math.floor(mvsrangeupper[mvsmsg] * char.maxmvs)
+    char.mvsestmin = math.ceil(mvsrangelower[mvsmsg] * char.maxmvs)
+    if char.mvsestmin == char.mvsestmax then
+      tempmvs = "MV: " .. char.mvsestmax .. "(" .. char.maxmvs .. ")"
+    else
+      tempmvs = "MV: " .. char.mvsestmin .. "-" .. char.mvsestmax .. "(" .. char.maxmvs .. ")"
+    end
+  end
+  if statusbar.moves then
+    statusbar.moves:echo(tempmvs, "white", "c")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>

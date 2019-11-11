@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Tic Timer Scripts</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------</script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>uploadTimer</name>
+				<packageName></packageName>
+				<script>function uploadTimer()
+  timer = {}
+  if io.exists(getMudletHomeDir() .. "/timer.lua") then
+    table.load(getMudletHomeDir() .. "/timer.lua", timer)
+  else
+    timer.on = true
+    timer.tic_time = 60
+    timer.num_tics = -1
+    timer.tic_is_early = true
+    timer.tic_is_late = false
+  end
+  tictimer = createStopWatch()
+  temptimer = {}
+end</script>
+				<eventHandlerList>
+					<string>sysConnectionEvent</string>
+				</eventHandlerList>
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>saveTimer</name>
+				<packageName></packageName>
+				<script>function saveTimer()
+  timer = timer or {}
+  timer.on = true
+  timer.num_tics = -1
+  timer.tic_is_early = true
+  timer.tic_is_late = false
+  timer.tic_time = timer.tic_time or 60.000
+  table.save(getMudletHomeDir() .. "/timer.lua", timer)
+  if tictimer then
+    stopStopWatch(tictimer)
+  end
+  temptimer = temptimer or {}
+	for k,v in pairs(temptimer) do
+		killTimer(v)
+	end
+end</script>
+				<eventHandlerList>
+					<string>sysDisconnectionEvent</string>
+				</eventHandlerList>
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Tic Timer</name>
+				<packageName></packageName>
+				<script>function resettictimer()
+  timer = timer or {}
+  if timer.num_tics then
+    timer.num_tics = timer.num_tics + 1
+  else
+    timer.num_tics = 0
+  end
+  timer.tic_time = timer.tic_time or 60.000
+  temptimer = temptimer or {}
+  temptimer.warning =
+    tempTimer(timer.tic_time - 7.0, [[cecho("&lt;green&gt;Tic in 7 seconds!\n") timer.tic_is_early=true]])
+  temptimer.tic = tempTimer(timer.tic_time, [[resettictimer()]])
+  temptimer.latetic = tempTimer(20.0, [[timer.tic_is_late=false]])
+  timer.tic_is_early = false
+  timer.tic_is_late = true
+  updateFleeLagOnTic()
+  updateHealthOnTic("tic")
+end
+
+function resettictimerontrigger()
+  timer = timer or {}
+  if not timer.num_tics then
+    timer.num_tics = -1
+  end
+  timer.tic_time = timer.tic_time or 60.000
+  if timer.tic_is_early then
+    timer.num_tics = timer.num_tics + 1
+    timer.tic_is_early = false
+    timer.tic_is_late = true
+    updateFleeLagOnTic()
+    updateHealthOnTic("tic")
+  elseif not timer.tic_is_late then
+    timer.num_tics = timer.num_tics + 1
+    timer.tic_is_early = false
+    timer.tic_is_late = true
+    updateFleeLagOnTic()
+    updateHealthOnTic("tic")
+  end
+  if timer.num_tics ~= 0 and tictimer then
+    timer.tic_time = (getStopWatchTime(tictimer)) / (timer.num_tics)
+    timer.tic_time = timer.tic_time - (timer.tic_time % 0.001)
+    cecho("\nTic length updated to: " .. (timer.tic_time) .. " seconds.")
+  else
+    cecho(" Starting tic timer.")
+  end
+  tictimer = tictimer or createStopWatch()
+  startStopWatch(tictimer)
+  timer.num_tics = 0
+  temptimer = temptimer or {}
+  if temptimer.warning then
+    killTimer(temptimer.warning)
+  end
+  temptimer.warning =
+    tempTimer(timer.tic_time - 7.0, [[cecho("&lt;green&gt;Tic in 7 seconds!\n") timer.tic_is_early=true]])
+  if temptimer.tic then
+    killTimer(temptimer.tic)
+  end
+  temptimer.tic = tempTimer(timer.tic_time, [[resettictimer()]])
+  if temptimer.latetic then
+    killTimer(temptimer.latetic)
+  end
+  temptimer.latetic = tempTimer(20.0, [[timer.tic_is_late=false]])
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>

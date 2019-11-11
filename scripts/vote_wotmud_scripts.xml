@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>voteWoTMUD</name>
+			<packageName></packageName>
+			<script>function voteWoTMUD()
+	local last_vote={}
+  if io.exists(getMudletHomeDir() .. "/last_vote.lua") then
+    table.load(getMudletHomeDir() .. "/last_vote.lua", last_vote)
+  else
+    last_vote.time=getEpoch()
+  end
+	if getEpoch()-last_vote.time&gt;86400 then
+		cecho("&lt;red&gt;It has been over 24 hours since you voted!\n")
+		cecho("&lt;red&gt;Type \"vote WoTMUD\" to vote now.\n")
+	end
+end</script>
+			<eventHandlerList>
+				<string>sysConnectionEvent</string>
+			</eventHandlerList>
+		</Script>
+	</ScriptPackage>
+</MudletPackage>

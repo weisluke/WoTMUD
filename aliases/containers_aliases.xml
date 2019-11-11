@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Containers</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Container</name>
+				<script>--syntax: setcontainer xxx
+
+container = container or {}
+
+if matches[3] then
+  container.primary = matches[4]
+  cecho("Container is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+elseif container.primary then
+  cecho("Container is set as: &lt;gold&gt;" .. container.primary .. "&lt;white&gt;.\n")
+else
+  cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^setcontainer$)|(^setcontainer (\S+)$)</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete Container</name>
+				<script>--syntax: delcontainer
+
+container = container or {}
+
+container.primary=nil
+cecho("&lt;red&gt;Container deleted!\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^delcontainer$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Drink</name>
+				<script>--syntax: setdrink
+
+drink = drink or {}
+
+if matches[3] then
+  drink.primary = matches[4]
+  cecho("drink is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+elseif drink.primary then
+  cecho("Drink is set as: &lt;gold&gt;" .. drink.primary .. "&lt;white&gt;.\n")
+else
+  cecho("&lt;red&gt;Drink not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^setdrink$)|(^setdrink (\S+)$)</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete Drink</name>
+				<script>--syntax: deldrink
+
+drink = drink or {}
+
+drink.primary=nil
+cecho("&lt;red&gt;Drink deleted!\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^deldrink$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>PK</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change Wimpy</name>
+				<script>send("change wimpy "..matches[2])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^cw (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Bash</name>
+				<script>if not matches[3] then
+	send("bash")
+else
+	send("bash h."..matches[4])
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^b$)|(^b (\S+)$)</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Get All Corpse</name>
+				<script></script>
+				<command>get all corpse</command>
+				<packageName></packageName>
+				<regex>^g$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Kick</name>
+				<script></script>
+				<command>kick</command>
+				<packageName></packageName>
+				<regex>^kk$</regex>
+			</Alias>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Moods</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Wimpy</name>
+					<script></script>
+					<command>change mood wimpy</command>
+					<packageName></packageName>
+					<regex>^cmw$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Normal</name>
+					<script></script>
+					<command>change mood normal</command>
+					<packageName></packageName>
+					<regex>^cmn$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Brave</name>
+					<script></script>
+					<command>change mood brave</command>
+					<packageName></packageName>
+					<regex>^cmb$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Berserk</name>
+					<script></script>
+					<command>change mood berserk</command>
+					<packageName></packageName>
+					<regex>^cmz$</regex>
+				</Alias>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Postures</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Offensive</name>
+					<script></script>
+					<command>change posture offensive</command>
+					<packageName></packageName>
+					<regex>^cpo$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Normal</name>
+					<script></script>
+					<command>change posture normal</command>
+					<packageName></packageName>
+					<regex>^cpn$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Defensive</name>
+					<script></script>
+					<command>change posture defensive</command>
+					<packageName></packageName>
+					<regex>^cpd$</regex>
+				</Alias>
+			</AliasGroup>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

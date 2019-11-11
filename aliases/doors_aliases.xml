@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Doors</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>First Door</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Open Door</name>
+					<script>--syntax: od
+
+door = door or {}
+
+local door = door.primary
+if door ~= nil then
+  send("open " .. door)
+else
+  cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^od$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Close Door</name>
+					<script>--syntax: cd
+
+door = door or {}
+
+local door = door.primary
+if door ~= nil then
+  send("cl " .. door)
+else
+  cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^cd$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Set Door</name>
+					<script>--syntax: setdoor xxx
+
+door = door or {}
+
+door.primary = matches[2]
+cecho("First door is set as: &lt;gold&gt;" .. matches[2] .. "&lt;white&gt;.\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^setdoor (\S+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Delete Door</name>
+					<script>--syntax: deldoor
+
+door = door or {}
+
+door.primary = nil
+cecho("&lt;red&gt;First door deleted!\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^deldoor$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Pick Door</name>
+					<script>--syntax: pd
+
+door = door or {}
+
+local door = door.primary
+if door ~= nil then
+  send("pick " .. door)
+else
+  cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pd$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Knock Door</name>
+					<script>--syntax: kd
+
+door = door or {}
+
+local door = door.primary
+if door ~= nil then
+  send("knock " .. door)
+else
+  cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^kd$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Unlock Door</name>
+					<script>--syntax: ud
+
+door = door or {}
+
+local door = door.primary
+if door ~= nil then
+  send("unlock " .. door)
+else
+  cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^ud$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Lock Door</name>
+					<script>--syntax: ld
+
+door = door or {}
+
+local door = door.primary
+if door ~= nil then
+  send("lock " .. door)
+else
+  cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^ld$</regex>
+				</Alias>
+			</AliasGroup>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

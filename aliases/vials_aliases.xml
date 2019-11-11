@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Vials</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Refresh</name>
+				<script>--syntax: gyp
+
+container = container or {}
+
+if container.primary then
+	send("get fluid "..container.primary)
+else
+	cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^gyp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Cure Fear</name>
+				<script>--syntax: grp
+
+container = container or {}
+
+if container.primary then
+	send("get red "..container.primary)
+else
+	cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^grp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Cure Blind</name>
+				<script>--syntax: gdp
+
+container = container or {}
+
+if container.primary then
+	send("get draught "..container.primary)
+else
+	cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^gdp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Cure Poison</name>
+				<script>--syntax: gsp
+
+container = container or {}
+
+if container.primary then
+	send("get syrup "..container.primary)
+else
+	cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^gsp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Strength</name>
+				<script>--syntax: gtp
+
+container = container or {}
+
+if container.primary then
+	send("get tea "..container.primary)
+else
+	cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^gtp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Quaff Vial</name>
+				<script>--syntax: qv</script>
+				<command>quaff vial</command>
+				<packageName></packageName>
+				<regex>^qv$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Quaff Draught</name>
+				<script>--syntax: qd</script>
+				<command>quaff draught</command>
+				<packageName></packageName>
+				<regex>^qd$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Quaff Cup</name>
+				<script>--syntax: qc</script>
+				<command>quaff cup</command>
+				<packageName></packageName>
+				<regex>^qc$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

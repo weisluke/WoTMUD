@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Vote WoTMUD</name>
+			<script>local last_vote={time=getEpoch()}
+table.save(getMudletHomeDir() .. "/last_vote.lua", last_vote)
+
+openUrl("http://www.topmudsites.com/vote-wotmud.html")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^vote WoTMUD$</regex>
+		</Alias>
+	</AliasPackage>
+</MudletPackage>

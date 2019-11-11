@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Gating</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Make gate</name>
+				<script>--syntax: makegate xxx
+
+weaving = weaving or {}
+
+weaving.gatename = matches[2]
+
+send("embrace")
+send("channel 'gate'") </script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^makegate (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Gate to</name>
+				<script>--syntax: gate xxx
+local location = matches[2]
+gatecodes = {}
+if io.exists(getMudletHomeDir() .. "/gatecodes.lua") then
+  table.load(getMudletHomeDir() .. "/gatecodes.lua", gatecodes)
+end
+if gatecodes[location] then
+  send("embrace")
+  send("channel 'gate' " .. gatecodes[location])
+else
+  cecho("&lt;red&gt;Unknown error! No code known for this location.\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^gate (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete gates</name>
+				<script>--syntax: resetgates
+
+table.save(getMudletHomeDir() .. "/gatecodes.lua", {})
+cecho("Gate codes reset!\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^resetgates$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>View codes</name>
+				<script>--syntax: viewcodes
+gatecodes = {}
+if io.exists(getMudletHomeDir() .. "/gatecodes.lua") then
+  table.load(getMudletHomeDir() .. "/gatecodes.lua", gatecodes)
+end
+if table.is_empty(gatecodes) then
+  cecho("No gatecodes known!\n")
+else
+  for k, v in pairs(gatecodes) do
+    cecho("Location: " .. k .. ", code: " .. v .. "\n")
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^viewcodes$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>ONETIME ADD OLD CODES</name>
+				<script>--syntax: addoldcodes
+
+--edit the table to reflect the codes you actually have
+--please pay attention to where there are, and aren't, apostrophes (")
+--please do not use numbers within the shortcuts (i.e., use fourkings instead of 4k)
+
+gatecodes =
+  {
+    tv = "ernloqphabefuytlow",
+    murgoz = "egomadsletorfleghi",
+    maradon = "luntoreliphafleque",
+    dwc = "ghixyzdarlowxerxer",
+    fd = "renpsaqarrenlowque",
+    tear = "ghtdasdarhonquelow",
+    maradonbrigands = "worworlunyelxerghi",
+    caem = "darlunpogpluuytque",
+    wb = "lowtoresasrauytxer",
+    gholam = "srayelpsalaslowlow",
+    cair = "xerxermadrenghique",
+    ef = "esavojtraxyzghixer",
+    lugard = "eldyeltorwezxerghi",
+    coldie = "worteltoresaxerque",
+    betrollocs = "eliqarphafliqueghi",
+    surelle = "fliflilowxerqueghi",
+    windingbrigands = "ghtlowphaghighixer",
+    fourkings = "pogdardassrauytlow",
+  }
+	
+table.save(getMudletHomeDir() .. "/gatecodes.lua", gatecodes)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^addoldcodes$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

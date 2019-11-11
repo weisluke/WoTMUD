@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Get LS/DS Numbers</name>
+			<script>local url = "https://writtenrealms.com:9000/api/v1/wot/who/?format=json"
+local saveto = getMudletHomeDir() .. "/player_numbers.json"
+downloadFile(saveto, url)
+send("who",false)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^who$</regex>
+		</Alias>
+	</AliasPackage>
+</MudletPackage>

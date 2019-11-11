@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Weapons</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Sheath Sword</name>
+				<script>--syntax: ss
+
+weapon = weapon or {}
+
+if weapon.primary then
+	send("sheath "..weapon.primary)
+else
+	cecho("&lt;red&gt;Weapon not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ss$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Draw Dagger</name>
+				<script>--syntax: dd</script>
+				<command>draw dagger</command>
+				<packageName></packageName>
+				<regex>^dd$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Scalp Scorpse</name>
+				<script>--syntax: scc
+for i=1, string.len(matches[2]),1 do
+	send("scalp "..i..".corpse")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^sc(c+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Sheath Dagger</name>
+				<script>--syntax: sd</script>
+				<command>sheath dagger</command>
+				<packageName></packageName>
+				<regex>^sd$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Draw Sword</name>
+				<script>--syntax: ds
+
+weapon = weapon or {}
+
+if weapon.primary then
+	send("draw "..weapon.primary)
+else
+	cecho("&lt;red&gt;Weapon not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ds$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Remove Sword</name>
+				<script>--syntax: rs
+
+weapon = weapon or {}
+
+if weapon.primary then
+	send("rem "..weapon.primary)
+else
+	cecho("&lt;red&gt;Weapon not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rs$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Wield Sword</name>
+				<script>--syntax: ws
+
+weapon = weapon or {}
+
+if weapon.primary then
+	send("wield "..weapon.primary)
+else
+	cecho("&lt;red&gt;Weapon not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ws$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Weapon</name>
+				<script>--syntax: setweapon OR setweapon xxx
+
+weapon = weapon or {}
+
+if matches[3] then
+	weapon.primary = matches[4]
+	cecho("Weapon is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+elseif weapon.primary then
+	cecho("Weapon is set as: &lt;gold&gt;"..weapon.primary.."&lt;white&gt;.\n")
+else
+	cecho("&lt;red&gt;Weapon not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^setweapon$)|(^setweapon (\S+)$)</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete Weapon</name>
+				<script>--syntax: delweapon
+
+weapon = weapon or {}
+
+weapon.primary=nil
+cecho("&lt;red&gt;Weapon deleted!\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^delweapon$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

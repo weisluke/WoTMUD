@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Horses</name>
+			<script>horse = horse or {}
+
+if matches[3] then
+	horse.primary = matches[4]
+	cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+elseif horse.primary then
+	cecho("Horse is set as: &lt;gold&gt;"..horse.primary.."&lt;white&gt;.\n")
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>(^sethorse$)|(^sethorse (\S+)$)</regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Ride Horse</name>
+				<script>--syntax: rh OR ride xxx
+
+horse = horse or {}
+
+if matches[3] then
+	if matches[4]~=horse.primary then
+		horse.primary = matches[4]
+		cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+	end	
+end
+
+if horse.primary then
+	send("ride "..horse.primary)
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end
+
+
+
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^rh$)|(^ride (\S+)$)</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Dismount</name>
+				<script>--syntax: dm</script>
+				<command>dism</command>
+				<packageName></packageName>
+				<regex>^dm$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Lead Horse</name>
+				<script>--syntax: lh
+
+horse = horse or {}
+
+if horse.primary then
+	send("lead "..horse.primary)
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^lh$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Give Stable Stablehand</name>
+				<script>--syntax: gss</script>
+				<command>give stable stablehand</command>
+				<packageName></packageName>
+				<regex>^gss$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Equip Horse Equipment</name>
+				<script>--syntax: ehh
+
+horse = horse or {}
+
+if horse.primary then
+	send("eq "..horse.primary.." horseeq")
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ehh$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Diagnose Horse</name>
+				<script>--syntax: dh
+
+horse = horse or {}
+
+if horse.primary then
+  send("diagnose " .. horse.primary)
+else
+  cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dh$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete Horse</name>
+				<script>--syntax: delhorse
+
+horse = horse or {}
+
+horse.primary=nil
+cecho("&lt;red&gt;Horse deleted!\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^delhorse$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

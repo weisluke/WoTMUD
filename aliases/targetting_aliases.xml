@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Targetting</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Primary Target</name>
+				<script>--syntax: tgt OR tgt xxx
+
+targetting = targetting or {}
+
+if matches[3] then
+  targetting.primary = matches[4]
+  if matches[4] == "dark" then
+    cecho("First target is set as: &lt;red&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  elseif matches[4] == "seanchan" then
+    cecho("First target is set as: &lt;purple&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  else
+    cecho("First target is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  end
+elseif targetting.primary then
+  if targetting.primary == "dark" then
+    cecho("First target is set as: &lt;red&gt;dark&lt;white&gt;.\n")
+  elseif targetting.primary == "seanchan" then
+    cecho("First target is set as: &lt;purple&gt;seanchan&lt;white&gt;.\n")
+  else
+    cecho("First target is set as: &lt;gold&gt;" .. targetting.primary .. "&lt;white&gt;.\n")
+  end
+else
+  cecho("&lt;red&gt;Target not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^tgt$)|(^tgt (\S+)$)</regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Attack Target</name>
+					<script>--syntax: p
+
+targetting=targetting or {}
+
+local target=targetting.primary
+
+if target then
+	send("k "..target)
+else
+	cecho("&lt;red&gt;Target not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^p$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Attack h.Target</name>
+					<script>--syntax: o
+
+targetting=targetting or {}
+
+local target=targetting.primary
+
+if target then
+	send("k h."..target)
+else
+	cecho("&lt;red&gt;Target not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^o$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Bash Target</name>
+					<script>--syntax: q
+
+targetting=targetting or {}
+
+local target=targetting.primary
+
+if target then
+	send("bash "..target)
+else
+	cecho("&lt;red&gt;Target not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^q$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Backstab/Charge Target</name>
+					<script>--syntax: ct OR ct xxx
+
+targetting = targetting or {}
+
+local target = targetting.primary
+local stab = targetting.backstabbing
+local charge = targetting.charging
+
+if matches[3] then
+  if charge then
+    send("charge h." .. matches[4])
+  elseif stab then
+    send("backstab h." .. matches[4])
+  else
+    cecho("&lt;red&gt;No pk method set\n")
+  end
+else
+  if target then
+    if charge then
+      send("charge h." .. target)
+    elseif stab then
+      send("backstab h." .. target)
+    else
+      cecho("&lt;red&gt;No pk method set\n")
+    end
+  else
+    cecho("&lt;red&gt;Target not set!\n")
+  end
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>(^ct$)|(^ct (\S+)$)</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Delete Target</name>
+					<script>--syntax: deltgt
+
+targetting=targetting or {}
+
+targetting.primary=nil
+cecho("&lt;red&gt;First target deleted!\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^deltgt$</regex>
+				</Alias>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Secondary Target</name>
+				<script>--syntax: tgts OR tgts xxx
+
+targetting = targetting or {}
+
+if matches[3] then
+  targetting.secondary = matches[4]
+  if matches[4] == "dark" then
+    cecho("Second target is set as: &lt;red&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  elseif matches[4] == "seanchan" then
+    cecho("Second target is set as: &lt;purple&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  else
+    cecho("Second target is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  end
+elseif targetting.secondary then
+  if targetting.secondary == "dark" then
+    cecho("Second target is set as: &lt;red&gt;dark&lt;white&gt;.\n")
+  elseif targetting.secondary == "seanchan" then
+    cecho("Second target is set as: &lt;purple&gt;seanchan&lt;white&gt;.\n")
+  else
+    cecho("Second target is set as: &lt;gold&gt;" .. targetting.secondary .. "&lt;white&gt;.\n")
+  end
+else
+  cecho("&lt;red&gt;Target not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^tgts$)|(^tgts (\S+)$)</regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Attack Target</name>
+					<script>--syntax: pp
+
+targetting=targetting or {}
+
+local target=targetting.secondary
+
+if target then
+	send("k "..target)
+else
+	cecho("&lt;red&gt;Target not set!\n")
+end
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pp$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Attack h.Target</name>
+					<script>--syntax: oo
+
+targetting=targetting or {}
+
+local target=targetting.secondary
+
+if target then
+	send("k h."..target)
+else
+	cecho("&lt;red&gt;Target not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^oo$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Bash Target</name>
+					<script>--syntax: qq
+
+targetting=targetting or {}
+
+local target=targetting.secondary
+
+if target then
+	send("bash "..target)
+else
+	cecho("&lt;red&gt;Target not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^qq$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Backstab/Charge Target</name>
+					<script>--syntax: ctt OR ctt xxx
+
+targetting = targetting or {}
+
+local target = targetting.secondary
+local stab = targetting.backstabbing
+local charge = targetting.charging
+
+if matches[3] then
+  if charge then
+    send("charge h." .. matches[4])
+  elseif stab then
+    send("backstab h." .. matches[4])
+  else
+    cecho("&lt;red&gt;No pk method set\n")
+  end
+else
+  if target then
+    if charge then
+      send("charge h." .. target)
+    elseif stab then
+      send("backstab h." .. target)
+    else
+      cecho("&lt;red&gt;No pk method set\n")
+    end
+  else
+    cecho("&lt;red&gt;Target not set!\n")
+  end
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>(^ctt$)|(^ctt (\S+)$)</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Delete Target</name>
+					<script>--syntax: deltgts
+
+targetting=targetting or {}
+
+targetting.secondary=nil
+cecho("&lt;red&gt;Second target deleted!\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^deltgts$</regex>
+				</Alias>
+			</AliasGroup>
+			<Alias isActive="yes" isFolder="no">
+				<name>Switch PK Modes</name>
+				<script>--syntax: pkmode
+
+targetting=targetting or {}
+
+local charge=targetting.charging
+local stab=targetting.backstabbing
+
+if charge then
+	targetting.charging=false
+	targetting.backstabbing=true
+	cecho("Set at pk method: &lt;orange&gt;Backstabbing\n")
+elseif stab then
+	targetting.backstabbing=false
+	cecho("&lt;red&gt;No pk method set\n")
+else
+	targetting.charging=true
+	cecho("Set at pk method: &lt;green&gt;Charge\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^pkmode$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

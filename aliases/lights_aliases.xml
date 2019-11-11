@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Lights</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Get Light Pack</name>
+				<script>--syntax: glp
+
+container = container or {}
+light = light or {}
+
+if container.primary then
+	if light.primary then
+		send("get "..light.primary.." "..container.primary)
+	else
+		cecho("&lt;red&gt;Light not set!\n")
+	end
+else
+	cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^glp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Hold Light</name>
+				<script>--syntax: hl
+
+light = light or {}
+
+if light.primary then
+	send("hold "..light.primary)
+else
+	cecho("&lt;red&gt;Light not set!\n")
+end
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^hl$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Exam Light</name>
+				<script>--syntax: el
+
+light = light or {}
+
+if light.primary then
+	send("exam "..light.primary)
+else
+	cecho("&lt;red&gt;Light not set!\n")
+end
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^el$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Remove Light</name>
+				<script>--syntax: rl
+
+light = light or {}
+
+if light.primary then
+	send("remove "..light.primary)
+else
+	cecho("&lt;red&gt;Light not set!\n")
+end
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rl$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Put Light Pack</name>
+				<script>--syntax: plp
+
+container = container or {}
+light = light or {}
+
+if container.primary then
+	if light.primary then
+		send("put "..light.primary.." "..container.primary)
+	else
+		cecho("&lt;red&gt;Light not set!\n")
+	end
+else
+	cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^plp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Light</name>
+				<script>--syntax: setlight OR setlight xxx
+
+light = light or {}
+
+if matches[3] then
+  light.primary = matches[4]
+  cecho("Light is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+elseif light.primary then
+  cecho("Light is set as: &lt;gold&gt;" .. light.primary .. "&lt;white&gt;.\n")
+else
+  cecho("&lt;red&gt;Light not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^setlight$)|(^setlight (\S+)$)</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete Light</name>
+				<script>--syntax: dellight
+
+light = light or {}
+
+light.primary=nil
+cecho("&lt;red&gt;Light deleted!\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dellight$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

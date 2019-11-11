@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Communications</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Shared</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Reset Chasing</name>
+					<script>communications.chaser:reset()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^chaseres$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Debug</name>
+					<script>if matches[2] then
+  communications:listCategories()
+else
+  communications:toggleDebug()
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^debug(?: (list))?$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Debug Categories</name>
+					<script>if matches[2] then
+  communications:watchCategory(matches[2])
+else
+  communications:listCategories()
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^debugc(?: (.*))?$</regex>
+				</Alias>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Tabbed Chat</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Toggle Blinking (Temporary Change)</name>
+					<script>if communications.chat.config.blink then
+  communications.chat.config.blink = false
+  communications.chat.tabsToBlink = {}
+  communications:echo(
+    "Blinking temporarily turned &lt;red&gt;off&lt;grey&gt;. It will reset if you edit your tabbed chat configuration, or close and reopen mudlet. To make it permanent, change communications.chat.config.blink to false in \"Communications-&gt;Tabbed Chat-&gt;Configuration options\" under scripts\n"
+  )
+else
+  communications.chat.config.blink = true
+  communications.chat:blink()
+  communications:echo(
+    "Blinking temporarily turned &lt;red&gt;on&lt;grey&gt;. It will reset if you edit your tabbed chat configuration, or close and reopen mudlet. To make it permanent, change communications.chat.config.blink to true in \"Communications-&gt;Tabbed Chat-&gt;Configuration options\" under scripts\n"
+  )
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^dblink$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Fix Chat</name>
+					<script>local currentsetting = communications.chat.config.location
+local newsetting = ""
+if currentsetting == "topright" then
+  newsetting = "bottomleft"
+elseif currentsetting == "topleft" then
+  newsetting = "bottomright"
+elseif currentsetting == "bottomleft" then
+  newsetting = "topright"
+elseif currentsetting == "bottomright" then
+  newsetting = "topleft"
+end
+communications.chat.config.location = newsetting
+communications.chat:create()
+communications.chat.config.location = currentsetting
+communications.chat:create()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^fixchat$</regex>
+				</Alias>
+			</AliasGroup>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TimerPackage>
+		<Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">
+			<name>TicTimerStatusBarDisplay</name>
+			<script>timer = timer or {}
+temptimer = temptimer or {}
+if timer.num_tics and timer.num_tics ~= -1 and temptimer.tic then
+  local currenttime=remainingTime(temptimer.tic)
+  currenttime = currenttime - currenttime % 0.1
+  if currenttime % 1 == 0 then
+    tnt = "TNT: " .. currenttime .. ".0"
+  else
+    tnt = "TNT: " .. currenttime
+  end
+  statusbar.timer:echo(tnt, "white", "c")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<time>00:00:00.100</time>
+		</Timer>
+	</TimerPackage>
+</MudletPackage>

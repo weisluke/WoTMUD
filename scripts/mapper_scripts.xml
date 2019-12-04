@@ -1119,6 +1119,10 @@ end</script>
   --if installed file is not the desired one
   if name ~= "mapper_scripts" then return end
   wotmudmapper:show_help()
+  wotmudmapper:setConfigs()
+  if wotmudmapper.configs.map_window.visible then
+    wotmudmapper:showMap(true)
+  end
 end</script>
 				<eventHandlerList>
 					<string>sysInstallPackage</string>

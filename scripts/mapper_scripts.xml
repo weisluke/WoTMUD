@@ -1112,6 +1112,18 @@ end</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
+			<Script isActive="yes" isFolder="no">
+				<name>MapperInstallerSuccess</name>
+				<packageName></packageName>
+				<script>function MapperInstallerSuccess(_, name)
+  --if installed file is not the desired one
+  if name ~= "mapper_script" then return end
+  wotmudmapper:show_help()
+end</script>
+				<eventHandlerList>
+					<string>sysInstallPackage</string>
+				</eventHandlerList>
+			</Script>
 		</ScriptGroup>
 	</ScriptPackage>
 </MudletPackage>

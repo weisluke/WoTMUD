@@ -1117,7 +1117,7 @@ end</script>
 				<packageName></packageName>
 				<script>function MapperInstallerSuccess(_, name)
   --if installed file is not the desired one
-  if name ~= "mapper_script" then return end
+  if name ~= "mapper_scripts" then return end
   wotmudmapper:show_help()
 end</script>
 				<eventHandlerList>

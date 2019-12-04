@@ -16,4 +16,4 @@ WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 10) You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the help message to install particular pieces, or everything. Most names should be self explanatory.
 
 
-11) Please check the forums (http://www.wotmod.org/index.php) or the game discord (http://www.wotmod.org/viewtopic.php?f=74&t=7300) for more assistance if need be. I should be able to be reached by tagging @Adael in the Discord (preferably in the "mudclient_helpdesk" channel)
+11) Please check the forums (http://www.wotmod.org/index.php) or the game discord (http://www.wotmod.org/viewtopic.php?f=74&t=7300) for more assistance if need be. I should be able to be reached by tagging @Adael in the discord (preferably in the "mudclient_helpdesk" channel)

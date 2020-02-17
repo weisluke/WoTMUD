@@ -189,7 +189,7 @@ resetFormat()</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>(.*) beeps you!</name>
+				<name>(.+) beeps you!</name>
 				<script></script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -234,11 +234,11 @@ resetFormat()</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Idle Trigger</name>
-				<script>send("l")</script>
+				<script></script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
+				<mCommand>l</mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
@@ -481,8 +481,7 @@ deleteLine()</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>"Where" clickable centerroom</name>
-				<script>--deleteLine()
-local name = matches[2]
+				<script>local name = matches[2]
 local roomname = matches[4]
 local foundrooms = searchRoom(roomname, true, true)
 local roomID
@@ -499,21 +498,8 @@ else
   roomID = ""
 end
 
--- echoLink(
-  -- "main",
-  -- "\n" .. name .. matches[3] .. " - " .. roomname,
-  -- [[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end deselect()]],
-  -- "Click to center map on room.",
-  -- true
--- )
-
-echoLink(
-  "main",
-  "                     ",
-  [[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end deselect()]],
-  "Click to center map on room.",
-  true
-)</script>
+selectString(matches[4],1)
+setLink([[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end deselect()]], "Click to center map on room.")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -575,7 +561,7 @@ cecho(" &lt;gold&gt;"..gold.." gold crowns and " ..copper.." coppers.")</script>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Autostand</name>
 				<script></script>
 				<triggerType>0</triggerType>
@@ -601,6 +587,28 @@ cecho(" &lt;gold&gt;"..gold.." gold crowns and " ..copper.." coppers.")</script>
 					<integer>0</integer>
 					<integer>0</integer>
 					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Reroll stat total</name>
+				<script>local total=tonumber(matches[2])+tonumber(matches[3])+tonumber(matches[4])+tonumber(matches[5])+tonumber(matches[6])
+
+echo(" Total: "..total)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^# \d+ - Str\[(\d+)\] Int\[(\d+)\] Wil\[(\d+)\] Dex\[(\d+)\] Con\[(\d+)\] Hps\[(\d+)\] Move\[(\d+)\]$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
 		</TriggerGroup>

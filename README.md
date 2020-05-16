@@ -2,9 +2,13 @@
 WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 
 1) Download and save "wotpack_installer.mpackage" somewhere easy to find on your computer.
-2) Open mudlet, package manager (from the top toolbar), install
-3) Navigate to the location you saved the .mpackage file and open it
-4) You should get an automatic help message, otherwise type "wotpack install help"
+2) Open Mudlet, open Package Manager (from the top toolbar of icons), and click install.
+3) Navigate to the location you saved the .mpackage file, select it, and click open. It should now show up in the list of packages. Click ok.
+4) You should see an automatic help message from the package installation on your screen.
+  4.1) If not, try typing "wotpack install help" into the command line and hit enter.
+  4.2) If no help message appears, something may have gone wrong.
+
+Assuming everything worked properly, what you have just installed is a script that will handle downloading and installing other triggers/aliases/scripts/timers/keys/buttons/maps from this repository with commands sent through Mudlet.
 
 5) To get the map, you will want to uninstall the generic mapper in package manager (if there is one in there), then reopen mudlet.
 6) Type "wotpack install mapper". When that completes, type "map update". Should that all work, you may wish to type "map debug" to turn off the debugging messages (if you don't see any debug messages after the first install, something didn't install properly).

@@ -3,9 +3,9 @@ WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 
 1. Item 1
 2. Item 2
-1. Item 3
-   1. Item 3a
-   1. Item 3b
+3. Item 3
+   3.1. Item 3a
+   3.1. Item 3b
 
 1. Download and save "wotpack_installer.mpackage" somewhere easy to find on your computer.
 2. Open Mudlet, open Package Manager (from the top toolbar of icons), and click install.

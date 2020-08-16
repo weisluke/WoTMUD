@@ -960,19 +960,51 @@ wotmudmapper:echo("Offline set to: " .. (wotmudmapper.configs.offline and "&lt;g
 if wotmudmapper.configs.offline then
     enableKey("Offline Map")
     enableAlias("Offline Map Dirs")
+    enableAlias("Offline Map Look")
 else
     disableKey("Offline Map")
     disableAlias("Offline Map Dirs")
+    disableAlias("Offline Map Look")
 end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map offline$</regex>
-				<Alias isActive="yes" isFolder="no">
+				<Alias isActive="no" isFolder="no">
 					<name>Offline Map Dirs</name>
 					<script>offlineMove(matches[2])</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^([neswudNESWUD])$</regex>
+					<regex>^([neswud])$</regex>
+				</Alias>
+				<Alias isActive="no" isFolder="no">
+					<name>Offline Map Look</name>
+					<script>if table.size(wotmudmapper.currentID) == 1 then
+  local newid = wotmudmapper.currentID[1]
+  centerview(newid)
+  cecho("&lt;cyan&gt;"..getRoomName(newid).."\n")
+  cecho(getRoomUserData(newid,"description"))
+  cecho("\nExits: [ ")
+  local exits = {}
+  for k, v in pairs(getRoomExits(newid)) do
+      table.insert(exits,string.sub(k,1,1))
+  end
+  exits = table.n_intersection({"n","e","s","w","u","d"},exits)
+  for k,v in pairs(exits) do
+      cecho(v.." ")
+  end
+  cecho("]")
+  for k, v in pairs(exits) do
+    if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
+      cecho("\n&lt;blue&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))
+    end
+  end
+  cecho("\n\n")  
+else
+  cecho("Room not known!")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^l$</regex>
 				</Alias>
 			</Alias>
 		</AliasGroup>

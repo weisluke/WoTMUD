@@ -45,7 +45,7 @@ end</script>
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
 				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#008080</colorTriggerFgColor>
+				<colorTriggerFgColor>#00ffff</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>ANSI_COLORS_F{006}_B{000}</string>

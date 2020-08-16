@@ -17,7 +17,7 @@
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList />
 			<regexCodePropertyList />
-			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="yes" isColorTriggerBg="yes">
 				<name>Catch Name</name>
 				<script>if
   (line == matches[1] or string.find(line, "HP:")) and
@@ -45,7 +45,7 @@ end</script>
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
 				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#00ffff</colorTriggerFgColor>
+				<colorTriggerFgColor>#008080</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>ANSI_COLORS_F{006}_B{000}</string>

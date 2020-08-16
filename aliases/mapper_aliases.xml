@@ -103,9 +103,12 @@ end</script>
 local deleted
 for k, v in pairs(getAreaTable()) do
   if k == matches[2] then
-    for kk,vv in pairs(getMapLabels(v)) do
-      deleteMapLabel(v,kk)
+    if type(getMapLabels(v))=="table" then
+      for kk,vv in pairs(getMapLabels(v)) do
+        deleteMapLabel(v,kk)
+      end
     end
+    cecho("test2\n")
     deleteArea(v)
     updateMap()
     wotmudmapper:echo("Area ("..matches[2]..") deleted. All its rooms, if any, have been deleted.\n")
@@ -295,7 +298,7 @@ wotmudmapper.zone=matches[2]
 wotmudmapper:echo("New rooms will be of zone ("..matches[2]..").\n")</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^cmz (.*)$</regex>
+					<regex>^cmz (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Shift room</name>
@@ -813,7 +816,7 @@ if matches[5] then
 else
   roomname = matches[3]
 end
-local foundrooms = searchRoom(roomname, true, true)
+local foundrooms = searchRoom(roomname, false, true)
 if not matches[5] then
   zonename = matches[4]
   for k, v in pairs(foundrooms) do
@@ -830,10 +833,11 @@ elseif table.size(foundrooms) == 1 then
     centerview(k)
   end
 else
-  wotmudmapper:echo("Multiple matches found.\n",false,true)
+  wotmudmapper:echo("Multiple matches found.\n", false, true)
   for k, v in pairs(foundrooms) do
-    cecho("Room ID: " .. k .. ", zone: " .. getRoomUserData(k, "zone") .. "\n")
+    echoLink("Room ID: " .. k .. ", zone: " .. getRoomUserData(k, "zone") .. "\n",[[centerview(]]..k..[[)]], "Click to center map on room.",true)
   end
+  cecho("")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -944,6 +948,32 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map help( (.*))?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Map Offline</name>
+				<script>--syntax: map offline
+--toggle whether you can move map in offline mode
+
+wotmudmapper.configs.offline = not wotmudmapper.configs.offline
+wotmudmapper:echo("Offline set to: " .. (wotmudmapper.configs.offline and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+
+if wotmudmapper.configs.offline then
+    enableKey("Offline Map")
+    enableAlias("Offline Map Dirs")
+else
+    disableKey("Offline Map")
+    disableAlias("Offline Map Dirs")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map offline$</regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Offline Map Dirs</name>
+					<script>offlineMove(matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^([neswudNESWUD])$</regex>
+				</Alias>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

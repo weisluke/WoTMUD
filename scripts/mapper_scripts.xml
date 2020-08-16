@@ -153,6 +153,11 @@ end
   wotmudmapper:setConfigs()
   wotmudmapper.currentID={wotmudmapper.configs.id}
   centerview(wotmudmapper.currentID[1])
+  
+  disableKey("Offline Map")
+  disableAlias("Offline Map Dirs")
+  disableAlias("Offline Map Look")
+  
   if wotmudmapper.configs.map_window.visible then
     wotmudmapper:showMap(true)
   end
@@ -431,11 +436,16 @@ wotmudmapper.help =
 wotmudmapper.help.booleans = 
 [[
     &lt;cyan&gt;Mapper Booleans&lt;reset&gt; These commands control configuration options that can be toggled on/off
-        &lt;yellow&gt;mapping&lt;reset&gt; - Turn mapping mode on/off. Default: off
+        &lt;yellow&gt;mapping&lt;reset&gt; - Turn mapping mode on/off. Default: off (will reset to off when mudlet is closed)
         &lt;yellow&gt;map bothways&lt;reset&gt; - Toggle whether map should set one-way or two-way exits when creating
             new rooms. Default: on
         &lt;yellow&gt;map autojoin&lt;reset&gt; - Toggle whether map should auto-join exits to nearby rooms when mapping,
             or whether you must actually enter a room for a connection to be made. Default: off
+        &lt;yellow&gt;map offline&lt;reset&gt; - Toggle whether map should be turned into offline mode, enabling offline
+            movement aliases and numpad key bindings that allow you to move around and look via
+            single character direction/look inputs (i.e. n/e/s/w/u/d/l), or through numpad numbers.
+            Default: off (will reset to off, and disable offline movement aliases/keys, when mudlet
+            is closed)
         
 ]]
 

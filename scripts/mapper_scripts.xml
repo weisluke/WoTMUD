@@ -25,7 +25,7 @@ wotmudmapper.inways = false
 
 --default configuration values to be used or updated in wotmudmapper.configs
 wotmudmapper.defaults = {mapping=false,dbug=true,mapbrief=false,bothways=true,autojoin=false,forceroom=false,envcolor=20,
-  map_window={visible=true,w="37%",h="73%",position="topright",zoom=50}}
+  map_window={visible=true,w="37%",h="73%",position="topright",zoom=50,roomid=1,offline=false}}
 
 
 if not wotmudmapper.exitmap then
@@ -151,12 +151,15 @@ end
 				<script>function OnSysConnectionEvent(event)
   wotmudmapper.queue = List:new()
   wotmudmapper:setConfigs()
+  wotmudmapper.currentID={wotmudmapper.configs.id}
+  centerview(wotmudmapper.currentID[1])
   if wotmudmapper.configs.map_window.visible then
     wotmudmapper:showMap(true)
   end
 end</script>
 				<eventHandlerList>
 					<string>sysConnectionEvent</string>
+					<string>sysLoadEvent</string>
 				</eventHandlerList>
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -164,6 +167,15 @@ end</script>
 				<packageName></packageName>
 				<script>function OnSysDisconnectionEvent()
   wotmudmapper.configs = wotmudmapper.configs or {}
+  wotmudmapper.configs.mapping = false
+  wotmudmapper.configs.offline=false
+  
+  if table.size(wotmudmapper.currentID) == 1 then
+    wotmudmapper.configs.id=wotmudmapper.currentID[1]
+  else
+    wotmudmapper.configs.id=1
+  end
+  
   wotmudmapper:echo("Saving map configurations.\n")
   table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
   wotmudmapper:echo("Map configurations saved.\n")
@@ -1127,6 +1139,61 @@ end</script>
 				<eventHandlerList>
 					<string>sysInstallPackage</string>
 				</eventHandlerList>
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>doSpeedWalk</name>
+				<packageName></packageName>
+				<script>function doSpeedWalk()
+  for k, v in pairs(speedWalkDir) do
+    send(v)
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>offlineMove</name>
+				<packageName></packageName>
+				<script>function offlineMove(direction)
+  if table.size(wotmudmapper.currentID) == 1 then
+    local newid
+    local exits = getRoomExits(wotmudmapper.currentID[1])
+    for k, v in pairs(exits) do
+      ---search for every linked Room with the current room
+      if string.sub(k, 1, 1) == direction and roomExists(v) then
+        newid=v
+        break
+      end
+    end
+    
+    if newid then
+        wotmudmapper.currentID={newid}
+        centerview(newid)
+        cecho("&lt;cyan&gt;"..getRoomName(newid).."\n")
+        cecho(getRoomUserData(newid,"description"))
+        cecho("\nExits: [ ")
+        exits = {}
+        for k, v in pairs(getRoomExits(newid)) do
+            table.insert(exits,string.sub(k,1,1))
+        end
+        exits = table.n_intersection({"n","e","s","w","u","d"},exits)
+        for k,v in pairs(exits) do
+            cecho(v.." ")
+        end
+        cecho("]")
+        for k, v in pairs(exits) do
+          if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
+            cecho("\n&lt;blue&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))
+          end
+        end
+        cecho("\n\n")
+    else
+        cecho("Alas, you cannot go that way...\n\n")
+    end  
+  else
+    cecho("Room not known!")
+  end
+end</script>
+				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
 	</ScriptPackage>

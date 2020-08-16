@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<KeyPackage>
+		<KeyGroup isActive="yes" isFolder="yes">
+			<name>Offline Map</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>-1</keyCode>
+			<keyModifier>-1</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>North</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+offlineMove("n")</script>
+				<command></command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>East</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+offlineMove("e")</script>
+				<command></command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>South</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+offlineMove("s")</script>
+				<command></command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>West</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+offlineMove("w")</script>
+				<command></command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Up</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+offlineMove("u")</script>
+				<command></command>
+				<keyCode>57</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Down</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+offlineMove("d")</script>
+				<command></command>
+				<keyCode>51</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+	</KeyPackage>
+</MudletPackage>

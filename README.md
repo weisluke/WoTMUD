@@ -27,4 +27,4 @@ Assuming everything worked properly, what you have just installed is a script th
 12. You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the help message to install particular pieces, or everything. Most names should be self explanatory.
 
 
-13. Please check the forums (http://www.wotmod.org/index.php) or the game discord (http://www.wotmod.org/viewtopic.php?f=74&t=7300) for more assistance if need be. I should be able to be reached by tagging @weisluke in the discord (preferably in the "mudclient_helpdesk" channel)
+13. Please check the forums (https://forums.wotmud.info/) or the game discord (http://www.wotmod.org/viewtopic.php?f=74&t=7300) for more assistance if need be. I should be able to be reached by tagging @weisluke in the discord (preferably in the "mudclient_helpdesk" channel)

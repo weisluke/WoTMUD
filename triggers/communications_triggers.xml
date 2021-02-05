@@ -158,6 +158,8 @@ communications.chat:append("Says")</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>You say '(.+)'$</string>
+					<string>You hiss '(.+)'$</string>
+					<string>You drawl '(.+)'$</string>
 					<string>&gt; (.+) says '(.+)'$</string>
 					<string>^(.+) says '(.+)'$</string>
 					<string>&gt; \*(.+)\* hisses '(.+)'$</string>
@@ -170,6 +172,8 @@ communications.chat:append("Says")</script>
 					<string>^(.+) drawls '(.+)'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -207,6 +211,51 @@ communications.chat:append("Misc")</script>
 					<string>^(.+) speaks from the (\S+) '(.+)'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Rat and Raven Reports</name>
+				<script>selectCaptureGroup(1)
+communications.chat:append("Misc")
+
+local roomname = matches[3]
+local foundrooms = searchRoom(roomname, true, true)
+local roomID
+if table.size(foundrooms) == 1 then
+  for k, v in pairs(foundrooms) do
+    roomID = k
+  end
+else
+  roomID = ""
+end
+
+selectString(matches[3],1)
+setLink([[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end deselect()]], "Click to center map on room.")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>&gt; A rat squeaks '(.+) at (.+)'$</string>
+					<string>^A rat squeaks '(.+) at (.+)'$</string>
+					<string>&gt; A raven caws '(.+) at (.+)'$</string>
+					<string>^A raven caws '(.+) at (.+)'$</string>
+					<string>&gt; Someone squeaks '(.+) at (.+)'$</string>
+					<string>^Someone squeaks '(.+) at (.+)'$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

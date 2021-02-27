@@ -32,21 +32,22 @@
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList />
 				<regexCodePropertyList />
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>There are some tracks of (.+) leaving (.+)\.</name>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>There are some tracks of a (.+) leaving (.+)\.</name>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
-if string.find(multimatches[1][2], "trolloc") or string.find(multimatches[1][2], "myrddraal") then
-  deleteLine()
-  cecho(
-    "\n&lt;brown&gt;There are some tracks of " ..
-    string.upper(multimatches[1][2]) ..
-    " leaving " ..
-    multimatches[1][3] ..
+local colors = {trolloc = "ansi_red", myrddraal = "ansi_red", human = "ansi_cyan", seanchan = "ansi_magenta", ["ridden mount"]="ansi_yellow"}
+
+if colors[matches[3]] then
+  creplaceLine(
+    "&lt;brown&gt;There are some tracks of a &lt;" ..
+    colors[matches[3]] ..
+    "&gt;" ..
+    string.upper(matches[3]) ..
+    "&lt;brown&gt; leaving " ..
+    matches[4] ..
     ". " ..
-    directions[multimatches[1][3]]
+    directions[matches[4]]
   )
-else
-  cecho("&lt;brown&gt; " .. directions[multimatches[1][3]])
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -59,33 +60,28 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>^There are some tracks of (.+) leaving (.+)\.$</string>
-						<string>There are some tracks of </string>
-						<string> leaving </string>
-						<string>.</string>
+						<string>(^There are some tracks of a (.+) leaving (.+)\.$)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>There are some bloody traces of (.+) leaving (.+)\.</name>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>There are some bloody traces of a (.+) leaving (.+)\.</name>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
-if string.find(multimatches[1][2], "trolloc") or string.find(multimatches[1][2], "myrddraal") then
-  deleteLine()
-  cecho(
-    "\n&lt;red&gt;There are some bloody traces of " ..
-    string.upper(multimatches[1][2]) ..
-    " leaving " ..
-    multimatches[1][3] ..
+local colors = {trolloc = "ansi_red", myrddraal = "ansi_red", human = "ansi_cyan", seanchan = "ansi_magenta", ["ridden mount"]="ansi_yellow"}
+
+if colors[matches[3]] then
+  creplaceLine(
+    "&lt;red&gt;There are some bloody traces of a &lt;" ..
+    colors[matches[3]] ..
+    "&gt;" ..
+    string.upper(matches[3]) ..
+    "&lt;red&gt; leaving " ..
+    matches[4] ..
     ". " ..
-    directions[multimatches[1][3]]
+    directions[matches[4]]
   )
-else
-  cecho("&lt;red&gt; " .. directions[multimatches[1][3]])
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -98,35 +94,30 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>^There are some bloody traces of (.+) leaving (.+)\.$</string>
-						<string>There are some bloody traces of </string>
-						<string> leaving </string>
-						<string>.</string>
+						<string>(^There are some bloody traces of a (.+) leaving (.+)\.$)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Some obvious (.+) bloody traces of (.+) leaving (.+)\.</name>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Some obvious (.+) bloody traces of a (.+) leaving (.+)\.</name>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
-if string.find(multimatches[1][3], "trolloc") or string.find(multimatches[1][3], "myrddraal") then
-  deleteLine()
-  cecho(
-    "\n&lt;red&gt;There are some obvious " ..
-    multimatches[1][2] ..
-    " bloody traces of " ..
-    string.upper(multimatches[1][3]) ..
-    " leaving " ..
-    multimatches[1][4] ..
+local colors = {trolloc = "ansi_red", myrddraal = "ansi_red", human = "ansi_cyan", seanchan = "ansi_magenta", ["ridden mount"]="ansi_yellow"}
+
+if colors[matches[4]] then
+  creplaceLine(
+    "&lt;red&gt;Some obvious "..
+    matches[3] ..
+    " bloody traces of a &lt;" ..
+    colors[matches[4]] ..
+    "&gt;" ..
+    string.upper(matches[4]) ..
+    "&lt;red&gt; leaving " ..
+    matches[5] ..
     ". " ..
-    directions[multimatches[1][4]]
+    directions[matches[5]]
   )
-else
-  cecho("&lt;red&gt; " .. directions[multimatches[1][4]])
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -139,18 +130,10 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>^Some obvious (.+) bloody traces of (.+) leaving (.+)\.$</string>
-						<string>Some obvious </string>
-						<string> bloody traces of </string>
-						<string> leaving </string>
-						<string>.</string>
+						<string>(^Some obvious (.+) bloody traces of a (.+) leaving (.+)\.$)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -1747,8 +1730,8 @@ cecho(" " .. directions[matches[3]])</script>
 					</regexCodePropertyList>
 				</Trigger>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>You start leading him.</name>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You start leading (.+)\.</name>
 				<script></script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -1761,9 +1744,13 @@ cecho(" " .. directions[matches[3]])</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>You start leading him.</string>
+					<string>You start leading (.+)\.</string>
+					<string>You start leading </string>
+					<string>.</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>0</integer>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>

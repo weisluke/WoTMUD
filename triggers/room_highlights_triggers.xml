@@ -37,8 +37,8 @@
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
+    trolloc = "red",
+    myrddraal = "red",
     human = "ansi_cyan",
     seanchan = "ansi_magenta",
     ["ridden mount"] = "ansi_yellow"
@@ -80,8 +80,8 @@ end</script>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
+    trolloc = "red",
+    myrddraal = "red",
     human = "ansi_cyan",
     seanchan = "ansi_magenta",
     ["ridden mount"] = "ansi_yellow"
@@ -123,8 +123,8 @@ end</script>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
+    trolloc = "red",
+    myrddraal = "red",
     human = "ansi_cyan",
     seanchan = "ansi_magenta",
     ["ridden mount"] = "ansi_yellow"
@@ -168,8 +168,8 @@ end</script>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
+    trolloc = "red",
+    myrddraal = "red",
     human = "ansi_cyan",
     seanchan = "ansi_magenta",
     ["ridden mount"] = "ansi_yellow"

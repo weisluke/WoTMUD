@@ -226,23 +226,8 @@ end</script>
   else
     x = "-" .. w
   end
-  main = Geyser.Container:new({x = x.." - 1%", y = y.." + 1%", width = w, height = h, name = "mapper container"})
-  mapper =
-    Geyser.Mapper:new(
-      {
-        embedded = not configs.docked,
-        dockPosition = configs.dock,
-        name = "mapper",
-        x = 0,
-        y = 0,
-        width = "100%",
-        height = "100%",
-      },
-      main
-    )
-  --main = main or Geyser.Container:new({x = 0, y = 0, width = "99%", height = "99%", name = "mapper container"})
-  --local mapper = Geyser.Mapper:new({embedded=configs.docked,dockPostion = position, name = "mapper", x = x, y = y, width = w, height = h}, main)
-  --mapper = Geyser.Mapper:new({embedded= not configs.docked,dockPosition = configs.dock, name = "mapper", x = x, y = y, width = w, height = h},main)
+  mapper_container = mapper_container or Geyser.Container:new({x = 0, y = 0, width = "99%", height = "99%", name = "mapper_container"})
+  mapper = Geyser.Mapper:new({embedded= not configs.docked,dockPosition = configs.dock, name = "mapper", x = x, y = y, width = w, height = h},mapper_container)
   setMapZoom(configs.zoom)
   if visible then
     mapper:show()
@@ -269,25 +254,16 @@ function wotmudmapper:DefaultColors()
   if color_table["white"] then
     r, g, b = unpack(color_table.white)
     self.Colors["Inside"] = {r, g, b, 20, "white", "Environment"}
-    --r=128
-    --g=128
-    --b=128
     setCustomEnvColor(20, r, g, b, 255)
   end
   if color_table["forest_green"] then
     r, g, b = unpack(color_table.forest_green)
     self.Colors["Wilderness"] = {r, g, b, 21, "forest_green", "Environment"}
-    --r=128
-    --g=128
-    --b=0
     setCustomEnvColor(21, r, g, b, 255)
   end
   if color_table["brown"] then
     r, g, b = unpack(color_table.brown)
     self.Colors["Road"] = {r, g, b, 22, "brown", "Environment"}
-    --r=192
-    --g=192
-    --b=192
     setCustomEnvColor(22, r, g, b, 255)
   end
   if color_table["dark_violet"] then

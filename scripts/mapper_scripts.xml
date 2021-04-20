@@ -14,7 +14,7 @@ wotmudmapper.currentID = {}
 wotmudmapper.roomname = ""
 wotmudmapper.roomdesc = ""
 wotmudmapper.roomexits = {}
-wotmudmapper.zone=""
+wotmudmapper.zone = ""
 wotmudmapper.brief = false
 wotmudmapper.dark = false
 wotmudmapper.flee = false
@@ -24,8 +24,8 @@ wotmudmapper.pausing = false
 wotmudmapper.inways = false
 
 --default configuration values to be used or updated in wotmudmapper.configs
-wotmudmapper.defaults = {mapping=false,dbug=true,mapbrief=false,bothways=true,autojoin=false,forceroom=false,envcolor=20,
-  map_window={visible=true,w="37%",h="73%",position="topright",zoom=50,roomid=1,offline=false}}
+wotmudmapper.defaults = {mapping=false,dbug=true,mapbrief=false,bothways=true,autojoin=false,forceroom=false,envcolor=20,offline=false,roomID=1,
+  map_window={visible=true,w="37%",h="73%",position="topright",zoom=50,docked=false}}
 
 
 if not wotmudmapper.exitmap then
@@ -71,25 +71,29 @@ end
 List = {}
 
 function List:new()
-  return {first = 0, last = -1}
+  local list = {first = 0, last = -1}
+  setmetatable(list, self)
+  self.__index = self
+  return list
 end
 
 wotmudmapper.queue = List:new()
 
-function List:pushright(list, value)
-  local last = list.last + 1
-  list.last = last
-  list[last] = value
+function List:pushright(value)
+  local last = self.last + 1
+  self.last = last
+  self[last] = value
 end
 
-function List:popleft(list)
-  local first = list.first
-  local value = list[first]
+function List:popleft()
+  local first = self.first
+  local value = self[first]
   --to allow garbage collection
-  list[first] = nil
-  list.first = first + 1
-  if first &gt;= list.last then
-    wotmudmapper.queue = List:new()
+  self[first] = nil
+  self.first = first + 1
+  if first &gt;= self.last then
+    self.first=0
+    self.last=-1
   end
   if value then
     wotmudmapper:echo("Removed command ("..value..") from queue.\n",true)
@@ -99,8 +103,8 @@ function List:popleft(list)
   return value
 end
 
-function List:checkleftvalue(list)
-  return list[list.first]
+function List:checkleftvalue()
+  return self[self.first]
 end</script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
@@ -111,7 +115,7 @@ end</script>
   local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
   local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
   
-  if debug and not wotmudmapper.configs.dbug then return end
+  if debug and not self.configs.dbug then return end
   if what:sub(0,1)=="\n" then
     cecho("\n")
     what = what:sub(2)
@@ -127,20 +131,17 @@ end</script>
 				<name>Set Map Configuration Values</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:setConfigs()
-    local defaults = wotmudmapper.defaults or {}
-    local configs = wotmudmapper.configs or {}
+    local defaults = self.defaults or {}
+    local configs = self.configs or {}
     -- load stored configs from file if it exists
     if io.exists(getMudletHomeDir().."/wotmudmapper.configs.lua") then
-        wotmudmapper:echo("Loading map configurations.\n")
+        self:echo("Loading map configurations.\n")
         table.load(getMudletHomeDir().."/wotmudmapper.configs.lua",configs)
-        wotmudmapper:echo("Map configurations loaded.\n")
+        self:echo("Map configurations loaded.\n")
     end
     -- overwrite default values with stored config values
     configs = table.update(defaults, configs)
-    wotmudmapper.configs = configs
-    if wotmudmapper.configs.map_window.visible then
-        wotmudmapper:showMap(true)
-    end
+    self.configs = configs
 end
 </script>
 				<eventHandlerList />
@@ -151,7 +152,7 @@ end
 				<script>function OnSysConnectionEvent(event)
   wotmudmapper.queue = List:new()
   wotmudmapper:setConfigs()
-  wotmudmapper.currentID={wotmudmapper.configs.id}
+  wotmudmapper.currentID={wotmudmapper.configs.roomID}
   centerview(wotmudmapper.currentID[1])
   
   disableKey("Offline Map")
@@ -176,9 +177,9 @@ end</script>
   wotmudmapper.configs.offline=false
   
   if table.size(wotmudmapper.currentID) == 1 then
-    wotmudmapper.configs.id=wotmudmapper.currentID[1]
+    wotmudmapper.configs.roomID=wotmudmapper.currentID[1]
   else
-    wotmudmapper.configs.id=1
+    wotmudmapper.configs.roomID=1
   end
   
   wotmudmapper:echo("Saving map configurations.\n")
@@ -211,10 +212,10 @@ end</script>
 				<packageName></packageName>
 				<script>function wotmudmapper:showMap(bval)
   local visible = bval
-  wotmudmapper.configs.map_window.visible = visible
-  local configs = wotmudmapper.configs.map_window
+  self.configs.map_window.visible = visible
+  local configs = self.configs.map_window
   local w, h, position = configs.w, configs.h, configs.position
-  local x,y
+  local x, y
   if string.find(position, "top") then
     y = "0%"
   else
@@ -225,9 +226,23 @@ end</script>
   else
     x = "-" .. w
   end
-  local main =
-    Geyser.Container:new({x = 0, y = 0, width = "99%", height = "99%", name = "mapper container"})
-  local mapper = Geyser.Mapper:new({name = "mapper", x = x, y = y, width = w, height = h}, main)
+  main = Geyser.Container:new({x = x.." - 1%", y = y.." + 1%", width = w, height = h, name = "mapper container"})
+  mapper =
+    Geyser.Mapper:new(
+      {
+        embedded = not configs.docked,
+        dockPosition = configs.dock,
+        name = "mapper",
+        x = 0,
+        y = 0,
+        width = "100%",
+        height = "100%",
+      },
+      main
+    )
+  --main = main or Geyser.Container:new({x = 0, y = 0, width = "99%", height = "99%", name = "mapper container"})
+  --local mapper = Geyser.Mapper:new({embedded=configs.docked,dockPostion = position, name = "mapper", x = x, y = y, width = w, height = h}, main)
+  --mapper = Geyser.Mapper:new({embedded= not configs.docked,dockPosition = configs.dock, name = "mapper", x = x, y = y, width = w, height = h},main)
   setMapZoom(configs.zoom)
   if visible then
     mapper:show()
@@ -250,90 +265,99 @@ function wotmudmapper:DefaultColorCategories()
 end
 
 function wotmudmapper:DefaultColors()
-  wotmudmapper.Colors = {}
+  self.Colors = {}
   if color_table["white"] then
     r, g, b = unpack(color_table.white)
-    wotmudmapper.Colors["Inside"] = {r, g, b, 20, "white", "Environment"}
+    self.Colors["Inside"] = {r, g, b, 20, "white", "Environment"}
+    --r=128
+    --g=128
+    --b=128
     setCustomEnvColor(20, r, g, b, 255)
   end
   if color_table["forest_green"] then
     r, g, b = unpack(color_table.forest_green)
-    wotmudmapper.Colors["Wilderness"] = {r, g, b, 21, "forest_green", "Environment"}
+    self.Colors["Wilderness"] = {r, g, b, 21, "forest_green", "Environment"}
+    --r=128
+    --g=128
+    --b=0
     setCustomEnvColor(21, r, g, b, 255)
   end
   if color_table["brown"] then
     r, g, b = unpack(color_table.brown)
-    wotmudmapper.Colors["Road"] = {r, g, b, 22, "brown", "Environment"}
+    self.Colors["Road"] = {r, g, b, 22, "brown", "Environment"}
+    --r=192
+    --g=192
+    --b=192
     setCustomEnvColor(22, r, g, b, 255)
   end
   if color_table["dark_violet"] then
     r, g, b = unpack(color_table.dark_violet)
-    wotmudmapper.Colors["Swamp"] = {r, g, b, 24, "dark_violet", "Environment"}
+    self.Colors["Swamp"] = {r, g, b, 24, "dark_violet", "Environment"}
     setCustomEnvColor(24, r, g, b, 255)
   end
   if color_table["blue"] then
     r, g, b = unpack(color_table.blue)
-    wotmudmapper.Colors["Water"] = {r, g, b, 25, "blue", "Environment"}
+    self.Colors["Water"] = {r, g, b, 25, "blue", "Environment"}
     setCustomEnvColor(25, r, g, b, 255)
   end
   if color_table["medium_aquamarine"] then
     r, g, b = unpack(color_table.medium_aquamarine)
-    wotmudmapper.Colors["Drink"] = {r, g, b, 26, "medium_aquamarine", "Environment"}
+    self.Colors["Drink"] = {r, g, b, 26, "medium_aquamarine", "Environment"}
     setCustomEnvColor(26, r, g, b, 255)
   end
   if color_table["steel_blue"] then
     r, g, b = unpack(color_table.steel_blue)
-    wotmudmapper.Colors["Weaponsmith"] = {r, g, b, 27, "steel_blue", "Town Services"}
+    self.Colors["Weaponsmith"] = {r, g, b, 27, "steel_blue", "Town Services"}
     setCustomEnvColor(27, r, g, b, 255)
   end
   if color_table["gray"] then
     r, g, b = unpack(color_table.gray)
-    wotmudmapper.Colors["Armorer"] = {r, g, b, 28, "gray", "Town Services"}
+    self.Colors["Armorer"] = {r, g, b, 28, "gray", "Town Services"}
     setCustomEnvColor(28, r, g, b, 255)
   end
   if color_table["dark_orange"] then
     r, g, b = unpack(color_table.dark_orange)
-    wotmudmapper.Colors["Blacksmith"] = {r, g, b, 29, "dark_orange", "Town Services"}
+    self.Colors["Blacksmith"] = {r, g, b, 29, "dark_orange", "Town Services"}
     setCustomEnvColor(29, r, g, b, 255)
   end
   if color_table["gold"] then
     r, g, b = unpack(color_table.gold)
-    wotmudmapper.Colors["Bank"] = {r, g, b, 30, "gold", "Town Services"}
+    self.Colors["Bank"] = {r, g, b, 30, "gold", "Town Services"}
     setCustomEnvColor(30, r, g, b, 255)
   end
   if color_table["purple"] then
     r, g, b = unpack(color_table.purple)
-    wotmudmapper.Colors["Stables"] = {r, g, b, 31, "purple", "Town Services"}
+    self.Colors["Stables"] = {r, g, b, 31, "purple", "Town Services"}
     setCustomEnvColor(31, r, g, b, 255)
   end
   if color_table["green"] then
     r, g, b = unpack(color_table.green)
-    wotmudmapper.Colors["Inn"] = {r, g, b, 32, "green", "Town Services"}
+    self.Colors["Inn"] = {r, g, b, 32, "green", "Town Services"}
     setCustomEnvColor(32, r, g, b, 255)
   end
   if color_table["red"] then
     r, g, b = unpack(color_table.red)
-    wotmudmapper.Colors["Grocer"] = {r, g, b, 33, "red", "Town Services"}
+    self.Colors["Grocer"] = {r, g, b, 33, "red", "Town Services"}
     setCustomEnvColor(33, r, g, b, 255)
   end
   if color_table["sienna"] then
     r, g, b = unpack(color_table.sienna)
-    wotmudmapper.Colors["Warrior"] = {r, g, b, 34, "sienna", "Practice"}
+    self.Colors["Warrior"] = {r, g, b, 34, "sienna", "Practice"}
     setCustomEnvColor(34, r, g, b, 255)
   end
   if color_table["dark_slate_gray"] then
     r, g, b = unpack(color_table.dark_slate_gray)
-    wotmudmapper.Colors["Rogue"] = {r, g, b, 35, "dark_slate_gray", "Practice"}
+    self.Colors["Rogue"] = {r, g, b, 35, "dark_slate_gray", "Practice"}
     setCustomEnvColor(35, r, g, b, 255)
   end
   if color_table["yellow_green"] then
     r, g, b = unpack(color_table.yellow_green)
-    wotmudmapper.Colors["Hunter"] = {r, g, b, 36, "yellow_green", "Practice"}
+    self.Colors["Hunter"] = {r, g, b, 36, "yellow_green", "Practice"}
     setCustomEnvColor(36, r, g, b, 255)
   end
   if color_table["light_gray"] then
     r, g, b = unpack(color_table.light_gray)
-    wotmudmapper.Colors["PK"] = {r, g, b, 37, "light_gray", "PK"}
+    self.Colors["PK"] = {r, g, b, 37, "light_gray", "PK"}
     setCustomEnvColor(37, r, g, b, 255)
   end
 end
@@ -354,13 +378,13 @@ end</script>
 				<script>function wotmudmapper:show_help(cmd)
   if cmd then
     cmd = cmd:gsub(" ","_")
-    if not wotmudmapper.help[cmd] then
-      wotmudmapper:echo("No help file on that command.\n",false,true)
+    if not self.help[cmd] then
+      self:echo("No help file on that command.\n",false,true)
     end
   else
     cmd = 1
   end
-  for w in wotmudmapper.help[cmd]:gmatch("(.-)\n") do
+  for w in self.help[cmd]:gmatch("(.-)\n") do
     local before, target, text, after = w:match("(.*)&lt;link: (.-)&gt;(.*)&lt;\/link&gt;(.*)")
     if target then
       cecho(before)
@@ -610,8 +634,11 @@ wotmudmapper.help.misc =
 
 function trackMapCommands(event, command)
   if isMovement(command) or isLook(command) or isFlee(command) then
-    List:pushright(wotmudmapper.queue, string.sub(string.lower(command), 1, 1))
-    wotmudmapper:echo("Added command ("..command..") to queue.\n",true)
+    wotmudmapper.queue:pushright(string.sub(string.lower(command), 1, 1))
+    wotmudmapper:echo("Added command (" .. command .. ") to queue.\n", true)
+    if wotmudmapper.following then
+      wotmudmapper.following = false
+    end
   end
 end</script>
 					<eventHandlerList>
@@ -658,12 +685,9 @@ function isMovement(com)
       )
     then
       return true
-    else
-      return false
     end
-  else
-    return false
   end
+  return false
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -677,12 +701,9 @@ function isLook(com)
     local lowcom = string.lower(com)
     if table.contains({"l", "lo", "loo", "look"}, lowcom) then
       return true
-    else
-      return false
     end
-  else
-    return false
   end
+  return false
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -696,12 +717,9 @@ function isFlee(com)
     local lowcom = string.lower(com)
     if table.contains({"f", "fl", "fle", "flee"}, lowcom) then
       return true
-    else
-      return false
     end
-  else
-    return false
   end
+  return false
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -729,7 +747,7 @@ function wotmudmapper:findRoom(name, desc, exits)
   if not table.is_empty(initrooms) then
     for k, v in pairs(initrooms) do
       --if brief mode on, add all rooms with matching names to possible matches
-      if wotmudmapper.brief then
+      if self.brief then
         table.insert(roommatches, k)
         --if brief mode off, check description before adding
       elseif getRoomUserData(k, "description") == desc then
@@ -738,7 +756,7 @@ function wotmudmapper:findRoom(name, desc, exits)
     end
     --if more than one possible match, narrow based on exits
     if table.size(roommatches) &gt; 1 then
-      roommatches = wotmudmapper:findMatchingExits(roommatches, exits)
+      roommatches = self:findMatchingExits(roommatches, exits)
     end
   end
   return roommatches
@@ -763,7 +781,7 @@ function wotmudmapper:findMatchingExits(roomIDs, exits)
     --if there are exit stubs leading to unmapped room, include those
     if getExitStubs(v) then
       for kk, vv in pairs(getExitStubs(v)) do
-        table.insert(exitkeys, string.sub(wotmudmapper.exitmap[vv], 1, 1))
+        table.insert(exitkeys, string.sub(self.exitmap[vv], 1, 1))
       end
     end
 		--comparison tables of exits seen vs exits from room
@@ -805,7 +823,7 @@ function wotmudmapper:findRoomAfterFlee(name, description, currexits, lastexits)
 	--if name/desc of connecting room match name/desc given, add to table
   for k, v in pairs(lastexits) do
     if name == getRoomName(v) then
-      if wotmudmapper.brief then
+      if self.brief then
         table.insert(roommatches, v)
       elseif description == getRoomUserData(v, "description") then
         table.insert(roommatches, v)
@@ -815,9 +833,9 @@ function wotmudmapper:findRoomAfterFlee(name, description, currexits, lastexits)
 	--if more than 1 match, and narrowing by exits doesn't give empty result, then narrow by exits
   if
     table.size(roommatches) &gt; 1 and
-    (not table.is_empty(wotmudmapper:findMatchingExits(roommatches, currexits)))
+    (not table.is_empty(self:findMatchingExits(roommatches, currexits)))
   then
-    roommatches = wotmudmapper:findMatchingExits(roommatches, currexits)
+    roommatches = self:findMatchingExits(roommatches, currexits)
   end
   return roommatches
 end</script>
@@ -834,11 +852,11 @@ function wotmudmapper:isNearRoom(com, name, desc, lastexits)
   for k, v in pairs(lastexits) do
 		--if exit into room matches direction, check dark/name/brief, and set ID based on result
     if string.sub(k, 1, 1) == com then
-      if wotmudmapper.dark then
+      if self.dark then
         newID = v
         break
       elseif name == getRoomName(v) then
-        if wotmudmapper.brief then
+        if self.brief then
           newID = v
           break
         elseif desc == getRoomUserData(v, "description") then
@@ -874,19 +892,19 @@ function wotmudmapper:createRoom(x, y, z, areaID)
   local newID = createRoomID()
   addRoom(newID)
   --set room name, description, zone, coordinates, area, and environment
-  setRoomName(newID, wotmudmapper.roomname)
-  setRoomUserData(newID, "description", wotmudmapper.roomdesc)
-  setRoomUserData(newID, "zone", wotmudmapper.zone)
+  setRoomName(newID, self.roomname)
+  setRoomUserData(newID, "description", self.roomdesc)
+  setRoomUserData(newID, "zone", self.zone)
   setRoomCoordinates(newID, x, y, z)
   setRoomArea(newID, areaID)
-  setRoomEnv(newID, wotmudmapper.configs.envcolor)
+  setRoomEnv(newID, self.configs.envcolor)
   --if room has exits, create exit stubs
-  if not table.is_empty(wotmudmapper.roomexits) then
-    for k, v in pairs(wotmudmapper.roomexits) do
-      setExitStub(newID, wotmudmapper.exitmap[v], true)
+  if not table.is_empty(self.roomexits) then
+    for k, v in pairs(self.roomexits) do
+      setExitStub(newID, self.exitmap[v], true)
     end
   end
-  wotmudmapper:echo("New room created. ID: ("..newID.."), name: ("..wotmudmapper.roomname..").\n",true)
+  wotmudmapper:echo("New room created. ID: ("..newID.."), name: ("..self.roomname..").\n",true)
   return {newID}
 end</script>
 					<eventHandlerList />
@@ -899,16 +917,16 @@ end</script>
 function wotmudmapper:linkRooms(firRoomID, secRoomID, dir, exits)
   local complements = {n = "s", e = "w", s = "n", w = "e", u = "d", d = "u"}
   --set exit from first room to second room in direction
-  setExit(firRoomID, secRoomID, wotmudmapper.exitmap[dir])
-  wotmudmapper:echo("Linked room ("..firRoomID..") to room ("..secRoomID..") with a/an ("..dir..") exit.\n",true)
+  setExit(firRoomID, secRoomID, self.exitmap[dir])
+  self:echo("Linked room ("..firRoomID..") to room ("..secRoomID..") with a/an ("..dir..") exit.\n",true)
   --if meant to set directions both ways
-  if wotmudmapper.configs.bothways then
+  if self.configs.bothways then
     --check exits in second room
     for k, v in pairs(exits) do
       --if one is complement of dir, add exit from second room to first room
       if v == complements[dir] then
-        setExit(secRoomID, firRoomID, wotmudmapper.exitmap[v])
-        wotmudmapper:echo("Linked room ("..secRoomID..") to room ("..firRoomID..") with a/an ("..v..") exit.\n",true)
+        setExit(secRoomID, firRoomID, self.exitmap[v])
+        self:echo("Linked room ("..secRoomID..") to room ("..firRoomID..") with a/an ("..v..") exit.\n",true)
         break
       end
     end
@@ -953,7 +971,7 @@ end</script>
 	--if roomID has exit stubs, add them to table of exits
   if getExitStubs(roomID) then
     for k, v in pairs(getExitStubs(roomID)) do
-      table.insert(firstExits, string.sub(wotmudmapper.exitmap[v], 1, 1))
+      table.insert(firstExits, string.sub(self.exitmap[v], 1, 1))
     end
   end
 	--for every exit stub
@@ -961,7 +979,7 @@ end</script>
     local secondExits = {}
 		--find what coordinates would be offset in the stub direction
 		--and get list of rooms at the offset position
-    a, b, c = wotmudmapper:setCoordinatesOffset(x, y, z, v)
+    a, b, c = self:setCoordinatesOffset(x, y, z, v)
     roomList = getRoomsByPosition(areaID, a, b, c)
 		--if only one room at offset position
     if table.size(roomList) == 1 then
@@ -974,10 +992,10 @@ end</script>
 				--and join appropriately
         for kk, vv in pairs(secondExits) do
           if vv == complements[v] then
-            setExit(roomID, roomList[0], wotmudmapper.exitmap[v])
-            wotmudmapper:echo("Linked room ("..roomID..") to room ("..roomList[0]..") with a/an ("..v..") exit.\n",true)
+            setExit(roomID, roomList[0], self.exitmap[v])
+            self:echo("Linked room ("..roomID..") to room ("..roomList[0]..") with a/an ("..v..") exit.\n",true)
             setExit(roomList[0], roomID, wotmudmapper.exitmap[vv])
-            wotmudmapper:echo("Linked room ("..roomList[0]..") to room ("..roomID..") with a/an ("..vv..") exit.\n",true)
+            self:echo("Linked room ("..roomList[0]..") to room ("..roomID..") with a/an ("..vv..") exit.\n",true)
           end
         end
       end
@@ -1001,7 +1019,7 @@ function wotmudmapper:createDoor(currentID, direction, status, doorname)
   local doortype = {"visible", "hidden", "locked"}
   local doorcolor = {"green", "yellow", "red"}
   if status ~= 0 then
-    wotmudmapper:echo(
+    self:echo(
       "&lt;" ..
       doorcolor[status] ..
       "&gt;" ..
@@ -1190,6 +1208,7 @@ end</script>
             cecho(v.." ")
         end
         cecho("]")
+        cecho("\n&lt;turquoise&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
         for k, v in pairs(exits) do
           if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
             cecho("\n&lt;blue&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))

@@ -25,7 +25,7 @@ wotmudmapper.inways = false
 
 --default configuration values to be used or updated in wotmudmapper.configs
 wotmudmapper.defaults = {mapping=false,dbug=true,mapbrief=false,bothways=true,autojoin=false,forceroom=false,envcolor=20,offline=false,roomID=1,
-  map_window={visible=true,w="37%",h="73%",position="topright",zoom=50,docked=false}}
+  map_window={visible=true,w="37%",h="73%",position="topright",zoom=50,docked=false,dock="float"}}
 
 
 if not wotmudmapper.exitmap then
@@ -231,6 +231,7 @@ end</script>
   setMapZoom(configs.zoom)
   if visible then
     mapper:show()
+    mapper:setDockPosition(string.sub(configs.dock,1,1))
   else
     mapper:hide()
   end

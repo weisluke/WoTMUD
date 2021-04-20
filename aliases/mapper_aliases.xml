@@ -108,7 +108,6 @@ for k, v in pairs(getAreaTable()) do
         deleteMapLabel(v,kk)
       end
     end
-    cecho("test2\n")
     deleteArea(v)
     updateMap()
     wotmudmapper:echo("Area ("..matches[2]..") deleted. All its rooms, if any, have been deleted.\n")
@@ -906,7 +905,15 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
       wotmudmapper:showMap(true)
     else
-      wotmudmapper:echo("Position must be a valid string combination of (top/bottom)(right/left).\n",false,true)
+      wotmudmapper:echo("Position must be one of: topleft, topright, bottomleft, bottomright.\n",false,true)
+    end
+  elseif key=="dock" then
+    if table.contains({"top","bottom","left","right","float"},val) then
+      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
+      wotmudmapper:showMap(true)
+    else
+      wotmudmapper:echo("Dock must be one of: top, bottom, left, right, float.\n",false,true)
     end
   else
     wotmudmapper:echo("Key ("..key..") unable to be changed through this alias.\n",false,true)
@@ -993,6 +1000,7 @@ end</script>
       cecho(v.." ")
   end
   cecho("]")
+  cecho("\n&lt;turquoise&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
   for k, v in pairs(exits) do
     if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
       cecho("\n&lt;blue&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))
@@ -1006,6 +1014,15 @@ end</script>
 					<packageName></packageName>
 					<regex>^l$</regex>
 				</Alias>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Dock/Undock Map</name>
+				<script>wotmudmapper.configs.map_window.docked = not wotmudmapper.configs.map_window.docked
+wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.docked and "docked.\n" or "stationary.\n")) 
+wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map dock$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

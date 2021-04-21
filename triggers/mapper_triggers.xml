@@ -20,7 +20,7 @@
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Catch Name</name>
 				<script>if
-  (line == matches[1] or string.find(line, "HP:")) and
+  (line == matches[1] or string.find(line, "&gt;")) and
   not (
     string.find(line, "speaks from the") or
     string.find(line, "answers your prayer") or
@@ -48,7 +48,7 @@ end</script>
 				<colorTriggerFgColor>#008080</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>ANSI_COLORS_F{006}_B{000}</string>
+					<string>FG14BG2</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>6</integer>
@@ -70,7 +70,7 @@ elseif wotmudmapper.roomname ~= "" then
     else
       wotmudmapper.roomdesc = wotmudmapper.roomdesc .. "\n" .. line
     end
-		if wotmudmapper.configs.mapbrief and not isLook(List:checkleftvalue(wotmudmapper.queue)) then
+		if wotmudmapper.configs.mapbrief and not isLook(wotmudmapper.queue:checkleftvalue()) then
 			deleteLine()
     end
 		setTriggerStayOpen("Catch Name", 1)
@@ -110,7 +110,7 @@ local currentRoomExits = wotmudmapper.roomexits
 local mapCommand, x, y, z, areaID, lastID, tempID
 --Specifying the type of movement. If not fleeing or following, then take from queue
 if not wotmudmapper.flee and not wotmudmapper.following then
-  mapCommand = List:popleft(wotmudmapper.queue)
+  mapCommand = wotmudmapper.queue:popleft()
 else
   --else, fleeing or following
   if wotmudmapper.following then
@@ -120,10 +120,10 @@ else
     wotmudmapper.following = false
   else
     --checking if next command in line is flee
-    mapCommand = List:checkleftvalue(wotmudmapper.queue)
+    mapCommand = wotmudmapper.queue:checkleftvalue()
     --if yes, then take command from queue
     if isFlee(mapCommand) then
-      List:popleft(wotmudmapper.queue)
+      wotmudmapper.queue:popleft()
     else
       --if no, then it is autowimpy flee
       mapCommand = "f"
@@ -279,7 +279,7 @@ local currentRoomName, currentRoomDesc, currentRoomExits
 local mapCommand, lastID
 --Specifying the type of movement. If not fleeing or following, then take from queue
 if not wotmudmapper.flee and not wotmudmapper.following then
-  mapCommand = List:popleft(wotmudmapper.queue)
+  mapCommand = wotmudmapper.queue:popleft()
 else
   --else, fleeing or following
   if wotmudmapper.following then
@@ -289,10 +289,10 @@ else
     wotmudmapper.following = false
   else
     --checking if next command in line is flee
-    mapCommand = List:checkleftvalue(wotmudmapper.queue)
+    mapCommand = wotmudmapper.queue:checkleftvalue()
     --if yes, then take command from queue
     if isFlee(mapCommand) then
-      List:popleft(wotmudmapper.queue)
+      wotmudmapper.queue:popleft()
     else
       --if no, then it is autowimpy flee
       mapCommand = "f"
@@ -385,7 +385,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Movement Failure</name>
-				<script>local mapCommand = List:popleft(wotmudmapper.queue)
+				<script>local mapCommand = wotmudmapper.queue:popleft()
 if wotmudmapper.following then
   wotmudmapper.following = false
 end
@@ -488,7 +488,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Doors in General</name>
-				<script>local mapCommand = List:popleft(wotmudmapper.queue)
+				<script>local mapCommand = wotmudmapper.queue:popleft()
 local direction
 if mapCommand == wotmudmapper.door and mapCommand then
   direction = wotmudmapper.door
@@ -665,8 +665,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Failing Flees</name>
-				<script>if isFlee(List:checkleftvalue(wotmudmapper.queue)) then
-  List:popleft(wotmudmapper.queue)
+				<script>if isFlee(wotmudmapper.queue:checkleftvalue()) then
+  wotmudmapper.queue:popleft()
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>

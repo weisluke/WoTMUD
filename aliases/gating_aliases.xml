@@ -13,10 +13,10 @@
 				<script>--syntax: makegate xxx
 
 weaving = weaving or {}
-
 weaving.gatename = matches[2]
 
 send("embrace")
+send("seize")
 send("channel 'gate'") </script>
 				<command></command>
 				<packageName></packageName>
@@ -25,16 +25,25 @@ send("channel 'gate'") </script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Gate to</name>
 				<script>--syntax: gate xxx
+
 local location = matches[2]
+
+char = char or {}
 gatecodes = {}
-if io.exists(getMudletHomeDir() .. "/gatecodes.lua") then
-  table.load(getMudletHomeDir() .. "/gatecodes.lua", gatecodes)
-end
-if gatecodes[location] then
-  send("embrace")
-  send("channel 'gate' " .. gatecodes[location])
+
+if char.name then
+  if io.exists(getMudletHomeDir() .. "/"..char.name.."_gatecodes.lua") then
+    table.load(getMudletHomeDir() .. "/"..char.name.."_gatecodes.lua", gatecodes)
+  end
+  if gatecodes[location] then
+    send("embrace")
+    send("seize")
+    send("channel 'gate' " .. gatecodes[location])
+  else
+    cecho("&lt;red&gt;Unknown error! No code known for this location.\n")
+  end
 else
-  cecho("&lt;red&gt;Unknown error! No code known for this location.\n")
+  cecho("&lt;red&gt;Error! Character name not known.\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -44,8 +53,14 @@ end</script>
 				<name>Delete gates</name>
 				<script>--syntax: resetgates
 
-table.save(getMudletHomeDir() .. "/gatecodes.lua", {})
-cecho("Gate codes reset!\n")</script>
+char = char or {}
+
+if char.name then
+  table.save(getMudletHomeDir() .. "/" .. char.name .. "_gatecodes.lua", {})
+  cecho("Gate codes reset!\n")
+else
+  cecho("&lt;red&gt;Error! Character name not known.\n")
+end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^resetgates$</regex>
@@ -53,16 +68,23 @@ cecho("Gate codes reset!\n")</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>View codes</name>
 				<script>--syntax: viewcodes
+
+char = char or {}
 gatecodes = {}
-if io.exists(getMudletHomeDir() .. "/gatecodes.lua") then
-  table.load(getMudletHomeDir() .. "/gatecodes.lua", gatecodes)
-end
-if table.is_empty(gatecodes) then
-  cecho("No gatecodes known!\n")
-else
-  for k, v in pairs(gatecodes) do
-    cecho("Location: " .. k .. ", code: " .. v .. "\n")
+
+if char.name then
+  if io.exists(getMudletHomeDir() .. "/" .. char.name .. "_gatecodes.lua") then
+    table.load(getMudletHomeDir() .. "/" .. char.name .. "_gatecodes.lua", gatecodes)
   end
+  if table.is_empty(gatecodes) then
+    cecho("No gatecodes known!\n")
+  else
+    for k, v in pairs(gatecodes) do
+      cecho("Location: " .. k .. ", code: " .. v .. "\n")
+    end
+  end
+else
+  cecho("&lt;red&gt;Error! Character name not known.\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -97,8 +119,14 @@ gatecodes =
     windingbrigands = "ghtlowphaghighixer",
     fourkings = "pogdardassrauytlow",
   }
-	
-table.save(getMudletHomeDir() .. "/gatecodes.lua", gatecodes)</script>
+  
+char = char or {}
+
+if char.name then
+  table.save(getMudletHomeDir() .. "/" .. char.name .. "_gatecodes.lua", gatecodes)
+else
+  cecho("&lt;red&gt;Error! Character name not known.\n")
+end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^addoldcodes$</regex>

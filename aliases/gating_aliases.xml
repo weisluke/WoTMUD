@@ -12,12 +12,20 @@
 				<name>Make gate</name>
 				<script>--syntax: makegate xxx
 
-weaving = weaving or {}
 weaving.gatename = matches[2]
 
-send("embrace")
-send("seize")
-send("channel 'gate'") </script>
+char = char or {}
+weaving = weaving or {}
+
+if char.sex == "female" then
+  send("embrace")
+  send("channel 'gate'")
+elseif char.sex == "male" then
+  send("seize")
+  send("channel 'gate'")
+else
+  cecho("&lt;red&gt;Error! Character sex not known.\n")
+end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^makegate (.+)$</regex>
@@ -36,9 +44,15 @@ if char.name then
     table.load(getMudletHomeDir() .. "/"..char.name.."_gatecodes.lua", gatecodes)
   end
   if gatecodes[location] then
-    send("embrace")
-    send("seize")
-    send("channel 'gate' " .. gatecodes[location])
+    if char.sex == "female" then
+      send("embrace")
+      send("channel 'gate' " .. gatecodes[location])
+    elseif char.sex == "male" then
+      send("seize")
+      send("channel 'gate' " .. gatecodes[location])
+    else
+      cecho("&lt;red&gt;Error! Character sex not known.\n")    
+    end
   else
     cecho("&lt;red&gt;Unknown error! No code known for this location.\n")
   end

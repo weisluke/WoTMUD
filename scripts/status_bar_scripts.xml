@@ -22,70 +22,84 @@ statusbar=statusbar or {}
 
 statusbar.main=Geyser.Container:new({name = "statusbar.main", x = 0, y = "-3%", width = "60%", height = "3%"})
 
-statusbar.mood = Geyser.Label:new({name = "statusbar.mood", x = "0%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
+statusbar.mood = Geyser.Label:new({name = "statusbar.mood", x = "0%", y = "0%", width = "5%", height = "100%"}, statusbar.main)
 statusbar.mood:echo("Mood", "white", "c")
 statusbar.mood:setStyleSheet([[
   background-color: black;
   border: 1px solid gray;
 ]])
 
-statusbar.posture = Geyser.Label:new({name = "statusbar.posture", x = "7%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
+statusbar.posture = Geyser.Label:new({name = "statusbar.posture", x = "5%", y = "0%", width = "5%", height = "100%"}, statusbar.main)
 statusbar.posture:echo("Posture", "white", "c")
 statusbar.posture:setStyleSheet([[
   background-color: black;
   border: 1px solid gray;
 ]])
 
-statusbar.health = Geyser.Label:new({name = "statusbar.health", x = "14%", y = "0%", width = "12%", height = "100%"}, statusbar.main)
+statusbar.health = Geyser.Label:new({name = "statusbar.health", x = "10%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
 statusbar.health:echo("HP", "white", "c")
 statusbar.health:setStyleSheet([[
   background-color: black;
   border: 1px solid gray;
 ]])
 
-statusbar.moves = Geyser.Label:new({name = "statusbar.moves", x = "26%", y = "0%", width = "12%", height = "100%"}, statusbar.main)
+statusbar.dps = Geyser.Label:new({name = "statusbar.dps", x = "20%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
+statusbar.dps:echo("DP", "white", "c")
+statusbar.dps:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.sps = Geyser.Label:new({name = "statusbar.sps", x = "20%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
+statusbar.sps:echo("SP", "white", "c")
+statusbar.sps:setStyleSheet([[
+  background-color: black;
+  border: 1px solid gray;
+]])
+
+statusbar.moves = Geyser.Label:new({name = "statusbar.moves", x = "30%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
 statusbar.moves:echo("MV", "white", "c")
 statusbar.moves:setStyleSheet([[
   background-color: black;
   border: 1px solid gray;
 ]])
 
-statusbar.autoflee = Geyser.Label:new({name = "statusbar.autoflee", x = "38%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
+statusbar.autoflee = Geyser.Label:new({name = "statusbar.autoflee", x = "40%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
 statusbar.autoflee:echo("Autoflee", "white", "c")
 statusbar.autoflee:setStyleSheet([[
   background-color: black;
   border: 1px solid gray;
 ]])
 
-statusbar.fleelag = Geyser.Label:new({name = "statusbar.fleelag", x = "48%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
+statusbar.fleelag = Geyser.Label:new({name = "statusbar.fleelag", x = "50%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
 statusbar.fleelag:echo("Fleelag", "white", "c")
 statusbar.fleelag:setStyleSheet([[
   background-color: black;
   border: 1px solid gray;
 ]])
 
-statusbar.chargepulses = Geyser.Label:new({name = "statusbar.chargepulses", x = "58%", y = "0%", width = "15%", height = "100%"}, statusbar.main)
+statusbar.chargepulses = Geyser.Label:new({name = "statusbar.chargepulses", x = "60%", y = "0%", width = "15%", height = "100%"}, statusbar.main)
 statusbar.chargepulses:echo("Charge pulses", "white", "c")
 statusbar.chargepulses:setStyleSheet([[
   background-color: black;
   border: 1px solid gray;
 ]])
 
-statusbar.notice = Geyser.Label:new({name = "statusbar.notice", x = "73%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
+statusbar.notice = Geyser.Label:new({name = "statusbar.notice", x = "75%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
 statusbar.notice:echo("Notice", "white", "c")
 statusbar.notice:setStyleSheet([[
   background-color: black;
   border: 1px solid gray;
 ]])
 
-statusbar.sneak = Geyser.Label:new({name = "statusbar.sneak", x = "80%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
+statusbar.sneak = Geyser.Label:new({name = "statusbar.sneak", x = "82%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
 statusbar.sneak:echo("Sneak", "white", "c")
 statusbar.sneak:setStyleSheet([[
   background-color: black;
   border: 1px solid gray;
 ]])
 
-statusbar.timer = Geyser.Label:new({name = "timer", x = "87%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
+statusbar.timer = Geyser.Label:new({name = "timer", x = "89%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
 statusbar.timer:echo("Tic Timer", "white", "c")
 statusbar.timer:setStyleSheet([[
   background-color: black;
@@ -122,7 +136,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Update fleelag and charge pulses</name>
+				<name>updateFleeLagOnTic</name>
 				<packageName></packageName>
 				<script>function updateFleeLagOnTic()
   local fleelagloss = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4}
@@ -144,7 +158,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Update health on tic</name>
+				<name>updateHealthOnTic</name>
 				<packageName></packageName>
 				<script>function updateHealthOnTic()
   local hpregen = {0, 0, 0, 0, 0, 0, 0, 0, 18, 21, 22, 25, 26, 29, 30, 33, 35, 37, 39}
@@ -291,7 +305,15 @@ end</script>
       Haggard = 0.15,
     }
   local mvsrangelower =
-    {Fresh = 1, Full = 0.9, Strong = 0.75, Tiring = 0.5, Winded = 0.3, Weary = 0.15, Haggard = 0}
+    {
+      Fresh = 1, 
+      Full = 0.9, 
+      Strong = 0.75, 
+      Tiring = 0.5, 
+      Winded = 0.3, 
+      Weary = 0.15, 
+      Haggard = 0
+    }
   if char.mvs then
     char.mvsestmax = math.floor(mvsrangeupper[mvsmsg] * char.maxmvs)
     char.mvsestmin = math.ceil(mvsrangelower[mvsmsg] * char.maxmvs)
@@ -300,7 +322,7 @@ end</script>
     else
       tempmvs = "MV: " .. char.mvsestmin .. "-" .. char.mvsestmax .. "(" .. char.maxmvs .. ")"
     end
-		char.mvs=nil
+    char.mvs = nil
   elseif char.mvsestmax and char.mvsestmin then
     char.mvsestmax = math.floor(mvsrangeupper[mvsmsg] * char.maxmvs)
     char.mvsestmin = math.ceil(mvsrangelower[mvsmsg] * char.maxmvs)
@@ -312,6 +334,119 @@ end</script>
   end
   if statusbar.moves then
     statusbar.moves:echo(tempmvs, "white", "c")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update SPs with range</name>
+				<packageName></packageName>
+				<script>function updateSPsWithRange(spsmsg)
+  statusbar = statusbar or {}
+  char = char or {}
+  char.maxsps = char.maxsps or 1
+  local tempsps = "SP"
+  local spsrangeupper =
+    {
+      Bursting = 1,
+      Full = 1 - 1 / char.maxsps,
+      Strong = 0.9,
+      Good = 0.5,
+      Fading = 0.3,
+      Trickling = 0.15,
+      None = 0.01,
+    }
+  local spsrangelower =
+    {
+      Bursting = 1, 
+      Full = 0.9, 
+      Strong = 0.5, 
+      Good = 0.3, 
+      Fading = 0.15, 
+      Trickling = 0.01, 
+      None = 0
+    }
+  if char.sps then
+    char.spsestmax = math.floor(spsrangeupper[spsmsg] * char.maxsps)
+    char.spsestmin = math.ceil(spsrangelower[spsmsg] * char.maxsps)
+    if char.spsestmin == char.spsestmax then
+      tempsps = "SP: " .. char.spsestmax .. "(" .. char.maxsps .. ")"
+    else
+      tempsps = "SP: " .. char.spsestmin .. "-" .. char.spsestmax .. "(" .. char.maxsps .. ")"
+    end
+		char.sps=nil
+  elseif char.spsestmax and char.spsestmin then
+    char.spsestmax = math.floor(spsrangeupper[spsmsg] * char.maxsps)
+    char.spsestmin = math.ceil(spsrangelower[spsmsg] * char.maxsps)
+    if char.spsestmin == char.spsestmax then
+      tempsps = "SP: " .. char.spsestmax .. "(" .. char.maxsps .. ")"
+    else
+      tempsps = "SP: " .. char.spsestmin .. "-" .. char.spsestmax .. "(" .. char.maxsps .. ")"
+    end
+  end
+  if statusbar.sps then
+    if statusbar.dps then
+      statusbar.dps:hide()
+      statusbar.sps:show()
+    end
+    statusbar.sps:echo(tempsps, "white", "c")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update DPs with range</name>
+				<packageName></packageName>
+				<script>function updateDPsWithRange(dpsmsg)
+  statusbar = statusbar or {}
+  char = char or {}
+  char.maxdps = char.maxdps or 1
+  local tempdps = "DP"
+  local dpsrangeupper =
+    {
+      Bursting = 1,
+      Full = 1 - 1 / char.maxdps,
+      Strong = 0.9,
+      Good = 0.5,
+      Fading = 0.3,
+      Trickling = 0.15,
+      None = 0.01,
+    }
+  local dpsrangelower =
+    {
+      Bursting = 1, 
+      Full = 0.9, 
+      Strong = 0.5, 
+      Good = 0.3, 
+      Fading = 0.15, 
+      Trickling = 0.01, 
+      None = 0
+    }
+  if char.dps then
+    cecho("TESTING1\n")
+    char.dpsestmax = math.floor(dpsrangeupper[dpsmsg] * char.maxdps)
+    char.dpsestmin = math.ceil(dpsrangelower[dpsmsg] * char.maxdps)
+    if char.dpsestmin == char.dpsestmax then
+      tempdps = "DP: " .. char.dpsestmax .. "(" .. char.maxdps .. ")"
+    else
+      tempdps = "DP: " .. char.dpsestmin .. "-" .. char.dpsestmax .. "(" .. char.maxdps .. ")"
+    end
+		char.dps=nil
+  elseif char.dpsestmax and char.dpsestmin then
+    char.dpsestmax = math.floor(dpsrangeupper[dpsmsg] * char.maxdps)
+    char.dpsestmin = math.ceil(dpsrangelower[dpsmsg] * char.maxdps)
+    if char.dpsestmin == char.dpsestmax then
+      tempdps = "DP: " .. char.dpsestmax .. "(" .. char.maxdps .. ")"
+    else
+      tempdps = "DP: " .. char.dpsestmin .. "-" .. char.dpsestmax .. "(" .. char.maxdps .. ")"
+    end
+  end
+  if statusbar.dps then
+    if statusbar.sps then
+      statusbar.sps:hide()
+      statusbar.dps:show()
+    end
+    statusbar.dps:echo(tempdps, "white", "c")
   end
 end</script>
 				<eventHandlerList />

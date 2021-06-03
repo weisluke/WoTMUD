@@ -475,7 +475,7 @@ echo(". Total Defence: "..defense)</script>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>RollingTimer</name>
 				<script>-- move to the previous line
 moveCursor(0, getLineNumber() - 1)
@@ -504,7 +504,7 @@ deleteLine()</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>"Where" clickable centerroom</name>
 				<script>local name = matches[2]
-local roomname = matches[4]
+local roomname = matches[3]
 local foundrooms = searchRoom(roomname, true, true)
 local roomID
 for k, v in pairs(foundrooms) do
@@ -520,8 +520,8 @@ else
   roomID = ""
 end
 
-selectString(matches[4],1)
-setLink([[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end deselect()]], "Click to center map on room.")</script>
+selectCaptureGroup(3)
+setLink([[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end]], "Click to center map on room.")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -533,7 +533,7 @@ setLink([[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end dese
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^(\S+)(\s+) \- (.+)$</string>
+					<string>^(\S+)\s+ \- (.+)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

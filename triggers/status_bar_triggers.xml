@@ -194,17 +194,9 @@ statusbar.mood:echo(char.mood, "white", "c")</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Health and Moves</name>
-				<script>char = char or {}
-char.health = tonumber(matches[2])
-char.maxhealth = tonumber(matches[3])
-char.mvs=tonumber(matches[4])
-char.maxmvs = tonumber(matches[5])
-local temphp = "HP: " .. char.health .. "(" .. char.maxhealth .. ")"
-statusbar.health:echo(temphp, "white", "c")
-local tempmv = "MV: " .. matches[4] .. "(" .. matches[5] .. ")"
-statusbar.moves:echo(tempmv, "white", "c")</script>
+				<script></script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -215,13 +207,99 @@ statusbar.moves:echo(tempmv, "white", "c")</script>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>You have (\d+)\((\d+)\) hit and (\d+)\((\d+)\) movement points\.$</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Standard</name>
+					<script>char = char or {}
+char.health = tonumber(matches[2])
+char.maxhealth = tonumber(matches[3])
+char.mvs=tonumber(matches[4])
+char.maxmvs = tonumber(matches[5])
+local temphp = "HP: " .. char.health .. "(" .. char.maxhealth .. ")"
+statusbar.health:echo(temphp, "white", "c")
+local tempmv = "MV: " .. char.mvs .. "(" .. char.maxmvs .. ")"
+statusbar.moves:echo(tempmv, "white", "c")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You have (\d+)\((\d+)\) hit and (\d+)\((\d+)\) movement points\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Channeler</name>
+					<script>char = char or {}
+char.health = tonumber(matches[2])
+char.maxhealth = tonumber(matches[3])
+char.sps = tonumber(matches[4])
+char.maxsps = tonumber(matches[5])
+char.mvs=tonumber(matches[6])
+char.maxmvs = tonumber(matches[7])
+local temphp = "HP: " .. char.health .. "(" .. char.maxhealth .. ")"
+statusbar.health:echo(temphp, "white", "c")
+local tempmv = "MV: " .. char.mvs .. "(" .. char.maxmvs .. ")"
+statusbar.moves:echo(tempmv, "white", "c")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You have (\d+)\((\d+)\) hit, (\d+)\((\d+)\) saidar and (\d+)\((\d+)\) movement points\.$</string>
+						<string>You have (\d+)\((\d+)\) hit, (\d+)\((\d+)\) saidin and (\d+)\((\d+)\) movement points\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Fade</name>
+					<script>char = char or {}
+char.health = tonumber(matches[2])
+char.maxhealth = tonumber(matches[3])
+char.dps = tonumber(matches[4])
+char.maxdps = tonumber(matches[5])
+char.mvs=tonumber(matches[6])
+char.maxmvs = tonumber(matches[7])
+local temphp = "HP: " .. char.health .. "(" .. char.maxhealth .. ")"
+statusbar.health:echo(temphp, "white", "c")
+local tempmv = "MV: " .. char.mvs .. "(" .. char.maxmvs .. ")"
+statusbar.moves:echo(tempmv, "white", "c")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You have (\d+)\((\d+)\) hit, (\d+)\((\d+)\) dark power and (\d+)\((\d+)\) movement points\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Autoflee</name>
 				<script></script>
@@ -688,31 +766,6 @@ end</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Personal Health and Movement Points</name>
-				<script>local healthtype = matches[2]
-local movestype = matches[3]
-updateHealthWithRange(healthtype)
-updateMovesWithRange(movestype)</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>HP:(\S+) MV:(\S+) &gt;</string>
-					<string>HP:(\S+) MV:(\S+) - (.+) &gt;</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Stats</name>
 				<script>char = char or {}
 char.wil = tonumber(matches[4])
@@ -734,6 +787,101 @@ char.con=tonumber(matches[6])</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Personal Health and Movement Points</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Standard</name>
+					<script>local healthtype = matches[2]
+local movestype = matches[3]
+updateHealthWithRange(healthtype)
+updateMovesWithRange(movestype)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>HP:(\S+) MV:(\S+) &gt;</string>
+						<string>HP:(\S+) MV:(\S+) - (.+) &gt;</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Channeler</name>
+					<script>local healthtype = matches[2]
+local spstype = matches[3]
+local movestype = matches[4]
+updateHealthWithRange(healthtype)
+updateSPsWithRange(spstype)
+updateMovesWithRange(movestype)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>HP:(\S+) SP:(\S+) MV:(\S+) &gt;</string>
+						<string>HP:(\S+) SP:(\S+) MV:(\S+) - (.+) &gt;</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Fade</name>
+					<script>local healthtype = matches[2]
+local dpstype = matches[3]
+local movestype = matches[4]
+updateHealthWithRange(healthtype)
+updateDPsWithRange(dpstype)
+updateMovesWithRange(movestype)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>HP:(\S+) DP:(\S+) MV:(\S+) &gt;</string>
+						<string>HP:(\S+) DP:(\S+) MV:(\S+) - (.+) &gt;</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
 		</TriggerGroup>
 	</TriggerPackage>
 </MudletPackage>

@@ -248,6 +248,8 @@ char.mvs=tonumber(matches[6])
 char.maxmvs = tonumber(matches[7])
 local temphp = "HP: " .. char.health .. "(" .. char.maxhealth .. ")"
 statusbar.health:echo(temphp, "white", "c")
+local tempsp = "SP: " .. char.sps .. "(" .. char.maxsps .. ")"
+statusbar.sps:echo(tempsp, "white", "c")
 local tempmv = "MV: " .. char.mvs .. "(" .. char.maxmvs .. ")"
 statusbar.moves:echo(tempmv, "white", "c")</script>
 					<triggerType>0</triggerType>
@@ -280,6 +282,8 @@ char.mvs=tonumber(matches[6])
 char.maxmvs = tonumber(matches[7])
 local temphp = "HP: " .. char.health .. "(" .. char.maxhealth .. ")"
 statusbar.health:echo(temphp, "white", "c")
+local tempdp = "DP: " .. char.dps .. "(" .. char.maxdps .. ")"
+statusbar.dps:echo(tempdp, "white", "c")
 local tempmv = "MV: " .. char.mvs .. "(" .. char.maxmvs .. ")"
 statusbar.moves:echo(tempmv, "white", "c")</script>
 					<triggerType>0</triggerType>

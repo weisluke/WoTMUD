@@ -423,7 +423,6 @@ end</script>
       None = 0
     }
   if char.dps then
-    cecho("TESTING1\n")
     char.dpsestmax = math.floor(dpsrangeupper[dpsmsg] * char.maxdps)
     char.dpsestmin = math.ceil(dpsrangelower[dpsmsg] * char.maxdps)
     if char.dpsestmin == char.dpsestmax then

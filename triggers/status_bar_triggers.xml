@@ -300,7 +300,7 @@ statusbar.moves:echo(tempmv, "white", "c")</script>
 						<string>You have (\d+)\((\d+)\) hit, (\d+)\((\d+)\) dark power and (\d+)\((\d+)\) movement points\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>0</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>

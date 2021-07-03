@@ -317,6 +317,20 @@ end</script>
 					<packageName></packageName>
 					<regex>^shiftroom ([neswud])$</regex>
 				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Change zone color</name>
+					<script>local color = matches[2]
+
+if color_table[color] then
+  cecho("Map (zonecolor) changed from (&lt;"..wotmudmapper.configs.zonecolor.."&gt;"..wotmudmapper.configs.zonecolor.."&lt;reset&gt;) to (&lt;"..color.."&gt;"..color.."&lt;reset&gt;).\n")
+  wotmudmapper.configs.zonecolor = matches[2]
+else
+  cecho("Error. Color not known.\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map zonecolor (.+)$</regex>
+				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Doors</name>
@@ -494,6 +508,20 @@ end</script>
 						<regex>^ld([neswud])$</regex>
 					</Alias>
 				</AliasGroup>
+				<Alias isActive="yes" isFolder="no">
+					<name>Change door color</name>
+					<script>local color = matches[2]
+
+if color_table[color] then
+  cecho("Map (zonecolor) changed from (&lt;"..wotmudmapper.configs.doorcolor.."&gt;"..wotmudmapper.configs.doorcolor.."&lt;reset&gt;) to (&lt;"..color.."&gt;"..color.."&lt;reset&gt;).\n")
+  wotmudmapper.configs.doorcolor = matches[2]
+else
+  cecho("Error. Color not known.\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map doorcolor (.+)$</regex>
+				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Coloring Rooms</name>
@@ -1000,10 +1028,10 @@ end</script>
       cecho(v.." ")
   end
   cecho("]")
-  cecho("\n&lt;turquoise&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
+  cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
   for k, v in pairs(exits) do
     if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
-      cecho("\n&lt;blue&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))
+      cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))
     end
   end
   cecho("\n\n")  

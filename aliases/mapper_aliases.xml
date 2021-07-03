@@ -320,16 +320,34 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Change zone color</name>
 					<script>local color = matches[2]
-
 if color_table[color] then
-  cecho("Map (zonecolor) changed from (&lt;"..wotmudmapper.configs.zonecolor.."&gt;"..wotmudmapper.configs.zonecolor.."&lt;reset&gt;) to (&lt;"..color.."&gt;"..color.."&lt;reset&gt;).\n")
+  wotmudmapper:echo(
+    "Map (zonecolor) changed from (&lt;" ..
+    wotmudmapper.configs.zonecolor ..
+    "&gt;" ..
+    wotmudmapper.configs.zonecolor ..
+    "&lt;reset&gt;) to (&lt;" ..
+    color ..
+    "&gt;" ..
+    color ..
+    "&lt;reset&gt;).\n"
+  )
   wotmudmapper.configs.zonecolor = color
 else
-  cecho("Error. Color not known.\n")
+  wotmudmapper:echo("Color not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map zonecolor (.+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Display or hide zone name</name>
+					<script>wotmudmapper.configs.showzone = not wotmudmapper.configs.showzone
+
+wotmudmapper:echo("Mapper will now "..(wotmudmapper.configs.showzone and "show" or "hide").." zone names.\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map showzone$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -511,12 +529,21 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Change door color</name>
 					<script>local color = matches[2]
-
 if color_table[color] then
-  cecho("Map (zonecolor) changed from (&lt;"..wotmudmapper.configs.doorcolor.."&gt;"..wotmudmapper.configs.doorcolor.."&lt;reset&gt;) to (&lt;"..color.."&gt;"..color.."&lt;reset&gt;).\n")
+  wotmudmapper:echo(
+    "Map (doorcolor) changed from (&lt;" ..
+    wotmudmapper.configs.doorcolor ..
+    "&gt;" ..
+    wotmudmapper.configs.doorcolor ..
+    "&lt;reset&gt;) to (&lt;" ..
+    color ..
+    "&gt;" ..
+    color ..
+    "&lt;reset&gt;).\n"
+  )
   wotmudmapper.configs.doorcolor = color
 else
-  cecho("Error. Color not known.\n")
+  wotmudmapper:echo("Color not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -1028,7 +1055,9 @@ end</script>
       cecho(v.." ")
   end
   cecho("]")
-  cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
+  if wotmudmapper.configs.showzone then
+    cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
+  end
   for k, v in pairs(exits) do
     if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
       cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))

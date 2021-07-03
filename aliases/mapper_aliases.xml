@@ -323,7 +323,7 @@ end</script>
 
 if color_table[color] then
   cecho("Map (zonecolor) changed from (&lt;"..wotmudmapper.configs.zonecolor.."&gt;"..wotmudmapper.configs.zonecolor.."&lt;reset&gt;) to (&lt;"..color.."&gt;"..color.."&lt;reset&gt;).\n")
-  wotmudmapper.configs.zonecolor = matches[2]
+  wotmudmapper.configs.zonecolor = color
 else
   cecho("Error. Color not known.\n")
 end</script>
@@ -514,7 +514,7 @@ end</script>
 
 if color_table[color] then
   cecho("Map (zonecolor) changed from (&lt;"..wotmudmapper.configs.doorcolor.."&gt;"..wotmudmapper.configs.doorcolor.."&lt;reset&gt;) to (&lt;"..color.."&gt;"..color.."&lt;reset&gt;).\n")
-  wotmudmapper.configs.doorcolor = matches[2]
+  wotmudmapper.configs.doorcolor = color
 else
   cecho("Error. Color not known.\n")
 end</script>

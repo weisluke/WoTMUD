@@ -34,6 +34,7 @@ wotmudmapper.defaults = {
   envcolor=20,
   offline=false,
   roomID=1,
+  showzone = true,
   zonecolor = "turquoise",
   doorcolor = "blue",
   map_window={
@@ -1204,7 +1205,9 @@ end</script>
             cecho(v.." ")
         end
         cecho("]")
-        cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
+        if wotmudmapper.configs.showzone then
+          cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
+        end
         for k, v in pairs(exits) do
           if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
             cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))

@@ -17,7 +17,7 @@
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList />
 			<regexCodePropertyList />
-			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="yes" isColorTriggerBg="no">
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Catch Name</name>
 				<script>if
   (line == matches[1] or string.find(line, "&gt;")) and
@@ -242,12 +242,12 @@ else
   end
   --displaying the zone
   wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-  cecho("\n&lt;turquoise&gt;Zone: " .. wotmudmapper.zone)
+  cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
   --showing the doors that have been stored
   for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
     local dir = string.sub(v, 1, 1)
     if getRoomUserData(wotmudmapper.currentID[1], dir) ~= "" then
-      cecho("\n&lt;blue&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], dir))
+      cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], dir))
     end
   end
 end</script>
@@ -353,12 +353,12 @@ else
   end
   --displaying the zone
   wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-  cecho("\n&lt;turquoise&gt;Zone: " .. wotmudmapper.zone)
+  cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
   --showing the doors that have been stored
   for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
     local dir = string.sub(v, 1, 1)
     if getRoomUserData(wotmudmapper.currentID[1], dir) ~= "" then
-      cecho("\n&lt;blue&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], dir))
+      cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], dir))
     end
   end
 end</script>

@@ -242,7 +242,9 @@ else
   end
   --displaying the zone
   wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-  cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
+  if wotmudmapper.configs.showzone then
+    cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
+  end
   --showing the doors that have been stored
   for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
     local dir = string.sub(v, 1, 1)
@@ -353,7 +355,9 @@ else
   end
   --displaying the zone
   wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-  cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
+  if wotmudmapper.configs.showzone then
+    cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
+  end
   --showing the doors that have been stored
   for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
     local dir = string.sub(v, 1, 1)

@@ -862,7 +862,6 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Find Room</name>
 				<script>--syntax: findroom roomname zone zonename OR findroom roomname
---roomname is case sensitive
 
 local roomname, zonename
 if matches[5] then
@@ -874,7 +873,7 @@ local foundrooms = searchRoom(roomname, false, true)
 if not matches[5] then
   zonename = matches[4]
   for k, v in pairs(foundrooms) do
-    if getRoomUserData(k, "zone") ~= zonename then
+    if string.lower(getRoomUserData(k, "zone")) ~= string.lower(zonename) then
       foundrooms[k] = nil
     end
   end

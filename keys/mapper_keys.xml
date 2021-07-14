@@ -2,13 +2,13 @@
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
 	<KeyPackage>
-		<KeyGroup isActive="yes" isFolder="yes">
+		<KeyGroup isActive="no" isFolder="yes">
 			<name>Offline Map</name>
 			<packageName></packageName>
 			<script></script>
 			<command></command>
 			<keyCode>-1</keyCode>
-			<keyModifier>-1</keyModifier>
+			<keyModifier>0</keyModifier>
 			<Key isActive="yes" isFolder="no">
 				<name>North</name>
 				<packageName></packageName>

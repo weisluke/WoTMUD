@@ -675,7 +675,7 @@ communications.chat.config.blinkTime = 3
 --Blink if the bucket tab ("All" by default, but configured above) is in focus?
 communications.chat.config.blinkFromAll = false
 --Font size for the chat messages
-communications.chat.config.fontSize = 10
+communications.chat.config.fontSize = 12
 --[[
 Should we preserve the formatting of the text. 
 Or should we set the background of it to match the window color?
@@ -692,7 +692,7 @@ communications.chat.config.gag = false
 Number of lines of chat visible at once. 
 Will determine how tall the window for the chats is.
 ]]
-communications.chat.config.lines = 9
+communications.chat.config.lines = 10
 --[[
 Number of characters to wrap the chatlines at.
 This will also determine how wide the chat windows are.

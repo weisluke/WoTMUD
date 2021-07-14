@@ -16,7 +16,7 @@ Assuming everything worked properly, what you have just installed is a script th
    2. "brief" off. The mapper will work with brief mode on, just not as well (though still pretty dang well if I do say so myself, given the limitations of picking out rooms from only name and exit combinations). In a few steps, after installing the mapper, you can instead type "map brief" to have the mapper scripts manually gag the room descriptions so they don't show up on the screen, while still using them to determine your position.
 7. Type "wotpack install mapper" into the command line and hit enter.
    1. If things are successful, you should receive some messages along the lines of "(wotpack_installer): New mapper_scripts successfully installed."
-8. When that completes, type "map update". You should again recieve some messages about the map file downloading and installing. This may take a moment depending on your internet speed. Once that is done,
+8. When that completes, type "map update". You should again receive some messages about the map file downloading and installing. This may take a moment depending on your internet speed. Once that is done,
    1. Look at your room, and see if the map centers on your position. Then try moving around.
    2. You may see debugging messages next to room names, room exits, and direction inputs. You can type "map debug" to turn them off. If there are problems with the mapper, these messages can be useful in narrowing down what the issue is. 
 

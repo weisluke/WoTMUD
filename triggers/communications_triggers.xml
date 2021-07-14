@@ -225,17 +225,25 @@ communications.chat:append("Misc")
 
 local roomname = matches[3]
 local foundrooms = searchRoom(roomname, true, true)
-local roomID
-if table.size(foundrooms) == 1 then
+
+if table.is_empty(foundrooms) then
+    selectCaptureGroup(3)
+    setLink([[]], "No matches found!")
+elseif table.size(foundrooms) == 1 then
   for k, v in pairs(foundrooms) do
-    roomID = k
+    selectCaptureGroup(3)
+    setLink([[centerview(]] .. k .. [[)]], "Click to center map on room.")
   end
 else
-  roomID = ""
-end
-
-selectString(matches[3],1)
-setLink([[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end deselect()]], "Click to center map on room.")</script>
+  selectCaptureGroup(3)
+  
+  setLink(function() 
+    for k,v in pairs(foundrooms) do
+      echoLink("Room ID: " .. k .. ", zone: " .. getRoomUserData(k, "zone") .. "\n",[[centerview(]]..k..[[)]], "Click to center map on room.",true)
+    end 
+  end, "Click to display rooms with matching name.")
+  
+end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -253,8 +261,12 @@ setLink([[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end dese
 					<string>^A raven caws '(.+) at (.+)'$</string>
 					<string>&gt; Someone squeaks '(.+) at (.+)'$</string>
 					<string>^Someone squeaks '(.+) at (.+)'$</string>
+					<string>&gt; A red-eyed raven caws '(.+) at (.+)'$</string>
+					<string>^A red-eyed raven caws '(.+) at (.+)'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

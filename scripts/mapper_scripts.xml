@@ -1226,7 +1226,12 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Map Info</name>
 				<packageName></packageName>
-				<script>registerMapInfo("Door info", function(roomId, selectionSize, areaId, displayedArea)
+				<script>registerMapInfo("Zone info", function(roomId, selectionSize, areaId, displayedArea)
+  return "Zone: "..getRoomUserData(roomId,"zone")
+end)
+enableMapInfo("Zone info")
+
+registerMapInfo("Door info", function(roomId, selectionSize, areaId, displayedArea)
   output = ""
   for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
     local dir = string.sub(v, 1, 1)

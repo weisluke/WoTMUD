@@ -841,27 +841,18 @@ end</script>
 					<string>The corpse of (.+) has decayed into a pile of dust\.$</string>
 					<string>The Wheel of Time spins</string>
 					<string>The Wheel of Time turns toward</string>
-					<string>You feel less sure of yourself\.$</string>
 					<string>You feel parched from the hot weather\.$</string>
-					<string>You feel your extra strength fading\.$</string>
 					<string>You have been idle, and are pulled into a void\.$</string>
 					<string>You move slightly, settling your cloak into position\.$</string>
-					<string>You suddenly feel less protected\.$</string>
-					<string>Your ears seem to be all cleared up\.$</string>
 					<string>Your extra burst of stamina fades\.$</string>
-					<string>Your eyes feel less protected\.$</string>
 					<string>Your heartbeat calms down more as you feel less panicked\.$</string>
-					<string>Your white aura has faded\.$</string>
 					<string>Your heartbeat races very rapidly as your forehead throbs\.$</string>
 					<string>The sun fades out of sight behind the mountains\.$</string>
 					<string>The sun slides from behind the Aryth Ocean into the early morning sky\.$</string>
 					<string>The setting sun takes one last look at the world before dropping below the horizon\.$</string>
 					<string>The sun rises from behind the distant land of Shara\.$</string>
 					<string>Brilliant colors light the western sky as the sun sets\.$</string>
-					<string>You feel your limbs are now responding again\.$</string>
-					<string>You breathe easier again as the cold sweats have faded\.$</string>
 					<string>You feel sober again\.$</string>
-					<string>You feel the blindness fade\.$</string>
 					<string>A warm glow spreads across the sky as the sun rises in the east\.$</string>
 					<string>The sun hits the hay\.$</string>
 					<string>The dismembered corpse of (.+) has decayed into a pile of dust\.$</string>
@@ -876,15 +867,6 @@ end</script>
 					<string>A bright sun rises over the forest\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

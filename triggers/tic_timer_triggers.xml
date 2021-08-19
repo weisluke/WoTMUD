@@ -780,8 +780,18 @@ end</script>
 					<string>Weak light filters through the hazy sky as the sun rises\.$</string>
 					<string>The sun disappears beneath the western horizon\.$</string>
 					<string>The sun's blinding light is reflected in the lake's waters as it sets\.$</string>
+					<string>A fiery sky shows in the western horizon as the sun sets\.$</string>
+					<string>Malfeasor, the twin bladed scythe of blood ebony (.*)stops glowing\.\.\.$</string>
+					<string>Malfeasor, the twin bladed scythe of blood ebony (.*)begins to glow\.\.\.$</string>
+					<string>The ancient greatsword, Justice (.*)stops glowing\.\.\.$</string>
+					<string>The ancient greatsword, Justice (.*)begins to glow\.\.\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -831,54 +841,32 @@ end</script>
 					<string>The corpse of (.+) has decayed into a pile of dust\.$</string>
 					<string>The Wheel of Time spins</string>
 					<string>The Wheel of Time turns toward</string>
-					<string>You feel less sure of yourself\.$</string>
 					<string>You feel parched from the hot weather\.$</string>
-					<string>You feel your extra strength fading\.$</string>
 					<string>You have been idle, and are pulled into a void\.$</string>
 					<string>You move slightly, settling your cloak into position\.$</string>
-					<string>You suddenly feel less protected\.$</string>
-					<string>Your ears seem to be all cleared up\.$</string>
 					<string>Your extra burst of stamina fades\.$</string>
-					<string>Your eyes feel less protected\.$</string>
 					<string>Your heartbeat calms down more as you feel less panicked\.$</string>
-					<string>Your white aura has faded\.$</string>
 					<string>Your heartbeat races very rapidly as your forehead throbs\.$</string>
-					<string>The rain stops\.$</string>
-					<string>The well gurgles as it refills\.$</string>
 					<string>The sun fades out of sight behind the mountains\.$</string>
 					<string>The sun slides from behind the Aryth Ocean into the early morning sky\.$</string>
 					<string>The setting sun takes one last look at the world before dropping below the horizon\.$</string>
 					<string>The sun rises from behind the distant land of Shara\.$</string>
 					<string>Brilliant colors light the western sky as the sun sets\.$</string>
-					<string>You feel your limbs are now responding again\.$</string>
-					<string>The ancient greatsword, Justice (.+)stops glowing\.\.\.$</string>
-					<string>You breathe easier again as the cold sweats have faded\.$</string>
-					<string>The ancient greatsword, Justice (.+)begins to glow\.\.\.$</string>
 					<string>You feel sober again\.$</string>
-					<string>The clouds disappear\.$</string>
-					<string>The sky starts to get cloudy\.$</string>
-					<string>It starts to rain\.$</string>
-					<string>The lightning stops\.$</string>
-					<string>The snow stops\.$</string>
-					<string>You feel the blindness fade\.$</string>
-					<string>The snow lightens up a bit\.$</string>
-					<string>The snow is coming down more heavily now\.$</string>
-					<string>Lightning starts to show in the sky\.$</string>
 					<string>A warm glow spreads across the sky as the sun rises in the east\.$</string>
 					<string>The sun hits the hay\.$</string>
+					<string>The dismembered corpse of (.+) has decayed into a pile of dust\.$</string>
+					<string>Light fades to dark, and the air takes on a sharp chill as the sun sets below the horizon\.$</string>
+					<string>The sky turns the color liquid gold as the sun sets beyond the Mountains of Mist\.$</string>
+					<string>The Aryth Ocean glows green as the moonlight hits its surface\.$</string>
+					<string>The weak light cast upon the dismal grove dissipates as the sun sets\.$</string>
+					<string>The sun slowly sinks into the mountains to the west\.$</string>
+					<string>The Cliffs of Dawn color red as the sun rises over the exotic land of Shara\.$</string>
+					<string>Shadows race across the land as the sun sets west of the Cliffs of Dawn\.$</string>
+					<string>The sun sets, leaving a crisp coolness\.$</string>
+					<string>A bright sun rises over the forest\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

@@ -460,8 +460,12 @@ end</script>
 					<string>Your mount ought to be awake and standing first!$</string>
 					<string>You can't leave the Circle yet for (.+) since you were pkilled!$</string>
 					<string>You can't leave the Circle for (.+), since you were pkilled!$</string>
+					<string>(.+) blocks your path\.$</string>
+					<string>All you can do right now is think about the stars!$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

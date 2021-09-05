@@ -1200,6 +1200,11 @@ end</script>
         for k, v in pairs(getRoomExits(newid)) do
             table.insert(exits,string.sub(k,1,1))
         end
+        if getExitStubs(newid) then
+            for k, v in pairs(getExitStubs(newid)) do
+                table.insert(exits,string.sub(wotmudmapper.exitmap[v],1,1))
+            end  
+        end      
         exits = table.n_intersection({"n","e","s","w","u","d"},exits)
         for k,v in pairs(exits) do
             cecho(v.." ")

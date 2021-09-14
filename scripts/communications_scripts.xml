@@ -358,6 +358,22 @@ end
 registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "commsFinishedRepositioning")</script>
 				<eventHandlerList />
 			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>CommunicationsInstallerSuccess</name>
+				<packageName></packageName>
+				<script>function CommunicationsInstallerSuccess(_, name)
+  --if installed file is not the desired one
+  if name ~= "communications_scripts" then return end
+  communications:show_help()
+  communications:setConfigs()
+  if communications.configs.comms_window.visible then
+    communications:showComms(true)
+  end
+end</script>
+				<eventHandlerList>
+					<string>sysInstallPackage</string>
+				</eventHandlerList>
+			</Script>
 		</ScriptGroup>
 	</ScriptPackage>
 </MudletPackage>

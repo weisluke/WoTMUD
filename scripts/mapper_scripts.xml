@@ -182,6 +182,13 @@ end
   if wotmudmapper.configs.map_window.visible then
     wotmudmapper:showMap(true)
   end
+  
+  addMapMenu("Update room information")
+  addMapEvent("onMapUpdateRoomName", "updateRoomName", "Update room information", "Update room name") 
+  addMapEvent("onMapUpdateRoomDesc", "updateRoomDesc", "Update room information", "Update room description")
+  
+  registerAnonymousEventHandler("onMapUpdateRoomName", "onMapUpdateRoomName")
+  registerAnonymousEventHandler("onMapUpdateRoomDesc", "onMapUpdateRoomDesc")
 end</script>
 				<eventHandlerList>
 					<string>sysLoadEvent</string>
@@ -684,11 +691,7 @@ wotmudmapper.help.misc =
 			<Script isActive="yes" isFolder="no">
 				<name>Map Right Click to Update Room Information</name>
 				<packageName></packageName>
-				<script>addMapMenu("Update room information")
-addMapEvent("onMapUpdateRoomName", "onMapUpdateRoomName", "Update room information", "Update room name") 
-addMapEvent("onMapUpdateRoomDesc", "onMapUpdateRoomDesc", "Update room information", "Update room description") 
-
-function onMapUpdateRoomName(event)
+				<script>function onMapUpdateRoomName(event)
   local rooms = getMapSelection()["rooms"]
   if table.size(rooms)==0 then
     wotmudmapper:echo("No room selected.\n",false,true)
@@ -714,8 +717,7 @@ function onMapUpdateRoomDesc(event)
   updateMap()
 end
 
-registerAnonymousEventHandler("onMapUpdateRoomName", "onMapUpdateRoomName")
-registerAnonymousEventHandler("onMapUpdateRoomDesc", "onMapUpdateRoomDesc")</script>
+</script>
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">

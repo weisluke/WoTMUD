@@ -526,7 +526,7 @@ wotmudmapper.help.booleans =
             single character direction/look inputs (i.e. n/e/s/w/u/d/l), or through numpad numbers.
             Default: off (will reset to off, and disable offline movement aliases/keys, when mudlet
             is closed)
-        
+            
 ]]
 
 wotmudmapper.help.creation = 
@@ -547,7 +547,7 @@ wotmudmapper.help.creation =
             stored room name
         &lt;yellow&gt;updateroomdesc roomID&lt;reset&gt; - Update the description of the given room ID with the currently
             stored description
-    
+            
 ]]
 
 wotmudmapper.help.room_data = 
@@ -574,6 +574,7 @@ wotmudmapper.help.room_data =
         &lt;yellow&gt;viewcolors&lt;reset&gt; - View a list of possible colors that can be specified in the makelabel
             command. Opens the relevant mudlet wiki page with the colors.
         &lt;yellow&gt;setmarker symbol&lt;reset&gt; - Create a marker in your current room with the given symbol.
+        
 ]]
     
 wotmudmapper.help.doors = 
@@ -617,7 +618,7 @@ wotmudmapper.help.room_colors =
         The colors listed are just the basics that I've gone with. You could add your own by
         editing some parts of the script, though if you have suggestions on additions to put
         in, or alterations to make things more clear, I'd be more than happy to consider them.
-	    
+        
 ]]
 
 wotmudmapper.help.key_variables = 
@@ -635,6 +636,7 @@ wotmudmapper.help.key_variables =
             character is in, according to the script
         &lt;yellow&gt;wotmudmapper.zone&lt;reset&gt; - Contains the zone of the room your character is in,
             according to the script. This is pulled from roomdata for your currentID
+            
 ]]
 
 
@@ -657,7 +659,7 @@ wotmudmapper.help.map_window =
                 or float
         &lt;yellow&gt;map show&lt;reset&gt; - Displays or hides a map window in a fixed position. Toggle off and restart
             mudlet in order to make the map a dockable window via the mudlet toolbar map button
-
+            
 ]]
 
 wotmudmapper.help.misc = 
@@ -675,7 +677,7 @@ wotmudmapper.help.misc =
         &lt;yellow&gt;showqueue&lt;reset&gt; - Shows the list of currently stored movement commands
         &lt;yellow&gt;map save&lt;reset&gt; - Saves a copy of the map to disk
         &lt;yellow&gt;map configs reset&lt;reset&gt; - Reset the map configuration values.
-    
+        
 ]]</script>
 				<eventHandlerList />
 			</Script>

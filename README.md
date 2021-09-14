@@ -3,7 +3,7 @@ WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 
 1. Download and save "wotpack_installer.mpackage" somewhere easy to find on your computer.
 2. Open Mudlet, open Package Manager (from the top toolbar of icons), and click install.
-3. Navigate to the location you saved the .mpackage file, select it, and click open. It should now show up in the list of packages. Cick ok.
+3. Navigate to the location you saved the .mpackage file, select it, and click open. It should now show up in the list of packages. Click ok.
 4. You should see an automatic help message from the package installation on your screen.
    1. If not, try typing "wotpack install help" into the command line and hit enter.
    2. If no help message appears, something likely went wrong.
@@ -21,8 +21,7 @@ Assuming everything worked properly, what you have just installed is a script th
    2. You may see debugging messages next to room names, room exits, and direction inputs. You can type "map debug" to turn them off. If there are problems with the mapper, these messages can be useful in narrowing down what the issue is. 
 
 9. To get a communications window that stores says/chats/nars/etc, type "wotpack install communications". 
-10. I did NOT write this comms window, so will only be of minimal help if it misbehaves.
-11. You may need to restart mudlet again for the comms window to look nicer/take effect.
+   1. If it looks like it installs correctly, you can type "comms debug" as well
 
 12. You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the help message to install particular pieces, or everything. Most names should be self explanatory.
 

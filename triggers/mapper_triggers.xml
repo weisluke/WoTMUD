@@ -224,27 +224,39 @@ then
 else
   wotmudmapper.currentID = wotmudmapper:findRoom(currentRoomName, currentRoomDesc, currentRoomExits)
 end
+
 if table.is_empty(wotmudmapper.currentID) then
   wotmudmapper:echo("\nNo matches found.", false, true)
 elseif table.size(wotmudmapper.currentID) &gt; 1 then
   wotmudmapper:echo("\nMultiple matches found.", false, true)
 else
   centerview(wotmudmapper.currentID[1])
+  
   --note room exits that lead to unknown rooms (as they may be DTs)
+  local safe_rooms = {}
+  for k,v in pairs(getRoomExits(wotmudmapper.currentID[1])) do
+    table.insert(safe_rooms, string.sub(k,1,1))
+  end
+  local unsafe_rooms = table.n_complement(wotmudmapper.roomexits, safe_rooms)
   if getExitStubs(wotmudmapper.currentID[1]) then
     for k, v in pairs(getExitStubs(wotmudmapper.currentID[1])) do
+      table.insert(unsafe_rooms,wotmudmapper.exitmap[v])
+    end
+  end
+  for k,v in pairs(unsafe_rooms) do
       wotmudmapper:echo(
-        "\nCaution. Direction " .. wotmudmapper.exitmap[v] .. " leads to an unknown room.",
+        "\nCaution. Direction " .. v .. " leads to an unknown room.",
         false,
         true
       )
-    end
   end
+  
   --displaying the zone
   wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
   if wotmudmapper.configs.showzone then
     cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
   end
+  
   --showing the doors that have been stored
   for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
     local dir = string.sub(v, 1, 1)
@@ -277,6 +289,7 @@ end</script>
 				<script>if not wotmudmapper.dark then
   wotmudmapper.dark = true
 end
+wotmudmapper.roomexits={}
 local currentRoomName, currentRoomDesc, currentRoomExits
 local mapCommand, lastID
 --Specifying the type of movement. If not fleeing or following, then take from queue
@@ -334,7 +347,13 @@ elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
   --if looking at room, dont need to change ID
 elseif isLook(mapCommand) and table.size(lastID) == 1 then
 else
-	wotmudmapper.currentID = {}
+	wotmudmapper.currentID={}
+
+  for k, v in pairs(getRooms()) do
+    if getRoomUserData(k, "zone") == wotmudmapper.zone then
+      table.insert(wotmudmapper.currentID,k)
+    end
+  end
 end
 
 if table.is_empty(wotmudmapper.currentID) then
@@ -343,21 +362,32 @@ elseif table.size(wotmudmapper.currentID) &gt; 1 then
   wotmudmapper:echo("\nMultiple matches found.",false,true)
 else
   centerview(wotmudmapper.currentID[1])
+  
   --note room exits that lead to unknown rooms (as they may be DTs)
+  local safe_rooms = {}
+  for k,v in pairs(getRoomExits(wotmudmapper.currentID[1])) do
+    table.insert(safe_rooms, string.sub(k,1,1))
+  end
+  local unsafe_rooms = table.n_complement(wotmudmapper.roomexits, safe_rooms)
   if getExitStubs(wotmudmapper.currentID[1]) then
     for k, v in pairs(getExitStubs(wotmudmapper.currentID[1])) do
+      table.insert(unsafe_rooms,wotmudmapper.exitmap[v])
+    end
+  end
+  for k,v in pairs(unsafe_rooms) do
       wotmudmapper:echo(
-        "\nCaution. Direction " .. wotmudmapper.exitmap[v] .. " leads to an unknown room.",
+        "\nCaution. Direction " .. v .. " leads to an unknown room.",
         false,
         true
       )
-    end
   end
+  
   --displaying the zone
   wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
   if wotmudmapper.configs.showzone then
     cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
   end
+  
   --showing the doors that have been stored
   for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
     local dir = string.sub(v, 1, 1)
@@ -759,6 +789,52 @@ end</script>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>The Ways</name>
+				<script>if
+  (line == matches[1] or string.find(line, "&gt;")) and
+  not (
+    string.find(line, "speaks from the") or
+    string.find(line, "answers your prayer") or
+    string.find(line, "*" .. matches[1] .. "*")
+  )
+then
+  if
+    table.contains(
+      {
+        "At a Vine-Carved Door",
+        "Approaching a Vine-Carved Door",
+        "Twisting Through the Ways",
+        "An Island in Darkness",
+        "An Island in the Ways",
+      },
+      matches[1]
+    )
+  then
+    wotmudmapper.inways = true
+  else
+    wotmudmapper.inways = false
+  end
+else
+  wotmudmapper.roomname = ""
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#008080</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>FG14BG2</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>6</integer>
 				</regexCodePropertyList>
 			</Trigger>
 		</TriggerGroup>

@@ -39,12 +39,12 @@ wotmudmapper.defaults = {
   doorcolor = "blue",
   map_window={
     visible=true,
+    x="-37%",
+    y="0%",
     w="37%",
     h="73%",
-    position="topright",
     zoom=50,
-    docked=false,
-    dock="float"}
+    dock=false}
   }
 
 
@@ -167,9 +167,9 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>OnSysConnectionEvent</name>
+				<name>MapOnSysConnectionEvent</name>
 				<packageName></packageName>
-				<script>function OnSysConnectionEvent(event)
+				<script>function MapOnSysConnectionEvent(event)
   wotmudmapper.queue = List:new()
   wotmudmapper:setConfigs()
   wotmudmapper.currentID={wotmudmapper.configs.roomID}
@@ -184,14 +184,14 @@ end
   end
 end</script>
 				<eventHandlerList>
-					<string>sysConnectionEvent</string>
 					<string>sysLoadEvent</string>
+					<string>sysConnectionEvent</string>
 				</eventHandlerList>
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>OnSysDisconnectionEvent</name>
+				<name>MapOnSysDisconnectionEvent</name>
 				<packageName></packageName>
-				<script>function OnSysDisconnectionEvent()
+				<script>function MapOnSysDisconnectionEvent()
   wotmudmapper.configs = wotmudmapper.configs or {}
   wotmudmapper.configs.mapping = false
   wotmudmapper.configs.offline=false
@@ -234,28 +234,80 @@ end</script>
   local visible = bval
   self.configs.map_window.visible = visible
   local configs = self.configs.map_window
-  local w, h, position = configs.w, configs.h, configs.position
-  local x, y
-  if string.find(position, "top") then
-    y = "0%"
-  else
-    y = "-" .. h
-  end
-  if string.find(position, "left") then
-    x = "0%"
-  else
-    x = "-" .. w
-  end
-  mapper_container = mapper_container or Geyser.Container:new({x = 0, y = 0, width = "99%", height = "99%", name = "mapper_container"})
-  mapper = Geyser.Mapper:new({embedded= not configs.docked,dockPosition = configs.dock, name = "mapper", x = x, y = y, width = w, height = h},mapper_container)
+  local x, y, w, h = configs.x, configs.y, configs.w, configs.h
+  
+  wotmudmapper.container = wotmudmapper.container or Adjustable.Container:new(
+    {
+      name = "mapper_container",
+      adjLabelstyle = "background-color:rgba(220,220,220,100%); border: 5px groove grey;",
+      buttonstyle=[[
+      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
+      QLabel::hover{ background-color: rgba(160,160,160,50%);}
+      ]],
+      buttonFontSize = 10,
+      buttonsize = 20,
+      titleText = "WoTMUD Map",
+      titleTxtColor = "black",
+      padding = 15
+    }
+  )
+  wotmudmapper.container:move(x, y)
+  wotmudmapper.container:resize(w,h)
+  wotmudmapper.mapper = mapper or Geyser.Mapper:new({name = "mapper", x = "0%", y = "0%", width = "100%", height = "100%"}, wotmudmapper.container)
+  
   setMapZoom(configs.zoom)
+  
   if visible then
-    mapper:show()
-    mapper:setDockPosition(string.sub(configs.dock,1,1))
+    wotmudmapper.container:show()
   else
-    mapper:hide()
+    wotmudmapper.container:hide()
+  end
+  
+  x = tonumber(string.sub(x,1,-2))
+  y = tonumber(string.sub(y,1,-2))
+  w = tonumber(string.sub(w,1,-2))
+  h = tonumber(string.sub(h,1,-2))
+  
+  if x &lt; 0 then
+    x = x+100
+  end
+  if y &lt; 0 then
+    y = y + 100
+  end
+  if configs.dock then
+    if x + 0.5*w &gt; 50 then
+        wotmudmapper.container:attachToBorder("right")
+    else
+        wotmudmapper.container:attachToBorder("left")
+    end
+  else
+    wotmudmapper.container:attachToBorder("float")
   end
 end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Map Window Reposition</name>
+				<packageName></packageName>
+				<script>function mapFinishedRepositioning(eventName, containerName, width, height, x, y)
+  if containerName ~= "mapper_container" then
+    return
+  end
+  local mx, my = getMainWindowSize()
+  x = x/mx*100
+  y = y/my*100
+  width = width/mx*100
+  height = height/my*100
+  
+  wotmudmapper.configs.map_window.x = x.."%"
+  wotmudmapper.configs.map_window.y = y.."%"
+  wotmudmapper.configs.map_window.w = width.."%"
+  wotmudmapper.configs.map_window.h = height.."%"
+  
+  wotmudmapper:showMap(true)
+end
+
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "mapFinishedRepositioning")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -417,9 +469,8 @@ wotmudmapper.help =
     with or without "brief" mode turned on in the MUD, though it will be more accurate with
     brief mode off. You can choose to have the script hide room descriptions instead.
     
-    &lt;red&gt;KNOWN BUGS&lt;reset&gt;: Circle of Dark room name sometimes gets deleted when script is told to hide
-        room descriptions. Cause unknown, as I haven't been able to duplicate this error in
-        any other rooms.
+    This script defines the necessary function so that you can speedwalk by double clicking
+    on rooms.
     
     Below is a brief overview of commonly used commands that this script includes.
     Additional information for further areas is available as well, though every command may
@@ -444,8 +495,8 @@ wotmudmapper.help =
     &lt;cyan&gt;Information subfolders:&lt;reset&gt; These are sub-folders containing information for more commands
         &lt;link: booleans&gt;booleans&lt;/link&gt; - Map variables that can be toggled on/off
         &lt;link: creation&gt;creation&lt;/link&gt; - Commands used in creating new areas and rooms
-        &lt;link: doors&gt;doors&lt;/link&gt; - Commands used in creating and editing doors
         &lt;link: room_data&gt;room data&lt;/link&gt; - Commands used in viewing and changing room data
+        &lt;link: doors&gt;doors&lt;/link&gt; - Commands used in creating and editing doors
         &lt;link: room_colors&gt;room colors&lt;/link&gt; - Commands used in viewing and changing room colors
         &lt;link: key_variables&gt;key variables&lt;/link&gt; - Variables used by the script to keep track of important information
         &lt;link: map_window&gt;map window&lt;/link&gt; - Altering the size and position of the map display
@@ -462,6 +513,14 @@ wotmudmapper.help.booleans =
             new rooms. Default: on
         &lt;yellow&gt;map autojoin&lt;reset&gt; - Toggle whether map should auto-join exits to nearby rooms when mapping,
             or whether you must actually enter a room for a connection to be made. Default: off
+        &lt;yellow&gt;map brief&lt;reset&gt; - Toggle whether map script should hide or show the descriptions from
+            rooms. Default: show
+        &lt;yellow&gt;forceroom&lt;reset&gt; - Force the map to create a new room when a direction is input (as opposed to
+            potentially linking to a room that already exists). Useful when mapping in areas that
+            have multiple rooms with the same name (e.g. Blight)
+        &lt;yellow&gt;map debug&lt;reset&gt; - Toggles debug mode, in which extra messages are shown with the intent of
+            assisting in troubleshooting. Default: on
+        &lt;yellow&gt;map showzone&lt;reset&gt; - Toggle whether the map script should display or hide zone info
         &lt;yellow&gt;map offline&lt;reset&gt; - Toggle whether map should be turned into offline mode, enabling offline
             movement aliases and numpad key bindings that allow you to move around and look via
             single character direction/look inputs (i.e. n/e/s/w/u/d/l), or through numpad numbers.
@@ -476,9 +535,6 @@ wotmudmapper.help.creation =
         &lt;yellow&gt;createarea areaname&lt;reset&gt; - Create an area with the given name
         &lt;yellow&gt;createroom areaname&lt;reset&gt; - Create a new room at position (0,0,0) in the given area name, creating
             the area as well if the name does not already exist
-        &lt;yellow&gt;forceroom&lt;reset&gt; - Force the map to create a new room when a direction is input (as opposed to
-            potentially linking to a room that already exists). Useful when mapping in areas that
-            have multiple rooms with the same name (e.g. Blight)
         &lt;yellow&gt;movetoarea areaname&lt;reset&gt; - Move the current room to the given areaname, if it exists
         &lt;yellow&gt;arealist&lt;reset&gt; - Show a list of all areas currently known, along with their ID numbers
         &lt;yellow&gt;roomlist areaname&lt;reset&gt; - Show a list of all known rooms in a given area, along with their
@@ -491,35 +547,7 @@ wotmudmapper.help.creation =
             stored room name
         &lt;yellow&gt;updateroomdesc roomID&lt;reset&gt; - Update the description of the given room ID with the currently
             stored description
-        &lt;yellow&gt;shiftroom direction&lt;reset&gt; - Shift the current room one unit in the given direction
     
-]]
-    
-wotmudmapper.help.doors = 
-[[
-    &lt;cyan&gt;Doors:&lt;reset&gt; These commands are related to creating and using doors stored in the map
-        &lt;yellow&gt;create status door direction doorname&lt;reset&gt; - Create a door with the given status and name in the
-            given direction. Possible statuses are: visible, hidden, locked (appearing as green,
-            yellow, and red respectively on the map)
-            Example: create hidden door n oakdoor
-            Doors will be automatically created when seen or searched if "mapping" is turned on
-        &lt;yellow&gt;deletedoor direction&lt;reset&gt; - Delete the door in the given direction
-        
-        There exist aliases built in to the script to use the doors stored in the map with
-        various door commands and directional inputs. They are structured as: a one letter shortcut
-        for the door command + d + direction. Door commands include o(pen), c(lose), p(ick), l(ock),
-        and u(nlock).
-        Examples: cdn to close door north, pde to pick door east, lds to lock door south, etc.
-        
-        The script takes into account any movement commands that are waiting to be processed, and
-        uses them to capture the doornames from rooms that you may not currently be in.
-        Example: If I'm in Caemlyn Central Square, I can enter: n 4e 2n w s odd, and the script
-        will replace "odd" with "open wellstone down".
-        
-        If the door script appears to be working incorrectly, it may be because there are extra
-        commands mistakenly stored in the movement queue that did not get processed correctly.
-        Typing "resetqueue" to clear out extra commands should fix the issue.
-        
 ]]
 
 wotmudmapper.help.room_data = 
@@ -538,11 +566,41 @@ wotmudmapper.help.room_data =
             as you might wish
         &lt;yellow&gt;crz zonename&lt;reset&gt; - Change the zone of the current room to the given name
         &lt;yellow&gt;cmz zonename&lt;reset&gt; - Change the zone that will be assigned to newly created rooms
+        &lt;yellow&gt;shiftroom direction&lt;reset&gt; - Shift the current room one unit in the given direction
+        &lt;yellow&gt;map zonecolor color&lt;reset&gt; - Change the display color for room zones
         &lt;yellow&gt;makelabel color position text&lt;reset&gt; - Create a text label with the given color and text at
             the given position relative to your current room. Possible positions include: n,
-            s, e, nw, ne, sw, se.
+            e, s, ne, se, sw, nw.
         &lt;yellow&gt;viewcolors&lt;reset&gt; - View a list of possible colors that can be specified in the makelabel
             command. Opens the relevant mudlet wiki page with the colors.
+        &lt;yellow&gt;setmarker symbol&lt;reset&gt; - Create a marker in your current room with the given symbol.
+]]
+    
+wotmudmapper.help.doors = 
+[[
+    &lt;cyan&gt;Doors:&lt;reset&gt; These commands are related to creating and using doors stored in the map
+        &lt;yellow&gt;create status door direction doorname&lt;reset&gt; - Create a door with the given status and name in the
+            given direction. Possible statuses are: visible, hidden, locked (appearing as green,
+            yellow, and red respectively on the map)
+            Example: create hidden door n oakdoor
+            Doors will be automatically created when seen or searched if "mapping" is turned on
+        &lt;yellow&gt;deletedoor direction&lt;reset&gt; - Delete the door in the given direction
+        &lt;yellow&gt;map doorcolor color&lt;reset&gt; - Change the display color for room doors
+        
+        There exist aliases built in to the script to use the doors stored in the map with
+        various door commands and directional inputs. They are structured as: a one letter shortcut
+        for the door command + d + direction. Door commands include o(pen), c(lose), p(ick), l(ock),
+        u(nlock), and (k)nock.
+        Examples: cdn to close door north, pde to pick door east, lds to lock door south, etc.
+        
+        The script takes into account any movement commands that are waiting to be processed, and
+        uses them to capture the doornames from rooms that you may not currently be in.
+        Example: If I'm in Caemlyn Central Square, I can enter: n 4e 2n w s odd, and the script
+        will replace "odd" with "open wellstone down".
+        
+        If the door script appears to be working incorrectly, it may be because there are extra
+        commands mistakenly stored in the movement queue that did not get processed correctly.
+        Typing "resetqueue" to clear out extra commands should fix the issue.
         
 ]]
     
@@ -559,7 +617,7 @@ wotmudmapper.help.room_colors =
         The colors listed are just the basics that I've gone with. You could add your own by
         editing some parts of the script, though if you have suggestions on additions to put
         in, or alterations to make things more clear, I'd be more than happy to consider them.
-    
+	    
 ]]
 
 wotmudmapper.help.key_variables = 
@@ -585,32 +643,77 @@ wotmudmapper.help.map_window =
     &lt;cyan&gt;Map Window&lt;reset&gt;
         &lt;yellow&gt;map window setting value&lt;reset&gt; - This command changes the given setting to the given value,
             detailing how the map window should appear. Possible settings are:
+            &lt;yellow&gt;x&lt;reset&gt; - Specify the top left corner of the map window as a
+                percentage of the screen width. Default: -37
+            &lt;yellow&gt;y&lt;reset&gt; - Specify the top left corner of the map window as a
+                percentage of the screen height. Default: 0
             &lt;yellow&gt;w&lt;reset&gt; - Specify the width of the map window as a positive
                 percentage of the screen width. Default: 37
             &lt;yellow&gt;h&lt;reset&gt; - Specify the height of the map window as a positive
                 percentage of the screen height. Default: 73
-            &lt;yellow&gt;position&lt;reset&gt; - Specify the corner from which the window position is
-                measured. Options are: "topright", "topleft", "bottomright", or
-                "bottomleft". Default: topright
-            &lt;yellow&gt;zoom&lt;reset&gt; - Specify the zoom level of the map. Closer to 1 = more zoomed
+        &lt;yellow&gt;map zoom number&lt;reset&gt; - Specify the zoom level of the map. Closer to 1 = more zoomed
                 in. Default: 50
+        &lt;yellow&gt;map dock&lt;reset&gt; - Make the map either dock to the left or right half of the screen,
+                or float
+        &lt;yellow&gt;map show&lt;reset&gt; - Displays or hides a map window in a fixed position. Toggle off and restart
+            mudlet in order to make the map a dockable window via the mudlet toolbar map button
+
 ]]
 
 wotmudmapper.help.misc = 
 [[
     &lt;cyan&gt;Misc:&lt;reset&gt; Various other commands that may be useful
-        &lt;yellow&gt;centerview direction&lt;reset&gt; - Changes your currentID to that of a nearby room. Useful for
-            moving around the map without moving around in the MUD
-        &lt;yellow&gt;speedwalk&lt;reset&gt; - After double-clicking on a room, this command will send the
-            neccessary movements to go there from your current room (if such a path exists)
+        &lt;yellow&gt;resetqueue&lt;reset&gt; - Clears the list of movement commands maintained by the script. Useful
+            if map appears to not be following correctly, or if aliases to open doors appear
+            to not work properly
         &lt;yellow&gt;findroom roomname (zone zonename)&lt;reset&gt; - If a unique room with the provided name
             exists, the map is centered on that room. Otherwise, a list of all results is
-            given. Providing a WoTMUD zonename (as the map script prints them beneath the
-            exits) can be used to narrow down results
+            given. Providing a case sensitive WoTMUD zonename (as the map script prints them beneath
+            the exits or displays them on the map window) can be used to narrow down results
+        &lt;yellow&gt;map update&lt;reset&gt; - Downloads, saves, and loads the latest version of the WoTMUD_map.dat file
+            from https://github.com/weisluke/WoTMUD
         &lt;yellow&gt;showqueue&lt;reset&gt; - Shows the list of currently stored movement commands
         &lt;yellow&gt;map save&lt;reset&gt; - Saves a copy of the map to disk
+        &lt;yellow&gt;map configs reset&lt;reset&gt; - Reset the map configuration values.
     
 ]]</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Map Right Click to Update Room Information</name>
+				<packageName></packageName>
+				<script>addMapMenu("Update room information")
+addMapEvent("onMapUpdateRoomName", "onMapUpdateRoomName", "Update room information", "Update room name") 
+addMapEvent("onMapUpdateRoomDesc", "onMapUpdateRoomDesc", "Update room information", "Update room description") 
+
+function onMapUpdateRoomName(event)
+  local rooms = getMapSelection()["rooms"]
+  if table.size(rooms)==0 then
+    wotmudmapper:echo("No room selected.\n",false,true)
+  elseif table.size(rooms)~=1 then
+    wotmudmapper:echo("More than one room selected.\n",false,true)
+  else
+    wotmudmapper:echo("Room name for room ID ("..rooms[1]..") updated from ("..getRoomName(rooms[1])..") to ("..wotmudmapper.roomname..")\n")
+    setRoomName(rooms[1],wotmudmapper.roomname)
+  end
+  updateMap()
+end
+
+function onMapUpdateRoomDesc(event)
+  local rooms = getMapSelection()["rooms"]
+  if table.size(rooms)==0 then
+    wotmudmapper:echo("No room selected.\n",false,true)
+  elseif table.size(rooms)~=1 then
+    wotmudmapper:echo("More than one room selected.\n",false,true)
+  else
+    wotmudmapper:echo("Room description for room ID ("..rooms[1]..") updated.\n")
+    setRoomUserData(rooms[1], "description", wotmudmapper.roomdesc)
+  end
+  updateMap()
+end
+
+registerAnonymousEventHandler("onMapUpdateRoomName", "onMapUpdateRoomName")
+registerAnonymousEventHandler("onMapUpdateRoomDesc", "onMapUpdateRoomDesc")</script>
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">

@@ -1053,7 +1053,8 @@ wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
 				<name>Reset Configs</name>
 				<script>wotmudmapper.configs = table.deepcopy(wotmudmapper.defaults)
 wotmudmapper.configs.dbug = false
-wotmudmapper:echo("Map configurations reset to default values.\n")</script>
+wotmudmapper:echo("Map configurations reset to default values.\n")
+wotmudmapper:showMap(true)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map configs reset$</regex>

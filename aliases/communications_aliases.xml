@@ -12,7 +12,8 @@
 				<name>Reset Configs</name>
 				<script>communications.configs = table.deepcopy(communications.defaults)
 communications.configs.dbug = false
-communications:echo("Communications configurations reset to default values.\n")</script>
+communications:echo("Communications configurations reset to default values.\n")
+communications:showComms(true)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^comms configs reset$</regex>

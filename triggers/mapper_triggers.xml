@@ -240,7 +240,9 @@ else
   local unsafe_rooms = table.n_complement(wotmudmapper.roomexits, safe_rooms)
   if getExitStubs(wotmudmapper.currentID[1]) then
     for k, v in pairs(getExitStubs(wotmudmapper.currentID[1])) do
-      table.insert(unsafe_rooms,wotmudmapper.exitmap[v])
+      if not table.contains(unsafe_rooms,string.sub(wotmudmapper.exitmap[v],1,1)) then
+        table.insert(unsafe_rooms,string.sub(wotmudmapper.exitmap[v],1,1))
+      end
     end
   end
   for k,v in pairs(unsafe_rooms) do
@@ -371,7 +373,9 @@ else
   local unsafe_rooms = table.n_complement(wotmudmapper.roomexits, safe_rooms)
   if getExitStubs(wotmudmapper.currentID[1]) then
     for k, v in pairs(getExitStubs(wotmudmapper.currentID[1])) do
-      table.insert(unsafe_rooms,wotmudmapper.exitmap[v])
+      if not table.contains(unsafe_rooms,string.sub(wotmudmapper.exitmap[v],1,1)) then
+        table.insert(unsafe_rooms,string.sub(wotmudmapper.exitmap[v],1,1))
+      end
     end
   end
   for k,v in pairs(unsafe_rooms) do

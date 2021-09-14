@@ -10,7 +10,7 @@
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>Reset Configs</name>
-				<script>communications.configs = communications.defaults
+				<script>communications.configs = table.deepcopy(communications.defaults)
 communications.configs.dbug = false
 communications:echo("Communications configurations reset to default values.\n")</script>
 				<command></command>

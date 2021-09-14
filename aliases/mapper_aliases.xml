@@ -1051,7 +1051,7 @@ wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Reset Configs</name>
-				<script>wotmudmapper.configs = wotmudmapper.defaults
+				<script>wotmudmapper.configs = table.deepcopy(wotmudmapper.defaults)
 wotmudmapper.configs.dbug = false
 wotmudmapper:echo("Map configurations reset to default values.\n")</script>
 				<command></command>

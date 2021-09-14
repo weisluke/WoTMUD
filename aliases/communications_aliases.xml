@@ -8,89 +8,151 @@
 			<command></command>
 			<packageName></packageName>
 			<regex></regex>
-			<AliasGroup isActive="yes" isFolder="yes">
-				<name>Shared</name>
-				<script></script>
+			<Alias isActive="yes" isFolder="no">
+				<name>Reset Configs</name>
+				<script>communications.configs = communications.defaults
+communications.configs.dbug = false
+communications:echo("Communications configurations reset to default values.\n")</script>
 				<command></command>
 				<packageName></packageName>
-				<regex></regex>
-				<Alias isActive="yes" isFolder="no">
-					<name>Reset Chasing</name>
-					<script>communications.chaser:reset()</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^chaseres$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Debug</name>
-					<script>if matches[2] then
-  communications:listCategories()
+				<regex>^comms configs reset$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Communications Window Config Alias</name>
+				<script>local key = matches[2]
+local val = matches[3]
+if communications.configs.comms_window[key] ~= nil then
+  if key == "w" then
+    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+      communications:echo(
+        "Width must be a positive number (interpreted as a percentage of screen width).\n",
+        false,
+        true
+      )
+    else
+      val = val .. "%"
+      communications.configs.comms_window[key] = val
+      communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      communications:showComms(true)
+    end
+  elseif key == "h" then
+    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+      communications:echo(
+        "Height must be a positive number (interpreted as a percentage of screen height).\n",
+        false,
+        true
+      )
+    else
+      val = val .. "%"
+      communications.configs.comms_window[key] = val
+      communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      communications:showComms(true)
+    end
+  elseif key == "x" then
+    if not tonumber(val) then
+      communications:echo(
+        "X position must be a number (interpreted as a percentage of screen width).\n", false, true
+      )
+    else
+      val = val .. "%"
+      communications.configs.comms_window[key] = val
+      communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      communications:showComms(true)
+    end
+  elseif key == "y" then
+    if not tonumber(val) then
+      communications:echo(
+        "Y position must be a number (interpreted as a percentage of screen height).\n", false, true
+      )
+    else
+      val = val .. "%"
+      communications.configs.comms_window[key] = val
+      communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      communications:showComms(true)
+    end
+  elseif key == "fontsize" then
+    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+      communications:echo("Font size must be a positive number.\n", false, true)
+    else
+      communications.configs.comms_window[key] = tonumber(val)
+      communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      communications:showComms(true)
+    end
+  else
+    communications:echo("Key (" .. key .. ") unable to be changed through this alias.\n", false, true)
+  end
 else
-  communications:toggleDebug()
+  communications:echo("Communications window key (" .. key .. ") not known.\n", false, true)
 end</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^debug(?: (list))?$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Debug Categories</name>
-					<script>if matches[2] then
-  communications:watchCategory(matches[2])
-else
-  communications:listCategories()
-end</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^debugc(?: (.*))?$</regex>
-				</Alias>
-			</AliasGroup>
-			<AliasGroup isActive="yes" isFolder="yes">
-				<name>Tabbed Chat</name>
-				<script></script>
 				<command></command>
 				<packageName></packageName>
-				<regex></regex>
-				<Alias isActive="yes" isFolder="no">
-					<name>Toggle Blinking (Temporary Change)</name>
-					<script>if communications.chat.config.blink then
-  communications.chat.config.blink = false
-  communications.chat.tabsToBlink = {}
-  communications:echo(
-    "Blinking temporarily turned &lt;red&gt;off&lt;grey&gt;. It will reset if you edit your tabbed chat configuration, or close and reopen mudlet. To make it permanent, change communications.chat.config.blink to false in \"Communications-&gt;Tabbed Chat-&gt;Configuration options\" under scripts\n"
-  )
+				<regex>^comms window (\S+) (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show/Hide Comms</name>
+				<script>communications.configs.comms_window.visible = not communications.configs.comms_window.visible
+communications:echo("Communications will now be "..(communications.configs.comms_window.visible and "shown.\n" or "hidden.\n"))
+communications:showComms(communications.configs.comms_window.visible)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^comms show$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Dock/Undock Comms</name>
+				<script>communications.configs.comms_window.dock = not communications.configs.comms_window.dock
+communications:echo("Communications will now be "..(communications.configs.comms_window.dock and "docked.\n" or "floating.\n")) 
+communications:showComms(communications.configs.comms_window.visible)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^comms dock$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Comms Colors</name>
+				<script>local key = matches[2]
+local color = matches[3]
+if communications.configs.colors[string.lower(key)] ~= nil then
+  if color_table[color] then
+    communications:echo(
+      "Communications color for (" ..
+      string.lower(key) ..
+      ") changed from (&lt;" ..
+      communications.configs.colors[string.lower(key)] ..
+      "&gt;" ..
+      communications.configs.colors[string.lower(key)] ..
+      "&lt;reset&gt;) to (&lt;" ..
+      color ..
+      "&gt;" ..
+      color ..
+      "&lt;reset&gt;).\n"
+    )
+    communications.configs.colors[string.lower(key)] = color
+  else
+    communications:echo("Color not known.\n", false, true)
+  end
 else
-  communications.chat.config.blink = true
-  communications.chat:blink()
-  communications:echo(
-    "Blinking temporarily turned &lt;red&gt;on&lt;grey&gt;. It will reset if you edit your tabbed chat configuration, or close and reopen mudlet. To make it permanent, change communications.chat.config.blink to true in \"Communications-&gt;Tabbed Chat-&gt;Configuration options\" under scripts\n"
-  )
+  communications:echo("Communications window key (" .. string.lower(key) .. ") not known.\n", false, true)
 end</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^dblink$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Fix Chat</name>
-					<script>local currentsetting = communications.chat.config.location
-local newsetting = ""
-if currentsetting == "topright" then
-  newsetting = "bottomleft"
-elseif currentsetting == "topleft" then
-  newsetting = "bottomright"
-elseif currentsetting == "bottomleft" then
-  newsetting = "topright"
-elseif currentsetting == "bottomright" then
-  newsetting = "topleft"
-end
-communications.chat.config.location = newsetting
-communications.chat:create()
-communications.chat.config.location = currentsetting
-communications.chat:create()</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^fixchat$</regex>
-				</Alias>
-			</AliasGroup>
+				<command></command>
+				<packageName></packageName>
+				<regex>^comms color (\S+) (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Comms Help Alias</name>
+				<script>communications:show_help(matches[3])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^comms help( (.*))?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Debug</name>
+				<script>--syntax: comms debug
+
+communications.configs.dbug = not communications.configs.dbug
+communications:echo("Communications debug set to: " .. (communications.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^comms debug$</regex>
+			</Alias>
 		</AliasGroup>
 	</AliasPackage>
 </MudletPackage>

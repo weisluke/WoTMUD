@@ -15,6 +15,20 @@
 				<packageName></packageName>
 				<regex></regex>
 				<Alias isActive="yes" isFolder="no">
+					<name>Create a New Area</name>
+					<script>--syntax: createarea xxx
+
+local areaID = addAreaName(matches[2])
+if areaID then
+  wotmudmapper:echo("New area (" .. matches[2] .. ") created.\n")
+else
+  wotmudmapper:echo("Area (" .. matches[2] .. ") already exists.\n",false,true)
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^createarea (.+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
 					<name>Create a Room at Areaname</name>
 					<script>--syntax: createroom areaname
 
@@ -34,20 +48,6 @@ end</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^createroom (.+)$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Create a New Area</name>
-					<script>--syntax: createarea xxx
-
-local areaID = addAreaName(matches[2])
-if areaID then
-  wotmudmapper:echo("New area (" .. matches[2] .. ") created.\n")
-else
-  wotmudmapper:echo("Area (" .. matches[2] .. ") already exists.\n",false,true)
-end</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^createarea (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Move Room to Area</name>
@@ -73,6 +73,28 @@ end</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^movetoarea (.+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show Areas</name>
+					<script>--syntax: arealist
+
+wotmudmapper:showAreaList()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^arealist$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show Rooms in an Area</name>
+					<script>local areaid = getAreaTable()[matches[2]]
+
+if areaid then
+  wotmudmapper:showRoomList(areaid)
+else
+  wotmudmapper:echo("Area ("..matches[2]..") not known.\n",false,true)
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^roomlist (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Rename Area</name>
@@ -123,28 +145,6 @@ end</script>
 					<regex>^deletearea (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Show Areas</name>
-					<script>--syntax: arealist
-
-wotmudmapper:showAreaList()</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^arealist$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Show Rooms in an Area</name>
-					<script>local areaid = getAreaTable()[matches[2]]
-
-if areaid then
-  wotmudmapper:showRoomList(areaid)
-else
-  wotmudmapper:echo("Area ("..matches[2]..") not known.\n",false,true)
-end</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^roomlist (.+)$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
 					<name>Delete room</name>
 					<script>--syntax: deleteroom xxx
 
@@ -160,16 +160,6 @@ end</script>
 					<regex>^deleteroom (\d+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Update Room Description</name>
-					<script>--syntax: updatedescrip roomIDnumber
-
-setRoomUserData(matches[2], "description", wotmudmapper.roomdesc)
-wotmudmapper:echo("Room description updated.\n")</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^updateroomdesc (\d+)$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
 					<name>Update Room Name</name>
 					<script>--syntax: updatederoomname roomIDnumber
 
@@ -178,6 +168,16 @@ wotmudmapper:echo("Room name updated.\n")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^updateroomname (\d+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Update Room Description</name>
+					<script>--syntax: updatedescrip roomIDnumber
+
+setRoomUserData(matches[2], "description", wotmudmapper.roomdesc)
+wotmudmapper:echo("Room description updated.\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^updateroomdesc (\d+)$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -341,13 +341,20 @@ end</script>
 					<regex>^map zonecolor (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Display or hide zone name</name>
-					<script>wotmudmapper.configs.showzone = not wotmudmapper.configs.showzone
-
-wotmudmapper:echo("Mapper will now "..(wotmudmapper.configs.showzone and "show" or "hide").." zone names.\n")</script>
+					<name>Add Room Marker</name>
+					<script>--syntax: setmarker xxx
+--adds a one character marker to the room on the map. "setmarker " to clear the marker
+--(if it's hard to tell, that means type in setmarker followed by one space to clear the room marker)
+--ex: "setmarker #" will place a "#" symbol on the room in the map
+if table.size(wotmudmapper.currentID) == 1 then
+  setRoomChar(wotmudmapper.currentID[1], matches[2])
+  wotmudmapper:echo("Marker ("..matches[2]..") added to current room.\n")
+else
+  wotmudmapper:echo("Current room not known.\n",false,true)
+end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^map showzone$</regex>
+					<regex>^setmarker (.*)$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -736,15 +743,14 @@ end</script>
 				<packageName></packageName>
 				<regex></regex>
 				<Alias isActive="yes" isFolder="no">
-					<name>Autojoin</name>
-					<script>--syntax: map autojoin
---toggle whether rooms should autojoin to nearby rooms when mapping
+					<name>Mapping On/Off</name>
+					<script>--syntax: mapping
 
-wotmudmapper.configs.autojoin = not wotmudmapper.configs.autojoin
-wotmudmapper:echo("Autojoin set to: " .. (wotmudmapper.configs.autojoin and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
+wotmudmapper.configs.mapping = not wotmudmapper.configs.mapping
+wotmudmapper:echo("Mapping is: " .. (wotmudmapper.configs.mapping and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^map autojoin$</regex>
+					<regex>^mapping$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Bothways</name>
@@ -758,6 +764,17 @@ wotmudmapper:echo("Bothways set to: " .. (wotmudmapper.configs.bothways and "&lt
 					<regex>^map bothways$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
+					<name>Autojoin</name>
+					<script>--syntax: map autojoin
+--toggle whether rooms should autojoin to nearby rooms when mapping
+
+wotmudmapper.configs.autojoin = not wotmudmapper.configs.autojoin
+wotmudmapper:echo("Autojoin set to: " .. (wotmudmapper.configs.autojoin and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map autojoin$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
 					<name>Make Brief</name>
 					<script>--syntax: map brief
 
@@ -766,16 +783,6 @@ wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.mapbrief and "hide
 					<command></command>
 					<packageName></packageName>
 					<regex>^map brief$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Mapping On/Off</name>
-					<script>--syntax: mapping
-
-wotmudmapper.configs.mapping = not wotmudmapper.configs.mapping
-wotmudmapper:echo("Mapping is: " .. (wotmudmapper.configs.mapping and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^mapping$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Force New Room</name>
@@ -798,45 +805,77 @@ wotmudmapper:echo("Map debug set to: " .. (wotmudmapper.configs.dbug and "&lt;gr
 					<packageName></packageName>
 					<regex>^map debug$</regex>
 				</Alias>
-			</AliasGroup>
-			<Alias isActive="yes" isFolder="no">
-				<name>Centerview</name>
-				<script>--syntax: centerview direction
---centers the map on the room in the direction (if a valid room is in that direction)
-local direction = matches[2]
-if table.size(wotmudmapper.currentID) == 1 then
-  local exits = getRoomExits(wotmudmapper.currentID[1])
+				<Alias isActive="yes" isFolder="no">
+					<name>Display or hide zone name</name>
+					<script>wotmudmapper.configs.showzone = not wotmudmapper.configs.showzone
+
+wotmudmapper:echo("Mapper will now "..(wotmudmapper.configs.showzone and "show" or "hide").." zone names.\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map showzone$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Map Offline</name>
+					<script>--syntax: map offline
+--toggle whether you can move map in offline mode
+
+wotmudmapper.configs.offline = not wotmudmapper.configs.offline
+wotmudmapper:echo("Offline set to: " .. (wotmudmapper.configs.offline and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+
+if wotmudmapper.configs.offline then
+    enableKey("Offline Map")
+    enableAlias("Offline Map Dirs")
+    enableAlias("Offline Map Look")
+else
+    disableKey("Offline Map")
+    disableAlias("Offline Map Dirs")
+    disableAlias("Offline Map Look")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map offline$</regex>
+					<Alias isActive="no" isFolder="no">
+						<name>Offline Map Dirs</name>
+						<script>offlineMove(matches[2])</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^([neswud])$</regex>
+					</Alias>
+					<Alias isActive="no" isFolder="no">
+						<name>Offline Map Look</name>
+						<script>if table.size(wotmudmapper.currentID) == 1 then
+  local newid = wotmudmapper.currentID[1]
+  centerview(newid)
+  cecho("&lt;cyan&gt;"..getRoomName(newid).."\n")
+  cecho(getRoomUserData(newid,"description"))
+  cecho("\nExits: [ ")
+  local exits = {}
+  for k, v in pairs(getRoomExits(newid)) do
+      table.insert(exits,string.sub(k,1,1))
+  end
+  exits = table.n_intersection({"n","e","s","w","u","d"},exits)
+  for k,v in pairs(exits) do
+      cecho(v.." ")
+  end
+  cecho("]")
+  if wotmudmapper.configs.showzone then
+    cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
+  end
   for k, v in pairs(exits) do
-    ---search for every linked Room with the current room
-    if string.sub(k, 1, 1) == direction and roomExists(v) then
-      wotmudmapper.currentID = {v}
-      centerview(wotmudmapper.currentID[1])
-      break
+    if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
+      cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))
     end
   end
+  cecho("\n\n")  
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  cecho("Room not known!")
 end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^centerview ([neswud])$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Add Room Marker</name>
-				<script>--syntax: setmarker xxx
---adds a one character marker to the room on the map. "setmarker " to clear the marker
---(if it's hard to tell, that means type in setmarker followed by one space to clear the room marker)
---ex: "setmarker #" will place a "#" symbol on the room in the map
-if table.size(wotmudmapper.currentID) == 1 then
-  setRoomChar(wotmudmapper.currentID[1], matches[2])
-  wotmudmapper:echo("Marker ("..matches[2]..") added to current room.\n")
-else
-  wotmudmapper:echo("Current room not known.\n",false,true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^setmarker (.*)$</regex>
-			</Alias>
+						<command></command>
+						<packageName></packageName>
+						<regex>^l$</regex>
+					</Alias>
+				</Alias>
+			</AliasGroup>
 			<Alias isActive="yes" isFolder="no">
 				<name>Reset Queue</name>
 				<script>--syntax: resetqueue
@@ -847,17 +886,6 @@ wotmudmapper:echo("Queue reset. "..numcoms.." command(s) was/were removed.\n")</
 				<command></command>
 				<packageName></packageName>
 				<regex>^resetqueue$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Speedwalk</name>
-				<script>--syntax: speedwalk
-
-for k, v in pairs(speedWalkDir) do
-  send(v)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^speedwalk$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Find Room</name>
@@ -953,21 +981,23 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
       wotmudmapper:showMap(true)
     end
-  elseif key=="position" then
-    if table.contains({"topleft","topright","bottomleft","bottomright"},val) then
+  elseif key == "x" then
+    if not tonumber(val) then
+      wotmudmapper:echo("X position must be a number (interpreted as a percentage of screen width).\n",false,true)
+    else
+      val = val.."%"
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
       wotmudmapper:showMap(true)
-    else
-      wotmudmapper:echo("Position must be one of: topleft, topright, bottomleft, bottomright.\n",false,true)
     end
-  elseif key=="dock" then
-    if table.contains({"top","bottom","left","right","float"},val) then
+  elseif key == "y" then
+    if not tonumber(val) then
+      wotmudmapper:echo("Y position must be a number (interpreted as a percentage of screen height).\n",false,true)
+    else
+      val = val.."%"
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
       wotmudmapper:showMap(true)
-    else
-      wotmudmapper:echo("Dock must be one of: top, bottom, left, right, float.\n",false,true)
     end
   else
     wotmudmapper:echo("Key ("..key..") unable to be changed through this alias.\n",false,true)
@@ -977,16 +1007,7 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^map window (\S+) (\S+)?</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Show/Hide Map</name>
-				<script>wotmudmapper.configs.map_window.visible = not wotmudmapper.configs.map_window.visible
-wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
-wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^map show$</regex>
+				<regex>^map window (\S+) (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Map Zoom</name>
@@ -1004,6 +1025,24 @@ end</script>
 				<regex>^map zoom (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
+				<name>Dock/Undock Map</name>
+				<script>wotmudmapper.configs.map_window.dock = not wotmudmapper.configs.map_window.dock
+wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.dock and "docked.\n" or "floating.\n")) 
+wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map dock$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show/Hide Map</name>
+				<script>wotmudmapper.configs.map_window.visible = not wotmudmapper.configs.map_window.visible
+wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
+wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map show$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
 				<name>Map Help Alias</name>
 				<script>wotmudmapper:show_help(matches[3])</script>
 				<command></command>
@@ -1011,74 +1050,13 @@ end</script>
 				<regex>^map help( (.*))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
-				<name>Map Offline</name>
-				<script>--syntax: map offline
---toggle whether you can move map in offline mode
-
-wotmudmapper.configs.offline = not wotmudmapper.configs.offline
-wotmudmapper:echo("Offline set to: " .. (wotmudmapper.configs.offline and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
-
-if wotmudmapper.configs.offline then
-    enableKey("Offline Map")
-    enableAlias("Offline Map Dirs")
-    enableAlias("Offline Map Look")
-else
-    disableKey("Offline Map")
-    disableAlias("Offline Map Dirs")
-    disableAlias("Offline Map Look")
-end</script>
+				<name>Reset Configs</name>
+				<script>wotmudmapper.configs = wotmudmapper.defaults
+wotmudmapper.configs.dbug = false
+wotmudmapper:echo("Map configurations reset to default values.\n")</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^map offline$</regex>
-				<Alias isActive="no" isFolder="no">
-					<name>Offline Map Dirs</name>
-					<script>offlineMove(matches[2])</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^([neswud])$</regex>
-				</Alias>
-				<Alias isActive="no" isFolder="no">
-					<name>Offline Map Look</name>
-					<script>if table.size(wotmudmapper.currentID) == 1 then
-  local newid = wotmudmapper.currentID[1]
-  centerview(newid)
-  cecho("&lt;cyan&gt;"..getRoomName(newid).."\n")
-  cecho(getRoomUserData(newid,"description"))
-  cecho("\nExits: [ ")
-  local exits = {}
-  for k, v in pairs(getRoomExits(newid)) do
-      table.insert(exits,string.sub(k,1,1))
-  end
-  exits = table.n_intersection({"n","e","s","w","u","d"},exits)
-  for k,v in pairs(exits) do
-      cecho(v.." ")
-  end
-  cecho("]")
-  if wotmudmapper.configs.showzone then
-    cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
-  end
-  for k, v in pairs(exits) do
-    if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
-      cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))
-    end
-  end
-  cecho("\n\n")  
-else
-  cecho("Room not known!")
-end</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^l$</regex>
-				</Alias>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Dock/Undock Map</name>
-				<script>wotmudmapper.configs.map_window.docked = not wotmudmapper.configs.map_window.docked
-wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.docked and "docked.\n" or "stationary.\n")) 
-wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^map dock$</regex>
+				<regex>^map configs reset$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

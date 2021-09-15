@@ -184,8 +184,8 @@ end
   end
   
   addMapMenu("Update room information")
-  addMapEvent("onMapUpdateRoomName", "updateRoomName", "Update room information", "Update room name") 
-  addMapEvent("onMapUpdateRoomDesc", "updateRoomDesc", "Update room information", "Update room description")
+  addMapEvent("onMapUpdateRoomName", "onMapUpdateRoomName", "Update room information", "Update room name") 
+  addMapEvent("onMapUpdateRoomDesc", "onMapUpdateRoomDesc", "Update room information", "Update room description")
   
   registerAnonymousEventHandler("onMapUpdateRoomName", "onMapUpdateRoomName")
   registerAnonymousEventHandler("onMapUpdateRoomDesc", "onMapUpdateRoomDesc")

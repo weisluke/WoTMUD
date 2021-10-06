@@ -524,8 +524,10 @@ end</script>
 					<string>You can't leave the Circle for (.+), since you were pkilled!$</string>
 					<string>(.+) blocks your path\.$</string>
 					<string>All you can do right now is think about the stars!$</string>
+					<string>A massive blast of air buffets you, knocking you off balance\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

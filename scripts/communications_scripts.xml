@@ -197,10 +197,14 @@ end</script>
   end
   
   if configs.dock then
-    if x + 0.5 * w &gt; 50 then
-      communications.container:attachToBorder("right")
+    if y &lt; h then
+        communications.container:attachToBorder("top")
     else
-      communications.container:attachToBorder("left")
+      if x + 0.5 * w &gt; 50 then
+        communications.container:attachToBorder("right")
+      else
+        communications.container:attachToBorder("left")
+      end
     end
   else
     communications.container:attachToBorder("float")

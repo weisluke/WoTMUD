@@ -5,7 +5,7 @@ WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 2. Open Mudlet, open Package Manager (from the top toolbar of icons), and click install.
 3. Navigate to the location you saved the .mpackage file, select it, and click open. It should now show up in the list of packages. Click ok.
 4. You should see an automatic help message from the package installation on your screen.
-   1. If not, try typing "wotpack install help" into the command line and hit enter.
+   1. If not, try typing "wotpack help" into the command line and hit enter.
    2. If no help message appears, something likely went wrong.
 
 Assuming everything worked properly, what you have just installed is a script that will handle downloading and installing other triggers/aliases/scripts/timers/keys/buttons/maps from this repository via commands sent through the Mudlet command line.

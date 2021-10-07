@@ -4,10 +4,10 @@
 	<TriggerPackage>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Get LS/DS Numbers</name>
-			<script>player_numbers=player_numbers or {}
+			<script>player_numbers=player_numbers or {ls_count = "unknown", ds_count = "unknown"}
 
 cecho(
-  "\n  There is/are: " ..
+  "\n  There is(are): " ..
   player_numbers.ls_count ..
   " player(s) on LS and " ..
   player_numbers.ds_count ..

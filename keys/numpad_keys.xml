@@ -8,33 +8,11 @@
 			<script></script>
 			<command></command>
 			<keyCode>-1</keyCode>
-			<keyModifier>-1</keyModifier>
+			<keyModifier>0</keyModifier>
 			<Key isActive="yes" isFolder="no">
 				<name>North</name>
 				<packageName></packageName>
-				<script>-- --syntax: centerview direction
--- --centers the map on the room in the direction (if a valid room is in that direction)
--- local direction = "n"
--- if table.size(wotmudmapper.currentID) == 1 then
-  -- local exits = getRoomExits(wotmudmapper.currentID[1])
-  -- for k, v in pairs(exits) do
-    -- ---search for every linked Room with the current room
-    -- if string.sub(k, 1, 1) == direction and roomExists(v) then
-      -- wotmudmapper.currentID = {v}
-      -- centerview(wotmudmapper.currentID[1])
-      -- local zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-      -- if zone ~= "" then
-        -- cecho("\n&lt;cyan&gt;Zone: " .. zone)
-      -- elseif wotmudmapper.mapping then
-        -- cecho("\n&lt;red&gt;ERROR! No zone for room!&lt;white&gt; Zone set to: &lt;cyan&gt;" .. wotmudmapper.zone)
-        -- setRoomUserData(wotmudmapper.currentID[1], "zone", wotmudmapper.zone)
-      -- end
-      -- break
-    -- end
-  -- end
--- else
-  -- cecho("Room not known!")
--- end</script>
+				<script></script>
 				<command>n</command>
 				<keyCode>56</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -42,29 +20,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>East</name>
 				<packageName></packageName>
-				<script>-- --syntax: centerview direction
--- --centers the map on the room in the direction (if a valid room is in that direction)
--- local direction = "e"
--- if table.size(wotmudmapper.currentID) == 1 then
-  -- local exits = getRoomExits(wotmudmapper.currentID[1])
-  -- for k, v in pairs(exits) do
-    -- ---search for every linked Room with the current room
-    -- if string.sub(k, 1, 1) == direction and roomExists(v) then
-      -- wotmudmapper.currentID = {v}
-      -- centerview(wotmudmapper.currentID[1])
-      -- local zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-      -- if zone ~= "" then
-        -- cecho("\n&lt;cyan&gt;Zone: " .. zone)
-      -- elseif wotmudmapper.mapping then
-        -- cecho("\n&lt;red&gt;ERROR! No zone for room!&lt;white&gt; Zone set to: &lt;cyan&gt;" .. wotmudmapper.zone)
-        -- setRoomUserData(wotmudmapper.currentID[1], "zone", wotmudmapper.zone)
-      -- end
-      -- break
-    -- end
-  -- end
--- else
-  -- cecho("Room not known!")
--- end</script>
+				<script></script>
 				<command>e</command>
 				<keyCode>54</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -72,29 +28,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>South</name>
 				<packageName></packageName>
-				<script>-- --syntax: centerview direction
--- --centers the map on the room in the direction (if a valid room is in that direction)
--- local direction = "s"
--- if table.size(wotmudmapper.currentID) == 1 then
-  -- local exits = getRoomExits(wotmudmapper.currentID[1])
-  -- for k, v in pairs(exits) do
-    -- ---search for every linked Room with the current room
-    -- if string.sub(k, 1, 1) == direction and roomExists(v) then
-      -- wotmudmapper.currentID = {v}
-      -- centerview(wotmudmapper.currentID[1])
-      -- local zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-      -- if zone ~= "" then
-        -- cecho("\n&lt;cyan&gt;Zone: " .. zone)
-      -- elseif wotmudmapper.mapping then
-        -- cecho("\n&lt;red&gt;ERROR! No zone for room!&lt;white&gt; Zone set to: &lt;cyan&gt;" .. wotmudmapper.zone)
-        -- setRoomUserData(wotmudmapper.currentID[1], "zone", wotmudmapper.zone)
-      -- end
-      -- break
-    -- end
-  -- end
--- else
-  -- cecho("Room not known!")
--- end</script>
+				<script></script>
 				<command>s</command>
 				<keyCode>50</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -102,29 +36,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>West</name>
 				<packageName></packageName>
-				<script>-- --syntax: centerview direction
--- --centers the map on the room in the direction (if a valid room is in that direction)
--- local direction = "w"
--- if table.size(wotmudmapper.currentID) == 1 then
-  -- local exits = getRoomExits(wotmudmapper.currentID[1])
-  -- for k, v in pairs(exits) do
-    -- ---search for every linked Room with the current room
-    -- if string.sub(k, 1, 1) == direction and roomExists(v) then
-      -- wotmudmapper.currentID = {v}
-      -- centerview(wotmudmapper.currentID[1])
-      -- local zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-      -- if zone ~= "" then
-        -- cecho("\n&lt;cyan&gt;Zone: " .. zone)
-      -- elseif wotmudmapper.mapping then
-        -- cecho("\n&lt;red&gt;ERROR! No zone for room!&lt;white&gt; Zone set to: &lt;cyan&gt;" .. wotmudmapper.zone)
-        -- setRoomUserData(wotmudmapper.currentID[1], "zone", wotmudmapper.zone)
-      -- end
-      -- break
-    -- end
-  -- end
--- else
-  -- cecho("Room not known!")
--- end</script>
+				<script></script>
 				<command>w</command>
 				<keyCode>52</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -132,29 +44,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>Up</name>
 				<packageName></packageName>
-				<script>-- --syntax: centerview direction
--- --centers the map on the room in the direction (if a valid room is in that direction)
--- local direction = "u"
--- if table.size(wotmudmapper.currentID) == 1 then
-  -- local exits = getRoomExits(wotmudmapper.currentID[1])
-  -- for k, v in pairs(exits) do
-    -- ---search for every linked Room with the current room
-    -- if string.sub(k, 1, 1) == direction and roomExists(v) then
-      -- wotmudmapper.currentID = {v}
-      -- centerview(wotmudmapper.currentID[1])
-      -- local zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-      -- if zone ~= "" then
-        -- cecho("\n&lt;cyan&gt;Zone: " .. zone)
-      -- elseif wotmudmapper.mapping then
-        -- cecho("\n&lt;red&gt;ERROR! No zone for room!&lt;white&gt; Zone set to: &lt;cyan&gt;" .. wotmudmapper.zone)
-        -- setRoomUserData(wotmudmapper.currentID[1], "zone", wotmudmapper.zone)
-      -- end
-      -- break
-    -- end
-  -- end
--- else
-  -- cecho("Room not known!")
--- end</script>
+				<script></script>
 				<command>u</command>
 				<keyCode>57</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -162,29 +52,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>Down</name>
 				<packageName></packageName>
-				<script>-- --syntax: centerview direction
--- --centers the map on the room in the direction (if a valid room is in that direction)
--- local direction = "d"
--- if table.size(wotmudmapper.currentID) == 1 then
-  -- local exits = getRoomExits(wotmudmapper.currentID[1])
-  -- for k, v in pairs(exits) do
-    -- ---search for every linked Room with the current room
-    -- if string.sub(k, 1, 1) == direction and roomExists(v) then
-      -- wotmudmapper.currentID = {v}
-      -- centerview(wotmudmapper.currentID[1])
-      -- local zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-      -- if zone ~= "" then
-        -- cecho("\n&lt;cyan&gt;Zone: " .. zone)
-      -- elseif wotmudmapper.mapping then
-        -- cecho("\n&lt;red&gt;ERROR! No zone for room!&lt;white&gt; Zone set to: &lt;cyan&gt;" .. wotmudmapper.zone)
-        -- setRoomUserData(wotmudmapper.currentID[1], "zone", wotmudmapper.zone)
-      -- end
-      -- break
-    -- end
-  -- end
--- else
-  -- cecho("Room not known!")
--- end</script>
+				<script></script>
 				<command>d</command>
 				<keyCode>51</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -200,7 +68,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>Ride Horse</name>
 				<packageName></packageName>
-				<script>local horse = horse.primary
+				<script>local horse = horse.first
 
 if horse~=nil then
 	send("ride "..horse)
@@ -254,7 +122,7 @@ end</script>
 			<Key isActive="yes" isFolder="no">
 				<name>Attack Target</name>
 				<packageName></packageName>
-				<script>local target=targetting.primary
+				<script>local target=targeting.first
 
 if target~=nil then
 	send("k "..target)
@@ -263,6 +131,20 @@ else
 end</script>
 				<command></command>
 				<keyCode>53</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Attack Hidden Target</name>
+				<packageName></packageName>
+				<script>local target=targeting.first
+
+if target~=nil then
+	send("k h."..target)
+else
+	cecho("\n&lt;red&gt;Target not set!\n")
+end</script>
+				<command></command>
+				<keyCode>16777227</keyCode>
 				<keyModifier>536870912</keyModifier>
 			</Key>
 			<Key isActive="yes" isFolder="no">

@@ -139,7 +139,7 @@ end</script>
 				<name>updateFleeLagOnTic</name>
 				<packageName></packageName>
 				<script>function updateFleeLagOnTic()
-  local fleelagloss = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4}
+  local fleelagloss = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3}
 	statusbar = statusbar or {}
   char = char or {}
   char.fleelag = char.fleelag or 1

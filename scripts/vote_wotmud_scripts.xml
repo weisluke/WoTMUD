@@ -6,16 +6,25 @@
 			<name>voteWoTMUD</name>
 			<packageName></packageName>
 			<script>function voteWoTMUD()
-	local last_vote={}
+  local last_vote = {}
   if io.exists(getMudletHomeDir() .. "/last_vote.lua") then
     table.load(getMudletHomeDir() .. "/last_vote.lua", last_vote)
   else
-    last_vote.time=getEpoch()
+    last_vote.time = getEpoch()
     table.save(getMudletHomeDir() .. "/last_vote.lua", last_vote)
   end
-	if getEpoch()-last_vote.time&gt;86400 then
-		cechoLink("&lt;red&gt;It has been over 24 hours since you voted!\nClick here or type \"vote WoTMUD\" to vote now.\n", [[expandAlias("vote WoTMUD",false)]],"Click here to vote now.", true)
-	end
+  if getEpoch() - last_vote.time &gt; 86400 then
+    cechoLink(
+      "&lt;red&gt;It has been over 24 hours since you voted!\nClick here or type \"vote WoTMUD\" to vote now.\n",
+      function()
+        local last_vote = {time = getEpoch()}
+        table.save(getMudletHomeDir() .. "/last_vote.lua", last_vote)
+        openUrl("http://www.topmudsites.com/vote-wotmud.html")
+      end,
+      "Click here to vote now.",
+      true
+    )
+  end
 end</script>
 			<eventHandlerList>
 				<string>sysConnectionEvent</string>

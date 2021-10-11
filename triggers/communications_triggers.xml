@@ -228,18 +228,18 @@ local foundrooms = searchRoom(roomname, true, true)
 
 if table.is_empty(foundrooms) then
     selectCaptureGroup(3)
-    setLink([[]], "No matches found!")
+    setLink(function() end, "No matches found!")
 elseif table.size(foundrooms) == 1 then
   for k, v in pairs(foundrooms) do
     selectCaptureGroup(3)
-    setLink([[centerview(]] .. k .. [[)]], "Click to center map on room.")
+    setLink(function() centerview(k) end, "Click to center map on room.")
   end
 else
   selectCaptureGroup(3)
   
   setLink(function() 
-    for k,v in pairs(foundrooms) do
-      echoLink("Room ID: " .. k .. ", zone: " .. getRoomUserData(k, "zone") .. "\n",[[centerview(]]..k..[[)]], "Click to center map on room.",true)
+    for k,v in spairs(foundrooms) do
+      echoLink("Room ID: " .. k .. ", zone: " .. getRoomUserData(k, "zone") .. "\n", function() centerview(k) end, "Click to center map on room.",true)
     end 
   end, "Click to display rooms with matching name.")
   

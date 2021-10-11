@@ -21,7 +21,7 @@
 				<name>Catch Name</name>
 				<script>--check that the line is not an immortal speaking (the only other possibility for a whole line being cyan)
 if
-  (line == matches[1] or string.find(line, "&gt; "..matches[1])) and
+  (line == matches[1] or string.find(line, " &gt; "..matches[1], 1, true)) and
   not (
     string.find(line, "speaks from the") or
     string.find(line, "answers your prayer")

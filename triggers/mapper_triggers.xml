@@ -19,12 +19,12 @@
 			<regexCodePropertyList />
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Catch Name</name>
-				<script>if
-  (line == matches[1] or string.find(line, "&gt;")) and
+				<script>--check that the line is not an immortal speaking (the only other possibility for a whole line being cyan)
+if
+  (line == matches[1] or string.find(line, "&gt; "..matches[1])) and
   not (
     string.find(line, "speaks from the") or
-    string.find(line, "answers your prayer") or
-    string.find(line, "*" .. matches[1] .. "*")
+    string.find(line, "answers your prayer")
   )
 then
   wotmudmapper.roomname = matches[1]
@@ -34,8 +34,24 @@ then
     wotmudmapper.dark = false
   end
   wotmudmapper:echo("\nRoom name (" .. wotmudmapper.roomname .. ") captured.", true)
-else
-  wotmudmapper.roomname = ""
+  
+  if
+    table.contains(
+      {
+        "At a Vine-Carved Door",
+        "Approaching a Vine-Carved Door",
+        "Twisting Through the Ways",
+        "An Island in Darkness",
+        "An Island in the Ways",
+      },
+      wotmudmapper.roomname
+    )
+  then
+    wotmudmapper.inways = true
+  else
+    wotmudmapper.inways = false
+  end
+  enableTrigger("Map Description")
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -53,28 +69,22 @@ end</script>
 				<regexCodePropertyList>
 					<integer>6</integer>
 				</regexCodePropertyList>
-				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Map Description</name>
-					<script>--if current MUD line contains roomname, let trigger chain fire another line
-
-if matches[2] == wotmudmapper.roomname then
-	setTriggerStayOpen("Catch Name", 1)
-elseif wotmudmapper.roomname ~= "" then
-	--if not exit line, add line to room desc, let trigger chain fire another line
-  if not string.find(line, "obvious exits:") then
-		if wotmudmapper.brief then
-      wotmudmapper.brief = false
-    end
-    if wotmudmapper.roomdesc == "" then
-      wotmudmapper.roomdesc = wotmudmapper.roomdesc .. line
-    else
-      wotmudmapper.roomdesc = wotmudmapper.roomdesc .. "\n" .. line
-    end
-		if wotmudmapper.configs.mapbrief and not isLook(wotmudmapper.queue:checkleftvalue()) then
-			deleteLine()
-    end
-		setTriggerStayOpen("Catch Name", 1)
+					<script>--if line is not the roomname and not the exit line, add to room description
+if matches[2] ~= wotmudmapper.roomname and not string.find(line, "obvious exits:") then
+	if wotmudmapper.brief then
+    wotmudmapper.brief = false
   end
+  if wotmudmapper.roomdesc == "" then
+    wotmudmapper.roomdesc = line
+  else
+    wotmudmapper.roomdesc = wotmudmapper.roomdesc .. "\n" .. line
+  end
+	if wotmudmapper.configs.mapbrief and not isLook(wotmudmapper.queue:checkleftvalue()) then
+		deleteLine()
+  end
+	setTriggerStayOpen("Catch Name", 1)
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -94,20 +104,17 @@ end</script>
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Get Exits</name>
-						<script>--puts current exits in a table of the form {"n","e","s","w","u","d"}
+						<script>disableTrigger("Map Description")
+
+--puts current exits in a table of the form {"n","e","s","w","u","d"}
 wotmudmapper.roomexits = string.lower(matches[2])
 wotmudmapper:echo("\nRoom exits (" .. wotmudmapper.roomexits .. ") captured.\n", true)
-wotmudmapper.roomexits = string.split(wotmudmapper.roomexits, " ")
+wotmudmapper.roomexits = string.split(wotmudmapper.roomexits)
 while table.index_of(wotmudmapper.roomexits, "") do
   table.remove(wotmudmapper.roomexits, table.index_of(wotmudmapper.roomexits, ""))
 end
---loading the current room roomname that was stored from "catch name" trigger
-local currentRoomName = wotmudmapper.roomname
---loading the current room roomdesc that was stored from "map description" trigger
-local currentRoomDesc = wotmudmapper.roomdesc
---loading the current room exits that were stored from "get exits" trigger
-local currentRoomExits = wotmudmapper.roomexits
-local mapCommand, x, y, z, areaID, lastID, tempID
+
+local mapCommand, x, y, z, lastID, tempID
 --Specifying the type of movement. If not fleeing or following, then take from queue
 if not wotmudmapper.flee and not wotmudmapper.following then
   mapCommand = wotmudmapper.queue:popleft()
@@ -140,14 +147,13 @@ local newID = {}
 if isMovement(mapCommand) and (not table.is_empty(lastID)) then
   --if mapping and you were in a unique room
   if wotmudmapper.configs.mapping and table.size(lastID) == 1 then
-    tempID = wotmudmapper:findRoom(currentRoomName, currentRoomDesc, currentRoomExits)
+    tempID = wotmudmapper:findRoom(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
     --if not in an already mapped room or if forcing a room
     if table.is_empty(tempID) or wotmudmapper.configs.forceroom then
       x, y, z = getRoomCoordinates(lastID[1])
       x, y, z = wotmudmapper:setCoordinatesOffset(x, y, z, mapCommand)
-      areaID = getRoomArea(lastID[1])
-      wotmudmapper.currentID = wotmudmapper:createRoom(x, y, z, areaID)
-      wotmudmapper:linkRooms(lastID[1], wotmudmapper.currentID[1], mapCommand, currentRoomExits)
+      wotmudmapper.currentID = wotmudmapper:createRoom(x, y, z, getRoomArea(lastID[1]))
+      wotmudmapper:linkRooms(lastID[1], wotmudmapper.currentID[1], mapCommand, wotmudmapper.roomexits)
       if wotmudmapper.configs.autojoin then
         wotmudmapper:autoJoinRooms(wotmudmapper.currentID[1])
       end
@@ -155,20 +161,20 @@ if isMovement(mapCommand) and (not table.is_empty(lastID)) then
       --if in a known room, link with previous room
     elseif table.size(tempID) == 1 and tempID[1] ~= lastID[1] then
       wotmudmapper.currentID = tempID
-      wotmudmapper:linkRooms(lastID[1], wotmudmapper.currentID[1], mapCommand, currentRoomExits)
+      wotmudmapper:linkRooms(lastID[1], wotmudmapper.currentID[1], mapCommand, wotmudmapper.roomexits)
       --else, you're just moving around in mapping mode
     else
       newID =
         wotmudmapper:isNearRoom(
-          mapCommand, currentRoomName, currentRoomDesc, getRoomExits(lastID[1])
+          mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(lastID[1])
         )
       if table.is_empty(newID) then
         newID = tempID
       elseif
         table.size(newID) &gt; 1 and
-        (not table.is_empty(wotmudmapper:findMatchingExits(newID, currentRoomExits)))
+        (not table.is_empty(wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)))
       then
-        newID = wotmudmapper:findMatchingExits(newID, currentRoomExits)
+        newID = wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)
       end
       wotmudmapper.currentID = newID
     end
@@ -176,18 +182,18 @@ if isMovement(mapCommand) and (not table.is_empty(lastID)) then
   else
     for k, v in pairs(lastID) do
       local rooms =
-        wotmudmapper:isNearRoom(mapCommand, currentRoomName, currentRoomDesc, getRoomExits(v))
+        wotmudmapper:isNearRoom(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))
       if not table.contains(newID, rooms[1]) then
         table.insert(newID, rooms[1])
       end
     end
     if table.is_empty(newID) then
-      newID = wotmudmapper:findRoom(currentRoomName, currentRoomDesc, currentRoomExits)
+      newID = wotmudmapper:findRoom(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
     elseif
       table.size(newID) &gt; 1 and
-      (not table.is_empty(wotmudmapper:findMatchingExits(newID, currentRoomExits)))
+      (not table.is_empty(wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)))
     then
-      newID = wotmudmapper:findMatchingExits(newID, currentRoomExits)
+      newID = wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)
     end
     wotmudmapper.currentID = newID
   end
@@ -196,7 +202,7 @@ elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
   for k, v in pairs(lastID) do
     local rooms =
       wotmudmapper:findRoomAfterFlee(
-        currentRoomName, currentRoomDesc, currentRoomExits, getRoomExits(v)
+        wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits, getRoomExits(v)
       )
     for kk, vv in pairs(rooms) do
       if not table.contains(newID, vv) then
@@ -205,24 +211,22 @@ elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
     end
   end
   if table.is_empty(newID) then
-    newID = wotmudmapper:findRoom(currentRoomName, currentRoomDesc, currentRoomExits)
+    newID = wotmudmapper:findRoom(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
   elseif
     table.size(newID) &gt; 1 and
-    (not table.is_empty(wotmudmapper:findMatchingExits(newID, currentRoomExits)))
+    (not table.is_empty(wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)))
   then
-    newID = wotmudmapper:findMatchingExits(newID, currentRoomExits)
+    newID = wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)
   end
   wotmudmapper.currentID = newID
-  --if looking at room and data is same, dont need to change ID
+  --if not looking at room and data is same, search for room
 elseif
-  isLook(mapCommand) and
+  not (isLook(mapCommand) and
   table.size(lastID) == 1 and
-  currentRoomName == getRoomName(lastID[1]) and
-  currentRoomDesc == getRoomUserData(lastID[1], "description")
+  wotmudmapper.roomname == getRoomName(lastID[1]) and
+  wotmudmapper.roomdesc == getRoomUserData(lastID[1], "description"))
 then
-  --else,mapper has to search the room it is in
-else
-  wotmudmapper.currentID = wotmudmapper:findRoom(currentRoomName, currentRoomDesc, currentRoomExits)
+  wotmudmapper.currentID = wotmudmapper:findRoom(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
 end
 
 if table.is_empty(wotmudmapper.currentID) then
@@ -256,7 +260,15 @@ else
   --displaying the zone
   wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
   if wotmudmapper.configs.showzone then
-    cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
+    cechoLink("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone,
+    function()
+      if wotmudmapper.zone ~= "" then
+        if wotmudmapper.zone_urls[wotmudmapper.zone] ~= "" then
+          openUrl("https://wotmud.fandom.com/wiki/"..wotmudmapper.zone_urls[wotmudmapper.zone])
+        end
+      end
+    end,
+    "Click to open the WoTMUD wiki page for this zone", true)
   end
   
   --showing the doors that have been stored
@@ -291,8 +303,10 @@ end</script>
 				<script>if not wotmudmapper.dark then
   wotmudmapper.dark = true
 end
-wotmudmapper.roomexits={}
-local currentRoomName, currentRoomDesc, currentRoomExits
+wotmudmapper.roomname = ""
+wotmudmapper.roomdesc = ""
+wotmudmapper.roomexits = {}
+
 local mapCommand, lastID
 --Specifying the type of movement. If not fleeing or following, then take from queue
 if not wotmudmapper.flee and not wotmudmapper.following then
@@ -321,15 +335,12 @@ end
 --finished specifying if movement was regular or a flee
 --loading the previous roomID.
 lastID = wotmudmapper.currentID
-currentRoomName = ""
-currentRoomDesc = ""
-currentRoomExits = {}
 local newID = {}
 --if mapCommand is a direction and you were in a valid room
 if isMovement(mapCommand) and (not table.is_empty(lastID)) then
   for k, v in pairs(lastID) do
     local rooms =
-      wotmudmapper:isNearRoom(mapCommand, currentRoomName, currentRoomDesc, getRoomExits(v))
+      wotmudmapper:isNearRoom(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))
     if not table.contains(newID, rooms[1]) then
       table.insert(newID, rooms[1])
     end
@@ -346,15 +357,12 @@ elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
     end
   end
   wotmudmapper.currentID = newID
-  --if looking at room, dont need to change ID
-elseif isLook(mapCommand) and table.size(lastID) == 1 then
-else
+  --if not looking at room, search for room from all rooms in the map
+elseif not (isLook(mapCommand) and table.size(lastID) == 1) then
 	wotmudmapper.currentID={}
 
   for k, v in pairs(getRooms()) do
-    if getRoomUserData(k, "zone") == wotmudmapper.zone then
-      table.insert(wotmudmapper.currentID,k)
-    end
+    table.insert(wotmudmapper.currentID, k)
   end
 end
 
@@ -389,7 +397,15 @@ else
   --displaying the zone
   wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
   if wotmudmapper.configs.showzone then
-    cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone)
+    cechoLink("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone,
+    function()
+      if wotmudmapper.zone ~= "" then
+        if wotmudmapper.zone_urls[wotmudmapper.zone] ~= "" then
+          openUrl("https://wotmud.fandom.com/wiki/"..wotmudmapper.zone_urls[wotmudmapper.zone])
+        end
+      end
+    end,
+    "Click to open the WoTMUD wiki page for this zone", true)
   end
   
   --showing the doors that have been stored
@@ -427,7 +443,7 @@ end</script>
 
 for k, v in pairs(getRooms()) do
   if getRoomUserData(k, "zone") == wotmudmapper.zone then
-    table.insert(wotmudmapper.currentID,k)
+    table.insert(wotmudmapper.currentID, k)
   end
 end</script>
 				<triggerType>0</triggerType>
@@ -797,35 +813,35 @@ end</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>The Ways</name>
-				<script>if
-  (line == matches[1] or string.find(line, "&gt;")) and
-  not (
-    string.find(line, "speaks from the") or
-    string.find(line, "answers your prayer") or
-    string.find(line, "*" .. matches[1] .. "*")
-  )
-then
-  if
-    table.contains(
-      {
-        "At a Vine-Carved Door",
-        "Approaching a Vine-Carved Door",
-        "Twisting Through the Ways",
-        "An Island in Darkness",
-        "An Island in the Ways",
-      },
-      matches[1]
-    )
-  then
-    wotmudmapper.inways = true
-  else
-    wotmudmapper.inways = false
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>"Where" clickable centerroom</name>
+				<script>local roomname = matches[2]
+local foundrooms = searchRoom(roomname, true, true)
+local roomID
+
+for k, v in pairs(foundrooms) do
+  if getRoomUserData(k, "zone") ~= wotmudmapper.zone then
+    foundrooms[k] = nil
+  end
+end
+
+if table.is_empty(foundrooms) then
+    selectCaptureGroup(2)
+    setLink(function() end, "No matches found!")
+elseif table.size(foundrooms) == 1 then
+  for k, v in pairs(foundrooms) do
+    selectCaptureGroup(2)
+    setLink(function() centerview(k) end, "Click to center map on room.")
   end
 else
-  wotmudmapper.roomname = ""
-end</script>
+  selectCaptureGroup(2)
+  setLink(function() 
+    for k,v in spairs(foundrooms) do
+      echoLink("Room ID: " .. k .. "\n", function() centerview(k) end, "Click to center map on room.",true)
+    end 
+  end, "Click to display rooms with matching name.")
+end
+</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -834,13 +850,13 @@ end</script>
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
 				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#008080</colorTriggerFgColor>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>FG14BG2</string>
+					<string>^\S+\s+ \- (.+)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>6</integer>
+					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
 		</TriggerGroup>

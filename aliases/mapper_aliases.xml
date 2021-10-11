@@ -567,16 +567,9 @@ end</script>
 					<name>Color Legend</name>
 					<script>--syntax: colorlegend
 
-local colors = wotmudmapper.Colors
-local categories = wotmudmapper.ColorCategories
 cecho("&lt;light_goldenrod&gt;Map Legend\n")
-for k, v in pairs(categories) do
-  cecho("   " .. v .. ":\n")
-  for i, j in pairs(colors) do
-    if v == j[6] then
-      cecho("     &lt;" .. j[5] .. "&gt;" .. i .. "\n")
-    end
-  end
+for k, v in pairs(wotmudmapper.map_colors) do
+  cecho("   &lt;"..v.color.."&gt;" .. k .. "&lt;reset&gt;\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -586,13 +579,15 @@ end</script>
 					<name>Change Room Color</name>
 					<script>--syntax: crc environment
 --set current room to a particular environment type
-local colors = wotmudmapper.Colors
+
+local env = string.lower(matches[2])
+
 if table.size(wotmudmapper.currentID) == 1 then
-  if colors[matches[2]] then
-    setRoomEnv(wotmudmapper.currentID[1], colors[matches[2]][4])
-    wotmudmapper:echo("Color of current room changed to &lt;"..colors[matches[2]][5].."&gt;"..matches[2].."&lt;reset&gt;.\n")
+  if wotmudmapper.map_colors[env] then
+    setRoomEnv(wotmudmapper.currentID[1], wotmudmapper.map_colors[env].env_num)
+    wotmudmapper:echo("Type of current room changed to &lt;"..wotmudmapper.map_colors[env].color.."&gt;"..env.."&lt;reset&gt;.\n")
   else
-    wotmudmapper:echo("Environment color ("..matches[2]..") not known.\n",false,true)
+    wotmudmapper:echo("Type of room ("..env..") not known.\n",false,true)
   end
 else
   wotmudmapper:echo("Current room not known.\n",false,true)
@@ -605,36 +600,61 @@ end</script>
 					<name>Change Mapping Environment</name>
 					<script>--syntax: cme environment
 --make the rooms you're mapping all of a particular environment type
-local colors = wotmudmapper.Colors
-if colors[matches[2]] then
-  wotmudmapper.configs.envcolor = colors[matches[2]][4]
-  wotmudmapper:echo("New rooms will be of type &lt;"..colors[matches[2]][5].."&gt;"..matches[2].."&lt;reset&gt;.\n")
+
+local env = string.lower(matches[2])
+
+if wotmudmapper.map_colors[env] then
+  wotmudmapper.configs.envcolor = wotmudmapper.map_colors[env].env_num
+  wotmudmapper:echo("New rooms will be of type &lt;"..wotmudmapper.map_colors[env].color.."&gt;"..env.."&lt;reset&gt;.\n")
 else
-  wotmudmapper:echo("Environment color ("..matches[2]..") not known.\n",false,true)
+  wotmudmapper:echo("Type of room ("..matches[2]..") not known.\n",false,true)
 end</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^cme (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Reset Color Categories</name>
-					<script>--syntax: resetColorCategories
---Will reset the Categories of the colors to their default values
-wotmudmapper.ColorCategories = nil
-wotmudmapper:DefaultColorCategories()</script>
+					<name>Reset Map Colors</name>
+					<script>--syntax: map colors reset
+
+wotmudmapper.map_colors = table.deepcopy(wotmudmapper.default_map_colors)
+wotmudmapper:setMapColors()
+wotmudmapper:echo("Map colors reset to default values.\n")</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^resetColorCategories$</regex>
+					<regex>^map colors reset$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Reset Colors</name>
-					<script>--syntax: resetColors
---Will reset the colors and the room types to their default values
-wotmudmapper.Colors = nil
-wotmudmapper:DefaultColors()</script>
+					<name>Change Map Colors</name>
+					<script>local env = string.lower(matches[2])
+local color = matches[3]
+
+if wotmudmapper.map_colors[env] ~= nil then
+  if color_table[color] then
+    wotmudmapper:echo(
+      "Map color for (" ..
+      env ..
+      ") changed from (&lt;" ..
+      wotmudmapper.map_colors[env].color ..
+      "&gt;" ..
+      wotmudmapper.map_colors[env].color ..
+      "&lt;reset&gt;) to (&lt;" ..
+      color ..
+      "&gt;" ..
+      color ..
+      "&lt;reset&gt;).\n"
+    )
+    wotmudmapper.map_colors[env].color = color
+    wotmudmapper:setMapColors()
+  else
+    wotmudmapper:echo("Color not known.\n", false, true)
+  end
+else
+  wotmudmapper:echo("Mapper window key (" .. env .. ") not known.\n", false, true)
+end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^resetColors$</regex>
+					<regex>^map colors (\S+) (\S+)$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -890,7 +910,6 @@ wotmudmapper:echo("Queue reset. "..numcoms.." command(s) was/were removed.\n")</
 			<Alias isActive="yes" isFolder="no">
 				<name>Find Room</name>
 				<script>--syntax: findroom roomname zone zonename OR findroom roomname
-
 local roomname, zonename
 if matches[5] then
   roomname = matches[6]
@@ -898,6 +917,9 @@ else
   roomname = matches[3]
 end
 local foundrooms = searchRoom(roomname, false, true)
+if table.is_empty(foundrooms) then
+  foundrooms = searchRoom(roomname, false, false)
+end
 if not matches[5] then
   zonename = matches[4]
   for k, v in pairs(foundrooms) do
@@ -915,8 +937,21 @@ elseif table.size(foundrooms) == 1 then
   end
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
-  for k, v in pairs(foundrooms) do
-    echoLink("Room ID: " .. k .. ", zone: " .. getRoomUserData(k, "zone") .. "\n",[[centerview(]]..k..[[)]], "Click to center map on room.",true)
+  for k, v in spairs(foundrooms) do
+    cechoLink(
+      "Room ID: " ..
+      k ..
+      ", &lt;ansi_cyan&gt;room name&lt;reset&gt;: " ..
+      getRoomName(k) ..
+      ", &lt;" ..
+      wotmudmapper.configs.zonecolor ..
+      "&gt;zone&lt;reset&gt;: " ..
+      getRoomUserData(k, "zone") ..
+      "\n",
+      [[centerview(]] .. k .. [[)]],
+      "Click to center map on room.",
+      true
+    )
   end
   cecho("")
 end</script>

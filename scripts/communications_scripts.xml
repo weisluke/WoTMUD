@@ -243,6 +243,7 @@ end</script>
     cmd = cmd:gsub(" ","_")
     if not self.help[cmd] then
       self:echo("No help file on that command.\n",false,true)
+      return
     end
   else
     cmd = 1
@@ -292,7 +293,7 @@ communications.help =
 
     &lt;cyan&gt;Common Commands:&lt;reset&gt;
         &lt;link: 1&gt;comms help (optional subfolder name)&lt;/link&gt; - Shows either this help file or the help file for
-            the subfolder given (e.g. comms help booleans, comms help colors, etc.)
+            the subfolder given (e.g. comms help comms colors, comms help comms window, etc.)
         &lt;yellow&gt;comms dock&lt;reset&gt; - Make the communications window either dock to the left or right half of 
             the screen, or float
         &lt;yellow&gt;comms show&lt;reset&gt; - Displays or hides a communications window in a fixed position

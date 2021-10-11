@@ -148,6 +148,41 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
+				<name>Set Map Colors</name>
+				<packageName></packageName>
+				<script>--set default map colors
+
+wotmudmapper.default_map_colors = {
+  ["inside"] = {env_num = 20, color = "white"},
+  ["wilderness"] = {env_num = 21, color = "forest_green"},
+  ["road"] = {env_num = 22, color = "brown"}, 
+  ["horse"]  = {env_num = 23, color = "burlywood"},
+  ["swamp"]  = {env_num = 24, color = "dark_violet"},
+  ["water"]  = {env_num = 25, color = "blue"},
+  ["drink"] = {env_num = 26, color = "medium_aquamarine"},
+  ["weaponsmith"]  = {env_num = 27, color = "steel_blue"},
+  ["armorer"]  = {env_num = 28, color = "gray"},
+  ["blacksmith"]  = {env_num = 29, color = "dark_orange"},
+  ["bank"]  = {env_num = 30, color = "gold"},
+  ["stables"]  = {env_num = 31, color = "purple"},
+  ["rent"]  = {env_num = 32, color = "green"},
+  ["grocer"]  = {env_num = 33, color = "red"},
+  ["warrior"]  = {env_num = 34, color = "sienna"},
+  ["rogue"] = {env_num = 35, color = "dark_slate_gray"},
+  ["hunter"]  = {env_num = 36, color = "yellow_green"},
+  ["pk"] = {env_num = 37, color = "light_gray"}
+}
+
+function wotmudmapper:setMapColors()
+  for k, v in pairs(self.map_colors) do
+    local r, g, b = unpack(color_table[v.color])
+    setCustomEnvColor(v.env_num, r, g, b, 255)
+  end
+  updateMap()
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>Set Map Configuration Values</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:setConfigs()
@@ -330,41 +365,6 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "mapFinishe
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Set Map Colors</name>
-				<packageName></packageName>
-				<script>--set default map colors
-
-wotmudmapper.default_map_colors = {
-  ["inside"] = {env_num = 20, color = "white"},
-  ["wilderness"] = {env_num = 21, color = "forest_green"},
-  ["road"] = {env_num = 22, color = "brown"}, 
-  ["horse"]  = {env_num = 23, color = "burlywood"},
-  ["swamp"]  = {env_num = 24, color = "dark_violet"},
-  ["water"]  = {env_num = 25, color = "blue"},
-  ["drink"] = {env_num = 26, color = "medium_aquamarine"},
-  ["weaponsmith"]  = {env_num = 27, color = "steel_blue"},
-  ["armorer"]  = {env_num = 28, color = "gray"},
-  ["blacksmith"]  = {env_num = 29, color = "dark_orange"},
-  ["bank"]  = {env_num = 30, color = "gold"},
-  ["stables"]  = {env_num = 31, color = "purple"},
-  ["rent"]  = {env_num = 32, color = "green"},
-  ["grocer"]  = {env_num = 33, color = "red"},
-  ["warrior"]  = {env_num = 34, color = "sienna"},
-  ["rogue"] = {env_num = 35, color = "dark_slate_gray"},
-  ["hunter"]  = {env_num = 36, color = "yellow_green"},
-  ["pk"] = {env_num = 37, color = "light_gray"}
-}
-
-function wotmudmapper:setMapColors()
-  for k, v in pairs(self.map_colors) do
-    local r, g, b = unpack(color_table[v.color])
-    setCustomEnvColor(v.env_num, r, g, b, 255)
-  end
-  updateMap()
-end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
 				<name>Map Help</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:show_help(cmd)
@@ -372,6 +372,7 @@ end</script>
     cmd = cmd:gsub(" ","_")
     if not self.help[cmd] then
       self:echo("No help file on that command.\n",false,true)
+      return
     end
   else
     cmd = 1

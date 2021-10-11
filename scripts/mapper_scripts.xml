@@ -1093,7 +1093,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>lookingForDoors</name>
 					<packageName></packageName>
-					<script>--set mapper door direction based on look or searches. needs fixed to take into account all possible look/search/dir combinations
+					<script>--set mapper door direction based on look or searches
 
 function lookingForDoors(event, command)
   local lowcom = string.lower(command)
@@ -1103,7 +1103,7 @@ function lookingForDoors(event, command)
   end
   
   if table.size(lowcom) == 2 then
-    if isSearch(lowcom[1]) and isMovement(lowcom[2]) then
+    if (isSearch(lowcom[1]) or isLook(lowcom[1])) and isMovement(lowcom[2]) then
       wotmudmapper.door = string.sub(lowcom[2], 1, 1)
     end
   end

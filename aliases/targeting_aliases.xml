@@ -3,33 +3,43 @@
 <MudletPackage version="1.001">
 	<AliasPackage>
 		<AliasGroup isActive="yes" isFolder="yes">
-			<name>Targetting</name>
+			<name>Targeting</name>
 			<script></script>
 			<command></command>
 			<packageName></packageName>
 			<regex></regex>
 			<AliasGroup isActive="yes" isFolder="yes">
-				<name>Primary Target</name>
+				<name>First Target</name>
 				<script>--syntax: tgt OR tgt xxx
-
-targetting = targetting or {}
+local colors =
+  {
+    dark = "ansi_red",
+    light = "ansi_cyan",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    greyman = "ansi_red",
+    draghkar = "ansi_red",
+    human = "ansi_cyan",
+    seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white"
+  }
+  
+targeting = targeting or {}
 
 if matches[3] then
-  targetting.primary = matches[4]
-  if matches[4] == "dark" then
-    cecho("First target is set as: &lt;red&gt;" .. matches[4] .. "&lt;white&gt;.\n")
-  elseif matches[4] == "seanchan" then
-    cecho("First target is set as: &lt;purple&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  targeting.first = matches[4]
+  if colors[targeting.first] then
+    cecho("First target is set as: &lt;" .. colors[targeting.first] .. "&gt;" .. targeting.first .. "&lt;reset&gt;.\n")
   else
-    cecho("First target is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+    cecho("First target is set as: &lt;gold&gt;" .. targeting.first .. "&lt;reset&gt;.\n")
   end
-elseif targetting.primary then
-  if targetting.primary == "dark" then
-    cecho("First target is set as: &lt;red&gt;dark&lt;white&gt;.\n")
-  elseif targetting.primary == "seanchan" then
-    cecho("First target is set as: &lt;purple&gt;seanchan&lt;white&gt;.\n")
+elseif targeting.first then
+  if colors[targeting.first] then
+    cecho("First target is set as: &lt;" .. colors[targeting.first] .. "&gt;" .. targeting.first .. "&lt;reset&gt;.\n")
   else
-    cecho("First target is set as: &lt;gold&gt;" .. targetting.primary .. "&lt;white&gt;.\n")
+    cecho("First target is set as: &lt;gold&gt;" .. targeting.first .. "&lt;reset&gt;.\n")
   end
 else
   cecho("&lt;red&gt;Target not set!\n")
@@ -41,9 +51,9 @@ end</script>
 					<name>Attack Target</name>
 					<script>--syntax: p
 
-targetting=targetting or {}
+targeting=targeting or {}
 
-local target=targetting.primary
+local target=targeting.first
 
 if target then
 	send("k "..target)
@@ -58,9 +68,9 @@ end</script>
 					<name>Attack h.Target</name>
 					<script>--syntax: o
 
-targetting=targetting or {}
+targeting=targeting or {}
 
-local target=targetting.primary
+local target=targeting.first
 
 if target then
 	send("k h."..target)
@@ -75,9 +85,9 @@ end</script>
 					<name>Bash Target</name>
 					<script>--syntax: q
 
-targetting=targetting or {}
+targeting=targeting or {}
 
-local target=targetting.primary
+local target=targeting.first
 
 if target then
 	send("bash "..target)
@@ -92,11 +102,11 @@ end</script>
 					<name>Backstab/Charge Target</name>
 					<script>--syntax: ct OR ct xxx
 
-targetting = targetting or {}
+targeting = targeting or {}
 
-local target = targetting.primary
-local stab = targetting.backstabbing
-local charge = targetting.charging
+local target = targeting.first
+local stab = targeting.backstabbing
+local charge = targeting.charging
 
 if matches[3] then
   if charge then
@@ -127,9 +137,9 @@ end</script>
 					<name>Delete Target</name>
 					<script>--syntax: deltgt
 
-targetting=targetting or {}
+targeting=targeting or {}
 
-targetting.primary=nil
+targeting.first=nil
 cecho("&lt;red&gt;First target deleted!\n")</script>
 					<command></command>
 					<packageName></packageName>
@@ -137,27 +147,37 @@ cecho("&lt;red&gt;First target deleted!\n")</script>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
-				<name>Secondary Target</name>
+				<name>Second Target</name>
 				<script>--syntax: tgts OR tgts xxx
-
-targetting = targetting or {}
+local colors =
+  {
+    dark = "ansi_red",
+    light = "ansi_cyan",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    greyman = "ansi_red",
+    draghkar = "ansi_red",
+    human = "ansi_cyan",
+    seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white"
+  }
+  
+targeting = targeting or {}
 
 if matches[3] then
-  targetting.secondary = matches[4]
-  if matches[4] == "dark" then
-    cecho("Second target is set as: &lt;red&gt;" .. matches[4] .. "&lt;white&gt;.\n")
-  elseif matches[4] == "seanchan" then
-    cecho("Second target is set as: &lt;purple&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  targeting.second = matches[4]
+  if colors[targeting.second] then
+    cecho("First target is set as: &lt;" .. colors[targeting.second] .. "&gt;" .. targeting.second .. "&lt;reset&gt;.\n")
   else
-    cecho("Second target is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+    cecho("First target is set as: &lt;gold&gt;" .. targeting.second .. "&lt;reset&gt;.\n")
   end
-elseif targetting.secondary then
-  if targetting.secondary == "dark" then
-    cecho("Second target is set as: &lt;red&gt;dark&lt;white&gt;.\n")
-  elseif targetting.secondary == "seanchan" then
-    cecho("Second target is set as: &lt;purple&gt;seanchan&lt;white&gt;.\n")
+elseif targeting.second then
+  if colors[targeting.second] then
+    cecho("First target is set as: &lt;" .. colors[targeting.second] .. "&gt;" .. targeting.second .. "&lt;reset&gt;.\n")
   else
-    cecho("Second target is set as: &lt;gold&gt;" .. targetting.secondary .. "&lt;white&gt;.\n")
+    cecho("First target is set as: &lt;gold&gt;" .. targeting.second .. "&lt;reset&gt;.\n")
   end
 else
   cecho("&lt;red&gt;Target not set!\n")
@@ -169,9 +189,9 @@ end</script>
 					<name>Attack Target</name>
 					<script>--syntax: pp
 
-targetting=targetting or {}
+targeting=targeting or {}
 
-local target=targetting.secondary
+local target=targeting.second
 
 if target then
 	send("k "..target)
@@ -187,9 +207,9 @@ end
 					<name>Attack h.Target</name>
 					<script>--syntax: oo
 
-targetting=targetting or {}
+targeting=targeting or {}
 
-local target=targetting.secondary
+local target=targeting.second
 
 if target then
 	send("k h."..target)
@@ -204,9 +224,9 @@ end</script>
 					<name>Bash Target</name>
 					<script>--syntax: qq
 
-targetting=targetting or {}
+targeting=targeting or {}
 
-local target=targetting.secondary
+local target=targeting.second
 
 if target then
 	send("bash "..target)
@@ -221,11 +241,11 @@ end</script>
 					<name>Backstab/Charge Target</name>
 					<script>--syntax: ctt OR ctt xxx
 
-targetting = targetting or {}
+targeting = targeting or {}
 
-local target = targetting.secondary
-local stab = targetting.backstabbing
-local charge = targetting.charging
+local target = targeting.second
+local stab = targeting.backstabbing
+local charge = targeting.charging
 
 if matches[3] then
   if charge then
@@ -256,9 +276,9 @@ end</script>
 					<name>Delete Target</name>
 					<script>--syntax: deltgts
 
-targetting=targetting or {}
+targeting=targeting or {}
 
-targetting.secondary=nil
+targeting.second=nil
 cecho("&lt;red&gt;Second target deleted!\n")</script>
 					<command></command>
 					<packageName></packageName>
@@ -269,20 +289,20 @@ cecho("&lt;red&gt;Second target deleted!\n")</script>
 				<name>Switch PK Modes</name>
 				<script>--syntax: pkmode
 
-targetting=targetting or {}
+targeting=targeting or {}
 
-local charge=targetting.charging
-local stab=targetting.backstabbing
+local charge=targeting.charging
+local stab=targeting.backstabbing
 
 if charge then
-	targetting.charging=false
-	targetting.backstabbing=true
+	targeting.charging=false
+	targeting.backstabbing=true
 	cecho("Set at pk method: &lt;orange&gt;Backstabbing\n")
 elseif stab then
-	targetting.backstabbing=false
+	targeting.backstabbing=false
 	cecho("&lt;red&gt;No pk method set\n")
 else
-	targetting.charging=true
+	targeting.charging=true
 	cecho("Set at pk method: &lt;green&gt;Charge\n")
 end</script>
 				<command></command>

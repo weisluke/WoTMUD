@@ -130,6 +130,9 @@
 				<script>if string.find(matches[2],"Queen's Guard") then
 	selectCaptureGroup(2)
 	fg("red")
+elseif string.find(matches[2],"Forester") then
+	selectCaptureGroup(2)
+	fg("forest_green")
 elseif string.find(matches[2],"Child of Light") then
 	selectCaptureGroup(2)
 	fg("yellow")
@@ -496,44 +499,6 @@ deleteLine()</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>^[\-=\+\* ]{1,2}$</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>"Where" clickable centerroom</name>
-				<script>local name = matches[2]
-local roomname = matches[3]
-local foundrooms = searchRoom(roomname, true, true)
-local roomID
-for k, v in pairs(foundrooms) do
-  if getRoomUserData(k, "zone") ~= wotmudmapper.zone then
-    foundrooms[k] = nil
-  end
-end
-if table.size(foundrooms) == 1 then
-  for k, v in pairs(foundrooms) do
-    roomID = k
-  end
-else
-  roomID = ""
-end
-
-selectCaptureGroup(3)
-setLink([[if ]] .. roomID .. [[~="" then centerview(]] .. roomID .. [[) end]], "Click to center map on room.")</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>^(\S+)\s+ \- (.+)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

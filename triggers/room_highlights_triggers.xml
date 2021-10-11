@@ -37,10 +37,15 @@
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
-    trolloc = "red",
-    myrddraal = "red",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    greyman = "ansi_red",
+    draghkar = "ansi_red",
     human = "ansi_cyan",
     seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white",
     ["ridden mount"] = "ansi_yellow"
   }  
 
@@ -80,12 +85,17 @@ end</script>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
-    trolloc = "red",
-    myrddraal = "red",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    greyman = "ansi_red",
+    draghkar = "ansi_red",
     human = "ansi_cyan",
     seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white",
     ["ridden mount"] = "ansi_yellow"
-  }
+  } 
 
 if colors[matches[4]] then
   creplaceLine(
@@ -123,12 +133,17 @@ end</script>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
-    trolloc = "red",
-    myrddraal = "red",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    greyman = "ansi_red",
+    draghkar = "ansi_red",
     human = "ansi_cyan",
     seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white",
     ["ridden mount"] = "ansi_yellow"
-  }
+  } 
 
 if colors[string.lower(matches[5])] then
   creplaceLine(
@@ -168,12 +183,17 @@ end</script>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
-    trolloc = "red",
-    myrddraal = "red",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    greyman = "ansi_red",
+    draghkar = "ansi_red",
     human = "ansi_cyan",
     seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white",
     ["ridden mount"] = "ansi_yellow"
-  }
+  } 
 
 if colors[string.lower(matches[5])] then
   creplaceLine(
@@ -211,7 +231,9 @@ end</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>(.+) leaves (.+)\.</name>
 					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
-cecho(" " .. directions[matches[3]])</script>
+if directions[matches[3]:split(" ")[1]] then
+  cecho(" " .. directions[matches[3]:split(" ")[1]])
+end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>

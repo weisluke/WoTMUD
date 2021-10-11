@@ -153,15 +153,24 @@ end</script>
 				<script>function wotmudmapper:setConfigs()
     local defaults = self.defaults or {}
     local configs = self.configs or {}
+    local default_colors = self.default_map_colors or {}
+    local colors = self.map_colors or {}
+    
+    self:echo("Loading map configurations.\n")
     -- load stored configs from file if it exists
     if io.exists(getMudletHomeDir().."/wotmudmapper.configs.lua") then
-        self:echo("Loading map configurations.\n")
         table.load(getMudletHomeDir().."/wotmudmapper.configs.lua",configs)
-        self:echo("Map configurations loaded.\n")
     end
+    if io.exists(getMudletHomeDir().."/wotmudmapper.map_colors.lua") then
+        table.load(getMudletHomeDir().."/wotmudmapper.map_colors.lua",colors)
+    end
+    self:echo("Map configurations loaded.\n")
+    
     -- overwrite default values with stored config values
     configs = table.update(defaults, configs)
     self.configs = configs
+    colors = table.update(default_colors, colors)
+    self.map_colors = colors
 end
 </script>
 				<eventHandlerList />
@@ -172,6 +181,7 @@ end
 				<script>function MapOnSysConnectionEvent(event)
   wotmudmapper.queue = List:new()
   wotmudmapper:setConfigs()
+  wotmudmapper:setMapColors()
   wotmudmapper.currentID={wotmudmapper.configs.roomID}
   centerview(wotmudmapper.currentID[1])
   
@@ -202,6 +212,7 @@ end</script>
   wotmudmapper.configs = wotmudmapper.configs or {}
   wotmudmapper.configs.mapping = false
   wotmudmapper.configs.offline=false
+  wotmudmapper.map_colors = wotmudmapper.map_colors or {}
   
   if table.size(wotmudmapper.currentID) == 1 then
     wotmudmapper.configs.roomID=wotmudmapper.currentID[1]
@@ -211,6 +222,7 @@ end</script>
   
   wotmudmapper:echo("Saving map configurations.\n")
   table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+  table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
   wotmudmapper:echo("Map configurations saved.\n")
 end</script>
 				<eventHandlerList>
@@ -318,113 +330,37 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "mapFinishe
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Designate Room Colors</name>
+				<name>Set Map Colors</name>
 				<packageName></packageName>
-				<script>--set color categories and members with colors
+				<script>--set default map colors
 
-local r, g, b
+wotmudmapper.default_map_colors = {
+  ["inside"] = {env_num = 20, color = "white"},
+  ["wilderness"] = {env_num = 21, color = "forest_green"},
+  ["road"] = {env_num = 22, color = "brown"}, 
+  ["horse"]  = {env_num = 23, color = "burlywood"},
+  ["swamp"]  = {env_num = 24, color = "dark_violet"},
+  ["water"]  = {env_num = 25, color = "blue"},
+  ["drink"] = {env_num = 26, color = "medium_aquamarine"},
+  ["weaponsmith"]  = {env_num = 27, color = "steel_blue"},
+  ["armorer"]  = {env_num = 28, color = "gray"},
+  ["blacksmith"]  = {env_num = 29, color = "dark_orange"},
+  ["bank"]  = {env_num = 30, color = "gold"},
+  ["stables"]  = {env_num = 31, color = "purple"},
+  ["rent"]  = {env_num = 32, color = "green"},
+  ["grocer"]  = {env_num = 33, color = "red"},
+  ["warrior"]  = {env_num = 34, color = "sienna"},
+  ["rogue"] = {env_num = 35, color = "dark_slate_gray"},
+  ["hunter"]  = {env_num = 36, color = "yellow_green"},
+  ["pk"] = {env_num = 37, color = "light_gray"}
+}
 
-function wotmudmapper:DefaultColorCategories()
-  wotmudmapper.ColorCategories = {}
-  wotmudmapper.ColorCategories = {"Environment", "Town Services", "Practice", "PK"}
-end
-
-function wotmudmapper:DefaultColors()
-  self.Colors = {}
-  if color_table["white"] then
-    r, g, b = unpack(color_table.white)
-    self.Colors["Inside"] = {r, g, b, 20, "white", "Environment"}
-    setCustomEnvColor(20, r, g, b, 255)
+function wotmudmapper:setMapColors()
+  for k, v in pairs(self.map_colors) do
+    local r, g, b = unpack(color_table[v.color])
+    setCustomEnvColor(v.env_num, r, g, b, 255)
   end
-  if color_table["forest_green"] then
-    r, g, b = unpack(color_table.forest_green)
-    self.Colors["Wilderness"] = {r, g, b, 21, "forest_green", "Environment"}
-    setCustomEnvColor(21, r, g, b, 255)
-  end
-  if color_table["brown"] then
-    r, g, b = unpack(color_table.brown)
-    self.Colors["Road"] = {r, g, b, 22, "brown", "Environment"}
-    setCustomEnvColor(22, r, g, b, 255)
-  end
-  if color_table["dark_violet"] then
-    r, g, b = unpack(color_table.dark_violet)
-    self.Colors["Swamp"] = {r, g, b, 24, "dark_violet", "Environment"}
-    setCustomEnvColor(24, r, g, b, 255)
-  end
-  if color_table["blue"] then
-    r, g, b = unpack(color_table.blue)
-    self.Colors["Water"] = {r, g, b, 25, "blue", "Environment"}
-    setCustomEnvColor(25, r, g, b, 255)
-  end
-  if color_table["medium_aquamarine"] then
-    r, g, b = unpack(color_table.medium_aquamarine)
-    self.Colors["Drink"] = {r, g, b, 26, "medium_aquamarine", "Environment"}
-    setCustomEnvColor(26, r, g, b, 255)
-  end
-  if color_table["steel_blue"] then
-    r, g, b = unpack(color_table.steel_blue)
-    self.Colors["Weaponsmith"] = {r, g, b, 27, "steel_blue", "Town Services"}
-    setCustomEnvColor(27, r, g, b, 255)
-  end
-  if color_table["gray"] then
-    r, g, b = unpack(color_table.gray)
-    self.Colors["Armorer"] = {r, g, b, 28, "gray", "Town Services"}
-    setCustomEnvColor(28, r, g, b, 255)
-  end
-  if color_table["dark_orange"] then
-    r, g, b = unpack(color_table.dark_orange)
-    self.Colors["Blacksmith"] = {r, g, b, 29, "dark_orange", "Town Services"}
-    setCustomEnvColor(29, r, g, b, 255)
-  end
-  if color_table["gold"] then
-    r, g, b = unpack(color_table.gold)
-    self.Colors["Bank"] = {r, g, b, 30, "gold", "Town Services"}
-    setCustomEnvColor(30, r, g, b, 255)
-  end
-  if color_table["purple"] then
-    r, g, b = unpack(color_table.purple)
-    self.Colors["Stables"] = {r, g, b, 31, "purple", "Town Services"}
-    setCustomEnvColor(31, r, g, b, 255)
-  end
-  if color_table["green"] then
-    r, g, b = unpack(color_table.green)
-    self.Colors["Inn"] = {r, g, b, 32, "green", "Town Services"}
-    setCustomEnvColor(32, r, g, b, 255)
-  end
-  if color_table["red"] then
-    r, g, b = unpack(color_table.red)
-    self.Colors["Grocer"] = {r, g, b, 33, "red", "Town Services"}
-    setCustomEnvColor(33, r, g, b, 255)
-  end
-  if color_table["sienna"] then
-    r, g, b = unpack(color_table.sienna)
-    self.Colors["Warrior"] = {r, g, b, 34, "sienna", "Practice"}
-    setCustomEnvColor(34, r, g, b, 255)
-  end
-  if color_table["dark_slate_gray"] then
-    r, g, b = unpack(color_table.dark_slate_gray)
-    self.Colors["Rogue"] = {r, g, b, 35, "dark_slate_gray", "Practice"}
-    setCustomEnvColor(35, r, g, b, 255)
-  end
-  if color_table["yellow_green"] then
-    r, g, b = unpack(color_table.yellow_green)
-    self.Colors["Hunter"] = {r, g, b, 36, "yellow_green", "Practice"}
-    setCustomEnvColor(36, r, g, b, 255)
-  end
-  if color_table["light_gray"] then
-    r, g, b = unpack(color_table.light_gray)
-    self.Colors["PK"] = {r, g, b, 37, "light_gray", "PK"}
-    setCustomEnvColor(37, r, g, b, 255)
-  end
-end
-
-if not wotmudmapper.ColorCategories then
-  wotmudmapper:DefaultColorCategories()
-  echo("Color Categories for the Map Legend loaded.\n")
-end
-if not wotmudmapper.Colors then
-  wotmudmapper:DefaultColors()
-  echo("Colors set on their default values.\n")
+  updateMap()
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -1139,37 +1075,40 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
+					<name>isSearch</name>
+					<packageName></packageName>
+					<script>--return true if command is search, false if not search. ignores capitalization
+
+function isSearch(com)
+  if com ~= nil then
+    local lowcom = string.lower(com)
+    if table.contains({"sea", "sear", "searc", "search"}, lowcom) then
+      return true
+    end
+  end
+  return false
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
 					<name>lookingForDoors</name>
 					<packageName></packageName>
-					<script>--set mapper door direction based on look or searches. needs fixed to take into acconut all possible look/search/dir combinations
+					<script>--set mapper door direction based on look or searches. needs fixed to take into account all possible look/search/dir combinations
 
 function lookingForDoors(event, command)
-  if
-    command == "l north" or command == "l n" or command == "search n" or command == "search north"
-  then
-    wotmudmapper.door = "n"
-  elseif
-    command == "l east" or command == "l e" or command == "search e" or command == "search east"
-  then
-    wotmudmapper.door = "e"
-  elseif
-    command == "l south" or command == "l s" or command == "search s" or command == "search south"
-  then
-    wotmudmapper.door = "s"
-  elseif
-    command == "l west" or command == "l w" or command == "search w" or command == "search west"
-  then
-    wotmudmapper.door = "w"
-  elseif
-    command == "l up" or command == "l u" or command == "search u" or command == "search up"
-  then
-    wotmudmapper.door = "u"
-  elseif
-    command == "l down" or command == "l d" or command == "search d" or command == "search down"
-  then
-    wotmudmapper.door = "d"
+  local lowcom = string.lower(command)
+  lowcom = string.split(lowcom)
+  while table.index_of(lowcom, "") do
+    table.remove(lowcom, table.index_of(lowcom, ""))
   end
-end</script>
+  
+  if table.size(lowcom) == 2 then
+    if isSearch(lowcom[1]) and isMovement(lowcom[2]) then
+      wotmudmapper.door = string.sub(lowcom[2], 1, 1)
+    end
+  end
+end
+</script>
 					<eventHandlerList>
 						<string>sysDataSendRequest</string>
 					</eventHandlerList>
@@ -1214,7 +1153,7 @@ end</script>
     )
   )
   -- use pairs, as we can have gaps between room IDs
-  for _, roomid in pairs(roomlist) do
+  for _, roomid in spairs(roomlist) do
     local roomname = endresult[roomid]
     cecho(string.format("&lt;%s&gt;%10s", othercolor, roomid))
     cecho(string.format("&lt;%s&gt;: &lt;%s&gt;%s&lt;%s&gt;.\n", listcolor, othercolor, roomname, listcolor))
@@ -1242,7 +1181,7 @@ end</script>
     end
 
     cecho(string.format("&lt;%s&gt;List of map areas (click to view room list for an area):\n",listcolor))
-    for id, area in pairs(rlist) do
+    for id, area in spairs(rlist) do
         if rlist[id] then
             cecho(string.format("&lt;%s&gt;%10d ", othercolor, id))
             fg(listcolor)
@@ -1299,6 +1238,7 @@ end</script>
     
     if newid then
         wotmudmapper.currentID={newid}
+        wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
         centerview(newid)
         cecho("&lt;cyan&gt;"..getRoomName(newid).."\n")
         cecho(getRoomUserData(newid,"description"))
@@ -1318,7 +1258,15 @@ end</script>
         end
         cecho("]")
         if wotmudmapper.configs.showzone then
-          cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
+          cechoLink("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone,
+          function()
+            if wotmudmapper.zone ~= "" then
+              if wotmudmapper.zone_urls[wotmudmapper.zone] ~= "" then
+                openUrl("https://wotmud.fandom.com/wiki/"..wotmudmapper.zone_urls[wotmudmapper.zone])
+              end
+            end
+          end,
+          "Click to open the WoTMUD wiki page for this zone", true)
         end
         for k, v in pairs(exits) do
           if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
@@ -1355,6 +1303,251 @@ registerMapInfo("Door info", function(roomId, selectionSize, areaId, displayedAr
 end)
 enableMapInfo("Door info")
 </script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Zone URLs</name>
+				<packageName></packageName>
+				<script>wotmudmapper.zone_urls = {
+
+["Inner Caemlyn"] = "Inner_Caemlyn",
+["Outer Caemlyn"] = "Outer_Caemlyn",
+["Four Kings"] = "Four_Kings",
+["Hills of Kintara"] = "The_Hills_of_Kintara",
+["Andoran Countryside West"] = "Andoran_Countryside_West",
+["Aringill"] = "Aringill",
+["Tar Valon Road North of Caemlyn"] = "Tar_Valon_Road_North_of_Caemlyn",
+["Braem and Grass North-East of Caemlyn"] = "North_of_Aringill",
+[""] = "",
+["Maerone"] = "Maerone",
+["Andoran Countryside East"] = "Andoran_Countryside_East",
+["Caemlyn Road East of Whitebridge"] = "Caemlyn_Road_East_of_Whitebridge",
+["Forgotten Braem"] = "Forgotten_Braem",
+["Braem Wood"] = "Braem_Wood",
+["Southern Black Hills"] = "The_South_Black_Hills",
+["Whitebridge"] = "/Whitebridge",
+["South of Whitebridge"] = "South_of_Whitebridge",
+["Outskirts of Whitebridge"] = "Outskirts_of_Whitebridge",
+["Caemlyn Road West of Whitebridge"] = "Caemlyn_Road_West_of_Whitebridge",
+["In the Forest"] = "In_the_Forest",
+["Forested Valley"] = "Forested_Valley",
+["Caemlyn Road East of Baerlon"] = "Caemlyn_Road_East_of_Baerlon",
+["Tarendrelle at the Eldar"] = "Tarendrelle_at_the_Eldar",
+["Caralain Grass"] = "Caralain_Grass",
+["Black Hills"] = "Black_Hills",
+["Tar Valon Road South of Tar Valon"] = "Tar_Valon_Road_South_of_Tar_Valon",
+["Northern Black Hills"] = "The_North_Black_Hills",
+["Grasslands"] = "Grasslands",
+["Tar Valon Forest"] = "Tar_Valon_Forest",
+["The Lugard Highway"] = "The_Lugard_Highway",
+["Lugard"] = "Lugard_(zone)",
+["Rugged Hills of Murandy"] = "Rugged_Hills_of_Murandy",
+["Baerlon"] = "Baerlon",
+["Taren Ferry"] = "Taren_Ferry",
+["North Road"] = "North_Road",
+["Westwood by the Mountains"] = "Westwood_by_the_Mountains",
+["In the Mountains of Mist"] = "In_the_Mountains_of_Mist",
+["Watch Hill"] = "Watch_Hill",
+["Emond's Field"] = "Emond%27s_Field",
+["Quarry Road"] = "Quarry_Road",
+["The Volcano"] = "The_Volcano",
+["North Misty Mountains"] = "North_Misty_Mountains",
+["Old Road"] = "Old_Road",
+["Deven Ride"] = "Deven_Ride",
+["Mining Tunnels"] = "Mining_Tunnels",
+["South Misty Mountains"] = "South_Misty_Mountains",
+["The Waterwood"] = "The_Waterwood",
+["East of the Waterwood"] = "East_of_the_Waterwood",
+["The Northern Forests of Ghealdan"] = "The_Northern_Forests_of_Ghealdan",
+["Northern Plains of Altara"] = "Northern_Plains_of_Altara",
+["Jehannah"] = "Jehannah",
+["Glancor"] = "Glancor",
+["The Lakeside of Far Madding"] = "The_Lakeside_of_Far_Madding",
+["Stone of Tear"] = "The_Stone_of_Tear",
+["Far Madding North"] = "New_Far_Madding_North",
+["Far Madding South"] = "New_Far_Madding_South",
+["The Countryside of Far Madding"] = "The_Countryside_of_Far_Madding",
+["Western Plains of Maredo"] = "Western_Plains_of_Maredo",
+["Eastern Plains of Maredo"] = "Eastern_Plains_of_Maredo",
+["The Far Madding to Tear Road"] = "Far_Madding_-_Tear_Road",
+["Circles of Light/Darkness/Ravens"] = "",
+["Isle of Madmen North"] = "Isle_of_Madmen_North",
+["White Tower Upper Floors"] = "",
+["Tar Valon"] = "Tar_Valon_(zone)",
+["White Tower Ground Floor"] = "White_Tower_(zone)",
+["Kandor"] = "Kandor_(zone)",
+["Black Tower"] = "",
+["The Ruined Keep"] = "The_Ruined_Keep",
+["City in the Blight"] = "City_in_the_Blight",
+["Borderlands West of Fal Dara"] = "Borderlands_West_of_Fal_Dara",
+["Shadowspawn Stronghold"] = "Shadowspawn_Stronghold",
+["Shadar Logoth"] = "Shadar_Logoth_I",
+["Fallow Hills"] = "Fallow_Hills",
+["Chachin"] = "Chachin",
+["Dark Fortress"] = "Dark_Fortress",
+["Grasslands North of Seandar"] = "Grasslands_North_of_Seandar",
+["Flood Plains of Seandar"] = "Flood_Plains_of_Seandar",
+["Rocky Foothills"] = "Rocky_Foothills",
+["Thin Woodlands"] = "Thin_Woodlands",
+["Light Woods and Plains"] = "Light_Woods_and_Plains",
+["Woodlands of Saldaea"] = "Woodlands_of_Saldaea",
+["Northern Borderlands"] = "Northern_Borderlands",
+["The Tear Road"] = "Tear_Road",
+["Mayene Peninsula"] = "Mayene_Peninsula",
+["Seanchan Smob Chain"] = "",
+["NEW ZONE"] = "",
+["Deception Pass"] = "Deception_Pass",
+["South of Cold Rocks Hold"] = "South_of_Cold_Rocks_Hold",
+["Sharan Trade Town"] = "",
+["Underground"] = "Underground",
+["Blighted Mountain Pass"] = "Blighted_Mountain_Pass",
+["The Tar Valon to Cairhien Road"] = "The_Tar_Valon_to_Cairhien_Road",
+["Southeast Shores of Tar Valon"] = "Southeast_Shores_of_Tar_Valon",
+["Cairhien to Tar Valon Road"] = "The_Cairhien_to_Tar_Valon_Road",
+["The Cairhien Hills"] = "The_Cairhien_Hills",
+["Cairhien"] = "Cairhien_(zone)",
+["The Sun Palace"] = "The_Sun_Palace",
+["Cairhien Province"] = "Cairhien_Province",
+["A Bandit Stronghold"] = "A_Bandit_Stronghold",
+["Kinslayer's Dagger"] = "Kinslayer%27s_Dagger",
+["Along the Spine of the World"] = "Along_the_Spine_of_the_World",
+["Jangai Pass"] = "Jangai_Pass",
+["Desolate Valley in the Spine"] = "Desolate_Valley_in_the_Spine",
+["Fal Dara Road"] = "Fal_Dara_Road",
+["Northeast Shores of Tar Valon"] = "Northeast_Shores_of_Tar_Valon",
+["The Long Fal Dara Road"] = "The_Long_Fal_Dara_Road",
+["Eastern Borderlands"] = "Eastern_Borderlands",
+["Malfeasor Zone"] = "",
+["Deep Within the Spine of the World"] = "Deep_Within_the_Spine_of_the_World",
+["High Upon the Spine of the World"] = "High_Upon_the_Spine_of_the_World",
+["Treacherous Mountains"] = "Treacherous_Mountains_Within_the_Spine",
+["Stedding Shangtai"] = "Stedding_Shangtai",
+["Spine of the World Southern Range"] = "Spine_of_the_World_Southern_Range",
+["Bandit Warlord Zone"] = "",
+["Deep in Haddon Mirk"] = "Deep_in_Haddon_Mirk",
+["Haddon Mirk"] = "Haddon_Mirk",
+["Tear"] = "Tear_(zone)",
+["Drowned Lands"] = "Drowned_Lands",
+["Seanchan Outpost"] = "Seanchan_Outpost",
+["The Dry Forest"] = "The_Dry_Forest",
+["Mayene"] = "Mayene_(city)",
+["Snowy Mountains"] = "Snowy_Mountains",
+["Arad Doman East"] = "Arad_Doman_East",
+["Almoth Plain - Arad Doman Border"] = "Almoth_Plain_-_Arad_Doman_Border",
+["Arad Doman West"] = "Arad_Doman_West",
+["Bandar Eban"] = "Bandar_Eban_(zone)",
+["Domani Coastal Palace"] = "Domani_Coastal_Palace",
+["Northern Almoth Plain"] = "Northern_Almoth_Plain",
+["Southern Almoth Plain"] = "Southern_Almoth_Plain",
+["Darkwood"] = "Darkwood",
+["Stedding Yandar"] = "Stedding_Yandar",
+["Mountains of Mist"] = "Mountains_of_Mist",
+["Western Misty Mountains"] = "Western_Misty_Mountains",
+["Forested Hills"] = "Forested_Hills",
+["Amadicia"] = "Amadicia_(zone)",
+["Amador"] = "Amador_(zone)",
+["Fortress of Light"] = "Fortress_of_Light",
+["Serenda Palace"] = "Serenda_Palace",
+["Endless Blight"] = "Endless_Blight",
+["Amadician Countryside"] = "Amadician_Countryside",
+["South of Amador"] = "South_of_Amador",
+["The Shadow Coast East"] = "The_Shadow_Coast_East",
+["The Shadow Coast West"] = "The_Shadow_Coast_West",
+["Windbiter's Finger North"] = "Windbiter%27s_Finger_North",
+["Windbiter's Finger South"] = "Windbiter%27s_Finger_South",
+["Tanchico Road"] = "Tanchico_Road",
+["Tanchico"] = "East_City_of_Tanchico",
+["West City of Tanchico"] = "West_City_of_Tanchico",
+["Toman Head"] = "Toman_Head_Road",
+["Falme"] = "Falme",
+["The Waterless Sands"] = "The_Waterless_Sands",
+["Ruins of Rhahime Naille"] = "Ruins_of_Rhahime_Naille",
+["The Plain of Lances"] = "The_Plain_of_Lances",
+["Windy Plains"] = "Windy_Plains",
+["Northern Fal Dara Road"] = "Northern_Fal_Dara_Road",
+["Fal Dara Outskirts"] = "Fal_Dara_Outskirts",
+["Movable Trolloc Camp"] = "Moveable_Trolloc_Camp",
+["Borderlands North of Fal Dara"] = "Borderlands_North_of_Fal_Dara",
+["Fal Dara"] = "Fal_Dara",
+["Parched Ground"] = "Parched_Ground",
+["Tarwin's Gap"] = "Tarwin%27s_Gap",
+["The Blight"] = "The_Blight_(zone)",
+["North of Lockshear"] = "North_of_Lockshear",
+["Decayed Forest"] = "Decayed_Forest",
+["Dark Forest"] = "Dark_Forest",
+["Blighted Grove"] = "Blighted_Grove",
+["Blighted Mountains"] = "Blighted_Mountains",
+["Village of Lockshear"] = "Lockshear",
+["Tunnels and Caverns Beneath the Blight"] = "Tunnels_and_Caverns_Beneath_the_Blight",
+["Wastelands"] = "Wastelands",
+["Foothills Bordering the Spine of the World"] = "Foothills_Bordering_the_Spine",
+["Rocky Trail"] = "Rocky_Trail",
+["Sprawling Savannah"] = "Sprawling_Savannah",
+["Sparse Woods"] = "Sparse_Woods",
+["Wandering the Thick Forest"] = "Wandering_the_Thick_Forest",
+["Lush Forestland"] = "Lush_Forestland",
+["Saldaean Farmlands"] = "Saldaean_Farmlands",
+["Pine Forest"] = "Pine_Forest",
+["The Still Forest"] = "The_Still_Forest",
+["Stedding Tsochan"] = "Stedding_Tsochan",
+["Lugard Rooftops"] = "Lugard_Rooftops",
+["Lugard Road Through Murandy"] = "Lugard_Road_Through_Murandy",
+["Illian Road"] = "Illian_Road",
+["Illian Countryside"] = "Illian_Countryside",
+["Illian Peninsula"] = "Illian_Peninsula",
+["City of Illian"] = "City_of_Illian",
+["King's Palace and Council Hall"] = "King%27s_Palace_and_Council_Hall",
+["Murgoz Zone"] = "",
+["Southwest Tremalking"] = "Southwest_Tremalking",
+["Northwest Tremalking"] = "Northwest_Tremalking",
+["Central Tremalking"] = "Central_Tremalking",
+["East Tremalking"] = "East_Tremalking",
+["Twisted Forestlands"] = "Twisted_Forestlands",
+["Barren Hills"] = "Barren_Hills",
+["Southern Kandor"] = "Southern_Kandor",
+["Plains Along the Blight Border"] = "Plains_Along_the_Blight_Border",
+["Saldaean Plains"] = "Saldaean_Plains",
+["Maradon"] = "Maradon",
+["Stone Fortress"] = "Stone_Fortress",
+["Blighted Valley"] = "Blighted_Valley",
+["Southern Saldaean Countryside"] = "Southern_Saldaean_Countryside",
+["Imre Stand"] = "Imre_Stand",
+["Waste Bordering the Spine"] = "Waste_Bordering_the_Spine",
+["In the Aiel Waste"] = "In_the_Aiel_Waste",
+["The Endless Waste"] = "The_Endless_Waste",
+["Cold Rocks Hold"] = "Cold_Rocks_Hold",
+["The Ways"] = "The_Ways",
+["Blighted Hills"] = "Blighted_Hills",
+["Isle of Madmen South"] = "Isle_of_Madmen_South",
+["Isle Jafar"] = "Isle_Jafar",
+["The Sunken Castle"] = "The_Sunken_Castle",
+["Beneath the Desolate Mountains"] = "Beneath_the_Desolate_Mountains",
+["Scorched Earth"] = "Scorched_Earth",
+["Withered Forest"] = "Withered_Forest",
+["Ruined Blight"] = "Ruined_Blight",
+["Volcanic Blight"] = "Volcanic_Blight",
+["Shayol Ghul"] = "Shayol_Ghul",
+["Akkad"] = "",
+["Northern Shayol Ghul"] = "Northern_Shayol_Ghul",
+["The Dark Road"] = "The_Dark_Road",
+["Dying Plains"] = "The_Dying_Plains",
+["The Blasted Lands"] = "The_Blasted_Lands",
+["Blighted Ruins"] = "Blighted_Ruins",
+["Deep Within the Blasted Lands"] = "Deep_Within_the_Blasted_Lands",
+["Thakan'dar"] = "Thakan'dar",
+["Horse Thief"] = "Horse_Thief_Zone",
+["The Tear to Illian Road"] = "The_Tear_to_Illian_Road",
+["The Sea of Storms"] = "The_Sea_of_Storms",
+["The Coastal Roadway"] = "The_Coastal_Roadway",
+["Seanchan Shore"] = "Seanchan_Shore",
+["Foothills of Tamika"] = "Foothills_of_Tamika",
+["Seandar"] = "City_of_Seandar",
+["Court of Nine Moons and Tower of Ravens"] = "Court_of_Nine_Moons_and_Tower_of_Ravens",
+["Tree Top City"] = "",
+["Valan Luca's Menagerie"] = "Valan_Luca's_Menagerie",
+["Fortress of Light Dungeon"] = "Fortress_of_Light_Dungeon"
+
+}</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>

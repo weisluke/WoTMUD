@@ -7,10 +7,10 @@
 			<script>horse = horse or {}
 
 if matches[3] then
-	horse.primary = matches[4]
+	horse.first = matches[4]
 	cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
-elseif horse.primary then
-	cecho("Horse is set as: &lt;gold&gt;"..horse.primary.."&lt;white&gt;.\n")
+elseif horse.first then
+	cecho("Horse is set as: &lt;gold&gt;"..horse.first.."&lt;white&gt;.\n")
 else
 	cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -24,14 +24,14 @@ end</script>
 horse = horse or {}
 
 if matches[3] then
-	if matches[4]~=horse.primary then
-		horse.primary = matches[4]
+	if matches[4]~=horse.first then
+		horse.first = matches[4]
 		cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
 	end	
 end
 
-if horse.primary then
-	send("ride "..horse.primary)
+if horse.first then
+	send("ride "..horse.first)
 else
 	cecho("&lt;red&gt;Horse not set!\n")
 end
@@ -56,8 +56,8 @@ end
 
 horse = horse or {}
 
-if horse.primary then
-	send("lead "..horse.primary)
+if horse.first then
+	send("lead "..horse.first)
 else
 	cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -78,8 +78,8 @@ end</script>
 
 horse = horse or {}
 
-if horse.primary then
-	send("eq "..horse.primary.." horseeq")
+if horse.first then
+	send("eq "..horse.first.." horseeq")
 else
 	cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -93,8 +93,8 @@ end</script>
 
 horse = horse or {}
 
-if horse.primary then
-  send("diagnose " .. horse.primary)
+if horse.first then
+  send("diagnose " .. horse.first)
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -108,7 +108,7 @@ end</script>
 
 horse = horse or {}
 
-horse.primary=nil
+horse.first=nil
 cecho("&lt;red&gt;Horse deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>

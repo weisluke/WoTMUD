@@ -206,6 +206,7 @@ end</script>
     colors = table.update(default_colors, colors)
     self.map_colors = colors
     display(self.map_colors == colors)
+    display(self.map_colors == self.default_map_colors)
 end
 </script>
 				<eventHandlerList />

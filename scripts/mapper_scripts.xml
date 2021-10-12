@@ -189,7 +189,9 @@ end</script>
     local configs = self.configs or {}
     local default_colors = self.default_map_colors or {}
     local colors = self.map_colors or {}
+    cecho("DEFAULT COLORS\n")
     display(default_colors)
+    cecho("COLORS\n")
     display(colors)
     self:echo("Loading map configurations.\n")
     -- load stored configs from file if it exists
@@ -206,6 +208,10 @@ end</script>
     self.configs = configs
     colors = table.update(default_colors, colors)
     self.map_colors = colors
+    cecho("COLORS\n")
+    display(colors)
+    cecho("MAP_COLORS\n")
+    display(self.map_colors)
 end
 </script>
 				<eventHandlerList />

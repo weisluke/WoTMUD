@@ -1203,6 +1203,7 @@ end</script>
   if name ~= "mapper_scripts" then return end
   wotmudmapper:show_help()
   wotmudmapper:setConfigs()
+  wotmudmapper:setMapColors()
   if wotmudmapper.configs.map_window.visible then
     wotmudmapper:showMap(true)
   end

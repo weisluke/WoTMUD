@@ -14,8 +14,8 @@
 
 container = container or {}
 
-if container.primary then
-	send("get fluid "..container.primary)
+if container.first then
+	send("get fluid "..container.first)
 else
 	cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -29,8 +29,8 @@ end</script>
 
 container = container or {}
 
-if container.primary then
-	send("get red "..container.primary)
+if container.first then
+	send("get red "..container.first)
 else
 	cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -44,8 +44,8 @@ end</script>
 
 container = container or {}
 
-if container.primary then
-	send("get draught "..container.primary)
+if container.first then
+	send("get draught "..container.first)
 else
 	cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -59,8 +59,8 @@ end</script>
 
 container = container or {}
 
-if container.primary then
-	send("get syrup "..container.primary)
+if container.first then
+	send("get syrup "..container.first)
 else
 	cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -74,8 +74,8 @@ end</script>
 
 container = container or {}
 
-if container.primary then
-	send("get tea "..container.primary)
+if container.first then
+	send("get thready "..container.first)
 else
 	cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -103,6 +103,28 @@ end</script>
 				<command>quaff cup</command>
 				<packageName></packageName>
 				<regex>^qc$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Cider</name>
+				<script>--syntax: gcp
+
+container = container or {}
+
+if container.first then
+	send("get cider "..container.first)
+else
+	cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^gcp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Quaff Potion</name>
+				<script></script>
+				<command>quaff potion</command>
+				<packageName></packageName>
+				<regex>^qp$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

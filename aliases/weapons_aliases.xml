@@ -14,8 +14,8 @@
 
 weapon = weapon or {}
 
-if weapon.primary then
-	send("sheath "..weapon.primary)
+if weapon.first then
+	send("sheath "..weapon.first)
 else
 	cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -53,8 +53,8 @@ end</script>
 
 weapon = weapon or {}
 
-if weapon.primary then
-	send("draw "..weapon.primary)
+if weapon.first then
+	send("draw "..weapon.first)
 else
 	cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -68,8 +68,8 @@ end</script>
 
 weapon = weapon or {}
 
-if weapon.primary then
-	send("rem "..weapon.primary)
+if weapon.first then
+	send("rem "..weapon.first)
 else
 	cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -83,8 +83,8 @@ end</script>
 
 weapon = weapon or {}
 
-if weapon.primary then
-	send("wield "..weapon.primary)
+if weapon.first then
+	send("wield "..weapon.first)
 else
 	cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -99,10 +99,10 @@ end</script>
 weapon = weapon or {}
 
 if matches[3] then
-	weapon.primary = matches[4]
+	weapon.first = matches[4]
 	cecho("Weapon is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
-elseif weapon.primary then
-	cecho("Weapon is set as: &lt;gold&gt;"..weapon.primary.."&lt;white&gt;.\n")
+elseif weapon.first then
+	cecho("Weapon is set as: &lt;gold&gt;"..weapon.first.."&lt;white&gt;.\n")
 else
 	cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -116,7 +116,7 @@ end</script>
 
 weapon = weapon or {}
 
-weapon.primary=nil
+weapon.first=nil
 cecho("&lt;red&gt;Weapon deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>

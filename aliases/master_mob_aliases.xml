@@ -9,16 +9,16 @@
 			<packageName></packageName>
 			<regex></regex>
 			<AliasGroup isActive="yes" isFolder="yes">
-				<name>Primary Mob</name>
+				<name>First Mob</name>
 				<script>--syntax: setmob OR setmob xxx
 
 mob=mob or {}
 
 if matches[3] then
-	mob.primary = matches[4]
+	mob.first = matches[4]
 	cecho("Mob is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
-elseif mob.primary then
-	cecho("Mob is set as: &lt;gold&gt;"..mob.primary.."&lt;white&gt;.\n")
+elseif mob.first then
+	cecho("Mob is set as: &lt;gold&gt;"..mob.first.."&lt;white&gt;.\n")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -49,11 +49,11 @@ end</script>
 
 mob=mob or {}
 
-if mob.primary then
+if mob.first then
 	if matches[3] then
-		send("order "..mob.primary.." kill h."..matches[4])
+		send("order "..mob.first.." kill h."..matches[4])
 	elseif mob.target then
-		send("order "..mob.primary.." kill h."..mob.target)
+		send("order "..mob.first.." kill h."..mob.target)
 	else
 		cecho("&lt;red&gt;No target specified!\n")
 	end
@@ -70,11 +70,11 @@ end</script>
 
 mob=mob or {}
 
-if mob.primary then
+if mob.first then
 	if matches[3] then
-		send("order "..mob.primary.." bash h."..matches[4])
+		send("order "..mob.first.." bash h."..matches[4])
 	else
-		send("order "..mob.primary.." bash")
+		send("order "..mob.first.." bash")
 	end
 else
 	cecho("&lt;red&gt;Mob not set!\n")
@@ -89,11 +89,11 @@ end</script>
 
 mob=mob or {}
 
-if mob.primary then
+if mob.first then
 	if matches[3] then
-		send("order "..mob.primary.." assist "..matches[4])
+		send("order "..mob.first.." assist "..matches[4])
 	else
-		send("order "..mob.primary.." assist Adael")
+		send("order "..mob.first.." assist Adael")
 	end
 else
 	cecho("&lt;red&gt;Mob not set!\n")
@@ -108,11 +108,11 @@ end</script>
 
 mob=mob or {}
 
-if mob.primary then
+if mob.first then
 	if matches[3] then
-		send("order "..mob.primary.." rescue "..matches[4])
+		send("order "..mob.first.." rescue "..matches[4])
 	else
-		send("order "..mob.primary.." rescue Adael")
+		send("order "..mob.first.." rescue Adael")
 	end
 else
 	cecho("&lt;red&gt;Mob not set!\n")
@@ -127,8 +127,8 @@ end</script>
 
 mob=mob or {}
 
-if mob.primary then
-	send("order "..mob.primary.." sit")
+if mob.first then
+	send("order "..mob.first.." sit")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -142,7 +142,7 @@ end</script>
 
 mob=mob or {}
 
-mob.primary=nil
+mob.first=nil
 cecho("&lt;red&gt;Mob deleted!\n")</script>
 					<command></command>
 					<packageName></packageName>
@@ -166,8 +166,8 @@ cecho("&lt;red&gt;Mob target deleted!\n")</script>
 
 mob=mob or {}
 
-if mob.primary then
-	send("order "..mob.primary.." follow Adael")
+if mob.first then
+	send("order "..mob.first.." follow Adael")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -181,9 +181,9 @@ end</script>
 
 mob=mob or {}
 
-if mob.primary then
+if mob.first then
 	if mob.target then
-		send("order "..mob.primary.." bash h."..mob.target)
+		send("order "..mob.first.." bash h."..mob.target)
 	else
 		cecho("&lt;red&gt;Mob target not set!\n")
 	end
@@ -200,8 +200,8 @@ end</script>
 
 mob=mob or {}
 
-if mob.primary then
-	send("order "..mob.primary.." disengage")
+if mob.first then
+	send("order "..mob.first.." disengage")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -215,8 +215,8 @@ end</script>
 
 mob=mob or {}
 
-if mob.primary then
-	send("order "..mob.primary.." flee")
+if mob.first then
+	send("order "..mob.first.." flee")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -230,9 +230,9 @@ end</script>
 
 mob=mob or {}
 
-if mob.primary then
+if mob.first then
 	if matches[2] then
-		send("order "..mob.primary.." "..matches[2])
+		send("order "..mob.first.." "..matches[2])
 	end
 else
 	cecho("&lt;red&gt;Mob not set!\n")
@@ -243,16 +243,16 @@ end</script>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
-				<name>Secondary Mob</name>
+				<name>Second Mob</name>
 				<script>--syntax: setmobs OR setmobs xxx
 
 mob=mob or {}
 
 if matches[3] then
-	mob.secondary = matches[4]
+	mob.second = matches[4]
 	cecho("Mob is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
-elseif mob.secondary then
-	cecho("Mob is set as: &lt;gold&gt;"..mob.secondary.."&lt;white&gt;.\n")
+elseif mob.second then
+	cecho("Mob is set as: &lt;gold&gt;"..mob.second.."&lt;white&gt;.\n")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -283,11 +283,11 @@ end</script>
 
 mob=mob or {}
 
-if mob.secondary then
+if mob.second then
 	if matches[3] then
-		send("order "..mob.secondary.." kill h."..matches[4])
+		send("order "..mob.second.." kill h."..matches[4])
 	elseif mob.targets then
-		send("order "..mob.secondary.." kill h."..mob.targets)
+		send("order "..mob.second.." kill h."..mob.targets)
 	else
 		cecho("&lt;red&gt;No target specified!\n")
 	end
@@ -304,11 +304,11 @@ end</script>
 
 mob=mob or {}
 
-if mob.secondary then
+if mob.second then
 	if matches[3] then
-		send("order "..mob.secondary.." bash h."..matches[4])
+		send("order "..mob.second.." bash h."..matches[4])
 	else
-		send("order "..mob.secondary.." bash")
+		send("order "..mob.second.." bash")
 	end
 else
 	cecho("&lt;red&gt;Mob not set!\n")
@@ -323,11 +323,11 @@ end</script>
 
 mob=mob or {}
 
-if mob.secondary then
+if mob.second then
 	if matches[3] then
-		send("order "..mob.secondary.." assist "..matches[4])
+		send("order "..mob.second.." assist "..matches[4])
 	else
-		send("order "..mob.secondary.." assist Adael")
+		send("order "..mob.second.." assist Adael")
 	end
 else
 	cecho("&lt;red&gt;Mob not set!\n")
@@ -342,11 +342,11 @@ end</script>
 
 mob=mob or {}
 
-if mob.secondary then
+if mob.second then
 	if matches[3] then
-		send("order "..mob.secondary.." rescue "..matches[4])
+		send("order "..mob.second.." rescue "..matches[4])
 	else
-		send("order "..mob.secondary.." rescue Adael")
+		send("order "..mob.second.." rescue Adael")
 	end
 else
 	cecho("&lt;red&gt;Mob not set!\n")
@@ -361,8 +361,8 @@ end</script>
 
 mob=mob or {}
 
-if mob.secondary then
-	send("order "..mob.secondary.." sit")
+if mob.second then
+	send("order "..mob.second.." sit")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -376,7 +376,7 @@ end</script>
 
 mob=mob or {}
 
-mob.secondary=nil
+mob.second=nil
 cecho("&lt;red&gt;Mob deleted!\n")</script>
 					<command></command>
 					<packageName></packageName>
@@ -400,8 +400,8 @@ cecho("&lt;red&gt;Mob target deleted!\n")</script>
 
 mob=mob or {}
 
-if mob.secondary then
-	send("order "..mob.secondary.." follow Adael")
+if mob.second then
+	send("order "..mob.second.." follow Adael")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -415,9 +415,9 @@ end</script>
 
 mob=mob or {}
 
-if mob.secondary then
+if mob.second then
 	if mob.targets then
-		send("order "..mob.secondary.." bash h."..mob.targets)
+		send("order "..mob.second.." bash h."..mob.targets)
 	else
 		cecho("&lt;red&gt;Mob target not set!\n")
 	end
@@ -434,8 +434,8 @@ end</script>
 
 mob=mob or {}
 
-if mob.secondary then
-	send("order "..mob.secondary.." disengage")
+if mob.second then
+	send("order "..mob.second.." disengage")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -449,8 +449,8 @@ end</script>
 
 mob=mob or {}
 
-if mob.secondary then
-	send("order "..mob.secondary.." flee")
+if mob.second then
+	send("order "..mob.second.." flee")
 else
 	cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -464,9 +464,9 @@ end</script>
 
 mob=mob or {}
 
-if mob.secondary then
+if mob.second then
 	if matches[2] then
-		send("order "..mob.secondary.." "..matches[2])
+		send("order "..mob.second.." "..matches[2])
 	end
 else
 	cecho("&lt;red&gt;Mob not set!\n")

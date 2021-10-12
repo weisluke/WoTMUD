@@ -15,9 +15,9 @@
 container = container or {}
 light = light or {}
 
-if container.primary then
-	if light.primary then
-		send("get "..light.primary.." "..container.primary)
+if container.first then
+	if light.first then
+		send("get "..light.first.." "..container.first)
 	else
 		cecho("&lt;red&gt;Light not set!\n")
 	end
@@ -34,8 +34,8 @@ end</script>
 
 light = light or {}
 
-if light.primary then
-	send("hold "..light.primary)
+if light.first then
+	send("hold "..light.first)
 else
 	cecho("&lt;red&gt;Light not set!\n")
 end
@@ -50,8 +50,8 @@ end
 
 light = light or {}
 
-if light.primary then
-	send("exam "..light.primary)
+if light.first then
+	send("exam "..light.first)
 else
 	cecho("&lt;red&gt;Light not set!\n")
 end
@@ -66,8 +66,8 @@ end
 
 light = light or {}
 
-if light.primary then
-	send("remove "..light.primary)
+if light.first then
+	send("remove "..light.first)
 else
 	cecho("&lt;red&gt;Light not set!\n")
 end
@@ -83,9 +83,9 @@ end
 container = container or {}
 light = light or {}
 
-if container.primary then
-	if light.primary then
-		send("put "..light.primary.." "..container.primary)
+if container.first then
+	if light.first then
+		send("put "..light.first.." "..container.first)
 	else
 		cecho("&lt;red&gt;Light not set!\n")
 	end
@@ -103,10 +103,10 @@ end</script>
 light = light or {}
 
 if matches[3] then
-  light.primary = matches[4]
+  light.first = matches[4]
   cecho("Light is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
-elseif light.primary then
-  cecho("Light is set as: &lt;gold&gt;" .. light.primary .. "&lt;white&gt;.\n")
+elseif light.first then
+  cecho("Light is set as: &lt;gold&gt;" .. light.first .. "&lt;white&gt;.\n")
 else
   cecho("&lt;red&gt;Light not set!\n")
 end</script>
@@ -120,7 +120,7 @@ end</script>
 
 light = light or {}
 
-light.primary=nil
+light.first=nil
 cecho("&lt;red&gt;Light deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>

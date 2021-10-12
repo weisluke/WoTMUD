@@ -15,10 +15,10 @@
 container = container or {}
 
 if matches[3] then
-  container.primary = matches[4]
+  container.first = matches[4]
   cecho("Container is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
-elseif container.primary then
-  cecho("Container is set as: &lt;gold&gt;" .. container.primary .. "&lt;white&gt;.\n")
+elseif container.first then
+  cecho("Container is set as: &lt;gold&gt;" .. container.first .. "&lt;white&gt;.\n")
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -32,7 +32,7 @@ end</script>
 
 container = container or {}
 
-container.primary=nil
+container.first=nil
 cecho("&lt;red&gt;Container deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>
@@ -45,10 +45,10 @@ cecho("&lt;red&gt;Container deleted!\n")</script>
 drink = drink or {}
 
 if matches[3] then
-  drink.primary = matches[4]
+  drink.first = matches[4]
   cecho("drink is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
-elseif drink.primary then
-  cecho("Drink is set as: &lt;gold&gt;" .. drink.primary .. "&lt;white&gt;.\n")
+elseif drink.first then
+  cecho("Drink is set as: &lt;gold&gt;" .. drink.first .. "&lt;white&gt;.\n")
 else
   cecho("&lt;red&gt;Drink not set!\n")
 end</script>
@@ -62,7 +62,7 @@ end</script>
 
 drink = drink or {}
 
-drink.primary=nil
+drink.first=nil
 cecho("&lt;red&gt;Drink deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>

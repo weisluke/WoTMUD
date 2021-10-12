@@ -20,7 +20,7 @@
 
 door = door or {}
 
-local door = door.primary
+local door = door.first
 if door ~= nil then
   send("open " .. door)
 else
@@ -36,7 +36,7 @@ end</script>
 
 door = door or {}
 
-local door = door.primary
+local door = door.first
 if door ~= nil then
   send("cl " .. door)
 else
@@ -52,7 +52,7 @@ end</script>
 
 door = door or {}
 
-door.primary = matches[2]
+door.first = matches[2]
 cecho("First door is set as: &lt;gold&gt;" .. matches[2] .. "&lt;white&gt;.\n")</script>
 					<command></command>
 					<packageName></packageName>
@@ -64,7 +64,7 @@ cecho("First door is set as: &lt;gold&gt;" .. matches[2] .. "&lt;white&gt;.\n")<
 
 door = door or {}
 
-door.primary = nil
+door.first = nil
 cecho("&lt;red&gt;First door deleted!\n")</script>
 					<command></command>
 					<packageName></packageName>
@@ -76,7 +76,7 @@ cecho("&lt;red&gt;First door deleted!\n")</script>
 
 door = door or {}
 
-local door = door.primary
+local door = door.first
 if door ~= nil then
   send("pick " .. door)
 else
@@ -92,7 +92,7 @@ end</script>
 
 door = door or {}
 
-local door = door.primary
+local door = door.first
 if door ~= nil then
   send("knock " .. door)
 else
@@ -108,7 +108,7 @@ end</script>
 
 door = door or {}
 
-local door = door.primary
+local door = door.first
 if door ~= nil then
   send("unlock " .. door)
 else
@@ -124,7 +124,7 @@ end</script>
 
 door = door or {}
 
-local door = door.primary
+local door = door.first
 if door ~= nil then
   send("lock " .. door)
 else

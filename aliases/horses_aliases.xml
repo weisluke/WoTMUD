@@ -7,10 +7,10 @@
 			<script>horse = horse or {}
 
 if matches[3] then
-	horse.primary = matches[4]
+	horse.first = matches[4]
 	cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
-elseif horse.primary then
-	cecho("Horse is set as: &lt;gold&gt;"..horse.primary.."&lt;white&gt;.\n")
+elseif horse.first then
+	cecho("Horse is set as: &lt;gold&gt;"..horse.first.."&lt;white&gt;.\n")
 else
 	cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -24,14 +24,14 @@ end</script>
 horse = horse or {}
 
 if matches[3] then
-	if matches[4]~=horse.primary then
-		horse.primary = matches[4]
+	if matches[4]~=horse.first then
+		horse.first = matches[4]
 		cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
 	end	
 end
 
-if horse.primary then
-	send("ride "..horse.primary)
+if horse.first then
+	send("ride "..horse.first)
 else
 	cecho("&lt;red&gt;Horse not set!\n")
 end
@@ -56,8 +56,8 @@ end
 
 horse = horse or {}
 
-if horse.primary then
-	send("lead "..horse.primary)
+if horse.first then
+	send("lead "..horse.first)
 else
 	cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -78,8 +78,8 @@ end</script>
 
 horse = horse or {}
 
-if horse.primary then
-	send("eq "..horse.primary.." horseeq")
+if horse.first then
+	send("eq "..horse.first.." horseeq")
 else
 	cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -93,8 +93,8 @@ end</script>
 
 horse = horse or {}
 
-if horse.primary then
-  send("diagnose " .. horse.primary)
+if horse.first then
+  send("diagnose " .. horse.first)
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -108,11 +108,101 @@ end</script>
 
 horse = horse or {}
 
-horse.primary=nil
+horse.first=nil
 cecho("&lt;red&gt;Horse deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^delhorse$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Horse Assist</name>
+				<script>--syntax: oha
+
+horse = horse or {}
+
+if horse.first then
+	send("order "..horse.first.." assist Adael")
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^oha$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Horse Sit</name>
+				<script>--syntax: ohs
+
+horse = horse or {}
+
+if horse.first then
+	send("order "..horse.first.." sit")
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ohs$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Horse Flee</name>
+				<script>--syntax: ohff
+
+horse = horse or {}
+
+if horse.first then
+	send("order "..horse.first.." flee")
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ohff$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Horse Disengage</name>
+				<script>--syntax: ohd
+
+horse = horse or {}
+
+if horse.first then
+	send("order "..horse.first.." disengage")
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ohd$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Horse Kill</name>
+				<script>--syntax: ohk xxx
+
+horse = horse or {}
+
+if horse.first then
+	send("order "..horse.first.." kill h."..matches[2])
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ohk (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Horse Rescue</name>
+				<script>--syntax: ohr
+
+horse = horse or {}
+
+if horse.first then
+	send("order "..horse.first.." rescue Adael")
+else
+	cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ohr$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

@@ -202,11 +202,9 @@ end</script>
     
     -- overwrite default values with stored config values
     configs = table.update(defaults, configs)
-    self.configs = configs
+    self.configs = table.deepcopy(configs)
     colors = table.update(default_colors, colors)
-    self.map_colors = colors
-    display(self.map_colors == colors)
-    display(self.map_colors == self.default_map_colors)
+    self.map_colors = table.deepcopy(colors)
 end
 </script>
 				<eventHandlerList />

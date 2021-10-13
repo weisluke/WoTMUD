@@ -47,26 +47,47 @@ wotmudmapper.defaults = {
     dock=false}
   }
 
---set default map colors
+--set default map room type environment numbers and colors
+wotmudmapper.room_type_env_nums = {
+  inside = 20,
+  wilderness = 21,
+  road = 22, 
+  horse = 23,
+  swamp = 24,
+  water = 25,
+  drink = 26,
+  weaponsmith = 27,
+  armorer = 28,
+  blacksmith = 29,
+  bank  = 30,
+  stables = 31,
+  rent = 32,
+  grocer = 33,
+  warrior = 34,
+  rogue = 35,
+  hunter = 36,
+  pk = 37
+}
+
 wotmudmapper.default_map_colors = {
-  inside = {env_num = 20, color = "white"},
-  wilderness = {env_num = 21, color = "forest_green"},
-  road = {env_num = 22, color = "brown"}, 
-  horse = {env_num = 23, color = "burlywood"},
-  swamp = {env_num = 24, color = "dark_violet"},
-  water = {env_num = 25, color = "blue"},
-  drink = {env_num = 26, color = "medium_aquamarine"},
-  weaponsmith = {env_num = 27, color = "steel_blue"},
-  armorer = {env_num = 28, color = "gray"},
-  blacksmith = {env_num = 29, color = "dark_orange"},
-  bank  = {env_num = 30, color = "gold"},
-  stables = {env_num = 31, color = "purple"},
-  rent = {env_num = 32, color = "green"},
-  grocer = {env_num = 33, color = "red"},
-  warrior = {env_num = 34, color = "sienna"},
-  rogue = {env_num = 35, color = "dark_slate_gray"},
-  hunter = {env_num = 36, color = "yellow_green"},
-  pk = {env_num = 37, color = "light_gray"}
+  inside = "white",
+  wilderness = "forest_green",
+  road = "brown", 
+  horse = "burlywood",
+  swamp = "dark_violet",
+  water = "blue",
+  drink = "medium_aquamarine",
+  weaponsmith = "steel_blue",
+  armorer = "gray",
+  blacksmith = "dark_orange",
+  bank  = "gold",
+  stables = "purple",
+  rent = "green",
+  grocer = "red",
+  warrior = "sienna",
+  rogue = "dark_slate_gray",
+  hunter = "yellow_green",
+  pk = "light_gray"
 }
 
 
@@ -174,8 +195,8 @@ end</script>
 				<packageName></packageName>
 				<script>function wotmudmapper:setMapColors()
   for k, v in pairs(self.map_colors) do
-    local r, g, b = unpack(color_table[v.color])
-    setCustomEnvColor(v.env_num, r, g, b, 255)
+    local r, g, b = unpack(color_table[v])
+    setCustomEnvColor(self.room_type_env_nums[k], r, g, b, 255)
   end
   updateMap()
 end</script>

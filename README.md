@@ -56,13 +56,13 @@ Assuming everything worked properly, what you have just installed is a script th
 5. Type "map update". You should again receive some messages about the map file downloading and installing. This may take a moment depending on your internet speed. Once that is done, the message in the top right map window should change to say that you have a map loaded, but Mudlet doesn't know where you are.
 ![mapper_install_4](https://user-images.githubusercontent.com/52049495/137247712-21450f8b-c8bd-43af-aec3-742d2730d68f.png)
 
-6. Look at your room. You should see debugging next to room names, room descriptions, and direction and look inputs. This is normal. See if the map centers on your position. If the rooms are too small, you can adjust their size at the bottom of the map window (along with the size of the room exit lines). 
+6. Look at your room. You should see debugging next to room names, room descriptions, and direction and look inputs. This is normal. See if the map centers on your position. If the rooms are too small, you can adjust their size at the bottom of the map window (along with the size of the room exit lines). You can also zoom in by scrolling with your mouse wheel on the map window, or (assuming everything has worked properly up to this point) by entering "map zoom 30" into the Mudlet command line.
 ![mapper_install_5](https://user-images.githubusercontent.com/52049495/137248267-59c8b130-2dfa-4973-959d-7253f640b772.png)
 
 7. You can type "map debug" to turn off the debug messages. If there are problems with the mapper, these messages can be useful in narrowing down what the issue is. 
 ![mapper_install_6](https://user-images.githubusercontent.com/52049495/137248345-50ee7931-b074-4cb8-9db0-4c4f890f6f8a.png)
 
-The appearance of the map can be further changed with some tabs in the settings window, and some aliases I've built into the map script. I won't go into detail on those here, but feel free to reach out to me with questions. 
+The appearance of the map can be further changed with some tabs in the settings window, and some aliases I've built into the map script. I won't go into detail on those here, but feel free to reach out to me if you're interested or have questions. 
 
 # Installing a communications window script
 1. To get a communications window that stores says/chats/nars/etc, type "wotpack install communications" into the command line and hit enter. Test it out by saying something to ensure that it is capturing things properly. If it looks like it installed correctly, you can type "comms debug" as well.

@@ -24,7 +24,7 @@ I should be able to be reached by tagging @weisluke in the Discord (preferably i
    1. Alternatively, you can right click on the "Downloads" button and "Save link as" to save it to a specific spot on your computer, e.g. the desktop.
 ![wotpack_installer_2](https://user-images.githubusercontent.com/52049495/137240737-23e0e19f-5c7e-49de-a497-06e431b414aa.png)
 
-3. Login to the MUD with Mudlet and open Packages -> Package Manager from the top toolbar of icons, and click the "Install new package" at the bottom of the window that pops up. Navigate to the location you saved the wotpack_installer.mpackage file, select it, and click open. 
+3. Login to the MUD with Mudlet and open Packages -> Package Manager from the top toolbar of icons, and click the "Install new package" button at the bottom of the window that pops up. Navigate to the location you saved the wotpack_installer.mpackage file, select it, and click open. 
 ![mudlet_packages_1](https://user-images.githubusercontent.com/52049495/137245638-82093947-ec96-4d65-96fb-632570e2612a.png)
 
 4. You should see an automatic help message from the package installation on your screen. If so, you can then close the Package Manager.

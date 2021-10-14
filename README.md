@@ -5,6 +5,7 @@ The purpose of this repository is to host a collection of files for playing the 
 
 
 #Connecting to the game
+
 These files are for Mudlet (https://www.mudlet.org/), a client that can be used to connect to various MUD games. Mudlet can be downloaded at https://www.mudlet.org/download/ for Windows, Linux, and macOS.
 
 1. Open Mudlet. WoTMUD is one of the default profiles in Mudlet, so you can either (1) click on that profile and (4) connect, or (2) and (3) create a new profile with WoTMUD's information to (4) connect.
@@ -69,5 +70,6 @@ The appearance of the map can be further changed with some tabs in the settings 
 
 
 #Installing other files
+
 You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the help message to install particular pieces, or everything. Most names should be self explanatory.
 

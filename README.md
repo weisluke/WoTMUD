@@ -48,7 +48,7 @@ Assuming everything worked properly, what you have just installed is a script th
    1. "color complete" on. The mapper scripts need the room name colors to properly work.
    2. "brief" off. The mapper will work with brief mode on, just not as well (though still pretty dang well if I do say so myself, given the limitations of picking out rooms from only name and exit combinations). In a few steps, after installing the mapper, you can instead type "map brief" to have the mapper scripts manually gag the room descriptions so they don't show up on the screen, while still using them to determine your position.
 3. Type "wotpack install mapper" into the command line and hit enter.
-![mapper_install_2](https://user-images.githubusercontent.com/52049495/137247375-d129dd1c-0fe4-4fa3-b58b-b0fce5faa4df.png)
+![mapper_install_2](https://user-images.githubusercontent.com/52049495/137254629-cf6e9d2e-8676-40c0-af78-cd6bd581a6f6.png)
 
 4. If things are successful, you should receive some messages along the lines of "(wotpack_installer): New mapper_scripts successfully installed." A new window should appear in the top right of the screen as well, though it will say that there are no rooms in the map. This is because we need to download the map file. 
 ![mapper_install_3](https://user-images.githubusercontent.com/52049495/137247489-22d1b16a-27a7-40c3-9331-ebfcf809c1b1.png)

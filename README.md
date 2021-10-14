@@ -1,7 +1,7 @@
 # WoTMUD
 WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 
-The purpose of this repository is to host a collection of files for playing the WoTMUD on Mudlet, and provide an easy method of downloading and installing these files from the Mudlet command line. Please read through the following information and instructions below carefully before proceeding, and follow the steps in order to get started with a map and communications window. 
+The purpose of this repository is to host a collection of files for playing the WoTMUD (http://www.wotmud.org/) on Mudlet, and provide an easy method of downloading and installing these files from the Mudlet command line. Please read through the following information and instructions below carefully before proceeding, and follow the steps in order to get started with a map and communications window. 
 
 
 # Connecting to the game

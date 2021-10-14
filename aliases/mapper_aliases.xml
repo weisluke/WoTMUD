@@ -656,7 +656,7 @@ else
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^map colors (\S+) (\S+)$</regex>
+					<regex>^map color (\S+) (\S+)$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">

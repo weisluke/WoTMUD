@@ -68,8 +68,22 @@ The appearance of the map can be further changed with some tabs in the settings 
 1. To get a communications window that stores says/chats/nars/etc, type "wotpack install communications" into the command line and hit enter. Test it out by saying something to ensure that it is capturing things properly. If it looks like it installed correctly, you can type "comms debug" as well.
 ![communications_install_1](https://user-images.githubusercontent.com/52049495/137248611-a7aa3f64-80e2-41bf-bb4c-955f0d1ffb2f.png)
 
+2. You can change the color of some fields with, e.g., "comms color yells green".
+![communications_install_2](https://user-images.githubusercontent.com/52049495/137252128-a7747796-c24b-4314-89f9-ff1de229ffa5.png)
+
 
 # Installing other files
 
 You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the "wotpack help" help message to install particular pieces, or everything. Most names should be self explanatory.
 
+# Other Mudlet information
+
+Mudlet stores your profile information at (on Windows at least) C:/users/USERNAME/.config/mudlet/profiles/PROFILENAME
+E.g., for me, C:/users/lukew/.config/mudlet/profiles/WoTMUD
+
+Inside this folder, there are two subfolders that may be of interest.
+![mudlet_profile](https://user-images.githubusercontent.com/52049495/137252774-496ed920-6d9a-42d2-867c-4c550f4ef682.png)
+
+One is named "current", and inside you will find .xml files with filenames corresponding to various dates and times. These files are copies of your profile. It is sometimes useful to back them up on a regular basis, just in case something ever goes wrong with your profile. You can also use those files to easily transfer your profile from one machine to another (copy the file on one machine or upload it to a cloud based service, and then save it in the same location on the new machine, making sure that it is the only file in that folder).
+The other folder, "log", contains the log files of the MUD output, if you have enabled logging. You can check whether logging is enabled by either paying attention to the initial lines of Mudlet output when you log in, which tells where the file is being saved (if logging is enabled), or checking that the logging button in the bottom right corner of Mudlet is enabled.
+![mudlet_logging](https://user-images.githubusercontent.com/52049495/137253004-3b51b1e3-ee44-47dd-b3df-36367045b189.png)

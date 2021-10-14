@@ -1,6 +1,10 @@
 # WoTMUD
 WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 
+The purpose of this repository is to host a collection of files for playing the WoTMUD on Mudlet, and provide an easy method of downloading and installing these files from the mudlet command line. Please read carefully and follow the steps below in order to get started with a map and communications window.
+
+![wotpack_installer_1](https://user-images.githubusercontent.com/52049495/137240395-f9a6ca92-70fe-49f9-a185-227afe748527.png)
+
 1. Download and save "wotpack_installer.mpackage" somewhere easy to find on your computer.
 2. Open Mudlet, open Package Manager (from the top toolbar of icons), and click install.
 3. Navigate to the location you saved the .mpackage file, select it, and click open. It should now show up in the list of packages. Click ok.

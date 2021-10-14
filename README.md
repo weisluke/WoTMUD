@@ -62,6 +62,9 @@ Assuming everything worked properly, what you have just installed is a script th
 7. You can type "map debug" to turn off the debug messages. If there are problems with the mapper, these messages can be useful in narrowing down what the issue is. 
 ![mapper_install_6](https://user-images.githubusercontent.com/52049495/137248345-50ee7931-b074-4cb8-9db0-4c4f890f6f8a.png)
 
+8. You can type "map dock", and the map will snap to the left or right side of the screen when you drag it there. This will make the scroll bar visible without you having to move the map window slightly, and allow you to place the map on the left hand side if you prefer.
+![mapper_dock](https://user-images.githubusercontent.com/52049495/137254236-70704c76-5fe9-46fc-86a0-d2b924b26c6a.png)
+
 The appearance of the map can be further changed with some tabs in the settings window, and some aliases I've built into the map script. I won't go into detail on those here, but feel free to reach out to me if you're interested or have questions. 
 
 # Installing a communications window script
@@ -69,7 +72,7 @@ The appearance of the map can be further changed with some tabs in the settings 
 ![communications_install_1](https://user-images.githubusercontent.com/52049495/137248611-a7aa3f64-80e2-41bf-bb4c-955f0d1ffb2f.png)
 
 2. You can change the color of some fields with, e.g., "comms color yells green".
-![communications_install_2](https://user-images.githubusercontent.com/52049495/137252128-a7747796-c24b-4314-89f9-ff1de229ffa5.png)
+![communications_install_2](https://user-images.githubusercontent.com/52049495/137254036-2623b282-ecc7-4a45-9d3d-c97d875f0bbb.png)
 
 
 # Installing other files

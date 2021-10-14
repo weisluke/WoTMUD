@@ -578,7 +578,7 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Change Room Color</name>
-					<script>--syntax: crc environment
+					<script>--syntax: cre environment
 --set current room to a particular environment type
 
 local env = string.lower(matches[2])
@@ -596,7 +596,7 @@ else
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^crc (.+)$</regex>
+					<regex>^cre (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Change Mapping Environment</name>

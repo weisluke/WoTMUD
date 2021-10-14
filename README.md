@@ -82,6 +82,7 @@ You can type "wotpack view files" to get a list of all possible files available 
 # Other Mudlet information
 
 Mudlet stores your profile information at (on Windows at least) C:/users/USERNAME/.config/mudlet/profiles/PROFILENAME
+
 E.g., for me, C:/users/lukew/.config/mudlet/profiles/WoTMUD
 
 Inside this folder, there are two subfolders that may be of interest.

@@ -71,5 +71,5 @@ The appearance of the map can be further changed with some tabs in the settings 
 
 # Installing other files
 
-You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the help message to install particular pieces, or everything. Most names should be self explanatory.
+You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the "wotpack help" help message to install particular pieces, or everything. Most names should be self explanatory.
 

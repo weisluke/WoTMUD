@@ -18,7 +18,7 @@ I should be able to be reached by tagging @weisluke in the Discord (preferably i
 # Downloading and installing the package handler
 
 1. Click on the file "wotpack_installer.mpackage" above. It will take you to a new page.
-![wotpack_installer_1](https://user-images.githubusercontent.com/52049495/137240395-f9a6ca92-70fe-49f9-a185-227afe748527.png)
+![wotpack_installer_1](https://user-images.githubusercontent.com/52049495/137250032-2c2aef39-d8a9-47da-806a-dfdfaf5f21d9.png)
 
 2. Click on the "Download" button. This should download the file and save it in your computer's default "Downloads" directory.
    1. Alternatively, you can right click on the "Downloads" button and "Save link as" to save it to a specific spot on your computer, e.g. the desktop.

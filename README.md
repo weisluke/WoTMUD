@@ -4,7 +4,7 @@ WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 The purpose of this repository is to host a collection of files for playing the WoTMUD on Mudlet, and provide an easy method of downloading and installing these files from the Mudlet command line. Please read through the following information and instructions below carefully before proceeding, and follow the steps in order to get started with a map and communications window. 
 
 
-#Connecting to the game
+# Connecting to the game
 
 These files are for Mudlet (https://www.mudlet.org/), a client that can be used to connect to various MUD games. Mudlet can be downloaded at https://www.mudlet.org/download/ for Windows, Linux, and macOS.
 
@@ -15,7 +15,7 @@ At this point if you are new to WoTMUD, I would recommend checking out our forum
 
 I should be able to be reached by tagging @weisluke in the Discord (preferably in the "#mudclient_helpdesk" channel) if you have questions about this guide or need help.
 
-#Downloading and installing the package handler
+# Downloading and installing the package handler
 
 1. Click on the file "wotpack_installer.mpackage" above. It will take you to a new page.
 ![wotpack_installer_2](https://user-images.githubusercontent.com/52049495/137240737-23e0e19f-5c7e-49de-a497-06e431b414aa.png)
@@ -39,7 +39,7 @@ Assuming everything worked properly, what you have just installed is a script th
 ![mudlet_settings_2](https://user-images.githubusercontent.com/52049495/137246430-b1498db2-4918-456c-8d11-73e31e1b2739.png)
 
 
-#Installing map scripts and a map file
+# Installing map scripts and a map file
 
 1. The first step for installing these map scripts is to remove the generic mapper by going to Packages->Package Manager, clicking on the "generic_mapper", and then clicking "Remove packages". After that, you will need to restart Mudlet and login again. DO NOT SKIP THIS STEP.
 ![mapper_install_1](https://user-images.githubusercontent.com/52049495/137246750-164a86ff-137a-4be5-8f59-8f9a0544736c.png)
@@ -64,12 +64,12 @@ Assuming everything worked properly, what you have just installed is a script th
 
 The appearance of the map can be further changed with some tabs in the settings window, and some aliases I've built into the map script. I won't go into detail on those here, but feel free to reach out to me with questions. 
 
-#Installing a communications window script
+# Installing a communications window script
 1. To get a communications window that stores says/chats/nars/etc, type "wotpack install communications" into the command line and hit enter. Test it out by saying something to ensure that it is capturing things properly. If it looks like it installed correctly, you can type "comms debug" as well.
 ![communications_install_1](https://user-images.githubusercontent.com/52049495/137248611-a7aa3f64-80e2-41bf-bb4c-955f0d1ffb2f.png)
 
 
-#Installing other files
+# Installing other files
 
 You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the help message to install particular pieces, or everything. Most names should be self explanatory.
 

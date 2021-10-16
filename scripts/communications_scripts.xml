@@ -93,6 +93,7 @@ end</script>
   communications:echo("Communications configurations saved.\n")
 end</script>
 				<eventHandlerList>
+					<string>sysExitEvent</string>
 					<string>sysDisconnectionEvent</string>
 				</eventHandlerList>
 			</Script>

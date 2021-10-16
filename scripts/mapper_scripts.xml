@@ -236,6 +236,11 @@ end
 				<script>function MapOnSysConnectionEvent(event)
   wotmudmapper.queue = List:new()
   wotmudmapper:setConfigs()
+  
+  if wotmudmapper.configs.map_window.visible then
+    wotmudmapper:showMap(true)
+  end
+  
   wotmudmapper:setMapColors()
   wotmudmapper.currentID={wotmudmapper.configs.roomID}
   centerview(wotmudmapper.currentID[1])
@@ -243,10 +248,6 @@ end
   disableKey("Offline Map")
   disableAlias("Offline Map Dirs")
   disableAlias("Offline Map Look")
-  
-  if wotmudmapper.configs.map_window.visible then
-    wotmudmapper:showMap(true)
-  end
   
   addMapMenu("Update room information")
   addMapEvent("onMapUpdateRoomName", "onMapUpdateRoomName", "Update room information", "Update room name") 
@@ -281,6 +282,7 @@ end</script>
   wotmudmapper:echo("Map configurations saved.\n")
 end</script>
 				<eventHandlerList>
+					<string>sysExitEvent</string>
 					<string>sysDisconnectionEvent</string>
 				</eventHandlerList>
 			</Script>
@@ -295,7 +297,6 @@ end</script>
   wotmudmapper:echo("Download complete.\n")
 	loadMap(filename)
   wotmudmapper:echo("New map successfully uploaded.\n")
-	MapOnSysConnectionEvent()
 end</script>
 				<eventHandlerList>
 					<string>sysDownloadDone</string>

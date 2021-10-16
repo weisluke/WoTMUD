@@ -237,9 +237,7 @@ end
   wotmudmapper.queue = List:new()
   wotmudmapper:setConfigs()
   
-  if wotmudmapper.configs.map_window.visible then
-    wotmudmapper:showMap(true)
-  end
+  wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)
   
   wotmudmapper:setMapColors()
   wotmudmapper.currentID={wotmudmapper.configs.roomID}

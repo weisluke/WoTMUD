@@ -73,9 +73,7 @@ end
 				<script>function CommsOnSysConnectionEvent(event)
   communications:setConfigs()
   
-  if communications.configs.comms_window.visible then
-    communications:showComms(true)
-  end
+  communications:showComms(communications.configs.comms_window.visible)
 end</script>
 				<eventHandlerList>
 					<string>sysLoadEvent</string>

@@ -295,7 +295,7 @@ end</script>
   wotmudmapper:echo("Download complete.\n")
 	loadMap(filename)
   wotmudmapper:echo("New map successfully uploaded.\n")
-	wotmudmapper:setMapColors()
+	MapOnSysConnectionEvent()
 end</script>
 				<eventHandlerList>
 					<string>sysDownloadDone</string>

@@ -1229,9 +1229,8 @@ end</script>
   wotmudmapper:show_help()
   wotmudmapper:setConfigs()
   wotmudmapper:setMapColors()
-  if wotmudmapper.configs.map_window.visible then
-    wotmudmapper:showMap(true)
-  end
+  
+  wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)
 end</script>
 				<eventHandlerList>
 					<string>sysInstallPackage</string>

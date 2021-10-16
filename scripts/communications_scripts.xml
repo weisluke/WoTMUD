@@ -62,7 +62,8 @@ end</script>
     end
     -- overwrite default values with stored config values
     configs = table.update(defaults, configs)
-    self.configs = configs
+    self.configs = table.deepcopy(configs)
+    table.save(getMudletHomeDir() .. "/communications.configs.lua", self.configs)
 end
 </script>
 				<eventHandlerList />
@@ -355,6 +356,7 @@ communications.help.comms_window =
   communications.configs.comms_window.y = y.."%"
   communications.configs.comms_window.w = width.."%"
   communications.configs.comms_window.h = height.."%"
+  table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
   
   communications:showComms(true)
 end
@@ -370,9 +372,8 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "commsFinis
   if name ~= "communications_scripts" then return end
   communications:show_help()
   communications:setConfigs()
-  if communications.configs.comms_window.visible then
-    communications:showComms(true)
-  end
+  
+  communications:showComms(communications.configs.comms_window.visible)
 end</script>
 				<eventHandlerList>
 					<string>sysInstallPackage</string>

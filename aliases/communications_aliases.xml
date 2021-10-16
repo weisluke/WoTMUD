@@ -13,6 +13,7 @@
 				<script>communications.configs = table.deepcopy(communications.defaults)
 communications.configs.dbug = false
 communications:echo("Communications configurations reset to default values.\n")
+table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
 communications:showComms(true)</script>
 				<command></command>
 				<packageName></packageName>
@@ -34,6 +35,7 @@ if communications.configs.comms_window[key] ~= nil then
       val = val .. "%"
       communications.configs.comms_window[key] = val
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
       communications:showComms(true)
     end
   elseif key == "h" then
@@ -47,6 +49,7 @@ if communications.configs.comms_window[key] ~= nil then
       val = val .. "%"
       communications.configs.comms_window[key] = val
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
       communications:showComms(true)
     end
   elseif key == "x" then
@@ -58,6 +61,7 @@ if communications.configs.comms_window[key] ~= nil then
       val = val .. "%"
       communications.configs.comms_window[key] = val
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
       communications:showComms(true)
     end
   elseif key == "y" then
@@ -69,6 +73,7 @@ if communications.configs.comms_window[key] ~= nil then
       val = val .. "%"
       communications.configs.comms_window[key] = val
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
       communications:showComms(true)
     end
   elseif key == "fontsize" then
@@ -77,6 +82,7 @@ if communications.configs.comms_window[key] ~= nil then
     else
       communications.configs.comms_window[key] = tonumber(val)
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
+      table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
       communications:showComms(true)
     end
   else
@@ -93,6 +99,7 @@ end</script>
 				<name>Show/Hide Comms</name>
 				<script>communications.configs.comms_window.visible = not communications.configs.comms_window.visible
 communications:echo("Communications will now be "..(communications.configs.comms_window.visible and "shown.\n" or "hidden.\n"))
+table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
 communications:showComms(communications.configs.comms_window.visible)</script>
 				<command></command>
 				<packageName></packageName>
@@ -101,7 +108,8 @@ communications:showComms(communications.configs.comms_window.visible)</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Dock/Undock Comms</name>
 				<script>communications.configs.comms_window.dock = not communications.configs.comms_window.dock
-communications:echo("Communications will now be "..(communications.configs.comms_window.dock and "docked.\n" or "floating.\n")) 
+communications:echo("Communications will now be "..(communications.configs.comms_window.dock and "docked.\n" or "floating.\n"))
+table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs) 
 communications:showComms(communications.configs.comms_window.visible)</script>
 				<command></command>
 				<packageName></packageName>
@@ -127,6 +135,7 @@ if communications.configs.colors[string.lower(key)] ~= nil then
       "&lt;reset&gt;).\n"
     )
     communications.configs.colors[string.lower(key)] = color
+    table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
   else
     communications:echo("Color not known.\n", false, true)
   end
@@ -149,7 +158,8 @@ end</script>
 				<script>--syntax: comms debug
 
 communications.configs.dbug = not communications.configs.dbug
-communications:echo("Communications debug set to: " .. (communications.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
+communications:echo("Communications debug set to: " .. (communications.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^comms debug$</regex>

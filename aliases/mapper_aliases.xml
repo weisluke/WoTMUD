@@ -333,6 +333,7 @@ if color_table[color] then
     "&lt;reset&gt;).\n"
   )
   wotmudmapper.configs.zonecolor = color
+  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
 else
   wotmudmapper:echo("Color not known.\n", false, true)
 end</script>
@@ -550,6 +551,7 @@ if color_table[color] then
     "&lt;reset&gt;).\n"
   )
   wotmudmapper.configs.doorcolor = color
+  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
 else
   wotmudmapper:echo("Color not known.\n", false, true)
 end</script>
@@ -608,6 +610,7 @@ local env = string.lower(matches[2])
 if wotmudmapper.map_colors[env] then
   wotmudmapper.configs.envcolor = wotmudmapper.room_type_env_nums[env]
   wotmudmapper:echo("New rooms will be of type &lt;"..wotmudmapper.map_colors[env].."&gt;"..env.."&lt;reset&gt;.\n")
+  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
 else
   wotmudmapper:echo("Type of room ("..matches[2]..") not known.\n",false,true)
 end</script>
@@ -620,8 +623,9 @@ end</script>
 					<script>--syntax: map colors reset
 
 wotmudmapper.map_colors = table.deepcopy(wotmudmapper.default_map_colors)
-wotmudmapper:setMapColors()
-wotmudmapper:echo("Map colors reset to default values.\n")</script>
+wotmudmapper:echo("Map colors reset to default values.\n")
+table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
+wotmudmapper:setMapColors()</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map colors reset$</regex>
@@ -647,6 +651,7 @@ if wotmudmapper.map_colors[env] ~= nil then
       "&lt;reset&gt;).\n"
     )
     wotmudmapper.map_colors[env] = color
+    table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
     wotmudmapper:setMapColors()
   else
     wotmudmapper:echo("Color not known.\n", false, true)
@@ -769,7 +774,8 @@ end</script>
 					<script>--syntax: mapping
 
 wotmudmapper.configs.mapping = not wotmudmapper.configs.mapping
-wotmudmapper:echo("Mapping is: " .. (wotmudmapper.configs.mapping and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
+wotmudmapper:echo("Mapping is: " .. (wotmudmapper.configs.mapping and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^mapping$</regex>
@@ -780,7 +786,8 @@ wotmudmapper:echo("Mapping is: " .. (wotmudmapper.configs.mapping and "&lt;green
 --toggle whether rooms are connected in both directions when mapping (i.e. use one way exits or no)
 
 wotmudmapper.configs.bothways = not wotmudmapper.configs.bothways
-wotmudmapper:echo("Bothways set to: " .. (wotmudmapper.configs.bothways and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
+wotmudmapper:echo("Bothways set to: " .. (wotmudmapper.configs.bothways and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map bothways$</regex>
@@ -791,7 +798,8 @@ wotmudmapper:echo("Bothways set to: " .. (wotmudmapper.configs.bothways and "&lt
 --toggle whether rooms should autojoin to nearby rooms when mapping
 
 wotmudmapper.configs.autojoin = not wotmudmapper.configs.autojoin
-wotmudmapper:echo("Autojoin set to: " .. (wotmudmapper.configs.autojoin and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
+wotmudmapper:echo("Autojoin set to: " .. (wotmudmapper.configs.autojoin and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map autojoin$</regex>
@@ -801,7 +809,8 @@ wotmudmapper:echo("Autojoin set to: " .. (wotmudmapper.configs.autojoin and "&lt
 					<script>--syntax: map brief
 
 wotmudmapper.configs.mapbrief = not wotmudmapper.configs.mapbrief
-wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.mapbrief and "hide" or "show").." room descriptions.\n")</script>
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.mapbrief and "hide" or "show").." room descriptions.\n")
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map brief$</regex>
@@ -812,7 +821,8 @@ wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.mapbrief and "hide
 --Will force the next room created to be a new room
 
 wotmudmapper.configs.forceroom = true
-wotmudmapper:echo("Forcing new room.\n")</script>
+wotmudmapper:echo("Forcing new room.\n")
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^forceroom$</regex>
@@ -822,7 +832,8 @@ wotmudmapper:echo("Forcing new room.\n")</script>
 					<script>--syntax: map debug
 
 wotmudmapper.configs.dbug = not wotmudmapper.configs.dbug
-wotmudmapper:echo("Map debug set to: " .. (wotmudmapper.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))</script>
+wotmudmapper:echo("Map debug set to: " .. (wotmudmapper.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map debug$</regex>
@@ -831,7 +842,8 @@ wotmudmapper:echo("Map debug set to: " .. (wotmudmapper.configs.dbug and "&lt;gr
 					<name>Display or hide zone name</name>
 					<script>wotmudmapper.configs.showzone = not wotmudmapper.configs.showzone
 
-wotmudmapper:echo("Mapper will now "..(wotmudmapper.configs.showzone and "show" or "hide").." zone names.\n")</script>
+wotmudmapper:echo("Mapper will now "..(wotmudmapper.configs.showzone and "show" or "hide").." zone names.\n")
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map showzone$</regex>
@@ -843,6 +855,7 @@ wotmudmapper:echo("Mapper will now "..(wotmudmapper.configs.showzone and "show" 
 
 wotmudmapper.configs.offline = not wotmudmapper.configs.offline
 wotmudmapper:echo("Offline set to: " .. (wotmudmapper.configs.offline and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
 
 if wotmudmapper.configs.offline then
     enableKey("Offline Map")
@@ -1007,6 +1020,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       val = val.."%"
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
+      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:showMap(true)
     end
   elseif key == "h" then
@@ -1016,6 +1030,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       val = val.."%"
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
+      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:showMap(true)
     end
   elseif key == "x" then
@@ -1025,6 +1040,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       val = val.."%"
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
+      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:showMap(true)
     end
   elseif key == "y" then
@@ -1034,6 +1050,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       val = val.."%"
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
+      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:showMap(true)
     end
   else
@@ -1055,6 +1072,7 @@ else
   val = tonumber(val)
   wotmudmapper.configs.map_window.zoom = val
   wotmudmapper:echo("Map window (zoom) updated to (" .. val .. ").\n")
+  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
   setMapZoom(val)
 end</script>
 				<command></command>
@@ -1065,6 +1083,7 @@ end</script>
 				<name>Dock/Undock Map</name>
 				<script>wotmudmapper.configs.map_window.dock = not wotmudmapper.configs.map_window.dock
 wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.dock and "docked.\n" or "floating.\n")) 
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
 wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
 				<command></command>
 				<packageName></packageName>
@@ -1074,6 +1093,7 @@ wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
 				<name>Show/Hide Map</name>
 				<script>wotmudmapper.configs.map_window.visible = not wotmudmapper.configs.map_window.visible
 wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
 wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
 				<command></command>
 				<packageName></packageName>

@@ -224,8 +224,10 @@ end</script>
     -- overwrite default values with stored config values
     configs = table.update(defaults, configs)
     self.configs = table.deepcopy(configs)
+    table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", self.configs)
     colors = table.update(default_colors, colors)
     self.map_colors = table.deepcopy(colors)
+    table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", self.map_colors)
 end
 </script>
 				<eventHandlerList />
@@ -265,6 +267,7 @@ end</script>
 				<script>function MapOnSysDisconnectionEvent()
   wotmudmapper.configs = wotmudmapper.configs or {}
   wotmudmapper.configs.mapping = false
+  wotmudmapper.configs.forceroom = false
   wotmudmapper.configs.offline=false
   wotmudmapper.map_colors = wotmudmapper.map_colors or {}
   
@@ -295,7 +298,7 @@ end</script>
   wotmudmapper:echo("Download complete.\n")
 	loadMap(filename)
   wotmudmapper:echo("New map successfully uploaded.\n")
-  MapOnSysConnectionEvent()
+  wotmudmapper:setMapColors()
 end</script>
 				<eventHandlerList>
 					<string>sysDownloadDone</string>
@@ -377,6 +380,7 @@ end</script>
   wotmudmapper.configs.map_window.y = y.."%"
   wotmudmapper.configs.map_window.w = width.."%"
   wotmudmapper.configs.map_window.h = height.."%"
+  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
   
   wotmudmapper:showMap(true)
 end

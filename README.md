@@ -1,7 +1,7 @@
 # WoTMUD
 WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 
-The purpose of this repository is to host a collection of files for playing the WoTMUD (http://www.wotmud.org/) on Mudlet, and provide an easy method of downloading and installing these files from the Mudlet command line. Please read through the following information and instructions below carefully before proceeding, and follow the steps in order to get started with a map and communications window. 
+The purpose of this repository is to host a collection of files for playing the Wheel of Time Multi-User Dungeon, WoTMUD (http://www.wotmud.org/), on Mudlet, and provide an easy method of downloading and installing these files from the Mudlet command line. Please read through the following information and instructions below carefully before proceeding, and follow the steps in order to get started with a map and communications window. 
 
 
 # Connecting to the game
@@ -44,7 +44,7 @@ Assuming everything worked properly, what you have just installed is a script th
 1. The first step for installing these map scripts is to remove the generic mapper by going to Packages->Package Manager, clicking on the "generic_mapper", and then clicking "Remove packages". After that, you will need to restart Mudlet and login again. DO NOT SKIP THIS STEP.
 ![mapper_install_1](https://user-images.githubusercontent.com/52049495/137246750-164a86ff-137a-4be5-8f59-8f9a0544736c.png)
 
-2. Make sure that you have following settings on the MUD (by typing them into the command line):
+2. Make sure that you have the following settings on the MUD (by typing them into the command line):
    1. "color complete" on. The mapper scripts need the room name colors to properly work.
    2. "brief" off. The mapper will work with brief mode on, just not as well (though still pretty dang well if I do say so myself, given the limitations of picking out rooms from only name and exit combinations). In a few steps, after installing the mapper, you can instead type "map brief" to have the mapper scripts manually gag the room descriptions so they don't show up on the screen, while still using them to determine your position.
 3. Type "wotpack install mapper" into the command line and hit enter.

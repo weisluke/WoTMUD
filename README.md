@@ -1,7 +1,7 @@
 # WoTMUD
 WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 
-The purpose of this repository is to host a collection of files for playing the Wheel of Time Multi-User Dungeon, WoTMUD (http://www.wotmud.org/), on Mudlet, and provide an easy method of downloading and installing these files from the Mudlet command line. Please read through the following information and instructions below carefully before proceeding, and follow the steps in order to get started with a map and communications window. 
+The purpose of this repository is to host a collection of files for playing the Wheel of Time Multi-User Dungeon, WoTMUD (http://www.wotmud.org/), on Mudlet, and provide an easy method of downloading and installing these files from the Mudlet command line. Please read through the following information and instructions below carefully before proceeding, and follow the steps in order, in order (hah!) to get started with a map and communications window. 
 
 I'd like to give some thanks to the following people for their assistance/contributions/suggestions:
 

@@ -11,12 +11,16 @@ These files are for Mudlet (https://www.mudlet.org/), a client that can be used 
 1. Open Mudlet. WoTMUD is one of the default profiles in Mudlet, so you can either (1) click on that profile and (4) connect, or (2) and (3) create a new profile with WoTMUD's information to (4) connect.
 ![mudlet_login_1](https://user-images.githubusercontent.com/52049495/137241355-72d43d03-b406-49ad-8623-3eb2d646b96b.png)
 
-At this point if you are new to WoTMUD, I would recommend checking out our forums (https://forums.wotmud.info/) or game Discord server (https://forums.wotmud.info/viewtopic.php?f=74&t=7300) for more information. There is a Newbie Guide (https://forums.wotmud.info/viewtopic.php?f=76&t=12535) that should walk you through some of the basics of the game. At the very least, you need to have a character created that you can login to in order to proceed.
+At this point if you are new to WoTMUD, I would recommend checking out our forums (https://forums.wotmud.info/) or game Discord server (https://forums.wotmud.info/viewtopic.php?f=74&t=7300) for more information. There is a Newbie Guide (https://forums.wotmud.info/viewtopic.php?f=76&t=12535) that should walk you through some of the basics of the game. At the very least, you need to have a character created that you can login to in order to proceed with the setup below.
 
 I should be able to be reached by tagging @weisluke in the Discord (preferably in the "#mudclient_helpdesk" channel) if you have questions about this guide or need help.
 
 # Downloading and installing the package handler
 
+<details>
+   
+<summary>Click to expand.</summary>
+   
 1. Click on the file "wotpack_installer.mpackage" above. It will take you to a new page.
 ![wotpack_installer_1](https://user-images.githubusercontent.com/52049495/137250032-2c2aef39-d8a9-47da-806a-dfdfaf5f21d9.png)
 
@@ -38,6 +42,7 @@ Assuming everything worked properly, what you have just installed is a script th
 6. Additionally, you can change the default command separator in Settings -> Input line. For users who are unfamiliar, this allows you to type, e.g., "smile;wave" and have the commands "smile" and "wave" sent to the MUD separately. The default command separator is ";;", although many people prefer a single semi-colon ";" instead.
 ![mudlet_settings_2](https://user-images.githubusercontent.com/52049495/137246430-b1498db2-4918-456c-8d11-73e31e1b2739.png)
 
+</details>
 
 # Installing map scripts and a map file
 

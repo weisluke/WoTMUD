@@ -131,7 +131,7 @@ The appearance of the map can be further changed with some tabs in the settings 
 
 You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can click on individual files to download and install them, although be careful - installing an individual file that requires other files to function properly may cause issues. You can use commands from the "wotpack help" help message to install particular files, groupings that contain multiple files (e.g. the mapper or comms window), or everything in this repository. Most names should be self explanatory.
 
-As an example, and an introduction to creating things in Mudlet, expand the section below to see how to install and edit my targeting aliases.
+As an example, and an introduction to editing my files in Mudlet (which people have found helpful as a stepping stone to creating their own material), expand the section below to see how to install and edit my targeting aliases.
 
 ## A simple set of targeting aliases
 <details>

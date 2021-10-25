@@ -7,7 +7,7 @@ I'd like to give some thanks to the following people for their assistance/contri
 
 Jomin and Vadi, two of the Mudlet makers
 
-Saal and Groderick, for making available their own scripts (particularly a mapper) many years ago that got me started with Mudlet
+Saal and Groderick, for making available their own scripts (particularly a mapper) many years ago that got me started with Mudlet and which form the backbone of much of the material present here
 
 Darth, for being my guinea pig of initially testing things years ago
 

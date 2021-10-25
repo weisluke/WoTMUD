@@ -93,6 +93,12 @@ The appearance of the map can be further changed with some tabs in the settings 
 2. You can change the color of the map background, room borders, and room connections, by going to Settings -> Mapper colors.
 ![mapper_colors_2](https://user-images.githubusercontent.com/52049495/138771022-6db353ab-115d-468f-ae86-035639c82bce.png)
 
+3. Rooms on the map have specific "environments" associated with them, e.g. "inside" "water" "drink" "road" "wilderness" etc. The list of environments can be found by typing "colorlegend". The colors associated with a specific environment can be altered by typing "map color environment color", e.g. "map color inside gray" "map color drink blue". Valid colors can be found by typing "viewcolors", which will open up a Mudlet wiki page.
+![mapper_colors_3](https://user-images.githubusercontent.com/52049495/138771675-a4139fc1-0017-4c69-8596-39b3a625d870.png)
+
+4. The mapper displays zone and door information for your room beneath the room exits. The colors these display with can be changed by typing "map zonecolor color" and "map doorcolor color", e.g. "map zonecolor red" and "map doorcolor green". You can choose to hide the zone info by typing "map showzone". Zone and door information is always present in the map window itself.
+![mapper_colors_4](https://user-images.githubusercontent.com/52049495/138772360-cc450f48-5ad9-41b5-b651-cb829afc9301.png)
+
 </details>
    
 </details>

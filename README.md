@@ -116,9 +116,9 @@ The appearance of the map can be further changed with some tabs in the settings 
 <details>
 <summary>Click to expand.</summary>
    
-1. To get a communications window that stores says/chats/nars/etc, type "wotpack install communications" into the command line and hit enter. Test it out by saying something to ensure that it is capturing things properly. If it looks like it installed correctly, you can type "comms debug" as well.
-![communications_install_1](https://user-images.githubusercontent.com/52049495/137248611-a7aa3f64-80e2-41bf-bb4c-955f0d1ffb2f.png)
-
+1. To get a communications window that stores says/chats/narrates/etc, type "wotpack install communications" into the command line and hit enter. Test it out by saying something to ensure that it is capturing things properly. If it looks like it installed correctly, you can type "comms debug" as well. New players can "listen all" to ensure that they have chats and narrates enabled on the MUD.
+![communications_install_1](https://user-images.githubusercontent.com/52049495/138774404-6e43800e-0df9-4b52-ad9f-905998516a40.png)
+   
 2. You can change the color of some fields with, e.g., "comms color yells green".
 ![communications_install_2](https://user-images.githubusercontent.com/52049495/137254036-2623b282-ecc7-4a45-9d3d-c97d875f0bbb.png)
 

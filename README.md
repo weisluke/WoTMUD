@@ -129,7 +129,23 @@ The appearance of the map can be further changed with some tabs in the settings 
 
 # Installing other files
 
-You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the "wotpack help" help message to install particular pieces, or everything. Most names should be self explanatory.
+You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can click on individual files to download and install them, although be careful - installing an individual file that requires other files to function properly may cause issues. You can use commands from the "wotpack help" help message to install particular files, groupings that contain multiple files (e.g. the mapper or comms window), or everything in this repository. Most names should be self explanatory.
+
+As an example, and an introduction to creating things in Mudlet, expand the section below to see how to install and edit my targeting aliases.
+
+## A simple set of targeting aliases
+<details>
+<summary>Click to expand.</summary>
+
+Type "wotpack view files" and click on the "targeting aliases" to download and install them, or type "wotpack install targeting" to install my set of targeting aliases.
+![targeting_install_1](https://user-images.githubusercontent.com/52049495/138775890-bc167ef1-b05a-49c7-9b59-499fc3d24ccb.png)
+![targeting_install_2](https://user-images.githubusercontent.com/52049495/138775903-1b9fd3a9-488f-4f02-b9bf-df8cde8fe27a.png)
+Type "tgt xxx" to set a target. Some specific targets give messages colored by their race on the MUD.
+   
+"p" is my default alias to "kill target". This can be easily changed. Open up Aliases in Mudlet from the top toolbar, and navigate to the targeting aliases. Expand any subfolders and find the alias to "Attack target". You will see a box named "Pattern:" with "^p$" inside of it. This is a regex pattern that Mudlet matches to either a) send a replacement command to the MUD (as specified in the "Command:" box underneath), or b) execute a sequence of Lua code as specified in the large white space underneath. Regex and Lua are outside the scope of anything I want to cover here currently, but to change the key that you use to "kill target" simply change the "p" to a different letter in the "Pattern:" box. Do NOT, however, get rid of the ^ or $ symbol. Keep them, as they are necessary for Mudlet to match things properly - just change the leter in between to the letter(s) that you would prefer to use.
+![targeting_install_3](https://user-images.githubusercontent.com/52049495/138776848-b9761c82-7010-4051-81ec-d0bf204ccfc6.png) 
+   
+</details>
 
 # Other Mudlet information
 <details>

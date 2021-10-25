@@ -6,14 +6,23 @@ The purpose of this repository is to host a collection of files for playing the 
 I'd like to give some thanks to the following people for their assistance/contributions/suggestions:
 
 Jomin and Vadi, two of the Mudlet makers
+
 Saal and Groderick, for making available their own scripts (particularly a mapper) many years ago that got me started with Mudlet
+
 Darth, for being my guinea pig of initially testing things years ago
+
 Hope
+
 Keim
+
 Lea
+
 Enoch
+
 Draz
+
 Pounds
+
 Exodio
 
 
@@ -96,8 +105,8 @@ The appearance of the map can be further changed with some tabs in the settings 
 3. Rooms on the map have specific "environments" associated with them, e.g. "inside" "water" "drink" "road" "wilderness" etc. The list of environments can be found by typing "colorlegend". The colors associated with a specific environment can be altered by typing "map color environment color", e.g. "map color inside gray" "map color drink blue". Valid colors can be found by typing "viewcolors", which will open up a Mudlet wiki page.
 ![mapper_colors_3](https://user-images.githubusercontent.com/52049495/138771675-a4139fc1-0017-4c69-8596-39b3a625d870.png)
 
-4. The mapper displays zone and door information for your room beneath the room exits. The colors these display with can be changed by typing "map zonecolor color" and "map doorcolor color", e.g. "map zonecolor red" and "map doorcolor green". You can choose to hide the zone info by typing "map showzone". Zone and door information is always present in the map window itself.
-![mapper_colors_4](https://user-images.githubusercontent.com/52049495/138772360-cc450f48-5ad9-41b5-b651-cb829afc9301.png)
+4. The mapper displays zone and door information for your room beneath the room exits. The colors these display with can be changed by typing "map zonecolor color" and "map doorcolor color", e.g. "map zonecolor red" and "map doorcolor green". The zone info is a clickable link which will open up the WoTMUD wiki (https://wotmud.fandom.com/wiki/WoTMUD_Wiki) page for that zone. You can choose to hide the zone info by typing "map showzone". Zone and door information is always present in the map window itself. 
+![mapper_colors_4](https://user-images.githubusercontent.com/52049495/138772824-22244960-6750-4181-9ef6-7aacd5cca136.png)
 
 </details>
    

@@ -121,6 +121,9 @@ The appearance of the map can be further changed with some tabs in the settings 
    
 2. You can change the color of some fields with, e.g., "comms color yells green".
 ![communications_install_2](https://user-images.githubusercontent.com/52049495/137254036-2623b282-ecc7-4a45-9d3d-c97d875f0bbb.png)
+   
+3. Much like the map window, the communications window can be docked by typing "comms dock". This will allow it to snap the left or right side of the screen, and additionally to the top of the screen as well.
+![communications_install_3](https://user-images.githubusercontent.com/52049495/138775048-33f9cb9c-984b-42d0-ad52-d820d627d1bf.png)
 
 </details>
 

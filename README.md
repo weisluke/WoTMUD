@@ -137,7 +137,7 @@ As an example, and an introduction to editing my files in Mudlet (which people h
 <details>
 <summary>Click to expand.</summary>
 
-Type "wotpack view files" and click on the "targeting aliases" to download and install them, or type "wotpack install targeting" to install my set of targeting aliases.
+Type "wotpack view files" and click on the "targeting" item in the aliases section to download and install them, or type "wotpack install targeting" to install my set of targeting aliases.
 ![targeting_install_1](https://user-images.githubusercontent.com/52049495/138775890-bc167ef1-b05a-49c7-9b59-499fc3d24ccb.png)
 ![targeting_install_2](https://user-images.githubusercontent.com/52049495/138775903-1b9fd3a9-488f-4f02-b9bf-df8cde8fe27a.png)
 Type "tgt xxx" to set a target. Some specific targets give messages colored by their race on the MUD.

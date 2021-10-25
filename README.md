@@ -16,10 +16,6 @@ At this point if you are new to WoTMUD, I would recommend checking out our forum
 I should be able to be reached by tagging @weisluke in the Discord (preferably in the "#mudclient_helpdesk" channel) if you have questions about this guide or need help.
 
 # Downloading and installing the package handler
-
-<details>
-   
-<summary>Click to expand.</summary>
    
 1. Click on the file "wotpack_installer.mpackage" above. It will take you to a new page.
 ![wotpack_installer_1](https://user-images.githubusercontent.com/52049495/137250032-2c2aef39-d8a9-47da-806a-dfdfaf5f21d9.png)
@@ -42,10 +38,10 @@ Assuming everything worked properly, what you have just installed is a script th
 6. Additionally, you can change the default command separator in Settings -> Input line. For users who are unfamiliar, this allows you to type, e.g., "smile;wave" and have the commands "smile" and "wave" sent to the MUD separately. The default command separator is ";;", although many people prefer a single semi-colon ";" instead.
 ![mudlet_settings_2](https://user-images.githubusercontent.com/52049495/137246430-b1498db2-4918-456c-8d11-73e31e1b2739.png)
 
-</details>
-
 # Installing map scripts and a map file
-
+<details>
+<summary>Click to expand.</summary>
+   
 1. The first step for installing these map scripts is to remove the generic mapper by going to Packages->Package Manager, clicking on the "generic_mapper", and then clicking "Remove packages". After that, you will need to restart Mudlet and login again. DO NOT SKIP THIS STEP.
 ![mapper_install_1](https://user-images.githubusercontent.com/52049495/137246750-164a86ff-137a-4be5-8f59-8f9a0544736c.png)
 
@@ -71,21 +67,29 @@ Assuming everything worked properly, what you have just installed is a script th
 ![mapper_dock](https://user-images.githubusercontent.com/52049495/137255044-54cb16c4-3511-4d2e-b0e7-9bc88faa334a.png)
 
 The appearance of the map can be further changed with some tabs in the settings window, and some aliases I've built into the map script. I won't go into detail on those here, but feel free to reach out to me if you're interested or have questions. 
+   
+</details>
 
 # Installing a communications window script
+<details>
+<summary>Click to expand.</summary>
+   
 1. To get a communications window that stores says/chats/nars/etc, type "wotpack install communications" into the command line and hit enter. Test it out by saying something to ensure that it is capturing things properly. If it looks like it installed correctly, you can type "comms debug" as well.
 ![communications_install_1](https://user-images.githubusercontent.com/52049495/137248611-a7aa3f64-80e2-41bf-bb4c-955f0d1ffb2f.png)
 
 2. You can change the color of some fields with, e.g., "comms color yells green".
 ![communications_install_2](https://user-images.githubusercontent.com/52049495/137254036-2623b282-ecc7-4a45-9d3d-c97d875f0bbb.png)
 
+</details>
 
 # Installing other files
 
 You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can use commands from the "wotpack help" help message to install particular pieces, or everything. Most names should be self explanatory.
 
 # Other Mudlet information
-
+<details>
+<summary>Click to expand.</summary>
+   
 Mudlet stores your profile information at (on Windows at least) C:/users/USERNAME/.config/mudlet/profiles/PROFILENAME
 
 E.g., for me, C:/users/lukew/.config/mudlet/profiles/WoTMUD
@@ -96,3 +100,5 @@ Inside this folder, there are two subfolders that may be of interest.
 One is named "current", and inside you will find .xml files with filenames corresponding to various dates and times. These files are copies of your profile. It is sometimes useful to back them up on a regular basis, just in case something ever goes wrong with your profile. You can also use those files to easily transfer your profile from one machine to another (copy the file on one machine or upload it to a cloud based service, and then save it in the same location on the new machine, making sure that it is the only file in that folder).
 The other folder, "log", contains the log files of the MUD output, if you have enabled logging. You can check whether logging is enabled by either paying attention to the initial lines of Mudlet output when you log in, which tells where the file is being saved (if logging is enabled), or checking that the logging button in the bottom right corner of Mudlet is enabled.
 ![mudlet_logging](https://user-images.githubusercontent.com/52049495/137253004-3b51b1e3-ee44-47dd-b3df-36367045b189.png)
+   
+</details>

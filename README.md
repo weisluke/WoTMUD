@@ -3,6 +3,19 @@ WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 
 The purpose of this repository is to host a collection of files for playing the Wheel of Time Multi-User Dungeon, WoTMUD (http://www.wotmud.org/), on Mudlet, and provide an easy method of downloading and installing these files from the Mudlet command line. Please read through the following information and instructions below carefully before proceeding, and follow the steps in order to get started with a map and communications window. 
 
+I'd like to give some thanks to the following people for their assistance/contributions/suggestions:
+
+Jomin and Vadi, two of the Mudlet makers
+Saal and Groderick, for making available their own scripts (particularly a mapper) many years ago that got me started with Mudlet
+Darth, for being my guinea pig of initially testing things years ago
+Hope
+Keim
+Lea
+Enoch
+Draz
+Pounds
+Exodio
+
 
 # Connecting to the game
 
@@ -47,7 +60,7 @@ Assuming everything worked properly, what you have just installed is a script th
 
 2. Make sure that you have the following settings on the MUD (by typing them into the command line):
    1. "color complete" on. The mapper scripts need the room name colors to properly work.
-   2. "brief" off. The mapper will work with brief mode on, just not as well (though still pretty dang well if I do say so myself, given the limitations of picking out rooms from only name and exit combinations). In a few steps, after installing the mapper, you can instead type "map brief" to have the mapper scripts manually gag the room descriptions so they don't show up on the screen, while still using them to determine your position.
+   2. "brief" off. The mapper will work with brief mode on, just not as well (though still pretty dang well if I do say so myself, given the limitations of picking out rooms from only name and exit combinations). 
 3. Type "wotpack install mapper" into the command line and hit enter.
 ![mapper_install_2](https://user-images.githubusercontent.com/52049495/137254629-cf6e9d2e-8676-40c0-af78-cd6bd581a6f6.png)
 
@@ -65,8 +78,22 @@ Assuming everything worked properly, what you have just installed is a script th
 
 8. You can type "map dock", and the map will snap to the left or right side of the screen when you drag it there. This will make the scroll bar visible without you having to move the map window slightly, and allow you to place the map on the left hand side if you prefer.
 ![mapper_dock](https://user-images.githubusercontent.com/52049495/137255044-54cb16c4-3511-4d2e-b0e7-9bc88faa334a.png)
+   
+9. You can have the mapper manually gag room descriptions (while still using them to determine where you are) by typing "map brief". 
+![mapper_install_7](https://user-images.githubusercontent.com/52049495/138769138-9061d25d-48ae-4e4d-bbd9-2e5c76c8c9a7.png)
 
-The appearance of the map can be further changed with some tabs in the settings window, and some aliases I've built into the map script. I won't go into detail on those here, but feel free to reach out to me if you're interested or have questions. 
+## Changing the map appearance
+<details>
+<summary>Click to expand.</summary>
+The appearance of the map can be further changed with some tabs in the settings window, and some aliases I've built into the map script. I won't go into the full details on those here, but I will show a couple. Feel free to reach out to me if you're interested or have questions about more. 
+   
+1. You can change the appearance of the room marker by going into Settings -> Mapper, and adjusting the room marker info at the bottom.
+![mapper_colors_1](https://user-images.githubusercontent.com/52049495/138770304-4abb42d0-38d4-4ea9-9c7d-b25984faff26.png)
+
+2. You can change the color of the map background, room borders, and room connections, by going to Settings -> Mapper colors.
+![mapper_colors_2](https://user-images.githubusercontent.com/52049495/138771022-6db353ab-115d-468f-ae86-035639c82bce.png)
+
+</details>
    
 </details>
 

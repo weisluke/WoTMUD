@@ -406,20 +406,7 @@ end</script>
 						<name>Open Door</name>
 						<script>--syntax: odn/ods/ode/odw/odu/odd
 
-if table.size(wotmudmapper.currentID) == 1 then
-  local queue = wotmudmapper.queue
-  local currentID = wotmudmapper.currentID[1]
-  for i = queue.first, queue.last, 1 do
-    local exits = getRoomExits(currentID)
-    for k, v in pairs(exits) do
-      if string.sub(k, 1, 1) == queue[i] then
-        currentID = v
-      end
-    end
-  end
-  local door = getRoomUserData(currentID, matches[2])
-  send("open " .. door .. " " .. matches[2])
-end</script>
+wotmudmapper:doorComDir("open", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^od([neswud])$</regex>
@@ -428,20 +415,7 @@ end</script>
 						<name>Close Door</name>
 						<script>--syntax: cdn/cde/cds/cdw/cdu/cdd
 
-if table.size(wotmudmapper.currentID) == 1 then
-  local queue = wotmudmapper.queue
-  local currentID = wotmudmapper.currentID[1]
-  for i = queue.first, queue.last, 1 do
-    local exits = getRoomExits(currentID)
-    for k, v in pairs(exits) do
-      if string.sub(k, 1, 1) == queue[i] then
-        currentID = v
-      end
-    end
-  end
-  local door = getRoomUserData(currentID, matches[2])
-  send("close " .. door .. " " .. matches[2])
-end</script>
+wotmudmapper:doorComDir("close", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^cd([neswud])$</regex>
@@ -450,20 +424,7 @@ end</script>
 						<name>Pick Door</name>
 						<script>--syntax: pdn/pde/pds/pdw/pdu/pdd
 
-if table.size(wotmudmapper.currentID) == 1 then
-  local queue = wotmudmapper.queue
-  local currentID = wotmudmapper.currentID[1]
-  for i = queue.first, queue.last, 1 do
-    local exits = getRoomExits(currentID)
-    for k, v in pairs(exits) do
-      if string.sub(k, 1, 1) == queue[i] then
-        currentID = v
-      end
-    end
-  end
-  local door = getRoomUserData(currentID, matches[2])
-  send("pick " .. door .. " " .. matches[2])
-end</script>
+wotmudmapper:doorComDir("pick", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^pd([neswud])$</regex>
@@ -472,20 +433,7 @@ end</script>
 						<name>Knock Door</name>
 						<script>--syntax: kdn/kde/kds/kdw/kdu/kdd
 
-if table.size(wotmudmapper.currentID) == 1 then
-  local queue = wotmudmapper.queue
-  local currentID = wotmudmapper.currentID[1]
-  for i = queue.first, queue.last, 1 do
-    local exits = getRoomExits(currentID)
-    for k, v in pairs(exits) do
-      if string.sub(k, 1, 1) == queue[i] then
-        currentID = v
-      end
-    end
-  end
-  local door = getRoomUserData(currentID, matches[2])
-  send("knock " .. door .. " " .. matches[2])
-end</script>
+wotmudmapper:doorComDir("knock", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^kd([neswud])$</regex>
@@ -494,20 +442,7 @@ end</script>
 						<name>Unlock Door</name>
 						<script>--syntax: udn/ude/uds/udw/udu/udd
 
-if table.size(wotmudmapper.currentID) == 1 then
-  local queue = wotmudmapper.queue
-  local currentID = wotmudmapper.currentID[1]
-  for i = queue.first, queue.last, 1 do
-    local exits = getRoomExits(currentID)
-    for k, v in pairs(exits) do
-      if string.sub(k, 1, 1) == queue[i] then
-        currentID = v
-      end
-    end
-  end
-  local door = getRoomUserData(currentID, matches[2])
-  send("unlock " .. door .. " " .. matches[2])
-end</script>
+wotmudmapper:doorComDir("unlock", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^ud([neswud])$</regex>
@@ -516,20 +451,7 @@ end</script>
 						<name>Lock Door</name>
 						<script>--syntax: ldn/lde/lds/ldw/ldu/ldd
 
-if table.size(wotmudmapper.currentID) == 1 then
-  local queue = wotmudmapper.queue
-  local currentID = wotmudmapper.currentID[1]
-  for i = queue.first, queue.last, 1 do
-    local exits = getRoomExits(currentID)
-    for k, v in pairs(exits) do
-      if string.sub(k, 1, 1) == queue[i] then
-        currentID = v
-      end
-    end
-  end
-  local door = getRoomUserData(currentID, matches[2])
-  send("lock " .. door .. " " .. matches[2])
-end</script>
+wotmudmapper:doorComDir("lock", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^ld([neswud])$</regex>
@@ -1007,6 +929,20 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map save$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Save Map JSON</name>
+				<script>local dir=getMudletHomeDir() .. "/WoTMUD_map.json"
+wotmudmapper:echo("Saving map to "..dir.."\n")
+local res = saveJsonMap(dir)
+if res then
+  wotmudmapper:echo("Map saved.\n")
+else
+  wotmudmapper:echo("Map failed to save.\n",false,true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map save json$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Map Window Config Alias</name>

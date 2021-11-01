@@ -788,6 +788,46 @@ function isFlee(com)
 end</script>
 					<eventHandlerList />
 				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Door Command Direction</name>
+					<packageName></packageName>
+					<script>function wotmudmapper:doorComDir(com, dir)
+  if table.size(self.currentID) == 1 then
+    local rooms = {self.currentID[1]}
+    for i = self.queue.first, self.queue.last, 1 do
+      local temp_rooms = {}
+      for _, room in pairs(rooms) do
+        local exits = getRoomExits(room)
+        if self.queue[i] == "f" then
+          for k, v in pairs(exits) do
+            table.insert(temp_rooms, v)
+          end
+        else
+          for k, v in pairs(exits) do
+            if string.sub(k, 1, 1) == self.queue[i] then
+              table.insert(temp_rooms, v)
+            end
+          end
+        end
+      end
+      rooms = temp_rooms
+    end
+    local currentID = {}
+    for k, v in pairs(rooms) do
+      if getRoomUserData(v, dir) ~= "" then
+        table.insert(currentID, v)
+      end
+    end
+    if table.size(currentID) == 1 then
+      local door = getRoomUserData(currentID[1], dir)
+      send(com .. " " .. door .. " " .. dir)
+    else
+      send(com .. " " .. dir)
+    end
+  end
+end</script>
+					<eventHandlerList />
+				</Script>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Performing room searches bases on various criteria</name>

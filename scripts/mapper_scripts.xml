@@ -955,6 +955,9 @@ end</script>
 
 function wotmudmapper:isNearRoom(com, name, desc, lastexits)
   local newID = lastexits[wotmudmapper.exitmap[wotmudmapper.exitmap[com]]]
+  if not newID then
+    return {}
+  end
   if self.dark then
     return {newID}
   elseif name == getRoomName(newID) then

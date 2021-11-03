@@ -802,12 +802,14 @@ end</script>
           for k, v in pairs(exits) do
             table.insert(temp_rooms, v)
           end
+        elseif self.queue[i] == "l" then
+          table.insert(temp_rooms, room)
         else
           for k, v in pairs(exits) do
             if string.sub(k, 1, 1) == self.queue[i] then
               table.insert(temp_rooms, v)
             end
-          end
+          end        
         end
       end
       rooms = temp_rooms
@@ -952,26 +954,17 @@ end</script>
 					<script>--assumes lastexits is of the form {"north":roomID1,"south":roomID2}
 
 function wotmudmapper:isNearRoom(com, name, desc, lastexits)
-  local newID
-  --for every connecting room from last known ID
-  for k, v in pairs(lastexits) do
-		--if exit into room matches direction, check dark/name/brief, and set ID based on result
-    if string.sub(k, 1, 1) == com then
-      if self.dark then
-        newID = v
-        break
-      elseif name == getRoomName(v) then
-        if self.brief then
-          newID = v
-          break
-        elseif desc == getRoomUserData(v, "description") then
-          newID = v
-          break
-        end
-      end
+  local newID = lastexits[wotmudmapper.exitmap[wotmudmapper.exitmap[com]]]
+  if self.dark then
+    return {newID}
+  elseif name == getRoomName(newID) then
+    if self.brief then
+      return {newID}
+    elseif desc == getRoomUserData(newID, "description") then
+      return {newID}
     end
   end
-  return {newID}
+  return {}
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -1333,9 +1326,9 @@ end</script>
           end,
           "Click to open the WoTMUD wiki page for this zone", true)
         end
-        for k, v in pairs(exits) do
-          if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
-            cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))
+        for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
+          if getRoomUserData(wotmudmapper.currentID[1], string.sub(v, 1, 1)) ~= "" then
+            cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], string.sub(v, 1, 1)))
           end
         end
         cecho("\n\n")

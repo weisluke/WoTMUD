@@ -133,19 +133,17 @@ communications:append("Says")</script>
 					<string>You say '(.+)'$</string>
 					<string>You hiss '(.+)'$</string>
 					<string>You drawl '(.+)'$</string>
+					<string>You drone '(.+)'$</string>
 					<string>&gt; (.+) says '(.+)'$</string>
 					<string>^(.+) says '(.+)'$</string>
-					<string>&gt; \*(.+)\* hisses '(.+)'$</string>
-					<string>^\*(.+)\* hisses '(.+)'$</string>
-					<string>&gt; \*(.+)\* drawls '(.+)'$</string>
-					<string>^\*(.+)\* drawls '(.+)'$</string>
 					<string>&gt; (.+) hisses '(.+)'$</string>
 					<string>^(.+) hisses '(.+)'$</string>
 					<string>&gt; (.+) drawls '(.+)'$</string>
 					<string>^(.+) drawls '(.+)'$</string>
+					<string>&gt; (.+) drones '(.+)'$</string>
+					<string>^(.+) drones '(.+)'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -263,8 +261,12 @@ end</script>
 					<string>^Someone squeaks '(.+) at (.+)'$</string>
 					<string>&gt; A red-eyed raven caws '(.+) at (.+)'$</string>
 					<string>^A red-eyed raven caws '(.+) at (.+)'$</string>
+					<string>&gt; A flock of ravens caws '(.+) at (.+)'$</string>
+					<string>^A flock of ravens caws '(.+) at (.+)'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

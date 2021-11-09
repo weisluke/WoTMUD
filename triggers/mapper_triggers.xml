@@ -285,7 +285,7 @@ end</script>
 						<mCommand></mCommand>
 						<packageName></packageName>
 						<mFgColor>#ff0000</mFgColor>
-						<mBgColor>#000000</mBgColor>
+						<mBgColor>transparent</mBgColor>
 						<mSoundFile></mSoundFile>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -339,35 +339,23 @@ local newID = {}
 --if mapCommand is a direction and you were in a valid room
 if isMovement(mapCommand) and (not table.is_empty(lastID)) then
   for k, v in pairs(lastID) do
-    local rooms =
-      wotmudmapper:isNearRoom(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))
-    if not table.contains(newID, rooms[1]) then
-      table.insert(newID, rooms[1])
-    end
+    table.insert(newID, wotmudmapper:isNearRoom(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))[1])
   end
-  wotmudmapper.currentID = newID
+  wotmudmapper.currentID = table.n_union(newID, newID)
   --handling flees
 elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
   for k, v in pairs(lastID) do
-    local rooms = getRoomExits(v)
-    for kk, vv in pairs(rooms) do
-      if not table.contains(newID, vv) then
-        table.insert(newID, vv)
-      end
+    for kk, vv in pairs(getRoomExits(v)) do
+      table.insert(newID, vv)
     end
   end
-  wotmudmapper.currentID = newID
+  wotmudmapper.currentID = table.n_union(newID, newID)
   --if not looking at room, search for room from all rooms in the map
 elseif not (isLook(mapCommand) and table.size(lastID) == 1) then
 	wotmudmapper.currentID={}
-  --commenting out the lines below since they lag out the mapper 
-  --unfortunately, looping over all rooms in the map multiple times 
-  --trying to narrow down positions based on movements is a little 
-  --too slow right now. keeping this in here for posterity in case  
-  --I can find a better fix for it in the future
-  -- for k, v in pairs(getRooms()) do
-    -- table.insert(wotmudmapper.currentID, k)
-  -- end
+  for k, v in pairs(getRooms()) do
+    table.insert(wotmudmapper.currentID, k)
+  end
 end
 
 if table.is_empty(wotmudmapper.currentID) then
@@ -511,7 +499,7 @@ end</script>
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ffaa00</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -545,8 +533,10 @@ end</script>
 					<string>(.+) blocks your path\.$</string>
 					<string>All you can do right now is think about the stars!$</string>
 					<string>A massive blast of air buffets you, knocking you off balance\.$</string>
+					<string>An elite Queen's Guard blocks the way and says 'You are not allowed there, (.+)\.'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -766,7 +756,7 @@ end</script>
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -786,7 +776,7 @@ end</script>
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff007f</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -806,7 +796,7 @@ end</script>
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#aaff00</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -818,7 +808,7 @@ end</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>"Where" clickable centerroom</name>
+				<name>"Where" clickable center room</name>
 				<script>local roomname = matches[2]
 local foundrooms = searchRoom(roomname, true, true)
 local roomID
@@ -858,6 +848,30 @@ end
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>^\S+\s+ \- (.+)$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Reset queue on successful login/connection</name>
+				<script>--mostly relevant for people creating new characters, since some of
+--the character selection options will add commands to the queue
+--e.g., selecting (s)eanchan at the start for a new character
+
+wotmudmapper.queue = List:new()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^              ------:- http://www.wotmud.org -:--------$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

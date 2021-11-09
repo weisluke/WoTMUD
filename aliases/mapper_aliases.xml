@@ -838,6 +838,7 @@ end</script>
 				<script>--syntax: resetqueue
 
 local numcoms = wotmudmapper.queue.last - wotmudmapper.queue.first + 1
+display(wotmudmapper.queue)
 wotmudmapper.queue = List:new()
 wotmudmapper:echo("Queue reset. "..numcoms.." command(s) was/were removed.\n")</script>
 				<command></command>

@@ -805,11 +805,11 @@ end</script>
         elseif self.queue[i] == "l" then
           table.insert(temp_rooms, room)
         else
-          for k, v in pairs(exits) do
-            if string.sub(k, 1, 1) == self.queue[i] then
-              table.insert(temp_rooms, v)
-            end
-          end        
+          if exits[self.exitmap[self.exitmap[self.queue[i]]]] then
+            table.insert(temp_rooms, exits[self.exitmap[self.exitmap[self.queue[i]]]])
+          else
+            table.insert(temp_rooms, room)
+          end  
         end
       end
       rooms = temp_rooms
@@ -879,22 +879,24 @@ function wotmudmapper:findMatchingExits(roomIDs, exits)
 	local roommatches = {}
   local exitkeys, firstcomp, secondcomp, alldoors
   --initialiasing table
-  for k, v in pairs(roomIDs) do
+  for _, room in pairs(roomIDs) do
     exitkeys = {}
     --create table of exit keys (grabbing first letter of "north","south",etc.)
-    for kk, vv in pairs(getRoomExits(v)) do
-      table.insert(exitkeys, string.sub(kk, 1, 1))
+    for dir, id in pairs(getRoomExits(room)) do
+      table.insert(exitkeys, string.sub(dir, 1, 1))
     end
     --if there are exit stubs leading to unmapped room, include those
-    if getExitStubs(v) then
-      for kk, vv in pairs(getExitStubs(v)) do
-        table.insert(exitkeys, string.sub(self.exitmap[vv], 1, 1))
+    if getExitStubs(room) then
+      for _, dirnum in pairs(getExitStubs(room)) do
+        table.insert(exitkeys, string.sub(self.exitmap[dirnum], 1, 1))
       end
     end
+    
 		--comparison tables of exits seen vs exits from room
     firstcomp = table.n_complement(exits, exitkeys)
     --comparison tables of exits in room vs exits seen
     secondcomp = table.n_complement(exitkeys, exits)
+    
     --if room exits match seen exits, insert room into possible matches
     if table.is_empty(firstcomp) and table.is_empty(secondcomp) then
       table.insert(roommatches, v)
@@ -903,14 +905,14 @@ function wotmudmapper:findMatchingExits(roomIDs, exits)
     --then add room to possible matches
     elseif table.is_empty(firstcomp) and not table.is_empty(secondcomp) then
       alldoors = true
-      for kk, vv in pairs(secondcomp) do
-        if getRoomUserData(v, vv) == "" then
+      for k, v in pairs(secondcomp) do
+        if getRoomUserData(room, v) == "" then
           alldoors = false
           break
         end
       end
       if alldoors then
-        table.insert(roommatches, v)
+        table.insert(roommatches, room)
       end
     end
   end
@@ -954,7 +956,7 @@ end</script>
 					<script>--assumes lastexits is of the form {"north":roomID1,"south":roomID2}
 
 function wotmudmapper:isNearRoom(com, name, desc, lastexits)
-  local newID = lastexits[wotmudmapper.exitmap[wotmudmapper.exitmap[com]]]
+  local newID = lastexits[self.exitmap[self.exitmap[com]]]
   if not newID then
     return {}
   end

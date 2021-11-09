@@ -899,7 +899,7 @@ function wotmudmapper:findMatchingExits(roomIDs, exits)
     
     --if room exits match seen exits, insert room into possible matches
     if table.is_empty(firstcomp) and table.is_empty(secondcomp) then
-      table.insert(roommatches, v)
+      table.insert(roommatches, room)
     --if room has extra exits from seen exits
     --and ALL extra exits are doors (which could be hidden and closed)
     --then add room to possible matches

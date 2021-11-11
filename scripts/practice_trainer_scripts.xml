@@ -343,6 +343,258 @@ practice_trainer.pracs.hunter =
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Update Information</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Update Practice</name>
+					<packageName></packageName>
+					<script>function practice_trainer:add_practice(class, skill)
+  if self.stats.race == "trolloc" and (skill == "ride" or skill == "swim") then
+    return
+  end
+  if self:prac_to_percent(class, skill, self[class].pracs[skill]) &lt; 99 then
+    self[class].pracs[skill] = self[class].pracs[skill] + 1
+  end
+  if self:pracs_to_level() &gt; 51 then
+    self:subtract_practice(class, skill)
+  end
+  self:update_displays()
+end
+
+function practice_trainer:subtract_practice(class, skill)
+  if self:prac_to_percent(class, skill, self[class].pracs[skill]) &gt; 0 then
+    self[class].pracs[skill] = self[class].pracs[skill] - 1
+  end
+  self:update_displays()
+end
+
+function practice_trainer:practice_scroll(class, skill, event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_practice(class, skill)
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_practice(class, skill)
+  end
+end
+
+function practice_trainer:update_practices()
+  for _, class in pairs({"warrior", "rogue", "hunter"}) do
+    for k, v in pairs(self.pracs[class]) do
+      while self:prac_to_percent(class, v, self[class].pracs[v] - 1) == 99 do
+        self[class].pracs[v] = self[class].pracs[v] - 1
+      end
+    end
+  end
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update Stats</name>
+					<packageName></packageName>
+					<script>function practice_trainer:add_stat(stat)
+  if self.stats.race == "trolloc" then
+    if stat == "str" then
+      if self.stats[stat] &lt; 21 then
+        self.stats[stat] = self.stats[stat] + 1
+      end
+    elseif self.stats[stat] &lt; 19 then
+      self.stats[stat] = self.stats[stat] + 1
+    end
+  else
+    if self.stats[stat] &lt; 19 then
+      self.stats[stat] = self.stats[stat] + 1
+    end
+  end
+  self:update_displays()
+end
+
+function practice_trainer:subtract_stat(stat)
+  if stat == "int" or stat == "wil" then
+    if self.stats[stat] &gt; 3 then
+      self.stats[stat] = self.stats[stat] - 1
+    end
+  else
+    if self.stats[stat] &gt; 9 then
+      self.stats[stat] = self.stats[stat] - 1
+    end
+  end  
+  self:update_displays()
+end
+
+function practice_trainer:stat_scroll(stat, event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_stat(stat)
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_stat(stat)
+  end
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update Sex</name>
+					<packageName></packageName>
+					<script>function practice_trainer:sex_scroll(event)
+  local sex_table = {"male", "female"}
+  local index = table.index_of(sex_table, self.stats.sex) - 1
+  if event.angleDeltaY &gt; 0 then
+    self.stats.sex = sex_table[(index + 1)%table.size(sex_table) + 1]
+  elseif event.angleDeltaY &lt; 0 then
+    self.stats.sex = sex_table[(index - 1)%table.size(sex_table) + 1]
+  end
+  self:update_displays()
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update Race</name>
+					<packageName></packageName>
+					<script>function practice_trainer:race_scroll(event)
+  local race_table = {"human", "seanchan", "trolloc", "fade", "dreadlord", "grayman"}
+  local index = table.index_of(race_table, self.stats.race) - 1
+  if event.angleDeltaY &gt; 0 then
+    self.stats.race = race_table[(index + 1)%table.size(race_table) + 1]
+  elseif event.angleDeltaY &lt; 0 then
+    self.stats.race = race_table[(index - 1)%table.size(race_table) + 1]
+  end
+  if self.stats.race == "fade" then
+    self.stats.class = "fade"
+  elseif self.stats.race == "dreadlord" then
+    self.stats.class = "channeler"
+  elseif self.stats.class == "channeler" and (self.stats.race == "seanchan" or self.stats.race == "trolloc" or self.stats.race == "grayman" ) then
+    self.stats.class = "warrior"
+  elseif self.stats.class == "fade" then
+    self.stats.class = "warrior"
+  end
+  self:update_displays()
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update Class</name>
+					<packageName></packageName>
+					<script>function practice_trainer:class_scroll(event)
+  local class_table = {"warrior", "rogue", "hunter", "channeler", "fade"}
+  local index = table.index_of(class_table, self.stats.class) - 1
+  if event.angleDeltaY &gt; 0 then
+    self.stats.class = class_table[(index + 1)%table.size(class_table) + 1]
+  elseif event.angleDeltaY &lt; 0 then
+    self.stats.class = class_table[(index - 1)%table.size(class_table) + 1]
+  end
+  if self.stats.race == "fade" then
+    self.stats.class = "fade"
+  elseif self.stats.race == "dreadlord" then
+    self.stats.class = "channeler"
+  elseif self.stats.class == "channeler" and self.stats.race ~= "human" then
+    self:class_scroll(event)
+  elseif self.stats.class == "fade" and self.stats.race ~= "fade" then
+    self:class_scroll(event)  
+  end
+  self:update_displays()
+end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Convert Information</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Practice to Percent</name>
+					<packageName></packageName>
+					<script>function practice_trainer:prac_to_percent(class, skill, pracs)
+  local start_rates =
+    {
+      warrior =
+        math.floor(self.stats.str / 2) +
+        math.floor(self.stats.dex / 4) +
+        math.floor(self.stats.con / 4),
+      rogue = math.floor(self.stats.dex * 3 / 4) + math.floor(self.stats.int / 4),
+      hunter = math.floor((self.stats.str + self.stats.int + self.stats.wil + self.stats.dex) / 4),
+    }
+  
+  local rate_factor = 1
+  if skill == "steal" or skill == "palm" or skill == "swim" or skill == "cover tracks" then
+    rate_factor = 1.5
+  end
+  
+  local prac_percent = 0
+  for i=1, pracs, 1 do
+    if prac_percent &lt; 21 then
+      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][1])
+    elseif prac_percent &lt; 41 then
+      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][2])
+    elseif prac_percent &lt; 61 then
+      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][3])
+    elseif prac_percent &lt; 81 then
+      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][4])
+    elseif prac_percent &lt; 91 then
+      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][5])
+    elseif prac_percent &lt; 99 then
+      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][6])    
+    end
+  end
+  
+  return prac_percent
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Practice to Level</name>
+					<packageName></packageName>
+					<script>function practice_trainer:get_total_class_pracs()
+  local prac_totals = {warrior=0, rogue=0, hunter=0}
+  
+  for _, class in pairs({"warrior", "rogue", "hunter"}) do
+    for k, v in pairs(self.pracs[class]) do
+      prac_totals[class] = prac_totals[class] + self[class].pracs[v]
+    end
+  end
+  return prac_totals
+end
+
+function practice_trainer:get_total_pracs()
+  local prac_totals = self:get_total_class_pracs()
+  if self.stats.class == "warrior" then
+    return prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
+  elseif self.stats.class == "rogue" then
+    return 3*prac_totals.warrior + prac_totals.rogue + 2*prac_totals.hunter
+  elseif self.stats.class == "hunter" then
+    return 2*prac_totals.warrior + 2*prac_totals.rogue + prac_totals.hunter
+  elseif self.stats.class == "fade" then
+    return prac_totals.warrior + prac_totals.rogue + prac_totals.hunter
+  elseif self.stats.class == "channeler" then
+    if self.stats.sex == "male" then
+      return 3*prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
+    else
+      return 4*prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
+    end
+  end
+  --throw error if something unknown passes through here
+  return nil
+end
+
+function practice_trainer:pracs_to_level()
+  local prac_gain = {human = 5, seanchan = 5, trolloc = 3, fade = 4, dreadlord = 5, grayman = 5}
+  
+  local level = 1
+  local pracs = 8
+  
+  while pracs &lt; self:get_total_pracs() do
+    level = level + 1
+    if level &lt;= 30 then
+      pracs = pracs + prac_gain[self.stats.race]
+    else
+      pracs = pracs + 2
+    end
+  end
+  return level
+end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Displays</name>
 				<packageName></packageName>
 				<script></script>
@@ -732,258 +984,6 @@ practice_trainer.stats["level_label"] =
       practice_trainer.stats.container
     )
 </script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Update Information</name>
-				<packageName></packageName>
-				<script></script>
-				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Update Practice</name>
-					<packageName></packageName>
-					<script>function practice_trainer:add_practice(class, skill)
-  if self.stats.race == "trolloc" and (skill == "ride" or skill == "swim") then
-    return
-  end
-  if self:prac_to_percent(class, skill, self[class].pracs[skill]) &lt; 99 then
-    self[class].pracs[skill] = self[class].pracs[skill] + 1
-  end
-  if self:pracs_to_level() &gt; 51 then
-    self:subtract_practice(class, skill)
-  end
-  self:update_displays()
-end
-
-function practice_trainer:subtract_practice(class, skill)
-  if self:prac_to_percent(class, skill, self[class].pracs[skill]) &gt; 0 then
-    self[class].pracs[skill] = self[class].pracs[skill] - 1
-  end
-  self:update_displays()
-end
-
-function practice_trainer:practice_scroll(class, skill, event)
-  if event.angleDeltaY &gt; 0 then
-    self:add_practice(class, skill)
-  elseif event.angleDeltaY &lt; 0 then
-    self:subtract_practice(class, skill)
-  end
-end
-
-function practice_trainer:update_practices()
-  for _, class in pairs({"warrior", "rogue", "hunter"}) do
-    for k, v in pairs(self.pracs[class]) do
-      while self:prac_to_percent(class, v, self[class].pracs[v] - 1) == 99 do
-        self[class].pracs[v] = self[class].pracs[v] - 1
-      end
-    end
-  end
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Update Stats</name>
-					<packageName></packageName>
-					<script>function practice_trainer:add_stat(stat)
-  if self.stats.race == "trolloc" then
-    if stat == "str" then
-      if self.stats[stat] &lt; 21 then
-        self.stats[stat] = self.stats[stat] + 1
-      end
-    elseif self.stats[stat] &lt; 19 then
-      self.stats[stat] = self.stats[stat] + 1
-    end
-  else
-    if self.stats[stat] &lt; 19 then
-      self.stats[stat] = self.stats[stat] + 1
-    end
-  end
-  self:update_displays()
-end
-
-function practice_trainer:subtract_stat(stat)
-  if stat == "int" or stat == "wil" then
-    if self.stats[stat] &gt; 3 then
-      self.stats[stat] = self.stats[stat] - 1
-    end
-  else
-    if self.stats[stat] &gt; 9 then
-      self.stats[stat] = self.stats[stat] - 1
-    end
-  end  
-  self:update_displays()
-end
-
-function practice_trainer:stat_scroll(stat, event)
-  if event.angleDeltaY &gt; 0 then
-    self:add_stat(stat)
-  elseif event.angleDeltaY &lt; 0 then
-    self:subtract_stat(stat)
-  end
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Update Sex</name>
-					<packageName></packageName>
-					<script>function practice_trainer:sex_scroll(event)
-  local sex_table = {"male", "female"}
-  local index = table.index_of(sex_table, self.stats.sex) - 1
-  if event.angleDeltaY &gt; 0 then
-    self.stats.sex = sex_table[(index + 1)%table.size(sex_table) + 1]
-  elseif event.angleDeltaY &lt; 0 then
-    self.stats.sex = sex_table[(index - 1)%table.size(sex_table) + 1]
-  end
-  self:update_displays()
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Update Race</name>
-					<packageName></packageName>
-					<script>function practice_trainer:race_scroll(event)
-  local race_table = {"human", "seanchan", "trolloc", "fade", "dreadlord", "grayman"}
-  local index = table.index_of(race_table, self.stats.race) - 1
-  if event.angleDeltaY &gt; 0 then
-    self.stats.race = race_table[(index + 1)%table.size(race_table) + 1]
-  elseif event.angleDeltaY &lt; 0 then
-    self.stats.race = race_table[(index - 1)%table.size(race_table) + 1]
-  end
-  if self.stats.race == "fade" then
-    self.stats.class = "fade"
-  elseif self.stats.race == "dreadlord" then
-    self.stats.class = "channeler"
-  elseif self.stats.class == "channeler" and (self.stats.race == "seanchan" or self.stats.race == "trolloc" or self.stats.race == "grayman" ) then
-    self.stats.class = "warrior"
-  elseif self.stats.class == "fade" then
-    self.stats.class = "warrior"
-  end
-  self:update_displays()
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Update Class</name>
-					<packageName></packageName>
-					<script>function practice_trainer:class_scroll(event)
-  local class_table = {"warrior", "rogue", "hunter", "channeler", "fade"}
-  local index = table.index_of(class_table, self.stats.class) - 1
-  if event.angleDeltaY &gt; 0 then
-    self.stats.class = class_table[(index + 1)%table.size(class_table) + 1]
-  elseif event.angleDeltaY &lt; 0 then
-    self.stats.class = class_table[(index - 1)%table.size(class_table) + 1]
-  end
-  if self.stats.race == "fade" then
-    self.stats.class = "fade"
-  elseif self.stats.race == "dreadlord" then
-    self.stats.class = "channeler"
-  elseif self.stats.class == "channeler" and self.stats.race ~= "human" then
-    self:class_scroll(event)
-  elseif self.stats.class == "fade" and self.stats.race ~= "fade" then
-    self:class_scroll(event)  
-  end
-  self:update_displays()
-end</script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Convert Information</name>
-				<packageName></packageName>
-				<script></script>
-				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Practice to Percent</name>
-					<packageName></packageName>
-					<script>function practice_trainer:prac_to_percent(class, skill, pracs)
-  local start_rates =
-    {
-      warrior =
-        math.floor(self.stats.str / 2) +
-        math.floor(self.stats.dex / 4) +
-        math.floor(self.stats.con / 4),
-      rogue = math.floor(self.stats.dex * 3 / 4) + math.floor(self.stats.int / 4),
-      hunter = math.floor((self.stats.str + self.stats.int + self.stats.wil + self.stats.dex) / 4),
-    }
-  
-  local rate_factor = 1
-  if skill == "steal" or skill == "palm" or skill == "swim" or skill == "cover tracks" then
-    rate_factor = 1.5
-  end
-  
-  local prac_percent = 0
-  for i=1, pracs, 1 do
-    if prac_percent &lt; 21 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][1])
-    elseif prac_percent &lt; 41 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][2])
-    elseif prac_percent &lt; 61 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][3])
-    elseif prac_percent &lt; 81 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][4])
-    elseif prac_percent &lt; 91 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][5])
-    elseif prac_percent &lt; 99 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][6])    
-    end
-  end
-  
-  return prac_percent
-end</script>
-					<eventHandlerList />
-				</Script>
-				<Script isActive="yes" isFolder="no">
-					<name>Practice to Level</name>
-					<packageName></packageName>
-					<script>function practice_trainer:get_total_class_pracs()
-  local prac_totals = {warrior=0, rogue=0, hunter=0}
-  
-  for _, class in pairs({"warrior", "rogue", "hunter"}) do
-    for k, v in pairs(self.pracs[class]) do
-      prac_totals[class] = prac_totals[class] + self[class].pracs[v]
-    end
-  end
-  return prac_totals
-end
-
-function practice_trainer:get_total_pracs()
-  local prac_totals = self:get_total_class_pracs()
-  if self.stats.class == "warrior" then
-    return prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
-  elseif self.stats.class == "rogue" then
-    return 3*prac_totals.warrior + prac_totals.rogue + 2*prac_totals.hunter
-  elseif self.stats.class == "hunter" then
-    return 2*prac_totals.warrior + 2*prac_totals.rogue + prac_totals.hunter
-  elseif self.stats.class == "fade" then
-    return prac_totals.warrior + prac_totals.rogue + prac_totals.hunter
-  elseif self.stats.class == "channeler" then
-    if self.stats.sex == "male" then
-      return 3*prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
-    else
-      return 4*prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
-    end
-  end
-  --throw error if something unknown passes through here
-  return nil
-end
-
-function practice_trainer:pracs_to_level()
-  local prac_gain = {human = 5, seanchan = 5, trolloc = 3, fade = 4, dreadlord = 5, grayman = 5}
-  
-  local level = 1
-  local pracs = 8
-  
-  while pracs &lt; self:get_total_pracs() do
-    level = level + 1
-    if level &lt;= 30 then
-      pracs = pracs + prac_gain[self.stats.race]
-    else
-      pracs = pracs + 2
-    end
-  end
-  return level
-end</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>

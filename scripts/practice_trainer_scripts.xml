@@ -11,7 +11,8 @@
 				<name>Practice Trainer Initializations</name>
 				<packageName></packageName>
 				<script>practice_trainer = practice_trainer or {}
-practice_trainer.container = practice_trainer.container or 
+practice_trainer.container =
+  practice_trainer.container or
   Adjustable.Container:new(
     {
       name = "practice_trainer.container",
@@ -30,11 +31,15 @@ practice_trainer.container = practice_trainer.container or
       y = "10%",
       width = "50%",
       height = "80%",
-      autoLoad=false,
-      autoSave=false
+      autoLoad = false,
+      autoSave = false,
     }
   )
- </script>
+practice_trainer.stats =
+  practice_trainer.stats or {str = 19, int = 16, wil = 12, dex = 18, con = 19}
+practice_trainer.stats.sex = "male"
+practice_trainer.stats.race = "human"
+practice_trainer.stats.class = "hunter"</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -666,10 +671,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Character Stats Displays</name>
 					<packageName></packageName>
-					<script>practice_trainer.stats =
-  practice_trainer.stats or {str = 19, int = 16, wil = 12, dex = 18, con = 19}
-  
-practice_trainer.stats.container =
+					<script>practice_trainer.stats.container =
   practice_trainer.stats.container or
   Geyser.Container:new(
     {name = "practice_trainer.stats.container", x = "31%", y = "50%", width = "69%", height = "10%"},
@@ -773,11 +775,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Character Sex/Race/Class Displays</name>
 					<packageName></packageName>
-					<script>practice_trainer.stats.sex = "male"
-practice_trainer.stats.race = "human"
-practice_trainer.stats.class = "hunter"
-
-practice_trainer.stats["sex_label"] =
+					<script>practice_trainer.stats["sex_label"] =
     practice_trainer.stats["sex_label"] or
     Geyser.Label:new(
       {

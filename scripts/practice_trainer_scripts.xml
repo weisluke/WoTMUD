@@ -66,9 +66,9 @@ end</script>
     {
       name = "practice_trainer.info",
       x = "31%",
-      y = "65%",
+      y = "62%",
       width = "50%",
-      height = "20%",
+      height = "26%",
       fgColor = "black",
       color = "white",
     },

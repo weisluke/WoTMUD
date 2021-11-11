@@ -25,6 +25,8 @@ Pounds
 
 Exodio
 
+Ickmund and Thuvia, for making their practice trainers available (at https://github.com/ickmund/practrainer and http://www.wotmudarchives.org/tools/ptrainer.html respectively)
+
 
 # Connecting to the game
 

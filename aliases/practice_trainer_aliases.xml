@@ -18,9 +18,15 @@ practice_trainer.container:raiseAll()</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Practice Warrior</name>
-				<script>for k, v in pairs(practice_trainer.warrior.pracs) do
-  for i=1, v, 1 do
-    send("practice "..k)
+				<script>if practice_trainer:pracs_to_level() &gt; 51 then
+  practice_trainer:echo(
+    "More than 51 levels required. Cannot practice this practice setup.\n", false, true
+  )
+else
+  for k, v in pairs(practice_trainer.warrior.pracs) do
+    for i = 1, v, 1 do
+      send("practice " .. k)
+    end
   end
 end</script>
 				<command></command>
@@ -29,9 +35,15 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Practice Rogue</name>
-				<script>for k, v in pairs(practice_trainer.rogue.pracs) do
-  for i=1, v, 1 do
-    send("practice "..k)
+				<script>if practice_trainer:pracs_to_level() &gt; 51 then
+  practice_trainer:echo(
+    "More than 51 levels required. Cannot practice this practice setup.\n", false, true
+  )
+else
+  for k, v in pairs(practice_trainer.rogue.pracs) do
+    for i = 1, v, 1 do
+      send("practice " .. k)
+    end
   end
 end</script>
 				<command></command>
@@ -40,9 +52,15 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Practice Hunter</name>
-				<script>for k, v in pairs(practice_trainer.hunter.pracs) do
-  for i=1, v, 1 do
-    send("practice "..k)
+				<script>if practice_trainer:pracs_to_level() &gt; 51 then
+  practice_trainer:echo(
+    "More than 51 levels required. Cannot practice this practice setup.\n", false, true
+  )
+else
+  for k, v in pairs(practice_trainer.hunter.pracs) do
+    for i = 1, v, 1 do
+      send("practice " .. k)
+    end
   end
 end</script>
 				<command></command>

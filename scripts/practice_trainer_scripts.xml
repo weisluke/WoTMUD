@@ -225,6 +225,14 @@ practice_trainer.container:hide()</script>
   if not io.exists(getMudletHomeDir() .. "/practice_trainer") then
     lfs.mkdir(getMudletHomeDir() .. "/practice_trainer")
   end
+  if fname == "" then
+    self:echo("No filename provided.\n", false, true)
+    return
+  end
+  if self:pracs_to_level() &gt; 51 then
+    self:echo("More than 51 levels required. Cannot save practice setup.\n", false, true)
+    return
+  end
   local out_table =
     {
       sex = self.stats.sex,
@@ -471,6 +479,15 @@ end</script>
   elseif self.stats.class == "fade" then
     self.stats.class = "warrior"
   end
+  if self.stats.race == "trolloc" then
+    self.hunter.pracs["ride"] = 0
+    self.hunter.pracs["swim"] = 0
+  else
+    if self.stats.str &gt; 19 then
+      self.stats.str = 19
+    end
+  end
+  
   self:update_displays()
 end</script>
 					<eventHandlerList />

@@ -32,7 +32,7 @@
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList />
 				<regexCodePropertyList />
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>(.+) your (.+) into bloody fragments!</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -46,17 +46,13 @@
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(.+) your (.+) into bloody fragments!</string>
-						<string> your </string>
-						<string> into bloody fragments!</string>
+						<string>((.+) your (.+) into bloody fragments!)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>(.+) your (.+) extremely hard\.</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -70,17 +66,13 @@
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(.+) your (.+) extremely hard\.</string>
-						<string> your </string>
-						<string> extremely hard.</string>
+						<string>((.+) your (.+) extremely hard\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>(.+) your (.+) very hard\.</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -94,18 +86,14 @@
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(.+) your (.+) very hard\.</string>
-						<string> your </string>
-						<string> very hard.</string>
+						<string>((.+) your (.+) very hard\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>(.+) your (.+) hard\.</name>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(.+) your {@bodypart} hard\.</name>
 					<script></script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -118,41 +106,57 @@
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(.+) your (.+) hard\.</string>
-						<string> your </string>
-						<string> hard.</string>
+						<string>((.+) your head hard\.)</string>
+						<string>((.+) your body hard\.)</string>
+						<string>((.+) your left arm hard\.)</string>
+						<string>((.+) your right arm hard\.)</string>
+						<string>((.+) your left hand hard\.)</string>
+						<string>((.+) your right hand hard\.)</string>
+						<string>((.+) your left leg hard\.)</string>
+						<string>((.+) your right leg hard\.)</string>
+						<string>((.+) your left foot hard\.)</string>
+						<string>((.+) your right foot hard\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>(.+) your {@bodypart}.</name>
-					<script>local damagetype={"bites",
-"blasts",
-"cleaves",
-"crushes",
-"hacks",
-"hits",
-"lances",
-"pierces",
-"pounds",
-"scythes",
-"shoots",
-"slashes",
-"slices",
-"smites",
-"stabs",
-"stings",
-"strikes",
-"whips"}
-
-if table.contains(damagetype,matches[3]) then
-selectCaptureGroup(1)
-fg("red")
-resetFormat()
+					<script>local damagetype =
+  {
+    "bites",
+    "blasts",
+    "cleaves",
+    "crushes",
+    "hacks",
+    "hits",
+    "lances",
+    "pierces",
+    "pounds",
+    "scythes",
+    "shoots",
+    "slashes",
+    "slices",
+    "smites",
+    "stabs",
+    "stings",
+    "strikes",
+    "whips",
+  }
+if table.contains(damagetype, matches[3]) then
+  selectCaptureGroup(1)
+  fg("red")
+  resetFormat()
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -166,15 +170,15 @@ end</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>(.+) (\S+) your head\.</string>
-						<string>(.+) (\S+) your left foot\.</string>
-						<string>(.+) (\S+) your right foot\.</string>
-						<string>(.+) (\S+) your left hand\.</string>
-						<string>(.+) (\S+) your right hand\.</string>
+						<string>(.+) (\S+) your body\.</string>
 						<string>(.+) (\S+) your left arm\.</string>
 						<string>(.+) (\S+) your right arm\.</string>
-						<string>(.+) (\S+) your body\.</string>
+						<string>(.+) (\S+) your left hand\.</string>
+						<string>(.+) (\S+) your right hand\.</string>
 						<string>(.+) (\S+) your left leg\.</string>
 						<string>(.+) (\S+) your right leg\.</string>
+						<string>(.+) (\S+) your left foot\.</string>
+						<string>(.+) (\S+) your right foot\.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -189,7 +193,7 @@ end</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>(.+) barely (.+) your (.+)</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -203,19 +207,13 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(.+) barely (.+) your (.+)\.</string>
-						<string> barely </string>
-						<string> your </string>
-						<string>.</string>
+						<string>((.+) barely (.+) your (.+)\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>(.+) tickles your (.+) with (.+)</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -229,19 +227,13 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(.+) tickles your (.+) with (.+)\.</string>
-						<string> tickles your </string>
-						<string> with </string>
-						<string>.</string>
+						<string>((.+) tickles your (.+) with (.+)\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>(.+) barely tickles your (.+) with (.+)</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -255,19 +247,13 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(.+) barely tickles your (.+) with (.+)\.</string>
-						<string> barely tickes your </string>
-						<string> with </string>
-						<string>.</string>
+						<string>((.+) barely tickles your (.+) with (.+)\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>You (.+) into bloody fragments!</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -281,17 +267,13 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You (.+) into bloody fragments!</string>
-						<string>You </string>
-						<string> into bloody fragments!</string>
+						<string>(You (.+) into bloody fragments!)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>You (.+) extremely hard\.</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -305,17 +287,13 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You (.+) extremely hard\.</string>
-						<string>You </string>
-						<string> extremely hard.</string>
+						<string>(You (.+) extremely hard\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>You (.+) very hard\.</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -329,41 +307,39 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You (.+) very hard\.</string>
-						<string>You </string>
-						<string> very hard.</string>
+						<string>(You (.+) very hard\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>You (.+) hard\.</name>
-					<script>local damagetype={"bites",
-"blasts",
-"cleaves",
-"crushes",
-"hacks",
-"hits",
-"lances",
-"pierces",
-"pounds",
-"scythes",
-"shoots",
-"slashes",
-"slices",
-"smites",
-"stabs",
-"stings",
-"strikes",
-"whips"}
-
-if table.contains(damagetype,matches[2]) then
-selectCaptureGroup(1)
-fg("green")
-resetFormat()
+					<script>local damagetype =
+  {
+    "bite",
+    "blast",
+    "cleave",
+    "crush",
+    "hack",
+    "hit",
+    "lance",
+    "pierce",
+    "pound",
+    "scythe",
+    "shoot",
+    "slash",
+    "slice",
+    "smite",
+    "stab",
+    "sting",
+    "strike",
+    "whip",
+  }
+if table.contains(damagetype, matches[3]) then
+  selectCaptureGroup(1)
+  fg("green")
+  resetFormat()
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -376,41 +352,39 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You (\S+) (.+) hard\.</string>
-						<string>You </string>
-						<string> hard.</string>
+						<string>(You (\S+) (.+) hard\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>You (\S+) (.+) {@bodypart}.</name>
-					<script>local damagetype={"bite",
-"blast",
-"cleave",
-"crush",
-"hack",
-"hit",
-"lance",
-"pierce",
-"pound",
-"scythe",
-"shoot",
-"slash",
-"slice",
-"smite",
-"stab",
-"sting",
-"strike",
-"whip"}
-
-if table.contains(damagetype,matches[2]) then
-selectCaptureGroup(1)
-fg("green")
-resetFormat()
+					<script>local damagetype =
+  {
+    "bite",
+    "blast",
+    "cleave",
+    "crush",
+    "hack",
+    "hit",
+    "lance",
+    "pierce",
+    "pound",
+    "scythe",
+    "shoot",
+    "slash",
+    "slice",
+    "smite",
+    "stab",
+    "sting",
+    "strike",
+    "whip",
+  }
+if table.contains(damagetype, matches[2]) then
+  selectCaptureGroup(1)
+  fg("green")
+  resetFormat()
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -443,7 +417,7 @@ end</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>You barely (.+) with your (.+)\.</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -457,19 +431,13 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You barely (.+) with your (.+)\.</string>
-						<string>You barely </string>
-						<string> with your </string>
-						<string>.</string>
+						<string>(You barely (.+) with your (.+)\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>You tickle (.+) with your (.+)\.</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -483,19 +451,13 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You tickle (.+) with your (.+)\.</string>
-						<string>You tickle </string>
-						<string> with your </string>
-						<string>.</string>
+						<string>(You tickle (.+) with your (.+)\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>You barely tickle (.+) with your (.+)\.</name>
 					<script></script>
 					<triggerType>0</triggerType>
@@ -509,16 +471,10 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You barely tickle (.+) with your (.+)\.</string>
-						<string>You barely tickle </string>
-						<string> with your </string>
-						<string>.</string>
+						<string>(You barely tickle (.+) with your (.+)\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>0</integer>
-						<integer>0</integer>
-						<integer>0</integer>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>

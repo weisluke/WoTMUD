@@ -83,11 +83,11 @@ weave_trainer.info:setStyleSheet([[
 ]])
 weave_trainer.info:echo(
   [[
-Click the green "+" buttons to increment a practice.&lt;br&gt;
+Click the green "+" buttons to increment a practice, int, or rank.&lt;br&gt;
 &lt;br&gt;
-Click the red "-" buttons to decrement a practice.&lt;br&gt;
+Click the red "-" buttons to decrement a practice, int, or rank.&lt;br&gt;
 &lt;br&gt;
-Scroll with your mouse on the gray practice value boxes and character int/rank boxes to increment and decrement.&lt;br&gt;
+Scroll with your mouse on the gray practice, int, or rank value boxes to increment and decrement.&lt;br&gt;
 &lt;br&gt;
 Weaves with black borders can only be practiced by clanned characters.&lt;br&gt;
 &lt;br&gt;

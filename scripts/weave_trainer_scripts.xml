@@ -508,26 +508,52 @@ end
 				<Script isActive="yes" isFolder="no">
 					<name>Update Int</name>
 					<packageName></packageName>
-					<script>function weave_trainer:int_scroll(event)
-  if event.angleDeltaY &gt; 0 and self.stats.int &lt; 19 then
+					<script>function weave_trainer:add_int()
+  if self.stats.int &lt; 19 then
     self.stats.int = self.stats.int + 1
-  elseif event.angleDeltaY &lt; 0 and self.stats.int &gt; 12 then
+  end
+  self:update_displays()
+end
+
+function weave_trainer:subtract_int()
+  if self.stats.int &gt; 12 then
     self.stats.int = self.stats.int - 1
   end
   self:update_displays()
+end
+
+function weave_trainer:int_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_int()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_int()
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>Update Rank</name>
 					<packageName></packageName>
-					<script>function weave_trainer:rank_scroll(event)
-  if event.angleDeltaY &gt; 0 and self.stats.rank &lt; 9 then
+					<script>function weave_trainer:add_rank()
+  if self.stats.rank &lt; 9 then
     self.stats.rank = self.stats.rank + 1
-  elseif event.angleDeltaY &lt; 0 and self.stats.rank &gt; 0 then
+  end
+  self:update_displays()
+end
+
+function weave_trainer:subtract_rank()
+  if self.stats.rank &gt; 0 then
     self.stats.rank = self.stats.rank - 1
   end
   self:update_displays()
+end
+
+function weave_trainer:rank_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_rank()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_rank()
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -902,7 +928,7 @@ end</script>
 					<script>weave_trainer.stats.container =
   weave_trainer.stats.container or
   Geyser.Container:new(
-    {name = "weave_trainer.stats.container", x = "34%", y = "83%", width = "64%", height = "5%"},
+    {name = "weave_trainer.stats.container", x = "34%", y = "83%", width = "56%", height = "5%"},
     weave_trainer.container
   )
 weave_trainer.stats["int_label"] =
@@ -945,13 +971,62 @@ weave_trainer.stats["int_val_label"]:setStyleSheet(
   ]]
 )
 setLabelWheelCallback("weave_trainer.stats.int_val_label", "weave_trainer:int_scroll")
-
+weave_trainer.stats["int_-_label"] =
+  weave_trainer.stats["int_-_label"] or
+  Geyser.Label:new(
+    {
+      name = "weave_trainer.stats.int_-_label",
+      x = "11%",
+      y = "0%",
+      width = "4%",
+      height = "100%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;-&lt;/center&gt;]],
+    },
+    weave_trainer.stats.container
+  )
+weave_trainer.stats["int_-_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: red;
+    border-radius: 3px;
+  ]]
+)
+weave_trainer.stats["int_-_label"]:setClickCallback("weave_trainer:subtract_int")
+weave_trainer.stats["int_+_label"] =
+  weave_trainer.stats["int_+_label"] or
+  Geyser.Label:new(
+    {
+      name = "weave_trainer.stats.int_+_label",
+      x = "15%",
+      y = "0%",
+      width = "4%",
+      height = "100%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;+&lt;/center&gt;]],
+    },
+    weave_trainer.stats.container
+  )
+weave_trainer.stats["int_+_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: green;
+    border-radius: 3px;
+  ]]
+)
+weave_trainer.stats["int_+_label"]:setClickCallback("weave_trainer:add_int")
 weave_trainer.stats["rank_label"] =
   weave_trainer.stats["rank_label"] or
   Geyser.Label:new(
     {
       name = "weave_trainer.stats.rank_label",
-      x = "12%",
+      x = "19%",
       y = "0%",
       width = "6%",
       height = "100%",
@@ -966,7 +1041,7 @@ weave_trainer.stats["rank_val_label"] =
   Geyser.Label:new(
     {
       name = "weave_trainer.stats.rank_val_label",
-      x = "18%",
+      x = "25%",
       y = "0%",
       width = "5%",
       height = "100%",
@@ -985,7 +1060,57 @@ weave_trainer.stats["rank_val_label"]:setStyleSheet(
     border-radius: 3px;
   ]]
 )
-setLabelWheelCallback("weave_trainer.stats.rank_val_label", "weave_trainer:rank_scroll")</script>
+setLabelWheelCallback("weave_trainer.stats.rank_val_label", "weave_trainer:rank_scroll")
+weave_trainer.stats["rank_-_label"] =
+  weave_trainer.stats["rank_-_label"] or
+  Geyser.Label:new(
+    {
+      name = "weave_trainer.stats.rank_-_label",
+      x = "30%",
+      y = "0%",
+      width = "4%",
+      height = "100%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;-&lt;/center&gt;]],
+    },
+    weave_trainer.stats.container
+  )
+weave_trainer.stats["rank_-_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: red;
+    border-radius: 3px;
+  ]]
+)
+weave_trainer.stats["rank_-_label"]:setClickCallback("weave_trainer:subtract_rank")
+weave_trainer.stats["rank_+_label"] =
+  weave_trainer.stats["rank_+_label"] or
+  Geyser.Label:new(
+    {
+      name = "weave_trainer.stats.rank_+_label",
+      x = "34%",
+      y = "0%",
+      width = "4%",
+      height = "100%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;+&lt;/center&gt;]],
+    },
+    weave_trainer.stats.container
+  )
+weave_trainer.stats["rank_+_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: green;
+    border-radius: 3px;
+  ]]
+)
+weave_trainer.stats["rank_+_label"]:setClickCallback("weave_trainer:add_rank")</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -996,7 +1121,7 @@ setLabelWheelCallback("weave_trainer.stats.rank_val_label", "weave_trainer:rank_
     Geyser.Label:new(
       {
         name = "weave_trainer.stats.total_pracs_label",
-        x = "26%",
+        x = "38%",
         y = "0%",
         width = "26%",
         height = "100%",
@@ -1012,7 +1137,7 @@ weave_trainer.stats["level_label"] =
     Geyser.Label:new(
       {
         name = "weave_trainer.stats.level_label",
-        x = "53%",
+        x = "64%",
         y = "0%",
         width = "26%",
         height = "100%",

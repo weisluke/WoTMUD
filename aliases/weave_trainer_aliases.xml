@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Weave Trainer</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show Practice Trainer</name>
+				<script>weave_trainer.container:show()
+weave_trainer.container:raiseAll()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wtrainer$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Practice Weaves</name>
+				<script>if weave_trainer:pracs_to_level() &gt; 51 then
+  weave_trainer:echo(
+    "More than 51 levels required. Cannot practice this practice setup.\n", false, true
+  )
+else
+  for k, v in pairs(weave_trainer.pracs.elements) do
+    for i = 1, weave_trainer.elements.pracs[v], 1 do
+      send("practice " .. v)
+    end
+  end
+  for k, v in pairs(weave_trainer.pracs.weaves) do
+    for i = 1, weave_trainer.weaves.pracs[v], 1 do
+      send("practice " .. v)
+    end
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^prac weaves$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

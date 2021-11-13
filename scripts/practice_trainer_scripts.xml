@@ -85,11 +85,11 @@ practice_trainer.info:setStyleSheet([[
 ]])
 practice_trainer.info:echo(
   [[
-Click the green "+" buttons to increment a practice or stat.&lt;br&gt;
+Click the green "+" buttons to increment a practice, stat, sex, race, or class.&lt;br&gt;
 &lt;br&gt;
-Click the red "-" buttons to decrement a practice or stat.&lt;br&gt;
+Click the red "-" buttons to decrement a practice, stat, sex, race, or class.&lt;br&gt;
 &lt;br&gt;
-Scroll with your mouse on the gray practice value boxes, stat value boxes, and character sex/race/class boxes to increment, decrement, and change.&lt;br&gt;
+Scroll with your mouse on the gray practice, stat, sex, race, or class value boxes to increment and decrement.&lt;br&gt;
 &lt;br&gt;
 Practice setups can be saved or loaded using the input bars below.
 ]]
@@ -447,34 +447,55 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Update Sex</name>
 					<packageName></packageName>
-					<script>function practice_trainer:sex_scroll(event)
+					<script>function practice_trainer:sex_stipulations()
+  if
+    self.stats.class == "channeler" and
+    self.stats.sex == "male" and
+    not (self.stats.race == "human" or self.stats.race == "dreadlord")
+  then
+    self.stats.class = "warrior"
+  end
+end
+
+function practice_trainer:add_sex()
+  local sex_table = {"male", "female"}
+  local index = table.index_of(sex_table, self.stats.sex) - 1
+  self.stats.sex = sex_table[(index + 1) % table.size(sex_table) + 1]
+  self:sex_stipulations()
+  self:update_displays()
+end
+
+function practice_trainer:subtract_sex()
+  local sex_table = {"male", "female"}
+  local index = table.index_of(sex_table, self.stats.sex) - 1
+  self.stats.sex = sex_table[(index - 1) % table.size(sex_table) + 1]
+  self:sex_stipulations()
+  self:update_displays()
+end
+
+function practice_trainer:sex_scroll(event)
   local sex_table = {"male", "female"}
   local index = table.index_of(sex_table, self.stats.sex) - 1
   if event.angleDeltaY &gt; 0 then
-    self.stats.sex = sex_table[(index + 1)%table.size(sex_table) + 1]
+    self:add_sex()
   elseif event.angleDeltaY &lt; 0 then
-    self.stats.sex = sex_table[(index - 1)%table.size(sex_table) + 1]
+    self:subtract_sex()
   end
-  self:update_displays()
 end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>Update Race</name>
 					<packageName></packageName>
-					<script>function practice_trainer:race_scroll(event)
-  local race_table = {"human", "seanchan", "trolloc", "fade", "dreadlord", "grayman"}
-  local index = table.index_of(race_table, self.stats.race) - 1
-  if event.angleDeltaY &gt; 0 then
-    self.stats.race = race_table[(index + 1)%table.size(race_table) + 1]
-  elseif event.angleDeltaY &lt; 0 then
-    self.stats.race = race_table[(index - 1)%table.size(race_table) + 1]
-  end
+					<script>function practice_trainer:race_stipulations(dir)
   if self.stats.race == "fade" then
     self.stats.class = "fade"
   elseif self.stats.race == "dreadlord" then
     self.stats.class = "channeler"
-  elseif self.stats.class == "channeler" and (self.stats.race == "seanchan" or self.stats.race == "trolloc" or self.stats.race == "grayman" ) then
+  elseif
+    self.stats.class == "channeler" and
+    ((self.stats.race == "seanchan" and self.stats.sex == "male") or self.stats.race == "trolloc" or self.stats.race == "grayman")
+  then
     self.stats.class = "warrior"
   elseif self.stats.class == "fade" then
     self.stats.class = "warrior"
@@ -487,32 +508,85 @@ end</script>
       self.stats.str = 19
     end
   end
-  
+end
+
+function practice_trainer:add_race()
+  local race_table = {"human", "seanchan", "trolloc", "fade", "dreadlord", "grayman"}
+  local index = table.index_of(race_table, self.stats.race) - 1
+  self.stats.race = race_table[(index + 1) % table.size(race_table) + 1]
+  self:race_stipulations(1)
   self:update_displays()
+end
+
+function practice_trainer:subtract_race()
+  local race_table = {"human", "seanchan", "trolloc", "fade", "dreadlord", "grayman"}
+  local index = table.index_of(race_table, self.stats.race) - 1
+  self.stats.race = race_table[(index - 1) % table.size(race_table) + 1]
+  self:race_stipulations(-1)
+  self:update_displays()
+end
+
+function practice_trainer:race_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_race()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_race()
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>Update Class</name>
 					<packageName></packageName>
-					<script>function practice_trainer:class_scroll(event)
-  local class_table = {"warrior", "rogue", "hunter", "channeler", "fade"}
-  local index = table.index_of(class_table, self.stats.class) - 1
-  if event.angleDeltaY &gt; 0 then
-    self.stats.class = class_table[(index + 1)%table.size(class_table) + 1]
-  elseif event.angleDeltaY &lt; 0 then
-    self.stats.class = class_table[(index - 1)%table.size(class_table) + 1]
-  end
+					<script>function practice_trainer:class_stipulations(dir)
   if self.stats.race == "fade" then
     self.stats.class = "fade"
   elseif self.stats.race == "dreadlord" then
     self.stats.class = "channeler"
-  elseif self.stats.class == "channeler" and self.stats.race ~= "human" then
-    self:class_scroll(event)
+  elseif
+    self.stats.class == "channeler" and
+    (
+      (self.stats.race == "seanchan" and self.stats.sex == "male") or
+      self.stats.race == "trolloc" or
+      self.stats.race == "grayman"
+    )
+  then
+    if dir == 1 then
+      self:add_class()
+    elseif dir == -1 then
+      self:subtract_class()
+    end
   elseif self.stats.class == "fade" and self.stats.race ~= "fade" then
-    self:class_scroll(event)  
+    if dir == 1 then
+      self:add_class()
+    elseif dir == -1 then
+      self:subtract_class()
+    end
   end
+end
+
+function practice_trainer:add_class()
+  local class_table = {"warrior", "rogue", "hunter", "channeler", "fade"}
+  local index = table.index_of(class_table, self.stats.class) - 1
+  self.stats.class = class_table[(index + 1) % table.size(class_table) + 1]
+  self:class_stipulations(1)
   self:update_displays()
+end
+
+function practice_trainer:subtract_class()
+  local class_table = {"warrior", "rogue", "hunter", "channeler", "fade"}
+  local index = table.index_of(class_table, self.stats.class) - 1
+  self.stats.class = class_table[(index - 1) % table.size(class_table) + 1]
+  self:class_stipulations(-1)
+  self:update_displays()
+end
+
+function practice_trainer:class_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_class()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_class()
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -790,7 +864,7 @@ end</script>
 					<script>practice_trainer.stats.container =
   practice_trainer.stats.container or
   Geyser.Container:new(
-    {name = "practice_trainer.stats.container", x = "31%", y = "50%", width = "69%", height = "10%"},
+    {name = "practice_trainer.stats.container", x = "31%", y = "45%", width = "69%", height = "15%"},
     practice_trainer.container
   )
   
@@ -804,7 +878,7 @@ for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
         x = xpos .. "%",
         y = "0%",
         width = "6%",
-        height = "40%",
+        height = "30%",
         fgColor = "black",
         color = "white",
         message = [[&lt;center&gt;]] .. stat .. [[&lt;/center&gt;]],
@@ -819,7 +893,7 @@ for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
         x = (xpos + 6) .. "%",
         y = "0%",
         width = "5%",
-        height = "40%",
+        height = "30%",
         fgColor = "black",
         color = "white",
         message = [[&lt;center&gt;]] .. practice_trainer.stats[stat] .. [[&lt;/center&gt;]],
@@ -845,7 +919,7 @@ for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
         x = (xpos + 11) .. "%",
         y = "0%",
         width = "4%",
-        height = "40%",
+        height = "30%",
         fgColor = "black",
         color = "white",
         message = [[&lt;center&gt;-&lt;/center&gt;]],
@@ -870,7 +944,7 @@ for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
         x = (xpos + 15) .. "%",
         y = "0%",
         width = "4%",
-        height = "40%",
+        height = "30%",
         fgColor = "black",
         color = "white",
         message = [[&lt;center&gt;+&lt;/center&gt;]],
@@ -892,76 +966,250 @@ end</script>
 					<name>Character Sex/Race/Class Displays</name>
 					<packageName></packageName>
 					<script>practice_trainer.stats["sex_label"] =
-    practice_trainer.stats["sex_label"] or
-    Geyser.Label:new(
-      {
-        name = "practice_trainer.stats.sex_label",
-        x = "0%",
-        y = "60%",
-        width = "10%",
-        height = "40%",
-        fgColor = "black",
-        color = "white",
-        message = [[&lt;center&gt;]] .. practice_trainer.stats.sex .. [[&lt;/center&gt;]],
-      },
-      practice_trainer.stats.container
-    )
-practice_trainer.stats["sex_label"]:setStyleSheet([[
+  practice_trainer.stats["sex_label"] or
+  Geyser.Label:new(
+    {
+      name = "practice_trainer.stats.sex_label",
+      x = "0%",
+      y = "40%",
+      width = "10%",
+      height = "30%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;]] .. practice_trainer.stats.sex .. [[&lt;/center&gt;]],
+    },
+    practice_trainer.stats.container
+  )
+practice_trainer.stats["sex_label"]:setStyleSheet(
+  [[
   background-color: white;
   border-width: 3px;
   border-style: solid;
   border-color: gray;
   border-radius: 3px;
-]]) 
-setLabelWheelCallback("practice_trainer.stats.sex_label", "practice_trainer:sex_scroll") 
-  
+]]
+)
+setLabelWheelCallback("practice_trainer.stats.sex_label", "practice_trainer:sex_scroll")
+practice_trainer.stats["sex_-_label"] =
+  practice_trainer.stats["sex_-_label"] or
+  Geyser.Label:new(
+    {
+      name = "practice_trainer.stats.sex_-_label",
+      x = "1%",
+      y = "70%",
+      width = "4%",
+      height = "30%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;-&lt;/center&gt;]],
+    },
+    practice_trainer.stats.container
+  )
+practice_trainer.stats["sex_-_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: red;
+    border-radius: 3px;
+  ]]
+)
+practice_trainer.stats["sex_-_label"]:setClickCallback("practice_trainer:subtract_sex")
+practice_trainer.stats["sex_+_label"] =
+  practice_trainer.stats["sex_+_label"] or
+  Geyser.Label:new(
+    {
+      name = "practice_trainer.stats.sex_+_label",
+      x = "5%",
+      y = "70%",
+      width = "4%",
+      height = "30%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;+&lt;/center&gt;]],
+    },
+    practice_trainer.stats.container
+  )
+practice_trainer.stats["sex_+_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: green;
+    border-radius: 3px;
+  ]]
+)
+practice_trainer.stats["sex_+_label"]:setClickCallback("practice_trainer:add_sex")
+
+
+
 practice_trainer.stats["race_label"] =
-    practice_trainer.stats["race_label"] or
-    Geyser.Label:new(
-      {
-        name = "practice_trainer.stats.race_label",
-        x = "12%",
-        y = "60%",
-        width = "15%",
-        height = "40%",
-        fgColor = "black",
-        color = "white",
-        message = [[&lt;center&gt;]] .. practice_trainer.stats.race .. [[&lt;/center&gt;]],
-      },
-      practice_trainer.stats.container
-    )
-practice_trainer.stats["race_label"]:setStyleSheet([[
+  practice_trainer.stats["race_label"] or
+  Geyser.Label:new(
+    {
+      name = "practice_trainer.stats.race_label",
+      x = "12%",
+      y = "40%",
+      width = "15%",
+      height = "30%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;]] .. practice_trainer.stats.race .. [[&lt;/center&gt;]],
+    },
+    practice_trainer.stats.container
+  )
+practice_trainer.stats["race_label"]:setStyleSheet(
+  [[
   background-color: white;
   border-width: 3px;
   border-style: solid;
   border-color: gray;
   border-radius: 3px;
-]])  
-setLabelWheelCallback("practice_trainer.stats.race_label", "practice_trainer:race_scroll") 
-    
+]]
+)
+setLabelWheelCallback("practice_trainer.stats.race_label", "practice_trainer:race_scroll")
+practice_trainer.stats["race_-_label"] =
+  practice_trainer.stats["race_-_label"] or
+  Geyser.Label:new(
+    {
+      name = "practice_trainer.stats.race_-_label",
+      x = "15%",
+      y = "70%",
+      width = "4%",
+      height = "30%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;-&lt;/center&gt;]],
+    },
+    practice_trainer.stats.container
+  )
+practice_trainer.stats["race_-_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: red;
+    border-radius: 3px;
+  ]]
+)
+practice_trainer.stats["race_-_label"]:setClickCallback("practice_trainer:subtract_race")
+practice_trainer.stats["race_+_label"] =
+  practice_trainer.stats["race_+_label"] or
+  Geyser.Label:new(
+    {
+      name = "practice_trainer.stats.race_+_label",
+      x = "20%",
+      y = "70%",
+      width = "4%",
+      height = "30%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;+&lt;/center&gt;]],
+    },
+    practice_trainer.stats.container
+  )
+practice_trainer.stats["race_+_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: green;
+    border-radius: 3px;
+  ]]
+)
+practice_trainer.stats["race_+_label"]:setClickCallback("practice_trainer:add_race")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 practice_trainer.stats["class_label"] =
-    practice_trainer.stats["class_label"] or
-    Geyser.Label:new(
-      {
-        name = "practice_trainer.stats.class_label",
-        x = "29%",
-        y = "60%",
-        width = "15%",
-        height = "40%",
-        fgColor = "black",
-        color = "white",
-        message = [[&lt;center&gt;]] .. practice_trainer.stats.class .. [[&lt;/center&gt;]],
-      },
-      practice_trainer.stats.container
-    )
-practice_trainer.stats["class_label"]:setStyleSheet([[
+  practice_trainer.stats["class_label"] or
+  Geyser.Label:new(
+    {
+      name = "practice_trainer.stats.class_label",
+      x = "29%",
+      y = "40%",
+      width = "15%",
+      height = "30%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;]] .. practice_trainer.stats.class .. [[&lt;/center&gt;]],
+    },
+    practice_trainer.stats.container
+  )
+practice_trainer.stats["class_label"]:setStyleSheet(
+  [[
   background-color: white;
   border-width: 3px;
   border-style: solid;
   border-color: gray;
   border-radius: 3px;
-]]) 
-setLabelWheelCallback("practice_trainer.stats.class_label", "practice_trainer:class_scroll")  </script>
+]]
+)
+setLabelWheelCallback("practice_trainer.stats.class_label", "practice_trainer:class_scroll")
+practice_trainer.stats["class_-_label"] =
+  practice_trainer.stats["class_-_label"] or
+  Geyser.Label:new(
+    {
+      name = "practice_trainer.stats.class_-_label",
+      x = "32%",
+      y = "70%",
+      width = "4%",
+      height = "30%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;-&lt;/center&gt;]],
+    },
+    practice_trainer.stats.container
+  )
+practice_trainer.stats["class_-_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: red;
+    border-radius: 3px;
+  ]]
+)
+practice_trainer.stats["class_-_label"]:setClickCallback("practice_trainer:subtract_class")
+practice_trainer.stats["class_+_label"] =
+  practice_trainer.stats["class_+_label"] or
+  Geyser.Label:new(
+    {
+      name = "practice_trainer.stats.class_+_label",
+      x = "37%",
+      y = "70%",
+      width = "4%",
+      height = "30%",
+      fgColor = "black",
+      color = "white",
+      message = [[&lt;center&gt;+&lt;/center&gt;]],
+    },
+    practice_trainer.stats.container
+  )
+practice_trainer.stats["class_+_label"]:setStyleSheet(
+  [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: green;
+    border-radius: 3px;
+  ]]
+)
+practice_trainer.stats["class_+_label"]:setClickCallback("practice_trainer:add_class")</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -973,7 +1221,7 @@ setLabelWheelCallback("practice_trainer.stats.class_label", "practice_trainer:cl
       {
         name = "practice_trainer.stats.total_pracs_label",
         x = "46%",
-        y = "60%",
+        y = "40%",
         width = "26%",
         height = "40%",
         fgColor = "black",
@@ -989,7 +1237,7 @@ practice_trainer.stats["level_label"] =
       {
         name = "practice_trainer.stats.level_label",
         x = "73%",
-        y = "60%",
+        y = "40%",
         width = "26%",
         height = "40%",
         fgColor = "black",

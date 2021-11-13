@@ -29,8 +29,8 @@ weave_trainer.container =
       padding = 15,
       x = "10%",
       y = "5%",
-      width = "90%",
-      height = "80%",
+      width = "80%",
+      height = "90%",
       autoLoad = false,
       autoSave = false,
     }

@@ -24,14 +24,13 @@
     trolloc = "ansi_red",
     myrddraal = "ansi_red",
     dreadlord = "ansi_red",
-    greyman = "ansi_red",
+    grayman = "ansi_red",
     draghkar = "ansi_red",
     human = "ansi_cyan",
     seanchan = "ansi_magenta",
     ogier = "ansi_green",
     aiel = "ansi_white"
   }  
-
   
 selectCaptureGroup(5)
 fg(colors[matches[5]])
@@ -53,7 +52,7 @@ setLink([[sendAll("embrace", "channel 'travel' ]] .. matches[3] .. [[")]], "Clic
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^(.+)\s* \- \[(.*)\] - somewhere(.+), carried by a(n?) (.+)\.$</string>
+					<string>^(.+)\s* - \[(.*)\] - somewhere (.+), carried by an? (.+)\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

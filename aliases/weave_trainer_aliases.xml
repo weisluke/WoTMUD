@@ -23,15 +23,8 @@ weave_trainer.container:raiseAll()</script>
     "More than 51 levels required. Cannot practice this practice setup.\n", false, true
   )
 else
-  for k, v in pairs(weave_trainer.pracs.elements) do
-    for i = 1, weave_trainer.elements.pracs[v], 1 do
-      send("practice " .. v)
-    end
-  end
-  for k, v in pairs(weave_trainer.pracs.weaves) do
-    for i = 1, weave_trainer.weaves.pracs[v], 1 do
-      send("practice " .. v)
-    end
+  for _, item in pairs(weave_trainer.pracs.queue) do
+    send("practice "..item)
   end
 end</script>
 				<command></command>

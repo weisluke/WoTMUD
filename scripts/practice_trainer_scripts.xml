@@ -37,9 +37,9 @@ practice_trainer.container =
   )
 practice_trainer.stats =
   practice_trainer.stats or {str = 19, int = 16, wil = 12, dex = 18, con = 19}
-practice_trainer.stats.sex = "male"
-practice_trainer.stats.race = "human"
-practice_trainer.stats.class = "hunter"</script>
+practice_trainer.stats.sex = practice_trainer.stats.sex or "male"
+practice_trainer.stats.race = practice_trainer.stats.race or "human"
+practice_trainer.stats.class = practice_trainer.stats.class or "hunter"</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -59,6 +59,116 @@ practice_trainer.stats.class = "hunter"</script>
   if debug then cecho(debug_tag) end
   if err then cecho(err_tag) end
   cecho(what)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Practices</name>
+				<packageName></packageName>
+				<script>practice_trainer.pracs = practice_trainer.pracs or {}
+practice_trainer.pracs.rates =
+  {
+    [6] = {6, 4, 3, 2, 1, 1},
+    [7] = {7, 5, 4, 2, 1, 1},
+    [8] = {8, 6, 4, 3, 1, 1},
+    [9] = {9, 7, 5, 3, 1, 1},
+    [10] = {10, 8, 5, 4, 2, 1},
+    [11] = {11, 8, 6, 4, 2, 1},
+    [12] = {12, 9, 7, 4, 2, 1},
+    [13] = {13, 10, 7, 5, 2, 1},
+    [14] = {14, 11, 8, 5, 2, 1},
+    [15] = {15, 12, 8, 6, 3, 1},
+    [16] = {16, 12, 9, 6, 3, 1},
+    [17] = {17, 13, 10, 6, 3, 1},
+    [18] = {18, 14, 10, 7, 3, 1},
+    [19] = {19, 15, 11, 7, 3, 1},
+  }
+practice_trainer.pracs.warrior =
+  {
+    "bash",
+    "kick",
+    "rescue",
+    "shield parry",
+    "charge",
+    "long blades",
+    "medium blades",
+    "fencing blades",
+    "axes",
+    "clubs",
+    "staves",
+    "lances",
+    "spears",
+    "javelins",
+    "polearms",
+    "flails",
+    "whips",
+    "chains",
+    "bows",
+    "crossbows",
+    "slings",
+  }
+practice_trainer.pracs.rogue =
+  {
+    "steal",
+    "pick",
+    "hide",
+    "sneak",
+    "dodge",
+    "attack",
+    "backstab",
+    "palm",
+    "short blades",
+    "projectiles",
+  }
+practice_trainer.pracs.hunter =
+  {
+    "search",
+    "track",
+    "ride",
+    "wisdom lore",
+    "swim",
+    "notice",
+    "camouflage",
+    "ranger sneak",
+    "cover tracks",
+    "survival",
+  }
+
+practice_trainer.warrior = practice_trainer.warrior or {}
+practice_trainer.rogue = practice_trainer.rogue or {}
+practice_trainer.hunter = practice_trainer.hunter or {}
+for _, class in pairs({"warrior", "rogue", "hunter"}) do
+  practice_trainer[class].pracs = practice_trainer[class].pracs or {}
+  practice_trainer[class].percents = practice_trainer[class].percents or {}
+  for k, v in pairs(practice_trainer.pracs[class]) do
+    practice_trainer[class].pracs[v] = practice_trainer[class].pracs[v] or 0
+    practice_trainer[class].percents[v] = practice_trainer[class].percents[v] or 0
+  end
+end
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Practice Queue</name>
+				<packageName></packageName>
+				<script>practice_trainer.pracs.queue = practice_trainer.pracs.queue or {}
+
+function practice_trainer:push_queue(skill)
+  table.insert(self.pracs.queue, skill)
+end
+
+function practice_trainer:pop_queue(skill)
+  local skill_pos =
+    table.collect(
+      self.pracs.queue,
+      function(key, value)
+        if value == skill then
+          return true
+        end
+      end
+    )
+  local max_pos = table.maxn(skill_pos)
+  table.remove(self.pracs.queue, max_pos)
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -125,11 +235,14 @@ practice_trainer["reset_pracs_label"]:setClickCallback("practice_trainer:reset_p
 
 function practice_trainer:reset_pracs()
   for _, class in pairs({"warrior", "rogue", "hunter"}) do
-    self[class].pracs = self[class].pracs or {}
+    self[class].pracs = {}
+    self[class].percents = {}
     for k, v in pairs(self.pracs[class]) do
       self[class].pracs[v] = 0
+      self[class].percents[v] = 0
     end
   end
+  self.pracs.queue = {}
   self:update_displays()
 end</script>
 				<eventHandlerList />
@@ -246,6 +359,7 @@ practice_trainer.container:hide()</script>
       warrior = table.deepcopy(self.warrior.pracs),
       rogue = table.deepcopy(self.rogue.pracs),
       hunter = table.deepcopy(self.hunter.pracs),
+      queue = table.deepcopy(self.pracs.queue)
     }
   local out_file = getMudletHomeDir() .. "/practice_trainer/" .. fname .. ".lua"
   self:echo("Saving practices to "..out_file.."\n")
@@ -276,85 +390,13 @@ function practice_trainer:load_pracs(fname)
   self.warrior.pracs = table.deepcopy(in_table.warrior)
   self.rogue.pracs = table.deepcopy(in_table.rogue)
   self.hunter.pracs = table.deepcopy(in_table.hunter)
+  self.pracs.queue = table.deepcopy(in_table.queue)
   
   self:echo("Practices loaded.\n")
-  
 end</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
-			<Script isActive="yes" isFolder="no">
-				<name>Practices</name>
-				<packageName></packageName>
-				<script>practice_trainer.pracs = practice_trainer.pracs or {}
-practice_trainer.pracs.rates =
-  {
-    [6] = {6, 4, 3, 2, 1, 1},
-    [7] = {7, 5, 4, 2, 1, 1},
-    [8] = {8, 6, 4, 3, 1, 1},
-    [9] = {9, 7, 5, 3, 1, 1},
-    [10] = {10, 8, 5, 4, 2, 1},
-    [11] = {11, 8, 6, 4, 2, 1},
-    [12] = {12, 9, 7, 4, 2, 1},
-    [13] = {13, 10, 7, 5, 2, 1},
-    [14] = {14, 11, 8, 5, 2, 1},
-    [15] = {15, 12, 8, 6, 3, 1},
-    [16] = {16, 12, 9, 6, 3, 1},
-    [17] = {17, 13, 10, 6, 3, 1},
-    [18] = {18, 14, 10, 7, 3, 1},
-  }
-practice_trainer.pracs.warrior =
-  {
-    "bash",
-    "kick",
-    "rescue",
-    "shield parry",
-    "charge",
-    "long blades",
-    "medium blades",
-    "fencing blades",
-    "axes",
-    "clubs",
-    "staves",
-    "lances",
-    "spears",
-    "javelins",
-    "polearms",
-    "flails",
-    "whips",
-    "chains",
-    "bows",
-    "crossbows",
-    "slings",
-  }
-practice_trainer.pracs.rogue =
-  {
-    "steal",
-    "pick",
-    "hide",
-    "sneak",
-    "dodge",
-    "attack",
-    "backstab",
-    "palm",
-    "short blades",
-    "projectiles",
-  }
-practice_trainer.pracs.hunter =
-  {
-    "search",
-    "track",
-    "ride",
-    "wisdom lore",
-    "swim",
-    "notice",
-    "camouflage",
-    "ranger sneak",
-    "cover tracks",
-    "survival",
-  }</script>
-				<eventHandlerList />
-			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Update Information</name>
 				<packageName></packageName>
@@ -367,18 +409,18 @@ practice_trainer.pracs.hunter =
   if self.stats.race == "trolloc" and (skill == "ride" or skill == "swim") then
     return
   end
-  if self:prac_to_percent(class, skill, self[class].pracs[skill]) &lt; 99 then
-    self[class].pracs[skill] = self[class].pracs[skill] + 1
-  end
-  if self:pracs_to_level() &gt; 51 then
+  self[class].pracs[skill] = self[class].pracs[skill] + 1
+  self:push_queue(skill)
+  self:update_displays()
+  if self:pracs_to_level() &gt; 51 or self[class].percents[skill] &gt; 99 then
     self:subtract_practice(class, skill)
   end
-  self:update_displays()
 end
 
 function practice_trainer:subtract_practice(class, skill)
-  if self:prac_to_percent(class, skill, self[class].pracs[skill]) &gt; 0 then
+  if self[class].pracs[skill] &gt; 0 then
     self[class].pracs[skill] = self[class].pracs[skill] - 1
+    self:pop_queue(skill)
   end
   self:update_displays()
 end
@@ -391,11 +433,12 @@ function practice_trainer:practice_scroll(class, skill, event)
   end
 end
 
-function practice_trainer:update_practices()
+function practice_trainer:update_pracs()
   for _, class in pairs({"warrior", "rogue", "hunter"}) do
-    for k, v in pairs(self.pracs[class]) do
-      while self:prac_to_percent(class, v, self[class].pracs[v] - 1) == 99 do
-        self[class].pracs[v] = self[class].pracs[v] - 1
+    for _, skill in pairs(self.pracs[class]) do
+      while self[class].percents[skill] &gt; 99 do
+        self:subtract_practice(class, skill)
+        self:update_percents()
       end
     end
   end
@@ -474,8 +517,6 @@ function practice_trainer:subtract_sex()
 end
 
 function practice_trainer:sex_scroll(event)
-  local sex_table = {"male", "female"}
-  local index = table.index_of(sex_table, self.stats.sex) - 1
   if event.angleDeltaY &gt; 0 then
     self:add_sex()
   elseif event.angleDeltaY &lt; 0 then
@@ -599,7 +640,18 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Practice to Percent</name>
 					<packageName></packageName>
-					<script>function practice_trainer:prac_to_percent(class, skill, pracs)
+					<script>function practice_trainer:get_skill_class(skill)
+  if table.contains(self.pracs.warrior, skill) then
+    return "warrior"
+  elseif table.contains(self.pracs.rogue, skill) then
+    return "rogue"
+  elseif table.contains(self.pracs.hunter, skill) then
+    return "hunter"
+  end
+  return nil
+end
+
+function practice_trainer:add_percent(class, skill)
   local start_rates =
     {
       warrior =
@@ -609,30 +661,107 @@ end</script>
       rogue = math.floor(self.stats.dex * 3 / 4) + math.floor(self.stats.int / 4),
       hunter = math.floor((self.stats.str + self.stats.int + self.stats.wil + self.stats.dex) / 4),
     }
-  
   local rate_factor = 1
   if skill == "steal" or skill == "palm" or skill == "swim" or skill == "cover tracks" then
     rate_factor = 1.5
   end
-  
-  local prac_percent = 0
-  for i=1, pracs, 1 do
-    if prac_percent &lt; 21 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][1])
-    elseif prac_percent &lt; 41 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][2])
-    elseif prac_percent &lt; 61 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][3])
-    elseif prac_percent &lt; 81 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][4])
-    elseif prac_percent &lt; 91 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][5])
-    elseif prac_percent &lt; 99 then
-      prac_percent = prac_percent + math.floor(rate_factor*self.pracs.rates[start_rates[class]][6])    
+  local prac_percent = self[class].percents[skill]
+  if prac_percent &lt;= 20 then
+    prac_percent =
+      prac_percent + math.floor(rate_factor * self.pracs.rates[start_rates[class]][1])
+  elseif prac_percent &lt;= 40 then
+    prac_percent =
+      prac_percent + math.floor(rate_factor * self.pracs.rates[start_rates[class]][2])
+  elseif prac_percent &lt;= 60 then
+    prac_percent =
+      prac_percent + math.floor(rate_factor * self.pracs.rates[start_rates[class]][3])
+  elseif prac_percent &lt;= 80 then
+    prac_percent =
+      prac_percent + math.floor(rate_factor * self.pracs.rates[start_rates[class]][4])
+  elseif prac_percent &lt;= 90 then
+    prac_percent =
+      prac_percent + math.floor(rate_factor * self.pracs.rates[start_rates[class]][5])
+  else
+    prac_percent =
+      prac_percent + math.floor(rate_factor * self.pracs.rates[start_rates[class]][6])
+  end
+  self[class].percents[skill] = prac_percent
+end
+
+function practice_trainer:prac_residuals(skill)
+
+  if skill == "short blades" then
+    for k, v in pairs({"long blades", "medium blades", "fencing blades"}) do
+      self.warrior.percents[v] = math.max(self.warrior.percents[v], math.floor(self.rogue.percents["short blades"]*0.4))
     end
   end
   
-  return prac_percent
+  if table.contains({"long blades", "medium blades", "fencing blades"}, skill) then
+    for k, v in pairs({"long blades", "medium blades", "fencing blades"}) do
+      self.warrior.percents[v] = math.max(self.warrior.percents[v], math.floor(self.warrior.percents[skill]*0.4))
+    end
+  end
+  
+  if skill == "projectiles" then
+    for k, v in pairs({"bows", "crossbows", "slings"}) do
+      self.warrior.percents[v] = math.max(self.warrior.percents[v], math.floor(self.rogue.percents["projectiles"]*0.4))
+    end
+  end
+  
+  if table.contains({"bows", "crossbows", "slings"}, skill) then
+    for k, v in pairs({"bows", "crossbows", "slings"}) do
+      self.warrior.percents[v] = math.max(self.warrior.percents[v], math.floor(self.warrior.percents[skill]*0.4))
+    end
+  end
+  
+  if table.contains({"axes", "clubs", "staves"}, skill) then
+    for k, v in pairs({"axes", "clubs", "staves"}) do
+      self.warrior.percents[v] = math.max(self.warrior.percents[v], math.floor(self.warrior.percents[skill]*0.4))
+    end
+  end
+  
+  if table.contains({"lances", "spears", "javelins", "polearms"}, skill) then
+    for k, v in pairs({"lances", "spears", "javelins", "polearms"}) do
+      self.warrior.percents[v] = math.max(self.warrior.percents[v], math.floor(self.warrior.percents[skill]*0.4))
+    end
+  end
+  
+  if table.contains({"flails", "whips", "chains"}, skill) then
+    for k, v in pairs({"flails", "whips", "chains"}) do
+      self.warrior.percents[v] = math.max(self.warrior.percents[v], math.floor(self.warrior.percents[skill]*0.4))
+    end
+  end
+  
+  if skill == "hide" then
+    self.hunter.percents["camouflage"] = math.max(self.hunter.percents["camouflage"], math.floor(self.rogue.percents["hide"]*0.4))
+  end
+  
+  if skill == "camouflage" then
+    self.rogue.percents["hide"] = math.max(self.rogue.percents["hide"], math.floor(self.hunter.percents["camouflage"]*0.4))
+  end
+  
+  if skill == "sneak" then
+    self.hunter.percents["ranger sneak"] = math.max(self.hunter.percents["ranger sneak"], math.floor(self.rogue.percents["sneak"]*0.4))
+  end
+  
+  if skill == "ranger sneak" then
+    self.rogue.percents["sneak"] = math.max(self.rogue.percents["sneak"], math.floor(self.hunter.percents["ranger sneak"]*0.4))
+  end
+
+end
+
+function practice_trainer:update_percents()
+  for _, class in pairs({"warrior", "rogue", "hunter"}) do
+    for _, skill in pairs(self.pracs[class]) do
+      self[class].percents[skill] = 0
+    end
+  end
+
+  for _, skill in pairs(self.pracs.queue) do
+    local class = self:get_skill_class(skill)
+    self:add_percent(class, skill)
+    self:prac_residuals(skill)
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -698,16 +827,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Warrior/Rogue/Hunter Practices Displays</name>
 					<packageName></packageName>
-					<script>practice_trainer.warrior = practice_trainer.warrior or {}
-practice_trainer.rogue = practice_trainer.rogue or {}
-practice_trainer.hunter = practice_trainer.hunter or {}
-for _, class in pairs({"warrior", "rogue", "hunter"}) do
-  practice_trainer[class].pracs = practice_trainer[class].pracs or {}
-  for k, v in pairs(practice_trainer.pracs[class]) do
-    practice_trainer[class].pracs[v] = practice_trainer[class].pracs[v] or 0
-  end
-end
-practice_trainer.warrior.container =
+					<script>practice_trainer.warrior.container =
   practice_trainer.warrior.container or
   Geyser.Container:new(
     {name = "practice_trainer.warrior.container", x = "0%", y = "0%", width = "30%", height = "90%"},
@@ -768,7 +888,7 @@ for _, class in pairs({"warrior", "rogue", "hunter"}) do
         v ..
         " (level " ..
         math.floor(
-          practice_trainer:prac_to_percent(class, v, practice_trainer[class].pracs[v]) / 14
+          practice_trainer[class].percents[v] / 14
         ) ..
         ")"
       )
@@ -1263,10 +1383,10 @@ function practice_trainer:update_prac_display()
   for _, class in pairs({"warrior", "rogue", "hunter"}) do
     for k, v in pairs(self.pracs[class]) do
       self[class][v .. "_%_label"]:echo(
-        "&lt;center&gt;" .. self:prac_to_percent(class, v, self[class].pracs[v]) .. "%"
+        "&lt;center&gt;" .. self[class].percents[v] .. "%"
       )
       if v == "ride" or v == "wisdom lore" or v == "survival" then
-        self[class][v.."_label"]:echo("&lt;center&gt;"..v.." (level "..math.floor(self:prac_to_percent(class, v, self[class].pracs[v]) / 14)..")")
+        self[class][v.."_label"]:echo("&lt;center&gt;"..v.." (level "..math.floor(self[class].percents[v] / 14)..")")
       end
     end
   end
@@ -1288,7 +1408,8 @@ function practice_trainer:update_sex_race_class_display()
 end
 
 function practice_trainer:update_displays()
-  self:update_practices()
+  self:update_percents()
+  self:update_pracs()
   self:update_sex_race_class_display()
   self:update_stat_display()
   self:update_prac_display()

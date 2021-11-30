@@ -73,7 +73,7 @@ end</script>
 					<name>Map Description</name>
 					<script>--if line is not the roomname and not the exit line, add to room description
 if matches[2] ~= wotmudmapper.roomname and not string.find(line, "obvious exits:") then
-	if wotmudmapper.brief then
+  if wotmudmapper.brief then
     wotmudmapper.brief = false
   end
   if wotmudmapper.roomdesc == "" then
@@ -81,10 +81,10 @@ if matches[2] ~= wotmudmapper.roomname and not string.find(line, "obvious exits:
   else
     wotmudmapper.roomdesc = wotmudmapper.roomdesc .. "\n" .. line
   end
-	if wotmudmapper.configs.mapbrief and not isLook(wotmudmapper.queue:checkleftvalue()) then
-		deleteLine()
+  if wotmudmapper.configs.mapbrief and not isLook(wotmudmapper.queue:checkleftvalue()) then
+    deleteLine()
   end
-	setTriggerStayOpen("Catch Name", 1)
+  setTriggerStayOpen("Catch Name", 1)
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -352,7 +352,7 @@ elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
   wotmudmapper.currentID = table.n_union(newID, newID)
   --if not looking at room, search for room from all rooms in the map
 elseif not (isLook(mapCommand) and table.size(lastID) == 1) then
-	wotmudmapper.currentID={}
+  wotmudmapper.currentID={}
   for k, v in pairs(getRooms()) do
     table.insert(wotmudmapper.currentID, k)
   end
@@ -847,7 +847,7 @@ end
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^\S+\s+ \- (.+)$</string>
+					<string>^\S+\s* \- (.+)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

@@ -479,9 +479,11 @@ end</script>
   for _, element in pairs(self.pracs.elements) do
     if self.elements.pracs[element] &lt; self.pracs.requirements[skill][element] then
       for i=self.elements.pracs[element]+1, self.pracs.requirements[skill][element], 1 do
-        self.elements.pracs[element] = self.elements.pracs[element] + 1
-        self:push_queue(element)
+        self:add_element(element)
       end
+    end
+    if self.elements.pracs[element] &lt; self.pracs.requirements[skill][element] then
+      return
     end
   end
   self.weaves.pracs[skill] = self.weaves.pracs[skill] + 1

@@ -433,7 +433,7 @@ function practice_trainer:practice_scroll(class, skill, event)
   end
 end
 
-function practice_trainer:update_pracs()
+function practice_trainer:update_practices()
   for _, class in pairs({"warrior", "rogue", "hunter"}) do
     for _, skill in pairs(self.pracs[class]) do
       while self[class].percents[skill] &gt; 99 do
@@ -1409,7 +1409,7 @@ end
 
 function practice_trainer:update_displays()
   self:update_percents()
-  self:update_pracs()
+  self:update_practices()
   self:update_sex_race_class_display()
   self:update_stat_display()
   self:update_prac_display()

@@ -23,9 +23,9 @@ practice_trainer.container:raiseAll()</script>
     "More than 51 levels required. Cannot practice this practice setup.\n", false, true
   )
 else
-  for k, v in pairs(practice_trainer.warrior.pracs) do
-    for i = 1, v, 1 do
-      send("practice " .. k)
+  for _, item in pairs(practice_trainer.pracs.queue) do
+    if practice_trainer:get_skill_class(item) == "warrior" then
+      send("practice "..item)
     end
   end
 end</script>
@@ -40,9 +40,9 @@ end</script>
     "More than 51 levels required. Cannot practice this practice setup.\n", false, true
   )
 else
-  for k, v in pairs(practice_trainer.rogue.pracs) do
-    for i = 1, v, 1 do
-      send("practice " .. k)
+  for _, item in pairs(practice_trainer.pracs.queue) do
+    if practice_trainer:get_skill_class(item) == "rogue" then
+      send("practice "..item)
     end
   end
 end</script>
@@ -57,9 +57,9 @@ end</script>
     "More than 51 levels required. Cannot practice this practice setup.\n", false, true
   )
 else
-  for k, v in pairs(practice_trainer.hunter.pracs) do
-    for i = 1, v, 1 do
-      send("practice " .. k)
+  for _, item in pairs(practice_trainer.pracs.queue) do
+    if practice_trainer:get_skill_class(item) == "hunter" then
+      send("practice "..item)
     end
   end
 end</script>

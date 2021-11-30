@@ -39,7 +39,11 @@ practice_trainer.stats =
   practice_trainer.stats or {str = 19, int = 16, wil = 12, dex = 18, con = 19}
 practice_trainer.stats.sex = practice_trainer.stats.sex or "male"
 practice_trainer.stats.race = practice_trainer.stats.race or "human"
-practice_trainer.stats.class = practice_trainer.stats.class or "hunter"</script>
+practice_trainer.stats.class = practice_trainer.stats.class or "hunter"
+
+disableTrigger("practice_trainer_hunter")
+disableTrigger("practice_trainer_rogue")
+disableTrigger("practice_trainer_warrior")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">

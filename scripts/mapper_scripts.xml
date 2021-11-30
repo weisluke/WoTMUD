@@ -291,12 +291,12 @@ end</script>
 				<name>WoTMUDMapUpdate</name>
 				<packageName></packageName>
 				<script>function WoTMUDMapUpdate(event, filename)
-	-- is the file that downloaded ours?
+  -- is the file that downloaded ours?
   if not filename:find("WoTMUD_map.dat", 1, true) then
     return
   end
   wotmudmapper:echo("Download complete.\n")
-	loadMap(filename)
+  loadMap(filename)
   wotmudmapper:echo("New map successfully uploaded.\n")
   wotmudmapper:setMapColors()
 end</script>
@@ -876,7 +876,7 @@ end</script>
 					<script>--assumes exits is of the form {"n","e","s"}
 
 function wotmudmapper:findMatchingExits(roomIDs, exits)
-	local roommatches = {}
+  local roommatches = {}
   local exitkeys, firstcomp, secondcomp, alldoors
   --initialiasing table
   for _, room in pairs(roomIDs) do
@@ -892,7 +892,7 @@ function wotmudmapper:findMatchingExits(roomIDs, exits)
       end
     end
     
-		--comparison tables of exits seen vs exits from room
+    --comparison tables of exits seen vs exits from room
     firstcomp = table.n_complement(exits, exitkeys)
     --comparison tables of exits in room vs exits seen
     secondcomp = table.n_complement(exitkeys, exits)
@@ -929,7 +929,7 @@ end</script>
 function wotmudmapper:findRoomAfterFlee(name, description, currexits, lastexits)
   --initialiasing table.
   local roommatches = {}
-	--if name/desc of connecting room match name/desc given, add to table
+  --if name/desc of connecting room match name/desc given, add to table
   for k, v in pairs(lastexits) do
     if name == getRoomName(v) then
       if self.brief then
@@ -939,7 +939,7 @@ function wotmudmapper:findRoomAfterFlee(name, description, currexits, lastexits)
       end
     end
   end
-	--if more than 1 match, and narrowing by exits doesn't give empty result, then narrow by exits
+  --if more than 1 match, and narrowing by exits doesn't give empty result, then narrow by exits
   if
     table.size(roommatches) &gt; 1 and
     (not table.is_empty(self:findMatchingExits(roommatches, currexits)))
@@ -1064,35 +1064,35 @@ end</script>
 					<name>autoJoinRooms</name>
 					<packageName></packageName>
 					<script>function wotmudmapper:autoJoinRooms(roomID)
-	--initializing variables
+  --initializing variables
   local complements = {n = "s", e = "w", s = "n", w = "e", u = "d", d = "u"}
   local areaID = getRoomArea(roomID)
   local firstExits = {}
   local roomList
   local x, y, z = getRoomCoordinates(roomID)
   local a, b, c
-	--if roomID has exit stubs, add them to table of exits
+  --if roomID has exit stubs, add them to table of exits
   if getExitStubs(roomID) then
     for k, v in pairs(getExitStubs(roomID)) do
       table.insert(firstExits, string.sub(self.exitmap[v], 1, 1))
     end
   end
-	--for every exit stub
+  --for every exit stub
   for k, v in pairs(firstExits) do
     local secondExits = {}
-		--find what coordinates would be offset in the stub direction
-		--and get list of rooms at the offset position
+    --find what coordinates would be offset in the stub direction
+    --and get list of rooms at the offset position
     a, b, c = self:setCoordinatesOffset(x, y, z, v)
     roomList = getRoomsByPosition(areaID, a, b, c)
-		--if only one room at offset position
+    --if only one room at offset position
     if table.size(roomList) == 1 then
-			--if that room has stubs, add them to list
+      --if that room has stubs, add them to list
       if getExitStubs(roomList[0]) then
         for kk, vv in pairs(getExitStubs(roomList[0])) do
           table.insert(secondExits, string.sub(wotmudmapper.exitmap[vv], 1, 1))
         end
-				--compare exit stubs from second room to exit stubs from first room
-				--and join appropriately
+        --compare exit stubs from second room to exit stubs from first room
+        --and join appropriately
         for kk, vv in pairs(secondExits) do
           if vv == complements[v] then
             setExit(roomID, roomList[0], self.exitmap[v])

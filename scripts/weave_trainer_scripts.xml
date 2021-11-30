@@ -478,7 +478,7 @@ end</script>
 					<script>function weave_trainer:add_practice(skill)
   for _, element in pairs(self.pracs.elements) do
     if self.elements.pracs[element] &lt; self.pracs.requirements[skill][element] then
-      for i=self.elements.pracs[element], self.pracs.requirements[skill][element] - 1, 1 do
+      for i=self.elements.pracs[element]+1, self.pracs.requirements[skill][element], 1 do
         self.elements.pracs[element] = self.elements.pracs[element] + 1
         self:push_queue(element)
       end

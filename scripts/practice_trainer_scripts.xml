@@ -1409,7 +1409,7 @@ end
 
 function practice_trainer:update_displays()
   self:update_percents()
-  self:update_pracs()
+  self:update_practices()
   self:update_sex_race_class_display()
   self:update_stat_display()
   self:update_prac_display()

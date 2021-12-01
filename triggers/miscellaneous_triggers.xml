@@ -128,50 +128,50 @@
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Clan</name>
 				<script>if string.find(matches[2],"Queen's Guard") then
-	selectCaptureGroup(2)
-	fg("red")
+  selectCaptureGroup(2)
+  fg("red")
 elseif string.find(matches[2],"Forester") then
-	selectCaptureGroup(2)
-	fg("forest_green")
+  selectCaptureGroup(2)
+  fg("forest_green")
 elseif string.find(matches[2],"Child of Light") then
-	selectCaptureGroup(2)
-	fg("yellow")
+  selectCaptureGroup(2)
+  fg("yellow")
 elseif string.find(matches[2],"Dragonsworn") then
-	selectCaptureGroup(2)
-	fg("blue")
+  selectCaptureGroup(2)
+  fg("blue")
 elseif string.find(matches[2],"Gaidin") then
-	selectCaptureGroup(2)
-	fg("forest_green")
+  selectCaptureGroup(2)
+  fg("forest_green")
 elseif string.find(matches[2],"Gleeman") then
-	selectCaptureGroup(2)
-	fg("green")
+  selectCaptureGroup(2)
+  fg("green")
 elseif string.find(matches[2],"Hand of Light") then
-	selectCaptureGroup(2)
-	fg("red")
+  selectCaptureGroup(2)
+  fg("red")
 elseif string.find(matches[2],"Illian Companion") then
-	selectCaptureGroup(2)
-	fg("blue")
+  selectCaptureGroup(2)
+  fg("blue")
 elseif string.find(matches[2],"Red Eagle") then
-	selectCaptureGroup(2)
-	fg("red")
+  selectCaptureGroup(2)
+  fg("red")
 elseif string.find(matches[2],"Rising Sun") then
-	selectCaptureGroup(2)
-	fg("gold")
+  selectCaptureGroup(2)
+  fg("gold")
 elseif string.find(matches[2],"Thiefbane") then
-	selectCaptureGroup(2)
-	fg("dark_slate_gray")
+  selectCaptureGroup(2)
+  fg("dark_slate_gray")
 elseif string.find(matches[2],"Wall Guard") then
-	selectCaptureGroup(2)
-	fg("brown")
+  selectCaptureGroup(2)
+  fg("brown")
 elseif string.find(matches[2],"White Tower") then
-	selectCaptureGroup(2)
-	fg("white")
+  selectCaptureGroup(2)
+  fg("white")
 elseif string.find(matches[2],"Winged Guard") then
-	selectCaptureGroup(2)
-	fg("purple")
+  selectCaptureGroup(2)
+  fg("purple")
 elseif string.find(matches[2],"Ajah") then
-	selectCaptureGroup(2)
-	fg(string.split(string.lower(matches[2])," ")[1])		
+  selectCaptureGroup(2)
+  fg(string.split(string.lower(matches[2])," ")[1])
 end
 resetFormat()</script>
 				<triggerType>0</triggerType>
@@ -213,8 +213,8 @@ resetFormat()</script>
 					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Wanted</name>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Wanted/Wanted MC/Known DF</name>
 				<script></script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -227,34 +227,14 @@ resetFormat()</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^(.+)WANTED$</string>
-					<string>WANTED</string>
+					<string>^((.+)WANTED)$</string>
+					<string>^((.+)WANTED\(MC\))$</string>
+					<string>^((.+)\(KNOWN DARKFRIEND\))$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
-					<integer>0</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Wanted MC</name>
-				<script></script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#000000</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>^(.+)WANTED\(MC\)$</string>
-					<string>WANTED(MC)</string>
-				</regexCodeList>
-				<regexCodePropertyList>
 					<integer>1</integer>
-					<integer>0</integer>
+					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -542,10 +522,14 @@ cecho(" &lt;gold&gt;"..gold.." gold crowns and " ..copper.." coppers.")</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>You see signs of shadowspawn nearby.</string>
+					<string>^You see signs of shadowspawn nearby\.$</string>
+					<string>^You see signs of enemies nearby\.$</string>
+					<string>^You sense shadowspawn nearby.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>0</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">

@@ -847,7 +847,7 @@ end
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^\S+\s* \- (.+)$</string>
+					<string>^\S+\s* \- ([A-Z](.+))$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

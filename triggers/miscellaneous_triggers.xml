@@ -229,7 +229,7 @@ resetFormat()</script>
 				<regexCodeList>
 					<string>^((.+)WANTED)$</string>
 					<string>^((.+)WANTED\(MC\))$</string>
-					<string>^((.+)\(KNOWN DARKFRIEND\))$</string>
+					<string>^((.+)\(Known Darkfriend\))$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

@@ -32,8 +32,10 @@
     aiel = "ansi_white"
   }  
   
-selectCaptureGroup(5)
-fg(colors[matches[5]])
+if colors[matches[5]] then
+  selectCaptureGroup(5)
+  fg(colors[matches[5]])
+end
 
 selectCaptureGroup(3)
 --uncomment the following line, and if you click on the port code it will embrace and channel 'travel' code

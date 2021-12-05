@@ -832,6 +832,16 @@ end</script>
 						<regex>^l$</regex>
 					</Alias>
 				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Map widget</name>
+					<script>wotmudmapper.configs.map_window.widget = not wotmudmapper.configs.map_window.widget
+
+wotmudmapper:echo("Mapper will now "..(wotmudmapper.configs.map_window.widget and "use" or "not use").." the map widget.\n")
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map widget$</regex>
+				</Alias>
 			</AliasGroup>
 			<Alias isActive="yes" isFolder="no">
 				<name>Reset Queue</name>

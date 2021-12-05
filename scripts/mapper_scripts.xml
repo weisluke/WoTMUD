@@ -38,6 +38,7 @@ wotmudmapper.defaults = {
   zonecolor = "turquoise",
   doorcolor = "blue",
   map_window={
+    widget = false,
     visible=true,
     x="-37%",
     y="0%",
@@ -310,8 +311,18 @@ end</script>
 				<script>function wotmudmapper:showMap(bval)
   local visible = bval
   self.configs.map_window.visible = visible
+  
   local configs = self.configs.map_window
   local x, y, w, h = configs.x, configs.y, configs.w, configs.h
+  
+  if configs.widget then
+    if visible then
+      openMapWidget()
+    else
+      closeMapWidget()
+    end
+    return
+  end
   
   wotmudmapper.container = wotmudmapper.container or Adjustable.Container:new(
     {

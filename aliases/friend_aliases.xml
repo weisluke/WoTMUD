@@ -10,13 +10,19 @@
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>Set Friend</name>
-				<script>--syntax: sf name
+				<script>--syntax: sf OR sf name
 
-friend = matches[2]
-cecho("Friend set to "..friend.."\n")</script>
+if matches[3] then
+  friend = matches[4]
+  cecho("Friend set to "..friend.."\n")
+elseif friend then
+  cecho("Friend set as "..friend.."\n")
+else
+  cecho("&lt;red&gt;Friend not set!\n")
+end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^sf (\w+)$</regex>
+				<regex>(^sf$)|(^sf (\w+)$)</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Tell Friend</name>
@@ -95,6 +101,14 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^rf$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete Friend</name>
+				<script>friend = nil
+cecho("Friend removed.\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^delf$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

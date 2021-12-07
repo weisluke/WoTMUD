@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Friend</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Friend</name>
+				<script>--syntax: sf name
+
+friend = matches[2]
+cecho("Friend set to "..friend.."\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^sf (\w+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Tell Friend</name>
+				<script>--syntax: tf what
+
+if friend then
+  send("tell "..friend.." "..matches[2])
+else
+  cecho("&lt;red&gt;Friend not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tf (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Assist Friend</name>
+				<script>--syntax: af
+
+if friend then
+  send("assist "..friend)
+else
+  cecho("&lt;red&gt;Friend not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^af$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Group Friend</name>
+				<script>--syntax: gf
+
+if friend then
+  send("group "..friend)
+else
+  cecho("&lt;red&gt;Friend not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^gf$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Diagnose Friend</name>
+				<script>--syntax: df
+
+if friend then
+  send("diagnose "..friend)
+else
+  cecho("&lt;red&gt;Friend not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^df$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Look Friend</name>
+				<script>--syntax: lf
+
+if friend then
+  send("look "..friend)
+else
+  cecho("&lt;red&gt;Friend not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^lf$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rescue Friend</name>
+				<script>--syntax: rf
+
+if friend then
+  send("rescue "..friend)
+else
+  cecho("&lt;red&gt;Friend not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rf$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

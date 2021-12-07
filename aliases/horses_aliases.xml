@@ -7,12 +7,12 @@
 			<script>horse = horse or {}
 
 if matches[3] then
-	horse.first = matches[4]
-	cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  horse.first = matches[4]
+  cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
 elseif horse.first then
-	cecho("Horse is set as: &lt;gold&gt;"..horse.first.."&lt;white&gt;.\n")
+  cecho("Horse is set as: &lt;gold&gt;"..horse.first.."&lt;white&gt;.\n")
 else
-	cecho("&lt;red&gt;Horse not set!\n")
+  cecho("&lt;red&gt;Horse not set!\n")
 end</script>
 			<command></command>
 			<packageName></packageName>
@@ -24,16 +24,16 @@ end</script>
 horse = horse or {}
 
 if matches[3] then
-	if matches[4]~=horse.first then
-		horse.first = matches[4]
-		cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
-	end	
+  if matches[4]~=horse.first then
+    horse.first = matches[4]
+    cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  end
 end
 
 if horse.first then
-	send("ride "..horse.first)
+  send("ride "..horse.first)
 else
-	cecho("&lt;red&gt;Horse not set!\n")
+  cecho("&lt;red&gt;Horse not set!\n")
 end
 
 
@@ -57,9 +57,9 @@ end
 horse = horse or {}
 
 if horse.first then
-	send("lead "..horse.first)
+  send("lead "..horse.first)
 else
-	cecho("&lt;red&gt;Horse not set!\n")
+  cecho("&lt;red&gt;Horse not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -73,19 +73,34 @@ end</script>
 				<regex>^gss$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
-				<name>Equip Horse Equipment</name>
+				<name>Equip Horse Horseeq</name>
 				<script>--syntax: ehh
 
 horse = horse or {}
 
 if horse.first then
-	send("eq "..horse.first.." horseeq")
+  send("eq "..horse.first.." horseeq")
 else
-	cecho("&lt;red&gt;Horse not set!\n")
+  cecho("&lt;red&gt;Horse not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^ehh$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Remove Horseeq Horse</name>
+				<script>--syntax: rhh
+
+horse = horse or {}
+
+if horse.first then
+  send("remove horseeq "..horse.first)
+else
+  cecho("&lt;red&gt;Horse not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rhh$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Diagnose Horse</name>
@@ -113,6 +128,20 @@ cecho("&lt;red&gt;Horse deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^delhorse$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Ride number.horse</name>
+				<script>send("ride "..matches[2]..".horse")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^r(\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Lead number.horse</name>
+				<script>send("lead "..matches[2]..".horse")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^l(\d+)$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

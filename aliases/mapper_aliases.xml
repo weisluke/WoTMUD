@@ -171,7 +171,7 @@ wotmudmapper:echo("Room name updated.\n")</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Update Room Description</name>
-					<script>--syntax: updatedescrip roomIDnumber
+					<script>--syntax: updateroomdesc roomIDnumber
 
 setRoomUserData(matches[2], "description", wotmudmapper.roomdesc)
 wotmudmapper:echo("Room description updated.\n")</script>

@@ -29,6 +29,8 @@ Ickmund and Thuvia, for making their practice trainers available (at https://git
 
 Arston, for providing the "friend" aliases and other misc. items
 
+Bryan, for providing an initial version of the "portal stones" aliases
+
 
 # Connecting to the game
 

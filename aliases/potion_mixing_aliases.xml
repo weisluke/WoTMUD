@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Potion Mixing</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Get Potion Herbs Container</name>
+				<script>local potion = matches[2]
+local container = matches[3]
+potions =
+  {
+    fear = {sunburst = 1, dogwort = 1, juniper = 1, belladonna = 2},
+    poison = {goatflower = 1, gheandin = 2, willow = 1, tincture = 1, healall = 1},
+    moves = {flatwort = 3, kaf = 2, ivy = 1},
+    strength = {goatflower = 3, nightsbane = 1, fennel = 1, willow = 1},
+    blind = {sheepstongue = 2, crimson = 1, sleepwell = 1, healall = 1},
+  }
+for herb, num in pairs(potions[potion]) do
+  for i = 1, num, 1 do
+    send("get " .. herb .. " " .. container)
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^get (fear|poison|moves|strength|blind) herbs (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Mix Potion Container</name>
+				<script>local potion = matches[2]
+local container = matches[3]
+potions =
+  {
+    fear = {sunburst = 1, dogwort = 1, juniper = 1, belladonna = 2},
+    poison = {goatflower = 1, gheandin = 2, willow = 1, tincture = 1, healall = 1},
+    moves = {flatwort = 3, kaf = 2, ivy = 1},
+    strength = {goatflower = 3, nightsbane = 1, fennel = 1, willow = 1},
+    blind = {sheepstongue = 2, crimson = 1, sleepwell = 1, healall = 1},
+  }
+for herb, num in pairs(potions[potion]) do
+  for i = 1, num, 1 do
+    send("put " .. herb .. " " .. container)
+  end
+end
+send("mix " .. container)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^mix (fear|poison|moves|strength|blind) (.+)$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Statting</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>StattingDisconnection</name>
+				<packageName></packageName>
+				<script>function StattingDisconnection()
+  statting = {}
+  disableTrigger("Statting")
+end</script>
+				<eventHandlerList>
+					<string>sysExitEvent</string>
+					<string>sysDisconnectionEvent</string>
+				</eventHandlerList>
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>

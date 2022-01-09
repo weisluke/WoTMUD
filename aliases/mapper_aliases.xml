@@ -78,7 +78,7 @@ end</script>
 					<name>Show Areas</name>
 					<script>--syntax: arealist
 
-wotmudmapper:showAreaList()</script>
+wotmudmapper:show_area_list()</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^arealist$</regex>
@@ -88,7 +88,7 @@ wotmudmapper:showAreaList()</script>
 					<script>local areaid = getAreaTable()[matches[2]]
 
 if areaid then
-  wotmudmapper:showRoomList(areaid)
+  wotmudmapper:show_room_list(areaid)
 else
   wotmudmapper:echo("Area ("..matches[2]..") not known.\n",false,true)
 end</script>
@@ -547,7 +547,7 @@ end</script>
 wotmudmapper.map_colors = table.deepcopy(wotmudmapper.default_map_colors)
 wotmudmapper:echo("Map colors reset to default values.\n")
 table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
-wotmudmapper:setMapColors()</script>
+wotmudmapper:set_map_colors()</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map colors reset$</regex>
@@ -574,7 +574,7 @@ if wotmudmapper.map_colors[env] ~= nil then
     )
     wotmudmapper.map_colors[env] = color
     table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
-    wotmudmapper:setMapColors()
+    wotmudmapper:set_map_colors()
   else
     wotmudmapper:echo("Color not known.\n", false, true)
   end
@@ -968,7 +968,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
       table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
-      wotmudmapper:showMap(true)
+      wotmudmapper:show_map(true)
     end
   elseif key == "h" then
     if (not tonumber(val)) or (tonumber(val) &lt; 1) then
@@ -978,7 +978,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
       table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
-      wotmudmapper:showMap(true)
+      wotmudmapper:show_map(true)
     end
   elseif key == "x" then
     if not tonumber(val) then
@@ -988,7 +988,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
       table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
-      wotmudmapper:showMap(true)
+      wotmudmapper:show_map(true)
     end
   elseif key == "y" then
     if not tonumber(val) then
@@ -998,7 +998,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper.configs.map_window[key] = val
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
       table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
-      wotmudmapper:showMap(true)
+      wotmudmapper:show_map(true)
     end
   else
     wotmudmapper:echo("Key ("..key..") unable to be changed through this alias.\n",false,true)
@@ -1031,7 +1031,7 @@ end</script>
 				<script>wotmudmapper.configs.map_window.dock = not wotmudmapper.configs.map_window.dock
 wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.dock and "docked.\n" or "floating.\n")) 
 table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
-wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
+wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map dock$</regex>
@@ -1041,7 +1041,7 @@ wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
 				<script>wotmudmapper.configs.map_window.visible = not wotmudmapper.configs.map_window.visible
 wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
 table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
-wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
+wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map show$</regex>
@@ -1058,7 +1058,7 @@ wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)</script>
 				<script>wotmudmapper.configs = table.deepcopy(wotmudmapper.defaults)
 wotmudmapper.configs.dbug = false
 wotmudmapper:echo("Map configurations reset to default values.\n")
-wotmudmapper:showMap(true)</script>
+wotmudmapper:show_map(true)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map configs reset$</regex>

@@ -31,6 +31,17 @@ end</script>
 				<packageName></packageName>
 				<regex>^prac weaves$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show saved setups</name>
+				<script>for k, v in lfs.dir(getMudletHomeDir().."/weave_trainer") do 
+  if k:sub(-4,-1) == ".lua" then
+    cecho(k:sub(1,-5).."\n")
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wtrainer setups$</regex>
+			</Alias>
 		</AliasGroup>
 	</AliasPackage>
 </MudletPackage>

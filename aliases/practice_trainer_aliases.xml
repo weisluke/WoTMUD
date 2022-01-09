@@ -76,6 +76,17 @@ send("hunter practice please")</script>
 				<packageName></packageName>
 				<regex>^prac circle$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show saved setups</name>
+				<script>for k, v in lfs.dir(getMudletHomeDir().."/practice_trainer") do 
+  if k:sub(-4,-1) == ".lua" then
+    cecho(k:sub(1,-5).."\n")
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ptrainer setups$</regex>
+			</Alias>
 		</AliasGroup>
 	</AliasPackage>
 </MudletPackage>

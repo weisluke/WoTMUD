@@ -191,7 +191,7 @@ resetFormat()</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="yes" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>(.+) beeps you!</name>
 				<script></script>
 				<triggerType>0</triggerType>
@@ -201,16 +201,14 @@ resetFormat()</script>
 				<packageName></packageName>
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile>C:/Windows/Media/Windows Notify.wav</mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>(.+) beeps you!</string>
-					<string> beeps you!</string>
+					<string>((.+) beeps you!)</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
-					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -229,7 +227,7 @@ resetFormat()</script>
 				<regexCodeList>
 					<string>^((.+)WANTED)$</string>
 					<string>^((.+)WANTED\(MC\))$</string>
-					<string>^((.+)\(Known Darkfriend\))$</string>
+					<string>^((.+)\(Known Darkfriend\).*)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -394,7 +392,7 @@ echo(". Total Defence: "..defense)</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>(\d+) o'clock ([ap])m</name>
 				<script></script>
 				<triggerType>0</triggerType>
@@ -408,14 +406,10 @@ echo(". Total Defence: "..defense)</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>(\d+) o'clock ([ap])m</string>
-					<string> o'clock </string>
-					<string>m</string>
+					<string>((\d+) o'clock ([ap])m)</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
-					<integer>0</integer>
-					<integer>0</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -524,7 +518,7 @@ cecho(" &lt;gold&gt;"..gold.." gold crowns and " ..copper.." coppers.")</script>
 				<regexCodeList>
 					<string>^You see signs of shadowspawn nearby\.$</string>
 					<string>^You see signs of enemies nearby\.$</string>
-					<string>^You sense shadowspawn nearby.$</string>
+					<string>^You sense shadowspawn nearby\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

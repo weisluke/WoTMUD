@@ -51,7 +51,7 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Set Communications Configuration Values</name>
 				<packageName></packageName>
-				<script>function communications:setConfigs()
+				<script>function communications:set_configs()
     local defaults = self.defaults or {}
     local configs = self.configs or {}
     -- load stored configs from file if it exists
@@ -72,7 +72,7 @@ end
 				<name>CommsOnSysConnectionEvent</name>
 				<packageName></packageName>
 				<script>function CommsOnSysConnectionEvent(event)
-  communications:setConfigs()
+  communications:set_configs()
   
   communications:showComms(communications.configs.comms_window.visible)
 end</script>
@@ -189,6 +189,7 @@ end</script>
   y = tonumber(string.sub(y, 1, -2))
   w = tonumber(string.sub(w, 1, -2))
   h = tonumber(string.sub(h, 1, -2))
+  
   if x &lt; 0 then
     x = x + 100
   end
@@ -197,14 +198,12 @@ end</script>
   end
   
   if configs.dock then
-    if y &lt; h then
-        communications.container:attachToBorder("top")
-    else
-      if x + 0.5 * w &gt; 50 then
-        communications.container:attachToBorder("right")
-      else
-        communications.container:attachToBorder("left")
-      end
+    if x &gt; 100 - (w + 10) then
+      communications.container:attachToBorder("right")
+    elseif x &lt; 10 then
+      communications.container:attachToBorder("left")
+    elseif y &lt; h then
+      communications.container:attachToBorder("top")
     end
   else
     communications.container:attachToBorder("float")
@@ -249,7 +248,7 @@ end</script>
     cmd = 1
   end
   for w in self.help[cmd]:gmatch("(.-)\n") do
-    local before, target, text, after = w:match("(.*)&lt;link: (.-)&gt;(.*)&lt;\/link&gt;(.*)")
+    local before, target, text, after = w:match("(.*)&lt;link: (.*)&gt;(.*)&lt;/link&gt;(.*)")
     if target then
       cecho(before)
       fg("yellow")
@@ -314,7 +313,7 @@ communications.help.comms_colors =
         &lt;yellow&gt;comms color type color&lt;reset&gt; - Chance the color of the given communications type to the
             provided color
             Example: comms color narrates green, comms color says white
-	    
+
 ]]
 
 communications.help.comms_window =
@@ -371,7 +370,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "commsFinis
   --if installed file is not the desired one
   if name ~= "communications_scripts" then return end
   communications:show_help()
-  communications:setConfigs()
+  communications:set_configs()
   
   communications:showComms(communications.configs.comms_window.visible)
 end</script>

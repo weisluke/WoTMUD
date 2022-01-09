@@ -452,7 +452,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "MapFinishe
     cmd = 1
   end
   for w in self.help[cmd]:gmatch("(.-)\n") do
-    local before, target, text, after = w:match("(.*)&lt;link: (.*)&gt;(.*)&lt;\/link&gt;(.*)")
+    local before, target, text, after = w:match("(.*)&lt;link: (.*)&gt;(.*)&lt;/link&gt;(.*)")
     if target then
       cecho(before)
       fg("yellow")

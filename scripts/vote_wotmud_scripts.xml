@@ -13,9 +13,9 @@
     last_vote.time = getEpoch()
     table.save(getMudletHomeDir() .. "/last_vote.lua", last_vote)
   end
-  if getEpoch() - last_vote.time &gt; 86400 then
+  if getEpoch() - last_vote.time &gt; 43200 then
     cechoLink(
-      "&lt;red&gt;It has been over 24 hours since you voted!\nClick here or type \"vote WoTMUD\" to vote now.\n",
+      "&lt;red&gt;It has been over 12 hours since you voted!\nClick here or type \"vote WoTMUD\" to vote now.\n",
       function()
         local last_vote = {time = getEpoch()}
         table.save(getMudletHomeDir() .. "/last_vote.lua", last_vote)

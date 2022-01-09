@@ -110,9 +110,7 @@ end</script>
 wotmudmapper.roomexits = string.lower(matches[2])
 wotmudmapper:echo("\nRoom exits (" .. wotmudmapper.roomexits .. ") captured.\n", true)
 wotmudmapper.roomexits = string.split(wotmudmapper.roomexits)
-while table.index_of(wotmudmapper.roomexits, "") do
-  table.remove(wotmudmapper.roomexits, table.index_of(wotmudmapper.roomexits, ""))
-end
+wotmudmapper.roomexits = table.n_intersection(wotmudmapper.roomexits,{"n","e","s","w","u","d"})
 
 local mapCommand, x, y, z, lastID, tempID
 --Specifying the type of movement. If not fleeing or following, then take from queue
@@ -299,7 +297,7 @@ end</script>
 				</TriggerGroup>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Night/Blind Movement</name>
+				<name>Night/Blind/Fog Movement</name>
 				<script>if not wotmudmapper.dark then
   wotmudmapper.dark = true
 end
@@ -702,12 +700,11 @@ end</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Resuming Trigger</name>
-				<script>if wotmudmapper.pausing then
-  wotmudmapper.pausing = false
-  wotmudmapper.queue = List:new()
-end</script>
+				<script>wotmudmapper.pausing = false
+wotmudmapper.queue = List:new()
+disableTrigger("Resuming Trigger")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -720,14 +717,19 @@ end</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>HP:(\S+) MV:(\S+)</string>
+					<string>HP:(\S+) SP:(\S+) MV:(\S+)</string>
+					<string>HP:(\S+) DP:(\S+) MV:(\S+)</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Pausing Trigger</name>
-				<script>wotmudmapper.pausing = true</script>
+				<script>wotmudmapper.pausing = true
+enableTrigger("Resuming Trigger")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -739,7 +741,7 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>\* Press \&lt;Return\&gt; to continue, q to quit \*\&gt;$</string>
+					<string>\* Press &lt;Return&gt; to continue, q to quit \*&gt;$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

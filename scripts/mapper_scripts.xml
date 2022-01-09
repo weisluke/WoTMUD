@@ -5,50 +5,52 @@
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Mapper</name>
 			<packageName></packageName>
-			<script>mudlet = mudlet or {}
+			<script>--define mudlet required mapper variables and wotmudmapper table
+mudlet = mudlet or {}
 mudlet.mapper_script = true
 wotmudmapper = wotmudmapper or {}
 
 --mapper variables
-wotmudmapper.currentID = {}
-wotmudmapper.roomname = ""
-wotmudmapper.roomdesc = ""
-wotmudmapper.roomexits = {}
-wotmudmapper.zone = ""
-wotmudmapper.brief = false
-wotmudmapper.dark = false
-wotmudmapper.flee = false
-wotmudmapper.following = false
-wotmudmapper.door = "n"
-wotmudmapper.pausing = false
-wotmudmapper.inways = false
+wotmudmapper.currentID = {} --table to hold list of possible current room IDs
+wotmudmapper.roomname = "" --current room name captured by triggers
+wotmudmapper.roomdesc = "" --current room description captured by triggers
+wotmudmapper.roomexits = {} --table to hold list of room exits captured by triggers. list may include exits not in the map data. map data may include exits not in the list.
+wotmudmapper.zone = "" --current zone name pulled from map data
+wotmudmapper.brief = false --true only if wotmudmapper.roomdesc is empty string
+wotmudmapper.dark = false --true only if night/blind/fog triggers match
+wotmudmapper.flee = false --used by triggers to determine whether most recent movement was a manual flee or autoflee
+wotmudmapper.following = false --set to true on "You follow (.+)\.$"
+wotmudmapper.door = "n" --variable to hold door direction. only used in mapping mode to create doors
+wotmudmapper.pausing = false --variable used to pause and reset queue if long mud output (e.g. two page who list) is encountered
+wotmudmapper.inways = false --true only if wotmudmapper.roomname matches a room name from inside The Ways zone
 
 --default configuration values to be used or updated in wotmudmapper.configs
 wotmudmapper.defaults = {
-  mapping=false,
-  dbug=true,
-  mapbrief=false,
-  bothways=true,
-  autojoin=false,
-  forceroom=false,
-  envcolor=20,
-  offline=false,
-  roomID=1,
-  showzone = true,
-  zonecolor = "turquoise",
-  doorcolor = "blue",
-  map_window={
-    widget = false,
-    visible=true,
-    x="-37%",
-    y="0%",
-    w="37%",
-    h="73%",
-    zoom=50,
-    dock=false}
+  mapping = false, --true if mapping mode is turned on
+  dbug = true, --debug for echoing messages
+  mapbrief = false, --true if map triggers should manually delete room description lines from the screen
+  bothways = true, --true if new room and old room should be connected both ways in mapping mode
+  autojoin = false, --true if rooms should be auto-connected based on exits and proximity in mapping mode
+  forceroom = false, --true if a new room should be force created in mapping mode
+  envcolor = 20, --default environment number for mapping
+  offline = false, --true if map is being used in offline mode
+  roomID = 1, --last known room ID before profile is shut down
+  showzone = true, --true if zone information should be displayed below room exits
+  zonecolor = "turquoise", --color of zone information displayed below room exits
+  doorcolor = "blue", --color of door information displayed below room exits
+  map_window = {
+    widget = false, --true if the map widget should be used instead of an Adjustable.Container
+    visible = true, --true if map should be shown
+    x = "-37%", --left border of map Adjustable.Container
+    y = "0%", --top border of map Adjustable.Container
+    w = "37%", --width of map Adjustable.container
+    h = "73%", --height of map Adjustable.container
+    zoom = 50, --map window zoom level
+    dock = false --true if map Adjustable.Container can be docked to left or right of screen
+    }
   }
 
---set default map room type environment numbers and colors
+--default map room type environment numbers and colors
 wotmudmapper.room_type_env_nums = {
   inside = 20,
   wilderness = 21,
@@ -69,7 +71,6 @@ wotmudmapper.room_type_env_nums = {
   hunter = 36,
   pk = 37
 }
-
 wotmudmapper.default_map_colors = {
   inside = "white",
   wilderness = "forest_green",
@@ -91,7 +92,7 @@ wotmudmapper.default_map_colors = {
   pk = "light_gray"
 }
 
-
+--table of exit to number associations
 if not wotmudmapper.exitmap then
   wotmudmapper.exitmap =
     {
@@ -132,6 +133,8 @@ if not wotmudmapper.exitmap then
     }
 end
 
+
+--List functions
 List = {}
 
 function List:new()
@@ -140,8 +143,6 @@ function List:new()
   self.__index = self
   return list
 end
-
-wotmudmapper.queue = List:new()
 
 function List:pushright(value)
   local last = self.last + 1
@@ -169,17 +170,24 @@ end
 
 function List:checkleftvalue()
   return self[self.first]
-end</script>
+end
+
+--queue to store movement commands
+wotmudmapper.queue = List:new()</script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>Mapper Display Echo</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:echo(what, debug, err)
+  --colored tags for message echo
   local map_tag = "&lt;lawn_green&gt;(&lt;forest_green&gt;wotmudmapper&lt;lawn_green&gt;): &lt;white&gt;"
   local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
   local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
   
+  --if debug message and mapper debug is false, return without echoing
   if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
   if what:sub(0,1)=="\n" then
     cecho("\n")
     what = what:sub(2)
@@ -194,11 +202,15 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Set Map Colors</name>
 				<packageName></packageName>
-				<script>function wotmudmapper:setMapColors()
-  for k, v in pairs(self.map_colors) do
-    local r, g, b = unpack(color_table[v])
-    setCustomEnvColor(self.room_type_env_nums[k], r, g, b, 255)
+				<script>function wotmudmapper:set_map_colors()
+  --loop over environments and colors in color table
+  for env, color in pairs(self.map_colors) do
+    --unpack rgb values from mudlet color table
+    local r, g, b = unpack(color_table[color])
+    --set environment color for the given environment with the rgb values of the color
+    setCustomEnvColor(self.room_type_env_nums[env], r, g, b, 255)
   end
+  --update map display
   updateMap()
 end</script>
 				<eventHandlerList />
@@ -206,29 +218,31 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Set Map Configuration Values</name>
 				<packageName></packageName>
-				<script>function wotmudmapper:setConfigs()
-    local defaults = self.defaults or {}
-    local configs = self.configs or {}
-    local default_colors = self.default_map_colors or {}
-    local colors = self.map_colors or {}
-    
-    self:echo("Loading map configurations.\n")
-    -- load stored configs from file if it exists
-    if io.exists(getMudletHomeDir().."/wotmudmapper.configs.lua") then
-        table.load(getMudletHomeDir().."/wotmudmapper.configs.lua",configs)
-    end
-    if io.exists(getMudletHomeDir().."/wotmudmapper.map_colors.lua") then
-        table.load(getMudletHomeDir().."/wotmudmapper.map_colors.lua",colors)
-    end
-    self:echo("Map configurations loaded.\n")
-    
-    -- overwrite default values with stored config values
-    configs = table.update(defaults, configs)
-    self.configs = table.deepcopy(configs)
-    table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", self.configs)
-    colors = table.update(default_colors, colors)
-    self.map_colors = table.deepcopy(colors)
-    table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", self.map_colors)
+				<script>function wotmudmapper:set_configs()
+  --local copies of map configs/colors and their defaults
+  local defaults = table.deepcopy(self.defaults) or {}
+  local configs = table.deepcopy(self.configs) or {}
+  local default_colors = table.deepcopy(self.default_map_colors) or {}
+  local colors = table.deepcopy(self.map_colors) or {}
+  
+  --if config and color files exist on disk, load them in  
+  self:echo("Loading map configurations.\n")
+  -- load stored configs from file if it exists
+  if io.exists(getMudletHomeDir().."/wotmudmapper.configs.lua") then
+      table.load(getMudletHomeDir().."/wotmudmapper.configs.lua",configs)
+  end
+  if io.exists(getMudletHomeDir().."/wotmudmapper.map_colors.lua") then
+      table.load(getMudletHomeDir().."/wotmudmapper.map_colors.lua",colors)
+  end
+  self:echo("Map configurations loaded.\n")
+  
+  -- overwrite default values with stored config values and save to disk
+  configs = table.update(defaults, configs)
+  self.configs = table.deepcopy(configs)
+  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", self.configs)
+  colors = table.update(default_colors, colors)
+  self.map_colors = table.deepcopy(colors)
+  table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", self.map_colors)
 end
 </script>
 				<eventHandlerList />
@@ -237,25 +251,32 @@ end
 				<name>MapOnSysConnectionEvent</name>
 				<packageName></packageName>
 				<script>function MapOnSysConnectionEvent(event)
+  --ensure the movement queue is empty
   wotmudmapper.queue = List:new()
-  wotmudmapper:setConfigs()
+  --set configuration values
+  wotmudmapper:set_configs()
   
-  wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)
+  --show map window
+  wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)
   
-  wotmudmapper:setMapColors()
+  --set colors and center on player location
+  wotmudmapper:set_map_colors()
   wotmudmapper.currentID={wotmudmapper.configs.roomID}
   centerview(wotmudmapper.currentID[1])
   
+  --ensure that offline mode is disabled
+  wotmudmapper.configs.offline=false
   disableKey("Offline Map")
   disableAlias("Offline Map Dirs")
   disableAlias("Offline Map Look")
   
+  --add map right click options and register their event handlers
   addMapMenu("Update room information")
-  addMapEvent("onMapUpdateRoomName", "onMapUpdateRoomName", "Update room information", "Update room name") 
-  addMapEvent("onMapUpdateRoomDesc", "onMapUpdateRoomDesc", "Update room information", "Update room description")
+  addMapEvent("OnMapUpdateRoomName", "OnMapUpdateRoomName", "Update room information", "Update room name") 
+  addMapEvent("OnMapUpdateRoomDesc", "OnMapUpdateRoomDesc", "Update room information", "Update room description")
   
-  registerAnonymousEventHandler("onMapUpdateRoomName", "onMapUpdateRoomName")
-  registerAnonymousEventHandler("onMapUpdateRoomDesc", "onMapUpdateRoomDesc")
+  registerAnonymousEventHandler("OnMapUpdateRoomName", "OnMapUpdateRoomName")
+  registerAnonymousEventHandler("OnMapUpdateRoomDesc", "OnMapUpdateRoomDesc")
 end</script>
 				<eventHandlerList>
 					<string>sysLoadEvent</string>
@@ -266,18 +287,21 @@ end</script>
 				<name>MapOnSysDisconnectionEvent</name>
 				<packageName></packageName>
 				<script>function MapOnSysDisconnectionEvent()
+  --set config values in preparation for disconnection
   wotmudmapper.configs = wotmudmapper.configs or {}
   wotmudmapper.configs.mapping = false
   wotmudmapper.configs.forceroom = false
   wotmudmapper.configs.offline=false
   wotmudmapper.map_colors = wotmudmapper.map_colors or {}
   
+  --if player location was known, save, otherwise set to mudlet roomID 1
   if table.size(wotmudmapper.currentID) == 1 then
     wotmudmapper.configs.roomID=wotmudmapper.currentID[1]
   else
     wotmudmapper.configs.roomID=1
   end
   
+  --save configs and colors to disk
   wotmudmapper:echo("Saving map configurations.\n")
   table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
   table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
@@ -292,14 +316,17 @@ end</script>
 				<name>WoTMUDMapUpdate</name>
 				<packageName></packageName>
 				<script>function WoTMUDMapUpdate(event, filename)
-  -- is the file that downloaded ours?
+  --if the file that downloaded is not the map, return
   if not filename:find("WoTMUD_map.dat", 1, true) then
     return
   end
+  
+  --load in map file, set colors, and center on current player room
   wotmudmapper:echo("Download complete.\n")
   loadMap(filename)
   wotmudmapper:echo("New map successfully uploaded.\n")
-  wotmudmapper:setMapColors()
+  wotmudmapper:set_map_colors()
+  centerview(wotmudmapper.currentID[1])
 end</script>
 				<eventHandlerList>
 					<string>sysDownloadDone</string>
@@ -308,13 +335,16 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Show Map</name>
 				<packageName></packageName>
-				<script>function wotmudmapper:showMap(bval)
+				<script>function wotmudmapper:show_map(bval)
+  --set boolean of whether map is visible or not
   local visible = bval
   self.configs.map_window.visible = visible
   
-  local configs = self.configs.map_window
+  --local copy of map window config values
+  local configs = table.deepcopy(self.configs.map_window)
   local x, y, w, h = configs.x, configs.y, configs.w, configs.h
   
+  --if widget is used, open or close and return
   if configs.widget then
     if visible then
       openMapWidget()
@@ -324,6 +354,7 @@ end</script>
     return
   end
   
+  --create mapper container, position it, and resize it
   wotmudmapper.container = wotmudmapper.container or Adjustable.Container:new(
     {
       name = "mapper_container",
@@ -345,23 +376,28 @@ end</script>
   
   setMapZoom(configs.zoom)
   
+  --show or hide mapper container
   if visible then
     wotmudmapper.container:show()
   else
     wotmudmapper.container:hide()
   end
   
+  --strip numeric values from mapper container position and size (since they are stored as percent strings)
   x = tonumber(string.sub(x,1,-2))
   y = tonumber(string.sub(y,1,-2))
   w = tonumber(string.sub(w,1,-2))
   h = tonumber(string.sub(h,1,-2))
   
+  --account for negative values being measured from right or bottom of screen
   if x &lt; 0 then
     x = x+100
   end
   if y &lt; 0 then
     y = y + 100
   end
+  
+  --allow map to dock on the left or right of the screen if the center of the mapper is left or right of the screen midpoint
   if configs.dock then
     if x + 0.5*w &gt; 50 then
         wotmudmapper.container:attachToBorder("right")
@@ -377,10 +413,13 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Map Window Reposition</name>
 				<packageName></packageName>
-				<script>function mapFinishedRepositioning(eventName, containerName, width, height, x, y)
+				<script>function MapFinishedRepositioning(eventName, containerName, width, height, x, y)
+  --if the Adjustable.Container is not the mapper, return
   if containerName ~= "mapper_container" then
     return
   end
+  
+  --get main window size. convert Adjustable.Container values to percentages, store, and save to disk
   local mx, my = getMainWindowSize()
   x = x/mx*100
   y = y/my*100
@@ -393,10 +432,10 @@ end</script>
   wotmudmapper.configs.map_window.h = height.."%"
   table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
   
-  wotmudmapper:showMap(true)
+  wotmudmapper:show_map(true)
 end
 
-registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "mapFinishedRepositioning")</script>
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "MapFinishedRepositioning")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -413,7 +452,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "mapFinishe
     cmd = 1
   end
   for w in self.help[cmd]:gmatch("(.-)\n") do
-    local before, target, text, after = w:match("(.*)&lt;link: (.-)&gt;(.*)&lt;\/link&gt;(.*)")
+    local before, target, text, after = w:match("(.*)&lt;link: (.*)&gt;(.*)&lt;/link&gt;(.*)")
     if target then
       cecho(before)
       fg("yellow")
@@ -663,11 +702,11 @@ wotmudmapper.help.misc =
 			<Script isActive="yes" isFolder="no">
 				<name>Map Right Click to Update Room Information</name>
 				<packageName></packageName>
-				<script>function onMapUpdateRoomName(event)
+				<script>function OnMapUpdateRoomName(event)
   local rooms = getMapSelection()["rooms"]
-  if table.size(rooms)==0 then
+  if table.is_empty(rooms) then
     wotmudmapper:echo("No room selected.\n",false,true)
-  elseif table.size(rooms)~=1 then
+  elseif table.size(rooms) &gt; 1 then
     wotmudmapper:echo("More than one room selected.\n",false,true)
   else
     wotmudmapper:echo("Room name for room ID ("..rooms[1]..") updated from ("..getRoomName(rooms[1])..") to ("..wotmudmapper.roomname..")\n")
@@ -676,11 +715,11 @@ wotmudmapper.help.misc =
   updateMap()
 end
 
-function onMapUpdateRoomDesc(event)
+function OnMapUpdateRoomDesc(event)
   local rooms = getMapSelection()["rooms"]
-  if table.size(rooms)==0 then
+  if table.is_empty(rooms) then
     wotmudmapper:echo("No room selected.\n",false,true)
-  elseif table.size(rooms)~=1 then
+  elseif table.size(rooms) &gt; 1 then
     wotmudmapper:echo("More than one room selected.\n",false,true)
   else
     wotmudmapper:echo("Room description for room ID ("..rooms[1]..") updated.\n")
@@ -1201,7 +1240,7 @@ end
 				<Script isActive="yes" isFolder="no">
 					<name>Show Room List</name>
 					<packageName></packageName>
-					<script>function wotmudmapper:showRoomList(areaid)
+					<script>function wotmudmapper:show_room_list(areaid)
   local listcolor, othercolor = "DarkSlateGrey", "LightSlateGray"
   local roomlist, endresult = getAreaRooms(areaid) or {}, {}
   -- obtain a roomname list for each of the room IDs we got
@@ -1239,7 +1278,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Show Area List</name>
 					<packageName></packageName>
-					<script>function wotmudmapper:showAreaList()
+					<script>function wotmudmapper:show_area_list()
     local totalroomcount = 0
     local rlist = getAreaTableSwap()
     local listcolor, othercolor = "DarkSlateGrey","LightSlateGray"
@@ -1259,7 +1298,7 @@ end</script>
         if rlist[id] then
             cecho(string.format("&lt;%s&gt;%10d ", othercolor, id))
             fg(listcolor)
-            echoLink(string.format("%-30s (%d rooms)",rlist[id],countrooms(id)), [[wotmudmapper:showRoomList(]]..id..[[)]],
+            echoLink(string.format("%-30s (%d rooms)",rlist[id],countrooms(id)), [[wotmudmapper:show_room_list(]]..id..[[)]],
                 "View the room list for "..rlist[id], true)
             echo("\n")
         end
@@ -1276,10 +1315,10 @@ end</script>
   --if installed file is not the desired one
   if name ~= "mapper_scripts" then return end
   wotmudmapper:show_help()
-  wotmudmapper:setConfigs()
-  wotmudmapper:setMapColors()
+  wotmudmapper:set_configs()
+  wotmudmapper:set_map_colors()
   
-  wotmudmapper:showMap(wotmudmapper.configs.map_window.visible)
+  wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)
 end</script>
 				<eventHandlerList>
 					<string>sysInstallPackage</string>
@@ -1289,8 +1328,12 @@ end</script>
 				<name>doSpeedWalk</name>
 				<packageName></packageName>
 				<script>function doSpeedWalk()
-  for k, v in pairs(speedWalkDir) do
-    send(v)
+  if table.size(wotmudmapper.currentID) == 1 then
+    for k, v in pairs(speedWalkDir) do
+      send(v)
+    end
+  else
+    wotmudmapper:echo("Current room not known.\n", false, true)
   end
 end</script>
 				<eventHandlerList />
@@ -1622,6 +1665,16 @@ enableMapInfo("Door info")
 ["Fortress of Light Dungeon"] = "Fortress_of_Light_Dungeon"
 
 }</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Set Player Location</name>
+				<packageName></packageName>
+				<script>registerAnonymousEventHandler("sysManualLocationSetEvent", "set_player_location")
+
+function set_player_location(event, args)
+  wotmudmapper.currentID={args}
+end</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>

@@ -844,6 +844,28 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 				</Alias>
 			</AliasGroup>
 			<Alias isActive="yes" isFolder="no">
+				<name>Speedwalk Alias</name>
+				<script>local com = matches[1]
+
+comlist = com:gmatch("%d*[neswud]")
+
+for v in comlist do
+  local num = v:split("[neswud]")[1]
+  local dir = v:split(num)[2] or v:split(num)[1]
+  
+  if num == "" then
+    num = 1
+  end
+  
+  for i=1,tonumber(num),1 do
+    send(dir,false)
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^\.(\d*[neswud])+$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
 				<name>Reset Queue</name>
 				<script>--syntax: resetqueue
 

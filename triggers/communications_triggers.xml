@@ -253,16 +253,16 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>&gt; A rat squeaks '(.+) at (.+)'$</string>
-					<string>^A rat squeaks '(.+) at (.+)'$</string>
-					<string>&gt; A raven caws '(.+) at (.+)'$</string>
-					<string>^A raven caws '(.+) at (.+)'$</string>
-					<string>&gt; Someone squeaks '(.+) at (.+)'$</string>
-					<string>^Someone squeaks '(.+) at (.+)'$</string>
-					<string>&gt; A red-eyed raven caws '(.+) at (.+)'$</string>
-					<string>^A red-eyed raven caws '(.+) at (.+)'$</string>
-					<string>&gt; A flock of ravens caws '(.+) at (.+)'$</string>
-					<string>^A flock of ravens caws '(.+) at (.+)'$</string>
+					<string>&gt; (A rat squeaks '(.+) at (.+)')$</string>
+					<string>(^A rat squeaks '(.+) at (.+)'$)</string>
+					<string>&gt; (A raven caws '(.+) at (.+)')$</string>
+					<string>(^A raven caws '(.+) at (.+)'$)</string>
+					<string>&gt; (Someone squeaks '(.+) at (.+)')$</string>
+					<string>(^Someone squeaks '(.+) at (.+)'$)</string>
+					<string>&gt; (A red-eyed raven caws '(.+) at (.+)')$</string>
+					<string>(^A red-eyed raven caws '(.+) at (.+)'$)</string>
+					<string>&gt; (A flock of ravens caws '(.+) at (.+)')$</string>
+					<string>(^A flock of ravens caws '(.+) at (.+)'$)</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

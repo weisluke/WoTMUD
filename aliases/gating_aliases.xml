@@ -12,10 +12,10 @@
 				<name>Make gate</name>
 				<script>--syntax: makegate xxx
 
-weaving.gatename = matches[2]
-
 char = char or {}
 weaving = weaving or {}
+
+weaving.gatename = matches[2]
 
 if char.sex == "female" then
   send("embrace")

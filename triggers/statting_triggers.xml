@@ -66,7 +66,7 @@ then
   
   if not io.exists(fname) then
     local file = io.open(fname, "w+")
-    file:write("sex race class homeland str int wil dex con\n")
+    file:write("sex race class homeland str int wil dex con sum\n")
     io.close(file)
   end
   
@@ -80,7 +80,8 @@ then
     int .. " " .. 
     wil .. " " ..
     dex .. " " ..
-    con .. "\n"
+    con .. " " ..
+    str + int + wil + dex + con .. "\n"
   )
   io.close(file)
   sendAll("disengage", "restat", "k sapling", "score")
@@ -148,8 +149,10 @@ end</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>You are a \d+ year old (\w+) (\w+) (\w+)\.$</string>
+					<string>You are a \d+ year old (\w+) (\w+) (\w+)\.  It's your birthday today!$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
@@ -215,7 +218,7 @@ statting.statting = false</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Statting_Lights</name>
 				<script></script>
 				<triggerType>0</triggerType>

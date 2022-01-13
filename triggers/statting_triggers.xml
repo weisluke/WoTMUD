@@ -19,9 +19,14 @@
 			<regexCodePropertyList />
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Level</name>
-				<script>statting.level = tonumber(matches[2])
+				<script>statting.homeland = matches[2]
+statting.level = tonumber(matches[3])
 
-if statting.level &gt;= 3 then
+if statting.level &gt;= 5 then
+  showNotification("WoTMUD Statting", "You are too high of a level to restat.")
+  disableTrigger("Statting")
+  statting.statting = false
+elseif statting.level &gt;= 3 then
   sendAll("disengage", "stat")
 end</script>
 				<triggerType>0</triggerType>
@@ -35,9 +40,11 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^This ranks you as .+ \(Level (\d+)\)\.$</string>
+					<string>^This ranks you as \w+ of (.+) \(Level (\d+)\)\.$</string>
+					<string>^This ranks you as \w+ the (.+) \(Level (\d+)\)\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
@@ -48,7 +55,6 @@ local int = tonumber(matches[3])
 local wil = tonumber(matches[4])
 local dex = tonumber(matches[5])
 local con = tonumber(matches[6])
-
 if
   str &lt; statting.stats.str or
   int &lt; statting.stats.int or
@@ -56,6 +62,27 @@ if
   dex &lt; statting.stats.dex or
   con &lt; statting.stats.con
 then
+  local fname = getMudletHomeDir() .. "/stats.txt"
+  
+  if not io.exists(fname) then
+    local file = io.open(fname, "w+")
+    file:write("sex race class homeland str int wil dex con\n")
+    io.close(file)
+  end
+  
+  local file = io.open(fname, "a")
+  file:write(
+    statting.sex .. " " ..
+    statting.race .. " " ..
+    statting.class .. " " ..
+    statting.homeland .. " " ..
+    str .. " " ..
+    int .. " " .. 
+    wil .. " " ..
+    dex .. " " ..
+    con .. "\n"
+  )
+  io.close(file)
   sendAll("disengage", "restat", "k sapling", "score")
 else
   local msg =
@@ -166,7 +193,29 @@ end</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Level too high</name>
+				<script>showNotification("WoTMUD Statting", "You are too high of a level to restat.")
+disableTrigger("Statting")
+statting.statting = false</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You are no longer eligible for the restat command\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Statting_Lights</name>
 				<script></script>
 				<triggerType>0</triggerType>

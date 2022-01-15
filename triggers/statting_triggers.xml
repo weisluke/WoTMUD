@@ -55,12 +55,14 @@ local int = tonumber(matches[3])
 local wil = tonumber(matches[4])
 local dex = tonumber(matches[5])
 local con = tonumber(matches[6])
+local sum = str + int + wil + dex + con
+
 if
-  str &lt; statting.stats.str or
+  (str &lt; statting.stats.str or
   int &lt; statting.stats.int or
   wil &lt; statting.stats.wil or
   dex &lt; statting.stats.dex or
-  con &lt; statting.stats.con
+  con &lt; statting.stats.con) and sum &lt; statting.stats.sum
 then
   local fname = getMudletHomeDir() .. "/stats.txt"
   
@@ -81,13 +83,13 @@ then
     wil .. " " ..
     dex .. " " ..
     con .. " " ..
-    str + int + wil + dex + con .. "\n"
+    sum .. "\n"
   )
   io.close(file)
   sendAll("disengage", "restat", "k sapling", "score")
 else
   local msg =
-    "Congratulations! You have statted a character with your set minimum stats. You now have a " ..
+    "Congratulations! You have statted a character with your set minimum stats or a sufficient statsum. You now have a " ..
     str ..
     " " ..
     int ..

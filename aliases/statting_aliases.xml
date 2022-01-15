@@ -20,13 +20,19 @@ statting.stats =
     dex = tonumber(matches[5]),
     con = tonumber(matches[6]),
   }
+
+if matches[7] then
+  statting.stats.sum = tonumber(matches[7])
+else
+  statting.stats.sum = statting.stats.str + statting.stats.int + statting.stats.wil + statting.stats.dex + statting.stats.con
+end
   
 enableTrigger("Statting")
 statting.statting = true
 sendAll("score", "stat", "kill sapling")</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^stat (\d+) (\d+) (\d+) (\d+) (\d+)$</regex>
+				<regex>^stat (\d+) (\d+) (\d+) (\d+) (\d+) ?(\d+)?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Restart statting</name>

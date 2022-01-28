@@ -175,6 +175,7 @@ end</script>
     communications[v]:setFontSize(configs.fontsize)
     communications[v]:bg("black")
     communications[v]:fg("white")
+    enableScrollBar("communications."..v)
     communications[v]:hide()
   end
   

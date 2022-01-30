@@ -72,6 +72,17 @@ rents.help =
 end</script>
 				<eventHandlerList />
 			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>RentsDisconnection</name>
+				<packageName></packageName>
+				<script>function RentsDisconnection()
+  rents.name = nil
+end</script>
+				<eventHandlerList>
+					<string>sysExitEvent</string>
+					<string>sysDisconnectionEvent</string>
+				</eventHandlerList>
+			</Script>
 		</ScriptGroup>
 	</ScriptPackage>
 </MudletPackage>

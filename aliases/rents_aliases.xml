@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Rents</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Display all rents</name>
+				<script>local rents_db = db:get_database("rents")
+
+local storage = db:fetch(rents_db.storage)
+
+if table.is_empty(storage) then
+  rents:echo("No items found in the rent database.\n",true)
+else
+  for _, item in pairs(storage) do
+    local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
+      item.name, 
+      item.item,
+      "",
+      getRoomName(item.room),
+      item.zone,
+      "",
+      item.cost,
+      "",
+      item.timestamp:as_string()
+      )
+    cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rents display$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rents display name</name>
+				<script>local name = matches[2]
+
+local rents_db = db:get_database("rents")
+
+local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.name,name))
+
+if table.is_empty(storage) then
+  rents:echo("No items for the character \""..name.."\" found in the rent database.\n",true)
+else
+  for _, item in pairs(storage) do
+    local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
+      item.name, 
+      item.item,
+      "",
+      getRoomName(item.room),
+      item.zone,
+      "",
+      item.cost,
+      "",
+      item.timestamp:as_string()
+      )
+    cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rents display name (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rents display item</name>
+				<script>local name = matches[2]
+
+local rents_db = db:get_database("rents")
+
+local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.item,"%"..name.."%"))
+
+if table.is_empty(storage) then
+  rents:echo("No items containing the phrase \""..name.."\" found in the rent database\n",true)
+else
+  for _, item in pairs(storage) do
+    local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
+      item.name, 
+      item.item,
+      "",
+      getRoomName(item.room),
+      item.zone,
+      "",
+      item.cost,
+      "",
+      item.timestamp:as_string()
+      )
+    cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rents display item (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rents display zone</name>
+				<script>local name = matches[2]
+
+local rents_db = db:get_database("rents")
+
+local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.zone, "%"..name.."%"))
+
+if table.is_empty(storage) then
+  rents:echo("No items for zone \""..name.."\" found in the rent database\n",true)
+else
+  for _, item in pairs(storage) do
+    local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
+      item.name, 
+      item.item,
+      "",
+      getRoomName(item.room),
+      item.zone,
+      "",
+      item.cost,
+      "",
+      item.timestamp:as_string()
+      )
+    cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rents display zone (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rents help</name>
+				<script>cecho(rents.help)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rents help$</regex>
+			</Alias>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Deleting rent storage information</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Rents delete</name>
+					<script>--deletes the ENTIRE rents database
+
+local rents_db = db:get_database("rents")
+db:delete(rents_db.storage, true)
+rents:echo("The entire rents database has been deleted.\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^rents delete$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Rents delete name</name>
+					<script>local name = matches[2]
+
+local rents_db = db:get_database("rents")
+
+db:delete(rents_db.storage, db:like(rents_db.storage.name, name))
+rents:echo("All items for character \""..name.."\" have been removed from the rent database.\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^rents delete name (.+)$</regex>
+				</Alias>
+			</AliasGroup>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

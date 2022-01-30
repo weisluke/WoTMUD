@@ -880,12 +880,15 @@ wotmudmapper:echo("Queue reset. "..numcoms.." command(s) was/were removed.\n")</
 			<Alias isActive="yes" isFolder="no">
 				<name>Find Room</name>
 				<script>--syntax: findroom roomname zone zonename OR findroom roomname
+
 local roomname, zonename
+
 if matches[5] then
   roomname = matches[6]
 else
   roomname = matches[3]
 end
+
 local foundrooms = searchRoom(roomname, false, true)
 if table.is_empty(foundrooms) then
   foundrooms = searchRoom(roomname, false, false)
@@ -898,6 +901,7 @@ if not matches[5] then
     end
   end
 end
+
 if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
@@ -928,6 +932,71 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>(^findroom (.+) zone (.+)$)|(^findroom (.+)$)</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Find Door</name>
+				<script>--syntax: finddoor doorname zone zonename OR finddoor doorname
+
+local doorname, zonename
+
+if matches[5] then
+  doorname = matches[6]
+else
+  doorname = matches[3]
+end
+
+local foundrooms = {}
+
+for room, name in pairs(getRooms()) do
+  for _, dir in pairs({"n","e","s","w","u","d"}) do
+    if getRoomUserData(room, dir) == doorname then
+      table.insert(foundrooms,room)
+    end
+  end
+end
+
+--remove duplicates
+foundrooms = table.n_intersection(foundrooms, foundrooms)
+
+if not matches[5] then
+  zonename = matches[4]
+  for k, v in pairs(foundrooms) do
+    if string.lower(getRoomUserData(v, "zone")) ~= string.lower(zonename) then
+      foundrooms[k] = nil
+    end
+  end
+end
+
+if table.is_empty(foundrooms) then
+  wotmudmapper:echo("No matches found.\n", false, true)
+elseif table.size(foundrooms) == 1 then
+  wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
+  for k, v in pairs(foundrooms) do
+    centerview(v)
+  end
+else
+  wotmudmapper:echo("Multiple matches found.\n", false, true)
+  for k, v in spairs(foundrooms) do
+    cechoLink(
+      "Room ID: " ..
+      v ..
+      ", &lt;ansi_cyan&gt;room name&lt;reset&gt;: " ..
+      getRoomName(v) ..
+      ", &lt;" ..
+      wotmudmapper.configs.zonecolor ..
+      "&gt;zone&lt;reset&gt;: " ..
+      getRoomUserData(v, "zone") ..
+      "\n",
+      [[centerview(]] .. v .. [[)]],
+      "Click to center map on room.",
+      true
+    )
+  end
+  cecho("")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^finddoor (.+) zone (.+)$)|(^finddoor (.+)$)</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Update Map</name>

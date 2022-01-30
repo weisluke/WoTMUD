@@ -949,7 +949,7 @@ local foundrooms = {}
 
 for room, name in pairs(getRooms()) do
   for _, dir in pairs({"n","e","s","w","u","d"}) do
-    if getRoomUserData(room, dir) == doorname then
+    if string.lower(getRoomUserData(room, dir)) == string.lower(doorname) then
       table.insert(foundrooms,room)
     end
   end

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Rents</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Rent Database Creation</name>
+				<packageName></packageName>
+				<script>db:create(
+  "rents",
+  {
+    storage =
+      {
+        name = "",
+        room = 0,
+        zone = "",
+        item = "",
+        cost = "",
+        timestamp = db:Timestamp("CURRENT_TIMESTAMP"),
+      },
+  }
+)
+
+rents = rents or {}
+
+rents.help =
+  [[
+    &lt;cyan&gt;Rent Script&lt;reset&gt;
+
+    This script will track items that you have stored in your rents in a database located
+    at ]] .. getMudletHomeDir() .. [[/Database_rents.db
+    
+    Below is a brief overview of some commands that this script includes.
+    All commands can be found in the appropriate rents folder under mudlet aliases.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;rents display&lt;reset&gt; - Display all items in the rent database
+        &lt;yellow&gt;rents display name character&lt;reset&gt; - Displays all items in the rent database
+            associated with a particular character name. Not case sensitive. 
+            Examples: rents display name Adael, rents display name bludlust
+        &lt;yellow&gt;rents display item keyword(s)&lt;reset&gt; - Display all items in the rent database that
+            contain the given keyword(s). Not case sensitive, but if multiple keywords are
+            used the order (and, if applicable, punctuation) matters.
+            Examples: rents display item heron-engraved, rents display item a crystal lightstick
+        &lt;yellow&gt;rents display zone keyword(s)&lt;reset&gt; - Display all items in the rent database whose
+            zone name (in my map data) contains the provided keyword(s). Not case sensitive, 
+            but if multiple keywords are used the order (and, if applicable, punctuation) matters.
+            Examples: rents display zone Caemlyn, rents display zone bandar eban,
+                rents display zone thakan'dar
+        
+]]</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Rents Display Echo</name>
+				<packageName></packageName>
+				<script>function rents:echo(what, err)
+  local rents_tag = "&lt;lawn_green&gt;(&lt;green&gt;rents&lt;lawn_green&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(rents_tag)
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>

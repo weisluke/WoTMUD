@@ -133,6 +133,20 @@ The appearance of the map can be further changed with some tabs in the settings 
 
 </details>
 
+# Some suggested settings
+
+<details>
+<summary>Click to expand.</summary>
+
+If you want to use Mudlet with a dark theme, you can find that option in Settings -> General
+![settings_dark_mode](https://user-images.githubusercontent.com/52049495/152900723-78e0348d-5b3b-4643-83e9-3266af5833ba.png)
+
+There is another setting that most WoTMUD players would highly recommend adjusting in Mudlet. It is the additional text wait time option, found in Settings -> Special Options. This setting controls how long Mudlet waits to display text *if it has not received further output from the mud server*. This is most noticeable as a slight delay in the display of the prompt line, if no other mud output is arriving. The default value of 0.300 seconds can be adjusted (3) to make Mudlet wait less time and feel a bit "snappier". The ideal value will depend on your link, but many people have had luck with the 0.010 - 0.050 seconds range. 
+Additionally, there is a setting in the special options to not show debug messages for timers smaller than a certain limit (to avoid the potential of spamming the debug output). Personally, I don't display debug info for any timers smaller than 1 second (4), though you may choose a different value if desired.
+![settings_special_options](https://user-images.githubusercontent.com/52049495/152901054-53b50f61-d9c9-4f97-994a-a3fb132c0961.png)
+   
+</details>
+
 # Installing other files
 
 You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can click on individual files to download and install them, although be careful - installing an individual file that requires other files to function properly may cause issues. You can use commands from the "wotpack help" help message to install particular files, groupings that contain multiple files (e.g. the mapper or comms window), or everything in this repository. Most names should be self explanatory.

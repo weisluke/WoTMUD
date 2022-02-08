@@ -169,7 +169,7 @@ Type "tgt xxx" to set a target. Some specific targets give messages colored by t
 
 Two sets of scripts that you might also consider installing are a daily reminder to vote for the WoTMUD at http://www.topmudsites.com/vote-wotmud.html, and a query for the player numbers from https://writtenrealms.com/wot/playground/who/daily that adds the numbers to the "who" list in the game. The writtenrealms site also has other resources for the MUD, such as combat skill chance calculators. Further details can be found on the game's help forum.
 
-# Other Mudlet information
+# Other Mudlet information - profile saves and logs
 <details>
 <summary>Click to expand.</summary>
    

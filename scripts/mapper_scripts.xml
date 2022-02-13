@@ -853,59 +853,56 @@ end</script>
 					<name>Door Command Direction</name>
 					<packageName></packageName>
 					<script>function wotmudmapper:door_com_dir(com, dir)
-  --if we are in a known location
-  if table.size(self.currentID) == 1 then
-    --start out in our room
-    local rooms = {self.currentID[1]}
-    --loop over all commands in the movement queue
-    for i = self.queue.first, self.queue.last, 1 do
-      --variable to hold new possible rooms entered by the current movement command
-      local temp_rooms = {}
-      --for all possible rooms currently stored
-      for _, room in pairs(rooms) do
-        --get the exits in the room
-        local exits = getRoomExits(room)
-        --if the current movement command is a flee
-        if self.queue[i] == "f" then
-          --add all possible exits from current room to list of new possible rooms
-          for k, v in pairs(exits) do
-            table.insert(temp_rooms, v)
-          end
-        --if the current movement command is a look
-        elseif self.queue[i] == "l" then
-          --insert the current room into the list of new possible rooms
-          table.insert(temp_rooms, room)
-        --otherwise, the command is a movement
-        else
-          --if current movement command would take you to new room, add that new room to list of new possible rooms
-          if exits[self.exitmap[self.exitmap[self.queue[i]]]] then
-            table.insert(temp_rooms, exits[self.exitmap[self.exitmap[self.queue[i]]]])
-          --otherwise, the movement command would fail, so add current room to list of new possible rooms
-          else
-            table.insert(temp_rooms, room)
-          end  
+  --start out with list of current possible rooms
+  local rooms = table.deepcopy(self.currentID)
+  --loop over all commands in the movement queue
+  for i = self.queue.first, self.queue.last, 1 do
+    --variable to hold new possible rooms entered by the current movement command
+    local temp_rooms = {}
+    --for all possible rooms currently stored
+    for _, room in pairs(rooms) do
+      --get the exits in the room
+      local exits = getRoomExits(room)
+      --if the current movement command is a flee
+      if self.queue[i] == "f" then
+        --add all possible exits from current room to list of new possible rooms
+        for k, v in pairs(exits) do
+          table.insert(temp_rooms, v)
         end
+      --if the current movement command is a look
+      elseif self.queue[i] == "l" then
+        --insert the current room into the list of new possible rooms
+        table.insert(temp_rooms, room)
+      --otherwise, the command is a movement
+      else
+        --if current movement command would take you to new room, add that new room to list of new possible rooms
+        if exits[self.exitmap[self.exitmap[self.queue[i]]]] then
+          table.insert(temp_rooms, exits[self.exitmap[self.exitmap[self.queue[i]]]])
+        --otherwise, the movement command would fail, so add current room to list of new possible rooms
+        else
+          table.insert(temp_rooms, room)
+        end  
       end
-      --update rooms to loop over for next movement command
-      rooms = temp_rooms
     end
-    --variable to hold final list of valid rooms
-    local currentID = {}
-    --for all rooms that we found
-    for k, v in pairs(rooms) do
-      --if there is a door in the direction desired, add it to the list of valid rooms
-      if getRoomUserData(v, dir) ~= "" then
-        table.insert(currentID, v)
-      end
+    --update rooms to loop over for next movement command
+    rooms = temp_rooms
+  end
+  --variable to hold final list of valid rooms
+  local currentID = {}
+  --for all rooms that we found
+  for k, v in pairs(rooms) do
+    --if there is a door in the direction desired, add it to the list of valid rooms
+    if getRoomUserData(v, dir) ~= "" then
+      table.insert(currentID, v)
     end
-    --if list of valid rooms contains only one, send the command for that door
-    if table.size(currentID) == 1 then
-      local door = getRoomUserData(currentID[1], dir)
-      send(com .. " " .. door .. " " .. dir)
-    --otherwise send blank command
-    else
-      send(com .. " " .. dir)
-    end
+  end
+  --if list of valid rooms contains only one, send the command for that door
+  if table.size(currentID) == 1 then
+    local door = getRoomUserData(currentID[1], dir)
+    send(com .. " " .. door .. " " .. dir)
+  --otherwise send blank command
+  else
+    send(com .. " " .. dir)
   end
 end</script>
 					<eventHandlerList />

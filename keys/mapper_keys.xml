@@ -13,7 +13,7 @@
 				<name>North</name>
 				<packageName></packageName>
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
-offlineMove("n")</script>
+wotmudmapper:offline_move("n")</script>
 				<command></command>
 				<keyCode>56</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -22,7 +22,7 @@ offlineMove("n")</script>
 				<name>East</name>
 				<packageName></packageName>
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
-offlineMove("e")</script>
+wotmudmapper:offline_move("e")</script>
 				<command></command>
 				<keyCode>54</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -31,7 +31,7 @@ offlineMove("e")</script>
 				<name>South</name>
 				<packageName></packageName>
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
-offlineMove("s")</script>
+wotmudmapper:offline_move("s")</script>
 				<command></command>
 				<keyCode>50</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -40,7 +40,7 @@ offlineMove("s")</script>
 				<name>West</name>
 				<packageName></packageName>
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
-offlineMove("w")</script>
+wotmudmapper:offline_move("w")</script>
 				<command></command>
 				<keyCode>52</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -49,7 +49,7 @@ offlineMove("w")</script>
 				<name>Up</name>
 				<packageName></packageName>
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
-offlineMove("u")</script>
+wotmudmapper:offline_move("u")</script>
 				<command></command>
 				<keyCode>57</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -58,7 +58,7 @@ offlineMove("u")</script>
 				<name>Down</name>
 				<packageName></packageName>
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
-offlineMove("d")</script>
+wotmudmapper:offline_move("d")</script>
 				<command></command>
 				<keyCode>51</keyCode>
 				<keyModifier>536870912</keyModifier>

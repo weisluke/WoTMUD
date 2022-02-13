@@ -884,8 +884,8 @@ end</script>
         end  
       end
     end
-    --update rooms to loop over for next movement command
-    rooms = temp_rooms
+    --update rooms to loop over for next movement command. union ensures there are no duplicates
+    rooms = table.n_union(temp_rooms, temp_rooms)
   end
   --variable to hold final list of valid rooms
   local currentID = {}

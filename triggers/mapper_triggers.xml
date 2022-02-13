@@ -81,7 +81,7 @@ if matches[2] ~= wotmudmapper.roomname and not string.find(line, "obvious exits:
   else
     wotmudmapper.roomdesc = wotmudmapper.roomdesc .. "\n" .. line
   end
-  if wotmudmapper.configs.mapbrief and not isLook(wotmudmapper.queue:checkleftvalue()) then
+  if wotmudmapper.configs.mapbrief and not wotmudmapper:is_look(wotmudmapper.queue:checkleftvalue()) then
     deleteLine()
   end
   setTriggerStayOpen("Catch Name", 1)
@@ -127,7 +127,7 @@ else
     --checking if next command in line is flee
     mapCommand = wotmudmapper.queue:checkleftvalue()
     --if yes, then take command from queue
-    if isFlee(mapCommand) then
+    if wotmudmapper:is_flee(mapCommand) then
       wotmudmapper.queue:popleft()
     else
       --if no, then it is autowimpy flee
@@ -142,37 +142,37 @@ end
 lastID = wotmudmapper.currentID
 local newID = {}
 --if mapCommand is a direction and you were in a valid room
-if isMovement(mapCommand) and (not table.is_empty(lastID)) then
+if wotmudmapper:is_movement(mapCommand) and (not table.is_empty(lastID)) then
   --if mapping and you were in a unique room
   if wotmudmapper.configs.mapping and table.size(lastID) == 1 then
-    tempID = wotmudmapper:findRoom(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
+    tempID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
     --if not in an already mapped room or if forcing a room
     if table.is_empty(tempID) or wotmudmapper.configs.forceroom then
       x, y, z = getRoomCoordinates(lastID[1])
-      x, y, z = wotmudmapper:setCoordinatesOffset(x, y, z, mapCommand)
-      wotmudmapper.currentID = wotmudmapper:createRoom(x, y, z, getRoomArea(lastID[1]))
-      wotmudmapper:linkRooms(lastID[1], wotmudmapper.currentID[1], mapCommand, wotmudmapper.roomexits)
+      x, y, z = wotmudmapper:set_coordinates_offset(x, y, z, mapCommand)
+      wotmudmapper.currentID = wotmudmapper:create_room(x, y, z, getRoomArea(lastID[1]))
+      wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], mapCommand, wotmudmapper.roomexits)
       if wotmudmapper.configs.autojoin then
-        wotmudmapper:autoJoinRooms(wotmudmapper.currentID[1])
+        wotmudmapper:auto_join_rooms(wotmudmapper.currentID[1])
       end
       wotmudmapper.configs.forceroom = false
       --if in a known room, link with previous room
     elseif table.size(tempID) == 1 and tempID[1] ~= lastID[1] then
       wotmudmapper.currentID = tempID
-      wotmudmapper:linkRooms(lastID[1], wotmudmapper.currentID[1], mapCommand, wotmudmapper.roomexits)
+      wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], mapCommand, wotmudmapper.roomexits)
       --else, you're just moving around in mapping mode
     else
       newID =
-        wotmudmapper:isNearRoom(
+        wotmudmapper:is_near_room(
           mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(lastID[1])
         )
       if table.is_empty(newID) then
         newID = tempID
       elseif
         table.size(newID) &gt; 1 and
-        (not table.is_empty(wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)))
+        (not table.is_empty(wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)))
       then
-        newID = wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)
+        newID = wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)
       end
       wotmudmapper.currentID = newID
     end
@@ -180,26 +180,26 @@ if isMovement(mapCommand) and (not table.is_empty(lastID)) then
   else
     for k, v in pairs(lastID) do
       local rooms =
-        wotmudmapper:isNearRoom(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))
+        wotmudmapper:is_near_room(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))
       if not table.contains(newID, rooms[1]) then
         table.insert(newID, rooms[1])
       end
     end
     if table.is_empty(newID) then
-      newID = wotmudmapper:findRoom(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
+      newID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
     elseif
       table.size(newID) &gt; 1 and
-      (not table.is_empty(wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)))
+      (not table.is_empty(wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)))
     then
-      newID = wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)
+      newID = wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)
     end
     wotmudmapper.currentID = newID
   end
   --handling flees
-elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
+elseif wotmudmapper:is_flee(mapCommand) and (not table.is_empty(lastID)) then
   for k, v in pairs(lastID) do
     local rooms =
-      wotmudmapper:findRoomAfterFlee(
+      wotmudmapper:find_room_after_flee(
         wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits, getRoomExits(v)
       )
     for kk, vv in pairs(rooms) do
@@ -209,22 +209,22 @@ elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
     end
   end
   if table.is_empty(newID) then
-    newID = wotmudmapper:findRoom(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
+    newID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
   elseif
     table.size(newID) &gt; 1 and
-    (not table.is_empty(wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)))
+    (not table.is_empty(wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)))
   then
-    newID = wotmudmapper:findMatchingExits(newID, wotmudmapper.roomexits)
+    newID = wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)
   end
   wotmudmapper.currentID = newID
   --if not looking at room and data is same, search for room
 elseif
-  not (isLook(mapCommand) and
+  not (wotmudmapper:is_look(mapCommand) and
   table.size(lastID) == 1 and
   wotmudmapper.roomname == getRoomName(lastID[1]) and
   wotmudmapper.roomdesc == getRoomUserData(lastID[1], "description"))
 then
-  wotmudmapper.currentID = wotmudmapper:findRoom(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
+  wotmudmapper.currentID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
 end
 
 if table.is_empty(wotmudmapper.currentID) then
@@ -320,7 +320,7 @@ else
     --checking if next command in line is flee
     mapCommand = wotmudmapper.queue:checkleftvalue()
     --if yes, then take command from queue
-    if isFlee(mapCommand) then
+    if wotmudmapper:is_flee(mapCommand) then
       wotmudmapper.queue:popleft()
     else
       --if no, then it is autowimpy flee
@@ -335,13 +335,13 @@ end
 lastID = wotmudmapper.currentID
 local newID = {}
 --if mapCommand is a direction and you were in a valid room
-if isMovement(mapCommand) and (not table.is_empty(lastID)) then
+if wotmudmapper:is_movement(mapCommand) and (not table.is_empty(lastID)) then
   for k, v in pairs(lastID) do
-    table.insert(newID, wotmudmapper:isNearRoom(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))[1])
+    table.insert(newID, wotmudmapper:is_near_room(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))[1])
   end
   wotmudmapper.currentID = table.n_union(newID, newID)
   --handling flees
-elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
+elseif wotmudmapper:is_flee(mapCommand) and (not table.is_empty(lastID)) then
   for k, v in pairs(lastID) do
     for kk, vv in pairs(getRoomExits(v)) do
       table.insert(newID, vv)
@@ -349,7 +349,7 @@ elseif isFlee(mapCommand) and (not table.is_empty(lastID)) then
   end
   wotmudmapper.currentID = table.n_union(newID, newID)
   --if not looking at room, search for room from all rooms in the map
-elseif not (isLook(mapCommand) and table.size(lastID) == 1) then
+elseif not (wotmudmapper:is_look(mapCommand) and table.size(lastID) == 1) then
   wotmudmapper.currentID={}
   for k, v in pairs(getRooms()) do
     table.insert(wotmudmapper.currentID, k)
@@ -582,7 +582,7 @@ if
   table.size(wotmudmapper.currentID) == 1 and
   getRoomUserData(wotmudmapper.currentID[1], direction) == ""
 then
-  wotmudmapper:createDoor(wotmudmapper.currentID[1], direction, 1, matches[2])
+  wotmudmapper:create_door(wotmudmapper.currentID[1], direction, 1, matches[2])
 end
 if wotmudmapper.following then
   wotmudmapper.following = false
@@ -661,7 +661,7 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Hidden Doors</name>
 				<script>if wotmudmapper.configs.mapping and table.size(wotmudmapper.currentID) == 1 then
-  wotmudmapper:createDoor(wotmudmapper.currentID[1], wotmudmapper.door, 2, matches[2])
+  wotmudmapper:create_door(wotmudmapper.currentID[1], wotmudmapper.door, 2, matches[2])
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -749,7 +749,7 @@ enableTrigger("Resuming Trigger")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Failing Flees</name>
-				<script>if isFlee(wotmudmapper.queue:checkleftvalue()) then
+				<script>if wotmudmapper:is_flee(wotmudmapper.queue:checkleftvalue()) then
   wotmudmapper.queue:popleft()
 end</script>
 				<triggerType>0</triggerType>
@@ -822,8 +822,8 @@ for k, v in pairs(foundrooms) do
 end
 
 if table.is_empty(foundrooms) then
-    selectCaptureGroup(2)
-    setLink(function() end, "No matches found!")
+  selectCaptureGroup(2)
+  setLink(function() end, "No matches found!")
 elseif table.size(foundrooms) == 1 then
   for k, v in pairs(foundrooms) do
     selectCaptureGroup(2)

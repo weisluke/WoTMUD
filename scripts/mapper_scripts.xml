@@ -10,19 +10,33 @@ mudlet = mudlet or {}
 mudlet.mapper_script = true
 wotmudmapper = wotmudmapper or {}
 
+
 --mapper variables
-wotmudmapper.currentID = {} --table to hold list of possible current room IDs
-wotmudmapper.roomname = "" --current room name captured by triggers
-wotmudmapper.roomdesc = "" --current room description captured by triggers
-wotmudmapper.roomexits = {} --table to hold list of room exits captured by triggers. list may include exits not in the map data. map data may include exits not in the list.
-wotmudmapper.zone = "" --current zone name pulled from map data
-wotmudmapper.brief = false --true only if wotmudmapper.roomdesc is empty string
-wotmudmapper.dark = false --true only if night/blind/fog triggers match
-wotmudmapper.flee = false --used by triggers to determine whether most recent movement was a manual flee or autoflee
-wotmudmapper.following = false --set to true on "You follow (.+)\.$"
-wotmudmapper.door = "n" --variable to hold door direction. only used in mapping mode to create doors
-wotmudmapper.pausing = false --variable used to pause and reset queue if long mud output (e.g. two page who list) is encountered
-wotmudmapper.inways = false --true only if wotmudmapper.roomname matches a room name from inside The Ways zone
+
+--table to hold list of possible current room IDs
+wotmudmapper.currentID = wotmudmapper.currentID or {}
+--current room name captured by triggers
+wotmudmapper.roomname = wotmudmapper.roomname or ""
+--current room description captured by triggers
+wotmudmapper.roomdesc = wotmudmapper.roomdesc or ""
+--table to hold list of room exits captured by triggers. list may include exits not in the map data. map data may include exits not in the list.
+wotmudmapper.roomexits = wotmudmapper.roomexits or {}
+--current zone name pulled from map data
+wotmudmapper.zone = wotmudmapper.zone or ""
+--true only if wotmudmapper.roomdesc is empty string or in the dark
+wotmudmapper.brief = wotmudmapper.brief or false
+--true only if night/blind/fog triggers match
+wotmudmapper.dark = wotmudmapper.dark or false
+--used by triggers to determine whether most recent movement was a manual flee or autoflee
+wotmudmapper.flee = wotmudmapper.flee or false
+--set to true on "You follow (.+)\.$"
+wotmudmapper.following = wotmudmapper.following or false
+--variable to hold door direction. only used in mapping mode to create doors
+wotmudmapper.door = wotmudmapper.door or "n"
+--variable used to pause and reset queue if long mud output (e.g. two page who list) is encountered
+wotmudmapper.pausing = wotmudmapper.pausing or false
+--true only if wotmudmapper.roomname matches a room name from inside The Ways zone
+wotmudmapper.inways = wotmudmapper.inways or false
 
 --default configuration values to be used or updated in wotmudmapper.configs
 wotmudmapper.defaults = {
@@ -248,89 +262,89 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>MapOnSysConnectionEvent</name>
+				<name>System connection</name>
 				<packageName></packageName>
-				<script>function MapOnSysConnectionEvent(event)
+				<script>function wotmudmapper:sys_connection(event)
   --ensure the movement queue is empty
-  wotmudmapper.queue = List:new()
+  self.queue = List:new()
   --set configuration values
-  wotmudmapper:set_configs()
+  self:set_configs()
   
   --show map window
-  wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)
+  self:show_map(self.configs.map_window.visible)
   
   --set colors and center on player location
-  wotmudmapper:set_map_colors()
-  wotmudmapper.currentID={wotmudmapper.configs.roomID}
-  centerview(wotmudmapper.currentID[1])
+  self:set_map_colors()
+  self.currentID = {self.configs.roomID}
+  centerview(self.currentID[1])
   
   --ensure that offline mode is disabled
-  wotmudmapper.configs.offline=false
+  self.configs.offline = false
   disableKey("Offline Map")
   disableAlias("Offline Map Dirs")
   disableAlias("Offline Map Look")
   
   --add map right click options and register their event handlers
   addMapMenu("Update room information")
-  addMapEvent("OnMapUpdateRoomName", "OnMapUpdateRoomName", "Update room information", "Update room name") 
-  addMapEvent("OnMapUpdateRoomDesc", "OnMapUpdateRoomDesc", "Update room information", "Update room description")
+  addMapEvent("map_rightclick_update_roomname", "map_rightclick_update_roomname_event", "Update room information", "Update room name") 
+  addMapEvent("map_rightclick_update_roomdesc", "map_rightclick_update_roomdesc_event", "Update room information", "Update room description")
   
-  registerAnonymousEventHandler("OnMapUpdateRoomName", "OnMapUpdateRoomName")
-  registerAnonymousEventHandler("OnMapUpdateRoomDesc", "OnMapUpdateRoomDesc")
-end</script>
-				<eventHandlerList>
-					<string>sysLoadEvent</string>
-					<string>sysConnectionEvent</string>
-				</eventHandlerList>
+  registerAnonymousEventHandler("map_rightclick_update_roomname_event", "wotmudmapper:rightclick_update_roomname")
+  registerAnonymousEventHandler("map_rightclick_update_roomdesc_event", "wotmudmapper:rightclick_update_roomdesc")
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "wotmudmapper:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "wotmudmapper:sys_connection")</script>
+				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>MapOnSysDisconnectionEvent</name>
+				<name>System disconnection</name>
 				<packageName></packageName>
-				<script>function MapOnSysDisconnectionEvent()
+				<script>function wotmudmapper:sys_disconnection(event)
   --set config values in preparation for disconnection
-  wotmudmapper.configs = wotmudmapper.configs or {}
-  wotmudmapper.configs.mapping = false
-  wotmudmapper.configs.forceroom = false
-  wotmudmapper.configs.offline=false
-  wotmudmapper.map_colors = wotmudmapper.map_colors or {}
+  self.configs = self.configs or {}
+  self.configs.mapping = false
+  self.configs.forceroom = false
+  self.configs.offline = false
+  self.map_colors = self.map_colors or {}
   
   --if player location was known, save, otherwise set to mudlet roomID 1
-  if table.size(wotmudmapper.currentID) == 1 then
-    wotmudmapper.configs.roomID=wotmudmapper.currentID[1]
+  if table.size(self.currentID) == 1 then
+    self.configs.roomID = self.currentID[1]
   else
-    wotmudmapper.configs.roomID=1
+    self.configs.roomID = 1
   end
   
   --save configs and colors to disk
-  wotmudmapper:echo("Saving map configurations.\n")
-  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
-  table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
-  wotmudmapper:echo("Map configurations saved.\n")
-end</script>
-				<eventHandlerList>
-					<string>sysExitEvent</string>
-					<string>sysDisconnectionEvent</string>
-				</eventHandlerList>
+  self:echo("Saving map configurations.\n")
+  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", self.configs)
+  table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", self.map_colors)
+  self:echo("Map configurations saved.\n")
+end
+
+registerAnonymousEventHandler("sysExitEvent", "wotmudmapper:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "wotmudmapper:sys_disconnection")</script>
+				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>WoTMUDMapUpdate</name>
+				<name>Map update</name>
 				<packageName></packageName>
-				<script>function WoTMUDMapUpdate(event, filename)
+				<script>function wotmudmapper:map_update(event, filename)
   --if the file that downloaded is not the map, return
   if not filename:find("WoTMUD_map.dat", 1, true) then
     return
   end
   
   --load in map file, set colors, and center on current player room
-  wotmudmapper:echo("Download complete.\n")
+  self:echo("Download complete.\n")
   loadMap(filename)
-  wotmudmapper:echo("New map successfully uploaded.\n")
-  wotmudmapper:set_map_colors()
-  centerview(wotmudmapper.currentID[1])
-end</script>
-				<eventHandlerList>
-					<string>sysDownloadDone</string>
-				</eventHandlerList>
+  self:echo("New map successfully uploaded.\n")
+  self:set_map_colors()
+  centerview(self.currentID[1])
+end
+
+registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</script>
+				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>Show Map</name>
@@ -355,9 +369,9 @@ end</script>
   end
   
   --create mapper container, position it, and resize it
-  wotmudmapper.container = wotmudmapper.container or Adjustable.Container:new(
+  self.container = self.container or Adjustable.Container:new(
     {
-      name = "mapper_container",
+      name = "wotmudmapper.mapper_container",
       adjLabelstyle = "background-color:rgba(220,220,220,100%); border: 5px groove grey;",
       buttonstyle=[[
       QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
@@ -370,17 +384,17 @@ end</script>
       padding = 15
     }
   )
-  wotmudmapper.container:move(x, y)
-  wotmudmapper.container:resize(w,h)
-  wotmudmapper.mapper = mapper or Geyser.Mapper:new({name = "mapper", x = "0%", y = "0%", width = "100%", height = "100%"}, wotmudmapper.container)
+  self.container:move(x, y)
+  self.container:resize(w,h)
+  self.mapper = self.mapper or Geyser.Mapper:new({name = "wotmudmapper.mapper", x = "0%", y = "0%", width = "100%", height = "100%"}, self.container)
   
   setMapZoom(configs.zoom)
   
   --show or hide mapper container
   if visible then
-    wotmudmapper.container:show()
+    self.container:show()
   else
-    wotmudmapper.container:hide()
+    self.container:hide()
   end
   
   --strip numeric values from mapper container position and size (since they are stored as percent strings)
@@ -400,12 +414,12 @@ end</script>
   --allow map to dock on the left or right of the screen if the center of the mapper is left or right of the screen midpoint
   if configs.dock then
     if x + 0.5*w &gt; 50 then
-        wotmudmapper.container:attachToBorder("right")
+        self.container:attachToBorder("right")
     else
-        wotmudmapper.container:attachToBorder("left")
+        self.container:attachToBorder("left")
     end
   else
-    wotmudmapper.container:attachToBorder("float")
+    self.container:attachToBorder("float")
   end
 end</script>
 				<eventHandlerList />
@@ -413,9 +427,9 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Map Window Reposition</name>
 				<packageName></packageName>
-				<script>function MapFinishedRepositioning(eventName, containerName, width, height, x, y)
+				<script>function wotmudmapper:reposition_map(event, container_name, width, height, x, y)
   --if the Adjustable.Container is not the mapper, return
-  if containerName ~= "mapper_container" then
+  if container_name ~= "wotmudmapper.mapper_container" then
     return
   end
   
@@ -426,16 +440,16 @@ end</script>
   width = width/mx*100
   height = height/my*100
   
-  wotmudmapper.configs.map_window.x = x.."%"
-  wotmudmapper.configs.map_window.y = y.."%"
-  wotmudmapper.configs.map_window.w = width.."%"
-  wotmudmapper.configs.map_window.h = height.."%"
-  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+  self.configs.map_window.x = x.."%"
+  self.configs.map_window.y = y.."%"
+  self.configs.map_window.w = width.."%"
+  self.configs.map_window.h = height.."%"
+  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", self.configs)
   
-  wotmudmapper:show_map(true)
+  self:show_map(true)
 end
 
-registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "MapFinishedRepositioning")</script>
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "wotmudmapper:reposition_map")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -700,30 +714,30 @@ wotmudmapper.help.misc =
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Map Right Click to Update Room Information</name>
+				<name>Right Click to Update Room Information</name>
 				<packageName></packageName>
-				<script>function OnMapUpdateRoomName(event)
+				<script>function wotmudmapper:rightclick_update_roomname(event)
   local rooms = getMapSelection()["rooms"]
   if table.is_empty(rooms) then
-    wotmudmapper:echo("No room selected.\n",false,true)
+    self:echo("No room selected.\n",false,true)
   elseif table.size(rooms) &gt; 1 then
-    wotmudmapper:echo("More than one room selected.\n",false,true)
+    self:echo("More than one room selected.\n",false,true)
   else
-    wotmudmapper:echo("Room name for room ID ("..rooms[1]..") updated from ("..getRoomName(rooms[1])..") to ("..wotmudmapper.roomname..")\n")
-    setRoomName(rooms[1],wotmudmapper.roomname)
+    self:echo("Room name for room ID ("..rooms[1]..") updated from ("..getRoomName(rooms[1])..") to ("..self.roomname..")\n")
+    setRoomName(rooms[1],self.roomname)
   end
   updateMap()
 end
 
-function OnMapUpdateRoomDesc(event)
+function wotmudmapper:rightclick_update_roomdesc(event)
   local rooms = getMapSelection()["rooms"]
   if table.is_empty(rooms) then
-    wotmudmapper:echo("No room selected.\n",false,true)
+    self:echo("No room selected.\n",false,true)
   elseif table.size(rooms) &gt; 1 then
-    wotmudmapper:echo("More than one room selected.\n",false,true)
+    self:echo("More than one room selected.\n",false,true)
   else
-    wotmudmapper:echo("Room description for room ID ("..rooms[1]..") updated.\n")
-    setRoomUserData(rooms[1], "description", wotmudmapper.roomdesc)
+    self:echo("Room description for room ID ("..rooms[1]..") updated.\n")
+    setRoomUserData(rooms[1], "description", self.roomdesc)
   end
   updateMap()
 end
@@ -742,32 +756,31 @@ end
 </script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>trackMapCommands</name>
+					<name>Track map commands</name>
 					<packageName></packageName>
 					<script>--if command is a direction, look, or flee, add to list of commands affecting map movement (wotmudmapper.queue)
 --pushes first letter of command (made lowercase), such that wotmudmapper.queue always contains lowercase, single letters
 
-function trackMapCommands(event, command)
-  if isMovement(command) or isLook(command) or isFlee(command) then
-    wotmudmapper.queue:pushright(string.sub(string.lower(command), 1, 1))
-    wotmudmapper:echo("Added command (" .. command .. ") to queue.\n", true)
-    if wotmudmapper.following then
-      wotmudmapper.following = false
+function wotmudmapper:track_map_commands(event, command)
+  if self:is_movement(command) or self:is_look(command) or self:is_flee(command) then
+    self.queue:pushright(command:lower():sub(1,1))
+    self:echo("Added command (" .. command .. ") to queue.\n", true)
+    if self.following then
+      self.following = false
     end
   end
-end</script>
-					<eventHandlerList>
-						<string>sysDataSendRequest</string>
-					</eventHandlerList>
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "wotmudmapper:track_map_commands")</script>
+					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>isMovement</name>
+					<name>is_movement</name>
 					<packageName></packageName>
 					<script>--return true if command is a direction, false if not a direction. ignores capitalization
 
-function isMovement(com)
+function wotmudmapper:is_movement(com)
   if com ~= nil then
-    local lowcom = string.lower(com)
     if
       table.contains(
         {
@@ -796,7 +809,7 @@ function isMovement(com)
           "dow",
           "down",
         },
-        lowcom
+        com:lower()
       )
     then
       return true
@@ -807,14 +820,13 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>isLook</name>
+					<name>is_look</name>
 					<packageName></packageName>
 					<script>--return true if command is a look, false if not a look. ignores capitalization
 
-function isLook(com)
+function wotmudmapper:is_look(com)
   if com ~= nil then
-    local lowcom = string.lower(com)
-    if table.contains({"l", "lo", "loo", "look"}, lowcom) then
+    if table.contains({"l", "lo", "loo", "look"}, com:lower()) then
       return true
     end
   end
@@ -823,14 +835,13 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>isFlee</name>
+					<name>is_flee</name>
 					<packageName></packageName>
 					<script>--return true if command is a flee, false if not a flee. ignores capitalization
 
-function isFlee(com)
+function wotmudmapper:is_flee(com)
   if com ~= nil then
-    local lowcom = string.lower(com)
-    if table.contains({"f", "fl", "fle", "flee"}, lowcom) then
+    if table.contains({"f", "fl", "fle", "flee"}, com:lower()) then
       return true
     end
   end
@@ -841,38 +852,57 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Door Command Direction</name>
 					<packageName></packageName>
-					<script>function wotmudmapper:doorComDir(com, dir)
+					<script>function wotmudmapper:door_com_dir(com, dir)
+  --if we are in a known location
   if table.size(self.currentID) == 1 then
+    --start out in our room
     local rooms = {self.currentID[1]}
+    --loop over all commands in the movement queue
     for i = self.queue.first, self.queue.last, 1 do
+      --variable to hold new possible rooms entered by the current movement command
       local temp_rooms = {}
+      --for all possible rooms currently stored
       for _, room in pairs(rooms) do
+        --get the exits in the room
         local exits = getRoomExits(room)
+        --if the current movement command is a flee
         if self.queue[i] == "f" then
+          --add all possible exits from current room to list of new possible rooms
           for k, v in pairs(exits) do
             table.insert(temp_rooms, v)
           end
+        --if the current movement command is a look
         elseif self.queue[i] == "l" then
+          --insert the current room into the list of new possible rooms
           table.insert(temp_rooms, room)
+        --otherwise, the command is a movement
         else
+          --if current movement command would take you to new room, add that new room to list of new possible rooms
           if exits[self.exitmap[self.exitmap[self.queue[i]]]] then
             table.insert(temp_rooms, exits[self.exitmap[self.exitmap[self.queue[i]]]])
+          --otherwise, the movement command would fail, so add current room to list of new possible rooms
           else
             table.insert(temp_rooms, room)
           end  
         end
       end
+      --update rooms to loop over for next movement command
       rooms = temp_rooms
     end
+    --variable to hold final list of valid rooms
     local currentID = {}
+    --for all rooms that we found
     for k, v in pairs(rooms) do
+      --if there is a door in the direction desired, add it to the list of valid rooms
       if getRoomUserData(v, dir) ~= "" then
         table.insert(currentID, v)
       end
     end
+    --if list of valid rooms contains only one, send the command for that door
     if table.size(currentID) == 1 then
       local door = getRoomUserData(currentID[1], dir)
       send(com .. " " .. door .. " " .. dir)
+    --otherwise send blank command
     else
       send(com .. " " .. dir)
     end
@@ -896,7 +926,7 @@ end</script>
 					<packageName></packageName>
 					<script>--returns the ID of the room with matching name/desc/exits, or empty list
 
-function wotmudmapper:findRoom(name, desc, exits)
+function wotmudmapper:find_room(name, desc, exits)
   --initialiasing tables. initial matches based on roomnames, and empty list of possible matches
   local initrooms = searchRoom(name, true, true)
   local roommatches = {}
@@ -913,7 +943,7 @@ function wotmudmapper:findRoom(name, desc, exits)
     end
     --if more than one possible match, narrow based on exits
     if table.size(roommatches) &gt; 1 then
-      roommatches = self:findMatchingExits(roommatches, exits)
+      roommatches = self:find_matching_exits(roommatches, exits)
     end
   end
   return roommatches
@@ -925,7 +955,7 @@ end</script>
 					<packageName></packageName>
 					<script>--assumes exits is of the form {"n","e","s"}
 
-function wotmudmapper:findMatchingExits(roomIDs, exits)
+function wotmudmapper:find_matching_exits(roomIDs, exits)
   local roommatches = {}
   local exitkeys, firstcomp, secondcomp, alldoors
   --initialiasing table
@@ -976,7 +1006,7 @@ end</script>
 					<script>--assumes lastexits is of the form {"north":roomID1,"south":roomID2}
 --and currexits is of the form {"n","s"}
 
-function wotmudmapper:findRoomAfterFlee(name, description, currexits, lastexits)
+function wotmudmapper:find_room_after_flee(name, description, currexits, lastexits)
   --initialiasing table.
   local roommatches = {}
   --if name/desc of connecting room match name/desc given, add to table
@@ -992,9 +1022,9 @@ function wotmudmapper:findRoomAfterFlee(name, description, currexits, lastexits)
   --if more than 1 match, and narrowing by exits doesn't give empty result, then narrow by exits
   if
     table.size(roommatches) &gt; 1 and
-    (not table.is_empty(self:findMatchingExits(roommatches, currexits)))
+    (not table.is_empty(self:find_matching_exits(roommatches, currexits)))
   then
-    roommatches = self:findMatchingExits(roommatches, currexits)
+    roommatches = self:find_matching_exits(roommatches, currexits)
   end
   return roommatches
 end</script>
@@ -1005,7 +1035,7 @@ end</script>
 					<packageName></packageName>
 					<script>--assumes lastexits is of the form {"north":roomID1,"south":roomID2}
 
-function wotmudmapper:isNearRoom(com, name, desc, lastexits)
+function wotmudmapper:is_near_room(com, name, desc, lastexits)
   local newID = lastexits[self.exitmap[self.exitmap[com]]]
   if not newID then
     return {}
@@ -1035,12 +1065,12 @@ end</script>
 </script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>createRoom</name>
+					<name>create_room</name>
 					<packageName></packageName>
 					<script>--assumes wotmudmapper.roomexits is of the form {"n","e","s","w","u","d"}
 --returns list containing only new room ID
 
-function wotmudmapper:createRoom(x, y, z, areaID)
+function wotmudmapper:create_room(x, y, z, areaID)
   --create new room ID
   local newID = createRoomID()
   addRoom(newID)
@@ -1063,11 +1093,11 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>linkRooms</name>
+					<name>link_rooms</name>
 					<packageName></packageName>
 					<script>--assumes exits are for second room and of the form {"n","e","s","w","u","d"}, and direction is lowercase single letter
 
-function wotmudmapper:linkRooms(firRoomID, secRoomID, dir, exits)
+function wotmudmapper:link_rooms(firRoomID, secRoomID, dir, exits)
   local complements = {n = "s", e = "w", s = "n", w = "e", u = "d", d = "u"}
   --set exit from first room to second room in direction
   setExit(firRoomID, secRoomID, self.exitmap[dir])
@@ -1093,7 +1123,7 @@ end</script>
 					<script>--assumes com is a lowercase single letter
 --gives coordinate offset based on direction
 
-function wotmudmapper:setCoordinatesOffset(x, y, z, com)
+function wotmudmapper:set_coordinates_offset(x, y, z, com)
   if com == "n" then
     return x, y + 3, z
   elseif com == "e" then
@@ -1111,9 +1141,9 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>autoJoinRooms</name>
+					<name>auto_join_rooms</name>
 					<packageName></packageName>
-					<script>function wotmudmapper:autoJoinRooms(roomID)
+					<script>function wotmudmapper:auto_join_rooms(roomID)
   --initializing variables
   local complements = {n = "s", e = "w", s = "n", w = "e", u = "d", d = "u"}
   local areaID = getRoomArea(roomID)
@@ -1132,7 +1162,7 @@ end</script>
     local secondExits = {}
     --find what coordinates would be offset in the stub direction
     --and get list of rooms at the offset position
-    a, b, c = self:setCoordinatesOffset(x, y, z, v)
+    a, b, c = self:set_coordinates_offset(x, y, z, v)
     roomList = getRoomsByPosition(areaID, a, b, c)
     --if only one room at offset position
     if table.size(roomList) == 1 then
@@ -1158,11 +1188,11 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>createDoor</name>
+					<name>create_door</name>
 					<packageName></packageName>
 					<script>--assumes direction is a lowercase single letter
 
-function wotmudmapper:createDoor(currentID, direction, status, doorname)
+function wotmudmapper:create_door(currentID, direction, status, doorname)
   if direction ~= "d" and direction ~= "u" then
     setDoor(currentID, direction, status)
   end
@@ -1188,14 +1218,13 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>isSearch</name>
+					<name>is_search</name>
 					<packageName></packageName>
 					<script>--return true if command is search, false if not search. ignores capitalization
 
-function isSearch(com)
+function wotmudmapper:is_search(com)
   if com ~= nil then
-    local lowcom = string.lower(com)
-    if table.contains({"sea", "sear", "searc", "search"}, lowcom) then
+    if table.contains({"sea", "sear", "searc", "search"}, com:lower()) then
       return true
     end
   end
@@ -1204,11 +1233,11 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>lookingForDoors</name>
+					<name>looking_for_doors</name>
 					<packageName></packageName>
 					<script>--set mapper door direction based on look or searches
 
-function lookingForDoors(event, command)
+function wotmudmapper:looking_for_doors(event, command)
   local lowcom = string.lower(command)
   lowcom = string.split(lowcom)
   while table.index_of(lowcom, "") do
@@ -1216,15 +1245,14 @@ function lookingForDoors(event, command)
   end
   
   if table.size(lowcom) == 2 then
-    if (isSearch(lowcom[1]) or isLook(lowcom[1])) and isMovement(lowcom[2]) then
-      wotmudmapper.door = string.sub(lowcom[2], 1, 1)
+    if (self:is_search(lowcom[1]) or self:is_look(lowcom[1])) and self:is_movement(lowcom[2]) then
+      self.door = string.sub(lowcom[2], 1, 1)
     end
   end
 end
-</script>
-					<eventHandlerList>
-						<string>sysDataSendRequest</string>
-					</eventHandlerList>
+
+registerAnonymousEventHandler("sysDataSendRequest", "wotmudmapper:looking_for_doors")</script>
+					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
@@ -1309,20 +1337,20 @@ end</script>
 				</Script>
 			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
-				<name>MapperInstallerSuccess</name>
+				<name>Script Installation Success</name>
 				<packageName></packageName>
-				<script>function MapperInstallerSuccess(_, name)
+				<script>function wotmudmapper:mapper_installer_success(event, name)
   --if installed file is not the desired one
   if name ~= "mapper_scripts" then return end
-  wotmudmapper:show_help()
-  wotmudmapper:set_configs()
-  wotmudmapper:set_map_colors()
+  self:show_help()
+  self:set_configs()
+  self:set_map_colors()
   
-  wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)
-end</script>
-				<eventHandlerList>
-					<string>sysInstallPackage</string>
-				</eventHandlerList>
+  self:show_map(self.configs.map_window.visible)
+end
+
+registerAnonymousEventHandler("sysInstallPackage", "wotmudmapper:mapper_installer_success")</script>
+				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>doSpeedWalk</name>
@@ -1339,55 +1367,48 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>offlineMove</name>
+				<name>offline_move</name>
 				<packageName></packageName>
-				<script>function offlineMove(direction)
-  if table.size(wotmudmapper.currentID) == 1 then
-    local newid
-    local exits = getRoomExits(wotmudmapper.currentID[1])
-    for k, v in pairs(exits) do
-      ---search for every linked Room with the current room
-      if string.sub(k, 1, 1) == direction and roomExists(v) then
-        newid=v
-        break
-      end
-    end
+				<script>function wotmudmapper:offline_move(direction)
+  if table.size(self.currentID) == 1 then
+    local exits = getRoomExits(self.currentID[1])
+    local newid = exits[self.exitmap[self.exitmap[direction]]]
     
     if newid then
-        wotmudmapper.currentID={newid}
-        wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
+        self.currentID={newid}
+        self.zone = getRoomUserData(self.currentID[1], "zone")
         centerview(newid)
-        cecho("&lt;cyan&gt;"..getRoomName(newid).."\n")
+        cecho("&lt;ansi_cyan&gt;"..getRoomName(newid).."\n")
         cecho(getRoomUserData(newid,"description"))
-        cecho("\nExits: [ ")
+        cecho("\n[ obvious exits: ")
         exits = {}
         for k, v in pairs(getRoomExits(newid)) do
             table.insert(exits,string.sub(k,1,1))
         end
         if getExitStubs(newid) then
             for k, v in pairs(getExitStubs(newid)) do
-                table.insert(exits,string.sub(wotmudmapper.exitmap[v],1,1))
+                table.insert(exits,string.sub(self.exitmap[v],1,1))
             end  
         end      
         exits = table.n_intersection({"n","e","s","w","u","d"},exits)
         for k,v in pairs(exits) do
-            cecho(v.." ")
+            cecho(v:upper().." ")
         end
         cecho("]")
-        if wotmudmapper.configs.showzone then
-          cechoLink("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone,
+        if self.configs.showzone then
+          cechoLink("\n&lt;"..self.configs.zonecolor.."&gt;Zone: " .. self.zone,
           function()
-            if wotmudmapper.zone ~= "" then
-              if wotmudmapper.zone_urls[wotmudmapper.zone] ~= "" then
-                openUrl("https://wotmud.fandom.com/wiki/"..wotmudmapper.zone_urls[wotmudmapper.zone])
+            if self.zone ~= "" then
+              if self.zone_urls[self.zone] ~= "" then
+                openUrl("https://wotmud.fandom.com/wiki/"..self.zone_urls[self.zone])
               end
             end
           end,
           "Click to open the WoTMUD wiki page for this zone", true)
         end
         for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
-          if getRoomUserData(wotmudmapper.currentID[1], string.sub(v, 1, 1)) ~= "" then
-            cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], string.sub(v, 1, 1)))
+          if getRoomUserData(self.currentID[1], string.sub(v, 1, 1)) ~= "" then
+            cecho("\n&lt;"..self.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(self.currentID[1], string.sub(v, 1, 1)))
           end
         end
         cecho("\n\n")
@@ -1670,11 +1691,11 @@ enableMapInfo("Door info")
 			<Script isActive="yes" isFolder="no">
 				<name>Set Player Location</name>
 				<packageName></packageName>
-				<script>registerAnonymousEventHandler("sysManualLocationSetEvent", "set_player_location")
+				<script>function wotmudmapper:set_player_location(event, room)
+  self.currentID={room}
+end
 
-function set_player_location(event, args)
-  wotmudmapper.currentID={args}
-end</script>
+registerAnonymousEventHandler("sysManualLocationSetEvent", "wotmudmapper:set_player_location")</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>

@@ -20,7 +20,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>Open door north</name>
 				<packageName></packageName>
-				<script>wotmudmapper:doorComDir("open", "n")</script>
+				<script>wotmudmapper:door_com_dir("open", "n")</script>
 				<command></command>
 				<keyCode>16777235</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -36,7 +36,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>Open door east</name>
 				<packageName></packageName>
-				<script>wotmudmapper:doorComDir("open", "e")</script>
+				<script>wotmudmapper:door_com_dir("open", "e")</script>
 				<command></command>
 				<keyCode>16777236</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -52,7 +52,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>Open door south</name>
 				<packageName></packageName>
-				<script>wotmudmapper:doorComDir("open", "s")</script>
+				<script>wotmudmapper:door_com_dir("open", "s")</script>
 				<command></command>
 				<keyCode>16777237</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -68,7 +68,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>Open door west</name>
 				<packageName></packageName>
-				<script>wotmudmapper:doorComDir("open", "w")</script>
+				<script>wotmudmapper:door_com_dir("open", "w")</script>
 				<command></command>
 				<keyCode>16777234</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -84,7 +84,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>Open door up</name>
 				<packageName></packageName>
-				<script>wotmudmapper:doorComDir("open", "u")</script>
+				<script>wotmudmapper:door_com_dir("open", "u")</script>
 				<command></command>
 				<keyCode>16777238</keyCode>
 				<keyModifier>536870912</keyModifier>
@@ -100,7 +100,7 @@
 			<Key isActive="yes" isFolder="no">
 				<name>Open door down</name>
 				<packageName></packageName>
-				<script>wotmudmapper:doorComDir("open", "d")</script>
+				<script>wotmudmapper:door_com_dir("open", "d")</script>
 				<command></command>
 				<keyCode>16777239</keyCode>
 				<keyModifier>536870912</keyModifier>

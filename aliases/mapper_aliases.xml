@@ -35,11 +35,11 @@ end</script>
 local areaID = addAreaName(matches[2])
 
 if areaID and wotmudmapper.roomname~="" then
-  wotmudmapper.currentID = wotmudmapper:createRoom(0, 0, 0, areaID)
+  wotmudmapper.currentID = wotmudmapper:create_room(0, 0, 0, areaID)
   wotmudmapper:echo("New room created.\n")
   centerview(wotmudmapper.currentID[1])
 elseif wotmudmapper.roomname~="" then
-  wotmudmapper.currentID = wotmudmapper:createRoom(0, 0, 0, matches[2])
+  wotmudmapper.currentID = wotmudmapper:create_room(0, 0, 0, matches[2])
   wotmudmapper:echo("New room created.\n")
   centerview(wotmudmapper.currentID[1])
 else
@@ -306,7 +306,7 @@ wotmudmapper:echo("New rooms will be of zone ("..matches[2]..").\n")</script>
 local direction = matches[2]
 if table.size(wotmudmapper.currentID) == 1 then
   local x,y,z = getRoomCoordinates(wotmudmapper.currentID[1])
-  x,y,z = wotmudmapper:setCoordinatesOffset(x, y, z, direction)
+  x,y,z = wotmudmapper:set_coordinates_offset(x, y, z, direction)
   setRoomCoordinates(wotmudmapper.currentID[1], x, y, z)
   wotmudmapper:echo("Current room shifted ("..direction..").\n")
   centerview(wotmudmapper.currentID[1])
@@ -373,7 +373,7 @@ local direction = matches[3]
 local doorname = matches[4]
 local numtype = {visible=1,hidden=2,locked=3}
 if table.size(wotmudmapper.currentID) == 1 then
-  wotmudmapper:createDoor(wotmudmapper.currentID[1], direction, numtype[doortype], doorname)
+  wotmudmapper:create_door(wotmudmapper.currentID[1], direction, numtype[doortype], doorname)
 else
   wotmudmapper:echo("Current room not known.\n",false,true)
 end</script>
@@ -387,7 +387,7 @@ end</script>
 local direction = matches[2]
 if table.size(wotmudmapper.currentID) == 1 then
   wotmudmapper:echo("Door ("..direction..") named ("..getRoomUserData(wotmudmapper.currentID[1],direction)..") deleted.\n")
-  wotmudmapper:createDoor(wotmudmapper.currentID[1], direction, 0, "")
+  wotmudmapper:create_door(wotmudmapper.currentID[1], direction, 0, "")
   clearRoomUserDataItem(wotmudmapper.currentID[1], direction)
 else
   wotmudmapper:echo("Current room not known.\n",false,true)
@@ -406,7 +406,7 @@ end</script>
 						<name>Open Door</name>
 						<script>--syntax: odn/ods/ode/odw/odu/odd
 
-wotmudmapper:doorComDir("open", matches[2])</script>
+wotmudmapper:door_com_dir("open", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^od([neswud])$</regex>
@@ -415,7 +415,7 @@ wotmudmapper:doorComDir("open", matches[2])</script>
 						<name>Close Door</name>
 						<script>--syntax: cdn/cde/cds/cdw/cdu/cdd
 
-wotmudmapper:doorComDir("close", matches[2])</script>
+wotmudmapper:door_com_dir("close", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^cd([neswud])$</regex>
@@ -424,7 +424,7 @@ wotmudmapper:doorComDir("close", matches[2])</script>
 						<name>Pick Door</name>
 						<script>--syntax: pdn/pde/pds/pdw/pdu/pdd
 
-wotmudmapper:doorComDir("pick", matches[2])</script>
+wotmudmapper:door_com_dir("pick", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^pd([neswud])$</regex>
@@ -433,7 +433,7 @@ wotmudmapper:doorComDir("pick", matches[2])</script>
 						<name>Knock Door</name>
 						<script>--syntax: kdn/kde/kds/kdw/kdu/kdd
 
-wotmudmapper:doorComDir("knock", matches[2])</script>
+wotmudmapper:door_com_dir("knock", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^kd([neswud])$</regex>
@@ -442,7 +442,7 @@ wotmudmapper:doorComDir("knock", matches[2])</script>
 						<name>Unlock Door</name>
 						<script>--syntax: udn/ude/uds/udw/udu/udd
 
-wotmudmapper:doorComDir("unlock", matches[2])</script>
+wotmudmapper:door_com_dir("unlock", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^ud([neswud])$</regex>
@@ -451,7 +451,7 @@ wotmudmapper:doorComDir("unlock", matches[2])</script>
 						<name>Lock Door</name>
 						<script>--syntax: ldn/lde/lds/ldw/ldu/ldd
 
-wotmudmapper:doorComDir("lock", matches[2])</script>
+wotmudmapper:door_com_dir("lock", matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^ld([neswud])$</regex>
@@ -793,7 +793,7 @@ end</script>
 					<regex>^map offline$</regex>
 					<Alias isActive="no" isFolder="no">
 						<name>Offline Map Dirs</name>
-						<script>offlineMove(matches[2])</script>
+						<script>wotmudmapper:offline_move(matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^([neswud])$</regex>

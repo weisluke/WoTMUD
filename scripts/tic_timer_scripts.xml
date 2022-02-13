@@ -47,9 +47,9 @@ end</script>
     stopStopWatch(tictimer)
   end
   temptimer = temptimer or {}
-	for k,v in pairs(temptimer) do
-		killTimer(v)
-	end
+  for k,v in pairs(temptimer) do
+    killTimer(v)
+  end
 end</script>
 				<eventHandlerList>
 					<string>sysDisconnectionEvent</string>
@@ -74,7 +74,7 @@ end</script>
   timer.tic_is_early = false
   timer.tic_is_late = true
   updateFleeLagOnTic()
-  updateHealthOnTic("tic")
+  updateHealthOnTic()
 end
 
 function resettictimerontrigger()
@@ -88,17 +88,21 @@ function resettictimerontrigger()
     timer.tic_is_early = false
     timer.tic_is_late = true
     updateFleeLagOnTic()
-    updateHealthOnTic("tic")
+    updateHealthOnTic()
   elseif not timer.tic_is_late then
     timer.num_tics = timer.num_tics + 1
     timer.tic_is_early = false
     timer.tic_is_late = true
     updateFleeLagOnTic()
-    updateHealthOnTic("tic")
+    updateHealthOnTic()
   end
   if timer.num_tics ~= 0 and tictimer then
     timer.tic_time = (getStopWatchTime(tictimer)) / (timer.num_tics)
     timer.tic_time = timer.tic_time - (timer.tic_time % 0.001)
+    if timer.tic_time &lt; 55 then
+      cecho("\nError. Tic length of "..timer.tic_time.." is too short. Setting tic time to 60s.")
+      timer.tic_time = 60
+    end
     cecho("\nTic length updated to: " .. (timer.tic_time) .. " seconds.")
   else
     cecho(" Starting tic timer.")

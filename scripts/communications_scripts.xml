@@ -32,16 +32,20 @@ communications.defaults = {
 				<name>Communications Display Echo</name>
 				<packageName></packageName>
 				<script>function communications:echo(what, debug, err)
-  local comms_tag = "&lt;dark_khaki&gt;(&lt;sienna&gt;communications&lt;dark_khaki&gt;): &lt;white&gt;"
+  --colored tags for message echo
+  local main_tag = "&lt;dark_khaki&gt;(&lt;sienna&gt;communications&lt;dark_khaki&gt;): &lt;white&gt;"
   local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
   local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
   
+  --if debug message and config debug is false, return without echoing  
   if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
   if what:sub(0,1)=="\n" then
     cecho("\n")
     what = what:sub(2)
   end
-  cecho(comms_tag)
+  cecho(main_tag)
   if debug then cecho(debug_tag) end
   if err then cecho(err_tag) end
   cecho(what)
@@ -69,46 +73,45 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>CommsOnSysConnectionEvent</name>
+				<name>System connection</name>
 				<packageName></packageName>
-				<script>function CommsOnSysConnectionEvent(event)
-  communications:set_configs()
-  
-  communications:showComms(communications.configs.comms_window.visible)
-end</script>
-				<eventHandlerList>
-					<string>sysLoadEvent</string>
-					<string>sysConnectionEvent</string>
-				</eventHandlerList>
+				<script>function communications:sys_connection(event)
+  self:set_configs()
+  self:show_comms(self.configs.comms_window.visible)
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "communications:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "communications:sys_connection")</script>
+				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>CommsOnSysDisconnectionEvent</name>
+				<name>System disconnection</name>
 				<packageName></packageName>
-				<script>function CommsOnSysDisconnectionEvent()
-  communications.configs = communications.configs or {}
+				<script>function communications:sys_disconnection(event)
+  self.configs = self.configs or {}
   
-  communications:echo("Saving communications configurations.\n")
-  table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
-  communications:echo("Communications configurations saved.\n")
-end</script>
-				<eventHandlerList>
-					<string>sysExitEvent</string>
-					<string>sysDisconnectionEvent</string>
-				</eventHandlerList>
+  self:echo("Saving communications configurations.\n")
+  table.save(getMudletHomeDir() .. "/communications.configs.lua", self.configs)
+  self:echo("Communications configurations saved.\n")
+end
+
+registerAnonymousEventHandler("sysExitEvent", "communications:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disconnection")</script>
+				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>Show Comms</name>
 				<packageName></packageName>
-				<script>function communications:showComms(bval)
+				<script>function communications:show_comms(bval)
   local visible = bval
   self.configs.comms_window.visible = visible
   local configs = self.configs.comms_window
   local x, y, w, h = configs.x, configs.y, configs.w, configs.h
   
-  communications.container = communications.container or
+  self.container = self.container or
     Adjustable.Container:new(
       {
-        name = "communications_container",
+        name = "communications.container",
         adjLabelstyle = "background-color:rgba(220,220,220,100%); border: 5px groove grey;",
         buttonstyle =
           [[
@@ -122,33 +125,33 @@ end</script>
         padding = 15,
       }
     )
-  communications.current_tab = communications.current_tab or communications.tabs[1]
-  communications.container:move(x, y)
-  communications.container:resize(w, h)
+  self.current_tab = self.current_tab or self.tabs[1]
+  self.container:move(x, y)
+  self.container:resize(w, h)
   
-  communications.header = communications.header or 
+  self.header = self.header or 
     Geyser.HBox:new(
       {name = "communications.header", x = 0, y = 0, width = "100%", height = "10%"},
-      communications.container
+      self.container
     )
     
-  communications.footer = communications.footer or 
+  self.footer = self.footer or 
     Geyser.Label:new(
       {name = "communications.footer", x = 0, y = "10%", width = "100%", height = "90%"},
-      communications.container
+      self.container
     )
     
-  communications.footer:setStyleSheet([[
+  self.footer:setStyleSheet([[
   background-color: black;
   ]])
 
-  for k, v in pairs(communications.tabs) do
-    communications[v .. "_tab"] = communications[v .. "_tab"] or 
-      Geyser.Label:new({name = "communications." .. v .. "_tab"}, communications.header)
-    communications[v .. "_tab"]:setStyleSheet(
+  for _, ctype in pairs(self.tabs) do
+    self[ctype .. "_tab"] = self[ctype .. "_tab"] or 
+      Geyser.Label:new({name = "communications." .. ctype .. "_tab"}, self.header)
+    self[ctype .. "_tab"]:setStyleSheet(
       [[
     background-color: ]] ..
-      communications.tab_color ..
+      self.tab_color ..
       [[;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -156,34 +159,34 @@ end</script>
     margin-left: 1px;
   ]]
     )
-    communications[v .. "_tab"]:echo("&lt;center&gt;" .. v)
-    communications[v .. "_tab"]:setClickCallback("communications.click", v)
+    self[ctype .. "_tab"]:echo("&lt;center&gt;" .. ctype)
+    self[ctype .. "_tab"]:setClickCallback("communications.click", ctype)
     
-    communications[v] = communications[v] or 
+    self[ctype] = self[ctype] or 
       Geyser.MiniConsole:new(
         {
-          name = "communications." .. v,
+          name = "communications." .. ctype,
           x = "0%",
           y = "0%",
           width = "100%",
           height = "100%",
         },
-        communications.footer
+        self.footer
       )
-    communications[v]:enableAutoWrap()
-    communications[v]:setColor("black")
-    communications[v]:setFontSize(configs.fontsize)
-    communications[v]:bg("black")
-    communications[v]:fg("white")
-    enableScrollBar("communications."..v)
-    communications[v]:hide()
+    self[ctype]:enableAutoWrap()
+    self[ctype]:setColor("black")
+    self[ctype]:setFontSize(configs.fontsize)
+    self[ctype]:bg("black")
+    self[ctype]:fg("white")
+    enableScrollBar("communications."..ctype)
+    self[ctype]:hide()
   end
   
   if visible then
-    communications.container:show()
-    communications[communications.current_tab]:show()
+    self.container:show()
+    self[self.current_tab]:show()
   else
-    communications.container:hide()
+    self.container:hide()
   end
   
   x = tonumber(string.sub(x, 1, -2))
@@ -200,14 +203,14 @@ end</script>
   
   if configs.dock then
     if x &gt; 100 - (w + 10) then
-      communications.container:attachToBorder("right")
+      self.container:attachToBorder("right")
     elseif x &lt; 10 then
-      communications.container:attachToBorder("left")
+      self.container:attachToBorder("left")
     elseif y &lt; h then
-      communications.container:attachToBorder("top")
+      self.container:attachToBorder("top")
     end
   else
-    communications.container:attachToBorder("float")
+    self.container:attachToBorder("float")
   end
 end
 
@@ -227,11 +230,11 @@ end</script>
   local time = getTime()
   local time_string = string.format("%02d:%02d ",time.hour,time.min)
   
-  communications.All:echo(time_string)
-  communications[tab]:echo(time_string)
+  self.All:echo(time_string)
+  self[tab]:echo(time_string)
   
-  communications.All:appendBuffer()
-  communications[tab]:appendBuffer()
+  self.All:appendBuffer()
+  self[tab]:appendBuffer()
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -342,8 +345,8 @@ communications.help.comms_window =
 			<Script isActive="yes" isFolder="no">
 				<name>Comms Window Reposition</name>
 				<packageName></packageName>
-				<script>function commsFinishedRepositioning(eventName, containerName, width, height, x, y)
-  if containerName ~= "communications_container" then
+				<script>function communications:reposition_comms(event, containerName, width, height, x, y)
+  if containerName ~= "communications.container" then
     return
   end
   local mx, my = getMainWindowSize()
@@ -352,32 +355,31 @@ communications.help.comms_window =
   width = width/mx*100
   height = height/my*100
   
-  communications.configs.comms_window.x = x.."%"
-  communications.configs.comms_window.y = y.."%"
-  communications.configs.comms_window.w = width.."%"
-  communications.configs.comms_window.h = height.."%"
-  table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
+  self.configs.comms_window.x = x.."%"
+  self.configs.comms_window.y = y.."%"
+  self.configs.comms_window.w = width.."%"
+  self.configs.comms_window.h = height.."%"
+  table.save(getMudletHomeDir() .. "/communications.configs.lua", self.configs)
   
-  communications:showComms(true)
+  self:show_comms(true)
 end
 
-registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "commsFinishedRepositioning")</script>
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "communications:reposition_comms")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>CommunicationsInstallerSuccess</name>
+				<name>Script Installation Success</name>
 				<packageName></packageName>
-				<script>function CommunicationsInstallerSuccess(_, name)
+				<script>function communications:comms_installer_success(event, name)
   --if installed file is not the desired one
   if name ~= "communications_scripts" then return end
-  communications:show_help()
-  communications:set_configs()
-  
-  communications:showComms(communications.configs.comms_window.visible)
-end</script>
-				<eventHandlerList>
-					<string>sysInstallPackage</string>
-				</eventHandlerList>
+  self:show_help()
+  self:set_configs()
+  self:show_comms(self.configs.comms_window.visible)
+end
+
+registerAnonymousEventHandler("sysInstallPackage", "communications:comms_installer_success")</script>
+				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
 	</ScriptPackage>

@@ -14,7 +14,7 @@
 communications.configs.dbug = false
 communications:echo("Communications configurations reset to default values.\n")
 table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
-communications:showComms(true)</script>
+communications:show_comms(true)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^comms configs reset$</regex>
@@ -36,7 +36,7 @@ if communications.configs.comms_window[key] ~= nil then
       communications.configs.comms_window[key] = val
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
       table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
-      communications:showComms(true)
+      communications:show_comms(true)
     end
   elseif key == "h" then
     if (not tonumber(val)) or (tonumber(val) &lt; 1) then
@@ -50,7 +50,7 @@ if communications.configs.comms_window[key] ~= nil then
       communications.configs.comms_window[key] = val
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
       table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
-      communications:showComms(true)
+      communications:show_comms(true)
     end
   elseif key == "x" then
     if not tonumber(val) then
@@ -62,7 +62,7 @@ if communications.configs.comms_window[key] ~= nil then
       communications.configs.comms_window[key] = val
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
       table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
-      communications:showComms(true)
+      communications:show_comms(true)
     end
   elseif key == "y" then
     if not tonumber(val) then
@@ -74,7 +74,7 @@ if communications.configs.comms_window[key] ~= nil then
       communications.configs.comms_window[key] = val
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
       table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
-      communications:showComms(true)
+      communications:show_comms(true)
     end
   elseif key == "fontsize" then
     if (not tonumber(val)) or (tonumber(val) &lt; 1) then
@@ -83,7 +83,7 @@ if communications.configs.comms_window[key] ~= nil then
       communications.configs.comms_window[key] = tonumber(val)
       communications:echo("Communications window (" .. key .. ") updated to (" .. val .. ").\n")
       table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
-      communications:showComms(true)
+      communications:show_comms(true)
     end
   else
     communications:echo("Key (" .. key .. ") unable to be changed through this alias.\n", false, true)
@@ -100,7 +100,7 @@ end</script>
 				<script>communications.configs.comms_window.visible = not communications.configs.comms_window.visible
 communications:echo("Communications will now be "..(communications.configs.comms_window.visible and "shown.\n" or "hidden.\n"))
 table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
-communications:showComms(communications.configs.comms_window.visible)</script>
+communications:show_comms(communications.configs.comms_window.visible)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^comms show$</regex>
@@ -110,7 +110,7 @@ communications:showComms(communications.configs.comms_window.visible)</script>
 				<script>communications.configs.comms_window.dock = not communications.configs.comms_window.dock
 communications:echo("Communications will now be "..(communications.configs.comms_window.dock and "docked.\n" or "floating.\n"))
 table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs) 
-communications:showComms(communications.configs.comms_window.visible)</script>
+communications:show_comms(communications.configs.comms_window.visible)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^comms dock$</regex>

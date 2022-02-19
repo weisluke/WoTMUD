@@ -3,18 +3,11 @@
 <MudletPackage version="1.001">
 	<TimerPackage>
 		<Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">
-			<name>TicTimerStatusBarDisplay</name>
-			<script>timer = timer or {}
-temptimer = temptimer or {}
-if timer.num_tics and timer.num_tics ~= -1 and temptimer.tic then
-  local currenttime=remainingTime(temptimer.tic)
-  currenttime = currenttime - currenttime % 0.1
-  if currenttime % 1 == 0 then
-    tnt = "TNT: " .. currenttime .. ".0"
-  else
-    tnt = "TNT: " .. currenttime
-  end
-  statusbar.timer:echo(tnt, "white", "c")
+			<name>Status bar tic display</name>
+			<script>if tic_timer and tic_timer.temp_timers.tic then
+  --determine current time left on the timer
+  local ctime = remainingTime(tic_timer.temp_timers.tic)
+  status_bar.tic_timer:echo(string.format("TNT: %0.1f", ctime), "white", "c")
 end</script>
 			<command></command>
 			<packageName></packageName>

@@ -19,9 +19,8 @@
 			<regexCodePropertyList />
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Tic Triggers 1</name>
-				<script>timer=timer or {}
-if timer.on then
-  resettictimerontrigger()
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -140,9 +139,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Tic Triggers 2</name>
-				<script>timer=timer or {}
-if timer.on then
-  resettictimerontrigger()
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -261,9 +259,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Tic Triggers 3</name>
-				<script>timer=timer or {}
-if timer.on then
-  resettictimerontrigger()
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -382,9 +379,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Tic Triggers 4</name>
-				<script>timer=timer or {}
-if timer.on then
-  resettictimerontrigger()
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -503,9 +499,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Tic Triggers 5</name>
-				<script>timer=timer or {}
-if timer.on then
-  resettictimerontrigger()
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -624,9 +619,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Tic Triggers 6</name>
-				<script>timer=timer or {}
-if timer.on then
-  resettictimerontrigger()
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -745,9 +739,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Tic Triggers 7</name>
-				<script>timer=timer or {}
-if timer.on then
-  resettictimerontrigger()
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -816,9 +809,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Tic Triggers 8</name>
-				<script>timer=timer or {}
-if timer.on then
-  resettictimerontrigger()
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -865,8 +857,12 @@ end</script>
 					<string>Shadows race across the land as the sun sets west of the Cliffs of Dawn\.$</string>
 					<string>The sun sets, leaving a crisp coolness\.$</string>
 					<string>A bright sun rises over the forest\.$</string>
+					<string>The sun sets in the distance\.$</string>
+					<string>The morning light burns off the reigning darkness in the sky\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -920,9 +916,8 @@ end</script>
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Hungry/Thirsty Tic Timer</name>
-					<script>timer=timer or {}
-if timer.on then
-  resettictimerontrigger()
+					<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -978,20 +973,29 @@ end</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>HP:(\S+) MV:(\S+)</string>
+						<string>HP:(\S+) SP:(\S+) MV:(\S+)</string>
+						<string>HP:(\S+) DP:(\S+) MV:(\S+)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>poison tic and half tic</name>
-				<script>local time = getStopWatchTime(tictimer)
-time = 2.0 * time / timer.tic_time
+				<script>--grab current tic timer stopwatch time
+local time = getStopWatchTime(tic_timer.stopwatch)
+
+--determine how half tics have occured
+time = 2.0 * time / tic_timer.configs.tic_length
+
+--if an even number of half tics, then this is a full tic
+--rounds number of half tics to nearest integer
 if (math.floor(time + 0.5) % 2 == 0) then
-  timer = timer or {}
-  if timer.on then
-    resettictimerontrigger()
+  if tic_timer.configs.on then
+    raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
   end
 end</script>
 				<triggerType>0</triggerType>

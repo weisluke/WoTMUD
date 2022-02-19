@@ -10,76 +10,41 @@
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>Reset Tic Timer</name>
-				<script>--syntax: resettictimer
-timer = {}
-timer.on = true
-timer.tic_time = 60
-timer.num_tics = -1
-timer.tic_is_early = true
-timer.tic_is_late = false
-tictimer = tictimer or createStopWatch()
-resetStopWatch(tictimer)
-temptimer = temptimer or {}
-for k, v in pairs(temptimer) do
-  killTimer(v)
-end
-cecho("&lt;green&gt;Tic timer reset!\n")</script>
+				<script>--syntax: tic timer reset
+
+tic_timer:reset()
+tic_timer:echo("&lt;green&gt;Tic timer reset!\n")</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^resettictimer$</regex>
+				<regex>^tic timer reset$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Toggle Timer</name>
-				<script>--syntax: tictimer
-timer = timer or {}
-if timer.on then
-  timer.on = false
-  tictimer = tictimer or createStopWatch()
-  resetStopWatch(tictimer)
-  temptimer = temptimer or {}
-  for k, v in pairs(temptimer) do
-    killTimer(v)
-  end
-  cecho("&lt;red&gt;Tic timer OFF!\n")
+				<script>--syntax: tic timer
+
+if tic_timer.configs.on then
+  tic_timer:reset()
+  tic_timer.configs.on = false
+  tic_timer:echo("&lt;red&gt;Tic timer OFF!\n")
 else
-  timer.on = true
-  timer.tic_time = 60
-  timer.num_tics = -1
-  timer.tic_is_early = true
-  timer.tic_is_late = false
-  tictimer = tictimer or createStopWatch()
-  resetStopWatch(tictimer)
-  temptimer = temptimer or {}
-  for k, v in pairs(temptimer) do
-    killTimer(v)
-  end
-  cecho("&lt;green&gt;Tic timer ON and reset!\n")
+  tic_timer:reset()  
+  tic_timer:echo("&lt;green&gt;Tic timer ON and reset!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^tictimer$</regex>
+				<regex>^tic timer$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Set Tic Length</name>
-				<script>--syntax: ticlength seconds
+				<script>--syntax: tic length seconds
 --ex: ticlength 60.271
-local ticlength = tonumber(matches[2])
-timer = {}
-timer.on = true
-timer.tic_time = ticlength
-timer.num_tics = -1
-timer.tic_is_early = true
-timer.tic_is_late = false
-tictimer = tictimer or createStopWatch()
-resetStopWatch(tictimer)
-temptimer = temptimer or {}
-for k, v in pairs(temptimer) do
-  killTimer(v)
-end
-cecho("&lt;green&gt;Tic timer reset!\n")</script>
+local tic_length = tonumber(matches[2])
+tic_timer:reset()
+tic_timer.configs.tic_length = tic_length
+tic_timer:echo("&lt;green&gt;Tic timer reset with a tic length of "..tic_length.." seconds!\n")</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^ticlength (\d+\.\d+)$</regex>
+				<regex>^tic length (\d+(\.\d+)?)$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

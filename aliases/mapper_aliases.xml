@@ -791,14 +791,14 @@ end</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map offline$</regex>
-					<Alias isActive="no" isFolder="no">
+					<Alias isActive="yes" isFolder="no">
 						<name>Offline Map Dirs</name>
 						<script>wotmudmapper:offline_move(matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^([neswud])$</regex>
 					</Alias>
-					<Alias isActive="no" isFolder="no">
+					<Alias isActive="yes" isFolder="no">
 						<name>Offline Map Look</name>
 						<script>if table.size(wotmudmapper.currentID) == 1 then
   local newid = wotmudmapper.currentID[1]

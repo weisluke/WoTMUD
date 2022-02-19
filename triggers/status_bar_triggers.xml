@@ -535,7 +535,7 @@ status_bar.autoflee:echo(msg, "white", "c")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>((.+)(?&lt;!You) barely (.+) your (.+)\.)</string>
+						<string>((.+) barely (?!tickle)(.+) your (.+)\.)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>

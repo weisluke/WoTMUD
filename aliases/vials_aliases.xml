@@ -15,9 +15,9 @@
 container = container or {}
 
 if container.first then
-	send("get fluid "..container.first)
+  send("get fluid "..container.first)
 else
-	cecho("&lt;red&gt;Container not set!\n")
+  cecho("&lt;red&gt;Container not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -30,9 +30,9 @@ end</script>
 container = container or {}
 
 if container.first then
-	send("get red "..container.first)
+  send("get red "..container.first)
 else
-	cecho("&lt;red&gt;Container not set!\n")
+  cecho("&lt;red&gt;Container not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -45,9 +45,9 @@ end</script>
 container = container or {}
 
 if container.first then
-	send("get draught "..container.first)
+  send("get draught "..container.first)
 else
-	cecho("&lt;red&gt;Container not set!\n")
+  cecho("&lt;red&gt;Container not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -60,9 +60,9 @@ end</script>
 container = container or {}
 
 if container.first then
-	send("get syrup "..container.first)
+  send("get syrup "..container.first)
 else
-	cecho("&lt;red&gt;Container not set!\n")
+  cecho("&lt;red&gt;Container not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -75,13 +75,28 @@ end</script>
 container = container or {}
 
 if container.first then
-	send("get thready "..container.first)
+  send("get thready "..container.first)
 else
-	cecho("&lt;red&gt;Container not set!\n")
+  cecho("&lt;red&gt;Container not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^gtp$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Cider</name>
+				<script>--syntax: gcp
+
+container = container or {}
+
+if container.first then
+  send("get cider "..container.first)
+else
+  cecho("&lt;red&gt;Container not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^gcp$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Quaff Vial</name>
@@ -103,21 +118,6 @@ end</script>
 				<command>quaff cup</command>
 				<packageName></packageName>
 				<regex>^qc$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Cider</name>
-				<script>--syntax: gcp
-
-container = container or {}
-
-if container.first then
-	send("get cider "..container.first)
-else
-	cecho("&lt;red&gt;Container not set!\n")
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^gcp$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Quaff Potion</name>

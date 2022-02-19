@@ -10,7 +10,7 @@ downloadFile(saveto, url)
 send("who",false)</script>
 			<command></command>
 			<packageName></packageName>
-			<regex>^who$</regex>
+			<regex>^who?$</regex>
 		</Alias>
 	</AliasPackage>
 </MudletPackage>

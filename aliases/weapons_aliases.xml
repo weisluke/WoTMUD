@@ -15,9 +15,9 @@
 weapon = weapon or {}
 
 if weapon.first then
-	send("sheath "..weapon.first)
+  send("sheath "..weapon.first)
 else
-	cecho("&lt;red&gt;Weapon not set!\n")
+  cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -34,7 +34,7 @@ end</script>
 				<name>Scalp Scorpse</name>
 				<script>--syntax: scc
 for i=1, string.len(matches[2]),1 do
-	send("scalp "..i..".corpse")
+  send("scalp "..i..".corpse")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -54,9 +54,9 @@ end</script>
 weapon = weapon or {}
 
 if weapon.first then
-	send("draw "..weapon.first)
+  send("draw "..weapon.first)
 else
-	cecho("&lt;red&gt;Weapon not set!\n")
+  cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -69,9 +69,9 @@ end</script>
 weapon = weapon or {}
 
 if weapon.first then
-	send("rem "..weapon.first)
+  send("rem "..weapon.first)
 else
-	cecho("&lt;red&gt;Weapon not set!\n")
+  cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -84,9 +84,9 @@ end</script>
 weapon = weapon or {}
 
 if weapon.first then
-	send("wield "..weapon.first)
+  send("wield "..weapon.first)
 else
-	cecho("&lt;red&gt;Weapon not set!\n")
+  cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -99,12 +99,12 @@ end</script>
 weapon = weapon or {}
 
 if matches[3] then
-	weapon.first = matches[4]
-	cecho("Weapon is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  weapon.first = matches[4]
+  cecho("Weapon is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
 elseif weapon.first then
-	cecho("Weapon is set as: &lt;gold&gt;"..weapon.first.."&lt;white&gt;.\n")
+  cecho("Weapon is set as: &lt;gold&gt;"..weapon.first.."&lt;white&gt;.\n")
 else
-	cecho("&lt;red&gt;Weapon not set!\n")
+  cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>

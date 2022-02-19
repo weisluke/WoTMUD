@@ -15,7 +15,7 @@
 local storage = db:fetch(rents_db.storage)
 
 if table.is_empty(storage) then
-  rents:echo("No items found in the rent database.\n",true)
+  rents:echo("No items found in the rent database.\n", false, true)
 else
   for _, item in pairs(storage) do
     local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
@@ -45,7 +45,7 @@ local rents_db = db:get_database("rents")
 local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.name,name))
 
 if table.is_empty(storage) then
-  rents:echo("No items for the character \""..name.."\" found in the rent database.\n",true)
+  rents:echo("No items for the character \""..name.."\" found in the rent database.\n", false, true)
 else
   for _, item in pairs(storage) do
     local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
@@ -75,7 +75,7 @@ local rents_db = db:get_database("rents")
 local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.item,"%"..name.."%"))
 
 if table.is_empty(storage) then
-  rents:echo("No items containing the phrase \""..name.."\" found in the rent database\n",true)
+  rents:echo("No items containing the phrase \""..name.."\" found in the rent database\n", false, true)
 else
   for _, item in pairs(storage) do
     local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
@@ -105,7 +105,7 @@ local rents_db = db:get_database("rents")
 local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.zone, "%"..name.."%"))
 
 if table.is_empty(storage) then
-  rents:echo("No items for zone \""..name.."\" found in the rent database\n",true)
+  rents:echo("No items for zone \""..name.."\" found in the rent database\n", false, true)
 else
   for _, item in pairs(storage) do
     local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 

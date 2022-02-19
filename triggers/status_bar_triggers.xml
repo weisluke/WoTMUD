@@ -591,8 +591,8 @@ if status_bar.char.hps.current then
     status_bar.char.hps.current = nil
   end
 else
-  if status_bar.char.hps.est_min then
-    status_bar.char.hps.est_min = math.min(status_bar.char.hps.est_min, math.floor(0.2 * status_bar.char.hps.max))
+  if status_bar.char.hps.est_min and status_bar.char.hps.est_min &gt; math.floor(0.2 * status_bar.char.hps.max) then
+    status_bar.char.hps.est_min = nil
   end
   if status_bar.char.hps.est_max then
     status_bar.char.hps.est_max = math.min(status_bar.char.hps.est_max, math.floor(0.2 * status_bar.char.hps.max))  

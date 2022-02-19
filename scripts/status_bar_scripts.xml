@@ -247,7 +247,7 @@ end</script>
 				<name>Status bar resize</name>
 				<packageName></packageName>
 				<script>function status_bar:resize(event, container_name, width, height, x, y)
-  --if the Adjustable.Container is not the mapper, return
+  --if the Adjustable.Container is not the status bar, return
   if container_name ~= "status_bar.container" then
     return
   end

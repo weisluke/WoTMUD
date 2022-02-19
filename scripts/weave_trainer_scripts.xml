@@ -35,24 +35,27 @@ weave_trainer.container =
       autoSave = false,
     }
   )
-weave_trainer.stats = weave_trainer.stats or {int = 19}
-weave_trainer.stats.rank = 0</script>
+weave_trainer.stats = weave_trainer.stats or {int = 19, rank = 0}</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>Weave Trainer Echo</name>
 				<packageName></packageName>
 				<script>function weave_trainer:echo(what, debug, err)
-  local weave_trainer_tag = "&lt;white&gt;(&lt;gray&gt;weave_trainer&lt;white&gt;): &lt;white&gt;"
+  --colored tags for message echo
+  local main_tag = "&lt;white&gt;(&lt;gray&gt;weave_trainer&lt;white&gt;): &lt;white&gt;"
   local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
   local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
   
+  --if debug message and config debug is false, return without echoing
   if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
   if what:sub(0,1)=="\n" then
     cecho("\n")
     what = what:sub(2)
   end
-  cecho(weave_trainer_tag)
+  cecho(main_tag)
   if debug then cecho(debug_tag) end
   if err then cecho(err_tag) end
   cecho(what)
@@ -216,17 +219,17 @@ weave_trainer.pracs.clanned =
 weave_trainer.elements = weave_trainer.elements or {}
 weave_trainer.elements.pracs = weave_trainer.elements.pracs or {}
 weave_trainer.elements.percents = weave_trainer.elements.percents or {}
-for k, v in pairs(weave_trainer.pracs.elements) do
-  weave_trainer.elements.pracs[v] = weave_trainer.elements.pracs[v] or 0
-  weave_trainer.elements.percents[v] = weave_trainer.elements.percents[v] or 0
+for _, skill in pairs(weave_trainer.pracs.elements) do
+  weave_trainer.elements.pracs[skill] = weave_trainer.elements.pracs[skill] or 0
+  weave_trainer.elements.percents[skill] = weave_trainer.elements.percents[skill] or 0
 end
   
 weave_trainer.weaves = weave_trainer.weaves or {}
 weave_trainer.weaves.pracs = weave_trainer.weaves.pracs or {}
 weave_trainer.weaves.percents = weave_trainer.weaves.percents or {}
-for k, v in pairs(weave_trainer.pracs.weaves) do
-  weave_trainer.weaves.pracs[v] = weave_trainer.weaves.pracs[v] or 0
-  weave_trainer.weaves.percents[v] = weave_trainer.weaves.percents[v] or 0
+for _, skill in pairs(weave_trainer.pracs.weaves) do
+  weave_trainer.weaves.pracs[skill] = weave_trainer.weaves.pracs[skill] or 0
+  weave_trainer.weaves.percents[skill] = weave_trainer.weaves.percents[skill] or 0
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -278,14 +281,12 @@ weave_trainer.info:setStyleSheet([[
 weave_trainer.info:echo(
   [[
 Click the green "+" buttons to increment a practice, int, or rank.&lt;br&gt;
-&lt;br&gt;
 Click the red "-" buttons to decrement a practice, int, or rank.&lt;br&gt;
-&lt;br&gt;
 Scroll with your mouse on the gray practice, int, or rank value boxes to increment and decrement.&lt;br&gt;
-&lt;br&gt;
 Weaves with black borders can only be practiced by clanned characters.&lt;br&gt;
-&lt;br&gt;
-Practice setups can be saved or loaded using the input bars to the right.
+Rank 1 dreadlord = Rank 4 human/seanchan.&lt;br&gt;
+Practice setups can be saved or loaded using the input bars to the right.&lt;br&gt;
+Type "wtrainer setups" to view saved setups.
 ]]
 )</script>
 				<eventHandlerList />
@@ -339,7 +340,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Save and Load file</name>
 					<packageName></packageName>
-					<script>weave_trainer.file = {}
+					<script>weave_trainer.file = weave_trainer.file or {}
 weave_trainer.file.save_label =
   weave_trainer.file.save_label or
   Geyser.Label:new(
@@ -514,7 +515,6 @@ function weave_trainer:update_practices()
   for k, v in pairs(self.pracs.weaves) do
     while self.weaves.percents[v] &gt; 99 do
       self:subtract_practice(v)
-      self:update_percents()
     end
   end
 end</script>
@@ -528,10 +528,10 @@ end</script>
     self.elements.pracs[element] = self.elements.pracs[element] + 1
     self:push_queue(element)
   end
-  self:update_displays()
   if self:pracs_to_level() &gt; 51 then
     self:subtract_element(element)
   end
+  self:update_displays()
 end
 
 function weave_trainer:subtract_element(element)
@@ -541,10 +541,9 @@ function weave_trainer:subtract_element(element)
   end
   for _, skill in pairs(self.pracs.weaves) do
     if self.elements.pracs[element] &lt; self.pracs.requirements[skill][element] then
-      for i=1,self.weaves.pracs[skill],1 do
-        self:pop_queue(skill)
+      while table.contains(self.pracs.queue, skill) do
+        self:subtract_practice(skill)
       end
-      self.weaves.pracs[skill] = 0
     end
   end
   self:update_displays()

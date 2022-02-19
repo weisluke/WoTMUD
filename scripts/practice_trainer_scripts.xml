@@ -50,16 +50,20 @@ disableTrigger("practice_trainer_warrior")</script>
 				<name>Practice Trainer Echo</name>
 				<packageName></packageName>
 				<script>function practice_trainer:echo(what, debug, err)
-  local practice_trainer_tag = "&lt;white&gt;(&lt;gray&gt;practice_trainer&lt;white&gt;): &lt;white&gt;"
+  --colored tags for message echo
+  local main_tag = "&lt;white&gt;(&lt;gray&gt;practice_trainer&lt;white&gt;): &lt;white&gt;"
   local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
   local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
   
+  --if debug message and config debug is false, return without echoing
   if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
   if what:sub(0,1)=="\n" then
     cecho("\n")
     what = what:sub(2)
   end
-  cecho(practice_trainer_tag)
+  cecho(main_tag)
   if debug then cecho(debug_tag) end
   if err then cecho(err_tag) end
   cecho(what)
@@ -144,9 +148,9 @@ practice_trainer.hunter = practice_trainer.hunter or {}
 for _, class in pairs({"warrior", "rogue", "hunter"}) do
   practice_trainer[class].pracs = practice_trainer[class].pracs or {}
   practice_trainer[class].percents = practice_trainer[class].percents or {}
-  for k, v in pairs(practice_trainer.pracs[class]) do
-    practice_trainer[class].pracs[v] = practice_trainer[class].pracs[v] or 0
-    practice_trainer[class].percents[v] = practice_trainer[class].percents[v] or 0
+  for _, skill in pairs(practice_trainer.pracs[class]) do
+    practice_trainer[class].pracs[skill] = practice_trainer[class].pracs[skill] or 0
+    practice_trainer[class].percents[skill] = practice_trainer[class].percents[skill] or 0
   end
 end
 </script>
@@ -200,12 +204,10 @@ practice_trainer.info:setStyleSheet([[
 practice_trainer.info:echo(
   [[
 Click the green "+" buttons to increment a practice, stat, sex, race, or class.&lt;br&gt;
-&lt;br&gt;
 Click the red "-" buttons to decrement a practice, stat, sex, race, or class.&lt;br&gt;
-&lt;br&gt;
 Scroll with your mouse on the gray practice, stat, sex, race, or class value boxes to increment and decrement.&lt;br&gt;
-&lt;br&gt;
-Practice setups can be saved or loaded using the input bars below.
+Practice setups can be saved or loaded using the input bars below.&lt;br&gt;
+Type "ptrainer setups" to view saved setups.
 ]]
 )</script>
 				<eventHandlerList />
@@ -241,9 +243,9 @@ function practice_trainer:reset_pracs()
   for _, class in pairs({"warrior", "rogue", "hunter"}) do
     self[class].pracs = {}
     self[class].percents = {}
-    for k, v in pairs(self.pracs[class]) do
-      self[class].pracs[v] = 0
-      self[class].percents[v] = 0
+    for _, skill in pairs(self.pracs[class]) do
+      self[class].pracs[skill] = 0
+      self[class].percents[skill] = 0
     end
   end
   self.pracs.queue = {}
@@ -259,7 +261,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Save and Load file</name>
 					<packageName></packageName>
-					<script>practice_trainer.file = {}
+					<script>practice_trainer.file = practice_trainer.file or {}
 practice_trainer.file.save_label =
   practice_trainer.file.save_label or
   Geyser.Label:new(
@@ -415,10 +417,10 @@ end</script>
   end
   self[class].pracs[skill] = self[class].pracs[skill] + 1
   self:push_queue(skill)
-  self:update_displays()
-  if self:pracs_to_level() &gt; 51 or self[class].percents[skill] &gt; 99 then
+  if self:pracs_to_level() &gt; 51 then
     self:subtract_practice(class, skill)
   end
+  self:update_displays()
 end
 
 function practice_trainer:subtract_practice(class, skill)
@@ -442,7 +444,6 @@ function practice_trainer:update_practices()
     for _, skill in pairs(self.pracs[class]) do
       while self[class].percents[skill] &gt; 99 do
         self:subtract_practice(class, skill)
-        self:update_percents()
       end
     end
   end
@@ -453,12 +454,8 @@ end</script>
 					<name>Update Stats</name>
 					<packageName></packageName>
 					<script>function practice_trainer:add_stat(stat)
-  if self.stats.race == "trolloc" then
-    if stat == "str" then
-      if self.stats[stat] &lt; 21 then
-        self.stats[stat] = self.stats[stat] + 1
-      end
-    elseif self.stats[stat] &lt; 19 then
+  if self.stats.race == "trolloc" and stat == "str" then
+    if self.stats[stat] &lt; 21 then
       self.stats[stat] = self.stats[stat] + 1
     end
   else
@@ -546,8 +543,12 @@ end</script>
     self.stats.class = "warrior"
   end
   if self.stats.race == "trolloc" then
-    self.hunter.pracs["ride"] = 0
-    self.hunter.pracs["swim"] = 0
+    while table.contains(self.pracs.queue,"ride") do
+      self:subtract_practice("hunter", "ride")
+    end
+    while table.contains(self.pracs.queue,"swim") do
+      self:subtract_practice("hunter", "swim")
+    end
   else
     if self.stats.str &gt; 19 then
       self.stats.str = 19
@@ -776,8 +777,8 @@ end</script>
   local prac_totals = {warrior=0, rogue=0, hunter=0}
   
   for _, class in pairs({"warrior", "rogue", "hunter"}) do
-    for k, v in pairs(self.pracs[class]) do
-      prac_totals[class] = prac_totals[class] + self[class].pracs[v]
+    for _, skill in pairs(self.pracs[class]) do
+      prac_totals[class] = prac_totals[class] + self[class].pracs[skill]
     end
   end
   return prac_totals
@@ -800,7 +801,7 @@ function practice_trainer:get_total_pracs()
       return 4*prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
     end
   end
-  --throw error if something unknown passes through here
+  --return error if something unknown passes through here
   return nil
 end
 
@@ -1242,20 +1243,6 @@ practice_trainer.stats["race_+_label"]:setStyleSheet(
   ]]
 )
 practice_trainer.stats["race_+_label"]:setClickCallback("practice_trainer:add_race")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -17,7 +17,7 @@
 				<packageName></packageName>
 				<script>function altTimerStart()
   cecho("&lt;green&gt;Starting timer for alting.\n")
-	cecho("&lt;green&gt;Date - Time: " ..getTime(true, "yyyy.MM.dd - HH:mm:ss") .. "\n")
+  cecho("&lt;green&gt;Date - Time: " ..getTime(true, "yyyy.MM.dd - HH:mm:ss") .. "\n")
   samesidealttimer = tempTimer(301, [[ cecho("&lt;green&gt;You may log on a sameside alt now!\n") ]])
   crossracealttimer = tempTimer(901, [[ cecho("&lt;green&gt;You may log on a crossrace alt now!\n") ]])
 end</script>

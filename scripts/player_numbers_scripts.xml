@@ -7,7 +7,7 @@
 			<packageName></packageName>
 			<script>function playerNumbers(event, filename)
   local dir = getMudletHomeDir() .. "/player_numbers.json"
-	-- is the file that downloaded ours?
+  -- is the file that downloaded ours?
   if not filename:find("player_numbers.json", 1, true) then
     return
   end

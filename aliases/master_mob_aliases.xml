@@ -15,12 +15,12 @@
 mob=mob or {}
 
 if matches[3] then
-	mob.first = matches[4]
-	cecho("Mob is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  mob.first = matches[4]
+  cecho("Mob is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
 elseif mob.first then
-	cecho("Mob is set as: &lt;gold&gt;"..mob.first.."&lt;white&gt;.\n")
+  cecho("Mob is set as: &lt;gold&gt;"..mob.first.."&lt;white&gt;.\n")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -32,12 +32,12 @@ end</script>
 mob=mob or {}
 
 if matches[3] then
-	mob.target=matches[4]
-	cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  mob.target=matches[4]
+  cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
 elseif mob.target then
-	cecho("Mob target is set as: &lt;gold&gt;"..mob.target.."&lt;white&gt;.\n")
+  cecho("Mob target is set as: &lt;gold&gt;"..mob.target.."&lt;white&gt;.\n")
 else
-	cecho("&lt;red&gt;No target specified!\n")
+  cecho("&lt;red&gt;No target specified!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -50,15 +50,15 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-	if matches[3] then
-		send("order "..mob.first.." kill h."..matches[4])
-	elseif mob.target then
-		send("order "..mob.first.." kill h."..mob.target)
-	else
-		cecho("&lt;red&gt;No target specified!\n")
-	end
+  if matches[3] then
+    send("order "..mob.first.." kill h."..matches[4])
+  elseif mob.target then
+    send("order "..mob.first.." kill h."..mob.target)
+  else
+    cecho("&lt;red&gt;No target specified!\n")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -71,13 +71,13 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-	if matches[3] then
-		send("order "..mob.first.." bash h."..matches[4])
-	else
-		send("order "..mob.first.." bash")
-	end
+  if matches[3] then
+    send("order "..mob.first.." bash h."..matches[4])
+  else
+    send("order "..mob.first.." bash")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -90,13 +90,13 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-	if matches[3] then
-		send("order "..mob.first.." assist "..matches[4])
-	else
-		send("order "..mob.first.." assist Adael")
-	end
+  if matches[3] then
+    send("order "..mob.first.." assist "..matches[4])
+  else
+    send("order "..mob.first.." assist Adael")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -109,13 +109,13 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-	if matches[3] then
-		send("order "..mob.first.." rescue "..matches[4])
-	else
-		send("order "..mob.first.." rescue Adael")
-	end
+  if matches[3] then
+    send("order "..mob.first.." rescue "..matches[4])
+  else
+    send("order "..mob.first.." rescue Adael")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -128,9 +128,9 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-	send("order "..mob.first.." sit")
+  send("order "..mob.first.." sit")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -167,9 +167,9 @@ cecho("&lt;red&gt;Mob target deleted!\n")</script>
 mob=mob or {}
 
 if mob.first then
-	send("order "..mob.first.." follow Adael")
+  send("order "..mob.first.." follow Adael")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -182,13 +182,13 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-	if mob.target then
-		send("order "..mob.first.." bash h."..mob.target)
-	else
-		cecho("&lt;red&gt;Mob target not set!\n")
-	end
+  if mob.target then
+    send("order "..mob.first.." bash h."..mob.target)
+  else
+    cecho("&lt;red&gt;Mob target not set!\n")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -201,9 +201,9 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-	send("order "..mob.first.." disengage")
+  send("order "..mob.first.." disengage")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -216,9 +216,9 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-	send("order "..mob.first.." flee")
+  send("order "..mob.first.." flee")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -231,11 +231,11 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-	if matches[2] then
-		send("order "..mob.first.." "..matches[2])
-	end
+  if matches[2] then
+    send("order "..mob.first.." "..matches[2])
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -249,12 +249,12 @@ end</script>
 mob=mob or {}
 
 if matches[3] then
-	mob.second = matches[4]
-	cecho("Mob is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  mob.second = matches[4]
+  cecho("Mob is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
 elseif mob.second then
-	cecho("Mob is set as: &lt;gold&gt;"..mob.second.."&lt;white&gt;.\n")
+  cecho("Mob is set as: &lt;gold&gt;"..mob.second.."&lt;white&gt;.\n")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -266,12 +266,12 @@ end</script>
 mob=mob or {}
 
 if matches[3] then
-	mob.targets=matches[4]
-	cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  mob.targets=matches[4]
+  cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
 elseif mob.target then
-	cecho("Mob target is set as: &lt;gold&gt;"..mob.targets.."&lt;white&gt;.\n")
+  cecho("Mob target is set as: &lt;gold&gt;"..mob.targets.."&lt;white&gt;.\n")
 else
-	cecho("&lt;red&gt;No target specified!\n")
+  cecho("&lt;red&gt;No target specified!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -284,15 +284,15 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-	if matches[3] then
-		send("order "..mob.second.." kill h."..matches[4])
-	elseif mob.targets then
-		send("order "..mob.second.." kill h."..mob.targets)
-	else
-		cecho("&lt;red&gt;No target specified!\n")
-	end
+  if matches[3] then
+    send("order "..mob.second.." kill h."..matches[4])
+  elseif mob.targets then
+    send("order "..mob.second.." kill h."..mob.targets)
+  else
+    cecho("&lt;red&gt;No target specified!\n")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -305,13 +305,13 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-	if matches[3] then
-		send("order "..mob.second.." bash h."..matches[4])
-	else
-		send("order "..mob.second.." bash")
-	end
+  if matches[3] then
+    send("order "..mob.second.." bash h."..matches[4])
+  else
+    send("order "..mob.second.." bash")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -324,13 +324,13 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-	if matches[3] then
-		send("order "..mob.second.." assist "..matches[4])
-	else
-		send("order "..mob.second.." assist Adael")
-	end
+  if matches[3] then
+    send("order "..mob.second.." assist "..matches[4])
+  else
+    send("order "..mob.second.." assist Adael")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -343,13 +343,13 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-	if matches[3] then
-		send("order "..mob.second.." rescue "..matches[4])
-	else
-		send("order "..mob.second.." rescue Adael")
-	end
+  if matches[3] then
+    send("order "..mob.second.." rescue "..matches[4])
+  else
+    send("order "..mob.second.." rescue Adael")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -362,9 +362,9 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-	send("order "..mob.second.." sit")
+  send("order "..mob.second.." sit")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -401,9 +401,9 @@ cecho("&lt;red&gt;Mob target deleted!\n")</script>
 mob=mob or {}
 
 if mob.second then
-	send("order "..mob.second.." follow Adael")
+  send("order "..mob.second.." follow Adael")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -416,13 +416,13 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-	if mob.targets then
-		send("order "..mob.second.." bash h."..mob.targets)
-	else
-		cecho("&lt;red&gt;Mob target not set!\n")
-	end
+  if mob.targets then
+    send("order "..mob.second.." bash h."..mob.targets)
+  else
+    cecho("&lt;red&gt;Mob target not set!\n")
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -435,9 +435,9 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-	send("order "..mob.second.." disengage")
+  send("order "..mob.second.." disengage")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -450,9 +450,9 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-	send("order "..mob.second.." flee")
+  send("order "..mob.second.." flee")
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -465,11 +465,11 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-	if matches[2] then
-		send("order "..mob.second.." "..matches[2])
-	end
+  if matches[2] then
+    send("order "..mob.second.." "..matches[2])
+  end
 else
-	cecho("&lt;red&gt;Mob not set!\n")
+  cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>

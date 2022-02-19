@@ -18,9 +18,9 @@
 			<Alias isActive="yes" isFolder="no">
 				<name>Bash</name>
 				<script>if not matches[3] then
-	send("bash")
+  send("bash")
 else
-	send("bash h."..matches[4])
+  send("bash h."..matches[4])
 end</script>
 				<command></command>
 				<packageName></packageName>

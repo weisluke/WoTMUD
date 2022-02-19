@@ -16,13 +16,13 @@ container = container or {}
 light = light or {}
 
 if container.first then
-	if light.first then
-		send("get "..light.first.." "..container.first)
-	else
-		cecho("&lt;red&gt;Light not set!\n")
-	end
+  if light.first then
+    send("get "..light.first.." "..container.first)
+  else
+    cecho("&lt;red&gt;Light not set!\n")
+  end
 else
-	cecho("&lt;red&gt;Container not set!\n")
+  cecho("&lt;red&gt;Container not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -35,9 +35,9 @@ end</script>
 light = light or {}
 
 if light.first then
-	send("hold "..light.first)
+  send("hold "..light.first)
 else
-	cecho("&lt;red&gt;Light not set!\n")
+  cecho("&lt;red&gt;Light not set!\n")
 end
 </script>
 				<command></command>
@@ -51,9 +51,9 @@ end
 light = light or {}
 
 if light.first then
-	send("exam "..light.first)
+  send("exam "..light.first)
 else
-	cecho("&lt;red&gt;Light not set!\n")
+  cecho("&lt;red&gt;Light not set!\n")
 end
 </script>
 				<command></command>
@@ -67,9 +67,9 @@ end
 light = light or {}
 
 if light.first then
-	send("remove "..light.first)
+  send("remove "..light.first)
 else
-	cecho("&lt;red&gt;Light not set!\n")
+  cecho("&lt;red&gt;Light not set!\n")
 end
 </script>
 				<command></command>
@@ -84,13 +84,13 @@ container = container or {}
 light = light or {}
 
 if container.first then
-	if light.first then
-		send("put "..light.first.." "..container.first)
-	else
-		cecho("&lt;red&gt;Light not set!\n")
-	end
+  if light.first then
+    send("put "..light.first.." "..container.first)
+  else
+    cecho("&lt;red&gt;Light not set!\n")
+  end
 else
-	cecho("&lt;red&gt;Container not set!\n")
+  cecho("&lt;red&gt;Container not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>

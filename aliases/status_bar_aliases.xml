@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Status Bar</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Width</name>
+				<script>val = matches[2]
+if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+  status_bar:echo("Width must be a positive number (interpreted as a percentage of screen width).\n",false,true)
+else
+  val = val.."%"
+  status_bar:echo("Status bar width updated from ("..status_bar.configs.w..") to ("..val..").\n")
+  status_bar.configs.w = val
+  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", status_bar.configs)
+  status_bar:show_status_bar(true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^status bar width (\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Height</name>
+				<script>val = matches[2]
+if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+  status_bar:echo("Height must be a positive number (interpreted as a percentage of screen height).\n",false,true)
+else
+  val = val.."%"
+  status_bar:echo("Status bar height updated from ("..status_bar.configs.h..") to ("..val..").\n")
+  status_bar.configs.h = val
+  status_bar.configs.y = "-"..val
+  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", status_bar.configs)
+  status_bar:show_status_bar(true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^status bar height (\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Fontsize</name>
+				<script>val = matches[2]
+if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+  status_bar:echo("Fontsize must be a positive number.\n",false,true)
+else
+  val = tonumber(val)
+  status_bar:echo("Status bar fontsize updated from ("..status_bar.configs.fontsize..") to ("..val..").\n")
+  status_bar.configs.fontsize = val
+  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", status_bar.configs)
+  status_bar:show_status_bar(true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^status bar fontsize (\d+)$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

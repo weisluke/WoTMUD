@@ -472,7 +472,7 @@ deleteLine()</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^[\-=\+\*  ]{1,2}$</string>
+					<string>^[\-=\+\* ]{1,2}$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

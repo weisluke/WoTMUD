@@ -15,203 +15,509 @@
 			<Script isActive="yes" isFolder="no">
 				<name>Status Bar</name>
 				<packageName></packageName>
-				<script>local w, h = getMainWindowSize()
-setBorderBottom(5 * h / 100)
+				<script>status_bar = status_bar or {}
 
-statusbar=statusbar or {}
-
-statusbar.main=Geyser.Container:new({name = "statusbar.main", x = 0, y = "-3%", width = "60%", height = "3%"})
-
-statusbar.mood = Geyser.Label:new({name = "statusbar.mood", x = "0%", y = "0%", width = "5%", height = "100%"}, statusbar.main)
-statusbar.mood:echo("Mood", "white", "c")
-statusbar.mood:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.posture = Geyser.Label:new({name = "statusbar.posture", x = "5%", y = "0%", width = "5%", height = "100%"}, statusbar.main)
-statusbar.posture:echo("Posture", "white", "c")
-statusbar.posture:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.health = Geyser.Label:new({name = "statusbar.health", x = "10%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
-statusbar.health:echo("HP", "white", "c")
-statusbar.health:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.dps = Geyser.Label:new({name = "statusbar.dps", x = "20%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
-statusbar.dps:echo("DP", "white", "c")
-statusbar.dps:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.sps = Geyser.Label:new({name = "statusbar.sps", x = "20%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
-statusbar.sps:echo("SP", "white", "c")
-statusbar.sps:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.moves = Geyser.Label:new({name = "statusbar.moves", x = "30%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
-statusbar.moves:echo("MV", "white", "c")
-statusbar.moves:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.autoflee = Geyser.Label:new({name = "statusbar.autoflee", x = "40%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
-statusbar.autoflee:echo("Autoflee", "white", "c")
-statusbar.autoflee:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.fleelag = Geyser.Label:new({name = "statusbar.fleelag", x = "50%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
-statusbar.fleelag:echo("Fleelag", "white", "c")
-statusbar.fleelag:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.chargepulses = Geyser.Label:new({name = "statusbar.chargepulses", x = "60%", y = "0%", width = "15%", height = "100%"}, statusbar.main)
-statusbar.chargepulses:echo("Charge pulses", "white", "c")
-statusbar.chargepulses:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.notice = Geyser.Label:new({name = "statusbar.notice", x = "75%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
-statusbar.notice:echo("Notice", "white", "c")
-statusbar.notice:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.sneak = Geyser.Label:new({name = "statusbar.sneak", x = "82%", y = "0%", width = "7%", height = "100%"}, statusbar.main)
-statusbar.sneak:echo("Sneak", "white", "c")
-statusbar.sneak:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-
-statusbar.timer = Geyser.Label:new({name = "timer", x = "89%", y = "0%", width = "10%", height = "100%"}, statusbar.main)
-statusbar.timer:echo("Tic Timer", "white", "c")
-statusbar.timer:setStyleSheet([[
-  background-color: black;
-  border: 1px solid gray;
-]])
-</script>
+status_bar.configs = status_bar.configs or 
+  {
+    fontsize = 10,
+    visible = true,
+    x = "0%",
+    y = "-3%",
+    w = "60%",
+    h = "3%"
+  }
+  
+status_bar.char = status_bar.char or
+  {
+    mood = nil,
+    posture = nil,
+    hps = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    dps = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    sps = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    mvs = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    autoflee = nil,
+    fleelag = {
+      min = nil,
+      max = nil
+    },
+    charge_pulses = {
+      min = nil,
+      max = nil
+    },
+    notice = nil,
+    one_power = nil,
+    sneak = nil,
+    wil = nil,
+    con = nil,
+  }</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Update Health Min Max</name>
+				<name>Status bar display echo</name>
 				<packageName></packageName>
-				<script>function updateHealthMinMax(mindmg, maxdmg)
-  statusbar = statusbar or {}
-  char = char or {}
-  char.maxhealth = char.maxhealth or 1
-  local temphp="HP"
-  if char.health then
-    char.healthestmax = math.max(char.health - mindmg, 0)
-    char.healthestmin = math.max(char.health - maxdmg, 0)
-    temphp = "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
-    char.health = nil
-  elseif char.healthestmin and char.healthestmax and char.healthestmin ~= "???" then
-    char.healthestmax = math.max(char.healthestmax - mindmg, 0)
-    char.healthestmin = math.max(char.healthestmin - maxdmg, 0)
-    temphp = "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
-  elseif char.healthestmax and char.healthestmin == "???" then
-    char.healthestmax = math.max(char.healthestmax - mindmg, 0)
-    temphp = "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+				<script>function status_bar:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;gray&gt;(&lt;white&gt;status_bar&lt;gray&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
   end
-  if statusbar.health then
-    statusbar.health:echo(temphp, "white", "c")
-  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
 end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>updateFleeLagOnTic</name>
+				<name>Show status bar</name>
 				<packageName></packageName>
-				<script>function updateFleeLagOnTic()
-  local fleelagloss = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3}
-	statusbar = statusbar or {}
-  char = char or {}
-  char.fleelag = char.fleelag or 1
-  char.wil = char.wil or 1
-  char.fleelag = math.floor(char.fleelag / fleelagloss[char.wil])
-  local totalflee = "Fleelag: " .. char.fleelag
-  if statusbar.fleelag then
-    statusbar.fleelag:echo(totalflee, "white", "c")
-  end
-  local chargepulses = math.min(7 + char.fleelag, 12)
-  chargepulses = "Charge pulses: " .. chargepulses
-  if statusbar.chargepulses then
-    statusbar.chargepulses:echo(chargepulses, "white", "c")
-  end
-end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>updateHealthOnTic</name>
-				<packageName></packageName>
-				<script>function updateHealthOnTic()
-  local hpregen = {0, 0, 0, 0, 0, 0, 0, 0, 18, 21, 22, 25, 26, 29, 30, 33, 35, 37, 39}
-  statusbar = statusbar or {}
-  char = char or {}
-  char.maxhealth = char.maxhealth or 1
-  char.con = char.con or 1
-  local temphp="HP"
-  if char.health then
-    char.healthestmin = char.health
-    char.healthestmax = math.min(char.health + hpregen[char.con], char.maxhealth)
-    if char.healthestmin == char.healthestmax then
-      temphp = "HP: " .. char.healthestmax .. "(" .. char.maxhealth .. ")"
-    else
-      temphp =
-        "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
-    end
-		char.health=nil
-  elseif char.healthestmax and char.healthestmin then
-    char.healthestmax = math.min(char.healthestmax + hpregen[char.con], char.maxhealth)
-    if char.healthestmin == char.healthestmax then
-      temphp = "HP: " .. char.healthestmax .. "(" .. char.maxhealth .. ")"
-    else
-      temphp =
-        "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
-    end
-  end
-  if statusbar.health then
-    statusbar.health:echo(temphp, "white", "c")
-  end
-end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update health with range</name>
-				<packageName></packageName>
-				<script>function updateHealthWithRange(healthmsg)
-  statusbar = statusbar or {}
-  char = char or {}
-  char.maxhealth = char.maxhealth or 1
-  local temphp = "HP"
-  local healthrangeupper =
+				<script>function status_bar:show_status_bar(bval)
+
+  local visible = bval
+  self.configs.visible = visible
+  local x, y, w, h = self.configs.x, self.configs.y, self.configs.w, self.configs.h
+  
+  self.container = self.container or Adjustable.Container:new(
     {
+      name = "status_bar.container",
+      adjLabelstyle = "background-color:rgba(220,220,220,100%); border: 5px groove grey;",
+      buttonstyle=[[
+      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
+      QLabel::hover{ background-color: rgba(160,160,160,50%);}
+      ]],
+      buttonFontSize = 10,
+      buttonsize = 20,
+      titleText = "Status Bar",
+      titleTxtColor = "black",
+      padding = 15
+    }
+  )
+  
+  self.container:move(x, y)
+  self.container:resize(w, h)
+  self.container:attachToBorder("bottom")
+  self.container:lockContainer("full")
+
+
+  --label widths are determined manually from the maximum number of characters that may be present on each label
+  
+  self.mood = self.mood or Geyser.Label:new({name = "status_bar.mood", x = "0%", y = "0%", width = "4.89%", height = "100%"}, self.container)
+  self.mood:echo("Mood", "white", "c")
+  self.mood:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.mood:setFontSize(self.configs.fontsize)
+  
+  self.posture = Geyser.Label:new({name = "status_bar.posture", x = "4.89%", y = "0%", width = "6.72%", height = "100%"}, self.container)
+  self.posture:echo("Posture", "white", "c")
+  self.posture:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.posture:setFontSize(self.configs.fontsize)
+  
+  self.hps = Geyser.Label:new({name = "status_bar.hps", x = "11.61%", y = "0%", width = "11%", height = "100%"}, self.container)
+  self.hps:echo("Hit Points", "white", "c")
+  self.hps:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.hps:setFontSize(self.configs.fontsize)
+  
+  self.dps = Geyser.Label:new({name = "status_bar.dps", x = "22.61%", y = "0%", width = "11%", height = "100%"}, self.container)
+  self.dps:echo("Dark Power", "white", "c")
+  self.dps:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.dps:setFontSize(self.configs.fontsize)
+  
+  self.sps = Geyser.Label:new({name = "status_bar.sps", x = "22.61%", y = "0%", width = "11%", height = "100%"}, self.container)
+  self.sps:echo("Spell Points", "white", "c")
+  self.sps:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.sps:setFontSize(self.configs.fontsize)
+  
+  self.mvs = Geyser.Label:new({name = "status_bar.mvs", x = "33.61%", y = "0%", width = "11%", height = "100%"}, self.container)
+  self.mvs:echo("Movement Points", "white", "c")
+  self.mvs:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.mvs:setFontSize(self.configs.fontsize)
+  
+  self.autoflee = Geyser.Label:new({name = "status_bar.autoflee", x = "44.61%", y = "0%", width = "9.17%", height = "100%"}, self.container)
+  self.autoflee:echo("Autoflee", "white", "c")
+  self.autoflee:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.autoflee:setFontSize(self.configs.fontsize)
+  
+  self.fleelag = Geyser.Label:new({name = "status_bar.fleelag", x = "53.78%", y = "0%", width = "11%", height = "100%"}, self.container)
+  self.fleelag:echo("Fleelag", "white", "c")
+  self.fleelag:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.fleelag:setFontSize(self.configs.fontsize)
+  
+  self.charge_pulses = Geyser.Label:new({name = "status_bar.charge_pulses", x = "64.78%", y = "0%", width = "11.61%", height = "100%"}, self.container)
+  self.charge_pulses:echo("Charge Pulses", "white", "c")
+  self.charge_pulses:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.charge_pulses:setFontSize(self.configs.fontsize)
+  
+  self.notice = Geyser.Label:new({name = "status_bar.notice", x = "76.39%", y = "0%", width = "4.89%", height = "100%"}, self.container)
+  self.notice:echo("Notice", "white", "c")
+  self.notice:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.notice:setFontSize(self.configs.fontsize)
+  
+  self.one_power = Geyser.Label:new({name = "status_bar.one_power", x = "81.28%", y = "0%", width = "6.72%", height = "100%"}, self.container)
+  self.one_power:echo("One Power", "white", "c")
+  self.one_power:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.one_power:setFontSize(self.configs.fontsize)
+  
+  self.sneak = Geyser.Label:new({name = "status_bar.sneak", x = "88%", y = "0%", width = "4.28%", height = "100%"}, self.container)
+  self.sneak:echo("Sneak", "white", "c")
+  self.sneak:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.sneak:setFontSize(self.configs.fontsize)
+  
+  self.tic_timer = Geyser.Label:new({name = "status_bar.tic_timer", x = "92.28%", y = "0%", width = "6.72%", height = "100%"}, self.container)
+  self.tic_timer:echo("Tic Timer", "white", "c")
+  self.tic_timer:setStyleSheet([[
+    background-color: black;
+    border: 1px solid gray;
+  ]])
+  self.tic_timer:setFontSize(self.configs.fontsize)
+  
+  --show or hide status bar container
+  if visible then
+    self.container:show()
+  else
+    self.container:hide()
+  end
+
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Status bar resize</name>
+				<packageName></packageName>
+				<script>function status_bar:resize(event, container_name, width, height, x, y)
+  --if the Adjustable.Container is not the mapper, return
+  if container_name ~= "status_bar.container" then
+    return
+  end
+  
+  --get main window size. convert Adjustable.Container values to percentages, store, and save to disk
+  local mx, my = getMainWindowSize()
+  width = width/mx*100
+  height = height/my*100
+  x = 0
+  y = -height
+  
+  self.configs.x = x.."%"
+  self.configs.y = y.."%"
+  self.configs.w = width.."%"
+  self.configs.h = height.."%"
+  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", self.configs)
+  
+  self:show_status_bar(true)
+  local w, h = getMainWindowSize()
+  setBorderBottom((height + 1) * h / 100)
+end
+
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar:resize")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>System connection</name>
+				<packageName></packageName>
+				<script>function status_bar:sys_connection(event)
+  self:show_status_bar(true)
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "status_bar:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>System disconnection</name>
+				<packageName></packageName>
+				<script>function status_bar:sys_disconnection(event)
+  status_bar.char = {
+    mood = nil,
+    posture = nil,
+    hps = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    dps = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    sps = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    mvs = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    autoflee = nil,
+    fleelag = {
+      min = nil,
+      max = nil
+    },
+    charge_pulses = {
+      min = nil,
+      max = nil
+    },
+    notice = nil,
+    one_power = nil,
+    sneak = nil,
+    wil = nil,
+    con = nil,
+  }
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "status_bar:sys_disconnection")
+registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_disconnection")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update fleelag</name>
+				<packageName></packageName>
+				<script>function status_bar:update_fleelag(event, command)
+  local msg_flee = "Fleelag"
+  local msg_charge = "Charge Pulses"
+  local com = command
+  
+  if com ~= nil then
+    if table.contains({"f", "fl", "fle", "flee"}, com:lower()) then
+      self.char.fleelag.min = self.char.fleelag.min or 0
+      self.char.fleelag.max = self.char.fleelag.max or 0
+    
+      self.char.fleelag.min = self.char.fleelag.min + 1
+      self.char.fleelag.max = self.char.fleelag.max + 2
+    
+      self.char.charge_pulses.min = math.min(7 + self.char.fleelag.min, 12)
+      self.char.charge_pulses.max = math.min(7 + self.char.fleelag.max, 12)
+    
+      if self.char.fleelag.min == self.char.fleelag.max then
+        msg_flee = "Fleelag: "..self.char.fleelag.min
+      else
+        msg_flee = "Fleelag: "..self.char.fleelag.min.."-"..self.char.fleelag.max
+      end
+      
+      status_bar.fleelag:echo(msg_flee, "white", "c")
+      
+      if self.char.charge_pulses.min == self.char.charge_pulses.max then
+        msg_charge = "Charge Pulses: "..self.char.charge_pulses.min
+      else
+        msg_charge = "Charge Pulses: "..self.char.charge_pulses.min.."-"..self.char.charge_pulses.max
+      end
+      
+      self.charge_pulses:echo(msg_charge, "white", "c")
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_fleelag")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update fleelag on tic</name>
+				<packageName></packageName>
+				<script>function status_bar:update_fleelag_on_tic(event, exact, is_early, is_late)
+  if (is_early or not is_late) then
+    self.char.wil = self.char.wil or 1
+    local fleelag_loss = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3}
+    local msg_flee = "Fleelag"
+    local msg_charge = "Charge Pulses"
+    
+    self.char.fleelag.min = self.char.fleelag.min or 0
+    self.char.fleelag.max = self.char.fleelag.max or 0
+    
+    self.char.fleelag.min = math.floor(self.char.fleelag.min / fleelag_loss[self.char.wil])
+    self.char.fleelag.max = math.floor(self.char.fleelag.max / fleelag_loss[self.char.wil])
+    
+    self.char.charge_pulses.min = math.min(7 + self.char.fleelag.min, 12)
+    self.char.charge_pulses.max = math.min(7 + self.char.fleelag.max, 12)
+    
+    if self.char.fleelag.min == self.char.fleelag.max then
+      msg_flee = "Fleelag: "..self.char.fleelag.min
+    else
+      msg_flee = "Fleelag: "..self.char.fleelag.min.."-"..self.char.fleelag.max
+    end
+    
+    status_bar.fleelag:echo(msg_flee, "white", "c")
+    
+    if self.char.charge_pulses.min == self.char.charge_pulses.max then
+      msg_charge = "Charge Pulses: "..self.char.charge_pulses.min
+    else
+      msg_charge = "Charge Pulses: "..self.char.charge_pulses.min.."-"..self.char.charge_pulses.max
+    end
+    
+    self.charge_pulses:echo(msg_charge, "white", "c")
+  end 
+end
+
+registerAnonymousEventHandler("tic", "status_bar:update_fleelag_on_tic")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update health with min-max dmg</name>
+				<packageName></packageName>
+				<script>function status_bar:update_health_min_max(mindmg, maxdmg)
+  self.char.hps.max = self.char.hps.max or 1
+  
+  if self.char.hps.current then
+    if maxdmg then
+      self.char.hps.est_min = math.max(self.char.hps.current - maxdmg, 0)
+    end
+    if mindmg then
+      self.char.hps.est_max = math.max(self.char.hps.current - mindmg, 0)
+    end
+    self.char.hps.current = nil
+  else
+    if self.char.hps.est_min then
+      if maxdmg then
+        self.char.hps.est_min = math.max(self.char.hps.est_min - maxdmg, 0)
+      else
+        self.char.hps.est_min = nil
+      end
+    end
+    if self.char.hps.est_max then
+      if mindmg then
+        self.char.hps.est_max = math.max(self.char.hps.est_max - mindmg, 0)
+      else
+        self.char.hps.est_max = nil
+      end
+    end
+  end
+  
+  if not self.char.hps.current and self.char.hps.est_min == self.char.hps.est_max then
+    self.char.hps.current = self.char.hps.est_min
+    self.char.hps.est_min = nil
+    self.char.hps.est_max = nil
+  end
+  
+  local msg = "Hit Points"
+  if self.char.hps.current then
+    msg = "HP: "..self.char.hps.current.."("..self.char.hps.max..")"
+  else
+    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???").."("..self.char.hps.max..")"
+  end  
+  self.hps:echo(msg, "white", "c")
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update health on tic</name>
+				<packageName></packageName>
+				<script>function status_bar:update_health_on_tic(event, exact, is_early, is_late)
+  if (is_early or not is_late) then
+    self.char.con = self.char.con or 1
+    self.char.hps.max = self.char.hps.max or 1
+    local hp_regen = {0, 0, 0, 0, 0, 0, 0, 0, 18, 21, 22, 25, 26, 29, 30, 33, 35, 37, 39}
+    
+    if self.char.hps.current then
+      self.char.hps.est_min = self.char.hps.current
+      self.char.hps.est_max = math.min(self.char.hps.current + hp_regen[self.char.con], self.char.hps.max)
+      self.char.hps.current = nil
+    else
+      if self.char.hps.est_max then
+        self.char.hps.est_max = math.min(self.char.hps.est_max + hp_regen[self.char.con], self.char.hps.max)
+      end
+    end
+    
+    if not self.char.hps.current and self.char.hps.est_min == self.char.hps.est_max then
+      self.char.hps.current = self.char.hps.est_min
+      self.char.hps.est_min = nil
+      self.char.hps.est_max = nil
+    end
+    
+    local msg = "Hit Points"
+    if self.char.hps.current then
+      msg = "HP: "..self.char.hps.current.."("..self.char.hps.max..")"
+    else
+      msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???").."("..self.char.hps.max..")"
+    end  
+    self.hps:echo(msg, "white", "c")
+  end
+end
+
+registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update HPs with range</name>
+				<packageName></packageName>
+				<script>function status_bar:update_hps_with_range(hps)
+  self.char.hps.max = self.char.hps.max or 1
+  local upper_cutoffs = {
       Healthy = 1,
-      Scratched = 1 - 1 / char.maxhealth,
+      Scratched = 1 - 1 / self.char.hps.max,
       Hurt = 0.9,
       Wounded = 0.75,
       Battered = 0.5,
       Beaten = 0.3,
       Critical = 0.15,
+      Incapacitated = 0
     }
-  local healthrangelower =
-    {
+  local lower_cutoffs = {
       Healthy = 1,
       Scratched = 0.9,
       Hurt = 0.75,
@@ -219,145 +525,131 @@ end</script>
       Battered = 0.3,
       Beaten = 0.15,
       Critical = 0,
+      Incapacitated = 0
     }
-  if char.health then
-    char.health = math.min(char.health, math.floor(healthrangeupper[healthmsg] * char.maxhealth))
-    char.health = math.max(char.health, math.ceil(healthrangelower[healthmsg] * char.maxhealth))
-    temphp = "HP: " .. char.health .. "(" .. char.maxhealth .. ")"
-  elseif char.healthestmax and char.healthestmin and char.healthestmin ~= "???" then
-    char.healthestmax =
-      math.min(char.healthestmax, math.floor(healthrangeupper[healthmsg] * char.maxhealth))
-    char.healthestmax =
-      math.max(char.healthestmax, math.ceil(healthrangelower[healthmsg] * char.maxhealth))
-    char.healthestmin =
-      math.min(char.healthestmin, math.floor(healthrangeupper[healthmsg] * char.maxhealth))
-    char.healthestmin =
-      math.max(char.healthestmin, math.ceil(healthrangelower[healthmsg] * char.maxhealth))
-    if char.healthestmin == char.healthestmax then
-      temphp = "HP: " .. char.healthestmax .. "(" .. char.maxhealth .. ")"
-    else
-      temphp =
-        "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+  local upper = math.floor(upper_cutoffs[hps] * self.char.hps.max)
+  local lower = math.ceil(lower_cutoffs[hps] * self.char.hps.max)
+  
+  if self.char.hps.current then
+    if self.char.hps.current &lt; lower or self.char.hps.current &gt; upper then
+      self.char.hps.est_min = lower
+      self.char.hps.est_max = upper
+      self.char.hps.current = nil
     end
-  elseif char.healthestmax and char.healthestmin == "???" then
-    char.healthestmax =
-      math.min(char.healthestmax, math.floor(healthrangeupper[healthmsg] * char.maxhealth))
-    char.healthestmax =
-      math.max(char.healthestmax, math.ceil(healthrangelower[healthmsg] * char.maxhealth))
-    char.healthestmin = math.ceil(healthrangelower[healthmsg] * char.maxhealth)
-    if char.healthestmin == char.healthestmax then
-      temphp = "HP: " .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+  else
+    if self.char.hps.est_min then
+      self.char.hps.est_min = math.min(self.char.hps.est_min, upper)
+      self.char.hps.est_min = math.max(self.char.hps.est_min, lower)
     else
-      temphp =
-        "HP: " .. char.healthestmin .. "-" .. char.healthestmax .. "(" .. char.maxhealth .. ")"
+      self.char.hps.est_min = lower
+    end
+    
+    if self.char.hps.est_max then
+      self.char.hps.est_max = math.min(self.char.hps.est_max, upper)
+      self.char.hps.est_max = math.max(self.char.hps.est_max, lower)
+    else
+      self.char.hps.est_max = upper
     end
   end
-  if statusbar.health then
-    statusbar.health:echo(temphp, "white", "c")
+  
+  if not self.char.hps.current and self.char.hps.est_min == self.char.hps.est_max then
+    self.char.hps.current = self.char.hps.est_min
+    self.char.hps.est_min = nil
+    self.char.hps.est_max = nil
   end
+  
+  local msg = "Hit Points"
+  if self.char.hps.current then
+    msg = "HP: "..self.char.hps.current.."("..self.char.hps.max..")"
+  else
+    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???").."("..self.char.hps.max..")"
+  end  
+  self.hps:echo(msg, "white", "c")
 end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>updateFleelag</name>
+				<name>Update MVs with range</name>
 				<packageName></packageName>
-				<script>function updateFleelag(event, command)
-  statusbar = statusbar or {}
-  char = char or {}
-  char.fleelag = char.fleelag or 0
-  local com = command
-  if com ~= nil then
-    com = string.lower(com)
-    if table.contains({"f", "fl", "fle", "flee"}, com) then
-      char.fleelag = char.fleelag + 1
-      local totalflee = "Fleelag: " .. char.fleelag
-      if statusbar.fleelag then
-        statusbar.fleelag:echo(totalflee, "white", "c")
-      end
-      local chargepulses = math.min(7 + char.fleelag, 12)
-      chargepulses = "Charge pulses: " .. chargepulses
-      if statusbar.chargepulses then
-        statusbar.chargepulses:echo(chargepulses, "white", "c")
-      end
-    end
-  end
-end</script>
-				<eventHandlerList>
-					<string>sysDataSendRequest</string>
-				</eventHandlerList>
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update moves with range</name>
-				<packageName></packageName>
-				<script>function updateMovesWithRange(mvsmsg)
-  statusbar = statusbar or {}
-  char = char or {}
-  char.maxmvs = char.maxmvs or 1
-  local tempmvs = "MV"
-  local mvsrangeupper =
-    {
+				<script>function status_bar:update_mvs_with_range(mvs)
+  self.char.mvs.max = self.char.mvs.max or 1
+  local upper_cutoffs = {
       Fresh = 1,
-      Full = 1 - 1 / char.maxmvs,
+      Full = 1 - 1 / self.char.mvs.max,
       Strong = 0.9,
       Tiring = 0.75,
       Winded = 0.5,
       Weary = 0.3,
       Haggard = 0.15,
+      Collapsing = 0
     }
-  local mvsrangelower =
-    {
+  local lower_cutoffs = {
       Fresh = 1, 
       Full = 0.9, 
       Strong = 0.75, 
       Tiring = 0.5, 
       Winded = 0.3, 
       Weary = 0.15, 
-      Haggard = 0
+      Haggard = 0,
+      Collapsing = 0
     }
-  if char.mvs then
-    char.mvsestmax = math.floor(mvsrangeupper[mvsmsg] * char.maxmvs)
-    char.mvsestmin = math.ceil(mvsrangelower[mvsmsg] * char.maxmvs)
-    if char.mvsestmin == char.mvsestmax then
-      tempmvs = "MV: " .. char.mvsestmax .. "(" .. char.maxmvs .. ")"
-    else
-      tempmvs = "MV: " .. char.mvsestmin .. "-" .. char.mvsestmax .. "(" .. char.maxmvs .. ")"
+  local upper = math.floor(upper_cutoffs[mvs] * self.char.mvs.max)
+  local lower = math.ceil(lower_cutoffs[mvs] * self.char.mvs.max)
+    
+  if self.char.mvs.current then
+    if self.char.mvs.current &lt; lower or self.char.mvs.current &gt; upper then
+      self.char.mvs.est_min = lower
+      self.char.mvs.est_max = upper
+      self.char.mvs.current = nil
     end
-    char.mvs = nil
-  elseif char.mvsestmax and char.mvsestmin then
-    char.mvsestmax = math.floor(mvsrangeupper[mvsmsg] * char.maxmvs)
-    char.mvsestmin = math.ceil(mvsrangelower[mvsmsg] * char.maxmvs)
-    if char.mvsestmin == char.mvsestmax then
-      tempmvs = "MV: " .. char.mvsestmax .. "(" .. char.maxmvs .. ")"
+  else
+    if self.char.mvs.est_min then
+      self.char.mvs.est_min = math.min(self.char.mvs.est_min, upper)
+      self.char.mvs.est_min = math.max(self.char.mvs.est_min, lower)
     else
-      tempmvs = "MV: " .. char.mvsestmin .. "-" .. char.mvsestmax .. "(" .. char.maxmvs .. ")"
+      self.char.mvs.est_min = lower
+    end
+        
+    if self.char.mvs.est_max then
+      self.char.mvs.est_max = math.min(self.char.mvs.est_max, upper)
+      self.char.mvs.est_max = math.max(self.char.mvs.est_max, lower)
+    else
+      self.char.mvs.est_max = upper
     end
   end
-  if statusbar.moves then
-    statusbar.moves:echo(tempmvs, "white", "c")
+  
+  if not self.char.mvs.current and self.char.mvs.est_min == self.char.mvs.est_max then
+    self.char.mvs.current = self.char.mvs.est_min
+    self.char.mvs.est_min = nil
+    self.char.mvs.est_max = nil
   end
+  
+  local msg = "Movement Points"
+  if self.char.mvs.current then
+    msg = "MV: "..self.char.mvs.current.."("..self.char.mvs.max..")"
+  else
+    msg = "MV: "..(self.char.mvs.est_min or "???").."-"..(self.char.mvs.est_max or "???").."("..self.char.mvs.max..")"
+  end  
+  self.mvs:echo(msg, "white", "c")
 end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>Update SPs with range</name>
 				<packageName></packageName>
-				<script>function updateSPsWithRange(spsmsg)
-  statusbar = statusbar or {}
-  char = char or {}
-  char.maxsps = char.maxsps or 1
-  local tempsps = "SP"
-  local spsrangeupper =
-    {
+				<script>function status_bar:update_sps_with_range(sps)
+  self.sps:raise()
+  self.char.sps.max = self.char.sps.max or 1
+  local upper_cutoffs = {
       Bursting = 1,
-      Full = 1 - 1 / char.maxsps,
+      Full = 1 - 1 / self.char.sps.max,
       Strong = 0.9,
       Good = 0.5,
       Fading = 0.3,
       Trickling = 0.15,
       None = 0.01,
     }
-  local spsrangelower =
-    {
+  local lower_cutoffs = {
       Bursting = 1, 
       Full = 0.9, 
       Strong = 0.5, 
@@ -366,54 +658,63 @@ end</script>
       Trickling = 0.01, 
       None = 0
     }
-  if char.sps then
-    char.spsestmax = math.floor(spsrangeupper[spsmsg] * char.maxsps)
-    char.spsestmin = math.ceil(spsrangelower[spsmsg] * char.maxsps)
-    if char.spsestmin == char.spsestmax then
-      tempsps = "SP: " .. char.spsestmax .. "(" .. char.maxsps .. ")"
-    else
-      tempsps = "SP: " .. char.spsestmin .. "-" .. char.spsestmax .. "(" .. char.maxsps .. ")"
+  local upper = math.floor(upper_cutoffs[sps] * self.char.sps.max)
+  local lower = math.ceil(lower_cutoffs[sps] * self.char.sps.max)
+    
+  if self.char.sps.current then
+    if self.char.sps.current &lt; lower or self.char.sps.current &gt; upper then
+      self.char.sps.est_min = lower
+      self.char.sps.est_max = upper
+      self.char.sps.current = nil
     end
-		char.sps=nil
-  elseif char.spsestmax and char.spsestmin then
-    char.spsestmax = math.floor(spsrangeupper[spsmsg] * char.maxsps)
-    char.spsestmin = math.ceil(spsrangelower[spsmsg] * char.maxsps)
-    if char.spsestmin == char.spsestmax then
-      tempsps = "SP: " .. char.spsestmax .. "(" .. char.maxsps .. ")"
+  else
+    if self.char.sps.est_min then
+      self.char.sps.est_min = math.min(self.char.sps.est_min, upper)
+      self.char.sps.est_min = math.max(self.char.sps.est_min, lower)
     else
-      tempsps = "SP: " .. char.spsestmin .. "-" .. char.spsestmax .. "(" .. char.maxsps .. ")"
+      self.char.sps.est_min = lower
+    end
+    
+    if self.char.sps.est_max then
+      self.char.sps.est_max = math.min(self.char.sps.est_max, upper)
+      self.char.sps.est_max = math.max(self.char.sps.est_max, lower)
+    else
+      self.char.sps.est_max = upper
     end
   end
-  if statusbar.sps then
-    if statusbar.dps then
-      statusbar.dps:hide()
-      statusbar.sps:show()
-    end
-    statusbar.sps:echo(tempsps, "white", "c")
+  
+  if not self.char.sps.current and self.char.sps.est_min == self.char.sps.est_max then
+    self.char.sps.current = self.char.sps.est_min
+    self.char.sps.est_min = nil
+    self.char.sps.est_max = nil
   end
+  
+  local msg = "Spell Points"
+  if self.char.sps.current then
+    msg = "SP: "..self.char.sps.current.."("..self.char.sps.max..")"
+  else
+    msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???").."("..self.char.sps.max..")"
+  end  
+  self.sps:echo(msg, "white", "c")
 end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>Update DPs with range</name>
 				<packageName></packageName>
-				<script>function updateDPsWithRange(dpsmsg)
-  statusbar = statusbar or {}
-  char = char or {}
-  char.maxdps = char.maxdps or 1
-  local tempdps = "DP"
-  local dpsrangeupper =
-    {
+				<script>function status_bar:update_dps_with_range(dps)
+  self.dps:raise()
+  self.char.dps.max = self.char.dps.max or 1
+  local upper_cutoffs = {
       Bursting = 1,
-      Full = 1 - 1 / char.maxdps,
+      Full = 1 - 1 / self.char.dps.max,
       Strong = 0.9,
       Good = 0.5,
       Fading = 0.3,
       Trickling = 0.15,
       None = 0.01,
     }
-  local dpsrangelower =
-    {
+  local lower_cutoffs = {
       Bursting = 1, 
       Full = 0.9, 
       Strong = 0.5, 
@@ -422,32 +723,61 @@ end</script>
       Trickling = 0.01, 
       None = 0
     }
-  if char.dps then
-    char.dpsestmax = math.floor(dpsrangeupper[dpsmsg] * char.maxdps)
-    char.dpsestmin = math.ceil(dpsrangelower[dpsmsg] * char.maxdps)
-    if char.dpsestmin == char.dpsestmax then
-      tempdps = "DP: " .. char.dpsestmax .. "(" .. char.maxdps .. ")"
-    else
-      tempdps = "DP: " .. char.dpsestmin .. "-" .. char.dpsestmax .. "(" .. char.maxdps .. ")"
+  local upper = math.floor(upper_cutoffs[dps] * self.char.dps.max)
+  local lower = math.ceil(lower_cutoffs[dps] * self.char.dps.max)
+    
+  if self.char.dps.current then
+    if self.char.dps.current &lt; lower or self.char.dps.current &gt; upper then
+      self.char.dps.est_min = lower
+      self.char.dps.est_max = upper
+      self.char.dps.current = nil
     end
-		char.dps=nil
-  elseif char.dpsestmax and char.dpsestmin then
-    char.dpsestmax = math.floor(dpsrangeupper[dpsmsg] * char.maxdps)
-    char.dpsestmin = math.ceil(dpsrangelower[dpsmsg] * char.maxdps)
-    if char.dpsestmin == char.dpsestmax then
-      tempdps = "DP: " .. char.dpsestmax .. "(" .. char.maxdps .. ")"
+  else
+    if self.char.dps.est_min then
+      self.char.dps.est_min = math.min(self.char.dps.est_min, upper)
+      self.char.dps.est_min = math.max(self.char.dps.est_min, lower)
     else
-      tempdps = "DP: " .. char.dpsestmin .. "-" .. char.dpsestmax .. "(" .. char.maxdps .. ")"
+      self.char.dps.est_min = lower
+    end
+    
+    if self.char.dps.est_max then
+      self.char.dps.est_max = math.min(self.char.dps.est_max, upper)
+      self.char.dps.est_max = math.max(self.char.dps.est_max, lower)
+    else
+      self.char.dps.est_max = upper
     end
   end
-  if statusbar.dps then
-    if statusbar.sps then
-      statusbar.sps:hide()
-      statusbar.dps:show()
-    end
-    statusbar.dps:echo(tempdps, "white", "c")
+  
+  if not self.char.dps.current and self.char.dps.est_min == self.char.dps.est_max then
+    self.char.dps.current = self.char.dps.est_min
+    self.char.dps.est_min = nil
+    self.char.dps.est_max = nil
   end
+  
+  local msg = "Dark Power"
+  if self.char.dps.current then
+    msg = "DP: "..self.char.dps.current.."("..self.char.dps.max..")"
+  else
+    msg = "DP: "..(self.char.dps.est_min or "???").."-"..(self.char.dps.est_max or "???").."("..self.char.dps.max..")"
+  end  
+  self.dps:echo(msg, "white", "c")
 end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update One Power due to release</name>
+				<packageName></packageName>
+				<script>function status_bar:update_one_power(event, command)
+  local com = command
+  
+  if com ~= nil then
+    if table.contains({"rel", "rele", "relea", "releas", "release"}, com:lower()) then
+      self.one_power:echo("released", "red", "c")
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_one_power")</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>

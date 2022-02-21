@@ -599,19 +599,19 @@ else
   end
 end
 
-if not self.char.hps.current and self.char.hps.est_min == self.char.hps.est_max then
-  self.char.hps.current = self.char.hps.est_min
-  self.char.hps.est_min = nil
-  self.char.hps.est_max = nil
+if not status_bar.char.hps.current and status_bar.char.hps.est_min == status_bar.char.hps.est_max then
+  status_bar.char.hps.current = status_bar.char.hps.est_min
+  status_bar.char.hps.est_min = nil
+  status_bar.char.hps.est_max = nil
 end
 
 local msg = "Hit Points"
-if self.char.hps.current then
-  msg = "HP: "..self.char.hps.current.."("..self.char.hps.max..")"
+if status_bar.char.hps.current then
+  msg = "HP: "..status_bar.char.hps.current.."("..status_bar.char.hps.max..")"
 else
-  msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???").."("..self.char.hps.max..")"
+  msg = "HP: "..(status_bar.char.hps.est_min or "???").."-"..(status_bar.char.hps.est_max or "???").."("..status_bar.char.hps.max..")"
 end  
-self.hps:echo(msg, "white", "c")</script>
+status_bar.hps:echo(msg, "white", "c")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>

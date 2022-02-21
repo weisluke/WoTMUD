@@ -277,6 +277,9 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar
 				<name>System connection</name>
 				<packageName></packageName>
 				<script>function status_bar:sys_connection(event)
+  if io.exists(getMudletHomeDir() .. "/status_bar.configs.lua") then
+    table.load(getMudletHomeDir() .. "/status_bar.configs.lua", self.configs)
+  end
   self:show_status_bar(true)
 end
 
@@ -330,6 +333,8 @@ registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")
     wil = nil,
     con = nil,
   }
+  --save configuration to disk
+  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", self.configs)
 end
 
 registerAnonymousEventHandler("sysLoadEvent", "status_bar:sys_disconnection")

@@ -201,11 +201,12 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
     y = y + 100
   end
   
+  --favor right docking &gt; top &gt; left
   if configs.dock then
-    if y &lt; h then
-      self.container:attachToBorder("top")
-    elseif x &gt; 100 - (w + 10) then
+    if x &gt; 100 - (w + 10) then
       self.container:attachToBorder("right")
+    elseif y &lt; h then
+      self.container:attachToBorder("top")
     elseif x &lt; 10 then
       self.container:attachToBorder("left")
     end

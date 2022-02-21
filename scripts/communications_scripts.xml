@@ -202,12 +202,12 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
   end
   
   if configs.dock then
-    if x &gt; 100 - (w + 10) then
+    if y &lt; h then
+      self.container:attachToBorder("top")
+    elseif x &gt; 100 - (w + 10) then
       self.container:attachToBorder("right")
     elseif x &lt; 10 then
       self.container:attachToBorder("left")
-    elseif y &lt; h then
-      self.container:attachToBorder("top")
     end
   else
     self.container:attachToBorder("float")

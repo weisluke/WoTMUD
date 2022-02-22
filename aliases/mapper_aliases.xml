@@ -956,7 +956,7 @@ for room, name in pairs(getRooms()) do
 end
 
 --remove duplicates
-foundrooms = table.n_intersection(foundrooms, foundrooms)
+foundrooms = table.n_union(foundrooms, foundrooms)
 
 if not matches[5] then
   zonename = matches[4]

@@ -888,7 +888,7 @@ end</script>
       end
     end
     --update rooms to loop over for next movement command. union ensures there are no duplicates
-    rooms = table.n_intersection(temp_rooms, temp_rooms)
+    rooms = table.n_union(temp_rooms, temp_rooms)
   end
   --variable to hold final list of valid rooms
   local currentID = {}
@@ -1430,7 +1430,7 @@ end)
 enableMapInfo("Zone info")
 
 registerMapInfo("Door info", function(roomId, selectionSize, areaId, displayedArea)
-  output = ""
+  local output = ""
   for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
     local dir = string.sub(v, 1, 1)
     if getRoomUserData(roomId, dir) ~= "" then

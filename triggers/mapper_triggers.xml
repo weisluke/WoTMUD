@@ -182,7 +182,7 @@ if wotmudmapper:is_movement(mapCommand) and (not table.is_empty(lastID)) then
       local rooms = wotmudmapper:is_near_room(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))
       table.insert(newID, rooms[1])
     end
-    newID = table.n_intersection(newID, newID)
+    newID = table.n_union(newID, newID)
     if table.is_empty(newID) then
       newID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
     elseif
@@ -204,7 +204,7 @@ elseif wotmudmapper:is_flee(mapCommand) and (not table.is_empty(lastID)) then
       table.insert(newID, vv)
     end
   end
-  newID = table.n_intersection(newID, newID)
+  newID = table.n_union(newID, newID)
   if table.is_empty(newID) then
     newID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
   elseif
@@ -241,7 +241,7 @@ else
     for k, v in pairs(getExitStubs(wotmudmapper.currentID[1])) do
       table.insert(unsafe_rooms,string.sub(wotmudmapper.exitmap[v],1,1))
     end
-    unsafe_rooms = table.n_intersection(unsafe_rooms, unsafe_rooms)
+    unsafe_rooms = table.n_union(unsafe_rooms, unsafe_rooms)
   end
   for k,v in pairs(unsafe_rooms) do
       wotmudmapper:echo(
@@ -335,7 +335,7 @@ if wotmudmapper:is_movement(mapCommand) and (not table.is_empty(lastID)) then
   for k, v in pairs(lastID) do
     table.insert(newID, wotmudmapper:is_near_room(mapCommand, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(v))[1])
   end
-  wotmudmapper.currentID = table.n_intersection(newID, newID)
+  wotmudmapper.currentID = table.n_union(newID, newID)
   --handling flees
 elseif wotmudmapper:is_flee(mapCommand) and (not table.is_empty(lastID)) then
   for k, v in pairs(lastID) do
@@ -343,7 +343,7 @@ elseif wotmudmapper:is_flee(mapCommand) and (not table.is_empty(lastID)) then
       table.insert(newID, vv)
     end
   end
-  wotmudmapper.currentID = table.n_intersection(newID, newID)
+  wotmudmapper.currentID = table.n_union(newID, newID)
   --if not looking at room, search for room from all rooms in the map
 elseif not (wotmudmapper:is_look(mapCommand) and table.size(lastID) == 1) then
   wotmudmapper.currentID={}
@@ -369,7 +369,7 @@ else
     for k, v in pairs(getExitStubs(wotmudmapper.currentID[1])) do
       table.insert(unsafe_rooms,string.sub(wotmudmapper.exitmap[v],1,1))
     end
-    unsafe_rooms = table.n_intersection(unsafe_rooms, unsafe_rooms)
+    unsafe_rooms = table.n_union(unsafe_rooms, unsafe_rooms)
   end
   for k,v in pairs(unsafe_rooms) do
       wotmudmapper:echo(

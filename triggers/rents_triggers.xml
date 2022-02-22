@@ -31,7 +31,7 @@
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^This ranks you as (\w+) (of|the) (.+)\.$</string>
+					<string>^This ranks you as (\w+) (.+)\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

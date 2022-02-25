@@ -337,8 +337,8 @@ registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")
   table.save(getMudletHomeDir() .. "/status_bar.configs.lua", self.configs)
 end
 
-registerAnonymousEventHandler("sysLoadEvent", "status_bar:sys_disconnection")
-registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_disconnection")</script>
+registerAnonymousEventHandler("sysExitEvent", "status_bar:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "status_bar:sys_disconnection")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">

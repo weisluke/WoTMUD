@@ -17,17 +17,26 @@ local storage = db:fetch(rents_db.storage)
 if table.is_empty(storage) then
   rents:echo("No items found in the rent database.\n", false, true)
 else
+  cecho(string.format("%-10s&lt;ansi_cyan&gt;%-40s&lt;reset&gt;%s&lt;green&gt;%-40s&lt;gold&gt;%-10s\n", "Name", "Room", "", "Item", "Cost"))
+  
   for _, item in pairs(storage) do
-    local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
-      item.name, 
-      item.item,
-      "",
+    local crowns = item.cost:match("(%d+) gold crowns")
+    local coppers = item.cost:match("(%d+) coppers")
+    if crowns then crowns = crowns.."g" else crowns = "0g" end
+    if coppers then coppers = coppers.."c" else coppers = "0c" end
+    local cost = crowns.." "..coppers
+    
+    local msg_format = "%-10s%-40s%s%-40s%-10s\n"
+    if string.len(getRoomName(item.room)) &gt;= 40 or string.len(item.item) &gt;= 40 then
+      msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
+    end
+  
+    local msg = string.format(msg_format, 
+      item.name,
       getRoomName(item.room),
-      item.zone,
-      "",
-      item.cost,
-      "",
-      item.timestamp:as_string()
+      "", 
+      item.item,
+      cost
       )
     cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
   end
@@ -47,17 +56,26 @@ local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.name,name))
 if table.is_empty(storage) then
   rents:echo("No items for the character \""..name.."\" found in the rent database.\n", false, true)
 else
+  cecho(string.format("%-10s&lt;ansi_cyan&gt;%-40s&lt;reset&gt;%s&lt;green&gt;%-40s&lt;gold&gt;%-10s\n", "Name", "Room", "", "Item", "Cost"))
+  
   for _, item in pairs(storage) do
-    local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
-      item.name, 
-      item.item,
-      "",
+    local crowns = item.cost:match("(%d+) gold crowns")
+    local coppers = item.cost:match("(%d+) coppers")
+    if crowns then crowns = crowns.."g" else crowns = "0g" end
+    if coppers then coppers = coppers.."c" else coppers = "0c" end
+    local cost = crowns.." "..coppers
+    
+    local msg_format = "%-10s%-40s%s%-40s%-10s\n"
+    if string.len(getRoomName(item.room)) &gt;= 40 or string.len(item.item) &gt;= 40 then
+      msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
+    end
+  
+    local msg = string.format(msg_format, 
+      item.name,
       getRoomName(item.room),
-      item.zone,
-      "",
-      item.cost,
-      "",
-      item.timestamp:as_string()
+      "", 
+      item.item,
+      cost
       )
     cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
   end
@@ -77,17 +95,26 @@ local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.item,"%"..na
 if table.is_empty(storage) then
   rents:echo("No items containing the phrase \""..name.."\" found in the rent database\n", false, true)
 else
+  cecho(string.format("%-10s&lt;ansi_cyan&gt;%-40s&lt;reset&gt;%s&lt;green&gt;%-40s&lt;gold&gt;%-10s\n", "Name", "Room", "", "Item", "Cost"))
+  
   for _, item in pairs(storage) do
-    local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
-      item.name, 
-      item.item,
-      "",
+    local crowns = item.cost:match("(%d+) gold crowns")
+    local coppers = item.cost:match("(%d+) coppers")
+    if crowns then crowns = crowns.."g" else crowns = "0g" end
+    if coppers then coppers = coppers.."c" else coppers = "0c" end
+    local cost = crowns.." "..coppers
+    
+    local msg_format = "%-10s%-40s%s%-40s%-10s\n"
+    if string.len(getRoomName(item.room)) &gt;= 40 or string.len(item.item) &gt;= 40 then
+      msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
+    end
+  
+    local msg = string.format(msg_format, 
+      item.name,
       getRoomName(item.room),
-      item.zone,
-      "",
-      item.cost,
-      "",
-      item.timestamp:as_string()
+      "", 
+      item.item,
+      cost
       )
     cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
   end
@@ -107,17 +134,26 @@ local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.zone, "%"..n
 if table.is_empty(storage) then
   rents:echo("No items for zone \""..name.."\" found in the rent database\n", false, true)
 else
+  cecho(string.format("%-10s&lt;ansi_cyan&gt;%-40s&lt;reset&gt;%s&lt;green&gt;%-40s&lt;gold&gt;%-10s\n", "Name", "Room", "", "Item", "Cost"))
+  
   for _, item in pairs(storage) do
-    local msg = string.format("Name: %-10s&lt;green&gt;Item&lt;reset&gt;: %s\n%16s&lt;ansi_cyan&gt;Room&lt;reset&gt;: %s, Zone: %s\n%16sCost: %s\n%16sLast updated: %s\n", 
-      item.name, 
-      item.item,
-      "",
+    local crowns = item.cost:match("(%d+) gold crowns")
+    local coppers = item.cost:match("(%d+) coppers")
+    if crowns then crowns = crowns.."g" else crowns = "0g" end
+    if coppers then coppers = coppers.."c" else coppers = "0c" end
+    local cost = crowns.." "..coppers
+    
+    local msg_format = "%-10s%-40s%s%-40s%-10s\n"
+    if string.len(getRoomName(item.room)) &gt;= 40 or string.len(item.item) &gt;= 40 then
+      msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
+    end
+  
+    local msg = string.format(msg_format, 
+      item.name,
       getRoomName(item.room),
-      item.zone,
-      "",
-      item.cost,
-      "",
-      item.timestamp:as_string()
+      "", 
+      item.item,
+      cost
       )
     cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
   end

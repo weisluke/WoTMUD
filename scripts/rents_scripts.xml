@@ -25,7 +25,7 @@
   }
 )
 
-rents = rents or {}
+rents = rents or {clear_room = true}
 
 rents.help =
   [[
@@ -84,6 +84,7 @@ end</script>
 				<packageName></packageName>
 				<script>function rents:sys_disconnection()
   rents.name = nil
+  rents.clear_room = true
 end
 
 registerAnonymousEventHandler("sysExitEvent", "rents:sys_disconnection")

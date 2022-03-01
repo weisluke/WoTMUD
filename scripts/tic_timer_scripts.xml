@@ -9,11 +9,12 @@
 
 tic_timer.configs = tic_timer.configs or 
   {
+    dbug = false,
     on = true,
     num_tics = -1,
     tic_is_early = true,
     tic_is_late = false,
-    tic_length = 60.000
+    tic_length = 63.000
   }
 
 tic_timer.stopwatch = tic_timer.stopwatch or createStopWatch(false)
@@ -21,19 +22,25 @@ tic_timer.stopwatch = tic_timer.stopwatch or createStopWatch(false)
 tic_timer.temp_timers = tic_timer.temp_timers or {}
 
 function tic_timer:reset()
+  --preserve debug value
+  local debug = self.configs.dbug
   self.configs = 
   {
+    dbug = debug,
     on = true,
     num_tics = -1,
     tic_is_early = true,
     tic_is_late = false,
-    tic_length = 60.000
+    tic_length = 63.000
   }
   
   resetStopWatch(self.stopwatch)
   for name, id in pairs(self.temp_timers) do
     killTimer(id)
     self.temp_timers[name] = nil
+  end
+  if self.mob_trigger then
+    killTrigger(self.mob_trigger)
   end
 end</script>
 			<eventHandlerList />
@@ -59,82 +66,6 @@ end</script>
   if err then cecho(err_tag) end
   cecho(what)
 end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Tic event</name>
-				<packageName></packageName>
-				<script>function tic_timer:tic(event, exact, is_early, is_late)
-  --if tic timer is not turned on, do nothing
-  if not self.configs.on then return end
-  
-  --if event is an exact tic and the tic timer is in its default unstarted state
-  if exact and self.configs.num_tics == -1 then
-    self:echo("\nStarting tic timer.")
-  end
-  
-  --if the tic is earlier than expected, or not within the late window,
-  --increment the number of tics and reset variables
-  if self.configs.tic_is_early or not self.configs.tic_is_late then
-    self.configs.num_tics = self.configs.num_tics + 1
-    self.configs.tic_is_early = false
-    self.configs.tic_is_late = true
-  end
-  
-  --if event is an exact tic and the number of tics is not 0
-  if exact and self.configs.num_tics ~= 0 then
-    --tic time = stopwatch time / number of tics
-    self.configs.tic_length = (getStopWatchTime(self.stopwatch)) / (self.configs.num_tics)
-    --round to 3 decimal places
-    self.configs.tic_length = self.configs.tic_length - (self.configs.tic_length % 0.001)
-    --do not let tics subceed 55 seconds
-    if self.configs.tic_length &lt; 55 then
-      self:echo("\nError. Tic length of "..self.configs.tic_length.." is too short. Setting tic length to 60 seconds.")
-      self.configs.tic_length = 60.000
-    end
-    --do not let tics exceed 75 seconds
-    if self.configs.tic_length &gt; 75 then
-      self:echo("\nError. Tic length of "..self.configs.tic_length.." is too long. Setting tic length to 60 seconds.")
-      self.configs.tic_length = 60.000
-    end
-    self:echo("\nTic length updated to: " .. (self.configs.tic_length) .. " seconds.")
-    self.configs.num_tics = 0
-  end
-  
-  --if event is an exact tic then reset the stopwatch
-  if exact then
-    startStopWatch(self.stopwatch)
-  end
-  
-  --kill off warning timer and start new one
-  if self.temp_timers.warning then
-    killTimer(self.temp_timers.warning)
-  end
-  --warning timer gives a 7 second warning
-  self.temp_timers.warning =
-    tempTimer(self.configs.tic_length - 7.0, 
-      function() 
-        self:echo("&lt;green&gt;Tic in 7 seconds!\n")
-        self.configs.tic_is_early = true
-      end
-    )
-      
-  --kill off tic timer and start new one
-  if self.temp_timers.tic then
-    killTimer(self.temp_timers.tic)
-  end
-  --tic timer raises an estimated tic event, so the event argument is false
-  self.temp_timers.tic = tempTimer(self.configs.tic_length, function() raiseEvent("tic", false, self.configs.tic_is_early, self.configs.tic_is_late) end)
-  
-  --kill off late tic timer and start new one
-  if self.temp_timers.late_tic then
-    killTimer(self.temp_timers.late_tic)
-  end
-  --late tic timer gives a 20 second window after the estimated tic during which a true tic event can arrive
-  self.temp_timers.late_tic = tempTimer(20.0, function() self.configs.tic_is_late = false end)
-end
-
-registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -166,6 +97,142 @@ end
 
 registerAnonymousEventHandler("sysExitEvent", "tic_timer:sys_disconnection")
 registerAnonymousEventHandler("sysDisconnectionEvent", "tic_timer:sys_disconnection")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Tic event</name>
+				<packageName></packageName>
+				<script>function tic_timer:tic(event, exact, is_early, is_late)
+  --if tic timer is not turned on, do nothing
+  if not self.configs.on then return end
+  
+  --if event is an exact tic and the tic timer is in its default unstarted state
+  if exact and self.configs.num_tics == -1 then
+    self:echo("\nStarting tic timer.")
+  end
+  
+  --if the tic is earlier than expected, or not within the late window,
+  --increment the number of tics and reset variables
+  if self.configs.tic_is_early or not self.configs.tic_is_late then
+    self.configs.num_tics = self.configs.num_tics + 1
+    self.configs.tic_is_early = false
+    self.configs.tic_is_late = true
+  end
+  
+  --if event is an exact tic and the number of tics is not 0
+  if exact and self.configs.num_tics ~= 0 then
+    local time = getStopWatchTime(self.stopwatch)
+    self:echo("\nCurrent tic length: "..self.configs.tic_length, true, false)
+    self:echo("\nStopwatch time: "..time, true, false)
+    self:echo("\nTic timer num_tics = "..self.configs.num_tics, true, false)
+    
+    local prev_tic_length = self.configs.tic_length
+    
+    --tic time = stopwatch time / number of tics
+    self.configs.tic_length = time / (self.configs.num_tics)
+    --round to 3 decimal places
+    self.configs.tic_length = self.configs.tic_length - (self.configs.tic_length % 0.001)
+    
+    --do not let tics change by more than 10%
+    if self.configs.tic_length &gt; 1.1 * prev_tic_length or self.configs.tic_length &lt; 0.9 * prev_tic_length then
+      self:echo("\nTic length of "..self.configs.tic_length.." is more than 10% different from previous tic length of "..prev_tic_length, false, true)
+      self:echo("\nSetting tic length to 63 seconds.", false, true)
+      self.configs.tic_length = 63.000
+    end
+    self:echo("\nTic length updated to: " .. self.configs.tic_length .. " seconds.")
+    self.configs.num_tics = 0
+  end
+  
+  --if event is an exact tic then reset the stopwatch
+  if exact then
+    startStopWatch(self.stopwatch)
+  end
+  
+  --kill off warning timer and start new one
+  if self.temp_timers.warning then
+    killTimer(self.temp_timers.warning)
+  end
+  --warning timer gives a 7 second warning
+  self.temp_timers.warning =
+    tempTimer(self.configs.tic_length - 7.0, 
+      function() 
+        self:echo("&lt;green&gt;Tic in 7 seconds!\n")
+      end
+    )
+  
+  --kill off early tic timer and start new one
+  if self.temp_timers.early_tic then
+    killTimer(self.temp_timers.early_tic)
+  end
+  --early tic timer gives a window before the estimated tic during which a true tic event can arrive
+  self.temp_timers.early_tic =
+    tempTimer(self.configs.tic_length - 7.0, 
+      function() 
+        self.configs.tic_is_early = true
+      end
+    )
+      
+  --kill off tic timer and start new one
+  if self.temp_timers.tic then
+    killTimer(self.temp_timers.tic)
+  end
+  --tic timer raises an estimated tic event, so the event argument is false
+  self.temp_timers.tic = 
+    tempTimer(self.configs.tic_length, 
+      function() 
+        raiseEvent("tic", false, self.configs.tic_is_early, self.configs.tic_is_late) 
+      end
+    )
+  
+  --kill off late tic timer and start new one
+  if self.temp_timers.late_tic then
+    killTimer(self.temp_timers.late_tic)
+  end
+  --late tic timer gives a window after the estimated tic during which a true tic event can arrive
+  self.temp_timers.late_tic = 
+    tempTimer(math.min(7.0 * (self.configs.num_tics + 1), self.configs.tic_length - 7.0), 
+      function() 
+        self.configs.tic_is_late = false 
+      end
+    )
+end
+
+registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Set tic length based on non-exact event</name>
+				<packageName></packageName>
+				<script>function tic_timer:pulse_event(num_events_per_tic)
+  --if tic timer is not turned on, do nothing
+  if not self.configs.on or self.configs.num_tics == -1 then return end
+  
+  --grab current tic timer stopwatch time
+  local time = getStopWatchTime(self.stopwatch)
+  
+  --determine how many total number of events have occurred
+  local num_events = num_events_per_tic * time / self.configs.tic_length
+  
+  --determine the event pulse number. rounds number to nearest integer
+  local event_pulse_num = (math.floor(num_events + 0.5) % num_events_per_tic)
+ 
+  --if event pulse is a tic pulse, raise tic event
+  if (event_pulse_num == 0) then
+    raiseEvent("tic", true, self.configs.tic_is_early, self.configs.tic_is_late)
+  --otherwise, determine estimated tic length based on stopwatch time, current number of tics, and event pulse number
+  else
+    self:echo("\nStopwatch time: "..time, true, false)
+    self:echo("\nCurrent tic length: "..self.configs.tic_length, true, false)
+    self:echo("\nNumber of events: "..num_events, true, false)
+    
+    local est_tic_length = time / (self.configs.num_tics + event_pulse_num / num_events_per_tic)
+    est_tic_length = est_tic_length - (est_tic_length % 0.001)
+    
+    self:echo("\nEvent pulse number: "..event_pulse_num.." / "..num_events_per_tic, true, false)
+    self.configs.tic_length = est_tic_length
+    self:echo("\nTic length updated to: " .. (self.configs.tic_length) .. " seconds.", true, false)
+  end
+end</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>

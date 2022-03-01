@@ -37,7 +37,7 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Set Tic Length</name>
 				<script>--syntax: tic length seconds
---ex: ticlength 60.271
+--ex: ticlength 63.271
 local tic_length = tonumber(matches[2])
 tic_timer:reset()
 tic_timer.configs.tic_length = tic_length
@@ -45,6 +45,36 @@ tic_timer:echo("&lt;green&gt;Tic timer reset with a tic length of "..tic_length.
 				<command></command>
 				<packageName></packageName>
 				<regex>^tic length (\d+(\.\d+)?)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Toggle debug</name>
+				<script>--syntax: tic timer debug
+
+tic_timer.configs.dbug = not tic_timer.configs.dbug
+tic_timer:echo("Tic timer debug set to: " .. (tic_timer.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer debug$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Tic timer mob</name>
+				<script>local mob = matches[2]
+
+if tic_timer.mob_trigger then
+  killTrigger(tic_timer.mob_trigger)
+end
+
+tic_timer.mob_trigger = tempRegexTrigger("A "..mob.." clambers to his feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer:echo("Created mob stand trigger for ("..mob..")\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer mob (.+)$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

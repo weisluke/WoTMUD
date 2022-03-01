@@ -859,8 +859,10 @@ end</script>
 					<string>A bright sun rises over the forest\.$</string>
 					<string>The sun sets in the distance\.$</string>
 					<string>The morning light burns off the reigning darkness in the sky\.$</string>
+					<string>Casting jagged shadows, the sun rises over Garen's Wall\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -984,19 +986,9 @@ end</script>
 				</Trigger>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>poison tic and half tic</name>
-				<script>--grab current tic timer stopwatch time
-local time = getStopWatchTime(tic_timer.stopwatch)
-
---determine how half tics have occured
-time = 2.0 * time / tic_timer.configs.tic_length
-
---if an even number of half tics, then this is a full tic
---rounds number of half tics to nearest integer
-if (math.floor(time + 0.5) % 2 == 0) then
-  if tic_timer.configs.on then
-    raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
-  end
+				<name>2 times per tic</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(2)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -1013,6 +1005,76 @@ end</script>
 					<string>You cough and shiver\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>6 times per tic</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(6)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>A (.+) flaps its wings and flies high into the sky\.$</string>
+					<string>A (.+) is flying much lower now\.\.\.$</string>
+					<string>A (.+) flaps its wings as it comes in to land nearby\.$</string>
+					<string>A (.+) flaps its wings and begins to fly\.$</string>
+					<string>A shrill piercing scream reverberates through the area\.$</string>
+					<string>The (.+) gatekeeper closes the (.+)\.$</string>
+					<string>The (.+) gatekeeper locks the (.+)\.$</string>
+					<string>A (.+) gatekeeper closes the (.+)\.$</string>
+					<string>A (.+) gatekeeper locks the (.+)\.$</string>
+					<string>A (.+) Gatekeeper closes the (.+)\.$</string>
+					<string>A (.+) Gatekeeper locks the (.+)\.$</string>
+					<string>A rat starts following you\.$</string>
+					<string>A crow starts following you\.$</string>
+					<string>A raven starts following you\.$</string>
+					<string>A city lamplighter runs off, mumbling about some low-paying job\.$</string>
+					<string>A city lamplighter looks at a streetlamp and nods\.$</string>
+					<string>A city lamplighter lights a streetlamp\.$</string>
+					<string>A city lamplighter exclaims 'Finally\.\. Time to relax and have a beer!'$</string>
+					<string>A city lamplighter extinguishes a streetlamp\.$</string>
+					<string>Someone lights something\.$</string>
+					<string>The (.+) alarm sounds loudly in the distance\.$</string>
+					<string>The steady toll of a gong calls defenders to the stone\.$</string>
+					<string>The (.+) alarm horn sounds loudly\.$</string>
+					<string>A loud grinding of stone on concrete resonates from above\.$</string>
+					<string>The grinding of stone on concrete from above becomes louder\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>

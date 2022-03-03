@@ -1025,10 +1025,10 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>A (.+) flaps its wings and flies high into the sky\.$</string>
-					<string>A (.+) is flying much lower now\.\.\.$</string>
-					<string>A (.+) flaps its wings as it comes in to land nearby\.$</string>
-					<string>A (.+) flaps its wings and begins to fly\.$</string>
+					<string>(A|An|The) (.+) flaps (his|her|its) wings and flies high into the sky\.$</string>
+					<string>(A|An|The) (.+) is flying much lower now\.\.\.$</string>
+					<string>(A|An|The) (.+) flaps (his|her|its) wings as (he|she|it) comes in to land nearby\.$</string>
+					<string>(A|An|The) (.+) flaps (his|her|its) wings and begins to fly\.$</string>
 					<string>A shrill piercing scream reverberates through the area\.$</string>
 					<string>The (.+) gatekeeper closes the (.+)\.$</string>
 					<string>The (.+) gatekeeper locks the (.+)\.$</string>

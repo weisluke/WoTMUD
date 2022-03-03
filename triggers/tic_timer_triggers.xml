@@ -1050,8 +1050,12 @@ end</script>
 					<string>The (.+) alarm horn sounds loudly\.$</string>
 					<string>A loud grinding of stone on concrete resonates from above\.$</string>
 					<string>The grinding of stone on concrete from above becomes louder\.$</string>
+					<string>The (.+) alarm horn sounds loudly in the distance\.$</string>
+					<string>The (.+) alarm bell sounds loudly in the distance\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

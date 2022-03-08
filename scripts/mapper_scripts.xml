@@ -52,6 +52,7 @@ wotmudmapper.defaults = {
   showzone = true, --true if zone information should be displayed below room exits
   zonecolor = "turquoise", --color of zone information displayed below room exits
   doorcolor = "blue", --color of door information displayed below room exits
+  speedwalk = true, --whether or not double clicking rooms will make you speedwalk
   map_window = {
     widget = false, --true if the map widget should be used instead of an Adjustable.Container
     visible = true, --true if map should be shown
@@ -1372,6 +1373,12 @@ registerAnonymousEventHandler("sysInstallPackage", "wotmudmapper:mapper_installe
 				<name>doSpeedWalk</name>
 				<packageName></packageName>
 				<script>function doSpeedWalk()
+  --if you are not allowed to speedwalk, just return
+  if not wotmudmapper.configs.speedwalk then
+    wotmudmapper:echo("Speedwalking by double clicking on rooms is currently disabled. \"map speedwalk\" to enable it.\n", false, true)
+    return
+  end
+  
   if table.size(wotmudmapper.currentID) == 1 then
     for k, v in pairs(speedWalkDir) do
       send(v)

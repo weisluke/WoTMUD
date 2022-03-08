@@ -490,7 +490,7 @@ end</script>
 				<regex></regex>
 				<Alias isActive="yes" isFolder="no">
 					<name>Color Legend</name>
-					<script>--syntax: colorlegend
+					<script>--syntax: map legend
 
 cecho("&lt;light_goldenrod&gt;Map Legend\n")
 for k, v in pairs(wotmudmapper.map_colors) do
@@ -498,7 +498,7 @@ for k, v in pairs(wotmudmapper.map_colors) do
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^colorlegend$</regex>
+					<regex>^map legend$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Change Room Color</name>
@@ -669,7 +669,7 @@ if table.size(wotmudmapper.currentID) == 1 and offsets[place] and color_table[co
   local y = offsets[place][2]
   x = pos1 + x
   y = pos2 + y
-  createMapLabel(areaID, labeltext, x, y, pos3, r, g, b, 50, 50, 50, 30, 30, false, false)
+  createMapLabel(areaID, labeltext, x, y, pos3, r, g, b, 50, 50, 50, 30, 40, false, false)
 else
   wotmudmapper:echo("Current room not known, or invalid color/location/text specification.\n",false,true)
 end</script>

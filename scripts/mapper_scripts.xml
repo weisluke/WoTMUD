@@ -83,7 +83,15 @@ wotmudmapper.room_type_env_nums = {
   warrior = 34,
   rogue = 35,
   hunter = 36,
-  pk = 37
+  pk = 37,
+  city = 38,
+  herb = 39,
+  tailor = 40,
+  nochannel = 41,
+  portalstone = 42,
+  trees = 43,
+  smob = 44,
+  herbalist = 45
 }
 wotmudmapper.default_map_colors = {
   inside = "white",
@@ -103,7 +111,15 @@ wotmudmapper.default_map_colors = {
   warrior = "sienna",
   rogue = "dark_slate_gray",
   hunter = "yellow_green",
-  pk = "light_gray"
+  pk = "light_gray",
+  city = "brown",
+  herb = "yellow",
+  tailor = "magenta",
+  nochannel = "gray",
+  portalstone = "gray",
+  trees = "lawn_green",
+  smob = "firebrick",
+  herbalist = "yellow"
 }
 
 --table of exit to number associations

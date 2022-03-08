@@ -842,6 +842,18 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 					<packageName></packageName>
 					<regex>^map widget$</regex>
 				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Map speedwalk</name>
+					<script>--syntax: map speedwalk
+--toggle whether you should be able to speedwalk by double clicking on rooms
+
+wotmudmapper.configs.speedwalk = not wotmudmapper.configs.speedwalk
+wotmudmapper:echo("Speedwalk set to: " .. (wotmudmapper.configs.speedwalk and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map speedwalk$</regex>
+				</Alias>
 			</AliasGroup>
 			<Alias isActive="yes" isFolder="no">
 				<name>Speedwalk Alias</name>

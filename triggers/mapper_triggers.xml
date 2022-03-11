@@ -28,6 +28,9 @@ if
   )
 then
   wotmudmapper.roomname = matches[1]
+  if string.match(wotmudmapper.roomname, "(.+) %(#%d+%)") ~= nil then
+    wotmudmapper.roomname = string.match(wotmudmapper.roomname, "(.+) %(#%d+%)")
+  end
   wotmudmapper.roomdesc = ""
   wotmudmapper.brief = true
   if wotmudmapper.dark then

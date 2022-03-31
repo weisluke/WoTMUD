@@ -81,6 +81,7 @@ end</script>
   if io.exists(getMudletHomeDir() .. "/tic_timer.configs.lua") then
     table.load(getMudletHomeDir() .. "/tic_timer.configs.lua", self.configs)
   end
+  self.tic_history = {self.configs.tic_length, size = 1}
 end
 
 registerAnonymousEventHandler("sysLoadEvent", "tic_timer:sys_connection")
@@ -110,7 +111,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "tic_timer:sys_disconnect
 			<Script isActive="yes" isFolder="no">
 				<name>Store tic lengths and calculate statistics</name>
 				<packageName></packageName>
-				<script>tic_timer.tic_history = tic_timer.tic_history or {63.0, size = 1}
+				<script>tic_timer.tic_history = tic_timer.tic_history or {tic_timer.configs.tic_length, size = 1}
 
 function tic_timer:push_tic_length(tic_length)
   self.tic_history.size = self.tic_history.size + 1

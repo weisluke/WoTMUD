@@ -850,7 +850,6 @@ end</script>
 					<string>The dismembered corpse of (.+) has decayed into a pile of dust\.$</string>
 					<string>Light fades to dark, and the air takes on a sharp chill as the sun sets below the horizon\.$</string>
 					<string>The sky turns the color liquid gold as the sun sets beyond the Mountains of Mist\.$</string>
-					<string>The Aryth Ocean glows green as the moonlight hits its surface\.$</string>
 					<string>The weak light cast upon the dismal grove dissipates as the sun sets\.$</string>
 					<string>The sun slowly sinks into the mountains to the west\.$</string>
 					<string>The Cliffs of Dawn color red as the sun rises over the exotic land of Shara\.$</string>
@@ -860,8 +859,11 @@ end</script>
 					<string>The sun sets in the distance\.$</string>
 					<string>The morning light burns off the reigning darkness in the sky\.$</string>
 					<string>Casting jagged shadows, the sun rises over Garen's Wall\.$</string>
+					<string>Light reflects off the ocean as the sun rises\.$</string>
+					<string>The sun rises, casting long shadows across the blighted land\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -1039,11 +1041,11 @@ end</script>
 					<string>A rat starts following you\.$</string>
 					<string>A crow starts following you\.$</string>
 					<string>A raven starts following you\.$</string>
-					<string>A city lamplighter runs off, mumbling about some low-paying job\.$</string>
-					<string>A city lamplighter looks at a streetlamp and nods\.$</string>
-					<string>A city lamplighter lights a streetlamp\.$</string>
-					<string>A city lamplighter exclaims 'Finally\.\. Time to relax and have a beer!'$</string>
-					<string>A city lamplighter extinguishes a streetlamp\.$</string>
+					<string>A (.+) lamplighter runs off, mumbling about some low-paying job\.$</string>
+					<string>A (.+) lamplighter looks at a streetlamp and nods\.$</string>
+					<string>A (.+) lamplighter lights a streetlamp\.$</string>
+					<string>A (.+) lamplighter exclaims 'Finally\.\. Time to relax and have a beer!'$</string>
+					<string>A (.+) lamplighter extinguishes a streetlamp\.$</string>
 					<string>Someone lights something\.$</string>
 					<string>The (.+) alarm sounds loudly in the distance\.$</string>
 					<string>The steady toll of a gong calls defenders to the stone\.$</string>
@@ -1052,6 +1054,10 @@ end</script>
 					<string>The grinding of stone on concrete from above becomes louder\.$</string>
 					<string>The (.+) alarm horn sounds loudly in the distance\.$</string>
 					<string>The (.+) alarm bell sounds loudly in the distance\.$</string>
+					<string>A (.+) cat sniffs the ground\.\.\.$</string>
+					<string>A (.+) cat growls menacingly\.$</string>
+					<string>The (.+) guardsmen ring the city alarm in the distance\.$</string>
+					<string>The Aryth Ocean glows green as the moonlight hits its surface\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -1079,6 +1085,34 @@ end</script>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>TESTING mob movement</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(6)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(A|An|The) (.+) has arrived from (.+)\.$</string>
+					<string>(A|An|The) (.+) leaves (.+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
 					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>

@@ -37,14 +37,26 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Set Tic Length</name>
 				<script>--syntax: tic length seconds
---ex: ticlength 63.271
+--ex: tic length 63.271
 local tic_length = tonumber(matches[2])
 tic_timer:reset()
 tic_timer.configs.tic_length = tic_length
+tic_timer.tic_history[1] = tic_length
 tic_timer:echo("&lt;green&gt;Tic timer reset with a tic length of "..tic_length.." seconds!\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tic length (\d+(\.\d+)?)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Tic Length Std Dev</name>
+				<script>--syntax: tic length std dev seconds
+--ex: tic length std dev 0.379
+
+tic_timer.configs.tic_length_std_dev = tonumber(matches[2])
+tic_timer:echo(string.format("Tic length std dev updated to: %.3f seconds.\n", tic_timer.configs.tic_length_std_dev))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic length std dev (\d+(\.\d+)?)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Toggle debug</name>
@@ -75,6 +87,13 @@ tic_timer:echo("Created mob stand trigger for ("..mob..")\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tic timer mob (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Tic history</name>
+				<script>display(tic_timer.tic_history)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic history$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

@@ -124,23 +124,48 @@ function tic_timer:pop_tic_length()
 end
 
 function tic_timer:tic_length_mean()
+  --calculate the weighted mean
+  --tics weighted by 1/(time since tic + 1)
+  --ie, the current tic is weighted by 1, the previous tic by 1/2, the one before that by 1/3, and so on
+  
   local sum = 0
+  local weight = 0
+  
   for i=1, self.tic_history.size, 1 do
-    sum = sum + self.tic_history[i]
+    sum = sum + self.tic_history[i] / (self.tic_history.size + 1 - i)
+    weight = weight + 1 / (self.tic_history.size + 1 - i)
   end
-  return sum / self.tic_history.size
+  
+  return sum / weight
 end
 
 function tic_timer:tic_length_std_dev()
+  --calculate the weighted standard deviation
+  --see, e.g., https://en.wikipedia.org/wiki/Weighted_arithmetic_mean#Reliability_weights
+  
   local mean = self:tic_length_mean()
   
   local sum = 0
+  --sum of weights
+  local weight = 0
+  --sum of squares of weights
+  local weight2 = 0
+  
   for i=1, self.tic_history.size, 1 do
-    sum = sum + (self.tic_history[i] - mean) * (self.tic_history[i] - mean)
+    sum = sum + (self.tic_history[i] - mean) * (self.tic_history[i] - mean) / (self.tic_history.size + 1 - i)
+    weight = weight + 1 / (self.tic_history.size + 1 - i)
+    weight2 = weight2 + 1 / ((self.tic_history.size + 1 - i) * (self.tic_history.size + 1 - i))
   end
   --empirically, the tic length standard deviation shouldn't be allowed to drop below 0.3 seconds
-  return math.max(math.sqrt(sum / (self.tic_history.size - 1)), 0.3)
-end</script>
+  return math.max(math.sqrt(sum / (weight - weight2 / weight)), 0.3)
+end
+
+
+
+
+
+
+</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">

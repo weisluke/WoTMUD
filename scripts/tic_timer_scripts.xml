@@ -118,6 +118,11 @@ function tic_timer:push_tic_length(tic_length)
   table.insert(self.tic_history, tic_length)
 end
 
+function tic_timer:pop_tic_length()
+  table.remove(self.tic_history, self.tic_history.size)
+  self.tic_history.size = self.tic_history.size - 1
+end
+
 function tic_timer:tic_length_mean()
   local sum = 0
   for i=1, self.tic_history.size, 1 do
@@ -133,7 +138,8 @@ function tic_timer:tic_length_std_dev()
   for i=1, self.tic_history.size, 1 do
     sum = sum + (self.tic_history[i] - mean) * (self.tic_history[i] - mean)
   end
-  return sum / (self.tic_history.size - 1)
+  --empirically, the tic length standard deviation shouldn't be allowed to drop below 0.3 seconds
+  return math.max(math.sqrt(sum / (self.tic_history.size - 1)), 0.3)
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -149,23 +155,20 @@ end</script>
     self:echo("\nStarting tic timer.")
   end
   
-  --if the tic is earlier than expected,
+  --if the tic is earlier than expected
   --increment the number of tics and reset variables
   if self.configs.tic_is_early then
     self.configs.num_tics = self.configs.num_tics + 1
     self.configs.tic_is_early = false
     self.configs.tic_is_late = true
-  end
-  --if event is seen outside the late window, echo an error
-  --so that it can be investigated if need be
-  if not self.configs.tic_is_late then
-    self:echo("\nTic event seen outside the late window.", false, true)
+  elseif not self.configs.tic_is_late then
+    --if event is seen outside the expected window, echo an error
+    --so that it can be investigated if need be
+    self:echo("\nTic event seen outside the expected window.", false, true)
   end
   
   --if event is an exact tic and the number of tics is not 0
   if exact and self.configs.num_tics ~= 0 then
-    local time = getStopWatchTime(self.stopwatch)
-    
     self:echo("\nCurrent tic length: "..self.configs.tic_length, true, false)
     self:echo("\nCurrent tic length std dev: "..self.configs.tic_length_std_dev, true, false)
     
@@ -173,27 +176,37 @@ end</script>
     local ptl = self.configs.tic_length
     local ptl_std_dev = self.configs.tic_length_std_dev
     
+    local time = getStopWatchTime(self.stopwatch)
     self:echo("\nStopwatch time: "..time, true, false)
     self:echo("\nTic timer num_tics = "..self.configs.num_tics, true, false)
     
-    for i=1,self.configs.num_tics, 1 do
-      self:push_tic_length(time / self.configs.num_tics)
+    if time / self.configs.num_tics &gt; ptl + 3 * ptl_std_dev or time / self.configs.num_tics &lt; ptl - 3 * ptl_std_dev then
+      self:echo(string.format("\nTic length of %.3f during this interval is more than 3 standard deviations from average.", time / self.configs.num_tics), false, true)
+      self:echo("\nIgnoring this tic interval.", false, true)
+    else
+      for i=1,self.configs.num_tics, 1 do
+        self:push_tic_length(time / self.configs.num_tics)
+      end
+      self.configs.tic_length = self:tic_length_mean()
+      --note: std dev calculation requires self.tic_history.size &gt; 1
+      --as it uses the sample standard deviation (divides by sample size - 1)
+      --this should always be true as implemented currently
+      self.configs.tic_length_std_dev = self:tic_length_std_dev()
     end
-    self.configs.num_tics = 0
-    self.configs.tic_length = self:tic_length_mean()
-    --note: std dev calculation requires self.tic_history.size &gt; 1
-    --as it uses the sample standard deviation (divides by sample size - 1)
-    --this should always be true as implemented currently
-    self.configs.tic_length_std_dev = self:tic_length_std_dev()
     
     --do not let tics change by more than 3 standard deviations
     if self.configs.tic_length &gt; ptl + 3 * ptl_std_dev or self.configs.tic_length &lt; ptl - 3 * ptl_std_dev then
-      self:echo(string.format("\nTic length of %.3f is more than 3 standard deviations from average.", self.configs.tic_length), false, true)
-      self:echo("\nSetting tic length to 63 seconds.", false, true)
-      self.configs.tic_length = 63.000
+      self:echo(string.format("\nNew tic length of %.3f is more than 3 standard deviations from average.", self.configs.tic_length), false, true)
+      for i=1, self.configs.num_tics, 1 do
+        self:pop_tic_length()
+      end
+      self:echo("\nIgnoring this tic interval.", false, true)
+      self.configs.tic_length = self:tic_length_mean()
+      self.configs.tic_length_std_dev = self:tic_length_std_dev()
     end
     self:echo(string.format("\nTic length updated to: %.3f seconds.", self.configs.tic_length))
     self:echo(string.format("\nTic length std dev updated to: %.3f seconds.", self.configs.tic_length_std_dev), true, false)
+    self.configs.num_tics = 0
   end
   
   if exact then
@@ -220,13 +233,31 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
   --increase the aggro_pulse count
   self.configs.aggro_pulse = (self.configs.aggro_pulse + 1) % 6
   
+  
+  --kill off any existing warning timers
+  if self.temp_timers.warning then
+    killTimer(self.temp_timers.warning)
+  end
+    
+  --kill off any existing early tic timers
+  if self.temp_timers.early_tic then
+    killTimer(self.temp_timers.early_tic)
+  end
+  
+  --kill off any existing aggro pulse timers
+  if self.temp_timers.aggro_pulse then
+    killTimer(self.temp_timers.aggro_pulse)
+  end
+
+  --kill off any existing late tic timers
+  if self.temp_timers.late_tic then
+    killTimer(self.temp_timers.late_tic)
+  end
+    
+    
   --if we are in the last aggro pulse before a tic
   if self.configs.aggro_pulse == 5 then
     
-    --kill off any existing warning timers and start new one
-    if self.temp_timers.warning then
-      killTimer(self.temp_timers.warning)
-    end
     --warning timer gives a 7 second warning
     self.temp_timers.warning =
       tempTimer(aggro_length - 7.0, 
@@ -235,24 +266,15 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
         end
       )
       
-    --kill off any existing early tic timers and start new one
-    if self.temp_timers.early_tic then
-      killTimer(self.temp_timers.early_tic)
-    end
-    --tic_is_early will change to true 3 standard deviations before the end of the timer
-    local early_tic_time = math.max(aggro_length - 3.0 * self.configs.tic_length_std_dev, 1)
     --early tic timer gives a window before the estimated tic during which a true tic event can arrive
     self.temp_timers.early_tic =
-      tempTimer(early_tic_time, 
+      tempTimer(math.max(aggro_length - 5.0 * self.configs.tic_length_std_dev * (self.configs.num_tics + 1), 1), 
         function() 
           self.configs.tic_is_early = true
+          self:echo("tic_is_early = true\n", true, false)
         end
       )
     
-    --kill off any existing aggro pulse timers and start new one
-    if self.temp_timers.aggro_pulse then
-      killTimer(self.temp_timers.aggro_pulse)
-    end
     --this aggro pulse timer will raise an estimated tic event
     self.temp_timers.aggro_pulse = 
       tempTimer(aggro_length, 
@@ -261,10 +283,6 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
         end
       )
   else
-    --kill off any existing aggro pulse timers and start new one
-    if self.temp_timers.aggro_pulse then
-      killTimer(self.temp_timers.aggro_pulse)
-    end
     --aggro pulse timer raises an aggro pulse event
     self.temp_timers.aggro_pulse = 
       tempTimer(aggro_length, 
@@ -272,20 +290,16 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
           raiseEvent("aggro_pulse")
         end
       )
-  
   end
   
   --if a tic just occured
   if self.configs.aggro_pulse == 0 then
-    --kill off any existing late tic timers and start new one
-    if self.temp_timers.late_tic then
-      killTimer(self.temp_timers.late_tic)
-    end
     --late tic timer gives a window after the estimated tic during which a true tic event can arrive
     self.temp_timers.late_tic = 
-      tempTimer(math.min(3 * self.configs.tic_length_std_dev, aggro_length - 1), 
+      tempTimer(math.min(5 * self.configs.tic_length_std_dev * self.configs.num_tics, aggro_length - 1), 
         function() 
           self.configs.tic_is_late = false
+          self:echo("tic_is_late = false\n", true, false)
         end
       )
   end
@@ -330,11 +344,11 @@ registerAnonymousEventHandler("aggro_pulse", "tic_timer:aggro_pulse")</script>
     local est_tic_length = (self.tic_history.size * self.configs.tic_length + time) / 
       (self.tic_history.size + self.configs.num_tics + event_pulse_num / num_events_per_tic)
       
-    self.configs.tic_length = est_tic_length
-    if self.configs.tic_length &gt; ptl + 3 * ptl_std_dev or self.configs.tic_length &lt; ptl - 3 * ptl_std_dev then
-      self:echo(string.format("\nTic length of %.3f is more than 3 standard deviations from average.", self.configs.tic_length), true, true)
-      self:echo("\nSetting tic length to 63 seconds.", true, true)
-      self.configs.tic_length = 63.000
+    if est_tic_length &gt; ptl + 3 * ptl_std_dev or est_tic_length &lt; ptl - 3 * ptl_std_dev then
+      self:echo(string.format("\nTic length of %.3f is more than 3 standard deviations from average.", est_tic_length), true, true)
+      self:echo("\nIgnoring this tic interval.", true, true)
+    else
+      self.configs.tic_length = est_tic_length
     end
     self:echo(string.format("\nTic length updated to: %.3f seconds.", self.configs.tic_length), true, false)
     

@@ -306,8 +306,13 @@ end
   addMapEvent("map_rightclick_update_roomname", "map_rightclick_update_roomname_event", "Update room information", "Update room name") 
   addMapEvent("map_rightclick_update_roomdesc", "map_rightclick_update_roomdesc_event", "Update room information", "Update room description")
   
+  addMapEvent("map_rightclick_display_roomdesc", "map_rightclick_display_roomdesc_event", "", "Display room description")
+  
+  
   registerAnonymousEventHandler("map_rightclick_update_roomname_event", "wotmudmapper:rightclick_update_roomname")
   registerAnonymousEventHandler("map_rightclick_update_roomdesc_event", "wotmudmapper:rightclick_update_roomdesc")
+  
+  registerAnonymousEventHandler("map_rightclick_display_roomdesc_event", "wotmudmapper:rightclick_display_roomdesc")
 end
 
 registerAnonymousEventHandler("sysLoadEvent", "wotmudmapper:sys_connection")
@@ -757,6 +762,24 @@ function wotmudmapper:rightclick_update_roomdesc(event)
     setRoomUserData(rooms[1], "description", self.roomdesc)
   end
   updateMap()
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Right Click to Display Room Description</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:rightclick_display_roomdesc(event)
+  local rooms = getMapSelection()["rooms"]
+  if table.is_empty(rooms) then
+    self:echo("No room selected.\n",false,true)
+  elseif table.size(rooms) &gt; 1 then
+    self:echo("More than one room selected.\n",false,true)
+  else
+    self:echo("Displaying room description for room ID ("..rooms[1]..")\n")
+    cecho(getRoomUserData(rooms[1],"description").."\n")
+  end
 end
 
 </script>

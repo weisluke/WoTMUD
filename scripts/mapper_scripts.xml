@@ -306,8 +306,8 @@ end
   addMapEvent("map_rightclick_update_roomname", "map_rightclick_update_roomname_event", "Update room information", "Update room name") 
   addMapEvent("map_rightclick_update_roomdesc", "map_rightclick_update_roomdesc_event", "Update room information", "Update room description")
   
-  
   addMapEvent("map_rightclick_display_roomdesc", "map_rightclick_display_roomdesc_event", "", "Display room description")
+  
   
   registerAnonymousEventHandler("map_rightclick_update_roomname_event", "wotmudmapper:rightclick_update_roomname")
   registerAnonymousEventHandler("map_rightclick_update_roomdesc_event", "wotmudmapper:rightclick_update_roomdesc")

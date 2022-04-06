@@ -1166,6 +1166,51 @@ wotmudmapper:show_map(true)</script>
 				<packageName></packageName>
 				<regex>^map configs reset$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Search room descriptions</name>
+				<script>--syntax: search room descs xxx
+
+local phrase = matches[2]
+local foundrooms = {}
+
+for id, name in pairs(getRooms()) do
+  local desc = getRoomUserData(id, "description")
+  if string.find(desc, phrase) then
+    table.insert(foundrooms, id)
+  end
+end
+
+if table.is_empty(foundrooms) then
+  wotmudmapper:echo("No matches found.\n", false, true)
+elseif table.size(foundrooms) == 1 then
+  wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
+  for k, v in pairs(foundrooms) do
+    centerview(k)
+  end
+else
+  wotmudmapper:echo("Multiple matches found.\n", false, true)
+  for k, v in spairs(foundrooms) do
+    cechoLink(
+      "Room ID: " ..
+      v ..
+      ", &lt;ansi_cyan&gt;room name&lt;reset&gt;: " ..
+      getRoomName(v) ..
+      ", &lt;" ..
+      wotmudmapper.configs.zonecolor ..
+      "&gt;zone&lt;reset&gt;: " ..
+      getRoomUserData(v, "zone") ..
+      "\n",
+      [[centerview(]] .. v .. [[)]],
+      "Click to center map on room.",
+      true
+    )
+  end
+  cecho("")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^search room descs (.+)$</regex>
+			</Alias>
 		</AliasGroup>
 	</AliasPackage>
 </MudletPackage>

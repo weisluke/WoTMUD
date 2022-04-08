@@ -1121,8 +1121,10 @@ end</script>
 					<string>(You strike at (.+), but your arms pass through (.+)\.)</string>
 					<string>((.+) swiftly dodges your attempt to hit (.+)\.)</string>
 					<string>(You try to hit (.+) parries successfully\.)</string>
+					<string>(You try to hit (.+) deflects the blow\.)</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

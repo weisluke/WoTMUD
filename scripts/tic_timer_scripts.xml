@@ -26,8 +26,11 @@ tic_timer.stopwatch = tic_timer.stopwatch or createStopWatch(false)
 tic_timer.temp_timers = tic_timer.temp_timers or {}
 
 function tic_timer:reset()
-  --preserve debug value
+  --preserve some value
   local debug = self.configs.dbug
+  local warning = self.configs.tic_warning
+  local aggros = self.configs.show_aggros
+  
   self.configs = 
   {
     dbug = debug,
@@ -38,8 +41,8 @@ function tic_timer:reset()
     aggro_pulse = -1,
     tic_length = 63.000,
     tic_length_std_dev = 3.0,
-    tic_warning = 7.0,
-    show_aggros = false
+    tic_warning = warning,
+    show_aggros = aggros
   }
   
   self.tic_history = {63.0, size = 1}

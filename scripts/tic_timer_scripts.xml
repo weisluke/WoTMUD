@@ -334,7 +334,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
   end
   
   if self.configs.show_aggros then
-    self:echo("\n&lt;red&gt;Aggro pulse")
+    self:echo("\n&lt;red&gt;Aggro pulse\n")
   end
     
 end

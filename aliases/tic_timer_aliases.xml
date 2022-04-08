@@ -95,6 +95,33 @@ tic_timer:echo("Created mob stand trigger for ("..mob..")\n")</script>
 				<packageName></packageName>
 				<regex>^tic history$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Tic warning length</name>
+				<script>--syntax: tic timer warning xxx
+--ex: tic timer warning 7.39
+
+local num = tonumber(matches[2])
+if num &lt;= 10 then
+  tic_timer.configs.tic_warning = tonumber(matches[2])
+  tic_timer:echo("Tic length warning message updated to "..num.." seconds.\n")
+else
+  tic_timer:echo("Tic length warning message must be less than 10 seconds.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer warning (\d+(\.\d+)?)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show aggro pulses</name>
+				<script>--syntax: tic timer show aggros
+
+tic_timer.configs.show_aggros = not tic_timer.configs.show_aggros
+tic_timer:echo("Tic timer show aggros set to: " .. (tic_timer.configs.show_aggros and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer show aggros$</regex>
+			</Alias>
 		</AliasGroup>
 	</AliasPackage>
 </MudletPackage>

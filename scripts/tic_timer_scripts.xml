@@ -291,7 +291,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
     self.temp_timers.warning =
       tempTimer(aggro_length - self.configs.tic_warning, 
         function() 
-          self:echo("&lt;green&gt;Tic in "..self.configs.tic_warning.." seconds!\n")
+          self:echo("\n&lt;green&gt;Tic in "..self.configs.tic_warning.." seconds!\n")
         end
       )
       

@@ -16,7 +16,9 @@ tic_timer.configs = tic_timer.configs or
     num_tics = -1,
     aggro_pulse = -1,
     tic_length = 63.000,
-    tic_length_std_dev = 3.0
+    tic_length_std_dev = 3.0,
+    tic_warning = 7.0,
+    show_aggros = false
   }
 
 tic_timer.stopwatch = tic_timer.stopwatch or createStopWatch(false)
@@ -35,7 +37,9 @@ function tic_timer:reset()
     num_tics = -1,
     aggro_pulse = -1,
     tic_length = 63.000,
-    tic_length_std_dev = 3.0
+    tic_length_std_dev = 3.0,
+    tic_warning = 7.0,
+    show_aggros = false
   }
   
   self.tic_history = {63.0, size = 1}
@@ -94,12 +98,12 @@ registerAnonymousEventHandler("sysConnectionEvent", "tic_timer:sys_connection")<
 				<script>function tic_timer:sys_disconnection(event)
   --store current tic length locally
   local tic_length = self.configs.tic_length
-  local tic_length_std_dev = self.configs.tic_length_std_dev
+  --local tic_length_std_dev = self.configs.tic_length_std_dev
   --reset all variables and kill all timers
   self:reset()
   --restore tic length
   self.configs.tic_length = tic_length
-  self.configs.tic_length_std_dev = tic_length_std_dev
+  --self.configs.tic_length_std_dev = tic_length_std_dev
   --save configuration to disk
   table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", self.configs)
 end
@@ -285,9 +289,9 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
     
     --warning timer gives a 7 second warning
     self.temp_timers.warning =
-      tempTimer(aggro_length - 7.0, 
+      tempTimer(aggro_length - self.configs.tic_warning, 
         function() 
-          self:echo("&lt;green&gt;Tic in 7 seconds!\n")
+          self:echo("&lt;green&gt;Tic in "..self.configs.tic_warning.." seconds!\n")
         end
       )
       
@@ -329,6 +333,10 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
       )
   end
   
+  if self.configs.show_aggros and self.configs.aggro_pulse ~= 0 then
+    self:echo("&lt;red&gt;Aggro pulse\n")
+  end
+    
 end
 
 registerAnonymousEventHandler("aggro_pulse", "tic_timer:aggro_pulse")</script>

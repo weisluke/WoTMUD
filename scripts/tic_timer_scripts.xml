@@ -290,7 +290,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
   --if we are in the last aggro pulse before a tic
   if self.configs.aggro_pulse == 5 then
     
-    --warning timer gives a 7 second warning
+    --warning timer gives a warning before the tic
     self.temp_timers.warning =
       tempTimer(aggro_length - self.configs.tic_warning, 
         function() 
@@ -300,7 +300,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
       
     --early tic timer gives a window before the estimated tic during which a true tic event can arrive
     self.temp_timers.early_tic =
-      tempTimer(math.max(aggro_length - 5.0 * self.configs.tic_length_std_dev * (self.configs.num_tics + 1), 1), 
+      tempTimer(math.max(aggro_length - 3.0 * self.configs.tic_length_std_dev * (self.configs.num_tics + 1), 1), 
         function() 
           self.configs.tic_is_early = true
           self:echo("tic_is_early = true\n", true, false)
@@ -328,7 +328,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
   if self.configs.aggro_pulse == 0 then
     --late tic timer gives a window after the estimated tic during which a true tic event can arrive
     self.temp_timers.late_tic = 
-      tempTimer(math.min(5 * self.configs.tic_length_std_dev * self.configs.num_tics, aggro_length - 1), 
+      tempTimer(math.min(3 * self.configs.tic_length_std_dev * self.configs.num_tics, aggro_length - 1), 
         function() 
           self.configs.tic_is_late = false
           self:echo("tic_is_late = false\n", true, false)
@@ -400,6 +400,13 @@ registerAnonymousEventHandler("aggro_pulse", "tic_timer:aggro_pulse")</script>
       --so that when the aggro pulse event is called next it gets properly set
       self.configs.aggro_pulse = 2
       raiseEvent("aggro_pulse")
+    elseif num_events_per_tic == 20 then
+      --the only time something that occurs 20 times a tic
+      --lines up with an aggro pulse is at the half tic mark
+      if event_pulse_num == 10 then
+        self.configs.aggro_pulse = 2
+        raiseEvent("aggro_pulse")
+      end
     end
   end
 end</script>

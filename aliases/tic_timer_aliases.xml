@@ -9,6 +9,15 @@
 			<packageName></packageName>
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
+				<name>Tic timer help</name>
+				<script>--syntax: tic timer help
+
+cecho(tic_timer.help)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer help$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
 				<name>Reset Tic Timer</name>
 				<script>--syntax: tic timer reset
 
@@ -71,29 +80,65 @@ table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)</s
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Tic timer mob</name>
-				<script>local mob = matches[2]
+				<script>--syntax: tic timer mob xxx
+--ex: tic timer mob Caemlyn cityguard
 
-if tic_timer.mob_trigger then
-  killTrigger(tic_timer.mob_trigger)
+local mob = matches[2]
+
+for name, id in pairs(tic_timer.mob_triggers) do
+  killTimer(id)
+  tic_timer.mob_triggers[name] = nil
 end
 
-tic_timer.mob_trigger = tempRegexTrigger("A "..mob.." clambers to his feet\\.$", 
+tic_timer.mob_triggers["a_he"] = tempRegexTrigger("A "..mob.." clambers to his feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer:echo("Created mob stand trigger for ("..mob..")\n")</script>
+tic_timer.mob_triggers["an_he"] = tempRegexTrigger("An "..mob.." clambers to his feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["a_she"] = tempRegexTrigger("A "..mob.." clambers to her feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["an_she"] = tempRegexTrigger("An "..mob.." clambers to her feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["a_it"] = tempRegexTrigger("A "..mob.." clambers to its feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["an_it"] = tempRegexTrigger("An "..mob.." clambers to its feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer:echo("Created mob stand triggers for ("..mob..")\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tic timer mob (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Tic history</name>
-				<script>display(tic_timer.tic_history)</script>
+				<script>--syntax: tic history
+
+display(tic_timer.tic_history)</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^tic history$</regex>
+				<regex>^tic timer history$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Tic warning length</name>
@@ -103,10 +148,10 @@ tic_timer:echo("Created mob stand trigger for ("..mob..")\n")</script>
 local num = tonumber(matches[2])
 if num &lt;= 10 then
   tic_timer.configs.tic_warning = tonumber(matches[2])
-  tic_timer:echo("Tic length warning message updated to "..num.." seconds.\n")
+  tic_timer:echo("Tic warning message updated to "..num.." seconds.\n")
   table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)
 else
-  tic_timer:echo("Tic length warning message must be less than 10 seconds.\n", false, true)
+  tic_timer:echo("Tic warning message must be less than 10 seconds.\n", false, true)
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -117,7 +162,7 @@ end</script>
 				<script>--syntax: tic timer show aggros
 
 tic_timer.configs.show_aggros = not tic_timer.configs.show_aggros
-tic_timer:echo("Tic timer show aggros set to: " .. (tic_timer.configs.show_aggros and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+tic_timer:echo("Tic timer will now " .. (tic_timer.configs.show_aggros and "&lt;green&gt;show&lt;reset&gt;" or "&lt;red&gt;hide&lt;reset&gt;").." aggro pulse messages.\n")
 table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)</script>
 				<command></command>
 				<packageName></packageName>

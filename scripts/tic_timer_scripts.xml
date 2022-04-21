@@ -25,6 +25,8 @@ tic_timer.stopwatch = tic_timer.stopwatch or createStopWatch(false)
 
 tic_timer.temp_timers = tic_timer.temp_timers or {}
 
+tic_timer.mob_triggers = tic_timer.mob_triggers or {}
+
 function tic_timer:reset()
   --preserve some value
   local debug = self.configs.dbug
@@ -52,8 +54,9 @@ function tic_timer:reset()
     killTimer(id)
     self.temp_timers[name] = nil
   end
-  if self.mob_trigger then
-    killTrigger(self.mob_trigger)
+  for name, id in pairs(self.mob_triggers) do
+    killTimer(id)
+    self.mob_triggers[name] = nil
   end
 end</script>
 			<eventHandlerList />
@@ -249,7 +252,7 @@ end
     self.configs.aggro_pulse = -1
   end
   
-  raiseEvent("aggro_pulse")
+  raiseEvent("aggro_pulse", exact)
 end
 
 registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
@@ -258,7 +261,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Aggro pulse event</name>
 				<packageName></packageName>
-				<script>function tic_timer:aggro_pulse(event)
+				<script>function tic_timer:aggro_pulse(event, exact)
   --aggro pulses occur every 1/6 of a tic
   local aggro_length = self.configs.tic_length / 6.0
   
@@ -319,7 +322,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
     self.temp_timers.aggro_pulse = 
       tempTimer(aggro_length, 
         function() 
-          raiseEvent("aggro_pulse")
+          raiseEvent("aggro_pulse", false)
         end
       )
   end
@@ -337,7 +340,11 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
   end
   
   if self.configs.show_aggros then
-    self:echo("\n&lt;red&gt;Aggro pulse\n")
+    if exact then
+      self:echo("\n&lt;red&gt;Exact aggro pulse\n")
+    else
+      self:echo("\n&lt;red&gt;Estimated aggro pulse\n")
+    end
   end
     
 end
@@ -377,8 +384,15 @@ registerAnonymousEventHandler("aggro_pulse", "tic_timer:aggro_pulse")</script>
     self:echo("\nNumber of events: "..num_events, true, false)
     self:echo("\nEvent pulse number: "..event_pulse_num.." / "..num_events_per_tic, true, false)
     
-    local est_tic_length = (self.tic_history.size * self.configs.tic_length + time) / 
-      (self.tic_history.size + self.configs.num_tics + event_pulse_num / num_events_per_tic)
+    local est_tic_length = time / (self.configs.num_tics + event_pulse_num / num_events_per_tic)
+    
+    for i=1,self.configs.num_tics + 1, 1 do
+      self:push_tic_length(est_tic_length)
+    end
+    est_tic_length = self:tic_length_mean()
+    for i=1, self.configs.num_tics + 1, 1 do
+      self:pop_tic_length()
+    end
       
     if est_tic_length &gt; ptl + 3 * ptl_std_dev or est_tic_length &lt; ptl - 3 * ptl_std_dev then
       self:echo(string.format("\nTic length of %.3f is more than 3 standard deviations from average.", est_tic_length), true, true)
@@ -393,23 +407,74 @@ registerAnonymousEventHandler("aggro_pulse", "tic_timer:aggro_pulse")</script>
       --set the aggro pulse number to 1 less than the calculated number
       --so that when the aggro_pulse event is called next it gets properly set
       self.configs.aggro_pulse = event_pulse_num - 1
-      raiseEvent("aggro_pulse")
+      raiseEvent("aggro_pulse", true)
     --if the event happens 2 times per tic, it is a half tic
     elseif num_events_per_tic == 2 then
       --set the aggro pulse number to 2 (1 less than a half tic, 3)
       --so that when the aggro pulse event is called next it gets properly set
       self.configs.aggro_pulse = 2
-      raiseEvent("aggro_pulse")
+      raiseEvent("aggro_pulse", true)
     elseif num_events_per_tic == 20 then
       --the only time something that occurs 20 times a tic
       --lines up with an aggro pulse is at the half tic mark
+      --set the aggro pulse number to 2 (1 less than a half tic, 3)
+      --so that when the aggro pulse event is called next it gets properly set
       if event_pulse_num == 10 then
         self.configs.aggro_pulse = 2
-        raiseEvent("aggro_pulse")
+        raiseEvent("aggro_pulse", true)
       end
     end
   end
 end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Tic timer help</name>
+				<packageName></packageName>
+				<script>tic_timer.help =
+  [[
+    &lt;cyan&gt;Tic Timer Script&lt;reset&gt;
+
+    This script will attempt to estimate tics and aggro pulses on the MUD. A
+    stopwatch records the time between known tic messages and determines the tic
+    length during that interval based on the estimated number of tic events. Tic
+    lengths are stored in a list and used to calculate the average tic length,
+    which weights each tic length inversely proportional to the time since it
+    occured. This way, more recent tics are weighted more and can drive up the
+    average as the tic length increases throughout the day. The tic history is used
+    to determine a weighted standard deviation, in order to reject tics which are
+    too long or short. The tic length is periodically adjusted based on known aggro
+    pulse events and combat rounds. 
+    
+    Below is a brief overview of some commands that this script includes. All
+    commands can be found in the appropriate tic timer folder under mudlet aliases.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;tic timer help&lt;reset&gt; - Display this help message
+        &lt;yellow&gt;tic timer reset&lt;reset&gt; - reset the tic timer to its default time settings
+            while preserving the debug, tic warning, and show aggro settings
+        &lt;yellow&gt;tic timer&lt;reset&gt; - toggle the tic timer on and off. toggling twice will
+            reset it
+        &lt;yellow&gt;tic length xxx&lt;reset&gt; - set the tic length to a particular value. this
+            will require an exact tic message from the mud to start the timer again
+            ex: tic length 63, tic length 61.79
+        &lt;yellow&gt;tic length std dev xxx&lt;reset&gt; - adjust the standard deviation used to
+            determine the allowable window for tic events. should only need set if you
+            are consistently seeing messages about events occuring outside the window
+            ex: tic length std dev 1, tic length std dev 0.739
+        &lt;yellow&gt;tic timer debug&lt;reset&gt; - toggle displaying debug messages
+        &lt;yellow&gt;tic timer mob xxx&lt;reset&gt; - create triggers for mob stands that will be used
+            to judge aggro pulse events. The temporary triggers created reset on mudlet
+            disconnection, and are of the form "A(n) xxx clambers to (his)(her)(its) feet."
+            The provided mob is case sensitive.
+            ex: tic timer mob Caemlyn cityguard, tic timer mob chicken
+        &lt;yellow&gt;tic timer history&lt;reset&gt; - display the stored tic length history
+        &lt;yellow&gt;tic timer warning&lt;reset&gt; - set how early the tic warning message displays
+            ex: tic timer warning 7, tic timer warning 5, tic timer warning 3.21
+        &lt;yellow&gt;tic timer show aggros&lt;reset&gt; - toggle whether the tic timer will show
+            or hide estimated/exact aggro pulse messages
+        
+]]</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>

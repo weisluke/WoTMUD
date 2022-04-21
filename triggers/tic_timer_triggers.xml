@@ -1054,12 +1054,14 @@ end</script>
 					<string>The grinding of stone on concrete from above becomes louder\.$</string>
 					<string>The (.+) alarm horn sounds loudly in the distance\.$</string>
 					<string>The (.+) alarm bell sounds loudly in the distance\.$</string>
-					<string>A (.+) cat sniffs the ground\.\.\.$</string>
-					<string>A (.+) cat growls menacingly\.$</string>
+					<string>A (.+) sniffs the ground\.\.\.$</string>
+					<string>A (.+) growls menacingly\.$</string>
 					<string>The (.+) guardsmen ring the city alarm in the distance\.$</string>
 					<string>The Aryth Ocean glows green as the moonlight hits its surface\.$</string>
+					<string>A flock of ravens starts following you\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -1417,8 +1419,10 @@ end</script>
 						<string>(You try to (.+) dodges the attack\.)</string>
 						<string>(You try to (.+) deflects the blow\.)</string>
 						<string>(You try to (.+) parries successfully\.)</string>
+						<string>You completely miss (.+) with your (.+)\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
@@ -1427,7 +1431,7 @@ end</script>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>tic_timer_player_engaged</name>
 				<script>enableTrigger("20 times per tic")
 enableTrigger("tic_timer_player_unengaged")
@@ -1475,7 +1479,7 @@ disableTrigger("tic_timer_player_unengaged")</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Moods</name>
 				<script></script>
 				<triggerType>0</triggerType>

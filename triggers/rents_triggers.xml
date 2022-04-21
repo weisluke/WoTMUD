@@ -78,7 +78,7 @@ end</script>
 local rents_db = db:get_database("rents")
 
 if not rents.name then
-  rents:echo("\nCharacter name not known. Unable to store item to rent database.\n", false, true)
+  rents:echo("\nUnable to store item to rent database. Type \"score\" to capture character name.\n", false, true)
 else
   local room = getPlayerRoom()
   local zone = getRoomUserData(room, "zone")

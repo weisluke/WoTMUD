@@ -1189,7 +1189,7 @@ elseif table.size(foundrooms) == 1 then
   end
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
-  for k, v in spairs(foundrooms) do
+  for k, v in pairs(foundrooms) do
     cechoLink(
       "Room ID: " ..
       v ..

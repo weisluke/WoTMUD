@@ -935,7 +935,7 @@ end</script>
   local finalrooms = {}
   
   --for all rooms that we found
-  for index, id in pairs(rooms) do
+  for _, id in pairs(rooms) do
     --if there is a door in the direction desired, add it to the list of valid rooms
     if getRoomUserData(id, dir) ~= "" then
       table.insert(finalrooms, id)

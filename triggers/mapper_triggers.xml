@@ -490,8 +490,8 @@ if matches[1] == "Alas, you cannot go that way..." then
       end
       --if there are exit stubs leading to unmapped room, include those
       if getExitStubs(id) then
-        for _, dir in pairs(getExitStubs(id)) do
-          table.insert(map_exits, string.sub(wotmudmapper.exitmap[dir], 1, 1))
+        for _, dirnum in pairs(getExitStubs(id)) do
+          table.insert(map_exits, string.sub(wotmudmapper.exitmap[dirnum], 1, 1))
         end
       end
       --compare list of possible exits to exit that failed

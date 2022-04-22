@@ -1205,7 +1205,6 @@ else
       true
     )
   end
-  cecho("")
 end</script>
 				<command></command>
 				<packageName></packageName>

@@ -481,7 +481,7 @@ end
 if matches[1] == "Alas, you cannot go that way..." then
   if table.size(wotmudmapper.currentID) &gt; 1 then
     local roommatches = {}
-    for index, id in pairs(wotmudmapper.currentID) do
+    for _, id in pairs(wotmudmapper.currentID) do
       --initialiasing table
       local map_exits = {}
       --create table of exit keys (grabbing first letter of "north","south",etc.)
@@ -511,7 +511,7 @@ elseif matches[1] == "You need a boat to go there."
   
   if table.size(wotmudmapper.currentID) &gt; 1 then
     local roommatches = {}
-    for index, id in pairs(wotmudmapper.currentID) do
+    for _, id in pairs(wotmudmapper.currentID) do
       --what room would the movement take us to
       local to_room = getRoomExits(id)[wotmudmapper.exitmap[wotmudmapper.exitmap[com]]]
       --if it exists and is a water room, then it is a possible match

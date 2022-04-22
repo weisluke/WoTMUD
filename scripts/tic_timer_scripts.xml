@@ -28,7 +28,7 @@ tic_timer.temp_timers = tic_timer.temp_timers or {}
 tic_timer.mob_triggers = tic_timer.mob_triggers or {}
 
 function tic_timer:reset()
-  --preserve some value
+  --preserve some values
   local debug = self.configs.dbug
   local warning = self.configs.tic_warning
   local aggros = self.configs.show_aggros

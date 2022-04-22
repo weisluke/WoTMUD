@@ -929,18 +929,21 @@ end</script>
     end
     --update rooms to loop over for next movement command. union ensures there are no duplicates
     rooms = table.n_union(temp_rooms, temp_rooms)
-  end
+  end  
+  
+  --variable to hold final list of valid rooms
+  local finalrooms = {}
   
   --for all rooms that we found
   for index, id in pairs(rooms) do
     --if there is not a door in the direction desired, remove from list of valid rooms
-    if getRoomUserData(id, dir) == "" then
-      rooms[index] = nil
+    if getRoomUserData(id, dir) ~= "" then
+      table.insert(finalrooms, id)
     end
   end
   --if list of valid rooms contains only one, send the command for that door
-  if table.size(rooms) == 1 then
-    local door = getRoomUserData(rooms[1], dir)
+  if table.size(finalrooms) == 1 then
+    local door = getRoomUserData(finalrooms[1], dir)
     send(com .. " " .. door .. " " .. dir)
   --otherwise send blank command
   else

@@ -936,7 +936,7 @@ end</script>
   
   --for all rooms that we found
   for index, id in pairs(rooms) do
-    --if there is not a door in the direction desired, remove from list of valid rooms
+    --if there is a door in the direction desired, add it to the list of valid rooms
     if getRoomUserData(id, dir) ~= "" then
       table.insert(finalrooms, id)
     end

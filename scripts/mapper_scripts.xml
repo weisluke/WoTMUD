@@ -1017,13 +1017,12 @@ function wotmudmapper:find_matching_exits(rooms, exits_seen)
     --comparison tables of map exits from room minus exits seen
     map_minus_seen = table.n_complement(map_exits, exits_seen)
     
-    --if room exits match seen exits, room is a potential match. do nothing
+    --if room exits match seen exits, insert room into possible matches
     if table.is_empty(seen_minus_map) and table.is_empty(map_minus_seen) then
       table.insert(roommatches, room)
     --if room has extra exits from seen exits
     --and ALL extra exits are doors (which could be hidden and closed)
-    --then room is a posible match. do nothing. if one of the exits is not
-    --a door, then the room is not a possible match
+    --then add room to possible matches
     elseif table.is_empty(seen_minus_map) and not table.is_empty(map_minus_seen) then
       alldoors = true
       for _, dir in pairs(map_minus_seen) do

@@ -9,6 +9,15 @@
 			<packageName></packageName>
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
+				<name>Tic timer help</name>
+				<script>--syntax: tic timer help
+
+cecho(tic_timer.help)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer help$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
 				<name>Reset Tic Timer</name>
 				<script>--syntax: tic timer reset
 
@@ -37,14 +46,127 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Set Tic Length</name>
 				<script>--syntax: tic length seconds
---ex: ticlength 60.271
+--ex: tic length 63.271
 local tic_length = tonumber(matches[2])
 tic_timer:reset()
 tic_timer.configs.tic_length = tic_length
+tic_timer.tic_history[1] = tic_length
 tic_timer:echo("&lt;green&gt;Tic timer reset with a tic length of "..tic_length.." seconds!\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tic length (\d+(\.\d+)?)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Tic Length Std Dev</name>
+				<script>--syntax: tic length std dev seconds
+--ex: tic length std dev 0.379
+
+tic_timer.configs.tic_length_std_dev = tonumber(matches[2])
+tic_timer:echo(string.format("Tic length std dev updated to: %.3f seconds.\n", tic_timer.configs.tic_length_std_dev))</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic length std dev (\d+(\.\d+)?)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Toggle debug</name>
+				<script>--syntax: tic timer debug
+
+tic_timer.configs.dbug = not tic_timer.configs.dbug
+tic_timer:echo("Tic timer debug set to: " .. (tic_timer.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer debug$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Tic timer mob</name>
+				<script>--syntax: tic timer mob xxx
+--ex: tic timer mob Caemlyn cityguard
+
+local mob = matches[2]
+
+for name, id in pairs(tic_timer.mob_triggers) do
+  killTimer(id)
+  tic_timer.mob_triggers[name] = nil
+end
+
+tic_timer.mob_triggers["a_he"] = tempRegexTrigger("A "..mob.." clambers to his feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["an_he"] = tempRegexTrigger("An "..mob.." clambers to his feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["a_she"] = tempRegexTrigger("A "..mob.." clambers to her feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["an_she"] = tempRegexTrigger("An "..mob.." clambers to her feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["a_it"] = tempRegexTrigger("A "..mob.." clambers to its feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["an_it"] = tempRegexTrigger("An "..mob.." clambers to its feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer:echo("Created mob stand triggers for ("..mob..")\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer mob (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Tic history</name>
+				<script>--syntax: tic history
+
+display(tic_timer.tic_history)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer history$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Tic warning length</name>
+				<script>--syntax: tic timer warning xxx
+--ex: tic timer warning 7.39
+
+local num = tonumber(matches[2])
+if num &lt;= 10 then
+  tic_timer.configs.tic_warning = tonumber(matches[2])
+  tic_timer:echo("Tic warning message updated to "..num.." seconds.\n")
+  table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)
+else
+  tic_timer:echo("Tic warning message must be less than 10 seconds.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer warning (\d+(\.\d+)?)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show aggro pulses</name>
+				<script>--syntax: tic timer show aggros
+
+tic_timer.configs.show_aggros = not tic_timer.configs.show_aggros
+tic_timer:echo("Tic timer will now " .. (tic_timer.configs.show_aggros and "&lt;green&gt;show&lt;reset&gt;" or "&lt;red&gt;hide&lt;reset&gt;").." aggro pulse messages.\n")
+table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer show aggros$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

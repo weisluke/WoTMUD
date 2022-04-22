@@ -850,7 +850,6 @@ end</script>
 					<string>The dismembered corpse of (.+) has decayed into a pile of dust\.$</string>
 					<string>Light fades to dark, and the air takes on a sharp chill as the sun sets below the horizon\.$</string>
 					<string>The sky turns the color liquid gold as the sun sets beyond the Mountains of Mist\.$</string>
-					<string>The Aryth Ocean glows green as the moonlight hits its surface\.$</string>
 					<string>The weak light cast upon the dismal grove dissipates as the sun sets\.$</string>
 					<string>The sun slowly sinks into the mountains to the west\.$</string>
 					<string>The Cliffs of Dawn color red as the sun rises over the exotic land of Shara\.$</string>
@@ -859,8 +858,13 @@ end</script>
 					<string>A bright sun rises over the forest\.$</string>
 					<string>The sun sets in the distance\.$</string>
 					<string>The morning light burns off the reigning darkness in the sky\.$</string>
+					<string>Casting jagged shadows, the sun rises over Garen's Wall\.$</string>
+					<string>Light reflects off the ocean as the sun rises\.$</string>
+					<string>The sun rises, casting long shadows across the blighted land\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -984,19 +988,9 @@ end</script>
 				</Trigger>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>poison tic and half tic</name>
-				<script>--grab current tic timer stopwatch time
-local time = getStopWatchTime(tic_timer.stopwatch)
-
---determine how half tics have occured
-time = 2.0 * time / tic_timer.configs.tic_length
-
---if an even number of half tics, then this is a full tic
---rounds number of half tics to nearest integer
-if (math.floor(time + 0.5) % 2 == 0) then
-  if tic_timer.configs.on then
-    raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
-  end
+				<name>2 times per tic</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(2)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -1017,6 +1011,536 @@ end</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>6 times per tic</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(6)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(A|An|The) (.+) flaps (his|her|its) wings and flies high into the sky\.$</string>
+					<string>(A|An|The) (.+) is flying much lower now\.\.\.$</string>
+					<string>(A|An|The) (.+) flaps (his|her|its) wings as (he|she|it) comes in to land nearby\.$</string>
+					<string>(A|An|The) (.+) flaps (his|her|its) wings and begins to fly\.$</string>
+					<string>A shrill piercing scream reverberates through the area\.$</string>
+					<string>The (.+) gatekeeper closes the (.+)\.$</string>
+					<string>The (.+) gatekeeper locks the (.+)\.$</string>
+					<string>A (.+) gatekeeper closes the (.+)\.$</string>
+					<string>A (.+) gatekeeper locks the (.+)\.$</string>
+					<string>A (.+) Gatekeeper closes the (.+)\.$</string>
+					<string>A (.+) Gatekeeper locks the (.+)\.$</string>
+					<string>A rat starts following you\.$</string>
+					<string>A crow starts following you\.$</string>
+					<string>A raven starts following you\.$</string>
+					<string>A (.+) lamplighter runs off, mumbling about some low-paying job\.$</string>
+					<string>A (.+) lamplighter looks at a streetlamp and nods\.$</string>
+					<string>A (.+) lamplighter lights a streetlamp\.$</string>
+					<string>A (.+) lamplighter exclaims 'Finally\.\. Time to relax and have a beer!'$</string>
+					<string>A (.+) lamplighter extinguishes a streetlamp\.$</string>
+					<string>Someone lights something\.$</string>
+					<string>The (.+) alarm sounds loudly in the distance\.$</string>
+					<string>The steady toll of a gong calls defenders to the stone\.$</string>
+					<string>The (.+) alarm horn sounds loudly\.$</string>
+					<string>A loud grinding of stone on concrete resonates from above\.$</string>
+					<string>The grinding of stone on concrete from above becomes louder\.$</string>
+					<string>The (.+) alarm horn sounds loudly in the distance\.$</string>
+					<string>The (.+) alarm bell sounds loudly in the distance\.$</string>
+					<string>A (.+) sniffs the ground\.\.\.$</string>
+					<string>A (.+) growls menacingly\.$</string>
+					<string>The (.+) guardsmen ring the city alarm in the distance\.$</string>
+					<string>The Aryth Ocean glows green as the moonlight hits its surface\.$</string>
+					<string>A flock of ravens starts following you\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>20 times per tic</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(You (.+) into bloody fragments!)</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#00ff00</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You (?!pierce)(?!stab)(.+) into bloody fragments!)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(You (.+) extremely hard\.)</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#00ff00</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You (?!pierce)(?!stab)(.+) extremely hard\.)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(You (.+) very hard\.)</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#00ff00</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You (?!pierce)(?!stab)(.+) very hard\.)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(You (.+) hard\.)</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#00ff00</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You bite (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You blast (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You cleave (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You crush (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You hack (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You hit (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You lance (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You pound (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You scythe (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You shoot (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You slash (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You slice (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You smite (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You sting (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You strike (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+						<string>(You whip (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(You (.+)\.)</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#00ff00</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You bite (.+)(?&lt;!hard)\.)</string>
+						<string>(You blast (.+)(?&lt;!hard)\.)</string>
+						<string>(You cleave (.+)(?&lt;!hard)\.)</string>
+						<string>(You crush (.+)(?&lt;!hard)\.)</string>
+						<string>(You hack (.+)(?&lt;!hard)\.)</string>
+						<string>(You hit (?!yourself)(.+)(?&lt;!hard)\.)</string>
+						<string>(You lance (.+)(?&lt;!hard)\.)</string>
+						<string>(You pound (.+)(?&lt;!hard)\.)</string>
+						<string>(You scythe (.+)(?&lt;!hard)\.)</string>
+						<string>(You shoot (.+)(?&lt;!hard)\.)</string>
+						<string>(You slash (.+)(?&lt;!hard)\.)</string>
+						<string>(You slice (.+)(?&lt;!hard)\.)</string>
+						<string>(You smite (.+)(?&lt;!hard)\.)</string>
+						<string>(You sting (.+)(?&lt;!hard)\.)</string>
+						<string>(You strike (.+)(?&lt;!hard)\.)</string>
+						<string>(You whip (.+)(?&lt;!hard)\.)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(You barely (.+)\.)</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#00ff00</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You barely (?!tickle)(.+)(?&lt;!stab)(?&lt;!pierce)\.)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(You tickle (.+) with your (.+)\.)</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#00ff00</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You tickle (.+) with your (.+)(?&lt;!stab)(?&lt;!pierce)\.)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(You barely tickle (.+) with your (.+)\.)</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#00ff00</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You barely tickle (.+) with your (.+)(?&lt;!stab)(?&lt;!pierce)\.)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>(You fail to (.+)\.)</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#00ff00</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You fail to bite (.+)\.)</string>
+						<string>(You fail to blast (.+)\.)</string>
+						<string>(You fail to cleave (.+)\.)</string>
+						<string>(You fail to crush (.+)\.)</string>
+						<string>(You fail to hack (.+)\.)</string>
+						<string>(You fail to hit (.+)\.)</string>
+						<string>(You fail to lance (.+)\.)</string>
+						<string>(You fail to pound (.+)\.)</string>
+						<string>(You fail to scythe (.+)\.)</string>
+						<string>(You fail to shoot (.+)\.)</string>
+						<string>(You fail to slash (.+)\.)</string>
+						<string>(You fail to slice (.+)\.)</string>
+						<string>(You fail to smite (.+)\.)</string>
+						<string>(You fail to sting (.+)\.)</string>
+						<string>(You fail to strike (.+)\.)</string>
+						<string>(You fail to whip (.+)\.)</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Other melee messages</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(You strike at (.+), but (.+) through (.+)\.)</string>
+						<string>((.+) swiftly dodges your attempt to (.+)\.)</string>
+						<string>(You try to (.+) dodges the attack\.)</string>
+						<string>(You try to (.+) deflects the blow\.)</string>
+						<string>(You try to (.+) parries successfully\.)</string>
+						<string>You completely miss (.+) with your (.+)\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>tic_timer_player_engaged</name>
+				<script>enableTrigger("20 times per tic")
+enableTrigger("tic_timer_player_unengaged")
+disableTrigger("tic_timer_player_engaged")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>: (\S+) &gt;</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>tic_timer_player_unengaged</name>
+				<script>disableTrigger("20 times per tic")
+enableTrigger("tic_timer_player_engaged")
+disableTrigger("tic_timer_player_unengaged")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>HP:(\S+) MV:(\S+) &gt;</string>
+					<string>HP:(\S+) SP:(\S+) MV:(\S+) &gt;</string>
+					<string>HP:(\S+) DP:(\S+) MV:(\S+) &gt;</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Moods</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Berserk</name>
+					<script>disableTrigger("20 times per tic")
+disableTrigger("tic_timer_player_engaged")
+disableTrigger("tic_timer_player_unengaged")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Mood changed to: Berserk$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Non-berserk</name>
+					<script>enableTrigger("tic_timer_player_engaged")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Mood changed to: Wimpy$</string>
+						<string>Mood changed to: Normal$</string>
+						<string>Mood changed to: Brave$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
 		</TriggerGroup>
 	</TriggerPackage>
 </MudletPackage>

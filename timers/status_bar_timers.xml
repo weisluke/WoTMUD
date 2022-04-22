@@ -4,9 +4,9 @@
 	<TimerPackage>
 		<Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">
 			<name>Status bar tic display</name>
-			<script>if tic_timer and tic_timer.temp_timers.tic then
+			<script>if tic_timer and tic_timer.temp_timers.aggro_pulse then
   --determine current time left on the timer
-  local ctime = remainingTime(tic_timer.temp_timers.tic)
+  local ctime = tic_timer.configs.tic_length * (5 - tic_timer.configs.aggro_pulse)/6 + remainingTime(tic_timer.temp_timers.aggro_pulse)
   status_bar.tic_timer:echo(string.format("TNT: %0.1f", ctime), "white", "c")
 end</script>
 			<command></command>

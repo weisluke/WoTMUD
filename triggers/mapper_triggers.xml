@@ -187,8 +187,7 @@ if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
           table.insert(newID, room)
         end
       end
-      local room = wotmudmapper:is_near_room(com, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(id))
-      table.insert(newID, room)
+      table.insert(newID, wotmudmapper:is_near_room(com, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(id)))
     end
     newID = table.n_union(newID, newID)
     if table.is_empty(newID) then

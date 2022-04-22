@@ -812,7 +812,7 @@ end</script>
   end
   exits = table.n_intersection({"n","e","s","w","u","d"},exits)
   for k,v in pairs(exits) do
-      cecho(v.." ")
+      cecho(v:upper().." ")
   end
   cecho("]")
   if wotmudmapper.configs.showzone then
@@ -1189,7 +1189,7 @@ elseif table.size(foundrooms) == 1 then
   end
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
-  for k, v in spairs(foundrooms) do
+for k, v in pairs(foundrooms) do
     cechoLink(
       "Room ID: " ..
       v ..
@@ -1205,7 +1205,6 @@ else
       true
     )
   end
-  cecho("")
 end</script>
 				<command></command>
 				<packageName></packageName>

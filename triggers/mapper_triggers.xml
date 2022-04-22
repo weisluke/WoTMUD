@@ -644,12 +644,14 @@ if
 then
   --only try to narrow down results if room isn't already known
   if table.size(wotmudmapper.currentID) &gt; 1 then
-    for index, id in pairs(wotmudmapper.currentID) do
-      --if room doesn't have door in direction entered, it is not a potential match
-      if getRoomUserData(id, com) == "" then
-        wotmudmapper.currentID[index] = nil
+    local roommatches = {}
+    for _, id in pairs(wotmudmapper.currentID) do
+      --if room has door in direction entered, add to potential matches
+      if getRoomUserData(id, com) ~= "" then
+        table.insert(roommatches, id)
       end
     end
+    wotmudmapper.currentID = roommatches
   end
 end
 if table.size(wotmudmapper.currentID) == 1 then

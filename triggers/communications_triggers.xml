@@ -221,19 +221,19 @@ communications:append("Misc")</script>
 				<script>selectCaptureGroup(1)
 communications:append("Misc")
 
-local roomname = matches[3]
+local roomname = matches[4]
 local foundrooms = searchRoom(roomname, true, true)
 
 if table.is_empty(foundrooms) then
-    selectCaptureGroup(3)
+    selectCaptureGroup(4)
     setLink(function() end, "No matches found!")
 elseif table.size(foundrooms) == 1 then
   for k, v in pairs(foundrooms) do
-    selectCaptureGroup(3)
+    selectCaptureGroup(4)
     setLink(function() centerview(k) end, "Click to center map on room.")
   end
 else
-  selectCaptureGroup(3)
+  selectCaptureGroup(4)
   
   setLink(function() 
     for k,v in spairs(foundrooms) do

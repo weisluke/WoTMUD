@@ -263,8 +263,16 @@ end</script>
 					<string>(^A red-eyed raven caws '(.+) at (.+)'$)</string>
 					<string>&gt; (A flock of ravens caws '(.+) at (.+)')$</string>
 					<string>(^A flock of ravens caws '(.+) at (.+)'$)</string>
+					<string>&gt; (A large black rat squeaks '(.+) at (.+)')$</string>
+					<string>(^A large black rat squeaks '(.+) at (.+)'$)</string>
+					<string>&gt; (A crow caws '(.+) at (.+)')$</string>
+					<string>(^A crow caws '(.+) at (.+)'$)</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

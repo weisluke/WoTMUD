@@ -34,7 +34,10 @@
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>There are some tracks of a (.+) leaving (.+)\.</name>
-					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
+					<script>local race = matches[3]
+local dir = matches[4]
+
+local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
     trolloc = "ansi_red",
@@ -49,19 +52,10 @@ local colors =
     ["ridden mount"] = "ansi_yellow"
   }  
 
-if colors[matches[4]] then
-  creplaceLine(
-    "&lt;brown&gt;There are some tracks of a" ..
-    matches[3] ..
-    " &lt;" ..
-    colors[matches[4]] ..
-    "&gt;" ..
-    string.upper(matches[4]) ..
-    "&lt;brown&gt; leaving " ..
-    matches[5] ..
-    ". " ..
-    directions[matches[5]]
-  )
+if colors[race] then
+  selectCaptureGroup(3)
+  creplace("&lt;"..colors[race].."&gt;"..string.upper(race))
+  cecho(" "..directions[dir])
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -74,7 +68,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(^There are some tracks of a(n?) (.+) leaving (.+)\.$)</string>
+						<string>(^There are some tracks of an? (.+) leaving (.+)\.$)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -82,7 +76,10 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>There are some bloody traces of a (.+) leaving (.+)\.</name>
-					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
+					<script>local race = matches[3]
+local dir = matches[4]
+
+local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
     trolloc = "ansi_red",
@@ -97,19 +94,10 @@ local colors =
     ["ridden mount"] = "ansi_yellow"
   } 
 
-if colors[matches[4]] then
-  creplaceLine(
-    "&lt;red&gt;There are some bloody traces of a" ..
-    matches[3] ..
-    " &lt;" ..
-    colors[matches[4]] ..
-    "&gt;" ..
-    string.upper(matches[4]) ..
-    "&lt;red&gt; leaving " ..
-    matches[5] ..
-    ". " ..
-    directions[matches[5]]
-  )
+if colors[race] then
+  selectCaptureGroup(3)
+  creplace("&lt;"..colors[race].."&gt;"..string.upper(race))
+  cecho(" "..directions[dir])
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -122,7 +110,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(^There are some bloody traces of a(n?) (.+) leaving (.+)\.$)</string>
+						<string>(^There are some bloody traces of an? (.+) leaving (.+)\.$)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -130,7 +118,10 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Some (.+) bloody traces of a (.+) leaving (.+)\.</name>
-					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
+					<script>local race = matches[3]
+local dir = matches[4]
+
+local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
     trolloc = "ansi_red",
@@ -145,21 +136,10 @@ local colors =
     ["ridden mount"] = "ansi_yellow"
   } 
 
-if colors[string.lower(matches[5])] then
-  creplaceLine(
-    "&lt;red&gt;Some " ..
-    matches[3] ..
-    " bloody traces of a" ..
-    matches[4] ..
-    " &lt;" ..
-    colors[string.lower(matches[5])] ..
-    "&gt;" ..
-    string.upper(matches[5]) ..
-    "&lt;red&gt; leaving " ..
-    matches[6] ..
-    ". " ..
-    directions[matches[6]]
-  )
+if colors[race] then
+  selectCaptureGroup(3)
+  creplace("&lt;"..colors[race].."&gt;"..string.upper(race))
+  cecho(" "..directions[dir])
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -172,7 +152,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(^Some (.+) bloody traces of a(n?) (.+) leaving (.+)\.$)</string>
+						<string>(^Some .+ bloody traces of an? (.+) leaving (.+)\.$)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -180,7 +160,10 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Some (.+) tracks of a (.+) leaving (.+)\.</name>
-					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
+					<script>local race = matches[3]
+local dir = matches[4]
+
+local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 local colors =
   {
     trolloc = "ansi_red",
@@ -195,21 +178,10 @@ local colors =
     ["ridden mount"] = "ansi_yellow"
   } 
 
-if colors[string.lower(matches[5])] then
-  creplaceLine(
-    "Some " ..
-    matches[3] ..
-    " tracks of a" ..
-    matches[4] ..
-    " &lt;" ..
-    colors[string.lower(matches[5])] ..
-    "&gt;" ..
-    string.upper(matches[5]) ..
-    "&lt;reset&gt; leaving " ..
-    matches[6] ..
-    ". " ..
-    directions[matches[6]]
-  )
+if colors[race] then
+  selectCaptureGroup(3)
+  creplace("&lt;"..colors[race].."&gt;"..string.upper(race))
+  cecho(" "..directions[dir])
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -222,7 +194,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(^Some (.+) tracks of a(n?) (.+) leaving (.+)\.$)</string>
+						<string>(^Some .+ tracks of an? (.+) leaving (.+)\.$)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -230,9 +202,11 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>(.+) leaves (.+)\.</name>
-					<script>local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
-if directions[matches[3]:split(" ")[1]] then
-  cecho(" " .. directions[matches[3]:split(" ")[1]])
+					<script>local dir = matches[3]:split(" ")[1]
+
+local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
+if directions[dir] then
+  cecho(" " .. directions[dir])
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>

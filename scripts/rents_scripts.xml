@@ -91,6 +91,43 @@ registerAnonymousEventHandler("sysExitEvent", "rents:sys_disconnection")
 registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection")</script>
 				<eventHandlerList />
 			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Rents rare items</name>
+				<packageName></packageName>
+				<script>rents.rares = {
+    "a heron-marked longsword",
+    "a heron-marked blade",
+    "a heron-marked greatsword", 
+    "a heron-marked foil",
+    "a heron-engraved scabbard",
+    "a belt bearing a dragon worked in silver",
+    "a black shirt trimmed with lace",
+    "an ornate chainmail shirt chased with gold",
+    "a sinister black trident",
+    "a massive war maul",
+    "a tainted war maul",
+    "a triple bladed dagger",
+    "a steel warhammer",
+    "a surcoat with exquisite embroidery",
+    "a gown of exquisite design",
+    "a silver medallion",
+    "a shocklance",
+    "a razor-sharp longsword",
+    "a partisan bearing the arms of Ghealdan",
+    "a pair of long-handled war axes",
+    "a pair of gold-hilted hooked swords",
+    "a nimble blade with a cuendillar pommel",
+    "a feathered Kandori paramerion",
+    "a diamond-tipped lance",
+    "a darkened steel trident",
+    "a crimson-hafted battleaxe",
+    "a polished onyx-inlaid shield",
+    "a jeweled wristcuff",
+    "an obsidian encrusted sungwood staff",
+    "a wicked knife bladed axe",
+}    </script>
+				<eventHandlerList />
+			</Script>
 		</ScriptGroup>
 	</ScriptPackage>
 </MudletPackage>

@@ -90,7 +90,15 @@ end</script>
 
 local rents_db = db:get_database("rents")
 
-local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.item,"%"..name.."%"))
+local storage = {}
+
+if name == "rare" then
+  for _, rare in pairs(rents.rares) do
+    storage = table.n_union(storage, db:fetch(rents_db.storage, db:like(rents_db.storage.item,"%"..rare.."%")))
+  end
+else
+  storage = db:fetch(rents_db.storage, db:like(rents_db.storage.item,"%"..name.."%"))
+end
 
 if table.is_empty(storage) then
   rents:echo("No items containing the phrase \""..name.."\" found in the rent database\n", false, true)

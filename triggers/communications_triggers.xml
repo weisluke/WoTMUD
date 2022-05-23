@@ -34,9 +34,9 @@ communications:append("Narrates")</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>You narrate '(.+)'$</string>
-					<string>&gt; (.+) narrates '(.+)'$</string>
-					<string>^(.+) narrates '(.+)'$</string>
+					<string>You narrate (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
+					<string>&gt; (.+) narrates (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
+					<string>^(.+) narrates (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -61,9 +61,9 @@ communications:append("Chats")</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>You chat '(.+)'$</string>
-					<string>&gt; (.+) chats '(.+)'$</string>
-					<string>^(.+) chats '(.+)'$</string>
+					<string>You chat (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
+					<string>&gt; (.+) chats (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
+					<string>^(.+) chats (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -131,15 +131,15 @@ communications:append("Says")</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>You say '(.+)'$</string>
-					<string>You hiss '(.+)'$</string>
-					<string>You drawl '(.+)'$</string>
-					<string>You drone '(.+)'$</string>
 					<string>&gt; (.+) says '(.+)'$</string>
 					<string>^(.+) says '(.+)'$</string>
+					<string>You hiss '(.+)'$</string>
 					<string>&gt; (.+) hisses '(.+)'$</string>
 					<string>^(.+) hisses '(.+)'$</string>
+					<string>You drawl '(.+)'$</string>
 					<string>&gt; (.+) drawls '(.+)'$</string>
 					<string>^(.+) drawls '(.+)'$</string>
+					<string>You drone '(.+)'$</string>
 					<string>&gt; (.+) drones '(.+)'$</string>
 					<string>^(.+) drones '(.+)'$</string>
 				</regexCodeList>
@@ -207,8 +207,22 @@ communications:append("Misc")</script>
 					<string>^(.+) answers your prayer '(.+)'$</string>
 					<string>&gt; (.+) speaks from the (\S+) '(.+)'$</string>
 					<string>^(.+) speaks from the (\S+) '(.+)'$</string>
+					<string>You answer (.+)'s prayer '(.+)'$</string>
+					<string>&gt; (.+) prays '(.+)'$</string>
+					<string>(.+) prays '(.+)'$</string>
+					<string>&gt; (.+) shouts (&lt;([hts]|\d+)&gt; )'(.+)'$</string>
+					<string>(.+) shouts (&lt;([hts]|\d+)&gt; )'(.+)'$</string>
+					<string>You wizshout (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
+					<string>You /echo (.+)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

@@ -19,12 +19,14 @@
 			<regexCodePropertyList />
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Catch Name</name>
-				<script>--check that the line is not an immortal speaking (the only other possibility for a whole line being cyan)
+				<script>--check that the line is not immortal communications (the only other possibility for a whole line being cyan)
 if
   (line == matches[1] or string.find(line, " &gt; "..matches[1], 1, true)) and
   not (
     string.find(line, "speaks from the") or
-    string.find(line, "answers your prayer")
+    string.find(line, "prays") or 
+    string.find(line, "answers your prayer") or 
+    string.find(line, "shouts &lt;")
   )
 then
   wotmudmapper.roomname = matches[1]
@@ -74,7 +76,7 @@ end</script>
 				<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Map Description</name>
 					<script>--if line is not the roomname and not the exit line, add to room description
-if matches[2] ~= wotmudmapper.roomname and not string.find(line, "obvious exits:") then
+if string.match(matches[2], "(.+) %(#%d+%)") == nil and matches[2] ~= wotmudmapper.roomname and not string.find(line, "obvious exits:") then
   wotmudmapper.brief = false
   
   if wotmudmapper.roomdesc == "" then

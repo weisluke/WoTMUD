@@ -1728,8 +1728,8 @@ enableMapInfo("Door info")
 ["Court of Nine Moons and Tower of Ravens"] = "Court_of_Nine_Moons_and_Tower_of_Ravens",
 ["Tree Top City"] = "",
 ["Valan Luca's Menagerie"] = "Valan_Luca's_Menagerie",
-["Fortress of Light Dungeon"] = "Fortress_of_Light_Dungeon"
-
+["Fortress of Light Dungeon"] = "Fortress_of_Light_Dungeon",
+["The Outer Forest of Shadows"] = "The_Outer_Forest_of_Shadows"
 }</script>
 				<eventHandlerList />
 			</Script>

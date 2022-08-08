@@ -33,6 +33,9 @@ then
   if string.match(wotmudmapper.roomname, "(.+) %(#%d+%)") ~= nil then
     wotmudmapper.roomname = string.match(wotmudmapper.roomname, "(.+) %(#%d+%)")
   end
+  if string.match(wotmudmapper.roomname, "^%s+(.+)") ~= nil then
+    wotmudmapper.roomname = string.match(wotmudmapper.roomname, "^%s+(.+)")
+  end
   wotmudmapper.roomdesc = ""
   wotmudmapper.brief = true
   wotmudmapper.dark = false
@@ -76,15 +79,21 @@ end</script>
 				<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Map Description</name>
 					<script>--if line is not the roomname and not the exit line, add to room description
-if string.match(matches[2], "(.+) %(#%d+%)") == nil and matches[2] ~= wotmudmapper.roomname and not string.find(line, "obvious exits:") then
+if
+  string.match(matches[2], wotmudmapper.roomname.." %(#%d+%)") == nil and
+  string.match(matches[2], "^%s+"..wotmudmapper.roomname.."$") == nil and
+  matches[2] ~= wotmudmapper.roomname and
+  not string.find(line, "obvious exits:")
+then
   wotmudmapper.brief = false
-  
   if wotmudmapper.roomdesc == "" then
     wotmudmapper.roomdesc = line
   else
     wotmudmapper.roomdesc = wotmudmapper.roomdesc .. "\n" .. line
   end
-  if wotmudmapper.configs.mapbrief and not wotmudmapper:is_look(wotmudmapper.queue:checkleftvalue()) then
+  if
+    wotmudmapper.configs.mapbrief and not wotmudmapper:is_look(wotmudmapper.queue:checkleftvalue())
+  then
     deleteLine()
   end
   setTriggerStayOpen("Catch Name", 1)
@@ -165,7 +174,7 @@ if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
       wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], com, wotmudmapper.roomexits)
       --else, you're just moving around in mapping mode
     else
-      if wotmudmapper:is_waygate(lastID[1]) then
+      if wotmudmapper:is_waygate(lastID[1]) and (com == "d" or com == "f") then
         for _, room in pairs(wotmudmapper:get_waygates(lastID[1])) do
           table.insert(newID, room)
         end
@@ -184,7 +193,7 @@ if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
     --else, you're just moving around in non-mapping mode or with multiple potential rooms
   else
     for _, id in pairs(lastID) do
-      if wotmudmapper:is_waygate(id) then
+      if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
         for _, room in pairs(wotmudmapper:get_waygates(id)) do
           table.insert(newID, room)
         end
@@ -205,7 +214,7 @@ if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
   --handling flees
 elseif wotmudmapper:is_flee(com) and (not table.is_empty(lastID)) then
   for _, id in pairs(lastID) do
-    if wotmudmapper:is_waygate(id) then
+    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
       for _, room in pairs(wotmudmapper:get_waygates(id)) do
         table.insert(newID, room)
       end
@@ -346,7 +355,7 @@ local newID = {}
 --if com is a direction and you were in a valid room
 if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
   for _, id in pairs(lastID) do
-    if wotmudmapper:is_waygate(id) then
+    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
       for _, room in pairs(wotmudmapper:get_waygates(id)) do
         table.insert(newID, room)
       end
@@ -357,7 +366,7 @@ if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
   --handling flees
 elseif wotmudmapper:is_flee(com) and (not table.is_empty(lastID)) then
   for _, id in pairs(lastID) do
-    if wotmudmapper:is_waygate(id) then
+    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
       for _, room in pairs(wotmudmapper:get_waygates(id)) do
         table.insert(newID, room)
       end

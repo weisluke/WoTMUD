@@ -1749,7 +1749,7 @@ registerAnonymousEventHandler("sysManualLocationSetEvent", "wotmudmapper:set_pla
 				<script>function wotmudmapper:is_waygate(id)
   --hardcoded list of mudlet room ids for waygates
   --{tv, ef, spine, blight, tanchico, jafar, seandar}
-  if table.contains({1616, 3263, 7224, 18198, 10494, 17126, 20069}, id) then
+  if table.index_of({1616, 3263, 7224, 18198, 10494, 17126, 20069}, id) then
     return true
   end
   return false  

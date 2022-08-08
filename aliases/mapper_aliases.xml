@@ -803,13 +803,18 @@ end</script>
 						<script>if table.size(wotmudmapper.currentID) == 1 then
   local newid = wotmudmapper.currentID[1]
   centerview(newid)
-  cecho("&lt;cyan&gt;"..getRoomName(newid).."\n")
+  cecho("&lt;ansi_cyan&gt;"..getRoomName(newid).."\n")
   cecho(getRoomUserData(newid,"description"))
-  cecho("\nExits: [ ")
+  cecho("\n[ obvious exits: ")
   local exits = {}
   for k, v in pairs(getRoomExits(newid)) do
       table.insert(exits,string.sub(k,1,1))
   end
+  if getExitStubs(newid) then
+    for k, v in pairs(getExitStubs(newid)) do
+        table.insert(exits,string.sub(wotmudmapper.exitmap[v],1,1))
+    end  
+  end  
   exits = table.n_intersection({"n","e","s","w","u","d"},exits)
   for k,v in pairs(exits) do
       cecho(v:upper().." ")
@@ -1189,13 +1194,20 @@ elseif table.size(foundrooms) == 1 then
   end
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
-for k, v in pairs(foundrooms) do
+  for k, v in pairs(foundrooms) do
     cechoLink(
       "Room ID: " ..
       v ..
       ", &lt;ansi_cyan&gt;room name&lt;reset&gt;: " ..
       getRoomName(v) ..
-      ", &lt;" ..
+      ", ",
+      [[wotmudmapper:echo("Displaying room description for room ID (]]..v..[[)\n") 
+        echo(getRoomUserData(]]..v..[[, "description").."\n")]],
+      "Click to display room description.",
+      true
+    )
+    cechoLink(
+      "&lt;" ..
       wotmudmapper.configs.zonecolor ..
       "&gt;zone&lt;reset&gt;: " ..
       getRoomUserData(v, "zone") ..

@@ -38,19 +38,27 @@ rents.help =
     All commands can be found in the appropriate rents folder under mudlet aliases.
 
     &lt;cyan&gt;Commands:&lt;reset&gt;
-        &lt;yellow&gt;rents display&lt;reset&gt; - Display all items in the rent database
-        &lt;yellow&gt;rents display name character&lt;reset&gt; - Displays all items in the rent database
+        &lt;yellow&gt;rents show&lt;reset&gt; - Show all items in the rent database
+        &lt;yellow&gt;rents show name character&lt;reset&gt; - Shows all items in the rent database
             associated with a particular character name. Not case sensitive. 
-            Examples: rents display name Adael, rents display name bludlust
-        &lt;yellow&gt;rents display item keyword(s)&lt;reset&gt; - Display all items in the rent database that
+            Examples: rents show name Adael, rents show name bludlust
+        &lt;yellow&gt;rents show item keyword(s)&lt;reset&gt; - Shows all items in the rent database that
             contain the given keyword(s). Not case sensitive, but if multiple keywords are
             used the order (and, if applicable, punctuation) matters.
-            Examples: rents display item heron-engraved, rents display item a crystal lightstick
-        &lt;yellow&gt;rents display zone keyword(s)&lt;reset&gt; - Display all items in the rent database whose
+            Examples: rents show item heron-engraved, rents show item a crystal lightstick
+        &lt;yellow&gt;rents show zone keyword(s)&lt;reset&gt; - Shows all items in the rent database whose
             zone name (in my map data) contains the provided keyword(s). Not case sensitive, 
             but if multiple keywords are used the order (and, if applicable, punctuation) matters.
-            Examples: rents display zone Caemlyn, rents display zone bandar eban,
-                rents display zone thakan'dar
+            Examples: rents show zone Caemlyn, rents show zone bandar eban,
+                rents show zone thakan'dar
+                
+        &lt;yellow&gt;rents delete&lt;reset&gt; - Delete the ENTIRE rent database. &lt;red&gt;Use with caution!&lt;reset&gt;
+        &lt;yellow&gt;rents delete name character&lt;reset&gt; - Deletes all entries in the rent database
+            for the provided character name. Not case sensitive.
+            Examples: rents delete name Adael, rents delete name bludlust
+        &lt;yellow&gt;rents delete room (roomID)&lt;reset&gt; - Deletes all entries in the rent database for the player's
+            current room, or the provided roomID number if one is given. 
+            Examples: rents delete room, rents delete room 139 
         
 ]]</script>
 				<eventHandlerList />

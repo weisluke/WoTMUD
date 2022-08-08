@@ -34,9 +34,9 @@ communications:append("Narrates")</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>You narrate (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
-					<string>&gt; (.+) narrates (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
-					<string>^(.+) narrates (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
+					<string>You narrate (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+					<string>&gt; (.+) narrates (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+					<string>^(.+) narrates (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -61,9 +61,9 @@ communications:append("Chats")</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>You chat (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
-					<string>&gt; (.+) chats (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
-					<string>^(.+) chats (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
+					<string>You chat (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+					<string>&gt; (.+) chats (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+					<string>^(.+) chats (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -203,16 +203,16 @@ communications:append("Misc")</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>You pray '(.+)'$</string>
+					<string>&gt; (.+) prays '(.+)'$</string>
+					<string>(.+) prays '(.+)'$</string>
+					<string>You answer (.+)'s prayer '(.+)'$</string>
 					<string>&gt; (.+) answers your prayer '(.+)'$</string>
 					<string>^(.+) answers your prayer '(.+)'$</string>
 					<string>&gt; (.+) speaks from the (\S+) '(.+)'$</string>
 					<string>^(.+) speaks from the (\S+) '(.+)'$</string>
-					<string>You answer (.+)'s prayer '(.+)'$</string>
-					<string>&gt; (.+) prays '(.+)'$</string>
-					<string>(.+) prays '(.+)'$</string>
-					<string>&gt; (.+) shouts (&lt;([hts]|\d+)&gt; )'(.+)'$</string>
-					<string>(.+) shouts (&lt;([hts]|\d+)&gt; )'(.+)'$</string>
-					<string>You wizshout (&lt;([hts]|\d+)&gt; )?'(.+)'$</string>
+					<string>&gt; (.+) shouts (&lt;([htsn]|\d+)&gt; )'(.+)'$</string>
+					<string>(.+) shouts (&lt;([htsn]|\d+)&gt; )'(.+)'$</string>
+					<string>You wizshout (&lt;([htsn]|\d+)&gt; )?'(.+)'\.$</string>
 					<string>You /echo (.+)$</string>
 				</regexCodeList>
 				<regexCodePropertyList>

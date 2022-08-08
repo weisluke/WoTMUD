@@ -6,8 +6,11 @@
 			<name>Status bar tic display</name>
 			<script>if tic_timer and tic_timer.temp_timers.aggro_pulse then
   --determine current time left on the timer
-  local ctime = tic_timer.configs.tic_length * (5 - tic_timer.configs.aggro_pulse)/6 + remainingTime(tic_timer.temp_timers.aggro_pulse)
-  status_bar.tic_timer:echo(string.format("TNT: %0.1f", ctime), "white", "c")
+  local remaining = remainingTime(tic_timer.temp_timers.aggro_pulse)
+  if remaining then
+    local ctime = tic_timer.configs.tic_length * (5 - tic_timer.configs.aggro_pulse)/6 + remaining
+    status_bar.tic_timer:echo(string.format("TNT: %0.1f", ctime), "white", "c")
+  end
 end</script>
 			<command></command>
 			<packageName></packageName>

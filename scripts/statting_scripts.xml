@@ -8,16 +8,51 @@
 			<script></script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
-				<name>StattingDisconnection</name>
+				<name>Statting Disconnection</name>
 				<packageName></packageName>
-				<script>function StattingDisconnection()
-  statting = {}
+				<script>statting = statting or {}
+
+function statting:sys_disconnection(event)
+  for k, v in pairs(self) do
+    if type(v) ~= "function" then
+      self[k] = nil
+    end
+  end
   disableTrigger("Statting")
+end
+
+registerAnonymousEventHandler("sysExitEvent", "statting:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "statting:sys_disconnection")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Save stats</name>
+				<packageName></packageName>
+				<script>function statting:save_stats(str, int, wil, dex, con, sum)
+  local fname = getMudletHomeDir() .. "/stats.txt"
+  
+  if not io.exists(fname) then
+    local file = io.open(fname, "w+")
+    file:write("sex race class homeland str int wil dex con sum\n")
+    io.close(file)
+  end
+  
+  local file = io.open(fname, "a")
+  file:write(
+    self.sex .. " " ..
+    self.race .. " " ..
+    self.class .. " " ..
+    self.homeland .. " " ..
+    str .. " " ..
+    int .. " " .. 
+    wil .. " " ..
+    dex .. " " ..
+    con .. " " ..
+    sum .. "\n"
+  )
+  io.close(file)
 end</script>
-				<eventHandlerList>
-					<string>sysExitEvent</string>
-					<string>sysDisconnectionEvent</string>
-				</eventHandlerList>
+				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
 	</ScriptPackage>

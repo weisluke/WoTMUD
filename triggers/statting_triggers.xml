@@ -64,30 +64,10 @@ if
   dex &lt; statting.stats.dex or
   con &lt; statting.stats.con) and sum &lt; statting.stats.sum
 then
-  local fname = getMudletHomeDir() .. "/stats.txt"
-  
-  if not io.exists(fname) then
-    local file = io.open(fname, "w+")
-    file:write("sex race class homeland str int wil dex con sum\n")
-    io.close(file)
-  end
-  
-  local file = io.open(fname, "a")
-  file:write(
-    statting.sex .. " " ..
-    statting.race .. " " ..
-    statting.class .. " " ..
-    statting.homeland .. " " ..
-    str .. " " ..
-    int .. " " .. 
-    wil .. " " ..
-    dex .. " " ..
-    con .. " " ..
-    sum .. "\n"
-  )
-  io.close(file)
+  statting:save_stats(str, int, wil, dex, con, sum)
   sendAll("disengage", "restat", "k sapling", "score")
 else
+  statting:save_stats(str, int, wil, dex, con, sum)
   local msg =
     "Congratulations! You have statted a character with your set minimum stats or a sufficient statsum. You now have a " ..
     str ..

@@ -8,7 +8,7 @@
 			<script></script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
-				<name>StattingDisconnection</name>
+				<name>Statting Disconnection</name>
 				<packageName></packageName>
 				<script>statting = statting or {}
 

@@ -90,6 +90,12 @@ for name, id in pairs(tic_timer.mob_triggers) do
   tic_timer.mob_triggers[name] = nil
 end
 
+tic_timer.mob_triggers["the_he"] = tempRegexTrigger("The "..mob.." clambers to his feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
 tic_timer.mob_triggers["a_he"] = tempRegexTrigger("A "..mob.." clambers to his feet\\.$", 
   function() 
     if tic_timer.configs.on then
@@ -102,6 +108,12 @@ tic_timer.mob_triggers["an_he"] = tempRegexTrigger("An "..mob.." clambers to his
       tic_timer:pulse_event(6)
     end 
   end)
+tic_timer.mob_triggers["the_she"] = tempRegexTrigger("The "..mob.." clambers to her feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
 tic_timer.mob_triggers["a_she"] = tempRegexTrigger("A "..mob.." clambers to her feet\\.$", 
   function() 
     if tic_timer.configs.on then
@@ -109,6 +121,12 @@ tic_timer.mob_triggers["a_she"] = tempRegexTrigger("A "..mob.." clambers to her 
     end 
   end)
 tic_timer.mob_triggers["an_she"] = tempRegexTrigger("An "..mob.." clambers to her feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["the_it"] = tempRegexTrigger("The "..mob.." clambers to its feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)

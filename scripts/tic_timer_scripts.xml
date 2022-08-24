@@ -200,6 +200,8 @@ end
     --if event is seen outside the expected window, echo an error
     --so that it can be investigated if need be
     self:echo("\nTic event seen outside the expected window.", false, true)
+    self.configs.tic_is_early = false
+    self.configs.tic_is_late = true
   end
   
   --if event is an exact tic and the number of tics is not 0
@@ -463,9 +465,9 @@ end</script>
             are consistently seeing messages about events occuring outside the window
             ex: tic length std dev 1, tic length std dev 0.739
         &lt;yellow&gt;tic timer debug&lt;reset&gt; - toggle displaying debug messages
-        &lt;yellow&gt;tic timer mob xxx&lt;reset&gt; - create triggers for mob stands that will be used
-            to judge aggro pulse events. The temporary triggers created reset on mudlet
-            disconnection, and are of the form "A(n) xxx clambers to (his)(her)(its) feet."
+        &lt;yellow&gt;tic timer mob xxx&lt;reset&gt; - create triggers for mob stands that will be used to judge aggro
+            pulse events. The temporary triggers created reset on mudlet disconnection,
+            and are of the form "(The)(A)(An) xxx clambers to (his)(her)(its) feet."
             The provided mob is case sensitive.
             ex: tic timer mob Caemlyn cityguard, tic timer mob chicken
         &lt;yellow&gt;tic timer history&lt;reset&gt; - display the stored tic length history

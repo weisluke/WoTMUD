@@ -861,8 +861,10 @@ end</script>
 					<string>Casting jagged shadows, the sun rises over Garen's Wall\.$</string>
 					<string>Light reflects off the ocean as the sun rises\.$</string>
 					<string>The sun rises, casting long shadows across the blighted land\.$</string>
+					<string>The sun rises, burning away the shadows of the night\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -976,13 +978,9 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>HP:(\S+) MV:(\S+)</string>
-						<string>HP:(\S+) SP:(\S+) MV:(\S+)</string>
-						<string>HP:(\S+) DP:(\S+) MV:(\S+)</string>
+						<string>^(o|\*)?((^| )(R|S|F))?( I(\d+))?( R:(\d+))?( S:(\S+))?( HP:(\S+))?( SP:(\S+))?( DP:(\S+))?( MV:(\S+))?(^| )(&gt;|- .+ &gt;)</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>1</integer>
-						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -1011,11 +1009,9 @@ end</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>6 times per tic</name>
-				<script>if tic_timer.configs.on then
-  tic_timer:pulse_event(6)
-end</script>
+				<script></script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -1026,75 +1022,155 @@ end</script>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>(A|An|The) (.+) flaps (his|her|its) wings and flies high into the sky\.$</string>
-					<string>(A|An|The) (.+) is flying much lower now\.\.\.$</string>
-					<string>(A|An|The) (.+) flaps (his|her|its) wings as (he|she|it) comes in to land nearby\.$</string>
-					<string>(A|An|The) (.+) flaps (his|her|its) wings and begins to fly\.$</string>
-					<string>A shrill piercing scream reverberates through the area\.$</string>
-					<string>The (.+) gatekeeper closes the (.+)\.$</string>
-					<string>The (.+) gatekeeper locks the (.+)\.$</string>
-					<string>A (.+) gatekeeper closes the (.+)\.$</string>
-					<string>A (.+) gatekeeper locks the (.+)\.$</string>
-					<string>A (.+) Gatekeeper closes the (.+)\.$</string>
-					<string>A (.+) Gatekeeper locks the (.+)\.$</string>
-					<string>A rat starts following you\.$</string>
-					<string>A crow starts following you\.$</string>
-					<string>A raven starts following you\.$</string>
-					<string>A (.+) lamplighter runs off, mumbling about some low-paying job\.$</string>
-					<string>A (.+) lamplighter looks at a streetlamp and nods\.$</string>
-					<string>A (.+) lamplighter lights a streetlamp\.$</string>
-					<string>A (.+) lamplighter exclaims 'Finally\.\. Time to relax and have a beer!'$</string>
-					<string>A (.+) lamplighter extinguishes a streetlamp\.$</string>
-					<string>Someone lights something\.$</string>
-					<string>The (.+) alarm sounds loudly in the distance\.$</string>
-					<string>The steady toll of a gong calls defenders to the stone\.$</string>
-					<string>The (.+) alarm horn sounds loudly\.$</string>
-					<string>A loud grinding of stone on concrete resonates from above\.$</string>
-					<string>The grinding of stone on concrete from above becomes louder\.$</string>
-					<string>The (.+) alarm horn sounds loudly in the distance\.$</string>
-					<string>The (.+) alarm bell sounds loudly in the distance\.$</string>
-					<string>A (.+) sniffs the ground\.\.\.$</string>
-					<string>A (.+) growls menacingly\.$</string>
-					<string>The (.+) guardsmen ring the city alarm in the distance\.$</string>
-					<string>The Aryth Ocean glows green as the moonlight hits its surface\.$</string>
-					<string>A flock of ravens starts following you\.$</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>General</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(6)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(A|An|The) (.+) flaps (his|her|its) wings and flies high into the sky\.$</string>
+						<string>(A|An|The) (.+) is flying much lower now\.\.\.$</string>
+						<string>(A|An|The) (.+) flaps (his|her|its) wings as (he|she|it) comes in to land nearby\.$</string>
+						<string>(A|An|The) (.+) flaps (his|her|its) wings and begins to fly\.$</string>
+						<string>A shrill piercing scream reverberates through the area\.$</string>
+						<string>The (.+) gatekeeper closes the (.+)\.$</string>
+						<string>The (.+) gatekeeper locks the (.+)\.$</string>
+						<string>A (.+) gatekeeper closes the (.+)\.$</string>
+						<string>A (.+) gatekeeper locks the (.+)\.$</string>
+						<string>A (.+) Gatekeeper closes the (.+)\.$</string>
+						<string>A (.+) Gatekeeper locks the (.+)\.$</string>
+						<string>A rat starts following you\.$</string>
+						<string>A crow starts following you\.$</string>
+						<string>A raven starts following you\.$</string>
+						<string>A (.+) lamplighter runs off, mumbling about some low-paying job\.$</string>
+						<string>A (.+) lamplighter looks at a streetlamp and nods\.$</string>
+						<string>A (.+) lamplighter lights a streetlamp\.$</string>
+						<string>A (.+) lamplighter exclaims 'Finally\.\. Time to relax and have a beer!'$</string>
+						<string>A (.+) lamplighter extinguishes a streetlamp\.$</string>
+						<string>Someone lights something\.$</string>
+						<string>The (.+) alarm sounds loudly in the distance\.$</string>
+						<string>The steady toll of a gong calls defenders to the stone\.$</string>
+						<string>The (.+) alarm horn sounds loudly\.$</string>
+						<string>A loud grinding of stone on concrete resonates from above\.$</string>
+						<string>The grinding of stone on concrete from above becomes louder\.$</string>
+						<string>The (.+) alarm horn sounds loudly in the distance\.$</string>
+						<string>The (.+) alarm bell sounds loudly in the distance\.$</string>
+						<string>A (.+) sniffs the ground\.\.\.$</string>
+						<string>A (.+) growls menacingly\.$</string>
+						<string>The (.+) guardsmen ring the city alarm in the distance\.$</string>
+						<string>The Aryth Ocean glows green as the moonlight hits its surface\.$</string>
+						<string>A flock of ravens starts following you\.$</string>
+						<string>(A|An|The) (.+) flutters (his|her|its) wings\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Tremalking boat</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(6)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>A ship of some kind is now visible in the distance\.$</string>
+						<string>A ship is definitely headed in this direction\.$</string>
+						<string>The Sea Wind is approaching the dock\.$</string>
+						<string>The Sea Wind is now docked\.$</string>
+						<string>The captain announces 'The Sea Wind departs in one hour\.'$</string>
+						<string>The captain announces 'Man your stations crewmen!'$</string>
+						<string>The captain commands 'Prepare for departure!'$</string>
+						<string>Waves clap loudly against the hull\.\.\.$</string>
+						<string>Whhoooooooossssshhhhh\.\.\.$</string>
+						<string>The grand sails flap loudly in the wind\.\.\.$</string>
+						<string>The ship continues on\.\.\.$</string>
+						<string>The ship steers a bit to starboard\.\.\.$</string>
+						<string>The ship rocks back and forth\.\.\.$</string>
+						<string>The ship begins to slow\.\.\.$</string>
+						<string>The captain says 'We've arrived! Please depart quickly to the docks\.'$</string>
+						<string>The crew hoists the plank back on board, leaving you off the ship\.$</string>
+						<string>The Sea Wind departs into the open sea\.\.\.$</string>
+						<string>The captain announces 'The ship departs in one hour\.'$</string>
+						<string>The Sea Wind steers hard to port\.\.\.$</string>
+						<string>The crew hustles you to the ship entrance\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
 			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>20 times per tic</name>
 				<script></script>
@@ -1469,13 +1545,9 @@ disableTrigger("tic_timer_player_unengaged")</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>HP:(\S+) MV:(\S+) &gt;</string>
-					<string>HP:(\S+) SP:(\S+) MV:(\S+) &gt;</string>
-					<string>HP:(\S+) DP:(\S+) MV:(\S+) &gt;</string>
+					<string>^(o|\*)?((^| )(R|S|F))?( I(\d+))?( R:(\d+))?( S:(\S+))?( HP:(\S+))?( SP:(\S+))?( DP:(\S+))?( MV:(\S+))?(^| )&gt;</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>1</integer>
-					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>

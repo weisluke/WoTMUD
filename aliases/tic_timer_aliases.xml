@@ -186,6 +186,15 @@ table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)</s
 				<packageName></packageName>
 				<regex>^tic timer show aggros$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show configs</name>
+				<script>--syntax: tic timer configs
+
+display(tic_timer.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer configs$</regex>
+			</Alias>
 		</AliasGroup>
 	</AliasPackage>
 </MudletPackage>

@@ -199,7 +199,7 @@ end
   elseif not self.configs.tic_is_late then
     --if event is seen outside the expected window, echo an error
     --so that it can be investigated if need be
-    self:echo("\nTic event seen outside the expected window.", false, true)
+    self:echo("\nTic event seen outside the expected window.", true, true)
     self.configs.tic_is_early = false
     self.configs.tic_is_late = true
   end
@@ -218,8 +218,8 @@ end
     self:echo("\nTic timer num_tics = "..self.configs.num_tics, true, false)
     
     if time / self.configs.num_tics &gt; ptl + 3 * ptl_std_dev or time / self.configs.num_tics &lt; ptl - 3 * ptl_std_dev then
-      self:echo(string.format("\nTic length of %.3f during this interval is more than 3 standard deviations from average.", time / self.configs.num_tics), false, true)
-      self:echo("\nIgnoring this tic interval.", false, true)
+      self:echo(string.format("\nTic length of %.3f during this interval is more than 3 standard deviations from average.", time / self.configs.num_tics), true, true)
+      self:echo("\nIgnoring this tic interval.", true, true)
     else
       for i=1,self.configs.num_tics, 1 do
         self:push_tic_length(time / self.configs.num_tics)
@@ -233,11 +233,11 @@ end
     
     --do not let tics change by more than 3 standard deviations
     if self.configs.tic_length &gt; ptl + 3 * ptl_std_dev or self.configs.tic_length &lt; ptl - 3 * ptl_std_dev then
-      self:echo(string.format("\nNew tic length of %.3f is more than 3 standard deviations from average.", self.configs.tic_length), false, true)
+      self:echo(string.format("\nNew tic length of %.3f is more than 3 standard deviations from average.", self.configs.tic_length), true, true)
       for i=1, self.configs.num_tics, 1 do
         self:pop_tic_length()
       end
-      self:echo("\nIgnoring this tic interval.", false, true)
+      self:echo("\nIgnoring this tic interval.", true, true)
       self.configs.tic_length = self:tic_length_mean()
       self.configs.tic_length_std_dev = self:tic_length_std_dev()
     end

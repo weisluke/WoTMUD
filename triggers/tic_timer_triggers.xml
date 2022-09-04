@@ -862,8 +862,10 @@ end</script>
 					<string>Light reflects off the ocean as the sun rises\.$</string>
 					<string>The sun rises, casting long shadows across the blighted land\.$</string>
 					<string>The sun rises, burning away the shadows of the night\.$</string>
+					<string>The fog dissipates\.\.\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -1073,8 +1075,10 @@ end</script>
 						<string>The Aryth Ocean glows green as the moonlight hits its surface\.$</string>
 						<string>A flock of ravens starts following you\.$</string>
 						<string>(A|An|The) (.+) flutters (his|her|its) wings\.$</string>
+						<string>A Tower gateguard closes the (.+)\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>

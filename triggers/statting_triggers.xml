@@ -23,9 +23,11 @@
 statting.level = tonumber(matches[3])
 
 if statting.level &gt;= 5 then
-  showNotification("WoTMUD Statting", "You are too high of a level to restat.")
-  disableTrigger("Statting")
+  local msg = "You are too high of a level to restat."
+  showNotification("WoTMUD Statting", msg)
+  statting:echo("\n" .. msg .. "\n", false, true)
   statting.statting = false
+  disableTrigger("Statting")
 elseif statting.level &gt;= 3 then
   sendAll("disengage", "stat")
 end</script>
@@ -86,10 +88,10 @@ else
     " " ..
     statting.class ..
     " character."
-  cecho("&lt;green&gt;\n" .. msg .. "\n")
+  statting:echo("\n&lt;green&gt;" .. msg .. "\n")
   showNotification("WoTMUD Statting", msg)
-  disableTrigger("Statting")
   statting.statting = false
+  disableTrigger("Statting")
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -179,10 +181,75 @@ end</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Weapon broke</name>
+				<script>sendAll(
+  "get " .. statting.weapon .. " " .. statting.container,
+  "wield " .. statting.weapon
+)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Suddenly your weapon shatters into a thousand pieces\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>No more weapon</name>
+				<script>showNotification("WoTMUD Statting", "Your weapon broke! Find and wield a new one, then come back and \"kill sapling\" to continue statting.")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You don't seem to have a (.+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Idle Trigger</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand>k sapling</mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You have been idle, and are pulled into a void.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>0</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Level too high</name>
-				<script>showNotification("WoTMUD Statting", "You are too high of a level to restat.")
-disableTrigger("Statting")
-statting.statting = false</script>
+				<script>local msg = "You are too high of a level to restat."
+showNotification("WoTMUD Statting", msg)
+statting:echo("\n" .. msg .. "\n", false, true)
+statting.statting = false
+disableTrigger("Statting")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -257,7 +324,7 @@ statting.statting = false</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>No light in inventory</name>
-					<script>sendAll("get light pouch", "hold light")</script>
+					<script>sendAll("get light "..statting.container, "hold light")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -277,13 +344,7 @@ statting.statting = false</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>No more lights</name>
-					<script>local msg = "You are out of lights! Disabling the statting script. Go buy new lights, then come back and type \"statting\" to restart the script."
-
-cecho("&lt;red&gt;\n"..msg.."\n")
-showNotification("WoTMUD Statting", msg)
-send("disengage")
-disableTrigger("Statting")
-statting.statting = false</script>
+					<script>showNotification("WoTMUD Statting", "You are out of lights! Go buy new lights, then come back and \"kill sapling\" to continue statting.")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -302,8 +363,8 @@ statting.statting = false</script>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>(.+) is about to go out!</name>
-					<script>sendAll("rem light", "drop light", "get light pouch", "hold light")</script>
+					<name>Burnt out lights</name>
+					<script>sendAll("rem light", "drop light", "get light "..statting.container, "hold light")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -316,6 +377,30 @@ statting.statting = false</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>(.+) is about to go out!</string>
+						<string>(.+) has gone out!</string>
+						<string>You could not light (.+)\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Already holding a light</name>
+					<script>send("put light "..statting.container)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You're already using a light\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>

@@ -20,15 +20,29 @@ statting.stats =
     dex = tonumber(matches[5]),
     con = tonumber(matches[6]),
   }
-
+  
 if matches[7] then
   statting.stats.sum = tonumber(matches[7])
 else
   statting.stats.sum = statting.stats.str + statting.stats.int + statting.stats.wil + statting.stats.dex + statting.stats.con
 end
-  
+
 enableTrigger("Statting")
 statting.statting = true
+
+statting:echo(
+  "You are now starting to stat for a " ..
+  statting.stats.str ..
+  " " ..
+  statting.stats.int ..
+  " " ..
+  statting.stats.wil ..
+  " " ..
+  statting.stats.dex ..
+  " " ..
+  statting.stats.con ..
+  " character.\n"
+)
 sendAll("score", "stat", "kill sapling")</script>
 				<command></command>
 				<packageName></packageName>
@@ -39,24 +53,65 @@ sendAll("score", "stat", "kill sapling")</script>
 				<script>statting = statting or {}
 
 if statting.statting then
-  cecho("Disabling statting script.\n")
+  statting:echo("Disabling statting triggers.\n")
   disableTrigger("Statting")
   statting.statting = false
-  cecho("Statting script disabled.\n")
+  statting:echo("Statting triggers disabled.\n")
 else
   if not statting.stats then
-    cecho("&lt;red&gt;Error. You have not set any minimum stats to use. Type \"stat str int wil dex con\" to set them, e.g. \"stat 18 10 10 18 18\"\n")
+    statting:echo("You have not set any minimum stats to use. Type \"stat str int wil dex con\" to set them, e.g. \"stat 18 10 10 18 18\"\n", false, true)
     disableTrigger("Statting")
     statting.statting = false
   else
     enableTrigger("Statting")
     statting.statting = true
+
+    statting:echo(
+      "You are now starting to stat for a " ..
+      statting.stats.str ..
+      " " ..
+      statting.stats.int ..
+      " " ..
+      statting.stats.wil ..
+      " " ..
+      statting.stats.dex ..
+      " " ..
+      statting.stats.con ..
+      " character.\n"
+    )
     sendAll("score", "kill sapling")
   end
 end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^statting$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Statting container</name>
+				<script>statting = statting or {}
+
+statting.container = matches[2]
+statting:echo("Statting container set to ("..statting.container..")\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^statting container (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Statting weapon</name>
+				<script>statting = statting or {}
+
+statting.weapon = matches[2]
+statting:echo("Statting weapon set to ("..statting.weapon..")\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^statting weapon (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Statting help</name>
+				<script>statting:show_help()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^statting help$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

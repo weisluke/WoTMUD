@@ -8,16 +8,25 @@
 			<script></script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
+				<name>Initialization</name>
+				<packageName></packageName>
+				<script>statting = statting or {container = "pouch", weapon = "staff"}
+
+statting.configs = {}</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>Statting Disconnection</name>
 				<packageName></packageName>
-				<script>statting = statting or {}
-
-function statting:sys_disconnection(event)
+				<script>function statting:sys_disconnection(event)
   for k, v in pairs(self) do
     if type(v) ~= "function" then
       self[k] = nil
     end
   end
+  self.configs = {}
+  self.container = "pouch"
+  self.weapon = "staff"
   disableTrigger("Statting")
 end
 
@@ -29,28 +38,105 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "statting:sys_disconnecti
 				<name>Save stats</name>
 				<packageName></packageName>
 				<script>function statting:save_stats(str, int, wil, dex, con, sum)
-  local fname = getMudletHomeDir() .. "/stats.txt"
+  local fname = getMudletHomeDir() .. "/stats.csv"
   
   if not io.exists(fname) then
     local file = io.open(fname, "w+")
-    file:write("sex race class homeland str int wil dex con sum\n")
+    file:write("sex,race,class,homeland,str,int,wil,dex,con,sum\n")
     io.close(file)
   end
   
   local file = io.open(fname, "a")
   file:write(
-    self.sex .. " " ..
-    self.race .. " " ..
-    self.class .. " " ..
-    self.homeland .. " " ..
-    str .. " " ..
-    int .. " " .. 
-    wil .. " " ..
-    dex .. " " ..
-    con .. " " ..
+    self.sex .. "," ..
+    self.race .. "," ..
+    self.class .. "," ..
+    self.homeland .. "," ..
+    str .. "," ..
+    int .. "," .. 
+    wil .. "," ..
+    dex .. "," ..
+    con .. "," ..
     sum .. "\n"
   )
   io.close(file)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Statting Display Echo</name>
+				<packageName></packageName>
+				<script>function statting:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;white&gt;(&lt;gray&gt;statting&lt;white&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Statting help</name>
+				<packageName></packageName>
+				<script>function statting:show_help()
+  local help =
+  [[
+    &lt;cyan&gt;Statting Script&lt;reset&gt;
+
+    This script will partly automate the statting process, restat for stats which
+    do not meet the input desired values, and save all stats in a file located
+    at ]] .. getMudletHomeDir() .. [[/stats.csv
+    
+    Below is a brief overview of some commands that this script includes.
+    All commands can be found in the appropriate statting folder under mudlet aliases.
+    
+    In order to maximize the efficiency of the script, you should prepare yourself
+    with plenty of lights (if you do not have night vision) with ALL of them placed
+    inside a container (which you can then specify using the alias below). You should
+    also prepare yourself with extra weapons (which you can also specify using the
+    alias below) in case your wielded weapon breaks. The extra weapons can be kept
+    in the same container or in your inventory. 
+    
+    Make sure you are in a room with saplings, and then type (for example)
+    "stat 18 10 10 18 18" to set your minimum desired stats and begin statting.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;statting help&lt;reset&gt; - Display this help message.
+        &lt;yellow&gt;stat str int wil dex con (sum)&lt;reset&gt; - Begin statting for the desired minimum
+            values. If an additional number is provided for the statsum, any set of stats
+            that meets that statsum will count as a success, even if the individual values
+            don't quite meet your desires. By default the sum is simply the sum of the individual
+            stats. This means that, for example, "stat 19 12 12 19 18" will also accept a
+            19 12 12 18 19, a 18 13 12 19 18, or a 18 12 14 18 18 as they all have equivalent
+            statsums. This may at times be undesired, but it is my belief that it is better to be
+            safe and keep potentially good options rather than throw them out.
+        &lt;yellow&gt;statting&lt;reset&gt; - This will enable/disable the statting triggers. 
+        &lt;yellow&gt;statting container xxx&lt;reset&gt; - Set the container that you are using to store your lights.
+            Example: statting container pack, statting container purse
+            Default: pouch
+            If you do not have night vision, the script will handle holding/removing lights at 
+            night/day, removing burnt out lights, getting them from the container, and reholding
+            them. Extra lights should ALWAYS be kept in the container to avoid confusing new
+            and old lights in the inventory.
+        &lt;yellow&gt;statting weapon xxx&lt;reset&gt; - Set the weapon you are using to stat with.
+            Example: statting weapon dagger, statting weapon axe
+            Default: staff
+            The script will handle wielding new weapons when the current one breaks. 
+        
+  ]]
+  cecho(help)
 end</script>
 				<eventHandlerList />
 			</Script>

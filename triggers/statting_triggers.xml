@@ -23,9 +23,11 @@
 statting.level = tonumber(matches[3])
 
 if statting.level &gt;= 5 then
-  showNotification("WoTMUD Statting", "You are too high of a level to restat.")
-  disableTrigger("Statting")
+  local msg = "You are too high of a level to restat."
+  showNotification("WoTMUD Statting", msg)
+  statting:echo("\n" .. msg .. "\n", false, true)
   statting.statting = false
+  disableTrigger("Statting")
 elseif statting.level &gt;= 3 then
   sendAll("disengage", "stat")
 end</script>
@@ -88,8 +90,8 @@ else
     " character."
   statting:echo("\n&lt;green&gt;" .. msg .. "\n")
   showNotification("WoTMUD Statting", msg)
-  disableTrigger("Statting")
   statting.statting = false
+  disableTrigger("Statting")
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -243,9 +245,11 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Level too high</name>
-				<script>showNotification("WoTMUD Statting", "You are too high of a level to restat.")
-disableTrigger("Statting")
-statting.statting = false</script>
+				<script>local msg = "You are too high of a level to restat."
+showNotification("WoTMUD Statting", msg)
+statting:echo("\n" .. msg .. "\n", false, true)
+statting.statting = false
+disableTrigger("Statting")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -263,7 +267,7 @@ statting.statting = false</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
-			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Statting_Lights</name>
 				<script></script>
 				<triggerType>0</triggerType>
@@ -340,13 +344,7 @@ statting.statting = false</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>No more lights</name>
-					<script>local msg = "You are out of lights! Go buy new lights, then come back and \"kill sapling\" to continue statting."
-
-statting:echo("&lt;red&gt;\n"..msg.."\n")
-showNotification("WoTMUD Statting", msg)
-send("disengage")
-disableTrigger("Statting")
-statting.statting = false</script>
+					<script>local msg = "You are out of lights! Go buy new lights, then come back and \"kill sapling\" to continue statting."</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>

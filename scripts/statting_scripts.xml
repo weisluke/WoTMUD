@@ -107,7 +107,9 @@ end</script>
     inside a container (which you can then specify using the alias below). You should
     also prepare yourself with extra weapons (which you can also specify using the
     alias below) in case your wielded weapon breaks. The extra weapons can be kept
-    in the same container or in your inventory. 
+    in the same container or in your inventory. Finally, you should ensure that you
+    are holding an oilstone or sandstone, whichever is used to mend your choice
+    of weapon.
     
     Make sure you are in a room with saplings, and then type (for example)
     "stat 18 10 10 18 18" to set your minimum desired stats and begin statting.
@@ -133,7 +135,9 @@ end</script>
         &lt;yellow&gt;statting weapon xxx&lt;reset&gt; - Set the weapon you are using to stat with.
             Example: statting weapon dagger, statting weapon axe
             Default: staff
-            The script will handle wielding new weapons when the current one breaks. 
+            The script will handle wielding new weapons when the current one breaks. It will also
+            handle removing and mending your weapon when it becomes scratched, if you are holding
+            an oilstone or sandstone.
         
   ]]
   cecho(help)

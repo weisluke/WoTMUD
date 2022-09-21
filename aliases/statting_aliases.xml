@@ -31,7 +31,7 @@ enableTrigger("Statting")
 statting.statting = true
 
 statting:echo(
-  "You are now starting to stat for a " ..
+  "You are now starting to stat for a(n) " ..
   statting.stats.str ..
   " " ..
   statting.stats.int ..
@@ -67,7 +67,7 @@ else
     statting.statting = true
 
     statting:echo(
-      "You are now starting to stat for a " ..
+      "You are now starting to stat for a(n) " ..
       statting.stats.str ..
       " " ..
       statting.stats.int ..
@@ -79,7 +79,7 @@ else
       statting.stats.con ..
       " character.\n"
     )
-    sendAll("score", "kill sapling")
+    sendAll("score", "stat", "kill sapling")
   end
 end</script>
 				<command></command>

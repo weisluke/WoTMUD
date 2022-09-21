@@ -16,22 +16,46 @@ statting.configs = {}</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Statting Disconnection</name>
+				<name>Statting Connection/Disconnection</name>
 				<packageName></packageName>
 				<script>function statting:sys_disconnection(event)
-  for k, v in pairs(self) do
-    if type(v) ~= "function" then
-      self[k] = nil
-    end
+  if not self.statting then return end
+  
+  if self.autoconnect and self.name and self.password then
+    self.reconnect_wait = self.reconnect_wait or 5
+    self:echo("&lt;green&gt;Starting "..self.reconnect_wait.." minute timer for reconnection for statting.\n")
+    self.reconnect_timer = tempTimer(self.reconnect_wait * 60, function () connectToServer("game.wotmud.org", 2224) end)
+  else
+    self:echo("&lt;red&gt;No name and/or no password set for reconnection. Disabling the statting script.\n")
+    self.stats = nil
+    self.statting = false
+    disableTrigger("Statting")
   end
-  self.configs = {}
-  self.container = "pouch"
-  self.weapon = "staff"
-  disableTrigger("Statting")
 end
 
 registerAnonymousEventHandler("sysExitEvent", "statting:sys_disconnection")
-registerAnonymousEventHandler("sysDisconnectionEvent", "statting:sys_disconnection")</script>
+registerAnonymousEventHandler("sysDisconnectionEvent", "statting:sys_disconnection")
+
+
+function statting:sys_connection(event)
+  if self.reconnect_timer then
+    killTimer(self.reconnect_timer)
+  end
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "statting:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "statting:sys_connection")
+
+
+function statting:reconnection_actions(event)
+  if not self.statting then 
+    return
+  else
+    sendAll(self.name, self.password, "score", "stat", "kill sapling")
+  end
+end
+
+registerAnonymousEventHandler("sysConnectionEvent", "statting:reconnection_actions")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -102,14 +126,12 @@ end</script>
     Below is a brief overview of some commands that this script includes.
     All commands can be found in the appropriate statting folder under mudlet aliases.
     
-    In order to maximize the efficiency of the script, you should prepare yourself
-    with plenty of lights (if you do not have night vision) with ALL of them placed
-    inside a container (which you can then specify using the alias below). You should
-    also prepare yourself with extra weapons (which you can also specify using the
-    alias below) in case your wielded weapon breaks. The extra weapons can be kept
-    in the same container or in your inventory. Finally, you should ensure that you
-    are holding an oilstone or sandstone, whichever is used to mend your choice
-    of weapon.
+    In order to maximize the efficiency of the script, you should prepare yourself with plenty of
+    lights (if you do not have night vision) with ALL of them placed inside a container (which you
+    can then specify using the alias below). You should also prepare yourself with extra weapons
+    (which you can also specify using the alias below) in case your wielded weapon breaks. The extra
+    weapons can be kept in the same container or in your inventory. Finally, you should ensure that
+    you are holding an oilstone or sandstone, whichever is used to mend your choice of weapon.
     
     Make sure you are in a room with saplings, and then type (for example)
     "stat 18 10 10 18 18" to set your minimum desired stats and begin statting.
@@ -124,7 +146,7 @@ end</script>
             19 12 12 18 19, a 18 13 12 19 18, or a 18 12 14 18 18 as they all have equivalent
             statsums. This may at times be undesired, but it is my belief that it is better to be
             safe and keep potentially good options rather than throw them out.
-        &lt;yellow&gt;statting&lt;reset&gt; - This will enable/disable the statting triggers. 
+        &lt;yellow&gt;statting&lt;reset&gt; - This will enable/disable the statting triggers and scripts. 
         &lt;yellow&gt;statting container xxx&lt;reset&gt; - Set the container that you are using to store your lights.
             Example: statting container pack, statting container purse
             Default: pouch
@@ -138,8 +160,14 @@ end</script>
             The script will handle wielding new weapons when the current one breaks. It will also
             handle removing and mending your weapon when it becomes scratched, if you are holding
             an oilstone or sandstone.
-        
-  ]]
+        &lt;yellow&gt;statting autoconnect&lt;reset&gt; - Toggle whether the script should attempt to autoconnect
+            to the game in the event of a disconnection.
+        &lt;yellow&gt;statting name xxx&lt;reset&gt; - Set the name to use for autoconnection
+        &lt;yellow&gt;statting password xxx&lt;reset&gt; - Set the password to use for autoconnection
+        &lt;yellow&gt;statting reconnect xxx&lt;reset&gt; - Set how long (in minutes) to wait before attempting
+            to reconnect to the game. Default: 5 minutes   
+            
+]]
   cecho(help)
 end</script>
 				<eventHandlerList />

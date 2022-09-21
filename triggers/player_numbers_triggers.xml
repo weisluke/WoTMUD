@@ -4,14 +4,14 @@
 	<TriggerPackage>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Get LS/DS Numbers</name>
-			<script>player_numbers=player_numbers or {ls_count = "unknown", ds_count = "unknown"}
+			<script>player_numbers=player_numbers or {created_ts = getTime(true, "yyyy-MM-ddTHH:mm:ss.zzz"), ls_count = "unknown", ds_count = "unknown"}
 
 cecho(
   "\n  There is(are): " ..
   player_numbers.ls_count ..
   " player(s) on LS and " ..
   player_numbers.ds_count ..
-  " player(s) on DS as of the last site update.\n"
+  " player(s) on DS as of "..player_numbers.created_ts:match("(.+)%..+").."Z\n"
 )</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>

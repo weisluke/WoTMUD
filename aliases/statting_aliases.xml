@@ -54,14 +54,14 @@ sendAll("score", "stat", "kill sapling")</script>
 
 if statting.statting then
   statting:echo("Disabling statting triggers.\n")
-  disableTrigger("Statting")
   statting.statting = false
+  disableTrigger("Statting")
   statting:echo("Statting triggers disabled.\n")
 else
   if not statting.stats then
     statting:echo("You have not set any minimum stats to use. Type \"stat str int wil dex con\" to set them, e.g. \"stat 18 10 10 18 18\"\n", false, true)
-    disableTrigger("Statting")
     statting.statting = false
+    disableTrigger("Statting")
   else
     enableTrigger("Statting")
     statting.statting = true
@@ -91,7 +91,8 @@ end</script>
 				<script>statting = statting or {}
 
 statting.container = matches[2]
-statting:echo("Statting container set to ("..statting.container..")\n")</script>
+statting:echo("Statting container set to ("..statting.container..")\n")
+enableTrigger("Statting_Lights")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^statting container (.+)$</regex>
@@ -101,7 +102,8 @@ statting:echo("Statting container set to ("..statting.container..")\n")</script>
 				<script>statting = statting or {}
 
 statting.weapon = matches[2]
-statting:echo("Statting weapon set to ("..statting.weapon..")\n")</script>
+statting:echo("Statting weapon set to ("..statting.weapon..")\n")
+enableTrigger("Mend_Statting_Weapons")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^statting weapon (.+)$</regex>
@@ -112,6 +114,68 @@ statting:echo("Statting weapon set to ("..statting.weapon..")\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^statting help$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Toggle autoconnect after disconnection</name>
+				<script>statting.autoconnect = not statting.autoconnect
+statting:echo("You will now "..(statting.autoconnect and "&lt;green&gt;autoconnect&lt;reset&gt;" or "&lt;red&gt;not autoconnect&lt;reset&gt;").." to the game upon disconnection.\n")
+
+if statting.autoconnect then
+  if not statting.name then
+    statting:echo("Make sure the character name is also set (\"statting name xxx\").\n", false, true)
+  end
+  
+  if not statting.password then
+    statting:echo("Make sure the character password is also set (\"statting password xxx\").\n", false, true)
+  end
+  
+  statting.reconnect_wait = statting.reconnect_wait or 5
+  statting:echo("The script will automatically attempt to reconnect after "..statting.reconnect_wait.." minutes if no alternate time is set.\n")
+  statting:echo("You can set an alternate wait time for reconnection (in minutes) with \"statting reconnect xxx\".\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^statting autoconnect$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Statting name</name>
+				<script>statting.name = matches[2]
+statting:echo("Name set to: "..statting.name.."\n")
+
+if not statting.password then
+  statting:echo("Make sure the character password is also set (\"statting password xxx\").\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^statting name (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Statting password</name>
+				<script>statting.password = matches[2]
+statting:echo("Statting password set to: "..statting.password.."\n")
+
+if not statting.name then
+  statting:echo("Make sure the character name is also set (\"statting name xxx\").\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^statting password (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Statting reconnection time</name>
+				<script>statting.reconnect_wait = tonumber(matches[2])
+statting:echo("Statting wait time for reconnection set to: "..statting.reconnect_wait.." minutes.\n")
+
+if not statting.name then
+  statting:echo("Make sure the character name is also set (\"statting name xxx\").\n", false, true)
+end
+
+if not statting.password then
+  statting:echo("Make sure the character password is also set (\"statting password xxx\").\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^statting reconnect (\d+)$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

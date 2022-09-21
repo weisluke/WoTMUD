@@ -123,15 +123,19 @@ statting:echo("You will now "..(statting.autoconnect and "&lt;green&gt;autoconne
 if statting.autoconnect then
   if not statting.name then
     statting:echo("Make sure the character name is also set (\"statting name xxx\").\n", false, true)
+  else
+    statting:echo("Character name set to: "..statting.name.."\n")
   end
   
   if not statting.password then
     statting:echo("Make sure the character password is also set (\"statting password xxx\").\n", false, true)
+  else
+    statting:echo("Character password set to: "..statting.password.."\n")
   end
   
   statting.reconnect_wait = statting.reconnect_wait or 5
-  statting:echo("The script will automatically attempt to reconnect after "..statting.reconnect_wait.." minutes if no alternate time is set.\n")
-  statting:echo("You can set an alternate wait time for reconnection (in minutes) with \"statting reconnect xxx\".\n")
+  statting:echo("The script will automatically attempt to reconnect after "..statting.reconnect_wait.." minutes.\n")
+  statting:echo("Set an alternate wait time (in minutes) with \"statting reconnect xxx\".\n")
 end</script>
 				<command></command>
 				<packageName></packageName>

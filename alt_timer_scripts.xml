@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Alt Timer</name>
+			<packageName></packageName>
+			<script>alt_timer = alt_timer or {}</script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Start alt timer</name>
+				<packageName></packageName>
+				<script>function alt_timer:sys_disconnection()
+  cecho("&lt;green&gt;Starting timer for alting.\n")
+  cecho("&lt;green&gt;Date - Time: " ..getTime(true, "yyyy.MM.dd - HH:mm:ss") .. "\n")
+  self.sameside_timer = tempTimer(301, function() cecho("&lt;green&gt;You may log on a sameside alt now!\n") end)
+  self.crossrace_timer = tempTimer(901, function() cecho("&lt;green&gt;You may log on a crossrace alt now!\n") end)
+end
+
+registerAnonymousEventHandler("sysDisconnectionEvent", "alt_timer:sys_disconnection")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>End alt timer</name>
+				<packageName></packageName>
+				<script>function alt_timer:sys_connection()
+  if self.sameside_timer then
+    killTimer(self.sameside_timer)
+  end
+  if self.crossrace_timer then
+    killTimer(self.crossrace_timer)
+  end
+end
+
+registerAnonymousEventHandler("sysConnectionEvent", "alt_timer:sys_connection")</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>

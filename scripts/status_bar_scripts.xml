@@ -25,9 +25,37 @@ status_bar.configs = status_bar.configs or
     y = "-3%",
     w = "60%",
     h = "3%"
-  }
+  }</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Status bar display echo</name>
+				<packageName></packageName>
+				<script>function status_bar:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;gray&gt;(&lt;white&gt;status_bar&lt;gray&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
   
-status_bar.char = status_bar.char or
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Character information</name>
+				<packageName></packageName>
+				<script>status_bar.char = status_bar.char or
   {
     mood = nil,
     posture = nil,
@@ -65,35 +93,54 @@ status_bar.char = status_bar.char or
       max = nil
     },
     notice = nil,
-    one_power = nil,
     sneak = nil,
+    one_power = nil,
+    armor = nil,
     wil = nil,
     con = nil,
   }</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Status bar display echo</name>
+				<name>Default tabs and settings</name>
 				<packageName></packageName>
-				<script>function status_bar:echo(what, debug, err)
-  --colored tags for message echo
-  local main_tag = "&lt;gray&gt;(&lt;white&gt;status_bar&lt;gray&gt;): &lt;white&gt;"
-  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
-  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
-  
-  --if debug message and config debug is false, return without echoing
-  if debug and not self.configs.dbug then return end
-  
-  --if start of message is new line, print that before colored tags of message echo
-  if what:sub(0,1)=="\n" then
-    cecho("\n")
-    what = what:sub(2)
-  end
-  cecho(main_tag)
-  if debug then cecho(debug_tag) end
-  if err then cecho(err_tag) end
-  cecho(what)
-end</script>
+				<script>status_bar.tabs = status_bar.tabs or 
+  {
+    "mood", 
+    "posture", 
+    "hps", 
+    "sps_dps", 
+    "mvs", 
+    "autoflee", 
+    "fleelag", 
+    "charge_pulses", 
+    "notice", 
+    "sneak", 
+    "one_power", 
+    "armor",
+    "smells",
+    "tic_timer"
+  }
+
+status_bar.tab_info = status_bar.tab_info or
+  {
+    ["mood"] = {display = true, max_chars = 6, default_text = "Mood"},
+    ["posture"] = {display = true, max_chars = 9, default_text = "Posture"},
+    ["hps"] = {display = true, max_chars = 16, default_text = "Hit Points"},
+    ["sps_dps"] = {display = true, max_chars = 16, default_text = "Spell Points"},
+    ["mvs"] = {display = true, max_chars = 16, default_text = "Movement Points"},
+    ["autoflee"] = {display = true, max_chars = 13, default_text = "Autoflee"},
+    ["fleelag"] = {display = true, max_chars = 16, default_text = "Fleelag"},
+    ["charge_pulses"] = {display = true, max_chars = 20, default_text = "Charge Pulses"},
+    ["notice"] = {display = true, max_chars = 6, default_text = "Notice"},
+    ["sneak"] = {display = true, max_chars = 5, default_text = "Sneak"},
+    ["one_power"] = {display = true, max_chars = 9, default_text = "One Power"},
+    ["armor"] = {display = true, max_chars = 5, default_text = "Armor"},
+    ["smells"] = {display = true, max_chars = 10, default_text = "Smells"},
+    ["tic_timer"] = {display = true, max_chars = 9, default_text = "Tic Timer"},
+  }
+
+</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -125,113 +172,50 @@ end</script>
   self.container:resize(w, h)
   self.container:attachToBorder("bottom")
   self.container:lockContainer("full")
-
-
-  --label widths are determined manually from the maximum number of characters that may be present on each label
   
-  self.mood = self.mood or Geyser.Label:new({name = "status_bar.mood", x = "0%", y = "0%", width = "4.89%", height = "100%"}, self.container)
-  self.mood:echo("Mood", "white", "c")
-  self.mood:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.mood:setFontSize(self.configs.fontsize)
+  --determine sum of label widths
+  local total_chars = 0
+  for _, tab in pairs(self.tabs) do
+    --add max chars for the tab to total chars if the tab is being displayed
+    --add 2 for an empty space on either end of the string
+    if self.tab_info[tab].display then
+      total_chars = total_chars + self.tab_info[tab].max_chars + 2
+    end
+  end
   
-  self.posture = Geyser.Label:new({name = "status_bar.posture", x = "4.89%", y = "0%", width = "6.72%", height = "100%"}, self.container)
-  self.posture:echo("Posture", "white", "c")
-  self.posture:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.posture:setFontSize(self.configs.fontsize)
+  --starting position in the status bar (as a percentage of the total width)
+  --to be used for the tabs as they are looped over
+  local start = 0
   
-  self.hps = Geyser.Label:new({name = "status_bar.hps", x = "11.61%", y = "0%", width = "11%", height = "100%"}, self.container)
-  self.hps:echo("Hit Points", "white", "c")
-  self.hps:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.hps:setFontSize(self.configs.fontsize)
-  
-  self.dps = Geyser.Label:new({name = "status_bar.dps", x = "22.61%", y = "0%", width = "11%", height = "100%"}, self.container)
-  self.dps:echo("Dark Power", "white", "c")
-  self.dps:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.dps:setFontSize(self.configs.fontsize)
-  
-  self.sps = Geyser.Label:new({name = "status_bar.sps", x = "22.61%", y = "0%", width = "11%", height = "100%"}, self.container)
-  self.sps:echo("Spell Points", "white", "c")
-  self.sps:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.sps:setFontSize(self.configs.fontsize)
-  
-  self.mvs = Geyser.Label:new({name = "status_bar.mvs", x = "33.61%", y = "0%", width = "11%", height = "100%"}, self.container)
-  self.mvs:echo("Movement Points", "white", "c")
-  self.mvs:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.mvs:setFontSize(self.configs.fontsize)
-  
-  self.autoflee = Geyser.Label:new({name = "status_bar.autoflee", x = "44.61%", y = "0%", width = "9.17%", height = "100%"}, self.container)
-  self.autoflee:echo("Autoflee", "white", "c")
-  self.autoflee:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.autoflee:setFontSize(self.configs.fontsize)
-  
-  self.fleelag = Geyser.Label:new({name = "status_bar.fleelag", x = "53.78%", y = "0%", width = "11%", height = "100%"}, self.container)
-  self.fleelag:echo("Fleelag", "white", "c")
-  self.fleelag:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.fleelag:setFontSize(self.configs.fontsize)
-  
-  self.charge_pulses = Geyser.Label:new({name = "status_bar.charge_pulses", x = "64.78%", y = "0%", width = "11.61%", height = "100%"}, self.container)
-  self.charge_pulses:echo("Charge Pulses", "white", "c")
-  self.charge_pulses:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.charge_pulses:setFontSize(self.configs.fontsize)
-  
-  self.notice = Geyser.Label:new({name = "status_bar.notice", x = "76.39%", y = "0%", width = "4.89%", height = "100%"}, self.container)
-  self.notice:echo("Notice", "white", "c")
-  self.notice:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.notice:setFontSize(self.configs.fontsize)
-  
-  self.one_power = Geyser.Label:new({name = "status_bar.one_power", x = "81.28%", y = "0%", width = "6.72%", height = "100%"}, self.container)
-  self.one_power:echo("One Power", "white", "c")
-  self.one_power:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.one_power:setFontSize(self.configs.fontsize)
-  
-  self.sneak = Geyser.Label:new({name = "status_bar.sneak", x = "88%", y = "0%", width = "4.28%", height = "100%"}, self.container)
-  self.sneak:echo("Sneak", "white", "c")
-  self.sneak:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.sneak:setFontSize(self.configs.fontsize)
-  
-  self.tic_timer = Geyser.Label:new({name = "status_bar.tic_timer", x = "92.28%", y = "0%", width = "6.72%", height = "100%"}, self.container)
-  self.tic_timer:echo("Tic Timer", "white", "c")
-  self.tic_timer:setStyleSheet([[
-    background-color: black;
-    border: 1px solid gray;
-  ]])
-  self.tic_timer:setFontSize(self.configs.fontsize)
+  for _, tab in pairs(self.tabs) do
+    local w = self.tab_info[tab].max_chars + 2
+    --convert chars to a percentage, then slightly downsize so there's space at the end of the status bar
+    w = w / total_chars * 100 * 0.997
+    w_str = string.format("%.2f%%", w)
+    
+  --create labels if necessary
+    if not self[tab] then
+      self[tab] = Geyser.Label:new({name = "status_bar."..tab, x = "0%", y = "0%", width = w_str, height = "100%"}, self.container)
+      self[tab]:echo(self.tab_info[tab].default_text, "white", "c")
+      self[tab]:setStyleSheet([[
+        background-color: black;
+        border: 1px solid gray;
+      ]])
+    end
+    --set the fontsize
+    self[tab]:setFontSize(self.configs.fontsize)
+    
+    --display and move labels if necessary
+    if self.tab_info[tab].display then
+      start_str = string.format("%.2f%%", start)
+      self[tab]:resize(w_str, "100%")
+      self[tab]:move(start_str, "0%")
+      self[tab]:show()
+      start = start + w
+    else
+      self[tab]:hide()
+    end
+  end
   
   --show or hide status bar container
   if visible then
@@ -328,8 +312,9 @@ registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")
       max = nil
     },
     notice = nil,
-    one_power = nil,
     sneak = nil,
+    one_power = nil,
+    armor = nil,
     wil = nil,
     con = nil,
   }
@@ -344,10 +329,9 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "status_bar:sys_disconnec
 			<Script isActive="yes" isFolder="no">
 				<name>Update fleelag</name>
 				<packageName></packageName>
-				<script>function status_bar:update_fleelag(event, command)
+				<script>function status_bar:update_fleelag(event, com)
   local msg_flee = "Fleelag"
   local msg_charge = "Charge Pulses"
-  local com = command
   
   if com ~= nil then
     if table.contains({"f", "fl", "fle", "flee"}, com:lower()) then
@@ -386,7 +370,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_fleelag")
 				<name>Update fleelag on tic</name>
 				<packageName></packageName>
 				<script>function status_bar:update_fleelag_on_tic(event, exact, is_early, is_late)
-  if (is_early or not is_late) then
+  if is_early then
     self.char.wil = self.char.wil or 1
     local fleelag_loss = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3}
     local msg_flee = "Fleelag"
@@ -473,7 +457,7 @@ end</script>
 				<name>Update health on tic</name>
 				<packageName></packageName>
 				<script>function status_bar:update_health_on_tic(event, exact, is_early, is_late)
-  if (is_early or not is_late) then
+  if is_early then
     self.char.con = self.char.con or 1
     self.char.hps.max = self.char.hps.max or 1
     local hp_regen = {0, 0, 0, 0, 0, 0, 0, 0, 18, 21, 22, 25, 26, 29, 30, 33, 35, 37, 39}
@@ -643,7 +627,6 @@ end</script>
 				<name>Update SPs with range</name>
 				<packageName></packageName>
 				<script>function status_bar:update_sps_with_range(sps)
-  self.sps:raise()
   self.char.sps.max = self.char.sps.max or 1
   local upper_cutoffs = {
       Bursting = 1,
@@ -700,7 +683,7 @@ end</script>
   else
     msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???").."("..self.char.sps.max..")"
   end  
-  self.sps:echo(msg, "white", "c")
+  self.sps_dps:echo(msg, "white", "c")
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -708,7 +691,6 @@ end</script>
 				<name>Update DPs with range</name>
 				<packageName></packageName>
 				<script>function status_bar:update_dps_with_range(dps)
-  self.dps:raise()
   self.char.dps.max = self.char.dps.max or 1
   local upper_cutoffs = {
       Bursting = 1,
@@ -765,16 +747,14 @@ end</script>
   else
     msg = "DP: "..(self.char.dps.est_min or "???").."-"..(self.char.dps.est_max or "???").."("..self.char.dps.max..")"
   end  
-  self.dps:echo(msg, "white", "c")
+  self.sps_dps:echo(msg, "white", "c")
 end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>Update One Power due to release</name>
 				<packageName></packageName>
-				<script>function status_bar:update_one_power(event, command)
-  local com = command
-  
+				<script>function status_bar:update_one_power(event, com)  
   if com ~= nil then
     if table.contains({"rel", "rele", "relea", "releas", "release"}, com:lower()) then
       self.one_power:echo("released", "red", "c")
@@ -783,6 +763,61 @@ end</script>
 end
 
 registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_one_power")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Custom status bar tabs</name>
+				<packageName></packageName>
+				<script>--Edit lines below (or remove them, they're just examples) to add extra tabs that you want
+
+--Be sure to follow the format EXACTLY
+
+--You can then move this script outside of the status_bar_scripts folder,
+--so that it does not get overwritten in the future
+
+--I make no promises that the formatting here will not ever change,
+--but I will do my best
+
+--If you encounter issues/have questions, feel free to reach out and ask!
+
+--In addition, once you make your changes, remove this next line or change the true to false
+--(it's simply here so that this script doesn't do anything by default)
+if true then return end
+
+
+
+--the string here is the reference name for the tab (in this case, "target")
+--I personally prefer to keep it simple, all lowercase and no spaces (using underscores if needed)
+--examples (already used by me): "charge_pulses", "hps", "notice", "tic_timer", "sps_dps"
+if not table.index_of(status_bar.tabs, "target") then
+  table.insert(status_bar.tabs, "target")
+end
+if table.index_of(status_bar.tabs, "target") then
+  --display: whether or not to show it
+  --max_chars: the maximum number of characters that may end up displayed in this tab
+  --e.g., for HPs, the longest string in the tab will be of the form "HP: xxx-yyy(zzz)" which is 16 characters
+  --default_text: what should the tab initially display. not super important, can use an empty string, but nice
+  --to give it something for when mudlet boots up so its not empty
+  status_bar.tab_info["target"] = {display=true, max_chars = 9, default_text = "Target"}
+end
+
+
+
+--change what tabs are displayed
+--the list of default tabs can be found in the "Default tabs and settings" item
+
+--if you hate the charge pulses being shown, here's your chance to hide it!
+status_bar.tab_info["charge_pulses"].display = false
+ 
+--this simply shows the target tab created above. actually displaying your current target
+--would require you to add more code to the aliases where you change your target
+--this simply provides the framework for allocating a spot for it on the status bar
+status_bar.tab_info["target"].display = false
+
+
+
+--Finally, display the status bar with the changes
+status_bar:show_status_bar(true)</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>

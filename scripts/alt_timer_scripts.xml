@@ -5,40 +5,35 @@
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Alt Timer</name>
 			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external Scripts --
--------------------------------------------------
-</script>
+			<script>alt_timer = alt_timer or {}</script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
-				<name>altTimerStart</name>
+				<name>Start alt timer</name>
 				<packageName></packageName>
-				<script>function altTimerStart()
+				<script>function alt_timer:sys_disconnection()
   cecho("&lt;green&gt;Starting timer for alting.\n")
   cecho("&lt;green&gt;Date - Time: " ..getTime(true, "yyyy.MM.dd - HH:mm:ss") .. "\n")
-  samesidealttimer = tempTimer(301, [[ cecho("&lt;green&gt;You may log on a sameside alt now!\n") ]])
-  crossracealttimer = tempTimer(901, [[ cecho("&lt;green&gt;You may log on a crossrace alt now!\n") ]])
-end</script>
-				<eventHandlerList>
-					<string>sysDisconnectionEvent</string>
-				</eventHandlerList>
+  self.sameside_timer = tempTimer(301, function() cecho("&lt;green&gt;You may log on a sameside alt now!\n") end)
+  self.crossrace_timer = tempTimer(901, function() cecho("&lt;green&gt;You may log on a crossrace alt now!\n") end)
+end
+
+registerAnonymousEventHandler("sysDisconnectionEvent", "alt_timer:sys_disconnection")</script>
+				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>altTimerEnd</name>
+				<name>End alt timer</name>
 				<packageName></packageName>
-				<script>function altTimerEnd()
-  if samesidealttimer then
-    killTimer(samesidealttimer)
+				<script>function alt_timer:sys_connection()
+  if self.sameside_timer then
+    killTimer(self.sameside_timer)
   end
-  if crossracealttimer then
-    killTimer(crossracealttimer)
+  if self.crossrace_timer then
+    killTimer(self.crossrace_timer)
   end
-end</script>
-				<eventHandlerList>
-					<string>sysConnectionEvent</string>
-				</eventHandlerList>
+end
+
+registerAnonymousEventHandler("sysConnectionEvent", "alt_timer:sys_connection")</script>
+				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
 	</ScriptPackage>

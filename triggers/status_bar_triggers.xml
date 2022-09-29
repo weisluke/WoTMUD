@@ -366,7 +366,7 @@ local msg_hp = "HP: " .. status_bar.char.hps.current .. "(" .. status_bar.char.h
 status_bar.hps:echo(msg_hp, "white", "c")
 
 local msg_dp = "DP: " .. status_bar.char.dps.current .. "(" .. status_bar.char.dps.max .. ")"
-status_barsps_dps:echo(msg_dp, "white", "c")
+status_bar.sps_dps:echo(msg_dp, "white", "c")
 
 local msg_mv = "MV: " .. status_bar.char.mvs.current .. "(" .. status_bar.char.mvs.max .. ")"
 status_bar.mvs:echo(msg_mv, "white", "c")</script>

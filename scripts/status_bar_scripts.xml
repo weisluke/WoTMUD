@@ -65,13 +65,13 @@ end</script>
       est_max = nil,
       est_min = nil
     },
-    dps = {
+    sps = {
       max = nil,
       current = nil,
       est_max = nil,
       est_min = nil
     },
-    sps = {
+    dps = {
       max = nil,
       current = nil,
       est_max = nil,
@@ -96,33 +96,34 @@ end</script>
     sneak = nil,
     one_power = nil,
     armor = nil,
+    int = nil,
     wil = nil,
     con = nil,
   }</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Default tabs and settings</name>
+				<name>Default tabs</name>
 				<packageName></packageName>
-				<script>status_bar.tabs = status_bar.tabs or 
+				<script>status_bar.tabs =
   {
-    "mood", 
-    "posture", 
-    "hps", 
-    "sps_dps", 
-    "mvs", 
-    "autoflee", 
-    "fleelag", 
-    "charge_pulses", 
-    "notice", 
-    "sneak", 
-    "one_power", 
+    "mood",
+    "posture",
+    "hps",
+    "sps_dps",
+    "mvs",
+    "autoflee",
+    "fleelag",
+    "charge_pulses",
+    "notice",
+    "sneak",
+    "one_power",
     "armor",
     "smells",
     "tic_timer"
   }
 
-status_bar.tab_info = status_bar.tab_info or
+status_bar.tab_settings = status_bar.tab_settings or
   {
     ["mood"] = {display = true, max_chars = 6, default_text = "Mood"},
     ["posture"] = {display = true, max_chars = 9, default_text = "Posture"},
@@ -173,13 +174,13 @@ status_bar.tab_info = status_bar.tab_info or
   self.container:attachToBorder("bottom")
   self.container:lockContainer("full")
   
-  --determine sum of label widths
+  --determine sum of label sizes in characters
   local total_chars = 0
   for _, tab in pairs(self.tabs) do
     --add max chars for the tab to total chars if the tab is being displayed
     --add 2 for an empty space on either end of the string
-    if self.tab_info[tab].display then
-      total_chars = total_chars + self.tab_info[tab].max_chars + 2
+    if self.tab_settings[tab].display then
+      total_chars = total_chars + self.tab_settings[tab].max_chars + 2
     end
   end
   
@@ -188,7 +189,7 @@ status_bar.tab_info = status_bar.tab_info or
   local start = 0
   
   for _, tab in pairs(self.tabs) do
-    local w = self.tab_info[tab].max_chars + 2
+    local w = self.tab_settings[tab].max_chars + 2
     --convert chars to a percentage, then slightly downsize so there's space at the end of the status bar
     w = w / total_chars * 100 * 0.997
     w_str = string.format("%.2f%%", w)
@@ -196,7 +197,7 @@ status_bar.tab_info = status_bar.tab_info or
   --create labels if necessary
     if not self[tab] then
       self[tab] = Geyser.Label:new({name = "status_bar."..tab, x = "0%", y = "0%", width = w_str, height = "100%"}, self.container)
-      self[tab]:echo(self.tab_info[tab].default_text, "white", "c")
+      self[tab]:echo(self.tab_settings[tab].default_text, "white", "c")
       self[tab]:setStyleSheet([[
         background-color: black;
         border: 1px solid gray;
@@ -206,7 +207,7 @@ status_bar.tab_info = status_bar.tab_info or
     self[tab]:setFontSize(self.configs.fontsize)
     
     --display and move labels if necessary
-    if self.tab_info[tab].display then
+    if self.tab_settings[tab].display then
       start_str = string.format("%.2f%%", start)
       self[tab]:resize(w_str, "100%")
       self[tab]:move(start_str, "0%")
@@ -284,13 +285,13 @@ registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")
       est_max = nil,
       est_min = nil
     },
-    dps = {
+    sps = {
       max = nil,
       current = nil,
       est_max = nil,
       est_min = nil
     },
-    sps = {
+    dps = {
       max = nil,
       current = nil,
       est_max = nil,
@@ -315,6 +316,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")
     sneak = nil,
     one_power = nil,
     armor = nil,
+    int = nil,
     wil = nil,
     con = nil,
   }
@@ -326,61 +328,32 @@ registerAnonymousEventHandler("sysExitEvent", "status_bar:sys_disconnection")
 registerAnonymousEventHandler("sysDisconnectionEvent", "status_bar:sys_disconnection")</script>
 				<eventHandlerList />
 			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update fleelag</name>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Update items on tic</name>
 				<packageName></packageName>
-				<script>function status_bar:update_fleelag(event, com)
-  local msg_flee = "Fleelag"
-  local msg_charge = "Charge Pulses"
-  
-  if com ~= nil then
-    if table.contains({"f", "fl", "fle", "flee"}, com:lower()) then
-      self.char.fleelag.min = self.char.fleelag.min or 0
-      self.char.fleelag.max = self.char.fleelag.max or 0
-    
-      self.char.fleelag.min = self.char.fleelag.min + 1
-      self.char.fleelag.max = self.char.fleelag.max + 2
-    
-      self.char.charge_pulses.min = math.min(7 + self.char.fleelag.min, 12)
-      self.char.charge_pulses.max = math.min(7 + self.char.fleelag.max, 12)
-    
-      if self.char.fleelag.min == self.char.fleelag.max then
-        msg_flee = "Fleelag: "..self.char.fleelag.min
-      else
-        msg_flee = "Fleelag: "..self.char.fleelag.min.."-"..self.char.fleelag.max
-      end
-      
-      status_bar.fleelag:echo(msg_flee, "white", "c")
-      
-      if self.char.charge_pulses.min == self.char.charge_pulses.max then
-        msg_charge = "Charge Pulses: "..self.char.charge_pulses.min
-      else
-        msg_charge = "Charge Pulses: "..self.char.charge_pulses.min.."-"..self.char.charge_pulses.max
-      end
-      
-      self.charge_pulses:echo(msg_charge, "white", "c")
-    end
-  end
-end
-
-registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_fleelag")</script>
+				<script></script>
 				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update fleelag on tic</name>
-				<packageName></packageName>
-				<script>function status_bar:update_fleelag_on_tic(event, exact, is_early, is_late)
+				<Script isActive="yes" isFolder="no">
+					<name>Update fleelag on tic</name>
+					<packageName></packageName>
+					<script>function status_bar:update_fleelag_on_tic(event, exact, is_early, is_late)
   if is_early then
     self.char.wil = self.char.wil or 1
-    local fleelag_loss = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3}
+    local fleelag_loss = 1
+    if self.char.wil &lt; 12 then
+      fleelag_loss = 2
+    else
+      fleelag_loss = 3
+    end
+    
     local msg_flee = "Fleelag"
     local msg_charge = "Charge Pulses"
     
     self.char.fleelag.min = self.char.fleelag.min or 0
     self.char.fleelag.max = self.char.fleelag.max or 0
     
-    self.char.fleelag.min = math.floor(self.char.fleelag.min / fleelag_loss[self.char.wil])
-    self.char.fleelag.max = math.floor(self.char.fleelag.max / fleelag_loss[self.char.wil])
+    self.char.fleelag.min = math.floor(self.char.fleelag.min / fleelag_loss)
+    self.char.fleelag.max = math.floor(self.char.fleelag.max / fleelag_loss)
     
     self.char.charge_pulses.min = math.min(7 + self.char.fleelag.min, 12)
     self.char.charge_pulses.max = math.min(7 + self.char.fleelag.max, 12)
@@ -404,59 +377,12 @@ registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_fleelag")
 end
 
 registerAnonymousEventHandler("tic", "status_bar:update_fleelag_on_tic")</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update health with min-max dmg</name>
-				<packageName></packageName>
-				<script>function status_bar:update_health_min_max(mindmg, maxdmg)
-  self.char.hps.max = self.char.hps.max or 1
-  
-  if self.char.hps.current then
-    if maxdmg then
-      self.char.hps.est_min = math.max(self.char.hps.current - maxdmg, 0)
-    end
-    if mindmg then
-      self.char.hps.est_max = math.max(self.char.hps.current - mindmg, 0)
-    end
-    self.char.hps.current = nil
-  else
-    if self.char.hps.est_min then
-      if maxdmg then
-        self.char.hps.est_min = math.max(self.char.hps.est_min - maxdmg, 0)
-      else
-        self.char.hps.est_min = nil
-      end
-    end
-    if self.char.hps.est_max then
-      if mindmg then
-        self.char.hps.est_max = math.max(self.char.hps.est_max - mindmg, 0)
-      else
-        self.char.hps.est_max = nil
-      end
-    end
-  end
-  
-  if not self.char.hps.current and self.char.hps.est_min == self.char.hps.est_max then
-    self.char.hps.current = self.char.hps.est_min
-    self.char.hps.est_min = nil
-    self.char.hps.est_max = nil
-  end
-  
-  local msg = "Hit Points"
-  if self.char.hps.current then
-    msg = "HP: "..self.char.hps.current.."("..self.char.hps.max..")"
-  else
-    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???").."("..self.char.hps.max..")"
-  end  
-  self.hps:echo(msg, "white", "c")
-end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update health on tic</name>
-				<packageName></packageName>
-				<script>function status_bar:update_health_on_tic(event, exact, is_early, is_late)
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update health on tic</name>
+					<packageName></packageName>
+					<script>function status_bar:update_health_on_tic(event, exact, is_early, is_late)
   if is_early then
     self.char.con = self.char.con or 1
     self.char.hps.max = self.char.hps.max or 1
@@ -489,12 +415,61 @@ end</script>
 end
 
 registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update HPs with range</name>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update spell points on tic</name>
+					<packageName></packageName>
+					<script>function status_bar:update_sps_on_tic(event, exact, is_early, is_late)
+  if is_early then
+    self.char.int = self.char.int or 1
+    self.char.wil = self.char.wil or 1
+    self.char.sps.max = self.char.sps.max or 1
+    local sp_regen = math.floor((self.char.int + self.char.wil)/2)
+    local sp_loss = -1
+    
+    if self.char.sps.current then
+      self.char.sps.est_min = math.max(self.char.sps.current + sp_loss, 0)
+      self.char.sps.est_max = math.min(self.char.sps.current + sp_regen, self.char.sps.max)
+      self.char.sps.current = nil
+    else
+      if self.char.sps.est_min then
+        self.char.sps.est_min = math.max(self.char.sps.est_min + sp_loss, 0)
+      end
+      if self.char.sps.est_max then
+        self.char.sps.est_max = math.min(self.char.sps.est_max + sp_regen, self.char.sps.max)
+      end
+    end
+    
+    if not self.char.sps.current and self.char.sps.est_min == self.char.sps.est_max then
+      self.char.sps.current = self.char.sps.est_min
+      self.char.sps.est_min = nil
+      self.char.sps.est_max = nil
+    end
+    
+    local msg = "Spell Points"
+    if self.char.sps.current then
+      msg = "SP: "..self.char.sps.current.."("..self.char.sps.max..")"
+    else
+      msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???").."("..self.char.sps.max..")"
+    end  
+    self.sps_dps:echo(msg, "white", "c")
+  end
+end
+
+registerAnonymousEventHandler("tic", "status_bar:update_sps_on_tic")</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Update items with range</name>
 				<packageName></packageName>
-				<script>function status_bar:update_hps_with_range(hps)
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Update HPs with range</name>
+					<packageName></packageName>
+					<script>function status_bar:update_hps_with_range(hps)
   self.char.hps.max = self.char.hps.max or 1
   local upper_cutoffs = {
       Healthy = 1,
@@ -555,12 +530,12 @@ registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
   end  
   self.hps:echo(msg, "white", "c")
 end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update MVs with range</name>
-				<packageName></packageName>
-				<script>function status_bar:update_mvs_with_range(mvs)
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update MVs with range</name>
+					<packageName></packageName>
+					<script>function status_bar:update_mvs_with_range(mvs)
   self.char.mvs.max = self.char.mvs.max or 1
   local upper_cutoffs = {
       Fresh = 1,
@@ -621,12 +596,12 @@ end</script>
   end  
   self.mvs:echo(msg, "white", "c")
 end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update SPs with range</name>
-				<packageName></packageName>
-				<script>function status_bar:update_sps_with_range(sps)
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update SPs with range</name>
+					<packageName></packageName>
+					<script>function status_bar:update_sps_with_range(sps)
   self.char.sps.max = self.char.sps.max or 1
   local upper_cutoffs = {
       Bursting = 1,
@@ -685,12 +660,12 @@ end</script>
   end  
   self.sps_dps:echo(msg, "white", "c")
 end</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>Update DPs with range</name>
-				<packageName></packageName>
-				<script>function status_bar:update_dps_with_range(dps)
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update DPs with range</name>
+					<packageName></packageName>
+					<script>function status_bar:update_dps_with_range(dps)
   self.char.dps.max = self.char.dps.max or 1
   local upper_cutoffs = {
       Bursting = 1,
@@ -749,6 +724,201 @@ end</script>
   end  
   self.sps_dps:echo(msg, "white", "c")
 end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+			<Script isActive="yes" isFolder="no">
+				<name>Update fleelag</name>
+				<packageName></packageName>
+				<script>function status_bar:update_fleelag(event, com)
+  local msg_flee = "Fleelag"
+  local msg_charge = "Charge Pulses"
+  
+  if com ~= nil then
+    if table.contains({"f", "fl", "fle", "flee"}, com:lower()) then
+      self.char.fleelag.min = self.char.fleelag.min or 0
+      self.char.fleelag.max = self.char.fleelag.max or 0
+    
+      self.char.fleelag.min = self.char.fleelag.min + 1
+      self.char.fleelag.max = self.char.fleelag.max + 2
+    
+      self.char.charge_pulses.min = math.min(7 + self.char.fleelag.min, 12)
+      self.char.charge_pulses.max = math.min(7 + self.char.fleelag.max, 12)
+    
+      if self.char.fleelag.min == self.char.fleelag.max then
+        msg_flee = "Fleelag: "..self.char.fleelag.min
+      else
+        msg_flee = "Fleelag: "..self.char.fleelag.min.."-"..self.char.fleelag.max
+      end
+      
+      status_bar.fleelag:echo(msg_flee, "white", "c")
+      
+      if self.char.charge_pulses.min == self.char.charge_pulses.max then
+        msg_charge = "Charge Pulses: "..self.char.charge_pulses.min
+      else
+        msg_charge = "Charge Pulses: "..self.char.charge_pulses.min.."-"..self.char.charge_pulses.max
+      end
+      
+      self.charge_pulses:echo(msg_charge, "white", "c")
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_fleelag")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update health with min-max dmg</name>
+				<packageName></packageName>
+				<script>function status_bar:update_hps_min_max(mindmg, maxdmg)
+  self.char.hps.max = self.char.hps.max or 1
+  
+  if self.char.hps.current then
+    if maxdmg then
+      self.char.hps.est_min = math.max(self.char.hps.current - maxdmg, 0)
+    end
+    if mindmg then
+      self.char.hps.est_max = math.max(self.char.hps.current - mindmg, 0)
+    end
+    self.char.hps.current = nil
+  else
+    if self.char.hps.est_min then
+      if maxdmg then
+        self.char.hps.est_min = math.max(self.char.hps.est_min - maxdmg, 0)
+      else
+        self.char.hps.est_min = nil
+      end
+    end
+    if self.char.hps.est_max then
+      if mindmg then
+        self.char.hps.est_max = math.max(self.char.hps.est_max - mindmg, 0)
+      else
+        self.char.hps.est_max = nil
+      end
+    end
+  end
+  
+  if not self.char.hps.current and self.char.hps.est_min == self.char.hps.est_max then
+    self.char.hps.current = self.char.hps.est_min
+    self.char.hps.est_min = nil
+    self.char.hps.est_max = nil
+  end
+  
+  local msg = "Hit Points"
+  if self.char.hps.current then
+    msg = "HP: "..self.char.hps.current.."("..self.char.hps.max..")"
+  else
+    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???").."("..self.char.hps.max..")"
+  end  
+  self.hps:echo(msg, "white", "c")
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update SPs with weave</name>
+				<packageName></packageName>
+				<script>function status_bar:update_sps_with_weave(weave)
+  if not weave then return end
+  
+  local weave_costs = {
+    ["armor"] = 5,
+    ["blind"] = 10,
+    ["call lightning"] = 12,
+    ["change weather"] = 7,
+    ["chill"] = 10,
+    ["contagion"] = 13,
+    ["create fog"] = 7,
+    ["create food"] = 5,
+    ["create phantom object"] = 15,
+    ["create water"] = 5,
+    ["cure blindness"] = 10,
+    ["cure critical wounds"] = 12,
+    ["cure fear"] = 10,
+    ["cure light wounds"] = 7,
+    ["cure poison"] = 12,
+    ["cure serious wounds"] = 10,
+    ["deafen"] = 10,
+    ["earthquake"] = 15,
+    ["elemental staff"] = 25,
+    ["fear"] = 15,
+    ["fireball"] = 15,
+    ["flame strike"] = 10,
+    ["freeze"] = 15,
+    ["gate"] = 40,
+    ["hailstorm"] = 10,
+    ["hammer of air"] = 12,
+    ["heal"] = 50,
+    ["hurricane"] = 15,
+    ["ice spikes"] = 15,
+    ["incinerate"] = 25,
+    ["light ball"] = 5,
+    ["locate life"] = 12,
+    ["locate object"] = 12,
+    ["poison"] = 10,
+    ["refresh"] = 15,
+    ["remove contagion"] = 10,
+    ["remove warding"] = 10,
+    ["sense warding"] = 10,
+    ["shield"] = 0,
+    ["silence"] = 10,
+    ["sleep"] = 10,
+    ["slice weaves"] = 8,
+    ["slow"] = 10,
+    ["sonic boom"] = 15,
+    ["strength"] = 12,
+    ["sword of flame"] = 30,
+    ["travel"] = 20,
+    ["ward object"] = 10,
+    ["warding vs damage"] = 25,
+    ["warding vs evil"] = 7,
+    ["whirlpool"] = 20,
+  }
+  
+  self.char.sps.max = self.char.sps.max or 1
+  
+  if self.char.sps.current then
+    self.char.sps.est_min = math.max(self.char.sps.current - weave_costs[weave], 0)
+    self.char.sps.est_max = self.char.sps.current
+    self.char.sps.current = nil
+  else
+    if self.char.sps.est_min then
+      self.char.sps.est_min = math.max(self.char.sps.est_min - weave_costs[weave], 0)
+    end
+  end
+  
+  if not self.char.sps.current and self.char.sps.est_min == self.char.sps.est_max then
+    self.char.sps.current = self.char.sps.est_min
+    self.char.sps.est_min = nil
+    self.char.sps.est_max = nil
+  end
+  
+  local msg = "Spell Points"
+  if self.char.sps.current then
+    msg = "SP: "..self.char.sps.current.."("..self.char.sps.max..")"
+  else
+    msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???").."("..self.char.sps.max..")"
+  end  
+  self.sps_dps:echo(msg, "white", "c")
+  
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update spell points on command</name>
+				<packageName></packageName>
+				<script>function status_bar:is_weaving(event, com)
+  com = com:lower()
+  
+  if table.contains({"chann", "channe", "channel"}, com:split()[1]) then
+    local weave = com:match("'(.+)'")
+    
+    if weave then
+      self:update_sps_with_weave(weave)
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "status_bar:is_weaving")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -798,7 +968,7 @@ if table.index_of(status_bar.tabs, "target") then
   --e.g., for HPs, the longest string in the tab will be of the form "HP: xxx-yyy(zzz)" which is 16 characters
   --default_text: what should the tab initially display. not super important, can use an empty string, but nice
   --to give it something for when mudlet boots up so its not empty
-  status_bar.tab_info["target"] = {display=true, max_chars = 9, default_text = "Target"}
+  status_bar.tab_settings["target"] = {display=true, max_chars = 9, default_text = "Target"}
 end
 
 
@@ -807,12 +977,12 @@ end
 --the list of default tabs can be found in the "Default tabs and settings" item
 
 --if you hate the charge pulses being shown, here's your chance to hide it!
-status_bar.tab_info["charge_pulses"].display = false
+status_bar.tab_settings["charge_pulses"].display = false
  
 --this simply shows the target tab created above. actually displaying your current target
 --would require you to add more code to the aliases where you change your target
 --this simply provides the framework for allocating a spot for it on the status bar
-status_bar.tab_info["target"].display = false
+status_bar.tab_settings["target"].display = true
 
 
 

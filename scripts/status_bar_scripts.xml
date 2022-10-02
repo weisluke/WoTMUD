@@ -169,11 +169,6 @@ status_bar.tab_settings = status_bar.tab_settings or
     }
   )
   
-  self.container:move(x, y)
-  self.container:resize(w, h)
-  self.container:attachToBorder("bottom")
-  self.container:lockContainer("full")
-  
   --determine sum of label sizes in characters
   local total_chars = 0
   for _, tab in pairs(self.tabs) do
@@ -221,6 +216,10 @@ status_bar.tab_settings = status_bar.tab_settings or
   --show or hide status bar container
   if visible then
     self.container:show()
+    self.container:move(x, y)
+    self.container:resize(w, h)
+    self.container:attachToBorder("bottom")
+    self.container:lockContainer("full")
   else
     self.container:hide()
   end

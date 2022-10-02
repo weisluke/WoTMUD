@@ -124,7 +124,7 @@ status_bar.armor:echo("ARMOR", "green", "c")</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Armor OFF!</name>
 					<script>status_bar.char.armor = false
-status_bar.notice:echo("armor", "red", "c")</script>
+status_bar.armor:echo("armor", "red", "c")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -471,7 +471,7 @@ status_bar.autoflee:echo(msg, "white", "c")</script>
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>((.+) your (.+) into bloody fragments!)</name>
-					<script>status_bar:update_health_min_max(24, nil)</script>
+					<script>status_bar:update_hps_min_max(24, nil)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -491,7 +491,7 @@ status_bar.autoflee:echo(msg, "white", "c")</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>((.+) your (.+) extremely hard\.)</name>
-					<script>status_bar:update_health_min_max(20, 23)</script>
+					<script>status_bar:update_hps_min_max(20, 23)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -511,7 +511,7 @@ status_bar.autoflee:echo(msg, "white", "c")</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>((.+) your (.+) very hard\.)</name>
-					<script>status_bar:update_health_min_max(15,19)</script>
+					<script>status_bar:update_hps_min_max(15,19)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -531,7 +531,7 @@ status_bar.autoflee:echo(msg, "white", "c")</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>((.+) your (.+) hard\.)</name>
-					<script>status_bar:update_health_min_max(11,14)</script>
+					<script>status_bar:update_hps_min_max(11,14)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -551,7 +551,7 @@ status_bar.autoflee:echo(msg, "white", "c")</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>((.+) your (.+)\.)</name>
-					<script>status_bar:update_health_min_max(7,10)</script>
+					<script>status_bar:update_hps_min_max(7,10)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -605,7 +605,7 @@ status_bar.autoflee:echo(msg, "white", "c")</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>((.+) barely (.+) your (.+)\.)</name>
-					<script>status_bar:update_health_min_max(5,6)</script>
+					<script>status_bar:update_hps_min_max(5,6)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -625,7 +625,7 @@ status_bar.autoflee:echo(msg, "white", "c")</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>((.+) tickles your (.+) with (.+)\.)</name>
-					<script>status_bar:update_health_min_max(3,4)</script>
+					<script>status_bar:update_hps_min_max(3,4)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -645,7 +645,7 @@ status_bar.autoflee:echo(msg, "white", "c")</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>((.+) barely tickles your (.+) with (.+)\.)</name>
-					<script>status_bar:update_health_min_max(1,2)</script>
+					<script>status_bar:update_hps_min_max(1,2)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -708,7 +708,7 @@ status_bar.hps:echo(msg, "white", "c")</script>
 						<string>You wish that your wounds would stop BLEEDING so much!</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>0</integer>
+						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>
@@ -745,8 +745,13 @@ status_bar.charge_pulses:echo(msg_charge_pulses, "white", "c")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Stats</name>
-				<script>status_bar.char.wil = tonumber(matches[4])
-status_bar.char.con=tonumber(matches[6])</script>
+				<script>status_bar.char.int = tonumber(matches[3])
+status_bar.char.wil = tonumber(matches[4])
+status_bar.char.con=tonumber(matches[6])
+
+if status_bar.char.level then
+  status_bar.char.sps.max = 7 * status_bar.char.wil + math.min(status_bar.char.level, 30)
+end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -759,6 +764,30 @@ status_bar.char.con=tonumber(matches[6])</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>^Your base abilities are: Str:(\d+) Int:(\d+) Wil:(\d+) Dex:(\d+) Con:(\d+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Level</name>
+				<script>status_bar.char.level = tonumber(matches[3])
+
+if status_bar.char.wil then
+  status_bar.char.sps.max = 7 * status_bar.char.wil + math.min(status_bar.char.level, 30)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^This ranks you as (.+) \(Level (\d+)\)\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -815,8 +844,8 @@ end</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList />
 				<regexCodePropertyList />
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>You feel the flows of saidin|saidar coursing through your body.</name>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>You feel the flows of</name>
 					<script></script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -829,10 +858,10 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You feel the flows of (\S+) coursing through your body.</string>
+						<string>You feel the flows of</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>1</integer>
+						<integer>2</integer>
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>saidin</name>
@@ -848,7 +877,7 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>saidin</string>
+							<string>You feel the flows of saidin coursing through your body.</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>3</integer>
@@ -868,15 +897,15 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>saidar</string>
+							<string>You feel the flows of saidar coursing through your body.</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>3</integer>
 						</regexCodePropertyList>
 					</Trigger>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>You are already in touch with saidin|saidar, can't you feel it?</name>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>You are already in touch with</name>
 					<script></script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -889,10 +918,10 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You are already in touch with (\S+), can't you feel it?</string>
+						<string>You are already in touch with</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>1</integer>
+						<integer>2</integer>
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>saidin</name>
@@ -908,7 +937,7 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>saidin</string>
+							<string>You are already in touch with saidin, can't you feel it?</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>3</integer>
@@ -928,7 +957,7 @@ end</script>
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>saidar</string>
+							<string>You are already in touch with saidar, can't you feel it?</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>3</integer>
@@ -936,7 +965,7 @@ end</script>
 					</Trigger>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>You aren't in touch with saidin|saidar to release anything.</name>
+					<name>Released</name>
 					<script>status_bar.one_power:echo("released", "red", "c")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -951,29 +980,15 @@ end</script>
 					<regexCodeList>
 						<string>You aren't in touch with saidin to release anything.</string>
 						<string>You aren't in touch with saidar to release anything.</string>
-					</regexCodeList>
-					<regexCodePropertyList>
-						<integer>3</integer>
-						<integer>3</integer>
-					</regexCodePropertyList>
-				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>You feel no connection to the True Source to release.</name>
-					<script>status_bar.one_power:echo("released", "red", "c")</script>
-					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
-					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
-					<mFgColor>#ff0000</mFgColor>
-					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
-					<colorTriggerFgColor>#000000</colorTriggerFgColor>
-					<colorTriggerBgColor>#000000</colorTriggerBgColor>
-					<regexCodeList>
+						<string>You feel an icy chill as if you plunged into a cold river.</string>
 						<string>You feel no connection to the True Source to release.</string>
+						<string>You can't alter a weave when you aren't in touch with the Source.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -1110,19 +1125,19 @@ end</script>
 				<regexCodeList />
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Capture Sex, Race, and Class - non fade</name>
+					<name>Non fade</name>
 					<script>if matches[3] == "trolloc" then
-  status_bar.tab_info["smells"].display = true
+  status_bar.tab_settings["smells"].display = true
 else
-  status_bar.tab_info["smells"].display = false
+  status_bar.tab_settings["smells"].display = false
 end
 
 if matches[4] == "channeler" then
-  status_bar.tab_info["sps_dps"].display = true
-  status_bar.tab_info["one_power"].display = true
+  status_bar.tab_settings["sps_dps"].display = true
+  status_bar.tab_settings["one_power"].display = true
 else
-  status_bar.tab_info["sps_dps"].display = false
-  status_bar.tab_info["one_power"].display = false
+  status_bar.tab_settings["sps_dps"].display = false
+  status_bar.tab_settings["one_power"].display = false
 end
 
 status_bar:show_status_bar(true)</script>
@@ -1144,10 +1159,10 @@ status_bar:show_status_bar(true)</script>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Capture Sex, Race, and Class - fade</name>
-					<script>status_bar.tab_info["smells"].display = false
-status_bar.tab_info["sps_dps"].display = true
-status_bar.tab_info["one_power"].display = false
+					<name>Fade</name>
+					<script>status_bar.tab_settings["smells"].display = false
+status_bar.tab_settings["sps_dps"].display = true
+status_bar.tab_settings["one_power"].display = false
 
 status_bar:show_status_bar(true)</script>
 					<triggerType>0</triggerType>
@@ -1166,6 +1181,72 @@ status_bar:show_status_bar(true)</script>
 					<regexCodePropertyList>
 						<integer>1</integer>
 					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Check for posture</name>
+					<script></script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>1</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Your mood is:</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>2</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Posture is present</name>
+						<script>status_bar.tab_settings["posture"].display = true
+
+status_bar:show_status_bar(true)</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Your posture is:</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>2</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Posture is not present</name>
+						<script>status_bar.tab_settings["posture"].display = false
+
+status_bar:show_status_bar(true)</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>You are wanted by:</string>
+							<string>Your armor absorbs about</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>2</integer>
+							<integer>2</integer>
+						</regexCodePropertyList>
+					</Trigger>
 				</Trigger>
 			</TriggerGroup>
 		</TriggerGroup>

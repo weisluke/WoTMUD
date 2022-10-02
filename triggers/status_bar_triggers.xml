@@ -137,8 +137,10 @@ status_bar.armor:echo("armor", "red", "c")</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>You suddenly feel less protected.</string>
+						<string>You are subjected to the following effects:</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>3</integer>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>

@@ -128,7 +128,9 @@ equip_db:reset_eq_info()</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Enable eq name trigger</name>
-				<script>enableTrigger("Eq_DB_Get_Name")</script>
+				<script>enableTrigger("Eq_DB_Get_Name")
+
+equip_db:reset_eq_info()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>

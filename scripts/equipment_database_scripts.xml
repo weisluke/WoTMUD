@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Equipment Database</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Equipment Trainer Initializations</name>
+				<packageName></packageName>
+				<script>equip_db = equip_db or {configs = {}, eq_info = {}}
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Equipment Database Display Echo</name>
+				<packageName></packageName>
+				<script>function equip_db:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;gray&gt;(&lt;white&gt;equip_db&lt;gray&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Database creation</name>
+				<packageName></packageName>
+				<script>equip_db.eq_fields = {
+    weapons = {"name", "weapon_type", "ob", "pb", "dmg", "weight", "dmg_type"},
+    armor = {"name", "eq_slot", "db", "pb", "mvs", "abs", "weight"},
+    trinkets = {"name", "eq_slot", "db", "pb", "mvs", "weight"}
+  }
+  
+function equip_db:create_db()
+  db:create(
+    "equipment",
+    {
+      weapons =
+        {
+          name = "",
+          weapon_type = "",
+          ob = 0,
+          pb = 0,
+          dmg = "",
+          weight = 0,
+          dmg_type = ""
+        },
+      armor =
+        {
+          name = "",
+          eq_slot = "",
+          db = 0,
+          pb = 0,
+          mvs = 0,
+          abs = 0,
+          weight = 0
+        },
+      trinkets =
+        {
+          name = "",
+          eq_slot = "",
+          db = 0,
+          pb = 0,
+          mvs = 0,
+          weight = 0
+        },
+    }
+  )
+end
+
+equip_db:create_db()</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Show help</name>
+				<packageName></packageName>
+				<script>function equip_db:show_help()
+  local help =
+  [[
+    &lt;cyan&gt;Equipment Database Script&lt;reset&gt;
+
+    This script will capture and store equipment stats in a database located at
+    at ]] .. getMudletHomeDir() .. [[/Database_equipment.db
+    
+    Below is a brief overview of some commands that this script includes.
+    All commands can be found in the appropriate equipment database folder
+    under mudlet aliases.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;edb help&lt;reset&gt; - Show this help message.
+        &lt;yellow&gt;edb show&lt;reset&gt; - Show all items in the database.
+        &lt;yellow&gt;edb show weapons/armor/trinkets&lt;reset&gt; - Show all weapons, armor, or trinkets.
+        &lt;yellow&gt;edb show weapons/armor/trinkets name xxx&lt;reset&gt; - Show all weapons, armor or trinkets with
+            the given name.
+            Ex: edb show weapons name heron, edb show armor name gold,
+                edb show trinkets name jeweled
+        &lt;yellow&gt;edb show weapons type xxx&lt;reset&gt; - Show all weapons of the given type.
+            Ex: edb show weapons type blade, edb show weapons type staff
+        &lt;yellow&gt;edb show armor/trinkets slot xxx&lt;reset&gt; - Show all armor or trinkets of the given slot.
+            Ex: edb show armor slot head, edb show trinkets slot wrist  
+                    
+]]
+  cecho(help)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Reset equpment info</name>
+				<packageName></packageName>
+				<script>function equip_db:reset_eq_info()
+  self.eq_info = {}
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Update items</name>
+				<packageName></packageName>
+				<script>function equip_db:update_item(eq_type, info)
+  
+  if not info.name then
+    self:echo("\nAttempt to add item with no name.\n", false, true)
+    return
+  end
+  
+  if not table.index_of(table.keys(self.eq_fields), eq_type) then
+    self:echo("\nEquipment type ("..eq_type..") not known.\n", false, true)
+    return
+  end
+
+  local equipment = db:get_database("equipment")
+
+  local items = db:fetch(equipment[eq_type], db:like(equipment[eq_type].name, "%"..info.name.."%"))
+  
+  if table.is_empty(items) then
+    db:add(equipment[eq_type], info)
+    self:echo("\nItem ("..info.name..") added to the equipment database.\n")   
+  elseif table.size(items) &gt; 1 then
+    self:echo("\nItem ("..info.name..") is not unique. Found the following items:\n", false, true)
+    for _, item in pairs(items) do
+      cecho(item.name.."\n")
+    end
+  else
+    item = items[1]
+    --ensure that if we gave a shortcut to the name, we use the proper full name already in the database
+    info.name = item.name
+    for _, field in pairs(self.eq_fields[eq_type]) do
+      if info[field] and item[field] ~= info[field] then
+        self:echo("\n("..field..") for ("..item.name..") updated from ("..item[field]..") to ("..info[field]..")\n")
+        item[field] = info[field]
+      end
+    end
+    db:update(equipment[eq_type], item)
+  end
+  
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Database update</name>
+				<packageName></packageName>
+				<script>function equip_db:db_update(event, filename)
+  --if the file that downloaded is not the database, return
+  if not filename:find("Database_equipment.db", 1, true) then
+    return
+  end
+  self:echo("Download complete.\n")
+  self:create_db()
+end
+
+registerAnonymousEventHandler("sysDownloadDone", "equip_db:db_update")</script>
+				<eventHandlerList />
+			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Show database items</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Show weapons</name>
+					<packageName></packageName>
+					<script>function equip_db:show_weapons(name, weapon_type)
+  local equipment = db:get_database("equipment")
+  
+  name = name or ""
+  weapon_type = weapon_type or ""
+  
+  local weapons = db:fetch(
+    equipment.weapons, 
+      db:AND(
+        db:like(equipment.weapons.name, "%"..name.."%"), 
+        db:like(equipment.weapons.weapon_type, "%"..weapon_type.."%")
+      )
+  )
+  
+  if table.is_empty(weapons) then
+    self:echo("No weapons found in the equipment database.\n", false, true)
+  else
+    cecho("WEAPONS\n\n")
+    local msg_format = "%-40s%s%-25s%-5s%-5s%-7s%-6s%-9s\n"
+    cecho(string.format(msg_format, "Name", "", "Weapon Type", "OB", "PB", "Dmg", "Wt", "Dmg Type"))
+    
+    if string.len(item.name) &gt;= 40 then
+      msg_format = "%-40s\n%-40s%-25s%-5s%-5s%-7s%-6s%-9s\n"
+    end
+    
+    
+    for _, item in pairs(weapons) do
+      local msg = string.format(msg_format, 
+        item.name,
+        "",
+        item.weapon_type,
+        item.ob, 
+        item.pb,
+        item.dmg,
+        item.weight,
+        item.dmg_type
+        )
+      cecho(msg)
+    end
+    cecho("\n")
+  end
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Show armor</name>
+					<packageName></packageName>
+					<script>function equip_db:show_armor(name, eq_slot)
+  local equipment = db:get_database("equipment")
+  
+  name = name or ""
+  eq_slot = eq_slot or ""
+  
+  local armor = db:fetch(
+    equipment.armor, 
+      db:AND(
+        db:like(equipment.armor.name, "%"..name.."%"), 
+        db:like(equipment.armor.eq_slot, "%"..eq_slot.."%")
+      )
+  )
+  
+  if table.is_empty(armor) then
+    self:echo("No armor found in the equipment database.\n", false, true)
+  else
+    cecho("ARMOR\n\n")
+    local msg_format = "%-40s%s%-7s%-6s%-6s%-6s%-5s%-6s\n"
+    cecho(string.format(msg_format, "Name", "", "Slot", "DB", "PB", "Abs", "Mvs", "Wt"))
+    
+    if string.len(item.name) &gt;= 40 then
+      msg_format = "%-40s\n%-40s%-7s%-6s%-6s%-6s%-5s%-6s\n"
+    end
+    
+    for _, item in pairs(armor) do
+      local msg = string.format(msg_format, 
+        item.name,
+        "",
+        item.eq_slot,
+        item.db, 
+        item.pb,
+        item.abs,
+        item.mvs,
+        item.weight
+        )
+      cecho(msg)
+    end
+    cecho("\n")
+  end
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Show trinkets</name>
+					<packageName></packageName>
+					<script>function equip_db:show_trinkets(name, eq_slot)
+  local equipment = db:get_database("equipment")
+  
+  name = name or ""
+  eq_slot = eq_slot or ""
+  
+  local trinkets = db:fetch(
+    equipment.trinkets, 
+      db:AND(
+        db:like(equipment.trinkets.name, "%"..name.."%"), 
+        db:like(equipment.trinkets.eq_slot, "%"..eq_slot.."%")
+      )
+  )
+  
+  if table.is_empty(trinkets) then
+    self:echo("No trinkets found in the equipment database.\n", false, true)
+  else
+    cecho("TRINKETS\n\n")
+    local msg_format = "%-40s%s%-8s%-6s%-6s%-5s%-6s\n"
+    cecho(string.format(msg_format, "Name", "", "Slot", "DB", "PB", "Mvs", "Wt"))
+    
+    if string.len(item.name) &gt;= 40 then
+      msg_format = "%-40s\n%-40s%-8s%-6s%-6s%-5s%-6s\n"
+    end
+    
+    for _, item in pairs(trinkets) do
+      local msg = string.format(msg_format, 
+        item.name,
+        "",
+        item.eq_slot,
+        item.db, 
+        item.pb,
+        item.mvs,
+        item.weight
+        )
+      cecho(msg)
+    end
+    cecho("\n")
+  end
+end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>

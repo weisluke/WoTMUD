@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Equipment Database</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show help</name>
+				<script>equip_db:show_help()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb help$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Update equipment database</name>
+				<script>--syntax: edb update
+
+db:close("equipment")
+
+equip_db:echo("Downloading updated database...\n")
+local url="https://raw.githubusercontent.com/weisluke/WoTMUD/master/Database_equipment.db"
+local saveto = getMudletHomeDir() .. "/Database_equipment.db"
+downloadFile(saveto, url)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb update$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Reset database</name>
+				<script>equip_db:create_db()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb reset$</regex>
+			</Alias>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Show items</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show all items</name>
+					<script>equip_db:show_weapons()
+equip_db:show_armor()
+equip_db:show_trinkets()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show$</regex>
+				</Alias>
+				<AliasGroup isActive="yes" isFolder="yes">
+					<name>Weapons</name>
+					<script></script>
+					<command></command>
+					<packageName></packageName>
+					<regex></regex>
+					<Alias isActive="yes" isFolder="no">
+						<name>Show weapons</name>
+						<script>equip_db:show_weapons()</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^edb show weapons$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Show weapons name</name>
+						<script>equip_db:show_weapons(matches[2])</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^edb show weapons name (.+)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Show weapons type</name>
+						<script>equip_db:show_weapons(nil, matches[2])</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^edb show weapons type (.+)$</regex>
+					</Alias>
+				</AliasGroup>
+				<AliasGroup isActive="yes" isFolder="yes">
+					<name>Armor</name>
+					<script></script>
+					<command></command>
+					<packageName></packageName>
+					<regex></regex>
+					<Alias isActive="yes" isFolder="no">
+						<name>Show armor</name>
+						<script>equip_db:show_armor()</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^edb show armor$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Show armor name</name>
+						<script>equip_db:show_armor(matches[2])</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^edb show armor name (.+)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Show armor slot</name>
+						<script>equip_db:show_armor(nil, matches[2])</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^edb show armor slot (.+)$</regex>
+					</Alias>
+				</AliasGroup>
+				<AliasGroup isActive="yes" isFolder="yes">
+					<name>Trinkets</name>
+					<script></script>
+					<command></command>
+					<packageName></packageName>
+					<regex></regex>
+					<Alias isActive="yes" isFolder="no">
+						<name>Show trinkets</name>
+						<script>equip_db:show_trinkets()</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^edb show trinkets$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Show trinkets name</name>
+						<script>equip_db:show_trinkets(matches[2])</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^edb show trinkets name (.+)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>Show trinkets slot</name>
+						<script>equip_db:show_trinkets(nil, matches[2])</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^edb show trinkets slot (.+)$</regex>
+					</Alias>
+				</AliasGroup>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Update items</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Update weight</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local weight = tonumber(matches[4])
+
+equip_db:update_item(eq_type, {name=name, weight=weight})</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb (weapons|armor|trinkets) weight (.+) (\d+\.?\d*)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Update dmg_type</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local dmg_type = matches[4]
+
+equip_db:update_item(eq_type, {name=name, dmg_type=dmg_type})</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb (weapons) dmg_type (.+) (\S+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Update eq_slot</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local eq_slot = matches[4]
+
+equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb (armor|trinkets) eq_slot (.+) (\S+)$</regex>
+				</Alias>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Deleting equipment database information</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>edb delete</name>
+					<script>--deletes the ENTIRE equipment database
+
+local equipment = db:get_database("equipment")
+for _, field in pairs(table.keys(equip_db.eq_fields)) do
+  db:delete(equipment[field], true)
+end
+equip_db:echo("The entire equipment database has been deleted.\n")
+equip_db:create_db()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb delete$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>edb delete weapons/armor/trinkets</name>
+					<script>--deletes the ENTIRE weapons or armor or trinkets database
+
+local field = matches[2]
+
+local equipment = db:get_database("equipment")
+db:delete(equipment[field], true)
+equip_db:echo("The equipment database for ("..field..") has been deleted.\n")
+equip_db:create_db()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb delete (weapons|armor|trinkets)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>edb delete weapons/armor/trinkets name</name>
+					<script>--deletes the ENTIRE weapons or armor or trinkets database 
+
+local field = matches[2]
+local name = matches[3]
+
+local equipment = db:get_database("equipment")
+db:delete(equipment[field], db:like(equipment[field].name, "%"..name.."%"))
+equip_db:echo("The equipment database ("..field..") entry for ("..name..") has been deleted.\n")
+equip_db:create_db()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb delete (weapons|armor|trinkets) name (.+)$</regex>
+				</Alias>
+			</AliasGroup>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

@@ -214,14 +214,16 @@ registerAnonymousEventHandler("sysDownloadDone", "equip_db:db_update")</script>
   else
     cecho("WEAPONS\n\n")
     local msg_format = "%-40s%s%-25s%-5s%-5s%-7s%-6s%-9s\n"
-    cecho(string.format(msg_format, "Name", "", "Weapon Type", "OB", "PB", "Dmg", "Wt", "Dmg Type"))
-    
-    if string.len(item.name) &gt;= 40 then
-      msg_format = "%-40s\n%-40s%-25s%-5s%-5s%-7s%-6s%-9s\n"
-    end
-    
+    cecho(string.format(msg_format, "Name", "", "Weapon Type", "OB", "PB", "Dmg", "Wt", "Dmg Type"))    
     
     for _, item in pairs(weapons) do
+    
+      if string.len(item.name) &lt; 40 then
+        msg_format = "%-40s%s%-25s%-5s%-5s%-7s%-6s%-9s\n"
+      else
+        msg_format = "%-40s\n%-40s%-25s%-5s%-5s%-7s%-6s%-9s\n"
+      end
+      
       local msg = string.format(msg_format, 
         item.name,
         "",
@@ -263,11 +265,14 @@ end</script>
     local msg_format = "%-40s%s%-7s%-6s%-6s%-6s%-5s%-6s\n"
     cecho(string.format(msg_format, "Name", "", "Slot", "DB", "PB", "Abs", "Mvs", "Wt"))
     
-    if string.len(item.name) &gt;= 40 then
-      msg_format = "%-40s\n%-40s%-7s%-6s%-6s%-6s%-5s%-6s\n"
-    end
-    
     for _, item in pairs(armor) do
+    
+      if string.len(item.name) &lt; 40 then
+        msg_format = "%-40s%s%-7s%-6s%-6s%-6s%-5s%-6s\n"
+      else
+        msg_format = "%-40s\n%-40s%-7s%-6s%-6s%-6s%-5s%-6s\n"
+      end
+      
       local msg = string.format(msg_format, 
         item.name,
         "",
@@ -309,11 +314,14 @@ end</script>
     local msg_format = "%-40s%s%-8s%-6s%-6s%-5s%-6s\n"
     cecho(string.format(msg_format, "Name", "", "Slot", "DB", "PB", "Mvs", "Wt"))
     
-    if string.len(item.name) &gt;= 40 then
-      msg_format = "%-40s\n%-40s%-8s%-6s%-6s%-5s%-6s\n"
-    end
-    
     for _, item in pairs(trinkets) do
+    
+      if string.len(item.name) &lt; 40 then
+        msg_format = "%-40s%s%-8s%-6s%-6s%-5s%-6s\n"
+      else
+        msg_format = "%-40s\n%-40s%-8s%-6s%-6s%-5s%-6s\n"
+      end
+      
       local msg = string.format(msg_format, 
         item.name,
         "",

@@ -62,8 +62,10 @@ weave_trainer:update_displays()</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.$</string>
+					<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.  It's your birthday today!$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
@@ -86,8 +88,10 @@ weave_trainer:update_displays()</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>^You are a \d+ year old (\w+) myrddraal\.$</string>
+					<string>^You are a \d+ year old (\w+) myrddraal\.  It's your birthday today!$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>

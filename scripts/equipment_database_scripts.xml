@@ -262,15 +262,15 @@ end</script>
     self:echo("No armor found in the equipment database.\n", false, true)
   else
     cecho("ARMOR\n\n")
-    local msg_format = "%-40s%s%-7s%-6s%-6s%-6s%-5s%-6s\n"
+    local msg_format = "%-40s%s%-8s%-6s%-6s%-6s%-5s%-6s\n"
     cecho(string.format(msg_format, "Name", "", "Slot", "DB", "PB", "Abs", "Mvs", "Wt"))
     
     for _, item in pairs(armor) do
     
       if string.len(item.name) &lt; 40 then
-        msg_format = "%-40s%s%-7s%-6s%-6s%-6s%-5s%-6s\n"
+        msg_format = "%-40s%s%-8s%-6s%-6s%-6s%-5s%-6s\n"
       else
-        msg_format = "%-40s\n%-40s%-7s%-6s%-6s%-6s%-5s%-6s\n"
+        msg_format = "%-40s\n%-40s%-8s%-6s%-6s%-6s%-5s%-6s\n"
       end
       
       local msg = string.format(msg_format, 

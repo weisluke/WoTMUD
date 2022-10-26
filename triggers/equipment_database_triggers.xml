@@ -2,7 +2,7 @@
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
 	<TriggerPackage>
-		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Equipment Database</name>
 			<script></script>
 			<triggerType>0</triggerType>
@@ -48,10 +48,7 @@ equip_db.eq_info.ob = tonumber(multimatches[2][2])
 equip_db.eq_info.pb = tonumber(multimatches[2][3])
 equip_db.eq_info.dmg = multimatches[2][4]
 
-enableTrigger("Eq_DB_Get_Name")
-
-equip_db:update_item("weapons", equip_db.eq_info)
-equip_db:reset_eq_info()</script>
+equip_db:update_item("weapons", equip_db.eq_info)</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>1</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -78,10 +75,7 @@ equip_db.eq_info.pb = tonumber(matches[3])
 equip_db.eq_info.mvs = tonumber(matches[4])
 equip_db.eq_info.abs = tonumber(matches[5])
 
-enableTrigger("Eq_DB_Get_Name")
-
-equip_db:update_item("armor", equip_db.eq_info)
-equip_db:reset_eq_info()</script>
+equip_db:update_item("armor", equip_db.eq_info)</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -105,10 +99,7 @@ equip_db:reset_eq_info()</script>
 equip_db.eq_info.pb = matches[3]
 equip_db.eq_info.mvs = matches[4]
 
-enableTrigger("Eq_DB_Get_Name")
-
-equip_db:update_item("trinkets", equip_db.eq_info)
-equip_db:reset_eq_info()</script>
+equip_db:update_item("trinkets", equip_db.eq_info)</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -124,6 +115,51 @@ equip_db:reset_eq_info()</script>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Get equipment DB and PB</name>
+				<script>equip_db.eq_info.db = matches[2]
+equip_db.eq_info.pb = matches[3]
+
+equip_db:update_item("armor", equip_db.eq_info)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^DB: (-?\d+)\s+\|  PB: (-?\d+)$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Hardened</name>
+				<script>equip_db.eq_info.ob = equip_db.eq_info.ob - 5
+
+equip_db:update_item("weapons", equip_db.eq_info)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>It has been honed and hardened by</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">

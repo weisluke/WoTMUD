@@ -36,6 +36,19 @@ downloadFile(saveto, url)</script>
 				<packageName></packageName>
 				<regex>^edb reset$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Enable/disable triggers</name>
+				<script>if isActive("Equipment Database", "trigger") &gt; 0 then
+  disableTrigger("Equipment Database")
+  equip_db:echo("Triggers deactivated.\n")
+else
+  enableTrigger("Equipment Database")
+  equip_db:echo("Triggers activated.\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb triggers$</regex>
+			</Alias>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Show items</name>
 				<script></script>
@@ -165,7 +178,7 @@ equip_db:update_item(eq_type, {name=name, dmg_type=dmg_type})</script>
 					<regex>^edb (weapons) dmg_type (.+) (\S+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Update eq_slot</name>
+					<name>Update armor eq_slot</name>
 					<script>local eq_type = matches[2]
 local name = matches[3]
 local eq_slot = matches[4]
@@ -173,7 +186,18 @@ local eq_slot = matches[4]
 equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^edb (armor|trinkets) eq_slot (.+) (\S+)$</regex>
+					<regex>^edb (armor) eq_slot (.+) (head|body|arms|hands|legs|feet|shield)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Update trinkets eq_slot</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local eq_slot = matches[4]
+
+equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath)$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">

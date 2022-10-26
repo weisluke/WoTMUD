@@ -932,8 +932,8 @@ for k, element in pairs(weave_trainer.pracs.elements) do
       weave_trainer:label_params("weave_trainer.elements."..label_name, x+6, 0, 5, 100, weave_trainer.elements.pracs[element]),
       weave_trainer.elements.container
     )
-  weave_trainer.elements[element .. "_val_label"]:setStyleSheet(weave_trainer.style_sheets.scrollable)
-  setLabelWheelCallback("weave_trainer.elements." .. element .. "_val_label", "weave_trainer:element_scroll", element)
+  weave_trainer.elements[label_name]:setStyleSheet(weave_trainer.style_sheets.scrollable)
+  setLabelWheelCallback("weave_trainer.elements."..label_name, "weave_trainer:element_scroll", element)
   
   label_name = element.."_-_label"
   weave_trainer.elements[label_name] =

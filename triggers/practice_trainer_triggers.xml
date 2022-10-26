@@ -34,9 +34,9 @@
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Capture Sex, Race, and Class - non fade</name>
-					<script>practice_trainer.stats.sex = matches[2]
-practice_trainer.stats.race = matches[3]
-practice_trainer.stats.class = matches[4]
+					<script>practice_trainer.char.sex = matches[2]
+practice_trainer.char.race = matches[3]
+practice_trainer.char.class = matches[4]
 
 practice_trainer:update_displays()</script>
 					<triggerType>0</triggerType>
@@ -51,16 +51,18 @@ practice_trainer:update_displays()</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.$</string>
+						<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.  It's your birthday today!$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Capture Sex, Race, and Class - fade</name>
-					<script>practice_trainer.stats.sex = matches[2]
-practice_trainer.stats.race = "fade"
-practice_trainer.stats.class = "fade"
+					<script>practice_trainer.char.sex = matches[2]
+practice_trainer.char.race = "fade"
+practice_trainer.char.class = "fade"
 
 practice_trainer:update_displays()</script>
 					<triggerType>0</triggerType>
@@ -75,18 +77,20 @@ practice_trainer:update_displays()</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>^You are a \d+ year old (\w+) myrddraal\.$</string>
+						<string>^You are a \d+ year old (\w+) myrddraal\.  It's your birthday today!$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Capture Stats</name>
-					<script>practice_trainer.stats.str = tonumber(matches[2])
-practice_trainer.stats.int = tonumber(matches[3])
-practice_trainer.stats.wil = tonumber(matches[4])
-practice_trainer.stats.dex = tonumber(matches[5])
-practice_trainer.stats.con = tonumber(matches[6])
+					<script>practice_trainer.char.str = tonumber(matches[2])
+practice_trainer.char.int = tonumber(matches[3])
+practice_trainer.char.wil = tonumber(matches[4])
+practice_trainer.char.dex = tonumber(matches[5])
+practice_trainer.char.con = tonumber(matches[6])
 
 practice_trainer:update_displays()</script>
 					<triggerType>0</triggerType>
@@ -150,14 +154,14 @@ disableTrigger("practice_trainer_hunter")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>An adventuring ogier nods in agreement\.$</string>
-						<string>A forest trolloc grins evilly\.$</string>
-						<string>A Seanchan woodcutter nods in agreement\.$</string>
+						<string>An adventuring ogier nods in agreement.</string>
+						<string>A forest trolloc grins evilly.</string>
+						<string>A Seanchan woodcutter nods in agreement.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>1</integer>
-						<integer>1</integer>
-						<integer>1</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -188,14 +192,14 @@ disableTrigger("practice_trainer_rogue")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>Pietr Hawke arches an eyebrow\.$</string>
-						<string>The sneaky trolloc smirks\.$</string>
-						<string>A swarthy scout arches an eyebrow\.$</string>
+						<string>Pietr Hawke arches an eyebrow.</string>
+						<string>The sneaky trolloc smirks.</string>
+						<string>A swarthy scout arches an eyebrow.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>1</integer>
-						<integer>1</integer>
-						<integer>1</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -226,14 +230,14 @@ send("dismiss trainer")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>The Guildmaster of the Blade bows deeply\.$</string>
-						<string>A huge battle-scarred trolloc howls triumphantly\.$</string>
-						<string>A broad-shouldered soldier bows deeply\.$</string>
+						<string>The Guildmaster of the Blade bows deeply.</string>
+						<string>A huge battle-scarred trolloc howls triumphantly.</string>
+						<string>A broad-shouldered soldier bows deeply.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>1</integer>
-						<integer>1</integer>
-						<integer>1</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>

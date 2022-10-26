@@ -1185,7 +1185,7 @@ practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_class")
 practice_trainer.char["level_label"] =
     practice_trainer.char["level_label"] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char.level_label", 73, 40, 26, 40, "Level required: "..practice_trainer:pracs_to_level()),
+      practice_trainer:label_params("practice_trainer.char.level_label", 73, 40, 26, 40, "Levels required: "..practice_trainer:pracs_to_level()),
       practice_trainer.char.container
     )
 </script>

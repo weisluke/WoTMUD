@@ -35,11 +35,11 @@ practice_trainer.container =
       autoSave = false,
     }
   )
-practice_trainer.stats =
-  practice_trainer.stats or {str = 19, int = 16, wil = 12, dex = 18, con = 19}
-practice_trainer.stats.sex = practice_trainer.stats.sex or "male"
-practice_trainer.stats.race = practice_trainer.stats.race or "human"
-practice_trainer.stats.class = practice_trainer.stats.class or "hunter"
+practice_trainer.char =
+  practice_trainer.char or {str = 19, int = 16, wil = 12, dex = 18, con = 19}
+practice_trainer.char.sex = practice_trainer.char.sex or "male"
+practice_trainer.char.race = practice_trainer.char.race or "human"
+practice_trainer.char.class = practice_trainer.char.class or "hunter"
 
 disableTrigger("practice_trainer_hunter")
 disableTrigger("practice_trainer_rogue")
@@ -71,9 +71,39 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
+				<name>Style sheets</name>
+				<packageName></packageName>
+				<script>practice_trainer.style_sheets = practice_trainer.style_sheets or {}
+
+practice_trainer.style_sheets.plus = [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: green;
+    border-radius: 3px;
+  ]]
+  
+practice_trainer.style_sheets.minus = [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: red;
+    border-radius: 3px;
+  ]]
+  
+practice_trainer.style_sheets.scrollable = [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 3px;
+  ]]</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>Practices</name>
 				<packageName></packageName>
-				<script>practice_trainer.pracs = practice_trainer.pracs or {}
+				<script>practice_trainer.pracs = practice_trainer.pracs or {classes = {"warrior", "rogue", "hunter", "fade"}}
 practice_trainer.pracs.rates =
   {
     [6] = {6, 4, 3, 2, 1, 1},
@@ -141,11 +171,21 @@ practice_trainer.pracs.hunter =
     "cover tracks",
     "survival",
   }
+practice_trainer.pracs.fade =
+  {
+    "sense",
+    "fade",
+    "compel",
+    "darken",
+    "fear",
+    "sense channeling"
+  }
 
 practice_trainer.warrior = practice_trainer.warrior or {}
 practice_trainer.rogue = practice_trainer.rogue or {}
 practice_trainer.hunter = practice_trainer.hunter or {}
-for _, class in pairs({"warrior", "rogue", "hunter"}) do
+practice_trainer.fade = practice_trainer.fade or {}
+for _, class in pairs(practice_trainer.pracs.classes) do
   practice_trainer[class].pracs = practice_trainer[class].pracs or {}
   practice_trainer[class].percents = practice_trainer[class].percents or {}
   for _, skill in pairs(practice_trainer.pracs[class]) do
@@ -188,7 +228,7 @@ end</script>
   Geyser.Label:new(
     {
       name = "practice_trainer.info",
-      x = "31%",
+      x = "25%",
       y = "62%",
       width = "50%",
       height = "26%",
@@ -240,7 +280,7 @@ practice_trainer["reset_pracs_label"]:setStyleSheet([[
 practice_trainer["reset_pracs_label"]:setClickCallback("practice_trainer:reset_pracs")
 
 function practice_trainer:reset_pracs()
-  for _, class in pairs({"warrior", "rogue", "hunter"}) do
+  for _, class in pairs(self.pracs.classes) do
     self[class].pracs = {}
     self[class].percents = {}
     for _, skill in pairs(self.pracs[class]) do
@@ -253,6 +293,29 @@ function practice_trainer:reset_pracs()
 end</script>
 				<eventHandlerList />
 			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Button creation functions</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Label parameters</name>
+					<packageName></packageName>
+					<script>function practice_trainer:label_params(name, x, y, w, h, msg)
+  return {
+    name = name,
+    x = x.."%",
+    y = y.."%",
+    width = w.."%",
+    height = h.."%",
+    fgColor = "black",
+    color = "white",
+    message = [[&lt;center&gt;]] .. msg .. [[&lt;/center&gt;]],
+  }
+end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Save and Load File</name>
 				<packageName></packageName>
@@ -354,17 +417,18 @@ practice_trainer.container:hide()</script>
   end
   local out_table =
     {
-      sex = self.stats.sex,
-      race = self.stats.race,
-      class = self.stats.class,
-      str = self.stats.str,
-      int = self.stats.int,
-      wil = self.stats.wil,
-      dex = self.stats.dex,
-      con = self.stats.con,
+      sex = self.char.sex,
+      race = self.char.race,
+      class = self.char.class,
+      str = self.char.str,
+      int = self.char.int,
+      wil = self.char.wil,
+      dex = self.char.dex,
+      con = self.char.con,
       warrior = table.deepcopy(self.warrior.pracs),
       rogue = table.deepcopy(self.rogue.pracs),
       hunter = table.deepcopy(self.hunter.pracs),
+      fade = table.deepcopy(self.fade.pracs),
       queue = table.deepcopy(self.pracs.queue)
     }
   local out_file = getMudletHomeDir() .. "/practice_trainer/" .. fname .. ".lua"
@@ -385,17 +449,18 @@ function practice_trainer:load_pracs(fname)
   self:echo("Loading practices from "..in_file.."\n")
   table.load(in_file, in_table)
   
-  self.stats.sex = in_table.sex
-  self.stats.race = in_table.race
-  self.stats.class = in_table.class
-  self.stats.str = in_table.str
-  self.stats.int = in_table.int
-  self.stats.wil = in_table.wil
-  self.stats.dex = in_table.dex
-  self.stats.con = in_table.con
+  self.char.sex = in_table.sex
+  self.char.race = in_table.race
+  self.char.class = in_table.class
+  self.char.str = in_table.str
+  self.char.int = in_table.int
+  self.char.wil = in_table.wil
+  self.char.dex = in_table.dex
+  self.char.con = in_table.con
   self.warrior.pracs = table.deepcopy(in_table.warrior)
   self.rogue.pracs = table.deepcopy(in_table.rogue)
   self.hunter.pracs = table.deepcopy(in_table.hunter)
+  self.fade.pracs = table.deepcopy(in_table.fade)
   self.pracs.queue = table.deepcopy(in_table.queue)
   
   self:echo("Practices loaded.\n")
@@ -412,7 +477,10 @@ end</script>
 					<name>Update Practice</name>
 					<packageName></packageName>
 					<script>function practice_trainer:add_practice(class, skill)
-  if self.stats.race == "trolloc" and (skill == "ride" or skill == "swim") then
+  if self.char.race == "trolloc" and (skill == "ride" or skill == "swim") then
+    return
+  end
+  if self.char.race ~= "fade" and table.contains(self.pracs.fade, skill) then
     return
   end
   self[class].pracs[skill] = self[class].pracs[skill] + 1
@@ -440,7 +508,7 @@ function practice_trainer:practice_scroll(class, skill, event)
 end
 
 function practice_trainer:update_practices()
-  for _, class in pairs({"warrior", "rogue", "hunter"}) do
+  for _, class in pairs(self.pracs.classes) do
     for _, skill in pairs(self.pracs[class]) do
       while self[class].percents[skill] &gt; 99 do
         self:subtract_practice(class, skill)
@@ -454,13 +522,13 @@ end</script>
 					<name>Update Stats</name>
 					<packageName></packageName>
 					<script>function practice_trainer:add_stat(stat)
-  if self.stats.race == "trolloc" and stat == "str" then
-    if self.stats[stat] &lt; 21 then
-      self.stats[stat] = self.stats[stat] + 1
+  if self.char.race == "trolloc" and stat == "str" then
+    if self.char[stat] &lt; 21 then
+      self.char[stat] = self.char[stat] + 1
     end
   else
-    if self.stats[stat] &lt; 19 then
-      self.stats[stat] = self.stats[stat] + 1
+    if self.char[stat] &lt; 19 then
+      self.char[stat] = self.char[stat] + 1
     end
   end
   self:update_displays()
@@ -468,12 +536,12 @@ end
 
 function practice_trainer:subtract_stat(stat)
   if stat == "int" or stat == "wil" then
-    if self.stats[stat] &gt; 3 then
-      self.stats[stat] = self.stats[stat] - 1
+    if self.char[stat] &gt; 3 then
+      self.char[stat] = self.char[stat] - 1
     end
   else
-    if self.stats[stat] &gt; 9 then
-      self.stats[stat] = self.stats[stat] - 1
+    if self.char[stat] &gt; 9 then
+      self.char[stat] = self.char[stat] - 1
     end
   end  
   self:update_displays()
@@ -493,26 +561,26 @@ end</script>
 					<packageName></packageName>
 					<script>function practice_trainer:sex_stipulations()
   if
-    self.stats.class == "channeler" and
-    self.stats.sex == "male" and
-    not (self.stats.race == "human" or self.stats.race == "dreadlord")
+    self.char.class == "channeler" and
+    self.char.sex == "male" and
+    not (self.char.race == "human" or self.char.race == "dreadlord")
   then
-    self.stats.class = "warrior"
+    self.char.class = "warrior"
   end
 end
 
 function practice_trainer:add_sex()
-  local sex_table = {"male", "female"}
-  local index = table.index_of(sex_table, self.stats.sex) - 1
-  self.stats.sex = sex_table[(index + 1) % table.size(sex_table) + 1]
+  local tab = {"male", "female"}
+  local index = table.index_of(tab, self.char.sex) - 1
+  self.char.sex = tab[(index + 1) % table.size(tab) + 1]
   self:sex_stipulations()
   self:update_displays()
 end
 
 function practice_trainer:subtract_sex()
-  local sex_table = {"male", "female"}
-  local index = table.index_of(sex_table, self.stats.sex) - 1
-  self.stats.sex = sex_table[(index - 1) % table.size(sex_table) + 1]
+  local tab = {"male", "female"}
+  local index = table.index_of(tab, self.char.sex) - 1
+  self.char.sex = tab[(index - 1) % table.size(tab) + 1]
   self:sex_stipulations()
   self:update_displays()
 end
@@ -530,19 +598,19 @@ end</script>
 					<name>Update Race</name>
 					<packageName></packageName>
 					<script>function practice_trainer:race_stipulations(dir)
-  if self.stats.race == "fade" then
-    self.stats.class = "fade"
-  elseif self.stats.race == "dreadlord" then
-    self.stats.class = "channeler"
+  if self.char.race == "fade" then
+    self.char.class = "fade"
+  elseif self.char.race == "dreadlord" then
+    self.char.class = "channeler"
   elseif
-    self.stats.class == "channeler" and
-    ((self.stats.race == "seanchan" and self.stats.sex == "male") or self.stats.race == "trolloc" or self.stats.race == "grayman")
+    self.char.class == "channeler" and
+    ((self.char.race == "seanchan" and self.char.sex == "male") or self.char.race == "trolloc" or self.char.race == "grayman")
   then
-    self.stats.class = "warrior"
-  elseif self.stats.class == "fade" then
-    self.stats.class = "warrior"
+    self.char.class = "warrior"
+  elseif self.char.class == "fade" then
+    self.char.class = "warrior"
   end
-  if self.stats.race == "trolloc" then
+  if self.char.race == "trolloc" then
     while table.contains(self.pracs.queue,"ride") do
       self:subtract_practice("hunter", "ride")
     end
@@ -550,24 +618,31 @@ end</script>
       self:subtract_practice("hunter", "swim")
     end
   else
-    if self.stats.str &gt; 19 then
-      self.stats.str = 19
+    if self.char.str &gt; 19 then
+      self.char.str = 19
+    end
+  end
+  if self.char.race ~= "fade" then
+    for _, prac in pairs(self.pracs.fade) do
+      while table.contains(self.pracs.queue, prac) do
+        self:subtract_practice("fade", prac)
+      end
     end
   end
 end
 
 function practice_trainer:add_race()
-  local race_table = {"human", "seanchan", "trolloc", "fade", "dreadlord", "grayman"}
-  local index = table.index_of(race_table, self.stats.race) - 1
-  self.stats.race = race_table[(index + 1) % table.size(race_table) + 1]
+  local tab = {"human", "seanchan", "trolloc", "fade", "dreadlord", "grayman"}
+  local index = table.index_of(tab, self.char.race) - 1
+  self.char.race = tab[(index + 1) % table.size(tab) + 1]
   self:race_stipulations(1)
   self:update_displays()
 end
 
 function practice_trainer:subtract_race()
-  local race_table = {"human", "seanchan", "trolloc", "fade", "dreadlord", "grayman"}
-  local index = table.index_of(race_table, self.stats.race) - 1
-  self.stats.race = race_table[(index - 1) % table.size(race_table) + 1]
+  local tab = {"human", "seanchan", "trolloc", "fade", "dreadlord", "grayman"}
+  local index = table.index_of(tab, self.char.race) - 1
+  self.char.race = tab[(index - 1) % table.size(tab) + 1]
   self:race_stipulations(-1)
   self:update_displays()
 end
@@ -585,16 +660,16 @@ end</script>
 					<name>Update Class</name>
 					<packageName></packageName>
 					<script>function practice_trainer:class_stipulations(dir)
-  if self.stats.race == "fade" then
-    self.stats.class = "fade"
-  elseif self.stats.race == "dreadlord" then
-    self.stats.class = "channeler"
+  if self.char.race == "fade" then
+    self.char.class = "fade"
+  elseif self.char.race == "dreadlord" then
+    self.char.class = "channeler"
   elseif
-    self.stats.class == "channeler" and
+    self.char.class == "channeler" and
     (
-      (self.stats.race == "seanchan" and self.stats.sex == "male") or
-      self.stats.race == "trolloc" or
-      self.stats.race == "grayman"
+      (self.char.race == "seanchan" and self.char.sex == "male") or
+      self.char.race == "trolloc" or
+      self.char.race == "grayman"
     )
   then
     if dir == 1 then
@@ -602,7 +677,7 @@ end</script>
     elseif dir == -1 then
       self:subtract_class()
     end
-  elseif self.stats.class == "fade" and self.stats.race ~= "fade" then
+  elseif self.char.class == "fade" and self.char.race ~= "fade" then
     if dir == 1 then
       self:add_class()
     elseif dir == -1 then
@@ -612,17 +687,17 @@ end</script>
 end
 
 function practice_trainer:add_class()
-  local class_table = {"warrior", "rogue", "hunter", "channeler", "fade"}
-  local index = table.index_of(class_table, self.stats.class) - 1
-  self.stats.class = class_table[(index + 1) % table.size(class_table) + 1]
+  local tab = {"warrior", "rogue", "hunter", "channeler", "fade"}
+  local index = table.index_of(tab, self.char.class) - 1
+  self.char.class = tab[(index + 1) % table.size(tab) + 1]
   self:class_stipulations(1)
   self:update_displays()
 end
 
 function practice_trainer:subtract_class()
-  local class_table = {"warrior", "rogue", "hunter", "channeler", "fade"}
-  local index = table.index_of(class_table, self.stats.class) - 1
-  self.stats.class = class_table[(index - 1) % table.size(class_table) + 1]
+  local tab = {"warrior", "rogue", "hunter", "channeler", "fade"}
+  local index = table.index_of(tab, self.char.class) - 1
+  self.char.class = tab[(index - 1) % table.size(tab) + 1]
   self:class_stipulations(-1)
   self:update_displays()
 end
@@ -646,12 +721,10 @@ end</script>
 					<name>Practice to Percent</name>
 					<packageName></packageName>
 					<script>function practice_trainer:get_skill_class(skill)
-  if table.contains(self.pracs.warrior, skill) then
-    return "warrior"
-  elseif table.contains(self.pracs.rogue, skill) then
-    return "rogue"
-  elseif table.contains(self.pracs.hunter, skill) then
-    return "hunter"
+  for _, class in pairs(self.pracs.classes) do
+    if table.contains(self.pracs[class], skill) then
+      return class
+    end
   end
   return nil
 end
@@ -659,12 +732,10 @@ end
 function practice_trainer:add_percent(class, skill)
   local start_rates =
     {
-      warrior =
-        math.floor(self.stats.str / 2) +
-        math.floor(self.stats.dex / 4) +
-        math.floor(self.stats.con / 4),
-      rogue = math.floor(self.stats.dex * 3 / 4) + math.floor(self.stats.int / 4),
-      hunter = math.floor((self.stats.str + self.stats.int + self.stats.wil + self.stats.dex) / 4),
+      warrior = math.floor(self.char.str / 2) + math.floor(self.char.dex / 4) + math.floor(self.char.con / 4),
+      rogue = math.floor(self.char.dex * 3 / 4) + math.floor(self.char.int / 4),
+      hunter = math.floor((self.char.str + self.char.int + self.char.wil + self.char.dex) / 4),
+      fade = math.floor(self.char.int)
     }
   local rate_factor = 1
   if skill == "steal" or skill == "palm" or skill == "swim" or skill == "cover tracks" then
@@ -756,7 +827,7 @@ function practice_trainer:prac_residuals(skill)
 end
 
 function practice_trainer:update_percents()
-  for _, class in pairs({"warrior", "rogue", "hunter"}) do
+  for _, class in pairs(self.pracs.classes) do
     for _, skill in pairs(self.pracs[class]) do
       self[class].percents[skill] = 0
     end
@@ -774,9 +845,10 @@ end</script>
 					<name>Practice to Level</name>
 					<packageName></packageName>
 					<script>function practice_trainer:get_total_class_pracs()
-  local prac_totals = {warrior=0, rogue=0, hunter=0}
+  local prac_totals = {}
   
-  for _, class in pairs({"warrior", "rogue", "hunter"}) do
+  for _, class in pairs(self.pracs.classes) do
+    prac_totals[class] = 0
     for _, skill in pairs(self.pracs[class]) do
       prac_totals[class] = prac_totals[class] + self[class].pracs[skill]
     end
@@ -786,16 +858,16 @@ end
 
 function practice_trainer:get_total_pracs()
   local prac_totals = self:get_total_class_pracs()
-  if self.stats.class == "warrior" then
+  if self.char.class == "warrior" then
     return prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
-  elseif self.stats.class == "rogue" then
+  elseif self.char.class == "rogue" then
     return 3*prac_totals.warrior + prac_totals.rogue + 2*prac_totals.hunter
-  elseif self.stats.class == "hunter" then
+  elseif self.char.class == "hunter" then
     return 2*prac_totals.warrior + 2*prac_totals.rogue + prac_totals.hunter
-  elseif self.stats.class == "fade" then
-    return prac_totals.warrior + prac_totals.rogue + prac_totals.hunter
-  elseif self.stats.class == "channeler" then
-    if self.stats.sex == "male" then
+  elseif self.char.class == "fade" then
+    return prac_totals.warrior + prac_totals.rogue + prac_totals.hunter + prac_totals.fade
+  elseif self.char.class == "channeler" then
+    if self.char.sex == "male" then
       return 3*prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
     else
       return 4*prac_totals.warrior + 3*prac_totals.rogue + 2*prac_totals.hunter
@@ -812,12 +884,12 @@ function practice_trainer:pracs_to_level()
   local pracs = 8
   
   while pracs &lt; self:get_total_pracs() do
-    level = level + 1
-    if level &lt;= 30 then
-      pracs = pracs + prac_gain[self.stats.race]
+    if level &lt; 30 then
+      pracs = pracs + prac_gain[self.char.race]
     else
       pracs = pracs + 2
     end
+    level = level + 1
   end
   return level
 end</script>
@@ -830,28 +902,35 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Warrior/Rogue/Hunter Practices Displays</name>
+					<name>Warrior/Rogue/Hunter/Fade Practices Displays</name>
 					<packageName></packageName>
 					<script>practice_trainer.warrior.container =
   practice_trainer.warrior.container or
   Geyser.Container:new(
-    {name = "practice_trainer.warrior.container", x = "0%", y = "0%", width = "30%", height = "90%"},
+    {name = "practice_trainer.warrior.container", x = "0%", y = "0%", width = "22%", height = "90%"},
     practice_trainer.container
   )
 practice_trainer.rogue.container =
   practice_trainer.rogue.container or
   Geyser.Container:new(
-    {name = "practice_trainer.rogue.container", x = "31%", y = "0%", width = "30%", height = "90%"},
+    {name = "practice_trainer.rogue.container", x = "23%", y = "0%", width = "22%", height = "90%"},
     practice_trainer.container
   )
 practice_trainer.hunter.container =
   practice_trainer.hunter.container or
   Geyser.Container:new(
-    {name = "practice_trainer.hunter.container", x = "62%", y = "0%", width = "38%", height = "90%"},
+    {name = "practice_trainer.hunter.container", x = "46%", y = "0%", width = "30%", height = "90%"},
     practice_trainer.container
   )
-local colors = {warrior = "sienna", rogue = "dark_slate_gray", hunter = "yellow_green"}
-for _, class in pairs({"warrior", "rogue", "hunter"}) do
+practice_trainer.fade.container =
+  practice_trainer.fade.container or
+  Geyser.Container:new(
+    {name = "practice_trainer.fade.container", x = "77%", y = "0%", width = "23%", height = "90%"},
+    practice_trainer.container
+  )
+  
+local colors = {warrior = "sienna", rogue = "dark_slate_gray", hunter = "yellow_green", fade = "black"}
+for _, class in pairs(practice_trainer.pracs.classes) do
   practice_trainer[class].label =
     practice_trainer[class].label or
     Geyser.Label:new(
@@ -867,117 +946,71 @@ for _, class in pairs({"warrior", "rogue", "hunter"}) do
       },
       practice_trainer[class].container
     )
+  if class == "fade" then
+    practice_trainer[class].label:setFgColor("white")
+  end
 end
-for _, class in pairs({"warrior", "rogue", "hunter"}) do
-  for k, v in pairs(practice_trainer.pracs[class]) do
-    local ypos = k * 4 + 1
-    ypos = ypos .. "%"
-    practice_trainer[class][v .. "_label"] =
-      practice_trainer[class][v .. "_label"] or
+for _, class in pairs(practice_trainer.pracs.classes) do
+  for k, prac in pairs(practice_trainer.pracs[class]) do
+    local label_name = ""
+    local y = k * 4 + 1
+    
+    label_name = prac.."_label"
+    practice_trainer[class][label_name] =
+      practice_trainer[class][label_name] or
       Geyser.Label:new(
-        {
-          name = "practice_trainer." .. class .. "." .. v .. "_label",
-          x = "0%",
-          y = ypos,
-          width = "60%",
-          height = "4%",
-          fgColor = "black",
-          color = "white",
-          message = [[&lt;center&gt;]] .. v .. [[&lt;/center&gt;]],
-        },
+        practice_trainer:label_params("practice_trainer."..class.."."..label_name, 0, y, 65, 4, prac),
         practice_trainer[class].container
       )
-    if v == "ride" or v == "wisdom lore" or v == "survival" then
-      practice_trainer[class][v .. "_label"]:echo(
+    if prac == "ride" or prac == "wisdom lore" or prac == "survival" then
+      practice_trainer[class][label_name]:echo(
         "&lt;center&gt;" ..
-        v ..
+        prac ..
         " (level " ..
         math.floor(
-          practice_trainer[class].percents[v] / 14
+          practice_trainer[class].percents[prac] / 14
         ) ..
         ")"
       )
     end
-    practice_trainer[class][v .. "_%_label"] =
-      practice_trainer[class][v .. "_%_label"] or
+    
+    label_name = prac .. "_%_label"
+    practice_trainer[class][label_name] =
+      practice_trainer[class][label_name] or
       Geyser.Label:new(
-        {
-          name = "practice_trainer." .. class .. "." .. v .. "_%_label",
-          x = "60%",
-          y = ypos,
-          width = "20%",
-          height = "4%",
-          fgColor = "black",
-          color = "white",
-          message = [[&lt;center&gt;]] .. practice_trainer[class].pracs[v] .. [[%&lt;/center&gt;]],
-        },
+        practice_trainer:label_params("practice_trainer.".. class.."."..label_name, 65, y, 15, 4,practice_trainer[class].pracs[prac].."%"),
         practice_trainer[class].container
       )
-    practice_trainer[class][v .. "_%_label"]:setStyleSheet([[
-      background-color: white;
-      border-width: 3px;
-      border-style: solid;
-      border-color: gray;
-      border-radius: 3px;
-    ]])
+    practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
     setLabelWheelCallback(
-      "practice_trainer." .. class .. "." .. v .. "_%_label",
+      "practice_trainer."..class.."."..label_name,
       "practice_trainer:practice_scroll",
       class,
-      v
+      prac
     )
     
-    practice_trainer[class][v .. "_-_label"] =
-      practice_trainer[class][v .. "_-_label"] or
+    label_name = prac.."_-_label"
+    practice_trainer[class][label_name] =
+      practice_trainer[class][label_name] or
       Geyser.Label:new(
-        {
-          name = "practice_trainer." .. class .. "." .. v .. "_-_label",
-          x = "80%",
-          y = ypos,
-          width = "10%",
-          height = "4%",
-          fgColor = "black",
-          color = "white",
-          message = [[&lt;center&gt;-&lt;/center&gt;]],
-        },
+        practice_trainer:label_params("practice_trainer." .. class .. "." .. label_name, 80, y, 10, 4, "-"),
         practice_trainer[class].container
       )
-      
-    practice_trainer[class][v .. "_-_label"]:setStyleSheet([[
-      background-color: white;
-      border-width: 3px;
-      border-style: solid;
-      border-color: red;
-      border-radius: 3px;
-    ]])
-    practice_trainer[class][v .. "_-_label"]:setClickCallback(
-      "practice_trainer:subtract_practice", class, v
+    practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
+    practice_trainer[class][label_name]:setClickCallback(
+      "practice_trainer:subtract_practice", class, prac
     )
     
-    practice_trainer[class][v .. "_+_label"] =
-      practice_trainer[class][v .. "_+_label"] or
+    label_name = prac.."_+_label"
+    practice_trainer[class][label_name] =
+      practice_trainer[class][label_name] or
       Geyser.Label:new(
-        {
-          name = "practice_trainer." .. class .. "." .. v .. "_+_label",
-          x = "90%",
-          y = ypos,
-          width = "10%",
-          height = "4%",
-          fgColor = "black",
-          color = "white",
-          message = [[&lt;center&gt;+&lt;/center&gt;]],
-        },
+        practice_trainer:label_params("practice_trainer." .. class .. "." .. label_name, 90, y, 10, 4, "+"),
         practice_trainer[class].container
       )
-    practice_trainer[class][v .. "_+_label"]:setStyleSheet([[
-      background-color: white;
-      border-width: 3px;
-      border-style: solid;
-      border-color: green;
-      border-radius: 3px;
-    ]])
-    practice_trainer[class][v .. "_+_label"]:setClickCallback(
-      "practice_trainer:add_practice", class, v
+    practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
+    practice_trainer[class][label_name]:setClickCallback(
+      "practice_trainer:add_practice", class, prac
     )
   end
 end</script>
@@ -986,376 +1019,174 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Character Stats Displays</name>
 					<packageName></packageName>
-					<script>practice_trainer.stats.container =
-  practice_trainer.stats.container or
+					<script>practice_trainer.char.container =
+  practice_trainer.char.container or
   Geyser.Container:new(
-    {name = "practice_trainer.stats.container", x = "31%", y = "45%", width = "69%", height = "15%"},
+    {name = "practice_trainer.char.container", x = "25%", y = "45%", width = "75%", height = "15%"},
     practice_trainer.container
   )
   
 for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
-  local xpos = (k - 1) * 20
-  practice_trainer.stats[stat .. "_label"] =
-    practice_trainer.stats[stat .. "_label"] or
+  local label_name = ""
+  local x = (k - 1) * 20
+  
+  label_name = stat.."_label"
+  practice_trainer.char[label_name] =
+    practice_trainer.char[label_name] or
     Geyser.Label:new(
-      {
-        name = "practice_trainer.stats." .. stat .. "_label",
-        x = xpos .. "%",
-        y = "0%",
-        width = "6%",
-        height = "30%",
-        fgColor = "black",
-        color = "white",
-        message = [[&lt;center&gt;]] .. stat .. [[&lt;/center&gt;]],
-      },
-      practice_trainer.stats.container
+      practice_trainer:label_params("practice_trainer.char." .. label_name, x, 0, 6, 30, stat),
+      practice_trainer.char.container
     )
-  practice_trainer.stats[stat .. "_val_label"] =
-    practice_trainer.stats[stat .. "_val_label"] or
+    
+  label_name = stat.."_val_label"
+  practice_trainer.char[label_name] =
+    practice_trainer.char[label_name] or
     Geyser.Label:new(
-      {
-        name = "practice_trainer.stats." .. stat .. "_val_label",
-        x = (xpos + 6) .. "%",
-        y = "0%",
-        width = "5%",
-        height = "30%",
-        fgColor = "black",
-        color = "white",
-        message = [[&lt;center&gt;]] .. practice_trainer.stats[stat] .. [[&lt;/center&gt;]],
-      },
-      practice_trainer.stats.container
+      practice_trainer:label_params("practice_trainer.char." .. label_name, x + 6, 0, 5, 30, practice_trainer.char[stat]),
+      practice_trainer.char.container
     )
-  practice_trainer.stats[stat .. "_val_label"]:setStyleSheet([[
-    background-color: white;
-    border-width: 3px;
-    border-style: solid;
-    border-color: gray;
-    border-radius: 3px;
-  ]])
+  practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
   setLabelWheelCallback(
-    "practice_trainer.stats." .. stat .. "_val_label", "practice_trainer:stat_scroll", stat
+    "practice_trainer.char." .. label_name, "practice_trainer:stat_scroll", stat
   )
   
-  practice_trainer.stats[stat .. "_-_label"] =
-    practice_trainer.stats[stat .. "_-_label"] or
+  label_name = stat.."_-_label"
+  practice_trainer.char[label_name] =
+    practice_trainer.char[label_name] or
     Geyser.Label:new(
-      {
-        name = "practice_trainer.stats." .. stat .. "_-_label",
-        x = (xpos + 11) .. "%",
-        y = "0%",
-        width = "4%",
-        height = "30%",
-        fgColor = "black",
-        color = "white",
-        message = [[&lt;center&gt;-&lt;/center&gt;]],
-      },
-      practice_trainer.stats.container
+      practice_trainer:label_params("practice_trainer.char." .. label_name, x + 11, 0, 4, 30, "-"),
+      practice_trainer.char.container
     )
-  practice_trainer.stats[stat .. "_-_label"]:setStyleSheet([[
-    background-color: white;
-    border-width: 3px;
-    border-style: solid;
-    border-color: red;
-    border-radius: 3px;
-  ]])
-  practice_trainer.stats[stat .. "_-_label"]:setClickCallback(
+  practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
+  practice_trainer.char[label_name]:setClickCallback(
     "practice_trainer:subtract_stat", stat
   )
-  practice_trainer.stats[stat .. "_+_label"] =
-    practice_trainer.stats[stat .. "_+_label"] or
+  
+  label_name = stat.."_+_label"
+  practice_trainer.char[label_name] =
+    practice_trainer.char[label_name] or
     Geyser.Label:new(
-      {
-        name = "practice_trainer.stats." .. stat .. "_+_label",
-        x = (xpos + 15) .. "%",
-        y = "0%",
-        width = "4%",
-        height = "30%",
-        fgColor = "black",
-        color = "white",
-        message = [[&lt;center&gt;+&lt;/center&gt;]],
-      },
-      practice_trainer.stats.container
+      practice_trainer:label_params("practice_trainer.char." .. label_name, x + 15, 0, 4, 30, "+"),
+      practice_trainer.char.container
     )
-  practice_trainer.stats[stat .. "_+_label"]:setStyleSheet([[
-    background-color: white;
-    border-width: 3px;
-    border-style: solid;
-    border-color: green;
-    border-radius: 3px;
-  ]])
-  practice_trainer.stats[stat .. "_+_label"]:setClickCallback("practice_trainer:add_stat", stat)
+  practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
+  practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_stat", stat)
 end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>Character Sex/Race/Class Displays</name>
 					<packageName></packageName>
-					<script>practice_trainer.stats["sex_label"] =
-  practice_trainer.stats["sex_label"] or
+					<script>local label_name = ""
+
+label_name = "sex_label"
+practice_trainer.char[label_name] =
+  practice_trainer.char[label_name] or
   Geyser.Label:new(
-    {
-      name = "practice_trainer.stats.sex_label",
-      x = "0%",
-      y = "40%",
-      width = "10%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;]] .. practice_trainer.stats.sex .. [[&lt;/center&gt;]],
-    },
-    practice_trainer.stats.container
+    practice_trainer:label_params("practice_trainer.char."..label_name, 0, 40, 10, 30, practice_trainer.char.sex),
+    practice_trainer.char.container
   )
-practice_trainer.stats["sex_label"]:setStyleSheet(
-  [[
-  background-color: white;
-  border-width: 3px;
-  border-style: solid;
-  border-color: gray;
-  border-radius: 3px;
-]]
-)
-setLabelWheelCallback("practice_trainer.stats.sex_label", "practice_trainer:sex_scroll")
-practice_trainer.stats["sex_-_label"] =
-  practice_trainer.stats["sex_-_label"] or
+practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
+setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:sex_scroll")
+
+label_name = "sex_-_label"
+practice_trainer.char[label_name] =
+  practice_trainer.char[label_name] or
   Geyser.Label:new(
-    {
-      name = "practice_trainer.stats.sex_-_label",
-      x = "1%",
-      y = "70%",
-      width = "4%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;-&lt;/center&gt;]],
-    },
-    practice_trainer.stats.container
+    practice_trainer:label_params("practice_trainer.char."..label_name, 1, 70, 4, 30, "-"),
+    practice_trainer.char.container
   )
-practice_trainer.stats["sex_-_label"]:setStyleSheet(
-  [[
-    background-color: white;
-    border-width: 3px;
-    border-style: solid;
-    border-color: red;
-    border-radius: 3px;
-  ]]
-)
-practice_trainer.stats["sex_-_label"]:setClickCallback("practice_trainer:subtract_sex")
-practice_trainer.stats["sex_+_label"] =
-  practice_trainer.stats["sex_+_label"] or
+practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
+practice_trainer.char[label_name]:setClickCallback("practice_trainer:subtract_sex")
+
+label_name = "sex_+_label"
+practice_trainer.char[label_name] =
+  practice_trainer.char[label_name] or
   Geyser.Label:new(
-    {
-      name = "practice_trainer.stats.sex_+_label",
-      x = "5%",
-      y = "70%",
-      width = "4%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;+&lt;/center&gt;]],
-    },
-    practice_trainer.stats.container
+    practice_trainer:label_params("practice_trainer.char."..label_name, 5, 70, 4, 30, "+"),
+    practice_trainer.char.container
   )
-practice_trainer.stats["sex_+_label"]:setStyleSheet(
-  [[
-    background-color: white;
-    border-width: 3px;
-    border-style: solid;
-    border-color: green;
-    border-radius: 3px;
-  ]]
-)
-practice_trainer.stats["sex_+_label"]:setClickCallback("practice_trainer:add_sex")
+practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
+practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_sex")
 
 
+label_name = "race_label"
+practice_trainer.char[label_name] =
+  practice_trainer.char[label_name] or
+  Geyser.Label:new(
+    practice_trainer:label_params("practice_trainer.char."..label_name, 12, 40, 15, 30, practice_trainer.char.race),
+    practice_trainer.char.container
+  )
+practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
+setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:race_scroll")
 
-practice_trainer.stats["race_label"] =
-  practice_trainer.stats["race_label"] or
+label_name = "race_-_label"
+practice_trainer.char[label_name] =
+  practice_trainer.char[label_name] or
   Geyser.Label:new(
-    {
-      name = "practice_trainer.stats.race_label",
-      x = "12%",
-      y = "40%",
-      width = "15%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;]] .. practice_trainer.stats.race .. [[&lt;/center&gt;]],
-    },
-    practice_trainer.stats.container
+    practice_trainer:label_params("practice_trainer.char."..label_name, 15, 70, 4, 30, "-"),
+    practice_trainer.char.container
   )
-practice_trainer.stats["race_label"]:setStyleSheet(
-  [[
-  background-color: white;
-  border-width: 3px;
-  border-style: solid;
-  border-color: gray;
-  border-radius: 3px;
-]]
-)
-setLabelWheelCallback("practice_trainer.stats.race_label", "practice_trainer:race_scroll")
-practice_trainer.stats["race_-_label"] =
-  practice_trainer.stats["race_-_label"] or
+practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
+practice_trainer.char[label_name]:setClickCallback("practice_trainer:subtract_race")
+
+label_name = "race_+_label"
+practice_trainer.char[label_name] =
+  practice_trainer.char[label_name] or
   Geyser.Label:new(
-    {
-      name = "practice_trainer.stats.race_-_label",
-      x = "15%",
-      y = "70%",
-      width = "4%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;-&lt;/center&gt;]],
-    },
-    practice_trainer.stats.container
+    practice_trainer:label_params("practice_trainer.char."..label_name, 20, 70, 4, 30, "+"),
+    practice_trainer.char.container
   )
-practice_trainer.stats["race_-_label"]:setStyleSheet(
-  [[
-    background-color: white;
-    border-width: 3px;
-    border-style: solid;
-    border-color: red;
-    border-radius: 3px;
-  ]]
-)
-practice_trainer.stats["race_-_label"]:setClickCallback("practice_trainer:subtract_race")
-practice_trainer.stats["race_+_label"] =
-  practice_trainer.stats["race_+_label"] or
-  Geyser.Label:new(
-    {
-      name = "practice_trainer.stats.race_+_label",
-      x = "20%",
-      y = "70%",
-      width = "4%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;+&lt;/center&gt;]],
-    },
-    practice_trainer.stats.container
-  )
-practice_trainer.stats["race_+_label"]:setStyleSheet(
-  [[
-    background-color: white;
-    border-width: 3px;
-    border-style: solid;
-    border-color: green;
-    border-radius: 3px;
-  ]]
-)
-practice_trainer.stats["race_+_label"]:setClickCallback("practice_trainer:add_race")
+practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
+practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_race")
 
 
+label_name = "class_label"
+practice_trainer.char[label_name] =
+  practice_trainer.char[label_name] or
+  Geyser.Label:new(
+    practice_trainer:label_params("practice_trainer.char."..label_name, 29, 40, 15, 30, practice_trainer.char.class),
+    practice_trainer.char.container
+  )
+practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
+setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:class_scroll")
 
-practice_trainer.stats["class_label"] =
-  practice_trainer.stats["class_label"] or
+label_name = "class_-_label"
+practice_trainer.char[label_name] =
+  practice_trainer.char[label_name] or
   Geyser.Label:new(
-    {
-      name = "practice_trainer.stats.class_label",
-      x = "29%",
-      y = "40%",
-      width = "15%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;]] .. practice_trainer.stats.class .. [[&lt;/center&gt;]],
-    },
-    practice_trainer.stats.container
+    practice_trainer:label_params("practice_trainer.char."..label_name, 32, 70, 4, 30, "-"),
+    practice_trainer.char.container
   )
-practice_trainer.stats["class_label"]:setStyleSheet(
-  [[
-  background-color: white;
-  border-width: 3px;
-  border-style: solid;
-  border-color: gray;
-  border-radius: 3px;
-]]
-)
-setLabelWheelCallback("practice_trainer.stats.class_label", "practice_trainer:class_scroll")
-practice_trainer.stats["class_-_label"] =
-  practice_trainer.stats["class_-_label"] or
+practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
+practice_trainer.char[label_name]:setClickCallback("practice_trainer:subtract_class")
+
+label_name = "class_+_label"
+practice_trainer.char[label_name] =
+  practice_trainer.char[label_name] or
   Geyser.Label:new(
-    {
-      name = "practice_trainer.stats.class_-_label",
-      x = "32%",
-      y = "70%",
-      width = "4%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;-&lt;/center&gt;]],
-    },
-    practice_trainer.stats.container
+    practice_trainer:label_params("practice_trainer.char."..label_name, 37, 70, 4, 30, "+"),
+    practice_trainer.char.container
   )
-practice_trainer.stats["class_-_label"]:setStyleSheet(
-  [[
-    background-color: white;
-    border-width: 3px;
-    border-style: solid;
-    border-color: red;
-    border-radius: 3px;
-  ]]
-)
-practice_trainer.stats["class_-_label"]:setClickCallback("practice_trainer:subtract_class")
-practice_trainer.stats["class_+_label"] =
-  practice_trainer.stats["class_+_label"] or
-  Geyser.Label:new(
-    {
-      name = "practice_trainer.stats.class_+_label",
-      x = "37%",
-      y = "70%",
-      width = "4%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;+&lt;/center&gt;]],
-    },
-    practice_trainer.stats.container
-  )
-practice_trainer.stats["class_+_label"]:setStyleSheet(
-  [[
-    background-color: white;
-    border-width: 3px;
-    border-style: solid;
-    border-color: green;
-    border-radius: 3px;
-  ]]
-)
-practice_trainer.stats["class_+_label"]:setClickCallback("practice_trainer:add_class")</script>
+practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
+practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_class")</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>Total Practice and Level Displays</name>
 					<packageName></packageName>
-					<script>practice_trainer.stats["total_pracs_label"] =
-    practice_trainer.stats["total_pracs_label"] or
+					<script>practice_trainer.char["total_pracs_label"] =
+    practice_trainer.char["total_pracs_label"] or
     Geyser.Label:new(
-      {
-        name = "practice_trainer.stats.total_pracs_label",
-        x = "46%",
-        y = "40%",
-        width = "26%",
-        height = "40%",
-        fgColor = "black",
-        color = "white",
-        message = [[&lt;center&gt;Practices required: ]] .. practice_trainer:get_total_pracs() .. [[&lt;/center&gt;]],
-      },
-      practice_trainer.stats.container
+      practice_trainer:label_params("practice_trainer.char.total_pracs_label", 46, 40, 26, 40, "Practices required: "..practice_trainer:get_total_pracs()),
+      practice_trainer.char.container
     )
     
-practice_trainer.stats["level_label"] =
-    practice_trainer.stats["level_label"] or
+practice_trainer.char["level_label"] =
+    practice_trainer.char["level_label"] or
     Geyser.Label:new(
-      {
-        name = "practice_trainer.stats.level_label",
-        x = "73%",
-        y = "40%",
-        width = "26%",
-        height = "40%",
-        fgColor = "black",
-        color = "white",
-        message = [[&lt;center&gt;Levels required: ]] .. practice_trainer:pracs_to_level() .. [[&lt;/center&gt;]],
-      },
-      practice_trainer.stats.container
+      practice_trainer:label_params("practice_trainer.char.level_label", 73, 40, 26, 40, "Level required: "..practice_trainer:pracs_to_level()),
+      practice_trainer.char.container
     )
 </script>
 					<eventHandlerList />
@@ -1366,36 +1197,36 @@ practice_trainer.stats["level_label"] =
 				<packageName></packageName>
 				<script>function practice_trainer:update_stat_display()
   for _, stat in pairs({"str", "int", "wil", "dex", "con"}) do
-    self.stats[stat .. "_val_label"]:echo("&lt;center&gt;" .. self.stats[stat])
+    self.char[stat .. "_val_label"]:echo("&lt;center&gt;" .. self.char[stat])
   end
 end
 
 function practice_trainer:update_prac_display()
-  for _, class in pairs({"warrior", "rogue", "hunter"}) do
-    for k, v in pairs(self.pracs[class]) do
-      self[class][v .. "_%_label"]:echo(
-        "&lt;center&gt;" .. self[class].percents[v] .. "%"
+  for _, class in pairs(self.pracs.classes) do
+    for k, prac in pairs(self.pracs[class]) do
+      self[class][prac .. "_%_label"]:echo(
+        "&lt;center&gt;" .. self[class].percents[prac] .. "%"
       )
-      if v == "ride" or v == "wisdom lore" or v == "survival" then
-        self[class][v.."_label"]:echo("&lt;center&gt;"..v.." (level "..math.floor(self[class].percents[v] / 14)..")")
+      if prac == "ride" or prac == "wisdom lore" or prac == "survival" then
+        self[class][prac.."_label"]:echo("&lt;center&gt;"..prac.." (level "..math.floor(self[class].percents[prac] / 14)..")")
       end
     end
   end
 end
 
 function practice_trainer:update_total_pracs_display()
-  self.stats["total_pracs_label"]:echo("&lt;center&gt;Practices required: "..practice_trainer:get_total_pracs())
+  self.char["total_pracs_label"]:echo("&lt;center&gt;Practices required: "..practice_trainer:get_total_pracs())
 end
 
 
 function practice_trainer:update_levels_display()
-  self.stats["level_label"]:echo("&lt;center&gt;Levels required: "..practice_trainer:pracs_to_level())
+  self.char["level_label"]:echo("&lt;center&gt;Levels required: "..practice_trainer:pracs_to_level())
 end
 
 function practice_trainer:update_sex_race_class_display()
-  self.stats["sex_label"]:echo("&lt;center&gt;" .. self.stats.sex)
-  self.stats["race_label"]:echo("&lt;center&gt;" .. self.stats.race)
-  self.stats["class_label"]:echo("&lt;center&gt;" .. self.stats.class)
+  self.char["sex_label"]:echo("&lt;center&gt;" .. self.char.sex)
+  self.char["race_label"]:echo("&lt;center&gt;" .. self.char.race)
+  self.char["class_label"]:echo("&lt;center&gt;" .. self.char.class)
 end
 
 function practice_trainer:update_displays()
@@ -1406,6 +1237,33 @@ function practice_trainer:update_displays()
   self:update_prac_display()
   self:update_total_pracs_display()
   self:update_levels_display()
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Show help</name>
+				<packageName></packageName>
+				<script>function practice_trainer:show_help()
+  local help =
+  [[
+    &lt;cyan&gt;Practice Trainer Script&lt;reset&gt;
+
+    This script provides a practice trainer you may use to plan out setups.
+    
+    Below is a brief overview of some commands that this script includes.
+    All commands can be found in the appropriate practice trainer folder
+    under mudlet aliases.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;ptrainer help&lt;reset&gt; - Show this help message.
+        &lt;yellow&gt;ptrainer&lt;reset&gt; - Show the practice trainer.
+        &lt;yellow&gt;prac circle&lt;reset&gt; - Send commands to practice in all areas while
+            in the Circle of Light/Darkness/Ravens
+        &lt;yellow&gt;prac warrior/hunter/rogue&lt;reset&gt; - Send all the practices for the given area
+        &lt;yellow&gt;ptrainer setups&lt;reset&gt; - Display all stored practice setups 
+                    
+]]
+  cecho(help)
 end</script>
 				<eventHandlerList />
 			</Script>

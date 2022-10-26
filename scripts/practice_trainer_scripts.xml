@@ -978,7 +978,7 @@ for _, class in pairs(practice_trainer.pracs.classes) do
     practice_trainer[class][label_name] =
       practice_trainer[class][label_name] or
       Geyser.Label:new(
-        practice_trainer:label_params("practice_trainer.".. class.."."..label_name, 65, y, 15, 4,practice_trainer[class].pracs[prac].."%"),
+        practice_trainer:label_params("practice_trainer.".. class.."."..label_name, 65, y, 15, 4, practice_trainer[class].pracs[prac].."%"),
         practice_trainer[class].container
       )
     practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)

@@ -974,7 +974,7 @@ weave_trainer.char.container =
   
 label_name = "int_label"
 weave_trainer.char[label_name] =
-  weave_trainer.char["int_label"] or
+  weave_trainer.char[label_name] or
   Geyser.Label:new(
     weave_trainer:label_params("weave_trainer.char."..label_name, 0, 0, 6, 100, "int"),
     weave_trainer.char.container

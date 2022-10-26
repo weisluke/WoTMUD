@@ -232,7 +232,10 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Posture</name>
 				<script>status_bar.char.posture = matches[2]
-status_bar.posture:echo(status_bar.char.posture, "white", "c")</script>
+
+local colors = {["Offensive"] = "white", ["Normal"] = "white", ["Defensive"] = "white"}
+
+status_bar.posture:echo(status_bar.char.posture, colors[status_bar.char.posture], "c")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -255,7 +258,10 @@ status_bar.posture:echo(status_bar.char.posture, "white", "c")</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Mood</name>
 				<script>status_bar.char.mood = matches[2]
-status_bar.mood:echo(status_bar.char.mood, "white", "c")</script>
+
+local colors = {["Brave"] = "white", ["Normal"] = "white", ["Wimpy"] = "white", ["Berserk"] = "white"}
+
+status_bar.mood:echo(status_bar.char.mood, colors[status_bar.char.mood], "c")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -752,7 +758,7 @@ status_bar.char.wil = tonumber(matches[4])
 status_bar.char.con=tonumber(matches[6])
 
 if status_bar.char.level then
-  status_bar.char.sps.max = 7 * status_bar.char.wil + math.min(status_bar.char.level, 30)
+  status_bar.char.sps.max = status_bar.char.sps.max or 7 * status_bar.char.wil + math.min(status_bar.char.level, 30)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -776,7 +782,7 @@ end</script>
 				<script>status_bar.char.level = tonumber(matches[3])
 
 if status_bar.char.wil then
-  status_bar.char.sps.max = 7 * status_bar.char.wil + math.min(status_bar.char.level, 30)
+  status_bar.char.sps.max = status_bar.char.sps.max or 7 * status_bar.char.wil + math.min(status_bar.char.level, 30)
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -1155,8 +1161,10 @@ status_bar:show_status_bar(true)</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.$</string>
+						<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.  It's your birthday today!$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -1179,8 +1187,10 @@ status_bar:show_status_bar(true)</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>^You are a \d+ year old (\w+) myrddraal\.$</string>
+						<string>^You are a \d+ year old (\w+) myrddraal\.  It's your birthday today!$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>

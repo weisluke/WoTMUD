@@ -20,7 +20,7 @@ weave_trainer.container:raiseAll()</script>
 				<name>Practice Weaves</name>
 				<script>if weave_trainer:pracs_to_level() &gt; 51 then
   weave_trainer:echo(
-    "More than 51 levels required. Cannot practice this practice setup.\n", false, true
+    "More than 51 levels required. Cannot practice this weave setup.\n", false, true
   )
 else
   for _, item in pairs(weave_trainer.pracs.queue) do
@@ -33,7 +33,8 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show saved setups</name>
-				<script>for k, v in lfs.dir(getMudletHomeDir().."/weave_trainer") do 
+				<script>weave_trainer:echo("Showing saved weave setups\n")
+for k, v in lfs.dir(getMudletHomeDir().."/weave_trainer") do 
   if k:sub(-4,-1) == ".lua" then
     cecho(k:sub(1,-5).."\n")
   end
@@ -41,6 +42,13 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^wtrainer setups$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show help</name>
+				<script>weave_trainer:show_help()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wtrainer help$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

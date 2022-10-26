@@ -68,6 +68,23 @@ end</script>
 				<regex>^prac hunter$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
+				<name>Practice Fade</name>
+				<script>if practice_trainer:pracs_to_level() &gt; 51 then
+  practice_trainer:echo(
+    "More than 51 levels required. Cannot practice this practice setup.\n", false, true
+  )
+else
+  for _, item in pairs(practice_trainer.pracs.queue) do
+    if practice_trainer:get_skill_class(item) == "fade" then
+      send("practice "..item)
+    end
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^prac fade$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
 				<name>Practice Circle</name>
 				<script>send("stand")
 enableTrigger("practice_trainer_hunter")
@@ -78,7 +95,8 @@ send("hunter practice please")</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show saved setups</name>
-				<script>for k, v in lfs.dir(getMudletHomeDir().."/practice_trainer") do 
+				<script>practice_trainer:echo("Showing saved practice setups\n")
+for k, v in lfs.dir(getMudletHomeDir().."/practice_trainer") do 
   if k:sub(-4,-1) == ".lua" then
     cecho(k:sub(1,-5).."\n")
   end
@@ -86,6 +104,13 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^ptrainer setups$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show help</name>
+				<script>practice_trainer:show_help()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ptrainer help$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

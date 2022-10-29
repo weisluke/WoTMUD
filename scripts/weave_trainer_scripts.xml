@@ -335,16 +335,7 @@ Type "wtrainer setups" to view saved setups.
 				<script>weave_trainer["reset_pracs_label"] =
   weave_trainer["reset_pracs_label"] or
   Geyser.Label:new(
-    {
-      name = "weave_trainer.reset_pracs_label",
-      x = "90%",
-      y = "83%",
-      width = "10%",
-      height = "5%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;Reset&lt;/center&gt;]],
-    },
+    weave_trainer:label_params("weave_trainer.reset_pracs_label", 90, 83, 10, 5, "Reset"),
     weave_trainer.container
   )
 weave_trainer["reset_pracs_label"]:setStyleSheet([[
@@ -1089,12 +1080,12 @@ end
 
 function weave_trainer:update_total_pracs_display()
   self.char["total_pracs_label"]:echo(
-    "&lt;center&gt;Practices required: " .. weave_trainer:get_total_pracs()
+    "&lt;center&gt;Practices required: " .. self:get_total_pracs()
   )
 end
 
 function weave_trainer:update_levels_display()
-  self.char["level_label"]:echo("&lt;center&gt;Levels required: " .. weave_trainer:pracs_to_level())
+  self.char["level_label"]:echo("&lt;center&gt;Levels required: " .. self:pracs_to_level())
 end
 
 function weave_trainer:update_int_rank_display()

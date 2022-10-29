@@ -40,6 +40,7 @@ practice_trainer.char =
 practice_trainer.char.sex = practice_trainer.char.sex or "male"
 practice_trainer.char.race = practice_trainer.char.race or "human"
 practice_trainer.char.class = practice_trainer.char.class or "hunter"
+practice_trainer.char.warder_bond = practice_trainer.char.warder_bond or false
 
 disableTrigger("practice_trainer_hunter")
 disableTrigger("practice_trainer_rogue")
@@ -258,16 +259,7 @@ Type "ptrainer setups" to view saved setups.
 				<script>practice_trainer["reset_pracs_label"] =
   practice_trainer["reset_pracs_label"] or
   Geyser.Label:new(
-    {
-      name = "practice_trainer.reset_pracs_label",
-      x = "90%",
-      y = "65%",
-      width = "10%",
-      height = "5%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;Reset&lt;/center&gt;]],
-    },
+    practice_trainer:label_params("practice_trainer.reset_pracs_label", 90, 65, 10, 5, "Reset"),
     practice_trainer.container
   )
 practice_trainer["reset_pracs_label"]:setStyleSheet([[
@@ -420,6 +412,7 @@ practice_trainer.container:hide()</script>
       sex = self.char.sex,
       race = self.char.race,
       class = self.char.class,
+      warder_bond = self.char.warder_bond,
       str = self.char.str,
       int = self.char.int,
       wil = self.char.wil,
@@ -452,6 +445,7 @@ function practice_trainer:load_pracs(fname)
   self.char.sex = in_table.sex
   self.char.race = in_table.race
   self.char.class = in_table.class
+  self.char.warder_bond = in_table.warder_bond
   self.char.str = in_table.str
   self.char.int = in_table.int
   self.char.wil = in_table.wil
@@ -629,6 +623,9 @@ end</script>
       end
     end
   end
+  if self.char.race ~= "human" or self.char.class == "channeler" then
+    self.char.warder_bond = false
+  end
 end
 
 function practice_trainer:add_race()
@@ -684,6 +681,9 @@ end</script>
       self:subtract_class()
     end
   end
+  if self.char.class == "channeler" then
+    self.char.warder_bond = false
+  end
 end
 
 function practice_trainer:add_class()
@@ -708,6 +708,16 @@ function practice_trainer:class_scroll(event)
   elseif event.angleDeltaY &lt; 0 then
     self:subtract_class()
   end
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Update Warder Bond</name>
+					<packageName></packageName>
+					<script>function practice_trainer:warder_bond_scroll(event)
+  if self.char.race ~= "human" or self.char.class == "channeler" then return end
+  self.char.warder_bond = not self.char.warder_bond
+  self:update_displays()
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -882,6 +892,10 @@ function practice_trainer:pracs_to_level()
   
   local level = 1
   local pracs = 8
+  
+  if self.char.warder_bond then
+    pracs = pracs + 10
+  end
   
   while pracs &lt; self:get_total_pracs() do
     if level &lt; 30 then
@@ -1178,17 +1192,37 @@ practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_class")
 					<script>practice_trainer.char["total_pracs_label"] =
     practice_trainer.char["total_pracs_label"] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char.total_pracs_label", 46, 40, 26, 40, "Practices required: "..practice_trainer:get_total_pracs()),
+      practice_trainer:label_params("practice_trainer.char.total_pracs_label", 73, 40, 26, 30, "Practices required: "..practice_trainer:get_total_pracs()),
       practice_trainer.char.container
     )
     
 practice_trainer.char["level_label"] =
     practice_trainer.char["level_label"] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char.level_label", 73, 40, 26, 40, "Levels required: "..practice_trainer:pracs_to_level()),
+      practice_trainer:label_params("practice_trainer.char.level_label", 73, 70, 26, 30, "Levels required: "..practice_trainer:pracs_to_level()),
       practice_trainer.char.container
     )
 </script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Warder Bond Display</name>
+					<packageName></packageName>
+					<script>local label_name = "warder_bond_label"
+practice_trainer.char[label_name] =
+    practice_trainer.char[label_name] or
+    Geyser.Label:new(
+      practice_trainer:label_params("practice_trainer.char."..label_name, 46, 40, 15, 30, (practice_trainer.char.warder_bond and "warder bond" or "no warder bond")),
+      practice_trainer.char.container
+    )
+    
+if practice_trainer.char.warder_bond then
+  practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
+else
+  practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
+end
+setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:warder_bond_scroll")
+practice_trainer.char[label_name]:setClickCallback("practice_trainer:warder_bond_scroll")</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
@@ -1215,12 +1249,12 @@ function practice_trainer:update_prac_display()
 end
 
 function practice_trainer:update_total_pracs_display()
-  self.char["total_pracs_label"]:echo("&lt;center&gt;Practices required: "..practice_trainer:get_total_pracs())
+  self.char["total_pracs_label"]:echo("&lt;center&gt;Practices required: "..self:get_total_pracs())
 end
 
 
 function practice_trainer:update_levels_display()
-  self.char["level_label"]:echo("&lt;center&gt;Levels required: "..practice_trainer:pracs_to_level())
+  self.char["level_label"]:echo("&lt;center&gt;Levels required: "..self:pracs_to_level())
 end
 
 function practice_trainer:update_sex_race_class_display()
@@ -1229,10 +1263,21 @@ function practice_trainer:update_sex_race_class_display()
   self.char["class_label"]:echo("&lt;center&gt;" .. self.char.class)
 end
 
+function practice_trainer:update_warder_bond_display()
+  self.char["warder_bond_label"]:echo("&lt;center&gt;" .. (self.char.warder_bond and "warder bond" or "no warder bond"))
+  if self.char.warder_bond then
+    self.char["warder_bond_label"]:setStyleSheet(self.style_sheets.plus)
+  else
+    self.char["warder_bond_label"]:setStyleSheet(self.style_sheets.minus)
+  end
+end
+
+
 function practice_trainer:update_displays()
   self:update_percents()
   self:update_practices()
   self:update_sex_race_class_display()
+  self:update_warder_bond_display()
   self:update_stat_display()
   self:update_prac_display()
   self:update_total_pracs_display()

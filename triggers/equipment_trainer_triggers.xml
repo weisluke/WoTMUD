@@ -161,7 +161,7 @@ eq_trainer:update_displays()</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Level and Rank</name>
-				<script>if matches[3] then
+				<script>if matches[3] ~= "" then
   eq_trainer.char.rank = tonumber(matches[5])
 else
   eq_trainer.char.rank = 0

@@ -160,8 +160,13 @@ eq_trainer:update_displays()</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Level</name>
-				<script>eq_trainer.char.level = tonumber(matches[3])
+				<name>Level and Rank</name>
+				<script>if matches[3] then
+  eq_trainer.char.rank = tonumber(matches[5])
+else
+  eq_trainer.char.rank = 0
+end
+eq_trainer.char.level = tonumber(matches[6])
 
 eq_trainer:update_displays()</script>
 				<triggerType>0</triggerType>
@@ -175,29 +180,7 @@ eq_trainer:update_displays()</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^This ranks you as (.+) \(Level (\d+)\)\.$</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Rank</name>
-				<script>eq_trainer.char.rank = tonumber(matches[4])
-
-eq_trainer:update_displays()</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>^This ranks you as (.+) \[(.+) (\d)\] \(Level (\d+)\)\.$</string>
+					<string>^This ranks you as (.+?) (\[(.+) (\d)\] )?\(Level (\d+)\)\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

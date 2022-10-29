@@ -1792,18 +1792,18 @@ function eq_trainer:update_status_effects_display()
   for _, status in pairs({"armor", "warder_bond"}) do
     self.char[status .. "_label"]:echo("&lt;center&gt;" .. (self.char[status] and status:gsub("_", " ") or "no "..status:gsub("_", " ")))
     if self.char[status] then
-      self.char[status .. "_label"]:setStyleSheet(eq_trainer.style_sheets.plus)
+      self.char[status .. "_label"]:setStyleSheet(self.style_sheets.plus)
     else
-      self.char[status .. "_label"]:setStyleSheet(eq_trainer.style_sheets.minus)
+      self.char[status .. "_label"]:setStyleSheet(self.style_sheets.minus)
     end
   end
   
   for _, status in pairs({"blind", "chill", "contagion", "darkness"}) do
     self.char[status .. "_label"]:echo("&lt;center&gt;" .. (self.char[status] and status or "no "..status))
     if self.char[status] then
-      self.char[status .. "_label"]:setStyleSheet(eq_trainer.style_sheets.minus)
+      self.char[status .. "_label"]:setStyleSheet(self.style_sheets.minus)
     else
-      self.char[status .. "_label"]:setStyleSheet(eq_trainer.style_sheets.plus)
+      self.char[status .. "_label"]:setStyleSheet(self.style_sheets.plus)
     end
   end
 end

@@ -91,6 +91,45 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
+				<name>Database creation</name>
+				<packageName></packageName>
+				<script>db:create(
+  "equipment",
+  {
+    weapons =
+      {
+        name = "",
+        weapon_type = "",
+        ob = 0,
+        pb = 0,
+        dmg = "",
+        weight = 0,
+        dmg_type = ""
+      },
+    armor =
+      {
+        name = "",
+        eq_slot = "",
+        db = 0,
+        pb = 0,
+        mvs = 0,
+        abs = 0,
+        weight = 0
+      },
+    trinkets =
+      {
+        name = "",
+        eq_slot = "",
+        db = 0,
+        pb = 0,
+        mvs = 0,
+        weight = 0
+      },
+  }
+)</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>Style sheets</name>
 				<packageName></packageName>
 				<script>eq_trainer.style_sheets = eq_trainer.style_sheets or {}

@@ -345,7 +345,7 @@ practice_trainer.file.save_name:setAction(
 practice_trainer.file.load_label =
   practice_trainer.file.load_label or
   Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.file.load_label", 32, 95, 30, 5, "Type Filename and press enter to load:"),
+    practice_trainer:label_params("practice_trainer.file.load_label", 32, 95, 30, 5, "Type filename and press enter to load:"),
     practice_trainer.container
   )
 practice_trainer.file.load_name =

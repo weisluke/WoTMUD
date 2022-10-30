@@ -199,6 +199,17 @@ equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
 					<packageName></packageName>
 					<regex>^edb (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath)$</regex>
 				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Update armor/trinkets setup</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local setup = matches[4]
+
+equip_db:update_item(eq_type, {name=name, setup=setup})</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb (armor|trinkets) setup (.+) (\S+)$</regex>
+				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Deleting equipment database information</name>
@@ -236,7 +247,7 @@ equip_db:create_db()</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>edb delete weapons/armor/trinkets name</name>
-					<script>--deletes the ENTIRE weapons or armor or trinkets database 
+					<script>--deletes the item with the given name from the given database sheet
 
 local field = matches[2]
 local name = matches[3]

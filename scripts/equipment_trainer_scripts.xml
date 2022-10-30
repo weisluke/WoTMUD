@@ -63,7 +63,19 @@ eq_trainer.char.darkness = eq_trainer.char.darkness or false
 
 eq_trainer.char.hungry = eq_trainer.char.hungry or false
 
-eq_trainer.stats = eq_trainer.stats or {ob = 0, db = 0, pb = 0, def = 0, abs = 0, mvs = 0, dmg = "", weight = 0, mvs_regen = 0}</script>
+eq_trainer.stats = eq_trainer.stats or 
+  {
+    ob = 0, 
+    db = 0, 
+    pb = 0, 
+    def = 0, 
+    abs = 0, 
+    mvs = 0, 
+    dmg = "", 
+    mean_dmg = 0, 
+    weight = 0, 
+    mvs_regen = 0
+  }</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -114,7 +126,8 @@ end</script>
         pb = 0,
         mvs = 0,
         abs = 0,
-        weight = 0
+        weight = 0,
+        setup = ""
       },
     trinkets =
       {
@@ -123,7 +136,8 @@ end</script>
         db = 0,
         pb = 0,
         mvs = 0,
-        weight = 0
+        weight = 0,
+        setup = ""
       },
   }
 )</script>
@@ -211,20 +225,42 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Get equipment</name>
 				<packageName></packageName>
-				<script>function eq_trainer:get_eq(field)
+				<script>function eq_trainer:get_eq_setups()
   local equipment = db:get_database("equipment")
   
   local result = {}
   
   for _, sheet in pairs({"armor", "trinkets"}) do
-    result = table.n_union(result, 
-      db:fetch(equipment[sheet], db:eq(equipment[sheet].eq_slot, field))
-    )
+    for _, item in pairs(db:fetch(equipment[sheet])) do 
+      if not table.contains(result, item.setup) then
+        table.insert(result, item.setup)
+      end
+    end
+  end
+  
+  return result
+end
+
+function eq_trainer:get_eq(field, setup)
+  local equipment = db:get_database("equipment")
+  
+  local result = {}
+  
+  for _, sheet in pairs({"armor", "trinkets"}) do
+    if setup then
+      result = table.n_union(result, 
+        db:fetch(equipment[sheet], db:AND(db:eq(equipment[sheet].eq_slot, field), db:eq(equipment[sheet].setup, setup)))
+      )
+    else
+      result = table.n_union(result, 
+        db:fetch(equipment[sheet], db:eq(equipment[sheet].eq_slot, field))
+      )
+    end
   end
   return result
 end
 
-function eq_trainer:get_weapon_types(field)
+function eq_trainer:get_weapon_types()
   local equipment = db:get_database("equipment")
   
   local result = {}
@@ -1341,15 +1377,40 @@ end</script>
         grandchild:setClickCallback("eq_trainer:set_eq", k, item)
       end
     end
-  --not a weapon, armor or trinket 
-  else
+  --else a shield
+  elseif slot == "shield" then
     for _, item in pairs(eq_trainer:get_eq(slot)) do
-      child_name = k.."_"..slot.."_"..item.name:gsub(" ", "_")
+      child_name = k.."_"..slot.."_"..item.name:gsub(" ", "_").."_label"
       child = eq_trainer.eq[label_name]:addChild(
         eq_trainer:child_params("eq_trainer.eq."..child_name, 20, 2.5, item.name)
       )
       child:setStyleSheet(eq_trainer.style_sheets.child)
       child:setClickCallback("eq_trainer:set_eq", k, item)
+    end  
+  --not a weapon or shield, armor or trinket 
+  else
+    for _, setup in pairs(eq_trainer:get_eq_setups()) do
+    
+      --if there is actually equipment of the given setup
+      if not table.is_empty(eq_trainer:get_eq(slot, setup)) then
+        --create the child label for the setup
+        child_name = k.."_"..slot.."_"..setup.."_label"
+        child = eq_trainer.eq[label_name]:addChild(
+          eq_trainer:child_params("eq_trainer.eq."..child_name, 10, 2.5, setup)
+        )
+        child:setStyleSheet(eq_trainer.style_sheets.child)
+        
+        --create grandchild labels for all equipment in the given setup type
+        for _, item in pairs(eq_trainer:get_eq(slot, setup)) do
+          local grandchild_name = k.."_"..slot.."_"..item.name:gsub(" ", "_").."_label"
+          
+          local grandchild = child:addChild(
+            eq_trainer:child_params("eq_trainer.eq."..grandchild_name, 20, 2.5, item.name)
+          )
+          grandchild:setStyleSheet(eq_trainer.style_sheets.child)
+          grandchild:setClickCallback("eq_trainer:set_eq", k, item)
+        end
+      end
     end
   end
 end</script>
@@ -1412,6 +1473,24 @@ label_name = stat.."_label"
 eq_trainer.stats[label_name] =
   eq_trainer.stats[label_name] or
   Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.stats." .. label_name, 10, 40, 15, 10, stat),
+    eq_trainer.stats.container
+  )
+
+label_name = stat.."_val_label"
+eq_trainer.stats[label_name] =
+  eq_trainer.stats[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.stats."..label_name, 25, 40, 75, 10, eq_trainer.stats[stat]),
+    eq_trainer.stats.container
+  )
+eq_trainer.stats[label_name]:setStyleSheet(eq_trainer.style_sheets.child)
+
+stat = "mean_dmg"
+label_name = stat.."_label"
+eq_trainer.stats[label_name] =
+  eq_trainer.stats[label_name] or
+  Geyser.Label:new(
     eq_trainer:label_params("eq_trainer.stats." .. label_name, 10, 30, 15, 10, stat),
     eq_trainer.stats.container
   )
@@ -1420,7 +1499,7 @@ label_name = stat.."_val_label"
 eq_trainer.stats[label_name] =
   eq_trainer.stats[label_name] or
   Geyser.Label:new(
-    eq_trainer:label_params("eq_trainer.stats."..label_name, 25, 30, 75, 10, eq_trainer.stats[stat]),
+    eq_trainer:label_params("eq_trainer.stats."..label_name, 25, 30, 20, 10, eq_trainer.stats[stat]),
     eq_trainer.stats.container
   )
 eq_trainer.stats[label_name]:setStyleSheet(eq_trainer.style_sheets.child)
@@ -1431,7 +1510,7 @@ label_name = stat.."_label"
 eq_trainer.stats[label_name] =
   eq_trainer.stats[label_name] or
   Geyser.Label:new(
-    eq_trainer:label_params("eq_trainer.stats." .. label_name, 65, 40, 15, 10, stat),
+    eq_trainer:label_params("eq_trainer.stats." .. label_name, 65, 30, 15, 10, stat),
     eq_trainer.stats.container
   )
 
@@ -1439,7 +1518,7 @@ label_name = stat.."_val_label"
 eq_trainer.stats[label_name] =
   eq_trainer.stats[label_name] or
   Geyser.Label:new(
-    eq_trainer:label_params("eq_trainer.stats."..label_name, 80, 40, 20, 10, eq_trainer.stats[stat]),
+    eq_trainer:label_params("eq_trainer.stats."..label_name, 80, 30, 20, 10, eq_trainer.stats[stat]),
     eq_trainer.stats.container
   )
 eq_trainer.stats[label_name]:setStyleSheet(eq_trainer.style_sheets.child)</script>
@@ -1737,6 +1816,39 @@ end</script>
   
   return dmg_wpn..dmg_hone..dmg_rank..dmg_str
   
+end
+
+function eq_trainer:get_mean_char_dmg()
+  --mean of an xdy dice roll is x*(y+1)/2
+  
+  local level = math.min(self.char.level, 30)
+  
+  local dmg_wpn = 0
+  local dmg_hone = 0
+  local dmg_rank = 0
+  local dmg_str = 0
+  
+  if self:get_eq_in_slot("wielded").name == "nothing" then
+    dmg_wpn = 2 * (math.max(math.floor(level / 5), 1) + 1) / 2
+  else
+    dmg_wpn_str = self:get_eq_in_slot("wielded").dmg
+    local x = dmg_wpn_str:match("(%d+)d%d+")
+    local y = dmg_wpn_str:match("%d+d(%d+)")
+    dmg_wpn = x * (y + 1)/2
+  end
+  
+  if self.char.weapon_hh ~= "none" then
+    dmg_hone = 2 * (4 + 1)/2
+  end
+  
+  dmg_rank = math.floor(self.char.rank / 2)
+  
+  if self.char.str &gt; 14 then
+    dmg_str = (self.char.str - 14)*(self.char.str - 13)/14
+  end
+  
+  return string.format("%.2f", dmg_wpn+dmg_hone+dmg_rank+dmg_str)
+  
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -1798,6 +1910,7 @@ end</script>
   self.stats.mvs = self:get_char_mvs()
   
   self.stats.dmg = self:get_char_dmg()
+  self.stats.mean_dmg = self:get_mean_char_dmg()
   
   self.stats.weight = self:get_char_weights().weight
   
@@ -1855,7 +1968,7 @@ end
 
 function eq_trainer:update_stats_display()
   self:get_char_stats()
-  for k, stat in pairs({"ob", "db", "pb", "def", "abs", "dmg", "mvs", "weight"}) do
+  for k, stat in pairs({"ob", "db", "pb", "def", "abs", "dmg", "mean_dmg", "mvs", "weight"}) do
     self.stats[stat.."_val_label"]:echo("&lt;center&gt;"..self.stats[stat])
   end
 end

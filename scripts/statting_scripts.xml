@@ -24,9 +24,9 @@ statting.configs = {}</script>
   if self.autoconnect and self.name and self.password then
     self.reconnect_wait = self.reconnect_wait or 5
     self:echo("&lt;green&gt;Starting "..self.reconnect_wait.." minute timer for reconnection for statting.\n")
-    self.reconnect_timer = tempTimer(self.reconnect_wait * 60, function () connectToServer("game.wotmud.org", 2224) end)
+    self.reconnect_timer = tempTimer(self.reconnect_wait * 60 + 1, function () connectToServer("game.wotmud.org", 2224) end)
   else
-    self:echo("&lt;red&gt;No name and/or no password set for reconnection. Disabling the statting script.\n")
+    self:echo("&lt;red&gt;Disabling the statting script.\n")
     self.stats = nil
     self.statting = false
     disableTrigger("Statting")
@@ -51,7 +51,11 @@ function statting:reconnection_actions(event)
   if not self.statting then 
     return
   else
-    sendAll(self.name, self.password, "score", "stat", "kill sapling")
+    sendAll(self.name, self.password, "score", "stat")
+    disableTrigger("Statting_Kill_Sapling")
+    enableTrigger("Statting_Entered_New_Room")
+    enableTrigger("Statting_Too_Exhausted")
+    self:move_rooms()
   end
 end
 
@@ -169,6 +173,97 @@ end</script>
             
 ]]
   cecho(help)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Move rooms</name>
+				<packageName></packageName>
+				<script>function statting:move_rooms()
+  local sapling_rooms = {
+    ["Hills of Kintara"] = {
+      572,
+      571,
+      574,
+      613,
+      612,
+      614,
+      618,
+      619,
+      620,
+      622,
+      616,
+      615,
+      609,
+      610,
+      611,
+      623,
+      624,
+      608,
+      576,
+      570,
+    },
+    ["The Lugard Highway"] = {
+      2175,
+      2158,
+    },
+    ["Emond's Field"] = {
+      2946,
+    },
+    ["Watch Hill"] = {
+      2932,
+      2939,
+      2956,
+    },
+    ["Quarry Road"] = {
+      3112,
+      3118,
+      3123,
+    },
+    ["South Misty Mountains"] = {
+      3397,
+      3400,
+    },
+    ["Foothills of Tamika"] = {
+      20370,
+      20368,
+      20355,
+      20366,
+      20417,
+    },
+    ["The Blasted Lands"] = {
+      18913,
+      18914,
+      18921,
+      18932,
+      18934,
+      18936,
+      18927,
+      18919,
+      18895,
+      18880, 
+    }
+  }
+  
+  local zone = getRoomUserData(getPlayerRoom(), "zone")
+  
+  if not sapling_rooms[zone] then
+    statting:echo("\nSapling rooms for current zone not known. Waiting here.\n", false, true)
+    return
+  end
+  
+  local index = table.index_of(sapling_rooms[zone],getPlayerRoom()) or 0
+  index = index % table.size(sapling_rooms[zone])
+  index = index + 1
+  
+  if getPath(getPlayerRoom(), sapling_rooms[zone][index]) then
+    for _, dir in pairs(speedWalkDir) do
+      send(dir)
+    end
+    send("say Time to see if there's any chopping that needs done here!")
+  else
+    statting:echo("\nCannot get a path to the next sapling room. Waiting here.\n", false, true)
+  end
 end</script>
 				<eventHandlerList />
 			</Script>

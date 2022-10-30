@@ -107,6 +107,9 @@ equip_db:create_db()</script>
 
     &lt;cyan&gt;Commands:&lt;reset&gt;
         &lt;yellow&gt;edb help&lt;reset&gt; - Show this help message.
+        &lt;yellow&gt;edb update&lt;reset&gt; - Downloads, saves, and loads the latest version of the equipment
+            database from https://github.com/weisluke/WoTMUD 
+        &lt;yellow&gt;edb triggers&lt;reset&gt; - Enable/disable the equipment stat capture triggers
         &lt;yellow&gt;edb show&lt;reset&gt; - Show all items in the database.
         &lt;yellow&gt;edb show weapons/armor/trinkets&lt;reset&gt; - Show all weapons, armor, or trinkets.
         &lt;yellow&gt;edb show weapons/armor/trinkets name xxx&lt;reset&gt; - Show all weapons, armor or trinkets with
@@ -116,7 +119,25 @@ equip_db:create_db()</script>
         &lt;yellow&gt;edb show weapons type xxx&lt;reset&gt; - Show all weapons of the given type.
             Ex: edb show weapons type blade, edb show weapons type staff
         &lt;yellow&gt;edb show armor/trinkets slot xxx&lt;reset&gt; - Show all armor or trinkets of the given slot.
-            Ex: edb show armor slot head, edb show trinkets slot wrist  
+            Ex: edb show armor slot head, edb show trinkets slot wrist
+            
+    Commands for editing items in the database (not typically needed):
+    
+        &lt;yellow&gt;edb (weapons|armor|trinkets) weight xxx yyy&lt;reset&gt; - Set the weight of an item
+        &lt;yellow&gt;edb force (weapons|armor|trinkets) weight xxx yyy&lt;reset&gt; - Force the weight
+        &lt;yellow&gt;edb weapons dmg_type xxx yyy&lt;reset&gt; - Set the dmg type for a weapon
+        &lt;yellow&gt;edb (armor|trinkets) eq_slot xxx yyy&lt;reset&gt; - Set the eq slot for an item
+            Valid armor slots: head, body, arms, hands, legs, feet, shield
+            Valid trinket slots: finger, neck, wrist, cloak, belt, sheath
+        &lt;yellow&gt;edb (armor|trinkets) setup xxx yyy&lt;reset&gt; - Set the setup for an item
+        &lt;yellow&gt;edb force (armor|trinkets) setup xxx yyy&lt;reset&gt; - Force the setup
+        &lt;yellow&gt;edb move (armor|trinkets) xxx (armor|trinkets)&lt;reset&gt; - Move an item from
+            one sheet to another
+        
+        &lt;yellow&gt;edb delete&lt;reset&gt; - Delete the entire database. &lt;red&gt;USE WITH CAUTION!&lt;reset&gt;
+        &lt;yellow&gt;edb delete (weapons|armor|trinekts)&lt;reset&gt; - Delete the entire given sheet
+        &lt;yellow&gt;edb delete (weapons|armor|trinkets) name xxx&lt;reset&gt; - Delete the item with the
+            given name from the given sheet
                     
 ]]
   cecho(help)
@@ -134,7 +155,7 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Update items</name>
 				<packageName></packageName>
-				<script>function equip_db:update_item(eq_type, info)
+				<script>function equip_db:update_item(eq_type, info, exact_name)
   
   if not info.name then
     self:echo("\nAttempt to add item with no name.\n", false, true)
@@ -147,8 +168,23 @@ end</script>
   end
 
   local equipment = db:get_database("equipment")
-
-  local items = db:fetch(equipment[eq_type], db:like(equipment[eq_type].name, "%"..info.name.."%"))
+  
+  local items = {}
+  
+  for _, sheet in pairs(table.keys(self.eq_fields)) do
+    local tab
+    if exact_name then
+      tab = db:fetch(equipment[sheet], db:eq(equipment[sheet].name, info.name))
+    else
+      tab = db:fetch(equipment[sheet], db:like(equipment[sheet].name, "%"..info.name.."%"))
+    end
+    
+    for _, item in pairs(tab) do
+      if not table.contains(items, item) then
+        table.insert(items, item)
+      end
+    end
+  end
   
   if table.is_empty(items) then
     db:add(equipment[eq_type], info)
@@ -190,6 +226,326 @@ registerAnonymousEventHandler("sysDownloadDone", "equip_db:db_update")</script>
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Get items</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Get weapons</name>
+					<packageName></packageName>
+					<script>local function sort_weapons(e1, e2)
+  --sort first by weapon type, then ob, then pb, then dmg
+
+  if e1.weapon_type &gt; e2.weapon_type then
+    return true
+  elseif e1.weapon_type &lt; e2.weapon_type then
+    return false
+  else
+    if e1.ob &gt; e2.ob then
+      return true
+    elseif e1.ob &lt; e2.ob then
+      return false
+    else
+      if e1.pb &gt; e2.pb then
+        return true
+      elseif e1.pb &lt; e2.pb then
+        return false
+      else
+        local dmg1 = e1.dmg
+        local dmg2 = e2.dmg
+        
+        local x1 = dmg1:match("(%d+)d%d+")
+        local y1 = dmg1:match("%d+d(%d+)")
+        
+        local x2 = dmg2:match("(%d+)d%d+")
+        local y2 = dmg2:match("%d+d(%d+)")
+        
+        if x1*(y1 + 1)/2 &gt; x2*(y2 + 1)/2 then
+          return true
+        elseif x1*(y1 + 1)/2 &lt; x2*(y2 + 1)/2 then
+          return false
+        else
+          return true
+        end      
+      end
+    end
+  end
+end
+
+function equip_db:get_weapons(name, name_exact, weapon_type, weapon_type_exact)
+  local equipment = db:get_database("equipment")
+  
+  name = name or ""
+  weapon_type = weapon_type or ""
+  
+  local weapons
+  
+  if name_exact then
+    if weapon_type_exact then
+      weapons = db:fetch(equipment.weapons, 
+          db:AND(
+            db:eq(equipment.weapons.name, name), 
+            db:eq(equipment.weapons.weapon_type, weapon_type)
+          )
+      )
+    else
+      weapons = db:fetch(equipment.weapons, 
+          db:AND(
+            db:eq(equipment.weapons.name, name), 
+            db:like(equipment.weapons.weapon_type, "%"..weapon_type.."%")
+          )
+      )
+    end
+  else
+    if weapon_type_exact then
+      weapons = db:fetch(equipment.weapons, 
+          db:AND(
+            db:like(equipment.weapons.name, "%"..name.."%"), 
+            db:eq(equipment.weapons.weapon_type, weapon_type)
+          )
+      )
+    else
+      weapons = db:fetch(equipment.weapons, 
+          db:AND(
+            db:like(equipment.weapons.name, "%"..name.."%"), 
+            db:like(equipment.weapons.weapon_type, "%"..weapon_type.."%")
+          )
+      )
+    end
+  end
+  
+  local sorted = false
+  
+  --sometimes sorting once doesn't do the trick, for some odd reason
+  repeat
+    table.sort(weapons, sort_weapons)
+    sorted = true
+  
+    for i=1, table.size(weapons)-1, 1 do
+      if not sort_weapons(weapons[i], weapons[i+1]) then
+        sorted = false
+      end
+    end
+  until(sorted)
+  
+  return weapons
+end
+
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Get armor</name>
+					<packageName></packageName>
+					<script>local function sort_armor(e1, e2)
+  --sort first by setup, then eq slot, then abs, then db, then pb, then mvs
+  
+  local order = {"", "head", "body", "arms", "hands", "legs", "feet", "shield"}
+  
+  if e1.setup &lt; e2.setup then
+    return true
+  elseif e1.setup &gt; e2.setup then
+    return false
+  else
+    if table.index_of(order, e1.eq_slot) &lt; table.index_of(order, e2.eq_slot) then
+      return true
+    elseif table.index_of(order, e1.eq_slot) &gt; table.index_of(order, e2.eq_slot) then
+      return false
+    else
+      if e1.abs &gt; e2.abs then
+        return true
+      elseif e1.abs &lt; e2.abs then
+        return false
+      else
+        if e1.db &gt; e2.db then
+          return true
+        elseif e1.db &lt; e2.db then
+          return false
+        else
+          if e1.pb &gt; e2.pb then
+            return true
+          elseif e1.pb &lt; e2.pb then
+            return false
+          else
+            if e1.mvs &gt; e2.mvs then
+              return true
+            elseif e1.mvs &lt; e2.mvs then
+              return false
+            else
+              return true
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+function equip_db:get_armor(name, name_exact, eq_slot, eq_slot_exact)
+  local equipment = db:get_database("equipment")
+  
+  name = name or ""
+  eq_slot = eq_slot or ""
+  
+  local armor
+  
+  if name_exact then
+    if eq_slot_exact then
+      armor = db:fetch(equipment.armor, 
+        db:AND(
+          db:eq(equipment.armor.name, name), 
+          db:eq(equipment.armor.eq_slot, eq_slot)
+        )
+      )
+    else
+      armor = db:fetch(equipment.armor, 
+        db:AND(
+          db:eq(equipment.armor.name, name), 
+          db:like(equipment.armor.eq_slot, "%"..eq_slot.."%")
+        )
+      )
+    end
+  else
+    if eq_slot_exact then
+      armor = db:fetch(equipment.armor, 
+        db:AND(
+          db:like(equipment.armor.name, "%"..name.."%"), 
+          db:eq(equipment.armor.eq_slot, eq_slot)
+        )
+      )
+    else
+      armor = db:fetch(equipment.armor, 
+        db:AND(
+          db:like(equipment.armor.name, "%"..name.."%"), 
+          db:like(equipment.armor.eq_slot, "%"..eq_slot.."%")
+        )
+      )
+    end  
+  end
+  
+  local sorted = false
+  
+  --sometimes sorting once doesn't do the trick, for some odd reason
+  repeat
+    table.sort(armor, sort_armor)
+    sorted = true
+  
+    for i=1, table.size(armor)-1, 1 do
+      if not sort_armor(armor[i], armor[i+1]) then
+        sorted = false
+      end
+    end
+  until(sorted)
+  
+  return armor
+end
+
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Get trinkets</name>
+					<packageName></packageName>
+					<script>local function sort_trinkets(e1, e2)
+  --sort first by setup, then eq slot, then db, then pb, then mvs
+  
+  local order = {"", "finger", "neck", "wrist", "cloak", "belt", "sheath"}
+  
+  if e1.setup &lt; e2.setup then
+    return true
+  elseif e1.setup &gt; e2.setup then
+    return false
+  else
+    if table.index_of(order, e1.eq_slot) &lt; table.index_of(order, e2.eq_slot) then
+      return true
+    elseif table.index_of(order, e1.eq_slot) &gt; table.index_of(order, e2.eq_slot) then
+      return false
+    else
+      if e1.db &gt; e2.db then
+        return true
+      elseif e1.db &lt; e2.db then
+        return false
+      else
+        if e1.pb &gt; e2.pb then
+          return true
+        elseif e1.pb &lt; e2.pb then
+          return false
+        else
+          if e1.mvs &gt; e2.mvs then
+            return true
+          elseif e1.mvs &lt; e2.mvs then
+            return false
+          else
+            return true
+          end
+        end
+      end
+    end
+  end
+end
+
+function equip_db:get_trinkets(name, name_exact, eq_slot, eq_slot_exact)
+  local equipment = db:get_database("equipment")
+  
+  name = name or ""
+  eq_slot = eq_slot or ""
+  
+  local trinkets
+  
+  if name_exact then
+    if eq_slot_exact then
+      trinkets = db:fetch(equipment.trinkets, 
+          db:AND(
+            db:eq(equipment.trinkets.name, name), 
+            db:eq(equipment.trinkets.eq_slot, eq_slot)
+          )
+      )
+    else
+      trinkets = db:fetch(equipment.trinkets, 
+          db:AND(
+            db:eq(equipment.trinkets.name, name), 
+            db:like(equipment.trinkets.eq_slot, "%"..eq_slot.."%")
+          )
+      )
+    end
+  else
+    if eq_slot_exact then
+      trinkets = db:fetch(equipment.trinkets, 
+          db:AND(
+            db:like(equipment.trinkets.name, "%"..name.."%"), 
+            db:eq(equipment.trinkets.eq_slot, eq_slot)
+          )
+      )
+    else
+      trinkets = db:fetch(equipment.trinkets, 
+          db:AND(
+            db:like(equipment.trinkets.name, "%"..name.."%"), 
+            db:like(equipment.trinkets.eq_slot, "%"..eq_slot.."%")
+          )
+      )
+    end
+  end
+  
+  local sorted = false
+  
+  --sometimes sorting once doesn't do the trick, for some odd reason
+  repeat
+    table.sort(trinkets, sort_trinkets)
+    sorted = true
+  
+    for i=1, table.size(trinkets)-1, 1 do
+      if not sort_trinkets(trinkets[i], trinkets[i+1]) then
+        sorted = false
+      end
+    end
+  until(sorted)
+  
+  return trinkets
+end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
+			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Show database items</name>
 				<packageName></packageName>
 				<script></script>
@@ -197,19 +553,9 @@ registerAnonymousEventHandler("sysDownloadDone", "equip_db:db_update")</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Show weapons</name>
 					<packageName></packageName>
-					<script>function equip_db:show_weapons(name, weapon_type)
-  local equipment = db:get_database("equipment")
+					<script>function equip_db:show_weapons(name, name_exact, weapon_type, weapon_type_exact)
   
-  name = name or ""
-  weapon_type = weapon_type or ""
-  
-  local weapons = db:fetch(
-    equipment.weapons, 
-      db:AND(
-        db:like(equipment.weapons.name, "%"..name.."%"), 
-        db:like(equipment.weapons.weapon_type, "%"..weapon_type.."%")
-      )
-  )
+  local weapons = self:get_weapons(name, name_exact, weapon_type, weapon_type_exact)
   
   if table.is_empty(weapons) then
     self:echo("No weapons found in the equipment database.\n", false, true)
@@ -246,19 +592,8 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Show armor</name>
 					<packageName></packageName>
-					<script>function equip_db:show_armor(name, eq_slot)
-  local equipment = db:get_database("equipment")
-  
-  name = name or ""
-  eq_slot = eq_slot or ""
-  
-  local armor = db:fetch(
-    equipment.armor, 
-      db:AND(
-        db:like(equipment.armor.name, "%"..name.."%"), 
-        db:like(equipment.armor.eq_slot, "%"..eq_slot.."%")
-      )
-  )
+					<script>function equip_db:show_armor(name, name_exact, eq_slot, eq_slot_exact)
+  local armor = self:get_armor(name, name_exact, eq_slot, eq_slot_exact)
   
   if table.is_empty(armor) then
     self:echo("No armor found in the equipment database.\n", false, true)
@@ -296,19 +631,8 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Show trinkets</name>
 					<packageName></packageName>
-					<script>function equip_db:show_trinkets(name, eq_slot)
-  local equipment = db:get_database("equipment")
-  
-  name = name or ""
-  eq_slot = eq_slot or ""
-  
-  local trinkets = db:fetch(
-    equipment.trinkets, 
-      db:AND(
-        db:like(equipment.trinkets.name, "%"..name.."%"), 
-        db:like(equipment.trinkets.eq_slot, "%"..eq_slot.."%")
-      )
-  )
+					<script>function equip_db:show_trinkets(name, name_exact, eq_slot, eq_slot_exact)
+  local trinkets = self:get_trinkets(name, name_exact, eq_slot, eq_slot_exact)
   
   if table.is_empty(trinkets) then
     self:echo("No trinkets found in the equipment database.\n", false, true)

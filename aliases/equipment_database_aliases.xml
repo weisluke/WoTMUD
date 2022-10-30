@@ -86,7 +86,7 @@ equip_db:show_trinkets()</script>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Show weapons type</name>
-						<script>equip_db:show_weapons(nil, matches[2])</script>
+						<script>equip_db:show_weapons(nil, nil, matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^edb show weapons type (.+)$</regex>
@@ -114,7 +114,7 @@ equip_db:show_trinkets()</script>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Show armor slot</name>
-						<script>equip_db:show_armor(nil, matches[2])</script>
+						<script>equip_db:show_armor(nil, nil, matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^edb show armor slot (.+)$</regex>
@@ -142,7 +142,7 @@ equip_db:show_trinkets()</script>
 					</Alias>
 					<Alias isActive="yes" isFolder="no">
 						<name>Show trinkets slot</name>
-						<script>equip_db:show_trinkets(nil, matches[2])</script>
+						<script>equip_db:show_trinkets(nil, nil, matches[2])</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^edb show trinkets slot (.+)$</regex>
@@ -167,6 +167,17 @@ equip_db:update_item(eq_type, {name=name, weight=weight})</script>
 					<regex>^edb (weapons|armor|trinkets) weight (.+) (\d+\.?\d*)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
+					<name>Force update weight</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local weight = tonumber(matches[4])
+
+equip_db:update_item(eq_type, {name=name, weight=weight}, true)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb force (weapons|armor|trinkets) weight (.+) (\d+\.?\d*)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
 					<name>Update dmg_type</name>
 					<script>local eq_type = matches[2]
 local name = matches[3]
@@ -186,7 +197,7 @@ local eq_slot = matches[4]
 equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^edb (armor) eq_slot (.+) (head|body|arms|hands|legs|feet|shield)$</regex>
+					<regex>^edb (armor) eq_slot (.+) (head|body|arms|hands|legs|feet|shield|)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Update trinkets eq_slot</name>
@@ -197,7 +208,18 @@ local eq_slot = matches[4]
 equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^edb (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath)$</regex>
+					<regex>^edb (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath|)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Force update trinkets eq_slot</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local eq_slot = matches[4]
+
+equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot}, true)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb force (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Update armor/trinkets setup</name>
@@ -209,6 +231,17 @@ equip_db:update_item(eq_type, {name=name, setup=setup})</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^edb (armor|trinkets) setup (.+) (\S+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Force update armor/trinkets setup</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local setup = matches[4]
+
+equip_db:update_item(eq_type, {name=name, setup=setup}, true)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb force (armor|trinkets) setup (.+) (\S+)$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -261,6 +294,36 @@ equip_db:create_db()</script>
 					<regex>^edb delete (weapons|armor|trinkets) name (.+)$</regex>
 				</Alias>
 			</AliasGroup>
+			<Alias isActive="yes" isFolder="no">
+				<name>Move item from sheet</name>
+				<script>local sheet1 = matches[2]
+local name = matches[3]
+local sheet2 = matches[4]
+
+local equipment = db:get_database("equipment")
+
+local items = db:fetch(equipment[sheet1], db:like(equipment[sheet1].name, "%"..name.."%"))
+
+if table.is_empty(items) then
+  equip_db:echo("\nItem ("..name..") not found in the equipment database.\n", false, true)   
+elseif table.size(items) &gt; 1 then
+  equip_db:echo("\nItem ("..name..") is not unique. Found the following items:\n", false, true)
+  for _, item in pairs(items) do
+    cecho(item.name.."\n")
+  end
+else
+  item = items[1]
+  db:delete(equipment[sheet1], item)
+  if sheet1 == "armor" and sheet2 == "trinkets" then
+    item.abs = nil
+  end
+  db:add(equipment[sheet2], item)
+  equip_db:echo("Item ("..item.name..") moved from ("..sheet1..") to ("..sheet2..").\n")  
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb move (armor|trinkets) (.+) (armor|trinkets)$</regex>
+			</Alias>
 		</AliasGroup>
 	</AliasPackage>
 </MudletPackage>

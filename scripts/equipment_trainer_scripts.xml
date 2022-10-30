@@ -1803,7 +1803,7 @@ end</script>
     dmg_wpn = self:get_eq_in_slot("wielded").dmg
   end
   
-  if self.char.weapon_hh ~= "none" then
+  if self.char.weapon_hh ~= "none" and self:get_eq_in_slot("wielded").name ~= "nothing" then
     dmg_hone = "+2d4"
   end
   
@@ -1837,7 +1837,7 @@ function eq_trainer:get_mean_char_dmg()
     dmg_wpn = x * (y + 1)/2
   end
   
-  if self.char.weapon_hh ~= "none" then
+  if self.char.weapon_hh ~= "none" and self:get_eq_in_slot("wielded").name ~= "nothing" then
     dmg_hone = 2 * (4 + 1)/2
   end
   

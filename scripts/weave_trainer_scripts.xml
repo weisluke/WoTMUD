@@ -396,16 +396,7 @@ end</script>
 weave_trainer.file.save_label =
   weave_trainer.file.save_label or
   Geyser.Label:new(
-    {
-      name = "weave_trainer.file.save_label",
-      x = "32%",
-      y = "90%",
-      width = "30%",
-      height = "5%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;Type filename and press enter to save:&lt;/center&gt;]],
-    },
+    weave_trainer:label_params("weave_trainer.file.save_label", 32, 90, 30, 5, "Type filename and press enter to save:"),
     weave_trainer.container
   )
 weave_trainer.file.save_name =
@@ -430,23 +421,14 @@ weave_trainer.file.save_name:setAction(
 weave_trainer.file.load_label =
   weave_trainer.file.load_label or
   Geyser.Label:new(
-    {
-      name = "weave_trainer.file.load_label",
-      x = "32%",
-      y = "95%",
-      width = "30%",
-      height = "5%",
-      fgColor = "black",
-      color = "white",
-      message = [[&lt;center&gt;Type filename and press enter to load:&lt;/center&gt;]],
-    },
+    weave_trainer:label_params("weave_trainer.file.load_label", 32, 95, 30, 5, "Type filename and press enter to load:"),
     weave_trainer.container
   )
 weave_trainer.file.load_name =
   weave_trainer.file.load_name  or
   Geyser.CommandLine:new(
     {
-      name = "weave_trainer.file.load_name ",
+      name = "weave_trainer.file.load_name",
       x = "62%",
       y = "95%",
       width = "38%",
@@ -1122,7 +1104,8 @@ end</script>
         &lt;yellow&gt;wtrainer help&lt;reset&gt; - Show this help message.
         &lt;yellow&gt;wtrainer&lt;reset&gt; - Show the weave trainer.
         &lt;yellow&gt;prac weaves&lt;reset&gt; - Send commands to practice all weaves
-        &lt;yellow&gt;wtrainer setups&lt;reset&gt; - Display all stored weave setups 
+        &lt;yellow&gt;wtrainer setups&lt;reset&gt; - Display all stored weave setups. Files located at:
+            ]]..getMudletHomeDir()..[[/weave_trainer/ 
                     
 ]]
   cecho(help)

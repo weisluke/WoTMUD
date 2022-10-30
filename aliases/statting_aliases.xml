@@ -28,6 +28,8 @@ else
 end
 
 enableTrigger("Statting")
+enableTrigger("Statting_Kill_Sapling")
+enableTimer("Statting_Trees_Gone")
 statting.statting = true
 
 statting:echo(

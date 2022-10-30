@@ -197,7 +197,7 @@ local eq_slot = matches[4]
 equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^edb (armor) eq_slot (.+) (head|body|arms|hands|legs|feet|shield)$</regex>
+					<regex>^edb (armor) eq_slot (.+) (head|body|arms|hands|legs|feet|shield|)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Update trinkets eq_slot</name>
@@ -208,7 +208,7 @@ local eq_slot = matches[4]
 equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^edb (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath)$</regex>
+					<regex>^edb (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath|)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Force update trinkets eq_slot</name>
@@ -313,8 +313,11 @@ elseif table.size(items) &gt; 1 then
   end
 else
   item = items[1]
+  db:delete(equipment[sheet1], item)
+  if sheet1 == "armor" and sheet2 == "trinkets" then
+    item.abs = nil
+  end
   db:add(equipment[sheet2], item)
-  db:delete(equipment[sheet1], db:like(equipment[sheet1].name, "%"..name.."%"))
   equip_db:echo("Item ("..item.name..") moved from ("..sheet1..") to ("..sheet2..").\n")  
 end</script>
 				<command></command>

@@ -9,102 +9,118 @@
 			<command></command>
 			<keyCode>-1</keyCode>
 			<keyModifier>0</keyModifier>
-			<Key isActive="yes" isFolder="no">
-				<name>North</name>
+			<KeyGroup isActive="yes" isFolder="yes">
+				<name>Directions</name>
 				<packageName></packageName>
 				<script></script>
-				<command>n</command>
-				<keyCode>56</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>Open door north</name>
-				<packageName></packageName>
-				<script>wotmudmapper:door_com_dir("open", "n")</script>
 				<command></command>
-				<keyCode>16777235</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>East</name>
+				<keyCode>33554431</keyCode>
+				<keyModifier>0</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>North</name>
+					<packageName></packageName>
+					<script></script>
+					<command>n</command>
+					<keyCode>56</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>East</name>
+					<packageName></packageName>
+					<script></script>
+					<command>e</command>
+					<keyCode>54</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>South</name>
+					<packageName></packageName>
+					<script></script>
+					<command>s</command>
+					<keyCode>50</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>West</name>
+					<packageName></packageName>
+					<script></script>
+					<command>w</command>
+					<keyCode>52</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Up</name>
+					<packageName></packageName>
+					<script></script>
+					<command>u</command>
+					<keyCode>57</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Down</name>
+					<packageName></packageName>
+					<script></script>
+					<command>d</command>
+					<keyCode>51</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+			</KeyGroup>
+			<KeyGroup isActive="yes" isFolder="yes">
+				<name>Doors</name>
 				<packageName></packageName>
 				<script></script>
-				<command>e</command>
-				<keyCode>54</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>Open door east</name>
-				<packageName></packageName>
-				<script>wotmudmapper:door_com_dir("open", "e")</script>
 				<command></command>
-				<keyCode>16777236</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>South</name>
-				<packageName></packageName>
-				<script></script>
-				<command>s</command>
-				<keyCode>50</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>Open door south</name>
-				<packageName></packageName>
-				<script>wotmudmapper:door_com_dir("open", "s")</script>
-				<command></command>
-				<keyCode>16777237</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>West</name>
-				<packageName></packageName>
-				<script></script>
-				<command>w</command>
-				<keyCode>52</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>Open door west</name>
-				<packageName></packageName>
-				<script>wotmudmapper:door_com_dir("open", "w")</script>
-				<command></command>
-				<keyCode>16777234</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>Up</name>
-				<packageName></packageName>
-				<script></script>
-				<command>u</command>
-				<keyCode>57</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>Open door up</name>
-				<packageName></packageName>
-				<script>wotmudmapper:door_com_dir("open", "u")</script>
-				<command></command>
-				<keyCode>16777238</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>Down</name>
-				<packageName></packageName>
-				<script></script>
-				<command>d</command>
-				<keyCode>51</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
-			<Key isActive="yes" isFolder="no">
-				<name>Open door down</name>
-				<packageName></packageName>
-				<script>wotmudmapper:door_com_dir("open", "d")</script>
-				<command></command>
-				<keyCode>16777239</keyCode>
-				<keyModifier>536870912</keyModifier>
-			</Key>
+				<keyCode>33554431</keyCode>
+				<keyModifier>0</keyModifier>
+				<Key isActive="yes" isFolder="no">
+					<name>Open door north</name>
+					<packageName></packageName>
+					<script>wotmudmapper:door_com_dir("open", "n")</script>
+					<command></command>
+					<keyCode>16777235</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Open door east</name>
+					<packageName></packageName>
+					<script>wotmudmapper:door_com_dir("open", "e")</script>
+					<command></command>
+					<keyCode>16777236</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Open door south</name>
+					<packageName></packageName>
+					<script>wotmudmapper:door_com_dir("open", "s")</script>
+					<command></command>
+					<keyCode>16777237</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Open door west</name>
+					<packageName></packageName>
+					<script>wotmudmapper:door_com_dir("open", "w")</script>
+					<command></command>
+					<keyCode>16777234</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Open door up</name>
+					<packageName></packageName>
+					<script>wotmudmapper:door_com_dir("open", "u")</script>
+					<command></command>
+					<keyCode>16777238</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+				<Key isActive="yes" isFolder="no">
+					<name>Open door down</name>
+					<packageName></packageName>
+					<script>wotmudmapper:door_com_dir("open", "d")</script>
+					<command></command>
+					<keyCode>16777239</keyCode>
+					<keyModifier>536870912</keyModifier>
+				</Key>
+			</KeyGroup>
 			<Key isActive="yes" isFolder="no">
 				<name>Flee</name>
 				<packageName></packageName>
@@ -170,12 +186,12 @@ end</script>
 			<Key isActive="yes" isFolder="no">
 				<name>Attack Target</name>
 				<packageName></packageName>
-				<script>local target=targeting.first
+				<script>local target=targeting.currtgt
 
 if target~=nil then
   send("k "..target)
 else
-  cecho("\n&lt;red&gt;Target not set!\n")
+  cecho("\n&lt;red&gt;Current target not set!\n")
 end</script>
 				<command></command>
 				<keyCode>53</keyCode>
@@ -184,12 +200,12 @@ end</script>
 			<Key isActive="yes" isFolder="no">
 				<name>Attack Hidden Target</name>
 				<packageName></packageName>
-				<script>local target=targeting.first
+				<script>local target=targeting.currtgt
 
 if target~=nil then
   send("k h."..target)
 else
-  cecho("\n&lt;red&gt;Target not set!\n")
+  cecho("\n&lt;red&gt;Current target not set!\n")
 end</script>
 				<command></command>
 				<keyCode>16777227</keyCode>

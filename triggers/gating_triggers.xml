@@ -18,30 +18,8 @@
 			<regexCodeList />
 			<regexCodePropertyList />
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Gating</name>
-				<script>local code = matches[2]
-
-char = char or {}
-weaving = weaving or {}
-gatecodes = {}
-
-if char.name then
-  if io.exists(getMudletHomeDir() .. "/"..char.name.."_gatecodes.lua") then
-    table.load(getMudletHomeDir() .. "/"..char.name.."_gatecodes.lua", gatecodes)
-  end
-  if weaving.gatename then
-    gatecodes[weaving.gatename] = code
-    table.save(getMudletHomeDir() .. "/"..char.name.."_gatecodes.lua", gatecodes)
-    cecho(
-      "\n&lt;green&gt;Code '" .. code .. "' successfully stored to location '" .. weaving.gatename .. "'."
-    )
-  else
-    cecho("\n&lt;red&gt;Unknown error! No location set to store code to.")
-  end
-  send("release")
-else
-  cecho("\n&lt;red&gt;Error! Character name not known.")
-end</script>
+				<name>You memorize this place as</name>
+				<script></script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -53,11 +31,52 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^You memorize this place as (\S+)\.$</string>
+					<string>You memorize this place as</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>1</integer>
+					<integer>2</integer>
 				</regexCodePropertyList>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Gating</name>
+					<script>local code = matches[2]
+
+weaving = weaving or {}
+gatecodes = {}
+
+if weaving.name then
+  if io.exists(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua") then
+    table.load(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua", gatecodes)
+  end
+  if weaving.gatename then
+    gatecodes[weaving.gatename] = code
+    table.save(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua", gatecodes)
+    cecho(
+      "\n&lt;green&gt;Code '" .. code .. "' successfully stored to location '" .. weaving.gatename .. "'."
+    )
+  else
+    cecho("\n&lt;red&gt;Unknown error! No location set to store code to.")
+  end
+  send("release")
+else
+  cecho("\n&lt;red&gt;Error! Character name not known.")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^You memorize this place as (\S+)\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Successful Gate</name>
@@ -73,16 +92,16 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^You concentrate and a bright slash of light dilates into a gateway to another place\.$</string>
+					<string>You concentrate and a bright slash of light dilates into a gateway to another place.</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>1</integer>
+					<integer>3</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Character name</name>
-				<script>char = char or {}
-char.name = matches[2]</script>
+				<script>weaving = weaving or {}
+weaving.name = matches[2]</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -102,8 +121,8 @@ char.name = matches[2]</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Character Sex</name>
-				<script>char = char or {}
-char.sex = matches[3]</script>
+				<script>weaving = weaving or {}
+weaving.sex = matches[3]</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -120,6 +139,65 @@ char.sex = matches[3]</script>
 				<regexCodePropertyList>
 					<integer>1</integer>
 				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You can barely make out</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You can barely make out</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Look portal</name>
+					<script>local roomname = matches[2]
+local foundrooms = searchRoom(roomname, true, true)
+
+if table.is_empty(foundrooms) then
+  selectCaptureGroup(2)
+  setLink(function() end, "No matches found!")
+elseif table.size(foundrooms) == 1 then
+  for k, v in pairs(foundrooms) do
+    selectCaptureGroup(2)
+    setLink(function() centerview(k) end, "Click to center map on room.")
+  end
+else
+  selectCaptureGroup(2)
+  
+  setLink(function() 
+    for k,v in spairs(foundrooms) do
+      echoLink("Room ID: " .. k .. ", zone: " .. getRoomUserData(k, "zone") .. "\n", function() centerview(k) end, "Click to center map on room.",true)
+    end 
+  end, "Click to display rooms with matching name.")
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You can barely make out (.+)\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</Trigger>
 		</TriggerGroup>
 	</TriggerPackage>

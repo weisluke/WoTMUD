@@ -9,6 +9,7 @@
 mudlet = mudlet or {}
 mudlet.mapper_script = true
 wotmudmapper = wotmudmapper or {}
+wotmudmapper.configs = wotmudmapper.configs or {}
 
 
 --mapper variables
@@ -33,13 +34,12 @@ wotmudmapper.flee = wotmudmapper.flee or false
 wotmudmapper.following = wotmudmapper.following or false
 --variable to hold door direction. only used in mapping mode to create doors
 wotmudmapper.door = wotmudmapper.door or "n"
---variable used to pause and reset queue if long mud output (e.g. two page who list) is encountered
-wotmudmapper.pausing = wotmudmapper.pausing or false
 --true only if wotmudmapper.roomname matches a room name from inside The Ways zone
 wotmudmapper.inways = wotmudmapper.inways or false
 
 --default configuration values to be used or updated in wotmudmapper.configs
 wotmudmapper.defaults = {
+  on = true, --true if the map should actively follow you
   mapping = false, --true if mapping mode is turned on
   dbug = true, --debug for echoing messages
   mapbrief = false, --true if map triggers should manually delete room description lines from the screen
@@ -257,7 +257,7 @@ end</script>
   local colors = table.deepcopy(self.map_colors) or {}
   
   --if config and color files exist on disk, load them in  
-  self:echo("Loading map configurations.\n")
+  self:echo("Loading map configurations.\n", true)
   -- load stored configs from file if it exists
   if io.exists(getMudletHomeDir().."/wotmudmapper.configs.lua") then
       table.load(getMudletHomeDir().."/wotmudmapper.configs.lua",configs)
@@ -265,7 +265,7 @@ end</script>
   if io.exists(getMudletHomeDir().."/wotmudmapper.map_colors.lua") then
       table.load(getMudletHomeDir().."/wotmudmapper.map_colors.lua",colors)
   end
-  self:echo("Map configurations loaded.\n")
+  self:echo("Map configurations loaded.\n", true)
   
   -- overwrite default values with stored config values and save to disk
   configs = table.update(defaults, configs)
@@ -1412,6 +1412,55 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
+				<name>Show zone and door information</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:show_zone_door_info()
+
+  --note room exits that lead to unknown rooms (as they may be DTs)
+  local safe_rooms = {}
+  for dir,id in pairs(getRoomExits(self.currentID[1])) do
+    table.insert(safe_rooms, string.sub(dir,1,1))
+  end
+  local unsafe_rooms = table.n_complement(self.roomexits, safe_rooms)
+  if getExitStubs(self.currentID[1]) then
+    for _, dirnum in pairs(getExitStubs(self.currentID[1])) do
+      table.insert(unsafe_rooms,string.sub(self.exitmap[dirnum],1,1))
+    end
+    unsafe_rooms = table.n_union(unsafe_rooms, unsafe_rooms)
+  end
+  for _,dir in pairs(unsafe_rooms) do
+      self:echo(
+        "\nCaution. Direction " .. dir .. " leads to an unknown room.",
+        false,
+        true
+      )
+  end
+  
+  --displaying the zone
+  self.zone = getRoomUserData(self.currentID[1], "zone")
+  if self.configs.showzone then
+    cechoLink("\n&lt;"..self.configs.zonecolor.."&gt;Zone: " .. self.zone,
+    function()
+      if self.zone ~= "" then
+        if self.zone_urls[self.zone] ~= "" then
+          openUrl("https://wotmud.fandom.com/wiki/"..self.zone_urls[self.zone])
+        end
+      end
+    end,
+    "Click to open the WoTMUD wiki page for this zone", true)
+  end
+  
+  --showing the doors that have been stored
+  for _, dir in pairs({"north", "east", "south", "west", "up", "down"}) do
+    if getRoomUserData(self.currentID[1], dir:sub(1, 1)) ~= "" then
+      cecho("\n&lt;"..self.configs.doorcolor.."&gt;Door " .. dir .. ": &lt;white&gt;" .. getRoomUserData(self.currentID[1], dir:sub(1, 1)))
+    end
+  end  
+
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
 				<name>offline_move</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:offline_move(direction)
@@ -1419,9 +1468,14 @@ end</script>
     local exits = getRoomExits(self.currentID[1])
     local newid = exits[self.exitmap[self.exitmap[direction]]]
     
+    --specifically handle displaying the same room for the look command
+    if direction == "l" then
+      newid = self.currentID[1]
+    end
+    
     if newid then
         self.currentID={newid}
-        self.zone = getRoomUserData(self.currentID[1], "zone")
+        self.roomexits = {}
         centerview(newid)
         cecho("&lt;ansi_cyan&gt;"..getRoomName(newid).."\n")
         cecho(getRoomUserData(newid,"description"))
@@ -1440,22 +1494,7 @@ end</script>
             cecho(v:upper().." ")
         end
         cecho("]")
-        if self.configs.showzone then
-          cechoLink("\n&lt;"..self.configs.zonecolor.."&gt;Zone: " .. self.zone,
-          function()
-            if self.zone ~= "" then
-              if self.zone_urls[self.zone] ~= "" then
-                openUrl("https://wotmud.fandom.com/wiki/"..self.zone_urls[self.zone])
-              end
-            end
-          end,
-          "Click to open the WoTMUD wiki page for this zone", true)
-        end
-        for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
-          if getRoomUserData(self.currentID[1], string.sub(v, 1, 1)) ~= "" then
-            cecho("\n&lt;"..self.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(self.currentID[1], string.sub(v, 1, 1)))
-          end
-        end
+        self:show_zone_door_info()
         cecho("\n\n")
     else
         cecho("Alas, you cannot go that way...\n\n")

@@ -3,7 +3,7 @@
 <MudletPackage version="1.001">
 	<TriggerPackage>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-			<name>Locates</name>
+			<name>Weaving</name>
 			<script></script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
@@ -17,27 +17,6 @@
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList />
 			<regexCodePropertyList />
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Character name</name>
-				<script>weaving = weaving or {}
-weaving.name = matches[2]</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>0</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>^This ranks you as (\w+) (of|the) (.+)\.$</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-				</regexCodePropertyList>
-			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Character Sex</name>
 				<script>weaving = weaving or {}
@@ -60,46 +39,9 @@ weaving.sex = matches[3]</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Locate Object</name>
-				<script>local colors =
-  {
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
-    dreadlord = "ansi_red",
-    grayman = "ansi_red",
-    draghkar = "ansi_red",
-    human = "ansi_cyan",
-    seanchan = "ansi_magenta",
-    ogier = "ansi_green",
-    aiel = "ansi_white"
-  }
-  
-weaving = weaving or {}
-  
-local who = matches[5]
-local code = matches[3]
-  
-if colors[who] then
-  selectCaptureGroup(5)
-  fg(colors[who])
-end
-
-selectCaptureGroup(3)
---uncomment the following line, and if you click on the port code it will embrace and channel 'travel' code
-setLink(
-  function()
-    if weaving.sex == "female" then
-      sendAll("embrace", "channel 'travel' " .. code )
-    elseif weaving.sex == "male" then
-      sendAll("seize", "channel 'travel' " .. code )
-    else
-      cecho("&lt;red&gt;Error! Character sex not known.\n")    
-    end
-  end, 
-  "Click to embrace/seize and port here.")
-
---uncomment the following line, and if you click on the port code it will copy it
---setLink(function() setClipboardText(code) end, "Click to copy code.")</script>
+				<name>Character name</name>
+				<script>weaving = weaving or {}
+weaving.name = matches[2]</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -111,7 +53,7 @@ setLink(
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^(.+)\s* - \[(.*)\] - somewhere (.+), carried by an? (.+)\.$</string>
+					<string>^This ranks you as (\w+) (of|the) (.+)\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

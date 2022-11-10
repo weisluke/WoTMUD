@@ -253,47 +253,7 @@ elseif table.size(wotmudmapper.currentID) &gt; 1 then
   wotmudmapper:echo("\nMultiple matches found.",false,true)
 else
   centerview(wotmudmapper.currentID[1])
-  
-  --note room exits that lead to unknown rooms (as they may be DTs)
-  local safe_rooms = {}
-  for dir,id in pairs(getRoomExits(wotmudmapper.currentID[1])) do
-    table.insert(safe_rooms, string.sub(dir,1,1))
-  end
-  local unsafe_rooms = table.n_complement(wotmudmapper.roomexits, safe_rooms)
-  if getExitStubs(wotmudmapper.currentID[1]) then
-    for _, dirnum in pairs(getExitStubs(wotmudmapper.currentID[1])) do
-      table.insert(unsafe_rooms,string.sub(wotmudmapper.exitmap[dirnum],1,1))
-    end
-    unsafe_rooms = table.n_union(unsafe_rooms, unsafe_rooms)
-  end
-  for _,dir in pairs(unsafe_rooms) do
-      wotmudmapper:echo(
-        "\nCaution. Direction " .. dir .. " leads to an unknown room.",
-        false,
-        true
-      )
-  end
-  
-  --displaying the zone
-  wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-  if wotmudmapper.configs.showzone then
-    cechoLink("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone,
-    function()
-      if wotmudmapper.zone ~= "" then
-        if wotmudmapper.zone_urls[wotmudmapper.zone] ~= "" then
-          openUrl("https://wotmud.fandom.com/wiki/"..wotmudmapper.zone_urls[wotmudmapper.zone])
-        end
-      end
-    end,
-    "Click to open the WoTMUD wiki page for this zone", true)
-  end
-  
-  --showing the doors that have been stored
-  for _, dir in pairs({"north", "east", "south", "west", "up", "down"}) do
-    if getRoomUserData(wotmudmapper.currentID[1], dir:sub(1,1)) ~= "" then
-      cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. dir .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], dir:sub(1,1)))
-    end
-  end
+  wotmudmapper:show_zone_door_info()
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -390,47 +350,7 @@ elseif table.size(wotmudmapper.currentID) &gt; 1 then
   wotmudmapper:echo("\nMultiple matches found.",false,true)
 else
   centerview(wotmudmapper.currentID[1])
-  
-  --note room exits that lead to unknown rooms (as they may be DTs)
-  local safe_rooms = {}
-  for dir,id in pairs(getRoomExits(wotmudmapper.currentID[1])) do
-    table.insert(safe_rooms, string.sub(dir,1,1))
-  end
-  local unsafe_rooms = table.n_complement(wotmudmapper.roomexits, safe_rooms)
-  if getExitStubs(wotmudmapper.currentID[1]) then
-    for _, dirnum in pairs(getExitStubs(wotmudmapper.currentID[1])) do
-      table.insert(unsafe_rooms,string.sub(wotmudmapper.exitmap[dirnum],1,1))
-    end
-    unsafe_rooms = table.n_union(unsafe_rooms, unsafe_rooms)
-  end
-  for _,dir in pairs(unsafe_rooms) do
-      wotmudmapper:echo(
-        "\nCaution. Direction " .. dir .. " leads to an unknown room.",
-        false,
-        true
-      )
-  end
-  
-  --displaying the zone
-  wotmudmapper.zone = getRoomUserData(wotmudmapper.currentID[1], "zone")
-  if wotmudmapper.configs.showzone then
-    cechoLink("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. wotmudmapper.zone,
-    function()
-      if wotmudmapper.zone ~= "" then
-        if wotmudmapper.zone_urls[wotmudmapper.zone] ~= "" then
-          openUrl("https://wotmud.fandom.com/wiki/"..wotmudmapper.zone_urls[wotmudmapper.zone])
-        end
-      end
-    end,
-    "Click to open the WoTMUD wiki page for this zone", true)
-  end
-  
-  --showing the doors that have been stored
-  for _, dir in pairs({"north", "east", "south", "west", "up", "down"}) do
-    if getRoomUserData(wotmudmapper.currentID[1], dir:sub(1,1)) ~= "" then
-      cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. dir .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], dir:sub(1,1)))
-    end
-  end
+  wotmudmapper:show_zone_door_info()
 end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -586,8 +506,12 @@ end</script>
 					<string>All you can do right now is think about the stars!$</string>
 					<string>A massive blast of air buffets you, knocking you off balance\.$</string>
 					<string>An elite Queen's Guard blocks the way and says 'You are not allowed there, (.+)\.'$</string>
+					<string>You're in pretty bad shape, unable to do anything!$</string>
+					<string>You would need to climb there from here\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
@@ -745,8 +669,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Resuming Trigger</name>
-				<script>wotmudmapper.pausing = false
-wotmudmapper.queue = List:new()
+				<script>wotmudmapper.queue = List:new()
 disableTrigger("Resuming Trigger")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -767,8 +690,7 @@ disableTrigger("Resuming Trigger")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Pausing Trigger</name>
-				<script>wotmudmapper.pausing = true
-enableTrigger("Resuming Trigger")</script>
+				<script>enableTrigger("Resuming Trigger")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>

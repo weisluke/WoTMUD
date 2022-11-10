@@ -9,6 +9,7 @@
     tabs = {"All", "Narrates", "Chats", "Tells", "Says", "Yells", "Misc"},
     tab_color = "navy"
   }
+communications.configs = communications.configs or {}
   
 communications.defaults = {
   dbug = true,
@@ -60,9 +61,9 @@ end</script>
     local configs = self.configs or {}
     -- load stored configs from file if it exists
     if io.exists(getMudletHomeDir().."/communications.configs.lua") then
-        self:echo("Loading communications configurations.\n")
+        self:echo("Loading communications configurations.\n", true)
         table.load(getMudletHomeDir().."/communications.configs.lua",configs)
-        self:echo("Communications configurations loaded.\n")
+        self:echo("Communications configurations loaded.\n", true)
     end
     -- overwrite default values with stored config values
     configs = table.update(defaults, configs)
@@ -173,12 +174,12 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
         },
         self.footer
       )
+    enableScrollBar("communications."..ctype)
     self[ctype]:enableAutoWrap()
     self[ctype]:setColor("black")
     self[ctype]:setFontSize(configs.fontsize)
     self[ctype]:bg("black")
     self[ctype]:fg("white")
-    enableScrollBar("communications."..ctype)
     self[ctype]:hide()
   end
   

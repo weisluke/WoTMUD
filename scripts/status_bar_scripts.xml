@@ -187,7 +187,7 @@ status_bar.tab_settings = status_bar.tab_settings or
     local w = self.tab_settings[tab].max_chars + 2
     --convert chars to a percentage, then slightly downsize so there's space at the end of the status bar
     w = w / total_chars * 100 * 0.997
-    w_str = string.format("%.2f%%", w)
+    local w_str = string.format("%.2f%%", w)
     
   --create labels if necessary
     if not self[tab] then
@@ -203,7 +203,7 @@ status_bar.tab_settings = status_bar.tab_settings or
     
     --display and move labels if necessary
     if self.tab_settings[tab].display then
-      start_str = string.format("%.2f%%", start)
+      local start_str = string.format("%.2f%%", start)
       self[tab]:resize(w_str, "100%")
       self[tab]:move(start_str, "0%")
       self[tab]:show()

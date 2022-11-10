@@ -12,15 +12,14 @@
 				<name>Make gate</name>
 				<script>--syntax: makegate xxx
 
-char = char or {}
 weaving = weaving or {}
 
 weaving.gatename = matches[2]
 
-if char.sex == "female" then
+if weaving.sex == "female" then
   send("embrace")
   send("channel 'gate'")
-elseif char.sex == "male" then
+elseif weaving.sex == "male" then
   send("seize")
   send("channel 'gate'")
 else
@@ -36,18 +35,18 @@ end</script>
 
 local location = matches[2]
 
-char = char or {}
+weaving = weaving or {}
 gatecodes = {}
 
-if char.name then
-  if io.exists(getMudletHomeDir() .. "/"..char.name.."_gatecodes.lua") then
-    table.load(getMudletHomeDir() .. "/"..char.name.."_gatecodes.lua", gatecodes)
+if weaving.name then
+  if io.exists(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua") then
+    table.load(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua", gatecodes)
   end
   if gatecodes[location] then
-    if char.sex == "female" then
+    if weaving.sex == "female" then
       send("embrace")
       send("channel 'gate' " .. gatecodes[location])
-    elseif char.sex == "male" then
+    elseif weaving.sex == "male" then
       send("seize")
       send("channel 'gate' " .. gatecodes[location])
     else
@@ -67,10 +66,10 @@ end</script>
 				<name>Delete gates</name>
 				<script>--syntax: resetgates
 
-char = char or {}
+weaving = weaving or {}
 
-if char.name then
-  table.save(getMudletHomeDir() .. "/" .. char.name .. "_gatecodes.lua", {})
+if weaving.name then
+  table.save(getMudletHomeDir() .. "/" .. weaving.name .. "_gatecodes.lua", {})
   cecho("Gate codes reset!\n")
 else
   cecho("&lt;red&gt;Error! Character name not known.\n")
@@ -83,12 +82,12 @@ end</script>
 				<name>View codes</name>
 				<script>--syntax: viewcodes
 
-char = char or {}
+weaving = weaving or {}
 gatecodes = {}
 
-if char.name then
-  if io.exists(getMudletHomeDir() .. "/" .. char.name .. "_gatecodes.lua") then
-    table.load(getMudletHomeDir() .. "/" .. char.name .. "_gatecodes.lua", gatecodes)
+if weaving.name then
+  if io.exists(getMudletHomeDir() .. "/" .. weaving.name .. "_gatecodes.lua") then
+    table.load(getMudletHomeDir() .. "/" .. weaving.name .. "_gatecodes.lua", gatecodes)
   end
   if table.is_empty(gatecodes) then
     cecho("No gatecodes known!\n")
@@ -134,10 +133,10 @@ gatecodes =
     fourkings = "pogdardassrauytlow",
   }
   
-char = char or {}
+weaving = weaving or {}
 
-if char.name then
-  table.save(getMudletHomeDir() .. "/" .. char.name .. "_gatecodes.lua", gatecodes)
+if weaving.name then
+  table.save(getMudletHomeDir() .. "/" .. weaving.name .. "_gatecodes.lua", gatecodes)
 else
   cecho("&lt;red&gt;Error! Character name not known.\n")
 end</script>

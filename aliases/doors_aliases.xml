@@ -53,7 +53,7 @@ end</script>
 door = door or {}
 
 door.first = matches[2]
-cecho("First door is set as: &lt;gold&gt;" .. matches[2] .. "&lt;white&gt;.\n")</script>
+cecho("First door is set as: &lt;gold&gt;" .. matches[2] .. "\n")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^setdoor (\S+)$</regex>

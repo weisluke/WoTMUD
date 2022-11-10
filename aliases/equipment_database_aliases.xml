@@ -156,6 +156,28 @@ equip_db:show_trinkets()</script>
 				<packageName></packageName>
 				<regex></regex>
 				<Alias isActive="yes" isFolder="no">
+					<name>Update hands</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local hands = tonumber(matches[4])
+
+equip_db:update_item(eq_type, {name=name, hands=hands})</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb (weapons) hands (.+) (0|1|1.5|2)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Update weapon_type</name>
+					<script>local eq_type = matches[2]
+local name = matches[3]
+local weapon_type = matches[4]
+
+equip_db:update_item(eq_type, {name=name, weapon_type=weapon_type})</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb (weapons) weapon_type (.+) \\(.+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
 					<name>Update weight</name>
 					<script>local eq_type = matches[2]
 local name = matches[3]
@@ -230,7 +252,7 @@ local setup = matches[4]
 equip_db:update_item(eq_type, {name=name, setup=setup})</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^edb (armor|trinkets) setup (.+) (\S+)$</regex>
+					<regex>^edb (armor|trinkets) setup (.+) ((\S+)|)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Force update armor/trinkets setup</name>
@@ -241,7 +263,7 @@ local setup = matches[4]
 equip_db:update_item(eq_type, {name=name, setup=setup}, true)</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^edb force (armor|trinkets) setup (.+) (\S+)$</regex>
+					<regex>^edb force (armor|trinkets) setup (.+) ((\S+)|)$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
@@ -322,7 +344,7 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^edb move (armor|trinkets) (.+) (armor|trinkets)$</regex>
+				<regex>^edb move (armor|trinkets) name (.+) (armor|trinkets)$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

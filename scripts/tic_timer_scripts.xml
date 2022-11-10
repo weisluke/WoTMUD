@@ -13,6 +13,7 @@ tic_timer.configs = tic_timer.configs or
     on = true,
     tic_is_early = true,
     tic_is_late = false,
+    aggro_is_exact = false,
     num_tics = -1,
     aggro_pulse = -1,
     tic_length = 63.000,
@@ -39,6 +40,7 @@ function tic_timer:reset()
     on = true,
     tic_is_early = true,
     tic_is_late = false,
+    aggro_is_exact = false,
     num_tics = -1,
     aggro_pulse = -1,
     tic_length = 63.000,
@@ -342,9 +344,11 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
   end
   
   if self.configs.show_aggros then
-    if exact then
+    if exact and not self.configs.aggro_is_exact then
       self:echo("\n&lt;red&gt;Exact aggro pulse\n")
-    else
+      self.configs.aggro_is_exact = true
+      tempTimer(1, function() self.configs.aggro_is_exact = false end)
+    elseif not exact then
       self:echo("\n&lt;red&gt;Estimated aggro pulse\n")
     end
   end

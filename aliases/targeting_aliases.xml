@@ -63,14 +63,7 @@ if targeting[index] then
   local color = colors[tgt] or "reset"
   
   targeting.currtgt = tgt
-  cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
-  
-  if color ~= "reset" then
-    status_bar["target"]:echo(tgt:upper(), color, "c")
-  else
-    status_bar["target"]:echo(tgt:upper(), "white", "c")
-  end
-  
+  cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")  
 else
   cecho("&lt;red&gt;Target "..index.." not set!\n")
 end</script>
@@ -119,8 +112,7 @@ end</script>
   end
 end
 targeting.currtgt = nil
-cecho("Targets cleared.\n")
-status_bar["target"]:echo("Target", "white", "c")</script>
+cecho("Targets cleared.\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^clear tgts$</regex>
@@ -149,12 +141,7 @@ local color = colors[tgt] or "reset"
   
 targeting.currtgt = tgt
 cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
-
-if color ~= "reset" then
-  status_bar["target"]:echo(tgt:upper(), color, "c")
-else
-  status_bar["target"]:echo(tgt:upper(), "white", "c")
-end</script>
+</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tgt (\S+)$</regex>
@@ -317,8 +304,7 @@ end</script>
 targeting=targeting or {}
 
 targeting.currtgt=nil
-cecho("&lt;red&gt;Current target deleted!\n")
-status_bar["target"]:echo("Target", "white", "c")</script>
+cecho("&lt;red&gt;Current target deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^deltgt$</regex>

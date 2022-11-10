@@ -338,10 +338,10 @@ registerAnonymousEventHandler("sysConnectionEvent", "wotmudmapper:sys_connection
   end
   
   --save configs and colors to disk
-  self:echo("Saving map configurations.\n")
+  self:echo("Saving map configurations.\n", true)
   table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", self.configs)
   table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", self.map_colors)
-  self:echo("Map configurations saved.\n")
+  self:echo("Map configurations saved.\n", true)
 end
 
 registerAnonymousEventHandler("sysExitEvent", "wotmudmapper:sys_disconnection")

@@ -91,9 +91,9 @@ registerAnonymousEventHandler("sysConnectionEvent", "communications:sys_connecti
 				<script>function communications:sys_disconnection(event)
   self.configs = self.configs or {}
   
-  self:echo("Saving communications configurations.\n")
+  self:echo("Saving communications configurations.\n", true)
   table.save(getMudletHomeDir() .. "/communications.configs.lua", self.configs)
-  self:echo("Communications configurations saved.\n")
+  self:echo("Communications configurations saved.\n", true)
 end
 
 registerAnonymousEventHandler("sysExitEvent", "communications:sys_disconnection")

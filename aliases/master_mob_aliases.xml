@@ -16,9 +16,9 @@ mob=mob or {}
 
 if matches[3] then
   mob.first = matches[4]
-  cecho("Mob is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  cecho("Mob is set as: &lt;gold&gt;"..matches[4].."\n")
 elseif mob.first then
-  cecho("Mob is set as: &lt;gold&gt;"..mob.first.."&lt;white&gt;.\n")
+  cecho("Mob is set as: &lt;gold&gt;"..mob.first.."\n")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -33,9 +33,9 @@ mob=mob or {}
 
 if matches[3] then
   mob.target=matches[4]
-  cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."\n")
 elseif mob.target then
-  cecho("Mob target is set as: &lt;gold&gt;"..mob.target.."&lt;white&gt;.\n")
+  cecho("Mob target is set as: &lt;gold&gt;"..mob.target.."\n")
 else
   cecho("&lt;red&gt;No target specified!\n")
 end</script>
@@ -250,9 +250,9 @@ mob=mob or {}
 
 if matches[3] then
   mob.second = matches[4]
-  cecho("Mob is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  cecho("Mob is set as: &lt;gold&gt;"..matches[4].."\n")
 elseif mob.second then
-  cecho("Mob is set as: &lt;gold&gt;"..mob.second.."&lt;white&gt;.\n")
+  cecho("Mob is set as: &lt;gold&gt;"..mob.second.."\n")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -267,9 +267,9 @@ mob=mob or {}
 
 if matches[3] then
   mob.targets=matches[4]
-  cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."\n")
 elseif mob.target then
-  cecho("Mob target is set as: &lt;gold&gt;"..mob.targets.."&lt;white&gt;.\n")
+  cecho("Mob target is set as: &lt;gold&gt;"..mob.targets.."\n")
 else
   cecho("&lt;red&gt;No target specified!\n")
 end</script>

@@ -104,9 +104,9 @@ light = light or {}
 
 if matches[3] then
   light.first = matches[4]
-  cecho("Light is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  cecho("Light is set as: &lt;gold&gt;" .. matches[4] .. "\n")
 elseif light.first then
-  cecho("Light is set as: &lt;gold&gt;" .. light.first .. "&lt;white&gt;.\n")
+  cecho("Light is set as: &lt;gold&gt;" .. light.first .. "\n")
 else
   cecho("&lt;red&gt;Light not set!\n")
 end</script>

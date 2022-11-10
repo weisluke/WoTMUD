@@ -31,7 +31,7 @@ end</script>
 				<regex>^dd$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
-				<name>Scalp Scorpse</name>
+				<name>Scalp Corpse</name>
 				<script>--syntax: scc
 for i=1, string.len(matches[2]),1 do
   send("scalp "..i..".corpse")
@@ -39,6 +39,22 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^sc(c+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Scalp Corpses</name>
+				<script>for i=1,tonumber(matches[2]),1 do
+  send("scalp "..i..".corpse")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^scalp(\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Scalp specific corpse</name>
+				<script>send("scalp "..matches[2]..".corpse")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^sc(\d+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Sheath Dagger</name>
@@ -100,9 +116,9 @@ weapon = weapon or {}
 
 if matches[3] then
   weapon.first = matches[4]
-  cecho("Weapon is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  cecho("Weapon is set as: &lt;gold&gt;"..matches[4].."\n")
 elseif weapon.first then
-  cecho("Weapon is set as: &lt;gold&gt;"..weapon.first.."&lt;white&gt;.\n")
+  cecho("Weapon is set as: &lt;gold&gt;"..weapon.first.."\n")
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>

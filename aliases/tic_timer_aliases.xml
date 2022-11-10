@@ -195,6 +195,19 @@ display(tic_timer.configs)</script>
 				<packageName></packageName>
 				<regex>^tic timer configs$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Copy tic timer history</name>
+				<script>local txt = ""
+
+for _, time in ipairs(tic_timer.tic_history) do
+  txt = txt..time.."\n"
+end
+
+setClipboardText(txt)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^tic timer copy history$</regex>
+			</Alias>
 		</AliasGroup>
 	</AliasPackage>
 </MudletPackage>

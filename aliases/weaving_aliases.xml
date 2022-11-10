@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Weaving</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Cycle longweave</name>
+				<script>weaving = weaving or {}
+
+local longweaves = {"ice spikes", "fireball", "sonic boom"}
+
+if weaving.longweave then
+  local index = table.index_of(longweaves, weaving.longweave)
+  index = (index % table.size(longweaves))+1
+  weaving.longweave = longweaves[index]
+else
+  weaving.longweave = "fireball"
+end
+cecho("Long weave set to: "..weaving.longweave.."\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^lw$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Cycle shortweave</name>
+				<script>weaving = weaving or {}
+
+local shortweaves = {"earthquake", "flame strike", "hammer of air", "call lightning"}
+
+if weaving.shortweave then
+  local index = table.index_of(shortweaves, weaving.shortweave)
+  index = (index % table.size(shortweaves))+1
+  weaving.shortweave = shortweaves[index]
+else
+  weaving.shortweave = "earthquake"
+end
+cecho("Short weave set to: "..weaving.shortweave.."\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^sw$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Locate object</name>
+				<script>send("channel 'locate object' "..matches[2])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^locobj (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Long weave target</name>
+				<script>--syntax: j
+
+targeting = targeting or {}
+weaving = weaving or {}
+
+local target = targeting.currtgt
+
+if not targeting.weaving then return end
+
+if target then
+  if targeting.weaving then
+    if weaving.longweave then
+      send("channel '"..weaving.longweave.."' "..target)
+    else
+      send("channel 'ice spikes' "..target)
+    end
+  else
+    cecho("&lt;red&gt;Pk method not set to weaving!\n")
+  end
+else
+  cecho("&lt;red&gt;Target not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^j$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Short weave target</name>
+				<script>--syntax: h
+
+targeting = targeting or {}
+weaving = weaving or {}
+
+local target = targeting.currtgt
+
+if not targeting.weaving then return end
+
+if target then
+  if targeting.weaving then
+    if weaving.shortweave then
+      send("channel '"..weaving.shortweave.."' "..target)
+    else
+      send("channel 'earthquake' "..target)
+    end
+  else
+    cecho("&lt;red&gt;Pk method not set to weaving!\n")
+  end
+else
+  cecho("&lt;red&gt;Target not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^h$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Refresh</name>
+				<script>send("channel 'refresh'")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^refresh$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Armor self</name>
+				<script>weaving = weaving or {}
+
+if weaving.name then
+  send("channel 'armor' "..weaving.name)
+else
+  send("channel 'armor'")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^armor$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Armor another</name>
+				<script>send("channel 'armor' "..matches[2])</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^armor (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>WVD self</name>
+				<script>weaving = weaving or {}
+
+if weaving.name then
+  send("channel 'warding vs damage' "..weaving.name)
+else
+  send("channel 'warding vs damage'")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wvd$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

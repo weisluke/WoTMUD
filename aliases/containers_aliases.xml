@@ -16,9 +16,9 @@ container = container or {}
 
 if matches[3] then
   container.first = matches[4]
-  cecho("Container is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  cecho("Container is set as: &lt;gold&gt;" .. matches[4] .. "\n")
 elseif container.first then
-  cecho("Container is set as: &lt;gold&gt;" .. container.first .. "&lt;white&gt;.\n")
+  cecho("Container is set as: &lt;gold&gt;" .. container.first .. "\n")
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -46,9 +46,9 @@ drink = drink or {}
 
 if matches[3] then
   drink.first = matches[4]
-  cecho("drink is set as: &lt;gold&gt;" .. matches[4] .. "&lt;white&gt;.\n")
+  cecho("drink is set as: &lt;gold&gt;" .. matches[4] .. "\n")
 elseif drink.first then
-  cecho("Drink is set as: &lt;gold&gt;" .. drink.first .. "&lt;white&gt;.\n")
+  cecho("Drink is set as: &lt;gold&gt;" .. drink.first .. "\n")
 else
   cecho("&lt;red&gt;Drink not set!\n")
 end</script>

@@ -8,9 +8,9 @@
 
 if matches[3] then
   horse.first = matches[4]
-  cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+  cecho("Horse is set as: &lt;gold&gt;"..matches[4].."\n")
 elseif horse.first then
-  cecho("Horse is set as: &lt;gold&gt;"..horse.first.."&lt;white&gt;.\n")
+  cecho("Horse is set as: &lt;gold&gt;"..horse.first.."\n")
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -26,7 +26,7 @@ horse = horse or {}
 if matches[3] then
   if matches[4]~=horse.first then
     horse.first = matches[4]
-    cecho("Horse is set as: &lt;gold&gt;"..matches[4].."&lt;white&gt;.\n")
+    cecho("Horse is set as: &lt;gold&gt;"..matches[4].."\n")
   end
 end
 
@@ -142,6 +142,13 @@ cecho("&lt;red&gt;Horse deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^l(\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Diagnose number.horse</name>
+				<script>send("diagnose "..matches[2]..".horse")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^d(\d+)$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

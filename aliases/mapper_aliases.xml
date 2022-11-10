@@ -679,7 +679,8 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Show Possible Colors</name>
-					<script>openUrl("https://wiki.mudlet.org/images/c/c3/ShowColors.png")</script>
+					<script>--openUrl("https://wiki.mudlet.org/images/c/c3/ShowColors.png")
+showColors()</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^viewcolors$</regex>
@@ -800,38 +801,7 @@ end</script>
 					</Alias>
 					<Alias isActive="no" isFolder="no">
 						<name>Offline Map Look</name>
-						<script>if table.size(wotmudmapper.currentID) == 1 then
-  local newid = wotmudmapper.currentID[1]
-  centerview(newid)
-  cecho("&lt;ansi_cyan&gt;"..getRoomName(newid).."\n")
-  cecho(getRoomUserData(newid,"description"))
-  cecho("\n[ obvious exits: ")
-  local exits = {}
-  for k, v in pairs(getRoomExits(newid)) do
-      table.insert(exits,string.sub(k,1,1))
-  end
-  if getExitStubs(newid) then
-    for k, v in pairs(getExitStubs(newid)) do
-        table.insert(exits,string.sub(wotmudmapper.exitmap[v],1,1))
-    end  
-  end  
-  exits = table.n_intersection({"n","e","s","w","u","d"},exits)
-  for k,v in pairs(exits) do
-      cecho(v:upper().." ")
-  end
-  cecho("]")
-  if wotmudmapper.configs.showzone then
-    cecho("\n&lt;"..wotmudmapper.configs.zonecolor.."&gt;Zone: " .. getRoomUserData(wotmudmapper.currentID[1], "zone"))
-  end
-  for k, v in pairs(exits) do
-    if getRoomUserData(wotmudmapper.currentID[1], v) ~= "" then
-      cecho("\n&lt;"..wotmudmapper.configs.doorcolor.."&gt;Door " .. v .. ": &lt;white&gt;" .. getRoomUserData(wotmudmapper.currentID[1], v))
-    end
-  end
-  cecho("\n\n")  
-else
-  cecho("Room not known!")
-end</script>
+						<script>wotmudmapper:offline_move("l")</script>
 						<command></command>
 						<packageName></packageName>
 						<regex>^l$</regex>
@@ -858,6 +828,25 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 					<command></command>
 					<packageName></packageName>
 					<regex>^map speedwalk$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Map on/off</name>
+					<script>--syntax: map on OR map off
+--toggle whether the mapper should follow you
+
+wotmudmapper.configs.on = not wotmudmapper.configs.on
+wotmudmapper:echo("The mapper " .. (wotmudmapper.configs.on and "&lt;green&gt;will&lt;reset&gt;" or "&lt;red&gt;will not&lt;reset&gt;").." follow you.\n")
+table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+
+if wotmudmapper.configs.on then
+  enableTrigger("Mapper")
+  wotmudmapper.queue = List:new()
+else
+  disableTrigger("Mapper")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>(^map on$)|(^map off$)</regex>
 				</Alias>
 			</AliasGroup>
 			<Alias isActive="yes" isFolder="no">
@@ -1190,7 +1179,7 @@ if table.is_empty(foundrooms) then
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
   for k, v in pairs(foundrooms) do
-    centerview(k)
+    centerview(v)
   end
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)

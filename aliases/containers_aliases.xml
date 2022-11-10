@@ -46,7 +46,7 @@ drink = drink or {}
 
 if matches[3] then
   drink.first = matches[4]
-  cecho("drink is set as: &lt;gold&gt;" .. matches[4] .. "\n")
+  cecho("Drink is set as: &lt;gold&gt;" .. matches[4] .. "\n")
 elseif drink.first then
   cecho("Drink is set as: &lt;gold&gt;" .. drink.first .. "\n")
 else

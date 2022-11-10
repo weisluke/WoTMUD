@@ -127,7 +127,9 @@ practice_trainer:update_displays()</script>
 					<regexCodePropertyList />
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Warder Bond false</name>
-						<script>practice_trainer.char.warder_bond = false</script>
+						<script>practice_trainer.char.warder_bond = false
+
+practice_trainer:update_displays()</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -147,7 +149,9 @@ practice_trainer:update_displays()</script>
 					</Trigger>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Warder Bond true</name>
-						<script>practice_trainer.char.warder_bond = true</script>
+						<script>practice_trainer.char.warder_bond = true
+
+practice_trainer:update_displays()</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>

@@ -92,6 +92,7 @@ eq_trainer.char.wil = tonumber(matches[4])
 eq_trainer.char.dex = tonumber(matches[5])
 eq_trainer.char.con = tonumber(matches[6])
 
+eq_trainer:stat_stipulations()
 eq_trainer:update_displays()</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -168,6 +169,7 @@ else
 end
 eq_trainer.char.level = tonumber(matches[6])
 
+eq_trainer:rank_stipulations()
 eq_trainer:update_displays()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>

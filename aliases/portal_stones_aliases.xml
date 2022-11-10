@@ -27,7 +27,7 @@ if patterns[location] then
     send("put disc " .. container.first)
   end
 else
-  cecho("Unknown location. Locations are:\nSH, THR, IJ, MIRK, ALTARA, TREMALKING, PASSGATE, MAREDO, EVILBRAEM, RHUIDEAN\n")
+  cecho("Unknown location. Locations are:\nSH, THR, IJ, MIRK, ALTARA, TREMALKING, PASSGATE, MAREDO, EVILBRAEM\n")
 end</script>
 			<command></command>
 			<packageName></packageName>

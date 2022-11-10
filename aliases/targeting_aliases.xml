@@ -63,7 +63,7 @@ if targeting[index] then
   local color = colors[tgt] or "reset"
   
   targeting.currtgt = tgt
-  cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")  
+  cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
 else
   cecho("&lt;red&gt;Target "..index.." not set!\n")
 end</script>
@@ -214,14 +214,7 @@ else
   targeting.weaving=false
   cecho("PK method set to: bashing\n")
 end
-
-if targeting.charging then
-  status_bar.tab_settings["charge_pulses"].display = true
-  status_bar:show_status_bar(true)
-else
-  status_bar.tab_settings["charge_pulses"].display = false
-  status_bar:show_status_bar(true)
-end</script>
+</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^pkmode$</regex>
@@ -304,7 +297,8 @@ end</script>
 targeting=targeting or {}
 
 targeting.currtgt=nil
-cecho("&lt;red&gt;Current target deleted!\n")</script>
+cecho("&lt;red&gt;Current target deleted!\n")
+</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^deltgt$</regex>

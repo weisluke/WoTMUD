@@ -10,7 +10,7 @@
 			<Script isActive="yes" isFolder="no">
 				<name>Weave Trainer Initializations</name>
 				<packageName></packageName>
-				<script>weave_trainer = weave_trainer or {}
+				<script>weave_trainer = weave_trainer or {configs={}}
 weave_trainer.container =
   weave_trainer.container or
   Adjustable.Container:new(
@@ -91,6 +91,14 @@ weave_trainer.style_sheets.scrollable = [[
     border-radius: 3px;
   ]]
   
+weave_trainer.style_sheets.clickable = [[
+    background-color: gray;
+    border-width: 3px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 3px;
+  ]]
+  
 weave_trainer.style_sheets.clanned = [[
       background-color: white;
       border-width: 3px;
@@ -100,6 +108,70 @@ weave_trainer.style_sheets.clanned = [[
     ]]</script>
 				<eventHandlerList />
 			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Button creation functions</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Container parameters</name>
+					<packageName></packageName>
+					<script>function weave_trainer:container_params(name, x, y, w, h)
+  
+  return {
+    name = name,
+    x = x.."%",
+    y = y.."%",
+    width = w.."%",
+    height = h.."%",
+  }
+end
+
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Label parameters</name>
+					<packageName></packageName>
+					<script>function weave_trainer:label_params(name, x, y, w, h, msg, fg, bg)
+  msg = msg or ""
+  fg = fg or "black"
+  bg = bg or "white"
+  
+  return {
+    name = name,
+    x = x.."%",
+    y = y.."%",
+    width = w.."%",
+    height = h.."%",
+    fgColor = fg,
+    color = bg,
+    message = [[&lt;center&gt;]] .. msg .. [[&lt;/center&gt;]],
+  }
+end
+
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Command line parameters</name>
+					<packageName></packageName>
+					<script>function weave_trainer:command_line_params(name, x, y, w, h)
+
+  return {
+    name = name,
+    x = x.."%",
+    y = y.."%",
+    width = w.."%",
+    height = h.."%",
+    stylesheet = "border: 1px solid silver;"
+  }
+end
+
+</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
 				<name>Practices</name>
 				<packageName></packageName>
@@ -298,54 +370,52 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Info Label</name>
 				<packageName></packageName>
-				<script>weave_trainer.info =
-  weave_trainer.info or
+				<script>local label_name = "info_label"
+local w = 32
+local h = 30
+local x = 0
+local y = 70
+
+weave_trainer[label_name] =
+  weave_trainer[label_name] or
   Geyser.Label:new(
-    {
-      name = "weave_trainer.info",
-      x = "0%",
-      y = "70%",
-      width = "32%",
-      height = "30%",
-      fgColor = "black",
-      color = "white",
-    },
+    weave_trainer:label_params("weave_trainer."..label_name, x, y, w, h),
     weave_trainer.container
   )
-weave_trainer.info:setFontSize(10)
-weave_trainer.info:setStyleSheet([[
+weave_trainer[label_name]:setFontSize(10)
+weave_trainer[label_name]:setStyleSheet([[
   qproperty-wordWrap: true;
 ]])
-weave_trainer.info:echo(
+weave_trainer[label_name]:echo(
   [[
-Click the green "+" buttons to increment a practice, int, or rank.&lt;br&gt;
-Click the red "-" buttons to decrement a practice, int, or rank.&lt;br&gt;
-Scroll with your mouse on the gray practice, int, or rank value boxes to increment and decrement.&lt;br&gt;
-Weaves with black borders can only be practiced by clanned characters.&lt;br&gt;
-Rank 1 dreadlord = Rank 4 human/seanchan.&lt;br&gt;
-Practice setups can be saved or loaded using the input bars to the right.&lt;br&gt;
-Type "wtrainer setups" to view saved setups.
-]]
+  Click the green "+" buttons to increment a practice, int, or rank.&lt;br&gt;
+  Click the red "-" buttons to decrement a practice, int, or rank.&lt;br&gt;
+  Scroll with your mouse on the gray practice, int, or rank value boxes to increment and decrement.&lt;br&gt;
+  Weaves with black borders can only be practiced by clanned characters.&lt;br&gt;
+  Rank 1 dreadlord = Rank 4 human/seanchan.&lt;br&gt;
+  Practice setups can be saved or loaded using the input bars to the right.&lt;br&gt;
+  Type "wtrainer setups" to view saved setups.
+  ]]
 )</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>Reset Pracs</name>
 				<packageName></packageName>
-				<script>weave_trainer["reset_pracs_label"] =
-  weave_trainer["reset_pracs_label"] or
+				<script>local label_name = "reset_pracs_label"
+local w = 10
+local h = 5
+local x = 90
+local y = 83
+
+weave_trainer[label_name] =
+  weave_trainer[label_name] or
   Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.reset_pracs_label", 90, 83, 10, 5, "Reset"),
+    weave_trainer:label_params("weave_trainer."..label_name, x, y, w, h, "Reset"),
     weave_trainer.container
   )
-weave_trainer["reset_pracs_label"]:setStyleSheet([[
-  background-color: gray;
-  border-width: 3px;
-  border-style: solid;
-  border-color: gray;
-  border-radius: 3px;
-]]) 
-weave_trainer["reset_pracs_label"]:setClickCallback("weave_trainer:reset_pracs")
+weave_trainer[label_name]:setStyleSheet(weave_trainer.style_sheets.clickable) 
+weave_trainer[label_name]:setClickCallback("weave_trainer:reset_pracs")
 
 function weave_trainer:reset_pracs()
   for _, element in pairs(self.pracs.elements) do
@@ -362,29 +432,6 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Button creation functions</name>
-				<packageName></packageName>
-				<script></script>
-				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Label parameters</name>
-					<packageName></packageName>
-					<script>function weave_trainer:label_params(name, x, y, w, h, msg)
-  return {
-    name = name,
-    x = x.."%",
-    y = y.."%",
-    width = w.."%",
-    height = h.."%",
-    fgColor = "black",
-    color = "white",
-    message = [[&lt;center&gt;]] .. msg .. [[&lt;/center&gt;]],
-  }
-end</script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Save and Load File</name>
 				<packageName></packageName>
 				<script></script>
@@ -393,51 +440,57 @@ end</script>
 					<name>Save and Load file</name>
 					<packageName></packageName>
 					<script>weave_trainer.file = weave_trainer.file or {}
-weave_trainer.file.save_label =
-  weave_trainer.file.save_label or
+
+local label_name = "save_label"
+local w = 30
+local h = 5
+local x = 32
+local y = 90
+
+
+weave_trainer.file[label_name] =
+  weave_trainer.file[label_name] or
   Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.file.save_label", 32, 90, 30, 5, "Type filename and press enter to save:"),
+    weave_trainer:label_params("weave_trainer.file."..label_name, x, y, w, h, "Type filename and press enter to save:"),
     weave_trainer.container
   )
-weave_trainer.file.save_name =
-  weave_trainer.file.save_name or
+
+x = x + w
+w = 38
+label_name = "save_name"
+weave_trainer.file[label_name] =
+  weave_trainer.file[label_name] or
   Geyser.CommandLine:new(
-    {
-      name = "weave_trainer.file.save_name",
-      x = "62%",
-      y = "90%",
-      width = "38%",
-      height = "5%",
-      stylesheet = "border: 1px solid silver;",
-    },
+    weave_trainer:command_line_params("weave_trainer.file."..label_name, x, y, w, h),
     weave_trainer.container
   )
-weave_trainer.file.save_name:setAction(
+weave_trainer.file[label_name]:setAction(
   function(commandLineInput)
     weave_trainer:save_pracs(commandLineInput)
   end
 )
 
-weave_trainer.file.load_label =
-  weave_trainer.file.load_label or
+w = 30
+x = 32
+y = y + h
+label_name = "load_label"
+weave_trainer.file[label_name] =
+  weave_trainer.file[label_name] or
   Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.file.load_label", 32, 95, 30, 5, "Type filename and press enter to load:"),
+    weave_trainer:label_params("weave_trainer.file."..label_name, x, y, w, h, "Type filename and press enter to load:"),
     weave_trainer.container
   )
-weave_trainer.file.load_name =
-  weave_trainer.file.load_name  or
+
+x = x + w
+w = 38
+label_name = "load_name"
+weave_trainer.file[label_name] =
+  weave_trainer.file[label_name]  or
   Geyser.CommandLine:new(
-    {
-      name = "weave_trainer.file.load_name",
-      x = "62%",
-      y = "95%",
-      width = "38%",
-      height = "5%",
-      stylesheet = "border: 1px solid silver;",
-    },
+    weave_trainer:command_line_params("weave_trainer.file."..label_name, x, y, w, h),
     weave_trainer.container
   )
-weave_trainer.file.load_name:setAction(
+weave_trainer.file[label_name]:setAction(
   function(commandLineInput)
     weave_trainer:load_pracs(commandLineInput)
     weave_trainer:update_displays()
@@ -799,28 +852,33 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Weave Practice Displays</name>
 					<packageName></packageName>
-					<script>weave_trainer.weaves["container1"] =
-  weave_trainer.weaves["container1"] or
-  Geyser.Container:new(
-    {name = "weave_trainer.weaves.container1", x = "0%", y = "0%", width = "32%", height = "80%"},
-    weave_trainer.container
-  )
-weave_trainer.weaves["container2"] =
-  weave_trainer.weaves["container2"] or
-  Geyser.Container:new(
-    {name = "weave_trainer.weaves.container2", x = "34%", y = "0%", width = "32%", height = "80%"},
-    weave_trainer.container
-  )
-weave_trainer.weaves["container3"] =
-  weave_trainer.weaves["container3"] or
-  Geyser.Container:new(
-    {name = "weave_trainer.weaves.container3", x = "68%", y = "0%", width = "32%", height = "80%"},
-    weave_trainer.container
-  )
+					<script>for k = 1, 3, 1 do
+  local label_name = "container"..k
+  local w = 32
+  local h = 80
+  local x = (k - 1) * (w + 2)
+  local y = 0
+  
+  weave_trainer.weaves[label_name] = 
+    weave_trainer.weaves[label_name] or
+    Geyser.Container:new(
+      weave_trainer:container_params("weave_trainer.weaves."..label_name, x, y, w, h),
+      weave_trainer.container
+    )
+end
+
+local weaves_per_container = math.floor(table.size(weave_trainer.pracs.weaves) / 3)
+
+
 for k, weave in pairs(weave_trainer.pracs.weaves) do
+  local container_num = math.floor((k - 1) / weaves_per_container) + 1
+  local container = "container"..container_num
+  
   local label_name = ""
-  local container_num = math.floor((k - 1) / 17) + 1
-  local y = ((k - 1) % 17) * 5
+  local w = 65
+  local h = 5
+  local x = 0
+  local y = ((k - 1) % weaves_per_container) * 5
   
   local lbl_msg = "&lt;center&gt;" .. weave .. " ( "
   for _, wtype in pairs(weave_trainer.pracs.elements) do
@@ -835,41 +893,46 @@ for k, weave in pairs(weave_trainer.pracs.weaves) do
   weave_trainer.weaves[label_name] =
     weave_trainer.weaves[label_name] or
     Geyser.Label:new(
-      weave_trainer:label_params("weave_trainer.weaves." .. label_name, 0, y, 70, 5, lbl_msg),
-      weave_trainer.weaves["container" .. container_num]
+      weave_trainer:label_params("weave_trainer.weaves." .. label_name, x, y, w, h, lbl_msg),
+      weave_trainer.weaves[container]
     )
   if table.contains(weave_trainer.pracs.clanned, weave) then
     weave_trainer.weaves[label_name]:setStyleSheet(weave_trainer.style_sheets.clanned)
   end
   
+  x = x + w
+  w = 15
   label_name = weave.."_%_label"
   weave_trainer.weaves[label_name] =
     weave_trainer.weaves[label_name] or
     Geyser.Label:new(
-      weave_trainer:label_params("weave_trainer.weaves." .. label_name, 65, y, 15, 5, weave_trainer.weaves.pracs[weave].."%"),
-      weave_trainer.weaves["container" .. container_num]
+      weave_trainer:label_params("weave_trainer.weaves." .. label_name, x, y, w, h, weave_trainer.weaves.pracs[weave].."%"),
+      weave_trainer.weaves[container]
     )
   weave_trainer.weaves[label_name]:setStyleSheet(weave_trainer.style_sheets.scrollable)
   setLabelWheelCallback(
     "weave_trainer.weaves." ..label_name, "weave_trainer:practice_scroll", weave
   )
   
+  x = x + w
+  w = 10
   label_name = weave.."_-_label"
   weave_trainer.weaves[label_name] =
     weave_trainer.weaves[label_name] or
     Geyser.Label:new(
-      weave_trainer:label_params("weave_trainer.weaves." .. label_name, 80, y, 10, 5, "-"),
-      weave_trainer.weaves["container" .. container_num]
+      weave_trainer:label_params("weave_trainer.weaves." .. label_name, x, y, w, h, "-"),
+      weave_trainer.weaves[container]
     )
   weave_trainer.weaves[label_name]:setStyleSheet(weave_trainer.style_sheets.minus)
   weave_trainer.weaves[label_name]:setClickCallback("weave_trainer:subtract_practice", weave)
   
+  x = x + w
   label_name = weave.."_+_label"
   weave_trainer.weaves[label_name] =
     weave_trainer.weaves[label_name] or
     Geyser.Label:new(
-      weave_trainer:label_params("weave_trainer.weaves." .. label_name, 90, y, 10, 5, "+"),
-      weave_trainer.weaves["container" .. container_num]
+      weave_trainer:label_params("weave_trainer.weaves." .. label_name, x, y, w, h, "+"),
+      weave_trainer.weaves[container]
     )
   weave_trainer.weaves[label_name]:setStyleSheet(weave_trainer.style_sheets.plus)
   weave_trainer.weaves[label_name]:setClickCallback("weave_trainer:add_practice", weave)
@@ -888,7 +951,10 @@ end</script>
   
 for k, element in pairs(weave_trainer.pracs.elements) do
   local label_name = ""
+  local w = 6
+  local h = 100
   local x = (k - 1) * 20
+  local y = 0
   
   label_name = element.."_label"
   weave_trainer.elements[label_name] =
@@ -897,22 +963,26 @@ for k, element in pairs(weave_trainer.pracs.elements) do
       weave_trainer:label_params("weave_trainer.elements."..label_name, x, 0, 6, 100, element),
       weave_trainer.elements.container
     )
-    
+  
+  x = x + w
+  w = 5
   label_name = element.."_val_label"
   weave_trainer.elements[label_name] =
     weave_trainer.elements[label_name] or
     Geyser.Label:new(
-      weave_trainer:label_params("weave_trainer.elements."..label_name, x+6, 0, 5, 100, weave_trainer.elements.pracs[element]),
+      weave_trainer:label_params("weave_trainer.elements."..label_name, x, y, w, h, weave_trainer.elements.pracs[element]),
       weave_trainer.elements.container
     )
   weave_trainer.elements[label_name]:setStyleSheet(weave_trainer.style_sheets.scrollable)
   setLabelWheelCallback("weave_trainer.elements."..label_name, "weave_trainer:element_scroll", element)
   
+  x = x + w
+  w = 4
   label_name = element.."_-_label"
   weave_trainer.elements[label_name] =
     weave_trainer.elements[label_name] or
     Geyser.Label:new(
-      weave_trainer:label_params("weave_trainer.elements."..label_name, x+11, 0, 4, 100, "-"),
+      weave_trainer:label_params("weave_trainer.elements."..label_name, x, y, w, h, "-"),
       weave_trainer.elements.container
     )
   weave_trainer.elements[label_name]:setStyleSheet(weave_trainer.style_sheets.minus)
@@ -920,11 +990,12 @@ for k, element in pairs(weave_trainer.pracs.elements) do
     "weave_trainer:subtract_element", element
   )
   
+  x = x + w
   label_name = element.."_+_label"
   weave_trainer.elements[label_name] =
     weave_trainer.elements[label_name] or
     Geyser.Label:new(
-      weave_trainer:label_params("weave_trainer.elements."..label_name, x+15, 0, 4, 100, "+"),
+      weave_trainer:label_params("weave_trainer.elements."..label_name, x, y, w, h, "+"),
       weave_trainer.elements.container
     )
   weave_trainer.elements[label_name]:setStyleSheet(weave_trainer.style_sheets.plus)
@@ -935,108 +1006,87 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Character Stats Displays</name>
 					<packageName></packageName>
-					<script>local label_name = ""
-
-weave_trainer.char.container =
+					<script>weave_trainer.char.container =
   weave_trainer.char.container or
   Geyser.Container:new(
-    {name = "weave_trainer.char.container", x = "34%", y = "83%", width = "56%", height = "5%"},
+    weave_trainer:container_params("weave_trainer.char.container", 34, 83, 56, 5),
     weave_trainer.container
   )
   
+for k, field in pairs({"int", "rank"}) do
+  local label_name = ""
+  local w = 6
+  local h = 100
+  local x = (k - 1) * 20
+  local y = 0
   
-label_name = "int_label"
-weave_trainer.char[label_name] =
-  weave_trainer.char[label_name] or
-  Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.char."..label_name, 0, 0, 6, 100, "int"),
-    weave_trainer.char.container
-  )
   
-label_name = "int_val_label"
-weave_trainer.char[label_name] =
-  weave_trainer.char[label_name] or
-  Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.char."..label_name, 6, 0, 5, 100, weave_trainer.char.int),
-    weave_trainer.char.container
-  )
-weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.scrollable)
-setLabelWheelCallback("weave_trainer.char."..label_name, "weave_trainer:int_scroll")
-
-label_name = "int_-_label"
-weave_trainer.char[label_name] =
-  weave_trainer.char[label_name] or
-  Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.char."..label_name, 11, 0, 4, 100, "-"),
-    weave_trainer.char.container
-  )
-weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.minus)
-weave_trainer.char[label_name]:setClickCallback("weave_trainer:subtract_int")
-
-label_name = "int_+_label"
-weave_trainer.char[label_name] =
-  weave_trainer.char[label_name] or
-  Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.char."..label_name, 15, 0, 4, 100, "+"),
-    weave_trainer.char.container
-  )
-weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.plus)
-weave_trainer.char[label_name]:setClickCallback("weave_trainer:add_int")
-
-
-label_name = "rank_label"
-weave_trainer.char[label_name] =
-  weave_trainer.char[label_name] or
-  Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.char."..label_name, 19, 0, 6, 100, "rank"),
-    weave_trainer.char.container
-  )
-
-label_name = "rank_val_label"
-weave_trainer.char[label_name] =
-  weave_trainer.char[label_name] or
-  Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.char."..label_name, 25, 0, 5, 100, weave_trainer.char.rank),
-    weave_trainer.char.container
-  )
-weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.scrollable)
-setLabelWheelCallback("weave_trainer.char."..label_name, "weave_trainer:rank_scroll")
-
-label_name = "rank_-_label"
-weave_trainer.char[label_name] =
-  weave_trainer.char[label_name] or
-  Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.char."..label_name, 30, 0, 4, 100, "-"),
-    weave_trainer.char.container
-  )
-weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.minus)
-weave_trainer.char[label_name]:setClickCallback("weave_trainer:subtract_rank")
-
-label_name = "rank_+_label"
-weave_trainer.char[label_name] =
-  weave_trainer.char[label_name] or
-  Geyser.Label:new(
-    weave_trainer:label_params("weave_trainer.char."..label_name, 34, 0, 4, 100, "+"),
-    weave_trainer.char.container
-  )
-weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.plus)
-weave_trainer.char[label_name]:setClickCallback("weave_trainer:add_rank")</script>
+  label_name = field.."_label"
+  weave_trainer.char[label_name] =
+    weave_trainer.char[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params("weave_trainer.char."..label_name, x, y, w, h, field),
+      weave_trainer.char.container
+    )
+  
+  x = x + w
+  w = 5
+  label_name = field.."_val_label"
+  weave_trainer.char[label_name] =
+    weave_trainer.char[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params("weave_trainer.char."..label_name, x, y, w, h, weave_trainer.char[field]),
+      weave_trainer.char.container
+    )
+  weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.scrollable)
+  setLabelWheelCallback("weave_trainer.char."..label_name, "weave_trainer:"..field.."_scroll")
+  
+  x = x + w
+  w = 4
+  label_name = field.."_-_label"
+  weave_trainer.char[label_name] =
+    weave_trainer.char[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params("weave_trainer.char."..label_name, x, y, w, h, "-"),
+      weave_trainer.char.container
+    )
+  weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.minus)
+  weave_trainer.char[label_name]:setClickCallback("weave_trainer:subtract_"..field)
+  
+  x = x + w
+  label_name = "int_+_label"
+  weave_trainer.char[label_name] =
+    weave_trainer.char[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params("weave_trainer.char."..label_name, x, y, w, h, "+"),
+      weave_trainer.char.container
+    )
+  weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.plus)
+  weave_trainer.char[label_name]:setClickCallback("weave_trainer:add_"..field)
+  
+end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>Total Practice and Level Displays</name>
 					<packageName></packageName>
-					<script>weave_trainer.char["total_pracs_label"] =
+					<script>local w = 26
+local h = 100
+local x = 38
+local y = 0
+
+weave_trainer.char["total_pracs_label"] =
     weave_trainer.char["total_pracs_label"] or
     Geyser.Label:new(
-      weave_trainer:label_params("weave_trainer.char.total_pracs_label", 38, 0, 26, 100, "Practices required: "..weave_trainer:get_total_pracs()),
+      weave_trainer:label_params("weave_trainer.char.total_pracs_label", x, y, w, h, "Practices required: "..weave_trainer:get_total_pracs()),
       weave_trainer.char.container
     )
-    
+
+x = x + w
 weave_trainer.char["level_label"] =
     weave_trainer.char["level_label"] or
     Geyser.Label:new(
-      weave_trainer:label_params("weave_trainer.char.level_label", 64, 0, 26, 100, "Levels required: "..weave_trainer:pracs_to_level()),
+      weave_trainer:label_params("weave_trainer.char.level_label", x, y, w, h, "Levels required: "..weave_trainer:pracs_to_level()),
       weave_trainer.char.container
     )
 </script>
@@ -1046,7 +1096,12 @@ weave_trainer.char["level_label"] =
 			<Script isActive="yes" isFolder="no">
 				<name>Update Displays</name>
 				<packageName></packageName>
-				<script>function weave_trainer:update_element_display()
+				<script>function weave_trainer:update_int_rank_display()
+  self.char["int_val_label"]:echo("&lt;center&gt;" .. self.char.int)
+  self.char["rank_val_label"]:echo("&lt;center&gt;" .. self.char.rank)
+end
+
+function weave_trainer:update_element_display()
   for _, element in pairs(self.pracs.elements) do
     self.elements[element .. "_val_label"]:echo("&lt;center&gt;" .. self.elements.pracs[element])
   end
@@ -1068,11 +1123,6 @@ end
 
 function weave_trainer:update_levels_display()
   self.char["level_label"]:echo("&lt;center&gt;Levels required: " .. self:pracs_to_level())
-end
-
-function weave_trainer:update_int_rank_display()
-  self.char["int_val_label"]:echo("&lt;center&gt;" .. self.char.int)
-  self.char["rank_val_label"]:echo("&lt;center&gt;" .. self.char.rank)
 end
 
 function weave_trainer:update_displays()

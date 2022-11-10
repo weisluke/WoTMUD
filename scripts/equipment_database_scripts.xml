@@ -43,7 +43,7 @@ end</script>
 				<name>Database creation</name>
 				<packageName></packageName>
 				<script>equip_db.eq_fields = {
-    weapons = {"name", "weapon_type", "ob", "pb", "dmg", "weight", "dmg_type"},
+    weapons = {"name", "hands", "weapon_type", "ob", "pb", "dmg", "weight", "dmg_type"},
     armor = {"name", "eq_slot", "db", "pb", "mvs", "abs", "weight", "setup"},
     trinkets = {"name", "eq_slot", "db", "pb", "mvs", "weight", "setup"}
   }
@@ -55,6 +55,7 @@ function equip_db:create_db()
       weapons =
         {
           name = "",
+          hands = 0,
           weapon_type = "",
           ob = 0,
           pb = 0,
@@ -131,7 +132,7 @@ equip_db:create_db()</script>
             Valid trinket slots: finger, neck, wrist, cloak, belt, sheath
         &lt;yellow&gt;edb (armor|trinkets) setup xxx yyy&lt;reset&gt; - Set the setup for an item
         &lt;yellow&gt;edb force (armor|trinkets) setup xxx yyy&lt;reset&gt; - Force the setup
-        &lt;yellow&gt;edb move (armor|trinkets) xxx (armor|trinkets)&lt;reset&gt; - Move an item from
+        &lt;yellow&gt;edb move (armor|trinkets) name xxx (armor|trinkets)&lt;reset&gt; - Move an item from
             one sheet to another
         
         &lt;yellow&gt;edb delete&lt;reset&gt; - Delete the entire database. &lt;red&gt;USE WITH CAUTION!&lt;reset&gt;
@@ -171,6 +172,11 @@ end</script>
   
   local items = {}
   
+  --need to loop over all sheets, as some items don't display stats
+  --present in their sheet
+  --e.g., a camouflaged hood doesn't have any abs, so it would register
+  --as a trinket. we don't want to create a new trinket item every time
+  --we examine the hood, we want to update the one that already exists
   for _, sheet in pairs(table.keys(self.eq_fields)) do
     local tab
     if exact_name then
@@ -236,37 +242,43 @@ registerAnonymousEventHandler("sysDownloadDone", "equip_db:db_update")</script>
 					<script>local function sort_weapons(e1, e2)
   --sort first by weapon type, then ob, then pb, then dmg
 
-  if e1.weapon_type &gt; e2.weapon_type then
+  if e1.weapon_type &lt; e2.weapon_type then
     return true
-  elseif e1.weapon_type &lt; e2.weapon_type then
+  elseif e1.weapon_type &gt; e2.weapon_type then
     return false
   else
-    if e1.ob &gt; e2.ob then
+    if e1.hands &gt; e2.hands then
       return true
-    elseif e1.ob &lt; e2.ob then
+    elseif e1.hands &lt; e2.hands then
       return false
     else
-      if e1.pb &gt; e2.pb then
+      if e1.ob &gt; e2.ob then
         return true
-      elseif e1.pb &lt; e2.pb then
+      elseif e1.ob &lt; e2.ob then
         return false
       else
-        local dmg1 = e1.dmg
-        local dmg2 = e2.dmg
-        
-        local x1 = dmg1:match("(%d+)d%d+")
-        local y1 = dmg1:match("%d+d(%d+)")
-        
-        local x2 = dmg2:match("(%d+)d%d+")
-        local y2 = dmg2:match("%d+d(%d+)")
-        
-        if x1*(y1 + 1)/2 &gt; x2*(y2 + 1)/2 then
+        if e1.pb &gt; e2.pb then
           return true
-        elseif x1*(y1 + 1)/2 &lt; x2*(y2 + 1)/2 then
+        elseif e1.pb &lt; e2.pb then
           return false
         else
-          return true
-        end      
+          local dmg1 = e1.dmg
+          local dmg2 = e2.dmg
+          
+          local x1 = dmg1:match("(%d+)d%d+")
+          local y1 = dmg1:match("%d+d(%d+)")
+          
+          local x2 = dmg2:match("(%d+)d%d+")
+          local y2 = dmg2:match("%d+d(%d+)")
+          
+          if x1*(y1 + 1)/2 &gt; x2*(y2 + 1)/2 then
+            return true
+          elseif x1*(y1 + 1)/2 &lt; x2*(y2 + 1)/2 then
+            return false
+          else
+            return true
+          end      
+        end
       end
     end
   end
@@ -561,20 +573,21 @@ end</script>
     self:echo("No weapons found in the equipment database.\n", false, true)
   else
     cecho("WEAPONS\n\n")
-    local msg_format = "%-40s%s%-25s%-5s%-5s%-7s%-6s%-9s\n"
-    cecho(string.format(msg_format, "Name", "", "Weapon Type", "OB", "PB", "Dmg", "Wt", "Dmg Type"))    
+    local msg_format = "%-45s%s%-7s%-15s%-5s%-5s%-7s%-6s%-9s\n"
+    cecho(string.format(msg_format, "Name", "", "Hands", "Weapon Type", "OB", "PB", "Dmg", "Wt", "Dmg Type"))    
     
     for _, item in pairs(weapons) do
     
-      if string.len(item.name) &lt; 40 then
-        msg_format = "%-40s%s%-25s%-5s%-5s%-7s%-6s%-9s\n"
+      if string.len(item.name) &lt; 45 then
+        msg_format = "%-45s%s%-7s%-15s%-5s%-5s%-7s%-6s%-9s\n"
       else
-        msg_format = "%-40s\n%-40s%-25s%-5s%-5s%-7s%-6s%-9s\n"
+        msg_format = "%-45s\n%-45s%-7s%-15s%-5s%-5s%-7s%-6s%-9s\n"
       end
       
       local msg = string.format(msg_format, 
         item.name,
         "",
+        item.hands,
         item.weapon_type,
         item.ob, 
         item.pb,

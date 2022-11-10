@@ -10,7 +10,7 @@
 			<Script isActive="yes" isFolder="no">
 				<name>Practice Trainer Initializations</name>
 				<packageName></packageName>
-				<script>practice_trainer = practice_trainer or {}
+				<script>practice_trainer = practice_trainer or {configs = {}}
 practice_trainer.container =
   practice_trainer.container or
   Adjustable.Container:new(
@@ -98,9 +98,80 @@ practice_trainer.style_sheets.scrollable = [[
     border-style: solid;
     border-color: gray;
     border-radius: 3px;
+  ]]
+  
+practice_trainer.style_sheets.clickable = [[
+    background-color: gray;
+    border-width: 3px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 3px;
   ]]</script>
 				<eventHandlerList />
 			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Button creation functions</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>Container parameters</name>
+					<packageName></packageName>
+					<script>function practice_trainer:container_params(name, x, y, w, h)
+  
+  return {
+    name = name,
+    x = x.."%",
+    y = y.."%",
+    width = w.."%",
+    height = h.."%",
+  }
+end
+
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Label parameters</name>
+					<packageName></packageName>
+					<script>function practice_trainer:label_params(name, x, y, w, h, msg, fg, bg)
+  msg = msg or ""
+  fg = fg or "black"
+  bg = bg or "white"
+  
+  return {
+    name = name,
+    x = x.."%",
+    y = y.."%",
+    width = w.."%",
+    height = h.."%",
+    fgColor = fg,
+    color = bg,
+    message = [[&lt;center&gt;]] .. msg .. [[&lt;/center&gt;]],
+  }
+end
+
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Command line parameters</name>
+					<packageName></packageName>
+					<script>function practice_trainer:command_line_params(name, x, y, w, h, msg)
+  return {
+    name = name,
+    x = x.."%",
+    y = y.."%",
+    width = w.."%",
+    height = h.."%",
+    stylesheet = "border: 1px solid silver;",
+  }
+end
+
+</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
 				<name>Practices</name>
 				<packageName></packageName>
@@ -224,52 +295,50 @@ end</script>
 			<Script isActive="yes" isFolder="no">
 				<name>Info Label</name>
 				<packageName></packageName>
-				<script>practice_trainer.info =
-  practice_trainer.info or
+				<script>local label_name = "info_label"
+local w = 50
+local h = 26
+local x = 25
+local y = 62
+
+practice_trainer[label_name] =
+  practice_trainer[label_name] or
   Geyser.Label:new(
-    {
-      name = "practice_trainer.info",
-      x = "25%",
-      y = "62%",
-      width = "50%",
-      height = "26%",
-      fgColor = "black",
-      color = "white",
-    },
+    practice_trainer:label_params("practice_trainer."..label_name, x, y, w, h),
     practice_trainer.container
   )
-practice_trainer.info:setFontSize(10)
-practice_trainer.info:setStyleSheet([[
+practice_trainer[label_name]:setFontSize(10)
+practice_trainer[label_name]:setStyleSheet([[
   qproperty-wordWrap: true;
 ]])
-practice_trainer.info:echo(
+practice_trainer[label_name]:echo(
   [[
-Click the green "+" buttons to increment a practice, stat, sex, race, or class.&lt;br&gt;
-Click the red "-" buttons to decrement a practice, stat, sex, race, or class.&lt;br&gt;
-Scroll with your mouse on the gray practice, stat, sex, race, or class value boxes to increment and decrement.&lt;br&gt;
-Practice setups can be saved or loaded using the input bars below.&lt;br&gt;
-Type "ptrainer setups" to view saved setups.
-]]
+  Click the green "+" buttons to increment a practice, stat, sex, race, or class.&lt;br&gt;
+  Click the red "-" buttons to decrement a practice, stat, sex, race, or class.&lt;br&gt;
+  Scroll with your mouse on the gray practice, stat, sex, race, or class value boxes to increment and decrement.&lt;br&gt;
+  Practice setups can be saved or loaded using the input bars below.&lt;br&gt;
+  Type "ptrainer setups" to view saved setups.
+  ]]
 )</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>Reset Pracs</name>
 				<packageName></packageName>
-				<script>practice_trainer["reset_pracs_label"] =
-  practice_trainer["reset_pracs_label"] or
+				<script>local label_name = "reset_pracs_label"
+local w = 10
+local h = 5
+local x = 90
+local y = 65
+
+practice_trainer[label_name] =
+  practice_trainer[label_name] or
   Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.reset_pracs_label", 90, 65, 10, 5, "Reset"),
+    practice_trainer:label_params("practice_trainer."..label_name, x, y, w, h, "Reset"),
     practice_trainer.container
   )
-practice_trainer["reset_pracs_label"]:setStyleSheet([[
-  background-color: gray;
-  border-width: 3px;
-  border-style: solid;
-  border-color: gray;
-  border-radius: 3px;
-]]) 
-practice_trainer["reset_pracs_label"]:setClickCallback("practice_trainer:reset_pracs")
+practice_trainer[label_name]:setStyleSheet(practice_trainer.style_sheets.clickable) 
+practice_trainer[label_name]:setClickCallback("practice_trainer:reset_pracs")
 
 function practice_trainer:reset_pracs()
   for _, class in pairs(self.pracs.classes) do
@@ -286,29 +355,6 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
-				<name>Button creation functions</name>
-				<packageName></packageName>
-				<script></script>
-				<eventHandlerList />
-				<Script isActive="yes" isFolder="no">
-					<name>Label parameters</name>
-					<packageName></packageName>
-					<script>function practice_trainer:label_params(name, x, y, w, h, msg)
-  return {
-    name = name,
-    x = x.."%",
-    y = y.."%",
-    width = w.."%",
-    height = h.."%",
-    fgColor = "black",
-    color = "white",
-    message = [[&lt;center&gt;]] .. msg .. [[&lt;/center&gt;]],
-  }
-end</script>
-					<eventHandlerList />
-				</Script>
-			</ScriptGroup>
-			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Save and Load File</name>
 				<packageName></packageName>
 				<script></script>
@@ -317,51 +363,57 @@ end</script>
 					<name>Save and Load file</name>
 					<packageName></packageName>
 					<script>practice_trainer.file = practice_trainer.file or {}
-practice_trainer.file.save_label =
-  practice_trainer.file.save_label or
+
+local label_name = "save_label"
+local w = 30
+local h = 5
+local x = 32
+local y = 90
+
+
+practice_trainer.file[label_name] =
+  practice_trainer.file[label_name] or
   Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.file.save_label", 32, 90, 30, 5, "Type filename and press enter to save:"),
+    practice_trainer:label_params("practice_trainer.file."..label_name, x, y, w, h, "Type filename and press enter to save:"),
     practice_trainer.container
   )
-practice_trainer.file.save_name =
-  practice_trainer.file.save_name or
+  
+x = x + w
+w = 38
+label_name = "save_name"
+practice_trainer.file[label_name] =
+  practice_trainer.file[label_name] or
   Geyser.CommandLine:new(
-    {
-      name = "practice_trainer.file.save_name",
-      x = "62%",
-      y = "90%",
-      width = "38%",
-      height = "5%",
-      stylesheet = "border: 1px solid silver;",
-    },
+    practice_trainer:command_line_params("practice_trainer.file."..label_name, x, y, w, h),
     practice_trainer.container
   )
-practice_trainer.file.save_name:setAction(
+practice_trainer.file[label_name]:setAction(
   function(commandLineInput)
     practice_trainer:save_pracs(commandLineInput)
   end
 )
 
-practice_trainer.file.load_label =
-  practice_trainer.file.load_label or
+w = 30
+x = 32
+y = y + h
+label_name = "load_label"
+practice_trainer.file[label_name] =
+  practice_trainer.file[label_name] or
   Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.file.load_label", 32, 95, 30, 5, "Type filename and press enter to load:"),
+    practice_trainer:label_params("practice_trainer.file."..label_name, x, y, w, h, "Type filename and press enter to load:"),
     practice_trainer.container
   )
-practice_trainer.file.load_name =
-  practice_trainer.file.load_name  or
+
+x = x + w
+w = 38
+label_name = "load_name"
+practice_trainer.file[label_name] =
+  practice_trainer.file[label_name]  or
   Geyser.CommandLine:new(
-    {
-      name = "practice_trainer.file.load_name",
-      x = "62%",
-      y = "95%",
-      width = "38%",
-      height = "5%",
-      stylesheet = "border: 1px solid silver;",
-    },
+    practice_trainer:command_line_params("practice_trainer.file.load_name", x, y, w, h),
     practice_trainer.container
   )
-practice_trainer.file.load_name:setAction(
+practice_trainer.file[label_name]:setAction(
   function(commandLineInput)
     practice_trainer:load_pracs(commandLineInput)
     practice_trainer:update_displays()
@@ -537,8 +589,8 @@ end</script>
 					<packageName></packageName>
 					<script>function practice_trainer:sex_stipulations()
   if
-    self.char.class == "channeler" and
     self.char.sex == "male" and
+    self.char.class == "channeler" and
     not (self.char.race == "human" or self.char.race == "dreadlord")
   then
     self.char.class = "warrior"
@@ -586,6 +638,7 @@ end</script>
   elseif self.char.class == "fade" then
     self.char.class = "warrior"
   end
+  
   if self.char.race == "trolloc" then
     while table.contains(self.pracs.queue,"ride") do
       self:subtract_practice("hunter", "ride")
@@ -598,6 +651,7 @@ end</script>
       self.char.str = 19
     end
   end
+  
   if self.char.race ~= "fade" then
     for _, prac in pairs(self.pracs.fade) do
       while table.contains(self.pracs.queue, prac) do
@@ -605,7 +659,8 @@ end</script>
       end
     end
   end
-  if self.char.race ~= "human" or self.char.class == "channeler" then
+  
+  if self.char.race ~= "human" then
     self.char.warder_bond = false
   end
 end
@@ -663,6 +718,7 @@ end</script>
       self:subtract_class()
     end
   end
+  
   if self.char.class == "channeler" then
     self.char.warder_bond = false
   end
@@ -903,25 +959,25 @@ end</script>
 					<script>practice_trainer.warrior.container =
   practice_trainer.warrior.container or
   Geyser.Container:new(
-    {name = "practice_trainer.warrior.container", x = "0%", y = "0%", width = "22%", height = "90%"},
+    practice_trainer:container_params("practice_trainer.warrior.container", 0, 0, 22, 90),
     practice_trainer.container
   )
 practice_trainer.rogue.container =
   practice_trainer.rogue.container or
   Geyser.Container:new(
-    {name = "practice_trainer.rogue.container", x = "23%", y = "0%", width = "22%", height = "90%"},
+    practice_trainer:container_params("practice_trainer.rogue.container", 23, 0, 22, 90),
     practice_trainer.container
   )
 practice_trainer.hunter.container =
   practice_trainer.hunter.container or
   Geyser.Container:new(
-    {name = "practice_trainer.hunter.container", x = "46%", y = "0%", width = "30%", height = "90%"},
+    practice_trainer:container_params("practice_trainer.hunter.container", 46, 0, 30, 90),
     practice_trainer.container
   )
 practice_trainer.fade.container =
   practice_trainer.fade.container or
   Geyser.Container:new(
-    {name = "practice_trainer.fade.container", x = "77%", y = "0%", width = "23%", height = "90%"},
+    practice_trainer:container_params("practice_trainer.fade.container", 77, 0, 23, 90),
     practice_trainer.container
   )
   
@@ -930,32 +986,27 @@ for _, class in pairs(practice_trainer.pracs.classes) do
   practice_trainer[class].label =
     practice_trainer[class].label or
     Geyser.Label:new(
-      {
-        name = "practice_trainer." .. class .. ".label",
-        x = "0%",
-        y = "0%",
-        width = "100%",
-        height = "4%",
-        fgColor = "black",
-        color = colors[class],
-        message = [[&lt;center&gt;]] .. class .. [[&lt;/center&gt;]],
-      },
+      practice_trainer:label_params("practice_trainer."..class..".label", 0, 0, 100, 4, class, "black", colors[class]),
       practice_trainer[class].container
     )
   if class == "fade" then
     practice_trainer[class].label:setFgColor("white")
   end
 end
+
 for _, class in pairs(practice_trainer.pracs.classes) do
   for k, prac in pairs(practice_trainer.pracs[class]) do
     local label_name = ""
-    local y = k * 4 + 1
+    local w = 65
+    local h = 4
+    local x = 0
+    local y = k * h + 1
     
     label_name = prac.."_label"
     practice_trainer[class][label_name] =
       practice_trainer[class][label_name] or
       Geyser.Label:new(
-        practice_trainer:label_params("practice_trainer."..class.."."..label_name, 0, y, 65, 4, prac),
+        practice_trainer:label_params("practice_trainer."..class.."."..label_name, x, y, w, h, prac),
         practice_trainer[class].container
       )
     if prac == "ride" or prac == "wisdom lore" or prac == "survival" then
@@ -970,11 +1021,13 @@ for _, class in pairs(practice_trainer.pracs.classes) do
       )
     end
     
+    x = x + w
+    w = 15
     label_name = prac .. "_%_label"
     practice_trainer[class][label_name] =
       practice_trainer[class][label_name] or
       Geyser.Label:new(
-        practice_trainer:label_params("practice_trainer.".. class.."."..label_name, 65, y, 15, 4, practice_trainer[class].pracs[prac].."%"),
+        practice_trainer:label_params("practice_trainer.".. class.."."..label_name, x, y, w, h, practice_trainer[class].pracs[prac].."%"),
         practice_trainer[class].container
       )
     practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
@@ -985,11 +1038,13 @@ for _, class in pairs(practice_trainer.pracs.classes) do
       prac
     )
     
+    x = x + w
+    w = 10
     label_name = prac.."_-_label"
     practice_trainer[class][label_name] =
       practice_trainer[class][label_name] or
       Geyser.Label:new(
-        practice_trainer:label_params("practice_trainer." .. class .. "." .. label_name, 80, y, 10, 4, "-"),
+        practice_trainer:label_params("practice_trainer." .. class .. "." .. label_name, x, y, w, h, "-"),
         practice_trainer[class].container
       )
     practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
@@ -997,11 +1052,12 @@ for _, class in pairs(practice_trainer.pracs.classes) do
       "practice_trainer:subtract_practice", class, prac
     )
     
+    x = x + w
     label_name = prac.."_+_label"
     practice_trainer[class][label_name] =
       practice_trainer[class][label_name] or
       Geyser.Label:new(
-        practice_trainer:label_params("practice_trainer." .. class .. "." .. label_name, 90, y, 10, 4, "+"),
+        practice_trainer:label_params("practice_trainer." .. class .. "." .. label_name, x, y, w, h, "+"),
         practice_trainer[class].container
       )
     practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
@@ -1018,27 +1074,32 @@ end</script>
 					<script>practice_trainer.char.container =
   practice_trainer.char.container or
   Geyser.Container:new(
-    {name = "practice_trainer.char.container", x = "25%", y = "45%", width = "75%", height = "15%"},
+    practice_trainer:container_params("practice_trainer.char.container", 25, 45, 75, 15),
     practice_trainer.container
   )
   
 for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
   local label_name = ""
+  local w = 6
+  local h = 30
   local x = (k - 1) * 20
+  local y = 0
   
   label_name = stat.."_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char." .. label_name, x, 0, 6, 30, stat),
+      practice_trainer:label_params("practice_trainer.char." .. label_name, x, y, w, h, stat),
       practice_trainer.char.container
     )
     
+  x = x + w
+  w = 5
   label_name = stat.."_val_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char." .. label_name, x + 6, 0, 5, 30, practice_trainer.char[stat]),
+      practice_trainer:label_params("practice_trainer.char." .. label_name, x, y, w, h, practice_trainer.char[stat]),
       practice_trainer.char.container
     )
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
@@ -1046,11 +1107,13 @@ for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
     "practice_trainer.char." .. label_name, "practice_trainer:stat_scroll", stat
   )
   
+  x = x + w
+  w = 4
   label_name = stat.."_-_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char." .. label_name, x + 11, 0, 4, 30, "-"),
+      practice_trainer:label_params("practice_trainer.char." .. label_name, x, y, w, h, "-"),
       practice_trainer.char.container
     )
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
@@ -1058,11 +1121,12 @@ for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
     "practice_trainer:subtract_stat", stat
   )
   
+  x = x + w
   label_name = stat.."_+_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char." .. label_name, x + 15, 0, 4, 30, "+"),
+      practice_trainer:label_params("practice_trainer.char." .. label_name, x, y, w, h, "+"),
       practice_trainer.char.container
     )
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
@@ -1073,115 +1137,71 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>Character Sex/Race/Class Displays</name>
 					<packageName></packageName>
-					<script>local label_name = ""
-
-label_name = "sex_label"
-practice_trainer.char[label_name] =
-  practice_trainer.char[label_name] or
-  Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.char."..label_name, 0, 40, 10, 30, practice_trainer.char.sex),
-    practice_trainer.char.container
-  )
-practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
-setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:sex_scroll")
-
-label_name = "sex_-_label"
-practice_trainer.char[label_name] =
-  practice_trainer.char[label_name] or
-  Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.char."..label_name, 1, 70, 4, 30, "-"),
-    practice_trainer.char.container
-  )
-practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
-practice_trainer.char[label_name]:setClickCallback("practice_trainer:subtract_sex")
-
-label_name = "sex_+_label"
-practice_trainer.char[label_name] =
-  practice_trainer.char[label_name] or
-  Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.char."..label_name, 5, 70, 4, 30, "+"),
-    practice_trainer.char.container
-  )
-practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
-practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_sex")
-
-
-label_name = "race_label"
-practice_trainer.char[label_name] =
-  practice_trainer.char[label_name] or
-  Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.char."..label_name, 12, 40, 15, 30, practice_trainer.char.race),
-    practice_trainer.char.container
-  )
-practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
-setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:race_scroll")
-
-label_name = "race_-_label"
-practice_trainer.char[label_name] =
-  practice_trainer.char[label_name] or
-  Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.char."..label_name, 15, 70, 4, 30, "-"),
-    practice_trainer.char.container
-  )
-practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
-practice_trainer.char[label_name]:setClickCallback("practice_trainer:subtract_race")
-
-label_name = "race_+_label"
-practice_trainer.char[label_name] =
-  practice_trainer.char[label_name] or
-  Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.char."..label_name, 20, 70, 4, 30, "+"),
-    practice_trainer.char.container
-  )
-practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
-practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_race")
-
-
-label_name = "class_label"
-practice_trainer.char[label_name] =
-  practice_trainer.char[label_name] or
-  Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.char."..label_name, 29, 40, 15, 30, practice_trainer.char.class),
-    practice_trainer.char.container
-  )
-practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
-setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:class_scroll")
-
-label_name = "class_-_label"
-practice_trainer.char[label_name] =
-  practice_trainer.char[label_name] or
-  Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.char."..label_name, 32, 70, 4, 30, "-"),
-    practice_trainer.char.container
-  )
-practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
-practice_trainer.char[label_name]:setClickCallback("practice_trainer:subtract_class")
-
-label_name = "class_+_label"
-practice_trainer.char[label_name] =
-  practice_trainer.char[label_name] or
-  Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.char."..label_name, 37, 70, 4, 30, "+"),
-    practice_trainer.char.container
-  )
-practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
-practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_class")</script>
+					<script>for k, field in pairs({"sex", "race", "class"}) do
+  local label_name = ""
+  local w = 15
+  local h = 30
+  local x = (k - 1) * (w + 2)
+  local y = 40
+  
+  label_name = field.."_label"
+  practice_trainer.char[label_name] =
+    practice_trainer.char[label_name] or
+    Geyser.Label:new(
+      practice_trainer:label_params("practice_trainer.char."..label_name, x, y, w, h, practice_trainer.char[field]),
+      practice_trainer.char.container
+    )
+  practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
+  setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:"..field.."_scroll")
+  
+  x = x + w/2
+  y = y + h
+  w = 4
+  x = x - w
+  label_name = field.."_-_label"
+  practice_trainer.char[label_name] =
+    practice_trainer.char[label_name] or
+    Geyser.Label:new(
+      practice_trainer:label_params("practice_trainer.char."..label_name, x, y, w, h, "-"),
+      practice_trainer.char.container
+    )
+  practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
+  practice_trainer.char[label_name]:setClickCallback("practice_trainer:subtract_"..field)
+  
+  x = x + w
+  label_name = field.."_+_label"
+  practice_trainer.char[label_name] =
+    practice_trainer.char[label_name] or
+    Geyser.Label:new(
+      practice_trainer:label_params("practice_trainer.char."..label_name, x, y, w, h, "+"),
+      practice_trainer.char.container
+    )
+  practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
+  practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_"..field)
+  
+end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>Total Practice and Level Displays</name>
 					<packageName></packageName>
-					<script>practice_trainer.char["total_pracs_label"] =
+					<script>local w = 26
+local h = 30
+local x = 73
+local y = 40
+
+practice_trainer.char["total_pracs_label"] =
     practice_trainer.char["total_pracs_label"] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char.total_pracs_label", 73, 40, 26, 30, "Practices required: "..practice_trainer:get_total_pracs()),
+      practice_trainer:label_params("practice_trainer.char.total_pracs_label", x, y, w, h, "Practices required: "..practice_trainer:get_total_pracs()),
       practice_trainer.char.container
     )
-    
+
+y = y + h
 practice_trainer.char["level_label"] =
     practice_trainer.char["level_label"] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char.level_label", 73, 70, 26, 30, "Levels required: "..practice_trainer:pracs_to_level()),
+      practice_trainer:label_params("practice_trainer.char.level_label", x, y, w, h, "Levels required: "..practice_trainer:pracs_to_level()),
       practice_trainer.char.container
     )
 </script>
@@ -1191,10 +1211,15 @@ practice_trainer.char["level_label"] =
 					<name>Warder Bond Display</name>
 					<packageName></packageName>
 					<script>local label_name = "warder_bond_label"
+local w = 15
+local h = 30
+local x = 51
+local y = 40
+
 practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char."..label_name, 46, 40, 15, 30, (practice_trainer.char.warder_bond and "warder bond" or "no warder bond")),
+      practice_trainer:label_params("practice_trainer.char."..label_name, x, y, w, h, (practice_trainer.char.warder_bond and "warder bond" or "no warder bond")),
       practice_trainer.char.container
     )
     
@@ -1211,7 +1236,22 @@ practice_trainer.char[label_name]:setClickCallback("practice_trainer:warder_bond
 			<Script isActive="yes" isFolder="no">
 				<name>Update Displays</name>
 				<packageName></packageName>
-				<script>function practice_trainer:update_stat_display()
+				<script>function practice_trainer:update_sex_race_class_display()
+  self.char["sex_label"]:echo("&lt;center&gt;" .. self.char.sex)
+  self.char["race_label"]:echo("&lt;center&gt;" .. self.char.race)
+  self.char["class_label"]:echo("&lt;center&gt;" .. self.char.class)
+end
+
+function practice_trainer:update_warder_bond_display()
+  self.char["warder_bond_label"]:echo("&lt;center&gt;" .. (self.char.warder_bond and "warder bond" or "no warder bond"))
+  if self.char.warder_bond then
+    self.char["warder_bond_label"]:setStyleSheet(self.style_sheets.plus)
+  else
+    self.char["warder_bond_label"]:setStyleSheet(self.style_sheets.minus)
+  end
+end
+
+function practice_trainer:update_stats_display()
   for _, stat in pairs({"str", "int", "wil", "dex", "con"}) do
     self.char[stat .. "_val_label"]:echo("&lt;center&gt;" .. self.char[stat])
   end
@@ -1239,28 +1279,13 @@ function practice_trainer:update_levels_display()
   self.char["level_label"]:echo("&lt;center&gt;Levels required: "..self:pracs_to_level())
 end
 
-function practice_trainer:update_sex_race_class_display()
-  self.char["sex_label"]:echo("&lt;center&gt;" .. self.char.sex)
-  self.char["race_label"]:echo("&lt;center&gt;" .. self.char.race)
-  self.char["class_label"]:echo("&lt;center&gt;" .. self.char.class)
-end
-
-function practice_trainer:update_warder_bond_display()
-  self.char["warder_bond_label"]:echo("&lt;center&gt;" .. (self.char.warder_bond and "warder bond" or "no warder bond"))
-  if self.char.warder_bond then
-    self.char["warder_bond_label"]:setStyleSheet(self.style_sheets.plus)
-  else
-    self.char["warder_bond_label"]:setStyleSheet(self.style_sheets.minus)
-  end
-end
-
 
 function practice_trainer:update_displays()
   self:update_percents()
   self:update_practices()
   self:update_sex_race_class_display()
   self:update_warder_bond_display()
-  self:update_stat_display()
+  self:update_stats_display()
   self:update_prac_display()
   self:update_total_pracs_display()
   self:update_levels_display()

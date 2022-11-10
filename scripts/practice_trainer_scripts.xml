@@ -410,7 +410,7 @@ label_name = "load_name"
 practice_trainer.file[label_name] =
   practice_trainer.file[label_name]  or
   Geyser.CommandLine:new(
-    practice_trainer:command_line_params("practice_trainer.file.load_name", x, y, w, h),
+    practice_trainer:command_line_params("practice_trainer.file."..label_name, x, y, w, h),
     practice_trainer.container
   )
 practice_trainer.file[label_name]:setAction(

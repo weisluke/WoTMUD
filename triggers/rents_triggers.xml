@@ -126,13 +126,9 @@ disableTrigger("Rents_disable_item_name")</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>HP:(\S+) MV:(\S+)</string>
-					<string>HP:(\S+) SP:(\S+) MV:(\S+)</string>
-					<string>HP:(\S+) DP:(\S+) MV:(\S+)</string>
+					<string>^(o|\*)?((^| )(R|S|F))?( I(\d+))?( R:(\d+))?( S:(\S+))?( HP:(\S+))?( SP:(\S+))?( DP:(\S+))?( MV:(\S+))?(^| )(&gt;|- .+ &gt;)</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>1</integer>
-					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>

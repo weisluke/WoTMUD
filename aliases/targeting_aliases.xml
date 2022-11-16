@@ -10,7 +10,9 @@
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>Add target</name>
-				<script>local colors =
+				<script>--syntax: t1 xxx, t2 xxx, t3 xxx, t4 xxx, etc.
+
+local colors =
   {
     dark = "ansi_red",
     light = "ansi_cyan",
@@ -39,7 +41,9 @@ cecho("Target "..index.." set to: &lt;"..color.."&gt;"..tgt.."\n")</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Target specific</name>
-				<script>local colors =
+				<script>--syntax: t1, t2, t3, t4, etc.
+
+local colors =
   {
     dark = "ansi_red",
     light = "ansi_cyan",
@@ -64,6 +68,13 @@ if targeting[index] then
   
   targeting.currtgt = tgt
   cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
+  
+  if color ~= "reset" then
+    status_bar["target"]:echo(tgt:upper(), color, "c")
+  else
+    status_bar["target"]:echo(tgt:upper(), "white", "c")
+  end
+  
 else
   cecho("&lt;red&gt;Target "..index.." not set!\n")
 end</script>
@@ -73,7 +84,9 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show targets</name>
-				<script>local colors =
+				<script>--syntax: targets
+
+local colors =
   {
     dark = "ansi_red",
     light = "ansi_cyan",
@@ -102,24 +115,29 @@ for k,v in pairs(targeting) do
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^show tgts$</regex>
+				<regex>^targets$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Clear Targets</name>
-				<script>for k,v in ipairs(targeting) do
+				<script>--syntax: clear targets
+
+for k,v in ipairs(targeting) do
   if type(k)=="number" then
     targeting[k] = nil
   end
 end
 targeting.currtgt = nil
-cecho("Targets cleared.\n")</script>
+cecho("Targets cleared.\n")
+status_bar["target"]:echo("Target", "white", "c")</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^clear tgts$</regex>
+				<regex>^clear targets$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Set current target</name>
-				<script>local colors =
+				<script>--syntax: tgt xxx
+
+local colors =
   {
     dark = "ansi_red",
     light = "ansi_cyan",
@@ -141,14 +159,21 @@ local color = colors[tgt] or "reset"
   
 targeting.currtgt = tgt
 cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
-</script>
+
+if color ~= "reset" then
+  status_bar["target"]:echo(tgt:upper(), color, "c")
+else
+  status_bar["target"]:echo(tgt:upper(), "white", "c")
+end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tgt (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show current target</name>
-				<script>local colors =
+				<script>--syntax: tgt
+
+local colors =
   {
     dark = "ansi_red",
     light = "ansi_cyan",
@@ -214,7 +239,14 @@ else
   targeting.weaving=false
   cecho("PK method set to: bashing\n")
 end
-</script>
+
+if targeting.charging then
+  status_bar.tab_settings["charge_pulses"].display = true
+  status_bar:show_status_bar(true)
+else
+  status_bar.tab_settings["charge_pulses"].display = false
+  status_bar:show_status_bar(true)
+end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^pkmode$</regex>
@@ -298,7 +330,7 @@ targeting=targeting or {}
 
 targeting.currtgt=nil
 cecho("&lt;red&gt;Current target deleted!\n")
-</script>
+status_bar["target"]:echo("Target", "white", "c")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^deltgt$</regex>

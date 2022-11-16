@@ -107,7 +107,7 @@ if targeting.currtgt then
   local color = colors[targeting.currtgt] or "reset"
   cecho("Your current target is: &lt;"..color.."&gt;"..targeting.currtgt.."\n")
 end
-for k,v in pairs(targeting) do
+for k,v in ipairs(targeting) do
   if type(k)=="number" then
     local color = colors[v] or "reset"
     cecho("Target "..k.." = &lt;"..color.."&gt;"..v.."\n")
@@ -115,7 +115,7 @@ for k,v in pairs(targeting) do
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^targets$</regex>
+				<regex>^show targets$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Clear Targets</name>

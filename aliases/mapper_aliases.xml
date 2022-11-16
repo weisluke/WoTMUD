@@ -396,7 +396,7 @@ end</script>
 					<packageName></packageName>
 					<regex>^deletedoor ([neswud])$</regex>
 				</Alias>
-				<AliasGroup isActive="no" isFolder="yes">
+				<AliasGroup isActive="yes" isFolder="yes">
 					<name>Doors with directions</name>
 					<script></script>
 					<command></command>

@@ -60,32 +60,13 @@ weaving.sex = matches[3]</script>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Locate Object</name>
-				<script>local colors =
-  {
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
-    dreadlord = "ansi_red",
-    grayman = "ansi_red",
-    draghkar = "ansi_red",
-    human = "ansi_cyan",
-    seanchan = "ansi_magenta",
-    ogier = "ansi_green",
-    aiel = "ansi_white"
-  }
+				<name>Locate</name>
+				<script>weaving = weaving or {}
   
-weaving = weaving or {}
-  
-local who = matches[5]
 local code = matches[3]
-  
-if colors[who] then
-  selectCaptureGroup(5)
-  fg(colors[who])
-end
 
 selectCaptureGroup(3)
---uncomment the following line, and if you click on the port code it will embrace and channel 'travel' code
+--uncomment the following, and if you click on the port code it will embrace/seize and channel 'travel' code
 setLink(
   function()
     if weaving.sex == "female" then
@@ -98,7 +79,7 @@ setLink(
   end, 
   "Click to embrace/seize and port here.")
 
---uncomment the following line, and if you click on the port code it will copy it
+--uncomment the following, and if you click on the port code it will copy it
 --setLink(function() setClipboardText(code) end, "Click to copy code.")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -111,11 +92,49 @@ setLink(
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^(.+)\s* - \[(.*)\] - somewhere (.+), carried by an? (.+)\.$</string>
+					<string>^(.+)\s* - \[(.*)\] - somewhere (.+)\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
 				</regexCodePropertyList>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Locate Object</name>
+					<script>local colors =
+  {
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    grayman = "ansi_red",
+    draghkar = "ansi_red",
+    human = "ansi_cyan",
+    seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white"
+  }
+  
+local who = matches[2]
+
+if colors[who] then
+  selectCaptureGroup(2)
+  fg(colors[who])
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>carried by an? (.+)\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
 			</Trigger>
 		</TriggerGroup>
 	</TriggerPackage>

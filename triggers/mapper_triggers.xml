@@ -116,9 +116,7 @@ end</script>
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Get Exits</name>
-						<script>disableTrigger("Map Description")
-
---puts current exits in a table of the form {"n","e","s","w","u","d"}
+						<script>--puts current exits in a table of the form {"n","e","s","w","u","d"}
 wotmudmapper.roomexits = string.lower(matches[2])
 wotmudmapper:echo("\nRoom exits (" .. wotmudmapper.roomexits .. ") captured.\n", true)
 wotmudmapper.roomexits = string.split(wotmudmapper.roomexits)
@@ -254,7 +252,9 @@ elseif table.size(wotmudmapper.currentID) &gt; 1 then
 else
   centerview(wotmudmapper.currentID[1])
   wotmudmapper:show_zone_door_info()
-end</script>
+end
+
+disableTrigger("Map Description")</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -508,8 +508,10 @@ end</script>
 					<string>An elite Queen's Guard blocks the way and says 'You are not allowed there, (.+)\.'$</string>
 					<string>You're in pretty bad shape, unable to do anything!$</string>
 					<string>You would need to climb there from here\.$</string>
+					<string>Your mount refuses to obey your command\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

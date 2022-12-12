@@ -508,8 +508,10 @@ end</script>
 					<string>An elite Queen's Guard blocks the way and says 'You are not allowed there, (.+)\.'$</string>
 					<string>You're in pretty bad shape, unable to do anything!$</string>
 					<string>You would need to climb there from here\.$</string>
+					<string>Your mount refuses to obey your command\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

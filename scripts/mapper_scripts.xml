@@ -5,7 +5,12 @@
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Mapper</name>
 			<packageName></packageName>
-			<script>--define mudlet required mapper variables and wotmudmapper table
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper initializations</name>
+				<packageName></packageName>
+				<script>--define mudlet required mapper variables and wotmudmapper table
 mudlet = mudlet or {}
 mudlet.mapper_script = true
 wotmudmapper = wotmudmapper or {}
@@ -205,9 +210,10 @@ end
 
 --queue to store movement commands
 wotmudmapper.queue = List:new()</script>
-			<eventHandlerList />
+				<eventHandlerList />
+			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Mapper Display Echo</name>
+				<name>wotmudmapper:echo</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:echo(what, debug, err)
   --colored tags for message echo
@@ -231,7 +237,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Set Map Colors</name>
+				<name>wotmudmapper:set_map_colors</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:set_map_colors()
   --loop over environments and colors in color table
@@ -247,7 +253,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Set Map Configuration Values</name>
+				<name>wotmudmapper:set_configs</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:set_configs()
   --local copies of map configs/colors and their defaults
@@ -279,7 +285,7 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>System connection</name>
+				<name>wotmudmapper:sys_connection</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:sys_connection(event)
   --ensure the movement queue is empty
@@ -320,7 +326,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "wotmudmapper:sys_connection
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>System disconnection</name>
+				<name>wotmudmapper:sys_disconnection</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:sys_disconnection(event)
   --set config values in preparation for disconnection
@@ -349,7 +355,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "wotmudmapper:sys_disconn
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Map update</name>
+				<name>wotmudmapper:map_update</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:map_update(event, filename)
   --if the file that downloaded is not the map, return
@@ -369,7 +375,7 @@ registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</scr
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Show Map</name>
+				<name>wotmudmapper:show_map</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:show_map(bval)
   --set boolean of whether map is visible or not
@@ -447,7 +453,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Map Window Reposition</name>
+				<name>wotmudmapper:reposition_map</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:reposition_map(event, container_name, width, height, x, y)
   --if the Adjustable.Container is not the mapper, return
@@ -475,7 +481,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "wotmudmapp
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Map Help</name>
+				<name>wotmudmapper:show_help</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:show_help(cmd)
   if cmd then
@@ -736,7 +742,7 @@ wotmudmapper.help.misc =
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Right Click to Update Room Information</name>
+				<name>wotmudmapper:rightclick_update</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:rightclick_update_roomname(event)
   local rooms = getMapSelection()["rooms"]
@@ -768,7 +774,7 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Right Click to Display Room Description</name>
+				<name>wotmudmapper:rightclick_display_roomdesc</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:rightclick_display_roomdesc(event)
   local rooms = getMapSelection()["rooms"]
@@ -788,15 +794,10 @@ end
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Keeping track of map commands</name>
 				<packageName></packageName>
-				<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-</script>
+				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Track map commands</name>
+					<name>wotmudmapper:track_map_commands</name>
 					<packageName></packageName>
 					<script>--if command is a direction, look, or flee, add to list of commands affecting map movement (wotmudmapper.queue)
 --pushes first letter of command (made lowercase), such that wotmudmapper.queue always contains lowercase, single letters
@@ -815,7 +816,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "wotmudmapper:track_map_comm
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>is_movement</name>
+					<name>wotmudmapper:is_movement</name>
 					<packageName></packageName>
 					<script>--return true if command is a direction, false if not a direction. ignores capitalization
 
@@ -860,7 +861,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>is_look</name>
+					<name>wotmudmapper:is_look</name>
 					<packageName></packageName>
 					<script>--return true if command is a look, false if not a look. ignores capitalization
 
@@ -875,7 +876,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>is_flee</name>
+					<name>wotmudmapper:is_flee</name>
 					<packageName></packageName>
 					<script>--return true if command is a flee, false if not a flee. ignores capitalization
 
@@ -890,7 +891,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Door Command Direction</name>
+					<name>wotmudmapper:door_com_dir</name>
 					<packageName></packageName>
 					<script>function wotmudmapper:door_com_dir(com, dir)
   --start out with list of current possible rooms
@@ -956,15 +957,10 @@ end</script>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Performing room searches bases on various criteria</name>
 				<packageName></packageName>
-				<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-</script>
+				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Find Room</name>
+					<name>wotmudmapper:find_room</name>
 					<packageName></packageName>
 					<script>--returns the ID of the room with matching name/desc/exits, or empty list
 
@@ -989,7 +985,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Find Room Matches Usings Exits</name>
+					<name>wotmudmapper:find_matching_exits</name>
 					<packageName></packageName>
 					<script>--assumes exits is of the form {"n","e","s"}
 
@@ -1041,7 +1037,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Find Room After Flee</name>
+					<name>wotmudmapper:find_room_after_flee</name>
 					<packageName></packageName>
 					<script>--assumes lastexits is of the form {"north":roomID1,"south":roomID2}
 --and exits is of the form {"n","s"}
@@ -1071,7 +1067,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Find Room After Movement</name>
+					<name>wotmudmapper:is_near_room</name>
 					<packageName></packageName>
 					<script>--assumes lastexits is of the form {"north":roomID1,"south":roomID2}
 
@@ -1097,15 +1093,10 @@ end</script>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Functions used during room creation and alteration</name>
 				<packageName></packageName>
-				<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-</script>
+				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>create_room</name>
+					<name>wotmudmapper:create_room</name>
 					<packageName></packageName>
 					<script>--assumes wotmudmapper.roomexits is of the form {"n","e","s","w","u","d"}
 --returns list containing only new room ID
@@ -1133,7 +1124,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>link_rooms</name>
+					<name>wotmudmapper:link_rooms</name>
 					<packageName></packageName>
 					<script>--assumes exits are for second room and of the form {"n","e","s","w","u","d"}, and direction is lowercase single letter
 
@@ -1158,7 +1149,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Set offset</name>
+					<name>wotmudmapper:set_coordinates_offset</name>
 					<packageName></packageName>
 					<script>--assumes com is a lowercase single letter
 --gives coordinate offset based on direction
@@ -1181,7 +1172,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>auto_join_rooms</name>
+					<name>wotmudmapper:auto_join_rooms</name>
 					<packageName></packageName>
 					<script>function wotmudmapper:auto_join_rooms(roomID)
   --initializing variables
@@ -1228,7 +1219,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>create_door</name>
+					<name>wotmudmapper:create_door</name>
 					<packageName></packageName>
 					<script>--assumes direction is a lowercase single letter
 
@@ -1258,7 +1249,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>is_search</name>
+					<name>wotmudmapper:is_search</name>
 					<packageName></packageName>
 					<script>--return true if command is search, false if not search. ignores capitalization
 
@@ -1273,7 +1264,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>looking_for_doors</name>
+					<name>wotmudmapper:looking_for_doors</name>
 					<packageName></packageName>
 					<script>--set mapper door direction based on look or searches
 
@@ -1297,15 +1288,10 @@ registerAnonymousEventHandler("sysDataSendRequest", "wotmudmapper:looking_for_do
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Functons for displaying areas and rooms</name>
 				<packageName></packageName>
-				<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external scripts --
--------------------------------------------------
-</script>
+				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Show Room List</name>
+					<name>wotmudmapper:show_room_list</name>
 					<packageName></packageName>
 					<script>function wotmudmapper:show_room_list(areaid)
   local listcolor, othercolor = "DarkSlateGrey", "LightSlateGray"
@@ -1343,7 +1329,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Show Area List</name>
+					<name>wotmudmapper:show_area_list</name>
 					<packageName></packageName>
 					<script>function wotmudmapper:show_area_list()
     local totalroomcount = 0
@@ -1376,7 +1362,7 @@ end</script>
 				</Script>
 			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
-				<name>Script Installation Success</name>
+				<name>wotmudmapper:mapper_installer_success</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:mapper_installer_success(event, name)
   --if installed file is not the desired one
@@ -1412,7 +1398,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Show zone and door information</name>
+				<name>wotmudmapper:show_zone_door_info</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:show_zone_door_info()
 
@@ -1461,7 +1447,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>offline_move</name>
+				<name>wotmudmapper:offline_move</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:offline_move(direction)
   if table.size(self.currentID) == 1 then
@@ -1506,7 +1492,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Map Info</name>
+				<name>wotmudmapper map info</name>
 				<packageName></packageName>
 				<script>registerMapInfo("Zone info", function(roomId, selectionSize, areaId, displayedArea)
   return "Zone: "..getRoomUserData(roomId,"zone")
@@ -1528,7 +1514,7 @@ enableMapInfo("Door info")
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Zone URLs</name>
+				<name>wotmudmapper zone urls</name>
 				<packageName></packageName>
 				<script>wotmudmapper.zone_urls = {
 
@@ -1773,7 +1759,7 @@ enableMapInfo("Door info")
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Set Player Location</name>
+				<name>wotmudmapper:set_player_location</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:set_player_location(event, room)
   self.currentID={room}
@@ -1783,7 +1769,7 @@ registerAnonymousEventHandler("sysManualLocationSetEvent", "wotmudmapper:set_pla
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Waygates</name>
+				<name>wotmudmapper waygates</name>
 				<packageName></packageName>
 				<script>function wotmudmapper:is_waygate(id)
   --hardcoded list of mudlet room ids for waygates

@@ -116,7 +116,9 @@ end</script>
 					</regexCodePropertyList>
 					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 						<name>Get Exits</name>
-						<script>--puts current exits in a table of the form {"n","e","s","w","u","d"}
+						<script>disableTrigger("Map Description")
+
+--puts current exits in a table of the form {"n","e","s","w","u","d"}
 wotmudmapper.roomexits = string.lower(matches[2])
 wotmudmapper:echo("\nRoom exits (" .. wotmudmapper.roomexits .. ") captured.\n", true)
 wotmudmapper.roomexits = string.split(wotmudmapper.roomexits)
@@ -252,9 +254,7 @@ elseif table.size(wotmudmapper.currentID) &gt; 1 then
 else
   centerview(wotmudmapper.currentID[1])
   wotmudmapper:show_zone_door_info()
-end
-
-disableTrigger("Map Description")</script>
+end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>

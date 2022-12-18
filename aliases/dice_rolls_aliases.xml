@@ -10,7 +10,7 @@
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>Clear dice</name>
-				<script>--syntax: dice clearRoomUserDataItem
+				<script>--syntax: dice clear
 
 dice_rolls = {}
 cecho("Dice cleared\n")</script>

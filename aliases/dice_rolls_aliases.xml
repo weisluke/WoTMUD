@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Dice rolls</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Clear dice</name>
+				<script>--syntax: dice clearRoomUserDataItem
+
+dice_rolls = {}
+cecho("Dice cleared\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dice clear$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show dice</name>
+				<script>--syntax: dice show
+
+dice_rolls = dice_rolls or {}
+
+local function dice_sort(t1, t2)
+  return t1.value &gt; t2.value
+end
+
+table.sort(dice_rolls, dice_sort)
+
+cecho("Dice rolls:\n")
+for _, tab in pairs(dice_rolls) do
+  cecho(tab.name.." = "..tab.value.."\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dice show$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

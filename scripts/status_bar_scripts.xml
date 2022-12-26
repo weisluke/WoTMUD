@@ -226,27 +226,30 @@ end</script>
 				<name>status_bar:resize</name>
 				<packageName></packageName>
 				<script>function status_bar:resize(event, container_name, width, height, x, y)
-  --if the Adjustable.Container is not the status bar, return
-  if container_name ~= "status_bar.container" then
-    return
+  --get main window size
+  local mx, my = getMainWindowSize()
+  
+  --if the Adjustable.Container is the status bar, calculate new values and convert to percentages
+  if container_name == "status_bar.container" then
+    y = -height
+    width = width/mx*100
+    height = height/my*100
+    self.configs.y = y.."%"
+    self.configs.w = width.."%"
+    self.configs.h = height.."%"
+    
+    --set new bottom border as well
+    setBorderBottom((height + 1) * my / 100)
   end
   
-  --get main window size. convert Adjustable.Container values to percentages, store, and save to disk
-  local mx, my = getMainWindowSize()
-  width = width/mx*100
-  height = height/my*100
+  --regardless of what item was moved, calculate new status bar x position
   x = getBorderLeft() / mx * 100
-  y = -height
-  
   self.configs.x = x.."%"
-  self.configs.y = y.."%"
-  self.configs.w = width.."%"
-  self.configs.h = height.."%"
+  
+  --save to disk
   table.save(getMudletHomeDir() .. "/status_bar.configs.lua", self.configs)
   
   self:show_status_bar(true)
-  local w, h = getMainWindowSize()
-  setBorderBottom((height + 1) * h / 100)
 end
 
 registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar:resize")</script>

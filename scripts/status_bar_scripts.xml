@@ -5,15 +5,10 @@
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Status Bar Script</name>
 			<packageName></packageName>
-			<script>-------------------------------------------------
---         Put your Lua functions here.        --
---                                             --
--- Note that you can also use external Scripts --
--------------------------------------------------
-</script>
+			<script></script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
-				<name>Status Bar</name>
+				<name>status_bar initializations</name>
 				<packageName></packageName>
 				<script>status_bar = status_bar or {}
 
@@ -29,7 +24,7 @@ status_bar.configs = status_bar.configs or
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Status bar display echo</name>
+				<name>status_bar:echo</name>
 				<packageName></packageName>
 				<script>function status_bar:echo(what, debug, err)
   --colored tags for message echo
@@ -53,7 +48,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Character information</name>
+				<name>status_bar character information</name>
 				<packageName></packageName>
 				<script>status_bar.char = status_bar.char or
   {
@@ -103,7 +98,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Default tabs</name>
+				<name>status_bar default tabs</name>
 				<packageName></packageName>
 				<script>status_bar.tabs =
   {
@@ -145,7 +140,7 @@ status_bar.tab_settings = status_bar.tab_settings or
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Show status bar</name>
+				<name>status_bar:show_status_bar</name>
 				<packageName></packageName>
 				<script>function status_bar:show_status_bar(bval)
 
@@ -228,7 +223,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Status bar resize</name>
+				<name>status_bar:resize</name>
 				<packageName></packageName>
 				<script>function status_bar:resize(event, container_name, width, height, x, y)
   --if the Adjustable.Container is not the status bar, return
@@ -240,7 +235,7 @@ end</script>
   local mx, my = getMainWindowSize()
   width = width/mx*100
   height = height/my*100
-  x = 0
+  x = getBorderLeft() / mx * 100
   y = -height
   
   self.configs.x = x.."%"
@@ -258,7 +253,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>System connection</name>
+				<name>status_bar:sys_connection</name>
 				<packageName></packageName>
 				<script>function status_bar:sys_connection(event)
   if io.exists(getMudletHomeDir() .. "/status_bar.configs.lua") then
@@ -272,7 +267,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>System disconnection</name>
+				<name>status_bar:sys_disconnection</name>
 				<packageName></packageName>
 				<script>function status_bar:sys_disconnection(event)
   status_bar.char = {
@@ -333,7 +328,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "status_bar:sys_disconnec
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Update fleelag on tic</name>
+					<name>status_bar:update_fleelag_on_tic</name>
 					<packageName></packageName>
 					<script>function status_bar:update_fleelag_on_tic(event, exact, is_early, is_late)
   if is_early then
@@ -379,7 +374,7 @@ registerAnonymousEventHandler("tic", "status_bar:update_fleelag_on_tic")</script
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update health on tic</name>
+					<name>status_bar:update_health_on_tic</name>
 					<packageName></packageName>
 					<script>function status_bar:update_health_on_tic(event, exact, is_early, is_late)
   if is_early then
@@ -417,7 +412,7 @@ registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update spell points on tic</name>
+					<name>status_bar:update_sps_on_tic</name>
 					<packageName></packageName>
 					<script>function status_bar:update_sps_on_tic(event, exact, is_early, is_late)
   if is_early then
@@ -466,7 +461,7 @@ registerAnonymousEventHandler("tic", "status_bar:update_sps_on_tic")</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Update HPs with range</name>
+					<name>status_bar:update_hps_with_range</name>
 					<packageName></packageName>
 					<script>function status_bar:update_hps_with_range(hps)
   self.char.hps.max = self.char.hps.max or 1
@@ -532,7 +527,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update MVs with range</name>
+					<name>status_bar:update_mvs_with_range</name>
 					<packageName></packageName>
 					<script>function status_bar:update_mvs_with_range(mvs)
   self.char.mvs.max = self.char.mvs.max or 1
@@ -598,7 +593,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update SPs with range</name>
+					<name>status_bar:update_sps_with_range</name>
 					<packageName></packageName>
 					<script>function status_bar:update_sps_with_range(sps)
   self.char.sps.max = self.char.sps.max or 1
@@ -662,7 +657,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update DPs with range</name>
+					<name>status_bar:update_dps_with_range</name>
 					<packageName></packageName>
 					<script>function status_bar:update_dps_with_range(dps)
   self.char.dps.max = self.char.dps.max or 1
@@ -727,7 +722,7 @@ end</script>
 				</Script>
 			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
-				<name>Update fleelag</name>
+				<name>status_bar:update_fleelag</name>
 				<packageName></packageName>
 				<script>function status_bar:update_fleelag(event, com)
   local msg_flee = "Fleelag"
@@ -767,7 +762,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_fleelag")
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Update health with min-max dmg</name>
+				<name>status_bar:update_hps_min_max</name>
 				<packageName></packageName>
 				<script>function status_bar:update_hps_min_max(mindmg, maxdmg)
   self.char.hps.max = self.char.hps.max or 1
@@ -814,7 +809,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Update SPs with weave</name>
+				<name>status_bar:update_sps_with_weave</name>
 				<packageName></packageName>
 				<script>function status_bar:update_sps_with_weave(weave)
   if not weave then return end
@@ -873,6 +868,8 @@ end</script>
     ["whirlpool"] = 20,
   }
   
+  if not weave_costs[weave] then return end
+  
   self.char.sps.max = self.char.sps.max or 1
   
   if self.char.sps.current then
@@ -903,7 +900,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Update spell points on command</name>
+				<name>status_bar:is_weaving</name>
 				<packageName></packageName>
 				<script>function status_bar:is_weaving(event, com)
   com = com:lower()
@@ -921,7 +918,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "status_bar:is_weaving")</sc
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Update One Power due to release</name>
+				<name>status_bar:update_one_power</name>
 				<packageName></packageName>
 				<script>function status_bar:update_one_power(event, com)  
   if com ~= nil then

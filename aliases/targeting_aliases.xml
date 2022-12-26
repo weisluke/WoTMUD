@@ -69,12 +69,6 @@ if targeting[index] then
   targeting.currtgt = tgt
   cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
   
-  if color ~= "reset" then
-    status_bar["target"]:echo(tgt:upper(), color, "c")
-  else
-    status_bar["target"]:echo(tgt:upper(), "white", "c")
-  end
-  
 else
   cecho("&lt;red&gt;Target "..index.." not set!\n")
 end</script>
@@ -84,7 +78,7 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show targets</name>
-				<script>--syntax: targets
+				<script>--syntax: show targets
 
 local colors =
   {
@@ -107,28 +101,31 @@ if targeting.currtgt then
   local color = colors[targeting.currtgt] or "reset"
   cecho("Your current target is: &lt;"..color.."&gt;"..targeting.currtgt.."\n")
 end
+
+local pkmode = (targeting.bashing and "bashing") 
+            or (targeting.charging and "charging")
+            or (targeting.stabbing and "stabbing")
+            or (targeting.weaving and "weaving")
+            or "none"
+cecho("Your current pk mode is: "..pkmode.."\n")
+
 for k,v in ipairs(targeting) do
-  if type(k)=="number" then
-    local color = colors[v] or "reset"
-    cecho("Target "..k.." = &lt;"..color.."&gt;"..v.."\n")
-  end
+  local color = colors[v] or "reset"
+  cecho("Target "..k.." = &lt;"..color.."&gt;"..v.."\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^show targets$</regex>
+				<regex>^targets$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Clear Targets</name>
 				<script>--syntax: clear targets
 
 for k,v in ipairs(targeting) do
-  if type(k)=="number" then
-    targeting[k] = nil
-  end
+  targeting[k] = nil
 end
 targeting.currtgt = nil
-cecho("Targets cleared.\n")
-status_bar["target"]:echo("Target", "white", "c")</script>
+cecho("Targets cleared.\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^clear targets$</regex>
@@ -158,13 +155,7 @@ local tgt = matches[2]
 local color = colors[tgt] or "reset"
   
 targeting.currtgt = tgt
-cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
-
-if color ~= "reset" then
-  status_bar["target"]:echo(tgt:upper(), color, "c")
-else
-  status_bar["target"]:echo(tgt:upper(), "white", "c")
-end</script>
+cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tgt (\S+)$</regex>
@@ -219,7 +210,7 @@ elseif targeting.charging then
   targeting.charging=false
   targeting.stabbing=true
   targeting.weaving=false
-  cecho("PK method set to: backstabbing\n")
+  cecho("PK method set to: stabbing\n")
 elseif targeting.stabbing then
   targeting.bashing=false
   targeting.charging=false
@@ -238,14 +229,6 @@ else
   targeting.stabbing=false
   targeting.weaving=false
   cecho("PK method set to: bashing\n")
-end
-
-if targeting.charging then
-  status_bar.tab_settings["charge_pulses"].display = true
-  status_bar:show_status_bar(true)
-else
-  status_bar.tab_settings["charge_pulses"].display = false
-  status_bar:show_status_bar(true)
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -294,19 +277,14 @@ weaving = weaving or {}
 
 local target = targeting.currtgt
 
-local bash = targeting.bashing
-local charge = targeting.charging
-local stab = targeting.stabbing
-local weave = targeting.weaving
-
 if target then
-  if bash then
+  if targeting.bashing then
     send("bash h." .. target)
-  elseif charge then
+  elseif targeting.charging then
     send("charge h." .. target)
-  elseif stab then
+  elseif targeting.stabbin then
     send("backstab h." .. target)
-  elseif weave then
+  elseif targeting.weaving then
     if weaving.longweave then
       send("channel '"..weaving.longweave.."' "..target)
     else
@@ -329,8 +307,7 @@ end</script>
 targeting=targeting or {}
 
 targeting.currtgt=nil
-cecho("&lt;red&gt;Current target deleted!\n")
-status_bar["target"]:echo("Target", "white", "c")</script>
+cecho("&lt;red&gt;Current target deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^deltgt$</regex>

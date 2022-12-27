@@ -325,6 +325,18 @@ registerAnonymousEventHandler("sysExitEvent", "status_bar:sys_disconnection")
 registerAnonymousEventHandler("sysDisconnectionEvent", "status_bar:sys_disconnection")</script>
 				<eventHandlerList />
 			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:status_bar_installer_succes</name>
+				<packageName></packageName>
+				<script>function status_bar:status_bar_installer_success(event, name)
+  --if installed file is not the desired one
+  if name ~= "status_bar_scripts" then return end
+  self:show_status_bar(true)
+end
+
+registerAnonymousEventHandler("sysInstallPackage", "status_bar:status_bar_installer_success")</script>
+				<eventHandlerList />
+			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Update items on tic</name>
 				<packageName></packageName>

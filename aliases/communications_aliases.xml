@@ -85,6 +85,54 @@ if communications.configs.comms_window[key] ~= nil then
       table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
       communications:show_comms(true)
     end
+  elseif key == "border" then
+    if not color_table[val] then
+      communications:echo("Color ("..val..") not known.\n", false, true)
+    else
+      communications:echo("Communications window ("..key..") updated from (&lt;"..
+        communications.configs.comms_window.border..
+        "&gt;"..communications.configs.comms_window.border..
+        "&lt;reset&gt;) to (&lt;"..val.."&gt;"..val.."&lt;reset&gt;).\n")
+      communications.configs.comms_window[key] = val
+      table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
+      communications:echo("Color change will only take effect upon restarting mudlet.\n")
+    end
+  elseif key == "background" then
+    if not color_table[val] then
+      communications:echo("Color ("..val..") not known.\n", false, true)
+    else
+      communications:echo("Communications window ("..key..") updated from (&lt;"..
+        communications.configs.comms_window.background..
+        "&gt;"..communications.configs.comms_window.background..
+        "&lt;reset&gt;) to (&lt;"..val.."&gt;"..val.."&lt;reset&gt;).\n")
+      communications.configs.comms_window[key] = val
+      table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  elseif key == "foreground" then
+    if not color_table[val] then
+      communications:echo("Color ("..val..") not known.\n", false, true)
+    else
+      communications:echo("Communications window ("..key..") updated from (&lt;"..
+        communications.configs.comms_window.foreground..
+        "&gt;"..communications.configs.comms_window.foreground..
+        "&lt;reset&gt;) to (&lt;"..val.."&gt;"..val.."&lt;reset&gt;).\n")
+      communications.configs.comms_window[key] = val
+      table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  elseif key == "tabs" then
+    if not color_table[val] then
+      communications:echo("Color ("..val..") not known.\n", false, true)
+    else
+      communications:echo("Communications window ("..key..") updated from (&lt;"..
+        communications.configs.comms_window.tabs..
+        "&gt;"..communications.configs.comms_window.tabs..
+        "&lt;reset&gt;) to (&lt;"..val.."&gt;"..val.."&lt;reset&gt;).\n")
+      communications.configs.comms_window[key] = val 
+      table.save(getMudletHomeDir() .. "/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
   else
     communications:echo("Key (" .. key .. ") unable to be changed through this alias.\n", false, true)
   end

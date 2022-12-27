@@ -5,15 +5,23 @@
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Communications</name>
 			<packageName></packageName>
-			<script>communications = communications or {
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>communications initializations</name>
+				<packageName></packageName>
+				<script>communications = communications or {
     tabs = {"All", "Narrates", "Chats", "Tells", "Says", "Yells", "Misc"},
-    tab_color = "navy"
   }
 communications.configs = communications.configs or {}
   
 communications.defaults = {
   dbug = true,
   comms_window={
+      border = "gray",
+      background = "black",
+      foreground = "white",
+      tabs = "navy",
       visible=true,
       x="-37%",
       y="73%",
@@ -28,9 +36,10 @@ communications.defaults = {
             immortals="dodger_blue"}
 }
 </script>
-			<eventHandlerList />
+				<eventHandlerList />
+			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Communications Display Echo</name>
+				<name>communications:echo</name>
 				<packageName></packageName>
 				<script>function communications:echo(what, debug, err)
   --colored tags for message echo
@@ -54,7 +63,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Set Communications Configuration Values</name>
+				<name>communications:set_configs</name>
 				<packageName></packageName>
 				<script>function communications:set_configs()
     local defaults = self.defaults or {}
@@ -74,7 +83,7 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>System connection</name>
+				<name>communications:sys_connection</name>
 				<packageName></packageName>
 				<script>function communications:sys_connection(event)
   self:set_configs()
@@ -86,7 +95,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "communications:sys_connecti
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>System disconnection</name>
+				<name>communications:sys_disconnection</name>
 				<packageName></packageName>
 				<script>function communications:sys_disconnection(event)
   self.configs = self.configs or {}
@@ -101,7 +110,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Show Comms</name>
+				<name>communications:show_comms</name>
 				<packageName></packageName>
 				<script>function communications:show_comms(bval)
   local visible = bval
@@ -109,11 +118,14 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
   local configs = self.configs.comms_window
   local x, y, w, h = configs.x, configs.y, configs.w, configs.h
   
+  local r, g, b = unpack(color_table[configs.border])
+  local rgb_str = r..","..g..","..b
+  
   self.container = self.container or
     Adjustable.Container:new(
       {
         name = "communications.container",
-        adjLabelstyle = "background-color:rgba(220,220,220,100%); border: 5px groove grey;",
+        adjLabelstyle = "background-color:rgba("..rgb_str..",100%); border: 5px groove grey;",
         buttonstyle =
           [[
       QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
@@ -143,7 +155,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
     )
     
   self.footer:setStyleSheet([[
-  background-color: black;
+  background-color: ]]..configs.background..[[;
   ]])
 
   for _, ctype in pairs(self.tabs) do
@@ -152,7 +164,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
     self[ctype .. "_tab"]:setStyleSheet(
       [[
     background-color: ]] ..
-      self.tab_color ..
+      configs.tabs ..
       [[;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -160,8 +172,9 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
     margin-left: 1px;
   ]]
     )
-    self[ctype .. "_tab"]:echo("&lt;center&gt;" .. ctype)
+    self[ctype .. "_tab"]:echo("&lt;center&gt;" .. ctype, configs.foreground)
     self[ctype .. "_tab"]:setClickCallback("communications.click", ctype)
+    self[ctype .. "_tab"]:setColor(configs.tabs)
     
     self[ctype] = self[ctype] or 
       Geyser.MiniConsole:new(
@@ -176,10 +189,10 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
       )
     enableScrollBar("communications."..ctype)
     self[ctype]:enableAutoWrap()
-    self[ctype]:setColor("black")
+    self[ctype]:setColor(configs.background)
     self[ctype]:setFontSize(configs.fontsize)
-    self[ctype]:bg("black")
-    self[ctype]:fg("white")
+    self[ctype]:bg(configs.background)
+    self[ctype]:fg(configs.foreground)
     self[ctype]:hide()
   end
   
@@ -224,7 +237,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Append Comms</name>
+				<name>communications:append</name>
 				<packageName></packageName>
 				<script>function communications:append(tab)
   selectCaptureGroup(1)
@@ -241,7 +254,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Comms Help</name>
+				<name>communications:show_help</name>
 				<packageName></packageName>
 				<script>function communications:show_help(cmd)
   if cmd then
@@ -337,6 +350,14 @@ communications.help.comms_window =
                 percentage of the screen height. Default: 73
             &lt;yellow&gt;fontsize&lt;reset&gt; - Specify the font size of the communications window. 
                 Default: 12
+            &lt;yellow&gt;border&lt;reset&gt; - Specify the color of the border of the communications window. 
+                Default: gray
+            &lt;yellow&gt;background&lt;reset&gt; - Specify the color of the background of the communications tab windows. 
+                Default: black
+            &lt;yellow&gt;foreground&lt;reset&gt; - Specify the color of the foreground of the communications tab windows. 
+                Default: white
+            &lt;yellow&gt;tabsd&lt;reset&gt; - Specify the color of the tabs of the communications windows. 
+                Default: navy
         &lt;yellow&gt;comms dock&lt;reset&gt; - Make the communications window either dock to the left or right half of 
             the screen, or float
         &lt;yellow&gt;comms show&lt;reset&gt; - Displays or hides a communications window in a fixed position
@@ -345,7 +366,7 @@ communications.help.comms_window =
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Comms Window Reposition</name>
+				<name>communications:reposition_comms</name>
 				<packageName></packageName>
 				<script>function communications:reposition_comms(event, containerName, width, height, x, y)
   if containerName ~= "communications.container" then
@@ -370,7 +391,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "communicat
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Script Installation Success</name>
+				<name>communications:comms_installer_success</name>
 				<packageName></packageName>
 				<script>function communications:comms_installer_success(event, name)
   --if installed file is not the desired one

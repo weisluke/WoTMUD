@@ -658,6 +658,7 @@ local color = matches[2]
 local place = matches[3]
 local labeltext = matches[4]
 local r, g, b
+local fontsize = 30
 
 local offsets = {n={-0.5,2.5},s={-0.5,-0.5},e={1.0,1.0},nw = {-2.5, 2.5}, ne = {0.5, 2.5}, sw = {-2.5, -0.5}, se = {0.5, -0.5}}
 
@@ -669,7 +670,7 @@ if table.size(wotmudmapper.currentID) == 1 and offsets[place] and color_table[co
   local y = offsets[place][2]
   x = pos1 + x
   y = pos2 + y
-  createMapLabel(areaID, labeltext, x, y, pos3, r, g, b, 50, 50, 50, 30, 40, false, false)
+  createMapLabel(areaID, labeltext, x, y, pos3, r, g, b, 50, 50, 50, 30, fontsize, false, false)
 else
   wotmudmapper:echo("Current room not known, or invalid color/location/text specification.\n",false,true)
 end</script>
@@ -1098,6 +1099,18 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
       table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:show_map(true)
+    end
+  elseif key == "border" then
+    if not color_table[val] then
+      wotmudmapper:echo("Color ("..val..") not known. Type \"viewcolors\" to see the list of available colors.\n", false, true)
+    else
+      wotmudmapper:echo("Map window ("..key..") updated from (&lt;"..
+        wotmudmapper.configs.map_window.border..
+        "&gt;"..wotmudmapper.configs.map_window.border..
+        "&lt;reset&gt;) to (&lt;"..val.."&gt;"..val.."&lt;reset&gt;).\n")
+      wotmudmapper.configs.map_window[key] = val
+      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:echo("Color change will only take effect upon restarting mudlet.\n")
     end
   else
     wotmudmapper:echo("Key ("..key..") unable to be changed through this alias.\n",false,true)

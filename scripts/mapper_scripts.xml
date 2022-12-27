@@ -59,6 +59,7 @@ wotmudmapper.defaults = {
   doorcolor = "blue", --color of door information displayed below room exits
   speedwalk = true, --whether or not double clicking rooms will make you speedwalk
   map_window = {
+    border = "gray",
     widget = false, --true if the map widget should be used instead of an Adjustable.Container
     visible = true, --true if map should be shown
     x = "-37%", --left border of map Adjustable.Container
@@ -396,11 +397,14 @@ registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</scr
     return
   end
   
+  local r, g, b = unpack(color_table[configs.border])
+  local rgb_str = r..","..g..","..b
+  
   --create mapper container, position it, and resize it
   self.container = self.container or Adjustable.Container:new(
     {
       name = "wotmudmapper.container",
-      adjLabelstyle = "background-color:rgba(220,220,220,100%); border: 5px groove grey;",
+      adjLabelstyle = "background-color:rgba("..rgb_str..",100%); border: 5px groove grey;",
       buttonstyle=[[
       QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
       QLabel::hover{ background-color: rgba(160,160,160,50%);}
@@ -713,6 +717,8 @@ wotmudmapper.help.map_window =
                 percentage of the screen width. Default: 37
             &lt;yellow&gt;h&lt;reset&gt; - Specify the height of the map window as a positive
                 percentage of the screen height. Default: 73
+            &lt;yellow&gt;border&lt;reset&gt; - Specify the color of the border of the map window.
+                Default: gray
         &lt;yellow&gt;map zoom number&lt;reset&gt; - Specify the zoom level of the map. Closer to 1 = more zoomed
                 in. Default: 50
         &lt;yellow&gt;map dock&lt;reset&gt; - Make the map either dock to the left or right half of the screen,

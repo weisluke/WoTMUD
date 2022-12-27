@@ -356,6 +356,8 @@ communications.help.comms_window =
                 Default: black
             &lt;yellow&gt;foreground&lt;reset&gt; - Specify the color of the foreground of the communications tab windows. 
                 Default: white
+            &lt;yellow&gt;tabsd&lt;reset&gt; - Specify the color of the tabs of the communications windows. 
+                Default: navy
         &lt;yellow&gt;comms dock&lt;reset&gt; - Make the communications window either dock to the left or right half of 
             the screen, or float
         &lt;yellow&gt;comms show&lt;reset&gt; - Displays or hides a communications window in a fixed position

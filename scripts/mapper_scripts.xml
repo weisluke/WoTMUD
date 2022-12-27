@@ -717,6 +717,8 @@ wotmudmapper.help.map_window =
                 percentage of the screen width. Default: 37
             &lt;yellow&gt;h&lt;reset&gt; - Specify the height of the map window as a positive
                 percentage of the screen height. Default: 73
+            &lt;yellow&gt;border&lt;reset&gt; - Specify the color of the border of the map window.
+                Default: gray
         &lt;yellow&gt;map zoom number&lt;reset&gt; - Specify the zoom level of the map. Closer to 1 = more zoomed
                 in. Default: 50
         &lt;yellow&gt;map dock&lt;reset&gt; - Make the map either dock to the left or right half of the screen,

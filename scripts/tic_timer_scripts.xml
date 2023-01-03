@@ -5,7 +5,12 @@
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Tic Timer Scripts</name>
 			<packageName></packageName>
-			<script>tic_timer = tic_timer or {}
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>tic_timer initializations</name>
+				<packageName></packageName>
+				<script>tic_timer = tic_timer or {}
 
 tic_timer.configs = tic_timer.configs or 
   {
@@ -61,9 +66,10 @@ function tic_timer:reset()
     self.mob_triggers[name] = nil
   end
 end</script>
-			<eventHandlerList />
+				<eventHandlerList />
+			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Tic Timer Display Echo</name>
+				<name>tic_timer:echo</name>
 				<packageName></packageName>
 				<script>function tic_timer:echo(what, debug, err)
   --colored tags for message echo
@@ -87,7 +93,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>System connection</name>
+				<name>tic_timer:sys_connection</name>
 				<packageName></packageName>
 				<script>function tic_timer:sys_connection(event)
   if io.exists(getMudletHomeDir() .. "/tic_timer.configs.lua") then
@@ -101,7 +107,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "tic_timer:sys_connection")<
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>System disconnection</name>
+				<name>tic_timer:sys_disconnection</name>
 				<packageName></packageName>
 				<script>function tic_timer:sys_disconnection(event)
   --store current tic length locally
@@ -121,7 +127,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "tic_timer:sys_disconnect
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Store tic lengths and calculate statistics</name>
+				<name>tic_timer store tic lengths and calculate statistics</name>
 				<packageName></packageName>
 				<script>tic_timer.tic_history = tic_timer.tic_history or {tic_timer.configs.tic_length, size = 1}
 
@@ -168,8 +174,8 @@ function tic_timer:tic_length_std_dev()
     weight = weight + 1 / (self.tic_history.size + 1 - i)
     weight2 = weight2 + 1 / ((self.tic_history.size + 1 - i) * (self.tic_history.size + 1 - i))
   end
-  --empirically, the tic length standard deviation shouldn't be allowed to drop below 0.3 seconds
-  return math.max(math.sqrt(sum / (weight - weight2 / weight)), 0.3)
+  --empirically, the tic length standard deviation shouldn't be allowed to drop below 0.5 seconds
+  return math.max(math.sqrt(sum / (weight - weight2 / weight)), 0.5)
 end
 
 
@@ -181,7 +187,7 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Tic event</name>
+				<name>tic_timer:tic</name>
 				<packageName></packageName>
 				<script>function tic_timer:tic(event, exact, is_early, is_late)
   --if tic timer is not turned on, do nothing
@@ -263,7 +269,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Aggro pulse event</name>
+				<name>tic_timer:aggro_pulse</name>
 				<packageName></packageName>
 				<script>function tic_timer:aggro_pulse(event, exact)
   --aggro pulses occur every 1/6 of a tic
@@ -359,7 +365,7 @@ registerAnonymousEventHandler("aggro_pulse", "tic_timer:aggro_pulse")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Set tic length based on non-exact event</name>
+				<name>tic_timer:pulse_event</name>
 				<packageName></packageName>
 				<script>function tic_timer:pulse_event(num_events_per_tic)
   --if tic timer is not turned on or in its default unstarted state, do nothing
@@ -435,7 +441,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Tic timer help</name>
+				<name>tic_timer help</name>
 				<packageName></packageName>
 				<script>tic_timer.help =
   [[

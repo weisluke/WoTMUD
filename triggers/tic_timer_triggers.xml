@@ -51,6 +51,7 @@ end</script>
 						<string>A ball of red light rises slowly from the edge of the grassland, bringing light to the savannah.</string>
 						<string>A blanket of heat covers the land as the sun rises.</string>
 						<string>A bright orange sun rises above the morning fog.</string>
+						<string>A bright sun rises over the forest.</string>
 						<string>A brilliant light spreads across the grassland.</string>
 						<string>A calm descends over the fort as night falls.</string>
 						<string>A chill breeze cuts through you as the sun sinks below the hills.</string>
@@ -60,6 +61,7 @@ end</script>
 						<string>A dismal light is cast with the rising of the sun.</string>
 						<string>A dull light is cast through the sickly trees as the sun rises.</string>
 						<string>A feeble light casts shadows across the ruined landscape.</string>
+						<string>A fiery sky shows in the western horizon as the sun sets.</string>
 						<string>A gloomy light is cast across the twisted landscape.</string>
 						<string>A harsh light emerges as the sun rises.</string>
 						<string>A light, airy blue through the trees heralds the sunrise.</string>
@@ -69,6 +71,7 @@ end</script>
 						<string>A sickly reddish glow spreads over the world as the sun returns.</string>
 						<string>A warm glow bathes the Illian road in a bright light.</string>
 						<string>A warm glow is cast by the rising sun.</string>
+						<string>A warm glow spreads across the sky as the sun rises in the east.</string>
 						<string>A yellow glow from above descends beneath black spires.</string>
 						<string>Amidst soft colors the sun rises above the mountains in the east.</string>
 						<string>An eerie howl breaks the silence as the sun slowly sets below the horizon.</string>
@@ -88,16 +91,13 @@ end</script>
 						<string>Birds begin to chatter as the sun rises.</string>
 						<string>Birds chirp merrily as the sun rises in the east.</string>
 						<string>Black peaks create looming shadows as the sun drops beneath the horizon.</string>
+						<string>Brilliant colors light the western sky as the sun sets.</string>
+						<string>Casting jagged shadows, the sun rises over Garen's Wall.</string>
 						<string>Casting jagged shadows, the sun rises over the Mountains of Mist.</string>
 						<string>Colorful birds chirp happily as the sun rises out of the eastern seas.</string>
 						<string>Creatures begin to stir among the grass as the sun rises in the east.</string>
 						<string>Dank shadows shroud the trees, the sun dipping beneath the horizon.</string>
 						<string>Dapples of sunlight fall onto the forest floor.</string>
-						<string>Darkness covers the land, hiding the corruption of the Blight\.$</string>
-						<string>Darkness descends on the land\.$</string>
-						<string>Darkness descends upon the Spine of the World with the setting of the sun.</string>
-						<string>Darkness embraces the land once again.</string>
-						<string>Darkness engulfs the terrain as the sun disappears behind the black mountains.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -168,6 +168,11 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>Darkness covers the land, hiding the corruption of the Blight.</string>
+						<string>Darkness descends on the land.</string>
+						<string>Darkness descends upon the Spine of the World with the setting of the sun.</string>
+						<string>Darkness embraces the land once again.</string>
+						<string>Darkness engulfs the terrain as the sun disappears behind the black mountains.</string>
 						<string>Darkness falls across the road.</string>
 						<string>Darkness falls, casting pitch black shadows.</string>
 						<string>Darkness fills the Blight as the sun sets.</string>
@@ -199,6 +204,8 @@ end</script>
 						<string>Light begins to peak from behind the hills.</string>
 						<string>Light breaks over the horizon through waves of heat as a new day begins.</string>
 						<string>Light fades as the red evening sun slowly drops below the horizon.</string>
+						<string>Light fades to dark, and the air takes on a sharp chill as the sun sets below the horizon.</string>
+						<string>Light reflects off the ocean as the sun rises.</string>
 						<string>Light splashes across the sky as the sun rises above the rooftops of Emonds Field.</string>
 						<string>Long shadows are cast as the sun rises behind the mountains to the east.</string>
 						<string>Long shadows are cast throughout the forest as the sun slowly sets.</string>
@@ -211,13 +218,6 @@ end</script>
 						<string>Rays of light spread over the grasslands, stirring animals to life.</string>
 						<string>Rays of the golden sun spreads over the rugged hills as the sun rises.</string>
 						<string>Ruddy amber hues streak across the vanishing horizon as night falls.</string>
-						<string>Scarlet and gold paint the sky as the sun sets in the west.</string>
-						<string>Shadows dance as the sun makes its way into the sky.</string>
-						<string>Shadows descend upon the land as the sun drops behind the hills to the west.</string>
-						<string>Shadows embrace the city as twilight falls over Seandar.</string>
-						<string>Shadows grow beneath the peaks as dusk arrives.</string>
-						<string>Shadows lengthen along Garen's Wall as the sun sets.</string>
-						<string>Shadows lengthen as the sun approaches the horizon.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -288,8 +288,17 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>Scarlet and gold paint the sky as the sun sets in the west.</string>
+						<string>Shadows dance as the sun makes its way into the sky.</string>
+						<string>Shadows descend upon the land as the sun drops behind the hills to the west.</string>
+						<string>Shadows embrace the city as twilight falls over Seandar.</string>
+						<string>Shadows grow beneath the peaks as dusk arrives.</string>
+						<string>Shadows grow short as the sun rises to the east.</string>
+						<string>Shadows lengthen along Garen's Wall as the sun sets.</string>
+						<string>Shadows lengthen as the sun approaches the horizon.</string>
 						<string>Shadows lengthen as the sun gently sinks behind the horizon.</string>
 						<string>Shadows lengthen as the sun sets beyond the mountains.</string>
+						<string>Shadows race across the land as the sun sets west of the Cliffs of Dawn.</string>
 						<string>Shadows thicken as the sun sets behind the mountains.</string>
 						<string>Soft rays of morning sun peak from behind the rolling hills.</string>
 						<string>Sparkles of light dance upon the sea as the sun rises.</string>
@@ -307,8 +316,10 @@ end</script>
 						<string>The boiling red sun slowly rises over the blighted lands.</string>
 						<string>The burning sun rises above the mountains to the east.</string>
 						<string>The burnished disk of the sun settles behind the spires of Tar Valon.</string>
+						<string>The Cliffs of Dawn color red as the sun rises over the exotic land of Shara.</string>
 						<string>The clouds brooding above darken as the sun sets.</string>
 						<string>The clouds in the east burn pink and violet with the rising of the sun.</string>
+						<string>The crows of a nearby rooster signal the approach of dawn.</string>
 						<string>The Dark One releases the sun to illuminate his minions.</string>
 						<string>The Dark One's hand covers the sun.</string>
 						<string>The darkness comes.</string>
@@ -319,6 +330,7 @@ end</script>
 						<string>The desert air begins to cool with the setting of the sun.</string>
 						<string>The dull red sun becomes visible over the high peaks.</string>
 						<string>The dust of the plains in the air turns golden with the falling hush of dusk.</string>
+						<string>The dying glow on the horizon settles into darkness.</string>
 						<string>The evening sun sinks behind the horizon.</string>
 						<string>The faint rosy hue finally fades away as the sun dips below the horizon.</string>
 						<string>The fiery colors of dawn settle into the forest with the rising sun.</string>
@@ -326,18 +338,6 @@ end</script>
 						<string>The first light of dawn illuminates Tarwin's Gap.</string>
 						<string>The first light of morning glows in the eastern sky.</string>
 						<string>The first light of morning shines on Amador.</string>
-						<string>The first rays of dawn appear in the east.</string>
-						<string>The first rays of light peak across the waters of the great sea to the east.</string>
-						<string>The first rays of sun shine on the broken gorge.</string>
-						<string>The forest comes to life with the rising of the sun.</string>
-						<string>The forest comes to life with the song of the forest birds and the chattering of squirrels.</string>
-						<string>The glorious darkness is broken by the rising of the sun.</string>
-						<string>The glow of the morning sun filters through the cracks of Garen's Wall.</string>
-						<string>The golden rays of dawn slowly appear over the palace walls.</string>
-						<string>The golden sun breaches the horizon, burnished rays burning away the night.</string>
-						<string>The golden sun sinks down behind the rugged hills.</string>
-						<string>The hills are awash in shadows as the sun sinks in the west.</string>
-						<string>The hot sun rises above the hard, cracked ground.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -408,6 +408,18 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The first rays of dawn appear in the east.</string>
+						<string>The first rays of light peak across the waters of the great sea to the east.</string>
+						<string>The first rays of sun shine on the broken gorge.</string>
+						<string>The forest comes to life with the rising of the sun.</string>
+						<string>The forest comes to life with the song of the forest birds and the chattering of squirrels.</string>
+						<string>The glorious darkness is broken by the rising of the sun.</string>
+						<string>The glow of the morning sun filters through the cracks of Garen's Wall.</string>
+						<string>The golden rays of dawn slowly appear over the palace walls.</string>
+						<string>The golden sun breaches the horizon, burnished rays burning away the night.</string>
+						<string>The golden sun sinks down behind the rugged hills.</string>
+						<string>The hills are awash in shadows as the sun sinks in the west.</string>
+						<string>The hot sun rises above the hard, cracked ground.</string>
 						<string>The howls of wolves fill the air as the sun sets.</string>
 						<string>The Imperial Capital is bathed in a warm glow as the sun rises.</string>
 						<string>The last rays of light begin to fade into blackness.</string>
@@ -418,6 +430,7 @@ end</script>
 						<string>The light becomes a little brighter.</string>
 						<string>The light begins to filter through the trees.</string>
 						<string>The lilac blue of dawn begins to grace the sky from the east.</string>
+						<string>The morning light burns off the reigning darkness in the sky.</string>
 						<string>The night chases the sun over the edge of the world.</string>
 						<string>The night has begun.</string>
 						<string>The nocturnal sounds of the forest begin to rise as the sun sets in the west.</string>
@@ -434,6 +447,7 @@ end</script>
 						<string>The rising sun colors the Westwood red and gold.</string>
 						<string>The setting sun casts a dim red glow throughout the forest.</string>
 						<string>The setting sun frames the famed blue dome of Far Madding.</string>
+						<string>The setting sun takes one last look at the world before dropping below the horizon.</string>
 						<string>The shadows lengthen as the sun sinks beyond the horizon.</string>
 						<string>The shrill call of a jungle bird breaks the silence as the sun rises.</string>
 						<string>The sinking sun dips below the moss covered tree limbs.</string>
@@ -444,20 +458,6 @@ end</script>
 						<string>The sky glows with the rising of the sun.</string>
 						<string>The sky grows brighter as the sun peeks above the mountains.</string>
 						<string>The sky is awash in a burst of burning gold and crimson glory as the sun sets.</string>
-						<string>The sky is awash in shades of red and purple as the sun sinks behind the mountains.</string>
-						<string>The sky is painted in shades of red and purple as the sun slowly descends.</string>
-						<string>The sky turns orange and pink as the sun sinks into the Aryth Ocean.</string>
-						<string>The sky turns red as a fiery sun sets in the west.</string>
-						<string>The sky turns the color liquid gold as the sun sets beyond the plains.</string>
-						<string>The sound of roosters crowing greets the rising sun.</string>
-						<string>The sun begins its journey to its peak in the sky.</string>
-						<string>The sun begins to cast an orange glow on the trees as it rises.</string>
-						<string>The sun breaks into view as it rises over the walls.</string>
-						<string>The sun breaks the darkness as it rises over the eastern peaks.</string>
-						<string>The sun bursts into the eastern skies.</string>
-						<string>The sun casts a dim glow across the barren hills.</string>
-						<string>The sun casts a dim light through dismal skies.</string>
-						<string>The sun casts a golden glow over the city.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -528,6 +528,21 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The sky is awash in shades of red and purple as the sun sinks behind the mountains.</string>
+						<string>The sky is painted in shades of red and purple as the sun slowly descends.</string>
+						<string>The sky turns orange and pink as the sun sinks into the Aryth Ocean.</string>
+						<string>The sky turns red as a fiery sun sets in the west.</string>
+						<string>The sky turns the color liquid gold as the sun sets beyond the Mountains of Mist.</string>
+						<string>The sky turns the color liquid gold as the sun sets beyond the plains.</string>
+						<string>The sound of roosters crowing greets the rising sun.</string>
+						<string>The sun begins its journey to its peak in the sky.</string>
+						<string>The sun begins to cast an orange glow on the trees as it rises.</string>
+						<string>The sun breaks into view as it rises over the walls.</string>
+						<string>The sun breaks the darkness as it rises over the eastern peaks.</string>
+						<string>The sun bursts into the eastern skies.</string>
+						<string>The sun casts a dim glow across the barren hills.</string>
+						<string>The sun casts a dim light through dismal skies.</string>
+						<string>The sun casts a golden glow over the city.</string>
 						<string>The sun casts its dreary morning light through the hazy sky.</string>
 						<string>The sun casts its yellow light over the long road.</string>
 						<string>The sun casts rays of burnished gold over the Spine of the World.</string>
@@ -543,11 +558,14 @@ end</script>
 						<string>The sun descends beyond the horizon.</string>
 						<string>The sun descends past the horizon, striking red fire through the fetid air.</string>
 						<string>The sun dips behind the mountains in the west, enveloping the land in shadow.</string>
+						<string>The sun disappears beneath the western horizon.</string>
 						<string>The sun drops below the flat horizon of the plains.</string>
 						<string>The sun drops below the walls of the keep.</string>
 						<string>The sun drops quickly in the west in a glory of color.</string>
+						<string>The sun fades out of sight behind the mountains.</string>
 						<string>The sun falls behind the jagged snowy peaks.</string>
 						<string>The sun falls slowly behind the walls of the city.</string>
+						<string>The sun hits the hay.</string>
 						<string>The sun lowers in the sky, covering the landscape in eery twilight.</string>
 						<string>The sun paints the sky as it sets.</string>
 						<string>The sun peaks over the high watchtower of the keep.</string>
@@ -560,24 +578,6 @@ end</script>
 						<string>The sun peeks over the topless towers of the city.</string>
 						<string>The sun peeks over the trees, heralding the dawn of a new day.</string>
 						<string>The sun rises above the tops of the black mountains.</string>
-						<string>The sun rises from behind the distant Spine of the World.</string>
-						<string>The sun rises gloriously above the Menagerie.</string>
-						<string>The sun rises in the east above the Spine of the World.</string>
-						<string>The sun rises in the east breathing life into a new day.</string>
-						<string>The sun rises in the east.</string>
-						<string>The sun rises in the eastern sky, setting it afire with color.</string>
-						<string>The sun rises in the eastern sky.</string>
-						<string>The sun rises over the eastern hills.</string>
-						<string>The sun rises over the eastern walls of the castle.</string>
-						<string>The sun rises over the peaks of the Spine.</string>
-						<string>The sun rises slowly from behind the Mountains of Mist.</string>
-						<string>The sun rises through the lilac and gold tinged clouds in the east.</string>
-						<string>The sun rises, bathing the Fortress of Light in a wash of gold.</string>
-						<string>The sun rises, casting bright light to drive away the shadows.</string>
-						<string>The sun rises, casting light into the shadows.</string>
-						<string>The sun rises, cutting through the sharp profiles of rocky mountains.</string>
-						<string>The sun rises.</string>
-						<string>The sun sets behind the city's western wall.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -648,8 +648,30 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The sun rises from behind the distant land of Shara.</string>
+						<string>The sun rises from behind the distant Spine of the World.</string>
+						<string>The sun rises gloriously above the Menagerie.</string>
+						<string>The sun rises in the east above the Spine of the World.</string>
+						<string>The sun rises in the east breathing life into a new day.</string>
+						<string>The sun rises in the east.</string>
+						<string>The sun rises in the eastern sky, setting it afire with color.</string>
+						<string>The sun rises in the eastern sky.</string>
+						<string>The sun rises over the eastern hills.</string>
+						<string>The sun rises over the eastern walls of the castle.</string>
+						<string>The sun rises over the peaks of the Spine.</string>
+						<string>The sun rises slowly from behind the Mountains of Mist.</string>
+						<string>The sun rises through the lilac and gold tinged clouds in the east.</string>
+						<string>The sun rises, bathing the Fortress of Light in a wash of gold.</string>
+						<string>The sun rises, burning away the shadows of the night.</string>
+						<string>The sun rises, casting bright light to drive away the shadows.</string>
+						<string>The sun rises, casting light into the shadows.</string>
+						<string>The sun rises, casting long shadows across the blighted land.</string>
+						<string>The sun rises, cutting through the sharp profiles of rocky mountains.</string>
+						<string>The sun rises.</string>
+						<string>The sun sets behind the city's western wall.</string>
 						<string>The sun sets behind the Spine of the World.</string>
 						<string>The sun sets below the water, turning it into a blaze of glorious colors.</string>
+						<string>The sun sets in the distance.</string>
 						<string>The sun sets in the west as a blaze of dark gold and bronzed red.</string>
 						<string>The sun sets in the western sky, throwing everything into twilight color.</string>
 						<string>The sun sets in the western sky.</string>
@@ -661,6 +683,7 @@ end</script>
 						<string>The sun sets with a vivid display of colors over the western sky.</string>
 						<string>The sun sets, allowing shadows to creep forward.</string>
 						<string>The sun sets, casting the streets into cool, violet shadows.</string>
+						<string>The sun sets, leaving a crisp coolness.</string>
 						<string>The sun sets, painting the skies over Seandar in a multitude of shades of red.</string>
 						<string>The sun sets, washing the city in fiery colors.</string>
 						<string>The sun sets.</string>
@@ -675,29 +698,6 @@ end</script>
 						<string>The sun sinks over the sea to the west.</string>
 						<string>The sun sinks quietly beneath the western horizon.</string>
 						<string>The sun sinks slowly beneath the Aryth Ocean on the western horizon.</string>
-						<string>The sun sinks slowly beneath the rolling hills to the west.</string>
-						<string>The sun slides gently behind the Menagerie tent spires.</string>
-						<string>The sun slides out of sight behind the walls of the Keep.</string>
-						<string>The sun slips below the hills to the west.</string>
-						<string>The sun slips slowly below the city walls.</string>
-						<string>The sun slowly descends behind the hills.</string>
-						<string>The sun slowly disappears in the western horizon.</string>
-						<string>The sun slowly rises above the plains.</string>
-						<string>The sun slowly rises, casting a warm glow across the Saldaean fields.</string>
-						<string>The sun slowly sets over the castle walls to the west.</string>
-						<string>The sun slowly sets.</string>
-						<string>The sun slowly sinks behind the majestic towers of Mayene.</string>
-						<string>The sun slowly sinks in the west, casting long shadows across the city.</string>
-						<string>The sun starts to rise above the walls of the city.</string>
-						<string>The sun vanishes amongst the trees, letting night sweep the land.</string>
-						<string>The sunlight sweeps across the plains with the dawn.</string>
-						<string>The sun's blinding light is reflected in the lakes waters as it sets.</string>
-						<string>The sun's first rays touch the eastern slopes of Garen's Wall.</string>
-						<string>The sun's golden rays glisten over the Aryth ocean as it rises.</string>
-						<string>The sun's light fills the sky as it rises.</string>
-						<string>The sun's orange rays streak the landscape as it sets.</string>
-						<string>The sun's rays flash across the grass as it sets in the west.</string>
-						<string>The symphony of bird song fills the air as the sun filters through the trees.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -768,14 +768,42 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The sun sinks slowly beneath the rolling hills to the west.</string>
+						<string>The sun slides from behind the Aryth Ocean into the early morning sky.</string>
+						<string>The sun slides gently behind the Menagerie tent spires.</string>
+						<string>The sun slides out of sight behind the walls of the Keep.</string>
+						<string>The sun slips below the hills to the west.</string>
+						<string>The sun slips slowly below the city walls.</string>
+						<string>The sun slowly descends behind the hills.</string>
+						<string>The sun slowly disappears in the western horizon.</string>
+						<string>The sun slowly rises above the plains.</string>
+						<string>The sun slowly rises, casting a warm glow across the Saldaean fields.</string>
+						<string>The sun slowly sets over the castle walls to the west.</string>
+						<string>The sun slowly sinks into the mountains to the west.</string>
+						<string>The sun slowly sets.</string>
+						<string>The sun slowly sinks behind the majestic towers of Mayene.</string>
+						<string>The sun slowly sinks in the west, casting long shadows across the city.</string>
+						<string>The sun starts to rise above the walls of the city.</string>
+						<string>The sun vanishes amongst the trees, letting night sweep the land.</string>
+						<string>The sunlight sweeps across the plains with the dawn.</string>
+						<string>The sun's blinding light is reflected in the lakes waters as it sets.</string>
+						<string>The sun's blinding light is reflected in the lake's waters as it sets.</string>
+						<string>The sun's first rays touch the eastern slopes of Garen's Wall.</string>
+						<string>The sun's golden rays glisten over the Aryth ocean as it rises.</string>
+						<string>The sun's light fills the sky as it rises.</string>
+						<string>The sun's orange rays streak the landscape as it sets.</string>
+						<string>The sun's rays flash across the grass as it sets in the west.</string>
+						<string>The symphony of bird song fills the air as the sun filters through the trees.</string>
 						<string>The tall towers above you shimmer brightly in the light of the rising sun.</string>
 						<string>The towers of the palace are painted in burning reds as the sun sets.</string>
 						<string>The twisted forestland darkens as the sun slowly sets.</string>
 						<string>The warmth of the morning sun heats the air.</string>
+						<string>The weak light cast upon the dismal grove dissipates as the sun sets.</string>
 						<string>The western horizon glows in shades of red and violet as the sun sets.</string>
 						<string>The western sky blazes in shades of red as the sun slowly sets.</string>
 						<string>The White Tower is bathed in a reddish orange light as the sun sets.</string>
 						<string>The White Tower's spire gleams softly in the first light of a new day.</string>
+						<string>The world is basked in a purple glow as the sun dips below the hills.</string>
 						<string>The world is submerged into coolness as the sun sinks into the horizon.</string>
 						<string>Thin rays of sunlight pierce the sky over the marshes.</string>
 						<string>Unseen watchers howl as the sun hides behind the horizon.</string>
@@ -783,16 +811,9 @@ end</script>
 						<string>Vivid colors flood the sky as the sun sets over the hills.</string>
 						<string>Warm golden light embraces the palace as the sun rises.</string>
 						<string>Weak daylight fades to black as the sun slowly sets.</string>
+						<string>Weak light filters through the hazy sky as the sun rises.</string>
 						<string>Weak light is cast through the grove as the sun rises.</string>
 						<string>Weak sunlight strains to brighten this blighted wasteland as the sun rises.</string>
-						<string>Weak light filters through the hazy sky as the sun rises.</string>
-						<string>The sun disappears beneath the western horizon.</string>
-						<string>The sun's blinding light is reflected in the lake's waters as it sets.</string>
-						<string>A fiery sky shows in the western horizon as the sun sets.</string>
-						<string>Malfeasor, the twin bladed scythe of blood ebony (.*)stops glowing\.\.\.$</string>
-						<string>Malfeasor, the twin bladed scythe of blood ebony (.*)begins to glow\.\.\.$</string>
-						<string>The ancient greatsword, Justice (.*)stops glowing\.\.\.$</string>
-						<string>The ancient greatsword, Justice (.*)begins to glow\.\.\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -816,14 +837,35 @@ end</script>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
-						<integer>1</integer>
-						<integer>1</integer>
-						<integer>1</integer>
-						<integer>1</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Tic Triggers 8</name>
+					<name>Weather</name>
 					<script>if tic_timer.configs.on then
   raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
@@ -838,57 +880,121 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(.+) begins to dim a little\.$</string>
-						<string>(.+) disappears into the void\.$</string>
-						<string>(.+) has gone out!</string>
-						<string>(.+) is about to go out!</string>
-						<string>A (.+) is definitely fading\.$</string>
-						<string>A glowing portal fades from existence.</string>
-						<string>As you watch (.+) seems to melt into the background, vanishing\.$</string>
-						<string>The corpse of (.+) has decayed into a pile of dust\.$</string>
-						<string>The Wheel of Time spins</string>
-						<string>The Wheel of Time turns toward</string>
-						<string>You feel parched from the hot weather.</string>
-						<string>You have been idle, and are pulled into a void.</string>
-						<string>You move slightly, settling your cloak into position.</string>
+						<string>The clouds disappear.</string>
+						<string>The sky starts to get cloudy.</string>
+						<string>It starts to rain.</string>
+						<string>The rain stops.</string>
+						<string>Lightning starts to show in the sky.</string>
+						<string>The lightning stops.</string>
+						<string>It starts to snow.</string>
+						<string>The snow stops.</string>
+						<string>The snow lightens up a bit.</string>
+						<string>The snow is coming down more heavily now.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Status effects</name>
+					<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You feel the blindness fade.</string>
 						<string>Your extra burst of stamina fades.</string>
-						<string>Your heartbeat calms down more as you feel less panicked.</string>
-						<string>Your heartbeat races very rapidly as your forehead throbs.</string>
-						<string>The sun fades out of sight behind the mountains.</string>
-						<string>The sun slides from behind the Aryth Ocean into the early morning sky.</string>
-						<string>The setting sun takes one last look at the world before dropping below the horizon.</string>
-						<string>The sun rises from behind the distant land of Shara.</string>
-						<string>Brilliant colors light the western sky as the sun sets.</string>
 						<string>You feel sober again.</string>
-						<string>A warm glow spreads across the sky as the sun rises in the east.</string>
-						<string>The sun hits the hay.</string>
-						<string>The dismembered corpse of (.+) has decayed into a pile of dust\.$</string>
-						<string>Light fades to dark, and the air takes on a sharp chill as the sun sets below the horizon.</string>
-						<string>The sky turns the color liquid gold as the sun sets beyond the Mountains of Mist.</string>
-						<string>The weak light cast upon the dismal grove dissipates as the sun sets.</string>
-						<string>The sun slowly sinks into the mountains to the west.</string>
-						<string>The Cliffs of Dawn color red as the sun rises over the exotic land of Shara.</string>
-						<string>Shadows race across the land as the sun sets west of the Cliffs of Dawn.</string>
-						<string>The sun sets, leaving a crisp coolness.</string>
-						<string>A bright sun rises over the forest.</string>
-						<string>The sun sets in the distance.</string>
-						<string>The morning light burns off the reigning darkness in the sky.</string>
-						<string>Casting jagged shadows, the sun rises over Garen's Wall.</string>
-						<string>Light reflects off the ocean as the sun rises.</string>
-						<string>The sun rises, casting long shadows across the blighted land.</string>
-						<string>The sun rises, burning away the shadows of the night.</string>
-						<string>The fog dissipates...</string>
-						<string>(.+) incinerates into a pile of smoldering ashes\.$</string>
-						<string>The world is basked in a purple glow as the sun dips below the hills.</string>
-						<string>The crows of a nearby rooster signal the approach of dawn.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Lights</name>
+					<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>A (.+) begins to dim a little\.$</string>
+						<string>A (.+) is definitely fading\.$</string>
+						<string>A (.+) is about to go out!$</string>
+						<string>A (.+) has gone out!$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Miscellaneous tic triggers</name>
+					<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>The corpse of (.+) has decayed into a pile of dust\.$</string>
+						<string>The dismembered corpse of (.+) has decayed into a pile of dust\.$</string>
+						<string>(.+) incinerates into a pile of smoldering ashes\.$</string>
+						<string>The Wheel of Time spins</string>
+						<string>The Wheel of Time turns toward</string>
+						<string>The fog dissipates...</string>
+						<string>A glowing portal fades from existence.</string>
+						<string>You feel parched from the hot weather.</string>
+						<string>You move slightly, settling your cloak into position.</string>
+						<string>As you watch (.+) seems to melt into the background, vanishing\.$</string>
+						<string>You have been idle, and are pulled into a void.</string>
+						<string>(.+) disappears into the void\.$</string>
+						<string>Your heartbeat calms down more as you feel less panicked.</string>
+						<string>Your heartbeat races very rapidly as your forehead throbs.</string>
+						<string>Malfeasor, the twin bladed scythe of blood ebony (.*)stops glowing\.\.\.$</string>
+						<string>Malfeasor, the twin bladed scythe of blood ebony (.*)begins to glow\.\.\.$</string>
+						<string>The ancient greatsword, Justice (.*)stops glowing\.\.\.$</string>
+						<string>The ancient greatsword, Justice (.*)begins to glow\.\.\.$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>3</integer>
 						<integer>1</integer>
 						<integer>1</integer>
 						<integer>2</integer>
@@ -897,35 +1003,15 @@ end</script>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
+						<integer>1</integer>
 						<integer>3</integer>
 						<integer>1</integer>
 						<integer>3</integer>
 						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
 						<integer>1</integer>
-						<integer>3</integer>
-						<integer>3</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>
@@ -964,11 +1050,13 @@ end</script>
 						<string>You cough and shiver.</string>
 						<string>(.+) regains consciousness\.$</string>
 						<string>A baker bellows 'Time to make the donuts!'</string>
+						<string>You feel a sudden wave of nausea.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
 						<integer>3</integer>
 						<integer>1</integer>
+						<integer>3</integer>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -1144,9 +1232,11 @@ end</script>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Debunked</name>
-					<script></script>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Mob movement</name>
+					<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(6)
+end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1158,10 +1248,76 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>A (huge )?darkhound sears (.+) flesh with a scorching flame!$</string>
+						<string>A city lamplighter has arrived from</string>
+						<string>A city lamplighter leaves</string>
+						<string>A woman has arrived from</string>
+						<string>A woman leaves</string>
+						<string>A man has arrived from</string>
+						<string>A man leaves</string>
+						<string>The ratter has arrived from</string>
+						<string>The ratter leaves</string>
+						<string>A hunter for the horn has arrived from</string>
+						<string>A hunter for the horn leaves</string>
+						<string>An old man has arrived from</string>
+						<string>An old man leaves</string>
+						<string>A black dog has arrived from</string>
+						<string>A black dog leaves</string>
+						<string>A worker has arrived from</string>
+						<string>A worker leaves</string>
+						<string>A villager woman has arrived from</string>
+						<string>A villager woman leaves</string>
+						<string>A small dog has arrived from</string>
+						<string>A small dog leaves</string>
+						<string>A gambler has arrived from</string>
+						<string>A gambler leaves</string>
+						<string>A street sweeper has arrived from</string>
+						<string>A street sweeper leaves</string>
+						<string>A sailor has arrived from</string>
+						<string>A sailor leaves</string>
+						<string>A little boy has arrived from</string>
+						<string>A little boy leaves</string>
+						<string>A little girl has arrived from</string>
+						<string>A little girl leaves</string>
+						<string>A frail, old wisdom has arrived from</string>
+						<string>A frail, old wisdom leaves</string>
+						<string>A beggar has arrived from</string>
+						<string>A beggar leaves</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>1</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>

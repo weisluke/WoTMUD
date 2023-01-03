@@ -543,6 +543,7 @@ end</script>
 						<string>The sun bursts into the eastern skies.</string>
 						<string>The sun casts a dim glow across the barren hills.</string>
 						<string>The sun casts a dim light through dismal skies.</string>
+						<string>The sun casts a golden glow over the city.</string>
 						<string>The sun casts its dreary morning light through the hazy sky.</string>
 						<string>The sun casts its yellow light over the long road.</string>
 						<string>The sun casts rays of burnished gold over the Spine of the World.</string>
@@ -577,7 +578,6 @@ end</script>
 						<string>The sun peeks over the Mountains of Mist.</string>
 						<string>The sun peeks over the topless towers of the city.</string>
 						<string>The sun peeks over the trees, heralding the dawn of a new day.</string>
-						<string>The sun rises above the tops of the black mountains.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -648,6 +648,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The sun rises above the tops of the black mountains.</string>
 						<string>The sun rises from behind the distant land of Shara.</string>
 						<string>The sun rises from behind the distant Spine of the World.</string>
 						<string>The sun rises gloriously above the Menagerie.</string>
@@ -668,7 +669,6 @@ end</script>
 						<string>The sun rises, casting long shadows across the blighted land.</string>
 						<string>The sun rises, cutting through the sharp profiles of rocky mountains.</string>
 						<string>The sun rises.</string>
-						<string>The sun casts a golden glow over the city.</string>
 						<string>The sun sets behind the city's western wall.</string>
 						<string>The sun sets behind the Spine of the World.</string>
 						<string>The sun sets below the water, turning it into a blaze of glorious colors.</string>

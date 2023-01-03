@@ -445,7 +445,6 @@ end</script>
 						<string>The rising sun announces another day.</string>
 						<string>The rising sun casts both warm light and long shadows across the mountains.</string>
 						<string>The rising sun colors the Westwood red and gold.</string>
-						<string>The twisted forestland darkens as the sun slowly sets.</string>
 						<string>The setting sun casts a dim red glow throughout the forest.</string>
 						<string>The setting sun frames the famed blue dome of Far Madding.</string>
 						<string>The setting sun takes one last look at the world before dropping below the horizon.</string>
@@ -458,6 +457,7 @@ end</script>
 						<string>The sky glows with subdued light as the sun dips below the horizon.</string>
 						<string>The sky glows with the rising of the sun.</string>
 						<string>The sky grows brighter as the sun peeks above the mountains.</string>
+						<string>The sky is awash in a burst of burning gold and crimson glory as the sun sets.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -528,7 +528,6 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>The sky is awash in a burst of burning gold and crimson glory as the sun sets.</string>
 						<string>The sky is awash in shades of red and purple as the sun sinks behind the mountains.</string>
 						<string>The sky is painted in shades of red and purple as the sun slowly descends.</string>
 						<string>The sky turns orange and pink as the sun sinks into the Aryth Ocean.</string>
@@ -578,6 +577,7 @@ end</script>
 						<string>The sun peeks over the Mountains of Mist.</string>
 						<string>The sun peeks over the topless towers of the city.</string>
 						<string>The sun peeks over the trees, heralding the dawn of a new day.</string>
+						<string>The sun rises above the tops of the black mountains.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -648,7 +648,6 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>The sun rises above the tops of the black mountains.</string>
 						<string>The sun rises from behind the distant land of Shara.</string>
 						<string>The sun rises from behind the distant Spine of the World.</string>
 						<string>The sun rises gloriously above the Menagerie.</string>
@@ -698,6 +697,7 @@ end</script>
 						<string>The sun sinks into the hills.</string>
 						<string>The sun sinks over the sea to the west.</string>
 						<string>The sun sinks quietly beneath the western horizon.</string>
+						<string>The sun sinks slowly beneath the Aryth Ocean on the western horizon.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -768,7 +768,6 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>The sun sinks slowly beneath the Aryth Ocean on the western horizon.</string>
 						<string>The sun sinks slowly beneath the rolling hills to the west.</string>
 						<string>The sun slides from behind the Aryth Ocean into the early morning sky.</string>
 						<string>The sun slides gently behind the Menagerie tent spires.</string>
@@ -797,6 +796,7 @@ end</script>
 						<string>The symphony of bird song fills the air as the sun filters through the trees.</string>
 						<string>The tall towers above you shimmer brightly in the light of the rising sun.</string>
 						<string>The towers of the palace are painted in burning reds as the sun sets.</string>
+						<string>The twisted forestland darkens as the sun slowly sets.</string>
 						<string>The warmth of the morning sun heats the air.</string>
 						<string>The weak light cast upon the dismal grove dissipates as the sun sets.</string>
 						<string>The western horizon glows in shades of red and violet as the sun sets.</string>

@@ -8,7 +8,7 @@
 			<script></script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
-				<name>Practice Trainer Initializations</name>
+				<name>practice_trainer initializations</name>
 				<packageName></packageName>
 				<script>practice_trainer = practice_trainer or {configs = {}}
 practice_trainer.container =
@@ -48,7 +48,7 @@ disableTrigger("practice_trainer_warrior")</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Practice Trainer Echo</name>
+				<name>practice_trainer:echo</name>
 				<packageName></packageName>
 				<script>function practice_trainer:echo(what, debug, err)
   --colored tags for message echo
@@ -72,7 +72,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Style sheets</name>
+				<name>practice_trainer style sheets</name>
 				<packageName></packageName>
 				<script>practice_trainer.style_sheets = practice_trainer.style_sheets or {}
 
@@ -115,7 +115,7 @@ practice_trainer.style_sheets.clickable = [[
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Container parameters</name>
+					<name>practice_trainer:container_params</name>
 					<packageName></packageName>
 					<script>function practice_trainer:container_params(name, x, y, w, h)
   
@@ -132,7 +132,7 @@ end
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Label parameters</name>
+					<name>practice_trainer:label_params</name>
 					<packageName></packageName>
 					<script>function practice_trainer:label_params(name, x, y, w, h, msg, fg, bg)
   msg = msg or ""
@@ -155,7 +155,7 @@ end
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Command line parameters</name>
+					<name>practice_trainer:command_line_params</name>
 					<packageName></packageName>
 					<script>function practice_trainer:command_line_params(name, x, y, w, h, msg)
   return {
@@ -173,7 +173,7 @@ end
 				</Script>
 			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
-				<name>Practices</name>
+				<name>practice_trainer practices</name>
 				<packageName></packageName>
 				<script>practice_trainer.pracs = practice_trainer.pracs or {classes = {"warrior", "rogue", "hunter", "fade"}}
 practice_trainer.pracs.rates =
@@ -269,7 +269,7 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Practice Queue</name>
+				<name>practice_trainer practice queue</name>
 				<packageName></packageName>
 				<script>practice_trainer.pracs.queue = practice_trainer.pracs.queue or {}
 
@@ -293,7 +293,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Info Label</name>
+				<name>practice_trainer info label</name>
 				<packageName></packageName>
 				<script>local label_name = "info_label"
 local w = 50
@@ -323,7 +323,7 @@ practice_trainer[label_name]:echo(
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Reset Pracs</name>
+				<name>practice_trainer:reset_prac</name>
 				<packageName></packageName>
 				<script>local label_name = "reset_pracs_label"
 local w = 10
@@ -360,7 +360,7 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Save and Load file</name>
+					<name>practice_trainer save and load file</name>
 					<packageName></packageName>
 					<script>practice_trainer.file = practice_trainer.file or {}
 
@@ -427,7 +427,7 @@ practice_trainer.container:hide()</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Save and Load Functions</name>
+					<name>practice_trainer save and load functions</name>
 					<packageName></packageName>
 					<script>function practice_trainer:save_pracs(fname)
   if not io.exists(getMudletHomeDir() .. "/practice_trainer") then
@@ -502,7 +502,7 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Update Practice</name>
+					<name>practice_trainer update practice</name>
 					<packageName></packageName>
 					<script>function practice_trainer:add_practice(class, skill)
   if self.char.race == "trolloc" and (skill == "ride" or skill == "swim") then
@@ -547,7 +547,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Stats</name>
+					<name>practice_trainer update stats</name>
 					<packageName></packageName>
 					<script>function practice_trainer:add_stat(stat)
   if self.char.race == "trolloc" and stat == "str" then
@@ -585,7 +585,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Sex</name>
+					<name>practice_trainer update sex</name>
 					<packageName></packageName>
 					<script>function practice_trainer:sex_stipulations()
   if
@@ -623,7 +623,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Race</name>
+					<name>practice_trainer update race</name>
 					<packageName></packageName>
 					<script>function practice_trainer:race_stipulations(dir)
   if self.char.race == "fade" then
@@ -691,7 +691,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Class</name>
+					<name>practice_trainer update class</name>
 					<packageName></packageName>
 					<script>function practice_trainer:class_stipulations(dir)
   if self.char.race == "fade" then
@@ -750,7 +750,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Warder Bond</name>
+					<name>practice_trainer update warder bond</name>
 					<packageName></packageName>
 					<script>function practice_trainer:warder_bond_scroll(event)
   if self.char.race ~= "human" or self.char.class == "channeler" then return end
@@ -766,7 +766,7 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Practice to Percent</name>
+					<name>practice_trainer practice to percent</name>
 					<packageName></packageName>
 					<script>function practice_trainer:get_skill_class(skill)
   for _, class in pairs(self.pracs.classes) do
@@ -788,6 +788,9 @@ function practice_trainer:add_percent(class, skill)
   local rate_factor = 1
   if skill == "steal" or skill == "palm" or skill == "swim" or skill == "cover tracks" then
     rate_factor = 1.5
+  end
+  if skill == "sense channeling" then
+    rate_factor = 2
   end
   local prac_percent = self[class].percents[skill]
   if prac_percent &lt;= 20 then
@@ -890,7 +893,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Practice to Level</name>
+					<name>practice_trainer practice to level</name>
 					<packageName></packageName>
 					<script>function practice_trainer:get_total_class_pracs()
   local prac_totals = {}
@@ -954,7 +957,7 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Warrior/Rogue/Hunter/Fade Practices Displays</name>
+					<name>practice_trainer warrior/rogue/hunter/fade practices displays</name>
 					<packageName></packageName>
 					<script>practice_trainer.warrior.container =
   practice_trainer.warrior.container or
@@ -1069,7 +1072,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Character Stats Displays</name>
+					<name>practice_trainer character stats displays</name>
 					<packageName></packageName>
 					<script>practice_trainer.char.container =
   practice_trainer.char.container or
@@ -1135,7 +1138,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Character Sex/Race/Class Displays</name>
+					<name>practice_trainer character sex/race/class displays</name>
 					<packageName></packageName>
 					<script>for k, field in pairs({"sex", "race", "class"}) do
   local label_name = ""
@@ -1183,7 +1186,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Total Practice and Level Displays</name>
+					<name>practice_trainer total practice and level displays</name>
 					<packageName></packageName>
 					<script>local w = 26
 local h = 30
@@ -1208,7 +1211,7 @@ practice_trainer.char["level_label"] =
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Warder Bond Display</name>
+					<name>practice_trainer warder bond display</name>
 					<packageName></packageName>
 					<script>local label_name = "warder_bond_label"
 local w = 15
@@ -1234,7 +1237,7 @@ practice_trainer.char[label_name]:setClickCallback("practice_trainer:warder_bond
 				</Script>
 			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
-				<name>Update Displays</name>
+				<name>practice_trainer:update_displays</name>
 				<packageName></packageName>
 				<script>function practice_trainer:update_sex_race_class_display()
   self.char["sex_label"]:echo("&lt;center&gt;" .. self.char.sex)
@@ -1293,7 +1296,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Show help</name>
+				<name>practice_trainer:show_help</name>
 				<packageName></packageName>
 				<script>function practice_trainer:show_help()
   local help =

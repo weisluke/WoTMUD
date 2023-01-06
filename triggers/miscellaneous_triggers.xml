@@ -297,15 +297,15 @@ resetFormat()</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>BMI</name>
-				<script>inches=tonumber(matches[2])*12.0+tonumber(matches[3])
+				<script>local inches=tonumber(matches[2])*12.0 + tonumber(matches[3])
 local meters=inches*2.540/100.0
-pounds=tonumber(matches[4])+tonumber(matches[5])/10.0
+
+local pounds=tonumber(matches[4]) + tonumber(matches[5])/10.0
 local kg=pounds*0.454
+
 local bmi=kg/meters^2
 
-bmi=bmi - bmi%0.001
-
-echo(" BMI: "..bmi..".")</script>
+echo(string.format(" BMI: %.3f.", bmi))</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>1</mStayOpen>
@@ -322,16 +322,18 @@ echo(" BMI: "..bmi..".")</script>
 				<regexCodePropertyList>
 					<integer>1</integer>
 				</regexCodePropertyList>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>MUD BMI</name>
-					<script>local wornweight=tonumber(matches[4])+tonumber(matches[5])/10.0
+					<script>local inches=tonumber(multimatches[1][2])*12.0 + tonumber(multimatches[1][3])
+local pounds=tonumber(multimatches[1][4])+tonumber(multimatches[1][5])/10.0
+
+local wornweight=tonumber(multimatches[3][4])+tonumber(multimatches[3][5])/10.0
+
 local mudbmi=10.0*(pounds+wornweight)/inches^2
 
-mudbmi=mudbmi - mudbmi%0.001
-
-echo(" MUD BMI: "..mudbmi..".")</script>
+echo(string.format(" MUD BMI: %.3f.", mudbmi))</script>
 					<triggerType>0</triggerType>
-					<conditonLineDelta>0</conditonLineDelta>
+					<conditonLineDelta>1</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
@@ -341,9 +343,13 @@ echo(" MUD BMI: "..mudbmi..".")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>^Your height is (\d+) feet, (\d+) inches, and you weigh (\d+)\.(\d+) lbs\.$</string>
+						<string>1</string>
 						<string>^You are carrying (\d+)\.(\d+) lbs and wearing (\d+)\.(\d+) lbs, (.+)\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>5</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -394,7 +400,7 @@ echo(" Total: "..total..".")</script>
 				<name>Defense</name>
 				<script>local defense=tonumber(matches[3])+tonumber(matches[4])
 
-echo(". Total Defence: "..defense)</script>
+echo(". Total Defence: "..defense..".")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -474,7 +480,9 @@ echo(". Total Defence: "..defense)</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>RollingTimer</name>
-				<script>-- move to the previous line
+				<script>if isActive("Map Description", "trigger") &gt; 0 then return end
+
+-- move to the previous line
 moveCursor(0, getLineNumber() - 1)
 -- move to the end the of the previous line
 moveCursor(string.len(getCurrentLine()), getLineNumber())
@@ -589,7 +597,7 @@ echo(" Total: "..total)</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^#\s*\d+ - Str\[(\d+)\] Int\[(\d+)\] Wil\[(\d+)\] Dex\[(\d+)\] Con\[(\d+)\] Hps\[(\d+)\] Move\[(\d+)\]$</string>
+					<string>^#\s*\d+ - Str\[\s*(\d+)\] Int\[\s*(\d+)\] Wil\[\s*(\d+)\] Dex\[\s*(\d+)\] Con\[\s*(\d+)\] Hps\[\s*(\d+)\] Move\[\s*(\d+)\]$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

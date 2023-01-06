@@ -215,14 +215,14 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
     y = y + 100
   end
   
-  --favor right docking &gt; top &gt; left
+  --favor right docking &gt; left &gt; top
   if configs.dock then
     if x &gt; 100 - (w + 10) then
       self.container:attachToBorder("right")
-    elseif y &lt; h then
-      self.container:attachToBorder("top")
     elseif x &lt; 10 then
       self.container:attachToBorder("left")
+    elseif y &lt; h then
+      self.container:attachToBorder("top")
     end
   else
     self.container:attachToBorder("float")
@@ -356,7 +356,7 @@ communications.help.comms_window =
                 Default: black
             &lt;yellow&gt;foreground&lt;reset&gt; - Specify the color of the foreground of the communications tab windows. 
                 Default: white
-            &lt;yellow&gt;tabsd&lt;reset&gt; - Specify the color of the tabs of the communications windows. 
+            &lt;yellow&gt;tabs&lt;reset&gt; - Specify the color of the tabs of the communications windows. 
                 Default: navy
         &lt;yellow&gt;comms dock&lt;reset&gt; - Make the communications window either dock to the left or right half of 
             the screen, or float

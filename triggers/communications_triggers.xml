@@ -19,9 +19,11 @@
 			<regexCodePropertyList />
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Narrates</name>
-				<script>selectCaptureGroup(1)
-fg(communications.configs.colors["narrates"])
-resetFormat()
+				<script>if communications.configs.colors["narrates"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["narrates"])
+  resetFormat()
+end
 communications:append("Narrates")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -46,9 +48,11 @@ communications:append("Narrates")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Chats</name>
-				<script>selectCaptureGroup(1)
-fg(communications.configs.colors["chats"])
-resetFormat()
+				<script>if communications.configs.colors["chats"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["chats"])
+  resetFormat()
+end
 communications:append("Chats")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -73,9 +77,11 @@ communications:append("Chats")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Tells</name>
-				<script>selectCaptureGroup(1)
-fg(communications.configs.colors["tells"])
-resetFormat()
+				<script>if communications.configs.colors["tells"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["tells"])
+  resetFormat()
+end
 communications:append("Tells")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -116,8 +122,11 @@ communications:append("Tells")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Says</name>
-				<script>selectCaptureGroup(1)
-resetFormat()
+				<script>if communications.configs.colors["says"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["says"])
+  resetFormat()
+end
 communications:append("Says")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -178,9 +187,11 @@ communications:append("Says")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Yells</name>
-				<script>selectCaptureGroup(1)
-fg(communications.configs.colors["yells"])
-resetFormat()
+				<script>if communications.configs.colors["yells"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["yells"])
+  resetFormat()
+end
 communications:append("Yells")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -205,9 +216,11 @@ communications:append("Yells")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Immortals</name>
-				<script>selectCaptureGroup(1)
-fg(communications.configs.colors["immortals"])
-resetFormat()
+				<script>if communications.configs.colors["immortals"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["immortals"])
+  resetFormat()
+end
 communications:append("Misc")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>

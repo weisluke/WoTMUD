@@ -32,6 +32,7 @@ communications.defaults = {
   colors = {narrates="royal_blue",
             chats="dark_green",
             tells="firebrick",
+            says="reset",
             yells="gold",
             immortals="dodger_blue"}
 }

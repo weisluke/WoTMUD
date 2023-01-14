@@ -168,7 +168,7 @@ communications:show_comms(communications.configs.comms_window.visible)</script>
 				<script>local key = matches[2]
 local color = matches[3]
 if communications.configs.colors[string.lower(key)] ~= nil then
-  if color_table[color] then
+  if color_table[color] or color == "reset" then
     communications:echo(
       "Communications color for (" ..
       string.lower(key) ..

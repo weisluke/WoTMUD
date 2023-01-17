@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>Pad input line</name>
+			<packageName></packageName>
+			<script>function pad_input_line()
+  local px = getBorderLeft()
+  
+  setCmdLineStyleSheet("main", [[
+    QPlainTextEdit {
+      padding-left: ]]..px..[[px;
+    }
+  ]])
+
+end
+
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "pad_input_line")
+registerAnonymousEventHandler("sysLoadEvent", "pad_input_line")
+registerAnonymousEventHandler("sysConnectionEvent", "pad_input_line")</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+</MudletPackage>

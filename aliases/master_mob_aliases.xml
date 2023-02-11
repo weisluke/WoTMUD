@@ -10,49 +10,74 @@
 			<regex></regex>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>First Mob</name>
-				<script>--syntax: setmob OR setmob xxx
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Display Mob</name>
+					<script>--syntax: setmob
 
 mob=mob or {}
 
-if matches[3] then
-  mob.first = matches[4]
-  cecho("Mob is set as: &lt;gold&gt;"..matches[4].."\n")
-elseif mob.first then
+if mob.first then
   cecho("Mob is set as: &lt;gold&gt;"..mob.first.."\n")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>(^setmob$)|(^setmob (\S+)$)</regex>
+					<command></command>
+					<packageName></packageName>
+					<regex>^setmob$</regex>
+				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Set Mob Target</name>
-					<script>--syntax: mobtgt OR mobtgt xxx
+					<name>Set Mob</name>
+					<script>--syntax: setmob xxx
 
 mob=mob or {}
 
-if matches[3] then
-  mob.target=matches[4]
-  cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."\n")
-elseif mob.target then
+mob.first = matches[2]
+cecho("Mob is set as: &lt;gold&gt;"..mob.first.."\n")
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^setmob (\S+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Display Mob Target</name>
+					<script>--syntax: mobtgt
+
+mob=mob or {}
+
+if mob.target then
   cecho("Mob target is set as: &lt;gold&gt;"..mob.target.."\n")
 else
   cecho("&lt;red&gt;No target specified!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^mobtgt$)|(^mobtgt (\S+)$)</regex>
+					<regex>^mobtgt$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Order Mob Kill</name>
-					<script>--syntax: omk OR omk xxx
+					<name>Set Mob Target</name>
+					<script>--syntax: mobtgt xxx
+
+mob=mob or {}
+
+mob.target=matches[2]
+cecho("Mob target is set as: &lt;gold&gt;"..mob.target.."\n")
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^mobtgt (\S+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Kill Target</name>
+					<script>--syntax: omk
 
 mob=mob or {}
 
 if mob.first then
-  if matches[3] then
-    send("order "..mob.first.." kill h."..matches[4])
-  elseif mob.target then
+  if mob.target then
     send("order "..mob.first.." kill h."..mob.target)
   else
     cecho("&lt;red&gt;No target specified!\n")
@@ -62,64 +87,120 @@ else
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^omk$)|(^omk (\S+)$)</regex>
+					<regex>^omk$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Kill Specific</name>
+					<script>--syntax: omk xxx
+
+mob=mob or {}
+
+if mob.first then
+  send("order "..mob.first.." kill h."..matches[2])
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^omk (\S+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Order Mob Bash</name>
-					<script>--syntax: omb OR omb xxx
+					<script>--syntax: omb
 
 mob=mob or {}
 
 if mob.first then
-  if matches[3] then
-    send("order "..mob.first.." bash h."..matches[4])
-  else
-    send("order "..mob.first.." bash")
-  end
+  send("order "..mob.first.." bash")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^omb$)|(^omb (\S+)$)</regex>
+					<regex>^omb$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Order Mob Assist</name>
-					<script>--syntax: oma OR oma xxx
+					<name>Order Mob Bash Specific</name>
+					<script>--syntax: omb xxx
 
 mob=mob or {}
 
 if mob.first then
-  if matches[3] then
-    send("order "..mob.first.." assist "..matches[4])
-  else
-    send("order "..mob.first.." assist Adael")
-  end
+  send("order "..mob.first.." bash h."..matches[2])
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^oma$)|(^oma (\S+)$)</regex>
+					<regex>^omb (\S+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Order Mob Rescue</name>
-					<script>--syntax: omr OR omr xxx
+					<name>Order Mob Assist Leader</name>
+					<script>--syntax: oma
 
 mob=mob or {}
 
 if mob.first then
-  if matches[3] then
-    send("order "..mob.first.." rescue "..matches[4])
+  if mob.leader then
+    send("order "..mob.first.." assist "..mob.leader)
   else
-    send("order "..mob.first.." rescue Adael")
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
   end
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^omr$)|(^omr (\S+)$)</regex>
+					<regex>^oma$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Assist Specific</name>
+					<script>--syntax: oma xxx
+
+mob=mob or {}
+
+if mob.first then
+  send("order "..mob.first.." assist "..matches[2])
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^oma (\S+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Rescue Leader</name>
+					<script>--syntax: omr
+
+mob=mob or {}
+
+if mob.first then
+  if mob.leader then
+    send("order "..mob.first.." rescue "..mob.leader)
+  else
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^omr$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Rescue Specific</name>
+					<script>--syntax: omr xxx
+
+mob=mob or {}
+
+if mob.first then
+  send("order "..mob.first.." rescue "..matches[2])
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^omr (\S+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Order Mob Sit</name>
@@ -137,62 +218,23 @@ end</script>
 					<regex>^oms$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Delete Mob</name>
-					<script>--syntax: delmob
-
-mob=mob or {}
-
-mob.first=nil
-cecho("&lt;red&gt;Mob deleted!\n")</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^delmob$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Delete Mob Target</name>
-					<script>--syntax: delmobtgt
-
-mob=mob or {}
-
-mob.target=nil
-cecho("&lt;red&gt;Mob target deleted!\n")</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^delmobtgt$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
 					<name>Order Mob Follow</name>
 					<script>--syntax: omf
 
 mob=mob or {}
 
 if mob.first then
-  send("order "..mob.first.." follow Adael")
-else
-  cecho("&lt;red&gt;Mob not set!\n")
-end</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^omf$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Order Mob Bash Target</name>
-					<script>--syntax: ombt
-
-mob=mob or {}
-
-if mob.first then
-  if mob.target then
-    send("order "..mob.first.." bash h."..mob.target)
+  if mob.leader then
+    send("order "..mob.first.." follow "..mob.leader)
   else
-    cecho("&lt;red&gt;Mob target not set!\n")
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
   end
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>^ombt$</regex>
+					<regex>^omf$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Order Mob Disengage</name>
@@ -231,9 +273,7 @@ end</script>
 mob=mob or {}
 
 if mob.first then
-  if matches[2] then
-    send("order "..mob.first.." "..matches[2])
-  end
+  send("order "..mob.first.." "..matches[2])
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -244,49 +284,74 @@ end</script>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Second Mob</name>
-				<script>--syntax: setmobs OR setmobs xxx
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Display Mob</name>
+					<script>--syntax: setmobs
 
 mob=mob or {}
 
-if matches[3] then
-  mob.second = matches[4]
-  cecho("Mob is set as: &lt;gold&gt;"..matches[4].."\n")
-elseif mob.second then
+if mob.second then
   cecho("Mob is set as: &lt;gold&gt;"..mob.second.."\n")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>(^setmobs$)|(^setmobs (\S+)$)</regex>
+					<command></command>
+					<packageName></packageName>
+					<regex>^setmobs$</regex>
+				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Set Mob Target</name>
-					<script>--syntax: mobtgt OR mobtgt xxx
+					<name>Set Mob</name>
+					<script>--syntax: setmobs xxx
 
 mob=mob or {}
 
-if matches[3] then
-  mob.targets=matches[4]
-  cecho("Mob target is set as: &lt;gold&gt;"..matches[4].."\n")
-elseif mob.target then
+mob.second = matches[2]
+cecho("Mob is set as: &lt;gold&gt;"..mob.second.."\n")
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^setmobs (\S+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Display Mob Target</name>
+					<script>--syntax: mobtgts
+
+mob=mob or {}
+
+if mob.targets then
   cecho("Mob target is set as: &lt;gold&gt;"..mob.targets.."\n")
 else
   cecho("&lt;red&gt;No target specified!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^mobtgts$)|(^mobtgts (\S+)$)</regex>
+					<regex>^mobtgts$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Order Mob Kill</name>
-					<script>--syntax: omk OR omk xxx
+					<name>Set Mob Target</name>
+					<script>--syntax: mobtgts xxx
+
+mob=mob or {}
+
+mob.targets=matches[2]
+cecho("Mob target is set as: &lt;gold&gt;"..mob.targets.."\n")
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^mobtgts (\S+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Kill Target</name>
+					<script>--syntax: ommk
 
 mob=mob or {}
 
 if mob.second then
-  if matches[3] then
-    send("order "..mob.second.." kill h."..matches[4])
-  elseif mob.targets then
+  if mob.targets then
     send("order "..mob.second.." kill h."..mob.targets)
   else
     cecho("&lt;red&gt;No target specified!\n")
@@ -296,68 +361,124 @@ else
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^ommk$)|(^ommk (\S+)$)</regex>
+					<regex>^ommk$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Kill Specific</name>
+					<script>--syntax: ommk xxx
+
+mob=mob or {}
+
+if mob.second then
+  send("order "..mob.second.." kill h."..matches[2])
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^ommk (\S+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Order Mob Bash</name>
-					<script>--syntax: omb OR omb xxx
+					<script>--syntax: ommb
 
 mob=mob or {}
 
 if mob.second then
-  if matches[3] then
-    send("order "..mob.second.." bash h."..matches[4])
-  else
-    send("order "..mob.second.." bash")
-  end
+  send("order "..mob.second.." bash")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^ommb$)|(^ommb (\S+)$)</regex>
+					<regex>^ommb$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Order Mob Assist</name>
-					<script>--syntax: oma OR oma xxx
+					<name>Order Mob Bash Specific</name>
+					<script>--syntax: ommb xxx
 
 mob=mob or {}
 
 if mob.second then
-  if matches[3] then
-    send("order "..mob.second.." assist "..matches[4])
-  else
-    send("order "..mob.second.." assist Adael")
-  end
+  send("order "..mob.second.." bash h."..matches[2])
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^omma$)|(^omma (\S+)$)</regex>
+					<regex>^ommb (\S+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Order Mob Rescue</name>
-					<script>--syntax: omr OR omr xxx
+					<name>Order Mob Assist Leader</name>
+					<script>--syntax: omma
 
 mob=mob or {}
 
 if mob.second then
-  if matches[3] then
-    send("order "..mob.second.." rescue "..matches[4])
+  if mob.leader then
+    send("order "..mob.second.." assist "..mob.leader)
   else
-    send("order "..mob.second.." rescue Adael")
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
   end
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^ommr$)|(^ommr (\S+)$)</regex>
+					<regex>^omma$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Assist Specific</name>
+					<script>--syntax: omma xxx
+
+mob=mob or {}
+
+if mob.second then
+  send("order "..mob.second.." assist "..matches[2])
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^omma (\S+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Rescue Leader</name>
+					<script>--syntax: ommr
+
+mob=mob or {}
+
+if mob.second then
+  if mob.leader then
+    send("order "..mob.second.." rescue "..mob.leader)
+  else
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^ommr$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Order Mob Rescue Specific</name>
+					<script>--syntax: ommr xxx
+
+mob=mob or {}
+
+if mob.second then
+  send("order "..mob.second.." rescue "..matches[2])
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^ommr (\S+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Order Mob Sit</name>
-					<script>--syntax: oms
+					<script>--syntax: omms
 
 mob=mob or {}
 
@@ -371,37 +492,17 @@ end</script>
 					<regex>^omms$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Delete Mob</name>
-					<script>--syntax: delmob
-
-mob=mob or {}
-
-mob.second=nil
-cecho("&lt;red&gt;Mob deleted!\n")</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^delmobs$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Delete Mob Target</name>
-					<script>--syntax: delmobtgt
-
-mob=mob or {}
-
-mob.targets=nil
-cecho("&lt;red&gt;Mob target deleted!\n")</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^delmobtgts$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
 					<name>Order Mob Follow</name>
-					<script>--syntax: omf
+					<script>--syntax: ommf
 
 mob=mob or {}
 
 if mob.second then
-  send("order "..mob.second.." follow Adael")
+  if mob.leader then
+    send("order "..mob.second.." follow "..mob.leader)
+  else
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
+  end
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -410,27 +511,8 @@ end</script>
 					<regex>^ommf$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Order Mob Bash Target</name>
-					<script>--syntax: ombt
-
-mob=mob or {}
-
-if mob.second then
-  if mob.targets then
-    send("order "..mob.second.." bash h."..mob.targets)
-  else
-    cecho("&lt;red&gt;Mob target not set!\n")
-  end
-else
-  cecho("&lt;red&gt;Mob not set!\n")
-end</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^ommbt$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
 					<name>Order Mob Disengage</name>
-					<script>--syntax: omd
+					<script>--syntax: ommd
 
 mob=mob or {}
 
@@ -465,9 +547,7 @@ end</script>
 mob=mob or {}
 
 if mob.second then
-  if matches[2] then
-    send("order "..mob.second.." "..matches[2])
-  end
+  send("order "..mob.second.." "..matches[2])
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>

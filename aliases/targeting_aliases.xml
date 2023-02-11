@@ -282,7 +282,7 @@ if target then
     send("bash h." .. target)
   elseif targeting.charging then
     send("charge h." .. target)
-  elseif targeting.stabbin then
+  elseif targeting.stabbing then
     send("backstab h." .. target)
   elseif targeting.weaving then
     if weaving.longweave then

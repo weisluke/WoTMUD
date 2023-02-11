@@ -67,7 +67,7 @@ if
   con &lt; statting.stats.con) and sum &lt; statting.stats.sum
 then
   statting:save_stats(str, int, wil, dex, con, sum)
-  sendAll("disengage", "restat", "k sapling", "score", "eq")
+  sendAll("disengage", "restat", "k sapling", "wield "..statting.weapon, "score")
 else
   statting:save_stats(str, int, wil, dex, con, sum)
   local msg =
@@ -142,7 +142,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Statting_Kill_Sapling</name>
-				<script>sendAll("score", "k sapling")</script>
+				<script>sendAll("k sapling", "eq")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -154,15 +154,36 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>A stout young sapling is dead!  R.I.P.</string>
+					<string>A stout young sapling is dead!  R\.I\.P\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>3</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You gain a level!</name>
+				<script>send("score")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#8afff8</mFgColor>
+				<mBgColor>#144a67</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You gain a level!$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Idle Trigger</name>
-				<script>send("k sapling")</script>
+				<script>send("k sapling")
+enableTrigger("Statting_Kill_Sapling")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -174,10 +195,10 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>You have been idle, and are pulled into a void.</string>
+					<string>You have been idle, and are pulled into a void\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>3</integer>
+					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -198,10 +219,10 @@ disableTrigger("Statting")</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>You are no longer eligible for the restat command.</string>
+					<string>You are no longer eligible for the restat command\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
-					<integer>3</integer>
+					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -238,15 +259,15 @@ enableTrigger("Mend_Statting_Weapons")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>Suddenly your weapon shatters into a thousand pieces.</string>
+						<string>Suddenly your weapon shatters into a thousand pieces\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>No more weapon</name>
-					<script>showNotification("WoTMUD Statting", "You don't have a weapon! Find and wield a new one, then come back and \"kill sapling\" to continue statting.")</script>
+					<script>statting:echo("\nYou don't have a weapon! Find and wield a new one, then come back and \"kill sapling\" to continue statting.", false, true)</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -266,7 +287,7 @@ enableTrigger("Mend_Statting_Weapons")</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Wrong weapon set</name>
-					<script>showNotification("WoTMUD Statting", "You don't have your weapon set correctly! \"statting weapon xxx\" to set a weapon.")
+					<script>statting:echo("\nYou don't have your weapon set correctly! \"statting weapon xxx\" to set a weapon.", false, true)
 
 disableTrigger("Mend_Statting_Weapons")
 sendAll("k sapling")</script>
@@ -281,10 +302,10 @@ sendAll("k sapling")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>Mend what?</string>
+						<string>Mend what\?$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -340,11 +361,11 @@ sendAll("k sapling")</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>You finish mending (.+)\.\.\.$</string>
-						<string>Cancelled.</string>
+						<string>Cancelled\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -367,15 +388,15 @@ sendAll("k sapling")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>This is beyond your ability to repair...</string>
+						<string>This is beyond your ability to repair\.\.\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>No mending stone or wrong mending stone</name>
-					<script>showNotification("WoTMUD Statting", "You don't have the proper mending stone! Find and hold the correct one, then come back and \"kill sapling\" to continue statting.")
+					<script>statting:echo("\nYou don't have the proper mending stone! Find and hold the correct one, then come back and \"kill sapling\" to continue statting.")
 
 sendAll(
   "stand", 
@@ -396,12 +417,12 @@ disableTrigger("Mend_Statting_Weapons")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You must have something to mend it with...</string>
-						<string>How do you envision mending that with this?!</string>
+						<string>You must have something to mend it with\.\.\.$</string>
+						<string>How do you envision mending that with this\?!$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
-						<integer>3</integer>
+						<integer>1</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -418,12 +439,12 @@ disableTrigger("Mend_Statting_Weapons")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You grab an oilstone.</string>
-						<string>You grab a piece of sandstone.</string>
+						<string>You grab an oilstone\.$</string>
+						<string>You grab a piece of sandstone\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
-						<integer>3</integer>
+						<integer>1</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -484,7 +505,7 @@ disableTrigger("Mend_Statting_Weapons")</script>
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Daytime</name>
-					<script>send("rem light")</script>
+					<script>sendAll("rem light")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -496,10 +517,10 @@ disableTrigger("Mend_Statting_Weapons")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>The day has begun.</string>
+						<string>The day has begun\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -516,10 +537,10 @@ disableTrigger("Mend_Statting_Weapons")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>The night has begun.</string>
+						<string>The night has begun\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -536,10 +557,10 @@ disableTrigger("Mend_Statting_Weapons")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>Grab light? Who what where?</string>
+						<string>Grab light\? Who what where\?$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -588,7 +609,7 @@ disableTrigger("Statting_Lights")</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Burnt out lights</name>
-					<script>sendAll("rem light", "drop light", "get light "..statting.container, "hold light")</script>
+					<script>sendAll("get light "..statting.container, "hold light")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -600,13 +621,9 @@ disableTrigger("Statting_Lights")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>(.+) is about to go out!</string>
-						<string>(.+) has gone out!</string>
-						<string>You could not light (.+)\.$</string>
+						<string>You discard (.+)\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>1</integer>
-						<integer>1</integer>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -624,10 +641,10 @@ disableTrigger("Statting_Lights")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You're already using a light.</string>
+						<string>You're already using a light\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>
@@ -648,9 +665,7 @@ disableTrigger("Statting_Lights")</script>
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Statting_Trees_Gone</name>
-					<script>--showNotification("WoTMUD Statting", "No more trees in room! Move rooms and \"kill sapling\" to continue statting.")
-
-disableTrigger("Statting_Kill_Sapling")
+					<script>disableTrigger("Statting_Kill_Sapling")
 enableTrigger("Statting_Entered_New_Room")
 enableTrigger("Statting_Too_Exhausted")
 statting:move_rooms()
@@ -666,10 +681,10 @@ disableTrigger("Statting_Trees_Gone")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>They aren't here.</string>
+						<string>They aren't here\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -687,10 +702,10 @@ send("look")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You say 'Time to see if there's any chopping that needs done here!'</string>
+						<string>You say 'Time to see if there's any chopping that needs done here!'$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -719,7 +734,7 @@ disableTrigger("Statting_Room_Exits")</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>PC in room</name>
 					<script>local what = matches[1]
-local is_player = what:match("^[A-Z][a-z]+ of .+$")
+local is_player = what:match("^[A-Z][a-z]+ of .+$") or what:match("^[A-Z][a-z]+ the .+$")
 if is_player then
   statting.pc_in_room = true
 end</script>
@@ -754,10 +769,10 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>A young leatherleaf begins to thicken with age.</string>
+						<string>A young leatherleaf begins to thicken with age\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
@@ -824,10 +839,10 @@ disableTrigger("Statting_Too_Exhausted")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You are too exhausted.</string>
+						<string>You are too exhausted\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
 			</TriggerGroup>

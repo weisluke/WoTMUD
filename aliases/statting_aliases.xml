@@ -27,8 +27,10 @@ else
   statting.stats.sum = statting.stats.str + statting.stats.int + statting.stats.wil + statting.stats.dex + statting.stats.con
 end
 
+statting.sapling_tgt = 1
 enableTrigger("Statting")
 enableTrigger("Statting_Kill_Sapling")
+enableTrigger("Statting_New_Sapling")
 enableTrigger("Statting_Trees_Gone")
 statting.statting = true
 
@@ -45,7 +47,7 @@ statting:echo(
   statting.stats.con ..
   " character.\n"
 )
-sendAll("score", "stat", "kill sapling")</script>
+sendAll("score", "stat", "k "..statting.sapling_tgt..".sapling")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^stat (\d+) (\d+) (\d+) (\d+) (\d+) ?(\d+)?$</regex>
@@ -65,8 +67,11 @@ else
     statting.statting = false
     disableTrigger("Statting")
   else
+    statting.sapling_tgt = 1
     enableTrigger("Statting")
-    statting.statting = true
+    enableTrigger("Statting_Kill_Sapling")
+    enableTrigger("Statting_New_Sapling")
+    enableTrigger("Statting_Trees_Gone")
 
     statting:echo(
       "You are now starting to stat for a(n) " ..
@@ -81,7 +86,7 @@ else
       statting.stats.con ..
       " character.\n"
     )
-    sendAll("score", "stat", "kill sapling")
+    sendAll("score", "stat", "k "..statting.sapling_tgt..".sapling")
   end
 end</script>
 				<command></command>

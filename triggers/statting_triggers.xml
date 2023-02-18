@@ -67,7 +67,7 @@ if
   con &lt; statting.stats.con) and sum &lt; statting.stats.sum
 then
   statting:save_stats(str, int, wil, dex, con, sum)
-  sendAll("disengage", "restat", "k sapling", "wield "..statting.weapon, "score")
+  sendAll("disengage", "restat", "k "..statting.sapling_tgt..".sapling", "wield "..statting.weapon, "score")
 else
   statting:save_stats(str, int, wil, dex, con, sum)
   local msg =
@@ -142,7 +142,8 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Statting_Kill_Sapling</name>
-				<script>sendAll("k sapling", "eq")</script>
+				<script>statting.sapling_tgt = 1
+sendAll("k "..statting.sapling_tgt..".sapling", "eq")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -155,6 +156,26 @@ end</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>A stout young sapling is dead!  R\.I\.P\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Statting_New_Sapling</name>
+				<script>statting.sapling_tgt = 2</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>A seedling firmly takes root and spreads its limbs to the sky\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -182,8 +203,9 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Idle Trigger</name>
-				<script>send("k sapling")
+				<script>send("k "..statting.sapling_tgt..".sapling")
 enableTrigger("Statting_Kill_Sapling")
+enableTrigger("Statting_New_Sapling")
 enableTrigger("Statting_Trees_Gone")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -266,7 +288,7 @@ enableTrigger("Mend_Statting_Weapons")</script>
 						<integer>1</integer>
 					</regexCodePropertyList>
 				</Trigger>
-				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>No more weapon</name>
 					<script>statting:echo("\nYou don't have a weapon! Find and wield a new one, then come back and \"kill sapling\" to continue statting.", false, true)</script>
 					<triggerType>0</triggerType>
@@ -291,7 +313,7 @@ enableTrigger("Mend_Statting_Weapons")</script>
 					<script>statting:echo("\nYou don't have your weapon set correctly! \"statting weapon xxx\" to set a weapon.", false, true)
 
 disableTrigger("Mend_Statting_Weapons")
-sendAll("k sapling")</script>
+sendAll("k "..statting.sapling_tgt..".sapling")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -348,7 +370,7 @@ sendAll("k sapling")</script>
   "stand", 
   "wield " .. statting.weapon, 
   "get all." .. statting.weapon, 
-  "k sapling"
+  "k "..statting.sapling_tgt..".sapling"
 )</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -376,7 +398,7 @@ sendAll("k sapling")</script>
   "get all." .. statting.weapon,
   "get " .. statting.weapon .. " " .. statting.container,
   "wield " .. statting.weapon,
-  "k sapling"
+  "k "..statting.sapling_tgt..".sapling"
 )</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -403,7 +425,7 @@ sendAll(
   "stand", 
   "wield "..statting.weapon, 
   "get all."..statting.weapon, 
-  "k sapling"
+  "k "..statting.sapling_tgt..".sapling"
 )
 
 disableTrigger("Mend_Statting_Weapons")</script>
@@ -666,7 +688,9 @@ disableTrigger("Statting_Lights")</script>
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Statting_Trees_Gone</name>
-					<script>disableTrigger("Statting_Kill_Sapling")
+					<script>statting.sapling_tgt = 1
+disableTrigger("Statting_Kill_Sapling")
+disableTrigger("Statting_New_Sapling")
 enableTrigger("Statting_Entered_New_Room")
 enableTrigger("Statting_Too_Exhausted")
 statting:move_rooms()
@@ -784,10 +808,11 @@ end</script>
 else
   if statting.sapling_in_room then
     enableTrigger("Statting_Kill_Sapling")
+    enableTrigger("Statting_New_Sapling")
     enableTrigger("Statting_Trees_Gone")
     disableTrigger("Statting_Entered_New_Room")
     disableTrigger("Statting_Too_Exhausted")
-    send("k sapling")
+    send("k "..statting.sapling_tgt..".sapling")
   else
     statting:move_rooms()
   end
@@ -875,6 +900,7 @@ sendAll(
 )
 
 disableTrigger("Statting_Kill_Sapling")
+disableTrigger("Statting_New_Sapling")
 enableTrigger("Statting_Entered_New_Room")
 enableTrigger("Statting_Too_Exhausted")
 
@@ -913,6 +939,7 @@ sendAll(
 )
 
 disableTrigger("Statting_Kill_Sapling")
+disableTrigger("Statting_New_Sapling")
 enableTrigger("Statting_Entered_New_Room")
 enableTrigger("Statting_Too_Exhausted")
 

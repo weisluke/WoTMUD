@@ -77,6 +77,7 @@ function statting:reconnection_actions(event)
   else
     sendAll(self.name, self.password, "score", "stat")
     disableTrigger("Statting_Kill_Sapling")
+    disableTrigger("Statting_New_Sapling")
     enableTrigger("Statting_Entered_New_Room")
     enableTrigger("Statting_Too_Exhausted")
     self:move_rooms()

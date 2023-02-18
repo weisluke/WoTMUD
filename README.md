@@ -149,7 +149,7 @@ Additionally, there is a setting in the special options to not show debug messag
 
 # Installing other files
 
-You can type "wotpack view files" to get a list of all possible files available for download. This list is NOT displayed very neatly, hopefully I can change that in the future. You can click on individual files to download and install them, although be careful - installing an individual file that requires other files to function properly may cause issues. You can use commands from the "wotpack help" help message to install particular files, groupings that contain multiple files (e.g. the mapper or comms window), or everything in this repository. Most names should be self explanatory.
+You can type "wotpack view files" to get a list of all possible files available for download. This should display columns for scripters, triggers, aliases, etc., along with files associated with them. You can click on individual files to download and install the package they are associated with. You can also use commands from the "wotpack help" help message to install particular packages, or everything in this repository. Most names should be self explanatory.
 
 As an example, and an introduction to editing my files in Mudlet (which people have found helpful as a stepping stone to creating their own material), expand the section below to see how to install and edit my targeting aliases.
 

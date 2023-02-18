@@ -134,7 +134,6 @@ The appearance of the map can be further changed with some tabs in the settings 
 </details>
 
 # Some suggested settings
-<summary>Click to expand.</summary>
 
 If you want to use Mudlet with a dark theme, you can find that option in Settings -> General
 ![settings_dark_mode](https://user-images.githubusercontent.com/52049495/152900723-78e0348d-5b3b-4643-83e9-3266af5833ba.png)

@@ -78,7 +78,7 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show targets</name>
-				<script>--syntax: show targets
+				<script>--syntax: tgts
 
 local colors =
   {
@@ -96,6 +96,7 @@ local colors =
   }
   
 targeting = targeting or {}
+weaving = weaving or {}
 
 if targeting.currtgt then
   local color = colors[targeting.currtgt] or "reset"
@@ -108,6 +109,10 @@ local pkmode = (targeting.bashing and "bashing")
             or (targeting.weaving and "weaving")
             or "none"
 cecho("Your current pk mode is: "..pkmode.."\n")
+if targeting.weaving then
+  cecho("Longweave set to: "..(weaving.longweave or "none").."\n")
+  cecho("Shortweave set to: "..(weaving.shortweave or "none").."\n")
+end
 
 for k,v in ipairs(targeting) do
   local color = colors[v] or "reset"
@@ -115,11 +120,11 @@ for k,v in ipairs(targeting) do
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^targets$</regex>
+				<regex>^tgts$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Clear Targets</name>
-				<script>--syntax: clear targets
+				<script>--syntax: clear tgts
 
 for k,v in ipairs(targeting) do
   targeting[k] = nil
@@ -128,7 +133,7 @@ targeting.currtgt = nil
 cecho("Targets cleared.\n")</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^clear targets$</regex>
+				<regex>^clear tgts$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Set current target</name>
@@ -155,7 +160,8 @@ local tgt = matches[2]
 local color = colors[tgt] or "reset"
   
 targeting.currtgt = tgt
-cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")</script>
+cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
+</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tgt (\S+)$</regex>
@@ -229,6 +235,22 @@ else
   targeting.stabbing=false
   targeting.weaving=false
   cecho("PK method set to: bashing\n")
+end
+
+if targeting.charging then
+  status_bar.tab_settings["charge_pulses"].display = true
+  status_bar:show_status_bar(true)
+else
+  status_bar.tab_settings["charge_pulses"].display = false
+  status_bar:show_status_bar(true)
+end
+
+if targeting.stabbing then
+  status_bar.tab_settings["sneak"].display = true
+  status_bar:show_status_bar(true)
+else
+  status_bar.tab_settings["sneak"].display = false
+  status_bar:show_status_bar(true)
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -286,9 +308,9 @@ if target then
     send("backstab h." .. target)
   elseif targeting.weaving then
     if weaving.longweave then
-      send("channel '"..weaving.longweave.."' "..target)
+      send("channel '"..weaving.longweave.."' h."..target)
     else
-      send("channel 'ice spikes' "..target)
+      send("channel 'ice spikes' h."..target)
     end
   else
     cecho("&lt;red&gt;No pk method set\n")
@@ -299,18 +321,6 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^q$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Delete Target</name>
-				<script>--syntax: deltgt
-
-targeting=targeting or {}
-
-targeting.currtgt=nil
-cecho("&lt;red&gt;Current target deleted!\n")</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^deltgt$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Diagnose h.target</name>

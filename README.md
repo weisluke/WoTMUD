@@ -158,16 +158,16 @@ As an example, and an introduction to editing my files in Mudlet (which people h
 <summary>Click to expand.</summary>
 
 Type "wotpack view files" and click on the "targeting" item in the aliases section to download and install them, or type "wotpack install targeting" to install my set of targeting aliases.
-![targeting_install_1](https://user-images.githubusercontent.com/52049495/138775890-bc167ef1-b05a-49c7-9b59-499fc3d24ccb.png)
-![targeting_install_2](https://user-images.githubusercontent.com/52049495/138775903-1b9fd3a9-488f-4f02-b9bf-df8cde8fe27a.png)
-Type "tgt xxx" to set a target. Some specific targets give messages colored by their race on the MUD.
+![targeting_install_1](https://user-images.githubusercontent.com/52049495/219877586-c4b55ebe-2f44-4504-8339-ddf2e8a1cd40.png)
+![targeting_install_2](https://user-images.githubusercontent.com/52049495/219877589-d8d573fe-9d94-44f2-85a8-90e4a82733e8.png)
+You can type "t1 xxx" "t2 xxx" "t3 xxx" etc. to set a variety of targets. Some specific targets give messages colored by their race on the MUD. You then have to type "t1" or "t2" or "t3" or etc. to actually select one of those as your current target. "p" is my default alias to "kill target", "o" to "kill h.target", and "q" will do a special on the target. "pkmode" will swap that special between bashing/charging/stabbing/weaving/none.
    
-"p" is my default alias to "kill target". This can be easily changed. Open up Aliases in Mudlet from the top toolbar, and navigate to the targeting aliases. Expand any subfolders and find the alias to "Attack target". You will see a box named "Pattern:" with "^p$" inside of it. This is a regex pattern that Mudlet matches to either a) send a replacement command to the MUD (as specified in the "Command:" box underneath), or b) execute a sequence of Lua code as specified in the large white space underneath. Regex and Lua are outside the scope of anything I want to cover here currently, but to change the key that you use to "kill target" simply change the "p" to a different letter in the "Pattern:" box. Do NOT, however, get rid of the ^ or $ symbol. Keep them, as they are necessary for Mudlet to match things properly - just change the letter in between to the letter(s) that you would prefer to use.
-![targeting_install_3](https://user-images.githubusercontent.com/52049495/138776848-b9761c82-7010-4051-81ec-d0bf204ccfc6.png) 
+These aliases can be easily changed. Open up Aliases in Mudlet from the top toolbar, and navigate to the targeting aliases. Expand any subfolders and, for this example, find the alias to "Attack target". You will see a box named "Pattern:" with "^p$" inside of it. This is a regex pattern that Mudlet matches to either a) send a replacement command to the MUD (as specified in the "Command:" box underneath), or b) execute a sequence of Lua code as specified in the large white space underneath. Regex and Lua are outside the scope of anything I want to cover here currently, but to change the key that you use to "kill target" simply change the "p" to a different letter in the "Pattern:" box. Do NOT, however, get rid of the ^ or $ symbol. Keep them, as they are necessary for Mudlet to match things properly - just change the letter in between to the letter(s) that you would prefer to use.
+![targeting_install_3](https://user-images.githubusercontent.com/52049495/219877812-6030ef4a-61be-4fd3-bf9c-61f1e513067f.png)
    
 </details>
 
-Two sets of scripts that you might also consider installing are a daily reminder to vote for the WoTMUD at http://www.topmudsites.com/vote-wotmud.html, and a query for the player numbers from https://writtenrealms.com/wot/playground/who/daily that adds the numbers to the "who" list in the game. The writtenrealms site also has other resources for the MUD, such as combat skill chance calculators. Further details can be found on the game's help forum.
+One other script that you might also consider installing is a query for the player numbers from https://writtenrealms.com/wot/playground/who/daily that adds the numbers to the "who" list in the game. The writtenrealms site also has other resources for the MUD, such as combat skill chance calculators. Further details can be found on the game's help forum.
 
 # Other Mudlet information - profile saves and logs
 <details>

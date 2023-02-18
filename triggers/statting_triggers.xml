@@ -22,7 +22,7 @@
 				<script>statting.homeland = matches[2]
 statting.level = tonumber(matches[3])
 
-if statting.level &gt;= 5 then
+if statting.level &gt;= 4 then
   local msg = "You are too high of a level to restat."
   showNotification("WoTMUD Statting", msg)
   statting:echo("\n" .. msg .. "\n", false, true)
@@ -203,7 +203,7 @@ sendAll("k "..statting.sapling_tgt..".sapling", "eq")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Idle Trigger</name>
-				<script>send("k "..statting.sapling_tgt..".sapling")
+				<script>sendAll("score", "k "..statting.sapling_tgt..".sapling")
 enableTrigger("Statting_Kill_Sapling")
 enableTrigger("Statting_New_Sapling")
 enableTrigger("Statting_Trees_Gone")</script>

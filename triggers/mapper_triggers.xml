@@ -364,8 +364,8 @@ end</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>It is pitch black\.\.\.$</string>
-					<string>You can't see a damned thing, you're blinded!$</string>
 					<string>You can't see a damned thing in this thick fog!$</string>
+					<string>You can't see a damned thing, you're blinded!$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -476,39 +476,39 @@ end</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>Alas, you cannot go that way\.\.\.$</string>
-					<string>You can't ride in there\.$</string>
-					<string>A (.+) blocks the way\.$</string>
-					<string>An (.+) blocks the way\.$</string>
-					<string>No way!  You're fighting for your life!$</string>
-					<string>You need a boat to go there\.$</string>
-					<string>Your mount is too exhausted\.$</string>
-					<string>You can't ride there on a horse!$</string>
-					<string>Are you crazy\? You can't just walk out of a second story window!$</string>
-					<string>Nah\.\.\. You feel too relaxed to do that\.\.$</string>
-					<string>You would need to swim there, you can't just walk it\.$</string>
-					<string>You'll have to take your chances and JUMP OUT!$</string>
-					<string>Your mount is engaged in combat!$</string>
-					<string>You shudder at the concept of crossing water\.$</string>
 					<string>(.+) blocks the path of (.+)\.$</string>
-					<string>You are too exhausted\.$</string>
-					<string>Berserk! Death! Death! Fight to the death!$</string>
-					<string>Maybe you should get on your feet first\?$</string>
-					<string>You try, but the mind-numbing cold prevents you\.\.$</string>
-					<string>The ground gives way, and you are sent hurtling down the embankment!$</string>
-					<string>You can't ride on water\.$</string>
-					<string>In your dreams, or what\?$</string>
-					<string>The Eye of the World is no longer the place for you, (.+)\.$</string>
-					<string>Your mount ought to be awake and standing first!$</string>
-					<string>You can't leave the Circle yet for (.+) since you were pkilled!$</string>
-					<string>You can't leave the Circle for (.+), since you were pkilled!$</string>
 					<string>(.+) blocks your path\.$</string>
-					<string>All you can do right now is think about the stars!$</string>
+					<string>A (.+) blocks the way\.$</string>
 					<string>A massive blast of air buffets you, knocking you off balance\.$</string>
+					<string>Alas, you cannot go that way\.\.\.$</string>
+					<string>All you can do right now is think about the stars!$</string>
+					<string>An (.+) blocks the way\.$</string>
 					<string>An elite Queen's Guard blocks the way and says 'You are not allowed there, (.+)\.'$</string>
-					<string>You're in pretty bad shape, unable to do anything!$</string>
+					<string>Are you crazy\? You can't just walk out of a second story window!$</string>
+					<string>Berserk! Death! Death! Fight to the death!$</string>
+					<string>In your dreams, or what\?$</string>
+					<string>Maybe you should get on your feet first\?$</string>
+					<string>Nah\.\.\. You feel too relaxed to do that\.\.$</string>
+					<string>No way!  You're fighting for your life!$</string>
+					<string>The Eye of the World is no longer the place for you, (.+)\.$</string>
+					<string>The ground gives way, and you are sent hurtling down the embankment!$</string>
+					<string>You are too exhausted\.$</string>
+					<string>You can't leave the Circle for (.+), since you were pkilled!$</string>
+					<string>You can't leave the Circle yet for (.+) since you were pkilled!$</string>
+					<string>You can't ride on water\.$</string>
+					<string>You need a boat to go there\.$</string>
+					<string>You try, but the mind-numbing cold prevents you\.\.$</string>
+					<string>You shudder at the concept of crossing water\.$</string>
 					<string>You would need to climb there from here\.$</string>
+					<string>You would need to swim there, you can't just walk it\.$</string>
+					<string>You can't ride in there\.$</string>
+					<string>You can't ride there on a horse!$</string>
+					<string>Your mount is engaged in combat!$</string>
+					<string>Your mount is too exhausted\.$</string>
+					<string>Your mount ought to be awake and standing first!$</string>
 					<string>Your mount refuses to obey your command\.$</string>
+					<string>You'll have to take your chances and JUMP OUT!$</string>
+					<string>You're in pretty bad shape, unable to do anything!$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>
@@ -727,8 +727,10 @@ end</script>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>PANIC!  You couldn't escape!$</string>
+					<string>PANIC!  Fear paralyzes you!$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>

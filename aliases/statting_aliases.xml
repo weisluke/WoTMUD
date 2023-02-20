@@ -72,6 +72,7 @@ else
     enableTrigger("Statting_Kill_Sapling")
     enableTrigger("Statting_New_Sapling")
     enableTrigger("Statting_Trees_Gone")
+    statting.statting = true
 
     statting:echo(
       "You are now starting to stat for a(n) " ..

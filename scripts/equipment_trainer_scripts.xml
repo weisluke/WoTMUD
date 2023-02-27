@@ -8,7 +8,7 @@
 			<script></script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
-				<name>Equipment Trainer Initializations</name>
+				<name>eq_trainer initializations</name>
 				<packageName></packageName>
 				<script>eq_trainer = eq_trainer or {configs = {}}
 eq_trainer.container =
@@ -81,7 +81,7 @@ eq_trainer.stats = eq_trainer.stats or
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Equipment Trainer echo</name>
+				<name>eq_trainer:echo</name>
 				<packageName></packageName>
 				<script>function eq_trainer:echo(what, debug, err)
   --colored tags for message echo
@@ -105,7 +105,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Database creation</name>
+				<name>eq_trainer database creation</name>
 				<packageName></packageName>
 				<script>db:create(
   "equipment",
@@ -147,7 +147,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Style sheets</name>
+				<name>eq_trainer style sheets</name>
 				<packageName></packageName>
 				<script>eq_trainer.style_sheets = eq_trainer.style_sheets or {}
 
@@ -198,7 +198,7 @@ eq_trainer.style_sheets.child = [[
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Container parameters</name>
+					<name>eq_trainer:container_params</name>
 					<packageName></packageName>
 					<script>function eq_trainer:container_params(name, x, y, w, h)
   return {
@@ -212,7 +212,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Label parameters</name>
+					<name>eq_trainer:label_params</name>
 					<packageName></packageName>
 					<script>function eq_trainer:label_params(name, x, y, w, h, msg)
   return {
@@ -229,7 +229,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Parent parameters</name>
+					<name>eq_trainer:parent_params</name>
 					<packageName></packageName>
 					<script>function eq_trainer:parent_params(name, x, y, w, h, msg)
   return {
@@ -247,7 +247,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Child parameters</name>
+					<name>eq_trainer:child_params</name>
 					<packageName></packageName>
 					<script>function eq_trainer:child_params(name, w, h, msg)
   return {
@@ -265,7 +265,7 @@ end</script>
 				</Script>
 			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
-				<name>Wearable slots</name>
+				<name>eq_trainer wearable slots</name>
 				<packageName></packageName>
 				<script>eq_trainer.eq = eq_trainer.eq or {}
 
@@ -306,7 +306,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Get equipment</name>
+				<name>eq_trainer get equipment</name>
 				<packageName></packageName>
 				<script>function eq_trainer:get_eq_setups()
   
@@ -373,6 +373,8 @@ function eq_trainer:get_weapons(weapon_type, weapon_type_exact)
 end
 
 function eq_trainer:get_eq_in_slot(slot)
+  --fails for slots that are duplicated (fingers, neck, etc.)
+  --but works fine to get equipment in unique slots (wielded, shield)
   local index = table.index_of(self.eq.slots, slot)
   
   return self.eq[index]
@@ -403,7 +405,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Preset kits</name>
+				<name>eq_trainer preset kits</name>
 				<packageName></packageName>
 				<script>eq_trainer.presets = eq_trainer.presets or {}
 
@@ -518,7 +520,7 @@ eq_trainer.presets.trinkets = {
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Main containers</name>
+				<name>eq_trainer main containers</name>
 				<packageName></packageName>
 				<script>eq_trainer.char.container =
   eq_trainer.char.container or
@@ -555,7 +557,7 @@ eq_trainer.presets.container =
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Update Stats</name>
+					<name>eq_trainer update stats</name>
 					<packageName></packageName>
 					<script>function eq_trainer:stat_stipulations()
   local wpn = self:get_eq_in_slot("wielded")
@@ -607,7 +609,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Sex</name>
+					<name>eq_trainer update sex</name>
 					<packageName></packageName>
 					<script>function eq_trainer:sex_stipulations()
   if
@@ -616,6 +618,11 @@ end</script>
     not (self.char.race == "human" or self.char.race == "dreadlord")
   then
     self.char.class = "warrior"
+  end
+  
+  local wpn = self:get_eq_in_slot("wielded")
+  if self.char.sex == "female" and wpn.name == "a blade of blazing flame" then
+    self.eq[table.index_of(self.eq.slots, "wielded")] = self.eq.nothing
   end
 end
 
@@ -645,12 +652,15 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Race</name>
+					<name>eq_trainer update race</name>
 					<packageName></packageName>
 					<script>function eq_trainer:race_stipulations(dir)
   if self.char.race == "fade" then
     self.char.class = "fade"
     if self.char.blind then self.char.blind = false end
+    if self.char.contagion and self:get_eq_in_slot("cloak").name == "an inky black cloak" then
+      self.char.contagion = false
+    end
   elseif self.char.race == "dreadlord" then
     self.char.class = "channeler"
   elseif
@@ -668,6 +678,10 @@ end</script>
     if self.char.str &gt; 19 then
       self.char.str = 19
     end
+  end
+  
+  if self.char.race ~= "fade" and self:get_eq_in_slot("cloak").name == "an inky black cloak" then
+    self.char.contagion = true
   end
   
   if self.char.race == "fade" or self.char.race == "dreadlord" or self.char.race == "grayman" then
@@ -708,7 +722,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Class</name>
+					<name>eq_trainer update class</name>
 					<packageName></packageName>
 					<script>function eq_trainer:class_stipulations(dir)
   if self.char.race == "fade" then
@@ -739,6 +753,11 @@ end</script>
   if self.char.class == "channeler" then 
     self.char.warder_bond = false
   end
+  
+  local wpn = self:get_eq_in_slot("wielded")
+  if self.char.class ~= "channeler" and (wpn.name == "a staff of iridescent blue" or wpn.name == "a blade of blazing flame") then
+    self.eq[table.index_of(self.eq.slots, "wielded")] = self.eq.nothing
+  end
 end
 
 function eq_trainer:add_class()
@@ -767,7 +786,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Level</name>
+					<name>eq_trainer update level</name>
 					<packageName></packageName>
 					<script>function eq_trainer:add_level()
   self.char.level = math.min(51, self.char.level + 1)
@@ -789,7 +808,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Mood</name>
+					<name>eq_trainer update mood</name>
 					<packageName></packageName>
 					<script>function eq_trainer:add_mood()
   local tab = {"wimpy", "normal", "brave", "berserk"}
@@ -815,7 +834,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Rank</name>
+					<name>eq_trainer update rank</name>
 					<packageName></packageName>
 					<script>function eq_trainer:rank_stipulations()
   if self.char.race == "fade" or self.char.race == "dreadlord" or self.char.race == "grayman" then
@@ -853,7 +872,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Posture</name>
+					<name>eq_trainer update posture</name>
 					<packageName></packageName>
 					<script>function eq_trainer:posture_stipulations(dir)
   if self.char.race == "fade" or self.char.race == "dreadlord" or self.char.race == "grayman" then
@@ -905,7 +924,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Weapon HH</name>
+					<name>eq_trainer update weapon_hh</name>
 					<packageName></packageName>
 					<script>function eq_trainer:add_weapon_hh()
   local tab = {"none", "honed", "hardened"}
@@ -931,7 +950,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Extra Weight</name>
+					<name>eq_trainer update extra_weight</name>
 					<packageName></packageName>
 					<script>function eq_trainer:add_extra_weight()
   self.char.extra_weight = self.char.extra_weight + 1
@@ -987,7 +1006,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Practice</name>
+					<name>eq_trainer update practice</name>
 					<packageName></packageName>
 					<script>function eq_trainer:add_prac(skill)
   self.char[skill] = math.min(99, self.char[skill]+1)
@@ -1009,7 +1028,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Ride</name>
+					<name>eq_trainer update ride</name>
 					<packageName></packageName>
 					<script>function eq_trainer:add_ride()
   if self.char.race == "trolloc" then return end
@@ -1033,7 +1052,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update Position</name>
+					<name>eq_trainer update position</name>
 					<packageName></packageName>
 					<script>function eq_trainer:add_position()
   local tab = {"standing", "sitting", "resting", "sleeping"}
@@ -1059,7 +1078,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update equipment</name>
+					<name>eq_trainer update equipment</name>
 					<packageName></packageName>
 					<script>function eq_trainer:set_eq(slot, item)
   if self.eq.slots[slot] == "wielded" then
@@ -1073,12 +1092,37 @@ end</script>
         self.eq[table.index_of(self.eq.slots, "shield")] = self.eq.nothing
       end
     end
+    
+    if item.name == "a staff of iridescent blue" and self.char.class ~= "channeler" then
+      self.eq[slot] = self.eq.nothing
+    end
+    if item.name == "a blade of blazing flame" and not (self.char.class == "channeler" and self.char.sex == "male") then
+      self.eq[slot] = self.eq.nothing
+    end
+    
   elseif self.eq.slots[slot] == "shield" then
     if self:get_eq_in_slot("wielded").hands == 2 then
       self.eq[slot] = self.eq.nothing
     else
       self.eq[slot] = item
-    end  
+    end
+  elseif self.eq.slots[slot] == "cloak" then
+    --if they are changing the item to an inky
+    if item.name == "an inky black cloak" then
+      --if they are not a fade, then they get contagioned
+      if self.char.race ~= "fade" then
+        self.char.contagion = true
+      --if they are a fade, they're immune to contagion while wearing an inky
+      else
+        self.char.contagion = false
+      end
+    else
+      --only remove contagion if they are swapping away from an inky 
+      if self:get_eq_in_slot("cloak").name == "an inky black cloak" then
+        self.char.contagion = false
+      end
+    end
+    self.eq[slot] = item  
   else
     self.eq[slot] = item
   end
@@ -1087,7 +1131,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update armor/warder bond</name>
+					<name>eq_trainer update armor/warder bond</name>
 					<packageName></packageName>
 					<script>function eq_trainer:armor_scroll(event)
   self.char.armor = not self.char.armor
@@ -1102,11 +1146,14 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Update chill/blind/darkness/contagion</name>
+					<name>eq_trainer update chill/blind/darkness/contagion</name>
 					<packageName></packageName>
 					<script>function eq_trainer:blind_scroll(event)
-  if self.char.race == "fade" then return end
-  self.char.blind = not self.char.blind
+  if self.char.race == "fade" then 
+    self.char.blind = false
+  else
+    self.char.blind = not self.char.blind
+  end
   self:update_displays()
 end
 
@@ -1116,7 +1163,15 @@ function eq_trainer:chill_scroll(event)
 end
 
 function eq_trainer:contagion_scroll(event)
-  self.char.contagion = not self.char.contagion
+  if self:get_eq_in_slot("cloak").name == "an inky black cloak" then
+    if self.char.race ~= "fade" then
+      self.char.contagion = true
+    else
+      self.char.contagion = false
+    end
+  else
+    self.char.contagion = not self.char.contagion
+  end
   self:update_displays()
 end
 
@@ -1133,7 +1188,7 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Stats</name>
+					<name>eq_trainer stats displays</name>
 					<packageName></packageName>
 					<script>for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
   local label_name = ""
@@ -1187,7 +1242,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Sex/Race/Class/Level/Mood</name>
+					<name>eq_trainer sex/race/class/level/mood displays</name>
 					<packageName></packageName>
 					<script>for k, field in pairs({"sex", "race", "class", "level", "mood"}) do
   local label_name = ""
@@ -1238,7 +1293,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Rank/Posture/Weapon HH</name>
+					<name>eq_trainer rank/posture/weapon_hh displays</name>
 					<packageName></packageName>
 					<script>for k, field in pairs({"rank", "posture", "weapon_hh"}) do
   local label_name = ""
@@ -1289,7 +1344,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Extra Weight</name>
+					<name>eq_trainer extra_weight displays</name>
 					<packageName></packageName>
 					<script>local field = "extra_weight"
 local label_name = field.."_label"
@@ -1367,7 +1422,7 @@ setLabelWheelCallback("eq_trainer.char."..label_name, "eq_trainer:add_"..field..
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Pracs</name>
+					<name>eq_trainer pracs displays</name>
 					<packageName></packageName>
 					<script>for k, prac in pairs({"weapon", "dodge", "shield"}) do
   local label_name = ""
@@ -1465,7 +1520,7 @@ eq_trainer.char[label_name]:setClickCallback("eq_trainer:add_ride")</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Position</name>
+					<name>eq_trainer position display</name>
 					<packageName></packageName>
 					<script>local label_name = "position_label"
 local w = 13
@@ -1507,7 +1562,7 @@ eq_trainer.char[label_name]:setClickCallback("eq_trainer:add_position")</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Status items</name>
+					<name>eq_trainer status items displays</name>
 					<packageName></packageName>
 					<script>for k, field in pairs({"armor", "warder_bond"}) do
   local label_name = ""
@@ -1570,7 +1625,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Equipment slot displays</name>
+					<name>eq_trainer equipment slot displays</name>
 					<packageName></packageName>
 					<script>for k, slot in pairs(eq_trainer.eq.slots) do
   local label_name = ""
@@ -1676,7 +1731,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Set equipment to nothing</name>
+					<name>eq_trainer set equipment to nothing display</name>
 					<packageName></packageName>
 					<script>local label_name = "reset_eq_label"
 local w = 50
@@ -1703,7 +1758,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Calculated character information</name>
+					<name>eq_trainer calculated character information displays</name>
 					<packageName></packageName>
 					<script>for k, stat in pairs({"ob", "def", "abs", "mean_dmg", "std_dev_dmg"}) do
   local label_name = ""
@@ -1762,9 +1817,9 @@ end
 
 local stat = "dmg"
 local label_name = stat.."_label"
-local w = 15
+local w = 20
 local h = 10
-local x = 10
+local x = 5
 local y = 50
 
 eq_trainer.stats[label_name] =
@@ -1787,7 +1842,7 @@ eq_trainer.stats[label_name]:setStyleSheet(eq_trainer.style_sheets.child)</scrip
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Preset kits</name>
+					<name>eq_trainer preset kits displays</name>
 					<packageName></packageName>
 					<script>for k, setup in pairs({"abs", "combo", "dodge", "trinkets"}) do
   local label_name = ""
@@ -1844,7 +1899,7 @@ local label_name = "anydice_label"
 local w = 75
 local h = 10
 local x = 25
-local y = 60
+local y = 65
 
 eq_trainer.stats[label_name] =
   eq_trainer.stats[label_name] or
@@ -1914,7 +1969,7 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Calculate OB</name>
+					<name>eq_trainer:get_char_ob</name>
 					<packageName></packageName>
 					<script>function eq_trainer:get_char_ob()
   
@@ -1954,9 +2009,6 @@ end</script>
   if self.char.chill then
     ob = ob * 0.9
   end
-  if self.char.contagion then
-    ob = ob * 0.5
-  end
   ob = ob * positions_ob[self.char.position]
   if self.char.position == "sleeping" then
     ob = 1
@@ -1975,7 +2027,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Calculate DB</name>
+					<name>eq_trainer:get_char_db</name>
 					<packageName></packageName>
 					<script>function eq_trainer:get_char_db()
   
@@ -2011,9 +2063,6 @@ end</script>
   if self.char.armor then
     db = db + 10
   end
-  if self.char.chill then
-    db = db * 0.9
-  end
   if self.char.contagion then
     db = db * 0.8
   end
@@ -2031,7 +2080,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Calculate PB</name>
+					<name>eq_trainer:get_char_pb</name>
 					<packageName></packageName>
 					<script>function eq_trainer:get_char_pb()
   
@@ -2071,9 +2120,6 @@ end</script>
     not table.contains({"trolloc", "fade", "dreadlord", "grayman"}, self.char.race) then
       pb = pb * 0.75
   end
-  if self.char.chill then
-    pb = pb * 0.9
-  end
   if self.char.contagion then
     pb = pb * 0.5
   end
@@ -2088,7 +2134,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Calculate abs</name>
+					<name>eq_trainer:get_char_abs</name>
 					<packageName></packageName>
 					<script>function eq_trainer:get_char_abs()
   
@@ -2110,7 +2156,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Calculate Weights</name>
+					<name>eq_trainer:get_char_weights</name>
 					<packageName></packageName>
 					<script>function eq_trainer:get_char_weights()
   
@@ -2129,7 +2175,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Calculate dmg</name>
+					<name>eq_trainer:get_char_dmg</name>
 					<packageName></packageName>
 					<script>function eq_trainer:get_char_dmg()
   
@@ -2274,7 +2320,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Calculate mvs</name>
+					<name>eq_trainer:get_char_mvs</name>
 					<packageName></packageName>
 					<script>function eq_trainer:get_char_mvs()
 
@@ -2294,7 +2340,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Calculate mvs regen</name>
+					<name>eq_trainer:get_char_mvs_regen</name>
 					<packageName></packageName>
 					<script>function eq_trainer:get_char_mvs_regen()
   
@@ -2318,7 +2364,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Calculate all stats</name>
+					<name>eq_trainer:get_char_stats</name>
 					<packageName></packageName>
 					<script>function eq_trainer:get_char_stats()
 
@@ -2344,7 +2390,7 @@ end</script>
 				</Script>
 			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
-				<name>Update Displays</name>
+				<name>eq_trainer:update_displays</name>
 				<packageName></packageName>
 				<script>function eq_trainer:update_stats_display()
   for _, stat in pairs({"str", "int", "wil", "dex", "con"}) do
@@ -2420,15 +2466,757 @@ function eq_trainer:update_displays()
   
   self:update_eq_display()
   self:update_calculated_stats_display()
+  
+  self.melee_skills:update_displays()
 end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Hide trainer</name>
+				<name>eq_trainer hide trainer</name>
 				<packageName></packageName>
 				<script>eq_trainer.container:hide()</script>
 				<eventHandlerList />
 			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>eq_trainer show melee and skills calculator</name>
+				<packageName></packageName>
+				<script>local label_name = "show_melee_skills_calculator"
+local w = 75
+local h = 10
+local x = 25
+local y = 80
+
+eq_trainer.stats[label_name] =
+  eq_trainer.stats[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.stats." .. label_name, x, y, w, h, "Click to show melee and skills calculator"),
+    eq_trainer.stats.container
+  )
+
+eq_trainer.stats[label_name]:setStyleSheet(eq_trainer.style_sheets.clickable)
+
+eq_trainer.stats[label_name]:setClickCallback(
+  function() 
+    eq_trainer.melee_skills.container:raiseAll()
+    eq_trainer.melee_skills.container:show()
+  end)</script>
+				<eventHandlerList />
+			</Script>
+			<ScriptGroup isActive="yes" isFolder="yes">
+				<name>Melee and Skills Calculators</name>
+				<packageName></packageName>
+				<script></script>
+				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>eq_trainer.melee_skills initializations</name>
+					<packageName></packageName>
+					<script>eq_trainer.melee_skills = eq_trainer.melee_skills or {}
+
+eq_trainer.melee_skills.container = eq_trainer.melee_skills.container or 
+  Adjustable.Container:new(
+    {
+      name = "eq_trainer.melee_skills.container",
+      adjLabelstyle = "background-color:rgba(255,255,255,100%); border: 5px groove grey;",
+      buttonstyle =
+        [[
+      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
+      QLabel::hover{ background-color: rgba(160,160,160,50%);}
+      ]],
+      buttonFontSize = 10,
+      buttonsize = 20,
+      titleText = "Melee and Skills Calculator",
+      titleTxtColor = "black",
+      padding = 15,
+      x = "30%",
+      y = "20%",
+      width = "40%",
+      height = "60%",
+      autoLoad = false,
+      autoSave = false,
+    }
+  )
+
+eq_trainer.melee_skills.container:hide()</script>
+					<eventHandlerList />
+				</Script>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Opponent</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.opponent initializations</name>
+						<packageName></packageName>
+						<script>eq_trainer.opponent = eq_trainer.opponent or
+  { ob = 190,
+    db = 140,
+    pb = 150,
+    wpn_weight = 15,
+    level = 30,
+    notice = 85,
+    bashed = false
+  }
+  
+eq_trainer.opponent.container = 
+  eq_trainer.opponent.container or 
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.opponent.container", 50, 0, 50, 50, ""),
+    eq_trainer.melee_skills.container
+  )
+eq_trainer.opponent.container:setStyleSheet(eq_trainer.style_sheets.child)
+  
+eq_trainer.opponent.label = 
+  eq_trainer.opponent.label or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.opponent.label", 10, 5, 80, 10, "Opponent Stats"),
+    eq_trainer.opponent.container
+  )
+    </script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.opponent stats</name>
+						<packageName></packageName>
+						<script>for i, field in pairs({"ob", "db", "pb", "wpn_weight"}) do
+  local label_name = ""
+  local w = 20
+  local h = 10
+  local x = 5
+  local y = 20 + (i - 1) * h
+  
+  label_name = field.."_label"
+  eq_trainer.opponent[label_name] =
+    eq_trainer.opponent[label_name] or
+    Geyser.Label:new(
+      eq_trainer:label_params("eq_trainer.opponent."..label_name, x, y, w, h, field:gsub("_", " ")),
+      eq_trainer.opponent.container
+    )
+  
+  x = x + w
+  w = 15 
+  label_name = field.."_val_label"
+  eq_trainer.opponent[label_name] =
+    eq_trainer.opponent[label_name] or
+    Geyser.Label:new(
+      eq_trainer:label_params("eq_trainer.opponent."..label_name, x, y, w, h, eq_trainer.opponent[field]),
+      eq_trainer.opponent.container
+    )
+  eq_trainer.opponent[label_name]:setStyleSheet(eq_trainer.style_sheets.scrollable)
+  setLabelWheelCallback("eq_trainer.opponent."..label_name, "eq_trainer.opponent:"..field.."_scroll")
+  if field == "wpn_weight" then
+    eq_trainer.opponent[label_name]:echo("&lt;center&gt;"..string.format("%.1f", eq_trainer.opponent[field]))
+  end
+  if field == "notice" then
+    eq_trainer.opponent[label_name]:echo("&lt;center&gt;"..eq_trainer.opponent[field].."%")
+  end
+  
+  x = x + w
+  w = 5
+  label_name = field.."_-_label"
+  eq_trainer.opponent[label_name] =
+    eq_trainer.opponent[label_name] or
+    Geyser.Label:new(
+      eq_trainer:label_params("eq_trainer.opponent."..label_name, x, y, w, h, "-"),
+      eq_trainer.opponent.container
+    )
+  eq_trainer.opponent[label_name]:setStyleSheet(eq_trainer.style_sheets.minus)
+  eq_trainer.opponent[label_name]:setClickCallback("eq_trainer.opponent:subtract_"..field)
+  
+  x = x + w
+  label_name = field.."_+_label"
+  eq_trainer.opponent[label_name] =
+    eq_trainer.opponent[label_name] or
+    Geyser.Label:new(
+      eq_trainer:label_params("eq_trainer.opponent."..label_name, x, y, w, h, "+"),
+      eq_trainer.opponent.container
+    )
+  eq_trainer.opponent[label_name]:setStyleSheet(eq_trainer.style_sheets.plus)
+  eq_trainer.opponent[label_name]:setClickCallback("eq_trainer.opponent:add_"..field) 
+end  
+
+for i, field in pairs({"level", "notice"}) do
+  local label_name = ""
+  local w = 20
+  local h = 10
+  local x = 55
+  local y = 20 + (i - 1) * h
+  
+  label_name = field.."_label"
+  eq_trainer.opponent[label_name] =
+    eq_trainer.opponent[label_name] or
+    Geyser.Label:new(
+      eq_trainer:label_params("eq_trainer.opponent."..label_name, x, y, w, h, field),
+      eq_trainer.opponent.container
+    )
+  
+  x = x + w
+  w = 10 
+  label_name = field.."_val_label"
+  eq_trainer.opponent[label_name] =
+    eq_trainer.opponent[label_name] or
+    Geyser.Label:new(
+      eq_trainer:label_params("eq_trainer.opponent."..label_name, x, y, w, h, eq_trainer.opponent[field]),
+      eq_trainer.opponent.container
+    )
+  eq_trainer.opponent[label_name]:setStyleSheet(eq_trainer.style_sheets.scrollable)
+  setLabelWheelCallback("eq_trainer.opponent."..label_name, "eq_trainer.opponent:"..field.."_scroll")
+  if field == "notice" then
+    eq_trainer.opponent[label_name]:echo("&lt;center&gt;"..eq_trainer.opponent[field].."%")
+  end
+  
+  x = x + w
+  w = 5
+  label_name = field.."_-_label"
+  eq_trainer.opponent[label_name] =
+    eq_trainer.opponent[label_name] or
+    Geyser.Label:new(
+      eq_trainer:label_params("eq_trainer.opponent."..label_name, x, y, w, h, "-"),
+      eq_trainer.opponent.container
+    )
+  eq_trainer.opponent[label_name]:setStyleSheet(eq_trainer.style_sheets.minus)
+  eq_trainer.opponent[label_name]:setClickCallback("eq_trainer.opponent:subtract_"..field)
+  
+  x = x + w
+  label_name = field.."_+_label"
+  eq_trainer.opponent[label_name] =
+    eq_trainer.opponent[label_name] or
+    Geyser.Label:new(
+      eq_trainer:label_params("eq_trainer.opponent."..label_name, x, y, w, h, "+"),
+      eq_trainer.opponent.container
+    )
+  eq_trainer.opponent[label_name]:setStyleSheet(eq_trainer.style_sheets.plus)
+  eq_trainer.opponent[label_name]:setClickCallback("eq_trainer.opponent:add_"..field) 
+end
+
+
+local label_name = "bashed_label"
+local w = 20
+local h = 10
+local x = 5
+local y = 70
+
+eq_trainer.opponent[label_name] =
+  eq_trainer.opponent[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.opponent."..label_name, x, y, w, h, (eq_trainer.opponent.bashed and "bashed" or "not bashed")),
+    eq_trainer.opponent.container
+  )
+eq_trainer.opponent[label_name]:setClickCallback("eq_trainer.opponent:bashed_scroll")
+if eq_trainer.opponent.bashed then
+  eq_trainer.opponent[label_name]:setStyleSheet(eq_trainer.style_sheets.plus)
+  eq_trainer.opponent[label_name]:echo("&lt;center&gt;bashed")
+else
+  eq_trainer.opponent[label_name]:setStyleSheet(eq_trainer.style_sheets.minus)
+  eq_trainer.opponent[label_name]:echo("&lt;center&gt;not bashed")
+end</script>
+						<eventHandlerList />
+					</Script>
+					<ScriptGroup isActive="yes" isFolder="yes">
+						<name>Update opponent info</name>
+						<packageName></packageName>
+						<script></script>
+						<eventHandlerList />
+						<Script isActive="yes" isFolder="no">
+							<name>eq_trainer.opponent:ob_scroll</name>
+							<packageName></packageName>
+							<script>function eq_trainer.opponent:add_ob()
+  self.ob = self.ob + 1
+  self:update_displays()
+end
+
+function eq_trainer.opponent:subtract_ob(stat)
+  if self.ob &gt; 1 then
+    self.ob = self.ob - 1
+  end
+  self:update_displays()
+end
+
+function eq_trainer.opponent:ob_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_ob()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_ob()
+  end
+end</script>
+							<eventHandlerList />
+						</Script>
+						<Script isActive="yes" isFolder="no">
+							<name>eq_trainer.opponent:db_scroll</name>
+							<packageName></packageName>
+							<script>function eq_trainer.opponent:add_db()
+  self.db = self.db + 1
+  self:update_displays()
+end
+
+function eq_trainer.opponent:subtract_db(stat)
+  if self.db &gt; 1 then
+    self.db = self.db - 1
+  end
+  self:update_displays()
+end
+
+function eq_trainer.opponent:db_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_db()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_db()
+  end
+end</script>
+							<eventHandlerList />
+						</Script>
+						<Script isActive="yes" isFolder="no">
+							<name>eq_trainer.opponent:pb_scroll</name>
+							<packageName></packageName>
+							<script>function eq_trainer.opponent:add_pb()
+  self.pb = self.pb + 1
+  self:update_displays()
+end
+
+function eq_trainer.opponent:subtract_pb(stat)
+  if self.pb &gt; 1 then
+    self.pb = self.pb - 1
+  end
+  self:update_displays()
+end
+
+function eq_trainer.opponent:pb_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_pb()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_pb()
+  end
+end</script>
+							<eventHandlerList />
+						</Script>
+						<Script isActive="yes" isFolder="no">
+							<name>eq_trainer.opponent:wpn_weight_scroll</name>
+							<packageName></packageName>
+							<script>function eq_trainer.opponent:add_wpn_weight()
+  self.wpn_weight = self.wpn_weight + 0.1
+  self:update_displays()
+end
+
+function eq_trainer.opponent:subtract_wpn_weight(stat)
+  self.wpn_weight = math.max(0, self.wpn_weight - 0.1)
+  self:update_displays()
+end
+
+function eq_trainer.opponent:wpn_weight_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_wpn_weight()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_wpn_weight()
+  end
+end</script>
+							<eventHandlerList />
+						</Script>
+						<Script isActive="yes" isFolder="no">
+							<name>eq_trainer.opponent:level_scroll</name>
+							<packageName></packageName>
+							<script>function eq_trainer.opponent:add_level()
+  if self.level &lt; 51 then
+    self.level = self.level + 1
+  end
+  self:update_displays()
+end
+
+function eq_trainer.opponent:subtract_level(stat)
+  if self.level &gt; 1 then
+    self.level = self.level - 1
+  end
+  self:update_displays()
+end
+
+function eq_trainer.opponent:level_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_level()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_level()
+  end
+end</script>
+							<eventHandlerList />
+						</Script>
+						<Script isActive="yes" isFolder="no">
+							<name>eq_trainer.opponent:notice_scroll</name>
+							<packageName></packageName>
+							<script>function eq_trainer.opponent:add_notice()
+  if self.notice &lt; 99 then
+    self.notice = self.notice + 1
+  end
+  self:update_displays()
+end
+
+function eq_trainer.opponent:subtract_notice(stat)
+  if self.notice &gt; 1 then
+    self.notice = self.notice - 1
+  end
+  self:update_displays()
+end
+
+function eq_trainer.opponent:notice_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_notice()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_notice()
+  end
+end</script>
+							<eventHandlerList />
+						</Script>
+						<Script isActive="yes" isFolder="no">
+							<name>eq_trainer.opponent:bashed_scroll</name>
+							<packageName></packageName>
+							<script>function eq_trainer.opponent:bashed_scroll(event)
+  self.bashed = not self.bashed
+  if eq_trainer.opponent.bashed then
+    self["bashed_label"]:setStyleSheet(eq_trainer.style_sheets.plus)
+    self["bashed_label"]:echo("&lt;center&gt;bashed")
+  else
+    self["bashed_label"]:setStyleSheet(eq_trainer.style_sheets.minus)
+    self["bashed_label"]:echo("&lt;center&gt;not bashed")
+  end
+  self:update_displays()
+end</script>
+							<eventHandlerList />
+						</Script>
+					</ScriptGroup>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.opponent:update_displays</name>
+						<packageName></packageName>
+						<script>function eq_trainer.opponent:update_displays()
+  for _, field in pairs({"ob", "level"}) do
+    self[field.."_val_label"]:echo("&lt;center&gt;"..self[field])
+  end
+  if self.bashed then
+    self["db_val_label"]:echo("&lt;center&gt;"..math.floor(0.25*self.db + 0.5))
+    self["pb_val_label"]:echo("&lt;center&gt;"..math.floor(0.75*self.pb + 0.5))
+  else
+    self["db_val_label"]:echo("&lt;center&gt;"..self.db)
+    self["pb_val_label"]:echo("&lt;center&gt;"..self.pb)
+  end
+  self["wpn_weight_val_label"]:echo("&lt;center&gt;"..string.format("%.1f", self.wpn_weight))
+  self["notice_val_label"]:echo("&lt;center&gt;"..self.notice.."%")
+  
+  eq_trainer.melee_skills:update_displays()
+end</script>
+						<eventHandlerList />
+					</Script>
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Bash</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.bash initializations</name>
+						<packageName></packageName>
+						<script>eq_trainer.bash = eq_trainer.bash or { bash = 99 }
+  
+eq_trainer.bash.container = 
+  eq_trainer.bash.container or 
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.bash.container", 0, 0, 50, 50, ""),
+    eq_trainer.melee_skills.container
+  )
+eq_trainer.bash.container:setStyleSheet(eq_trainer.style_sheets.child)
+  
+eq_trainer.bash.label = 
+  eq_trainer.bash.label or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.bash.label", 10, 5, 80, 10, "Bash chance"),
+    eq_trainer.bash.container
+  )
+    </script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.bash bash percent labels</name>
+						<packageName></packageName>
+						<script>local field = "bash"
+local w = 40
+local h = 10
+local x = 10
+local y = 20
+
+local label_name = field.."_label"
+eq_trainer.bash[label_name] =
+  eq_trainer.bash[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.bash."..label_name, x, y, w, h, "Your bash practiced"),
+    eq_trainer.bash.container
+  )
+
+x = x + w
+w = 10 
+label_name = field.."_val_label"
+eq_trainer.bash[label_name] =
+  eq_trainer.bash[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.bash."..label_name, x, y, w, h, eq_trainer.bash[field].."%"),
+    eq_trainer.bash.container
+  )
+eq_trainer.bash[label_name]:setStyleSheet(eq_trainer.style_sheets.scrollable)
+setLabelWheelCallback("eq_trainer.bash."..label_name, "eq_trainer.bash:"..field.."_scroll")
+
+x = x + w
+w = 5
+label_name = field.."_-_label"
+eq_trainer.bash[label_name] =
+  eq_trainer.bash[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.bash."..label_name, x, y, w, h, "-"),
+    eq_trainer.bash.container
+  )
+eq_trainer.bash[label_name]:setStyleSheet(eq_trainer.style_sheets.minus)
+eq_trainer.bash[label_name]:setClickCallback("eq_trainer.bash:subtract_"..field)
+
+x = x + w
+label_name = field.."_+_label"
+eq_trainer.bash[label_name] =
+  eq_trainer.bash[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.bash."..label_name, x, y, w, h, "+"),
+    eq_trainer.bash.container
+  )
+eq_trainer.bash[label_name]:setStyleSheet(eq_trainer.style_sheets.plus)
+eq_trainer.bash[label_name]:setClickCallback("eq_trainer.bash:add_"..field)</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.bash:bash_scroll</name>
+						<packageName></packageName>
+						<script>function eq_trainer.bash:add_bash()
+  if self.bash &lt; 99 then
+    self.bash = self.bash + 1
+  end
+  self:update_displays()
+end
+
+function eq_trainer.bash:subtract_bash(stat)
+  if self.bash &gt; 1 then
+    self.bash = self.bash - 1
+  end
+  self:update_displays()
+end
+
+function eq_trainer.bash:bash_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_bash()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_bash()
+  end
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.bash:update_displays</name>
+						<packageName></packageName>
+						<script>function eq_trainer.bash:update_displays()
+  self["bash_val_label"]:echo("&lt;center&gt;"..self.bash.."%")
+  
+  eq_trainer.melee_skills:update_displays()
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.bash:get_char_bash_rate</name>
+						<packageName></packageName>
+						<script>function eq_trainer.bash:get_char_bash_rate()
+
+  local wpn = eq_trainer:get_eq_in_slot("wielded")
+  local shield = eq_trainer:get_eq_in_slot("shield")
+  
+  if wpn.name == "nothing" and shield.name == "nothing" then
+    return 0
+  end
+
+  local ob = eq_trainer.stats.ob
+  local pb = eq_trainer.stats.pb
+  local db = eq_trainer.opponent.db
+  
+  local club = (wpn.weapon_type == "club")
+  
+  local bash_chance = 30
+  
+  if wpn.weight &gt; 10 then
+    bash_chance = bash_chance + math.min(30, wpn.weight/5 * ob/3 + pb/4 - db*3/2)
+  else
+    bash_chance = bash_chance + math.min(20, ob/2 + pb/4 - db*3/2)
+  end
+  bash_chance = math.floor(bash_chance)
+  
+  if eq_trainer.char.ride &gt; 0 then
+    bash_chance = bash_chance + 5
+  end
+  
+  bash_chance = math.floor(bash_chance * eq_trainer.bash.bash / 99)
+  
+  if bash_chance &lt; 0 then bash_chance = 0 end
+  
+  if club then
+    bash_chance = math.floor(bash_chance + eq_trainer.char.weapon / 10)
+  end
+  
+  if bash_chance &gt; 95 then bash_chance = 95 end
+  
+  return bash_chance
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.bash:get_opp_bash_rate</name>
+						<packageName></packageName>
+						<script>function eq_trainer.bash:get_opp_bash_rate()
+
+  local wpn_weight = eq_trainer.opponent.wpn_weight
+
+  local ob = eq_trainer.opponent.ob
+  local pb = eq_trainer.opponent.pb
+  local db = eq_trainer.stats.db
+  
+  local club = false --need to add club checkbox for opponent later
+  local riding = true --need to add riding checkbox for opponent later
+  
+  local bash_chance = 30
+  
+  if wpn_weight &gt; 10 then
+    bash_chance = bash_chance + math.min(30, wpn_weight/5 * ob/3 + pb/4 - db*3/2)
+  else
+    bash_chance = bash_chance + math.min(20, ob/2 + pb/4 - db*3/2)
+  end
+  bash_chance = math.floor(bash_chance)
+  
+  if riding then
+    bash_chance = bash_chance + 5
+  end
+  
+  if bash_chance &lt; 0 then bash_chance = 0 end
+  
+  if club then
+    bash_chance = math.floor(bash_chance + 99 / 10)
+  end
+  
+  if bash_chance &gt; 95 then bash_chance = 95 end
+  
+  return bash_chance
+end</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.bash bash percent label</name>
+						<packageName></packageName>
+						<script>local label_name = "bash_rate_label"
+local w = 90
+local h = 30
+local x = 5
+local y = 40
+
+eq_trainer.bash[label_name] =
+  eq_trainer.bash[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.bash."..label_name, x, y, w, h, ""),
+    eq_trainer.bash.container
+  )
+eq_trainer.bash[label_name]:echo("&lt;center&gt;You bash opponent: 0%&lt;br&gt;Opponent bashes you: 0%")</script>
+						<eventHandlerList />
+					</Script>
+				</ScriptGroup>
+				<ScriptGroup isActive="yes" isFolder="yes">
+					<name>Melee</name>
+					<packageName></packageName>
+					<script></script>
+					<eventHandlerList />
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.melee initializations</name>
+						<packageName></packageName>
+						<script>eq_trainer.melee = eq_trainer.melee or {}
+
+eq_trainer.melee.container = 
+  eq_trainer.melee.container or 
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.melee.container", 50, 50, 50, 25, ""),
+    eq_trainer.melee_skills.container
+  )
+eq_trainer.melee.container:setStyleSheet(eq_trainer.style_sheets.child)
+  
+eq_trainer.melee.label = 
+  eq_trainer.melee.label or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.melee.label", 10, 10, 80, 20, "Melee hits landing rates"),
+    eq_trainer.melee.container
+  )
+    </script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.melee hit landing rates</name>
+						<packageName></packageName>
+						<script>local label_name = "you_hit_opponent_label"
+local w = 90
+local h = 20
+local x = 5
+local y = 40
+
+eq_trainer.melee[label_name] =
+  eq_trainer.melee[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.melee."..label_name, x, y, w, h, "You hit opponent: 0.00%"),
+    eq_trainer.melee.container
+  )
+  
+label_name = "opponent_hits_you_label"
+y = 75
+eq_trainer.melee[label_name] =
+  eq_trainer.melee[label_name] or
+  Geyser.Label:new(
+    eq_trainer:label_params("eq_trainer.melee."..label_name, x, y, w, h, "Opponent hits you: 0.00%"),
+    eq_trainer.melee.container
+  )</script>
+						<eventHandlerList />
+					</Script>
+					<Script isActive="yes" isFolder="no">
+						<name>eq_trainer.melee:get_hit_rates</name>
+						<packageName></packageName>
+						<script>function eq_trainer.melee:get_hit_rates(offense, defense)
+  local hits = 0
+  local db = defense.db
+  local pb = defense.pb
+  
+  if defense.bashed then
+    db = db / 4
+    pb = pb * 3 / 4
+  end
+  
+  for i=1,120,1 do
+    for j=1,100,1 do
+      if offense.ob + i &gt; db + pb + j then
+        hits = hits + 1
+      end    
+    end
+  end
+  
+  return hits / (120*100)
+  
+end</script>
+						<eventHandlerList />
+					</Script>
+				</ScriptGroup>
+				<Script isActive="yes" isFolder="no">
+					<name>eq_trainer.melee_skills:update_displays</name>
+					<packageName></packageName>
+					<script>function eq_trainer.melee_skills:update_displays()
+  local you_hit_opp = eq_trainer.melee:get_hit_rates(eq_trainer.stats, eq_trainer.opponent) * 100
+  local opp_hits_you = eq_trainer.melee:get_hit_rates(eq_trainer.opponent, eq_trainer.stats) * 100
+  
+  eq_trainer.melee["you_hit_opponent_label"]:echo("&lt;center&gt;"..string.format("You hit opponent: %.2f%%", you_hit_opp))
+  eq_trainer.melee["opponent_hits_you_label"]:echo("&lt;center&gt;"..string.format("Opponent hits you: %.2f%%", opp_hits_you))
+  
+  local char_bash_rate = eq_trainer.bash:get_char_bash_rate()
+  local opp_bash_rate = eq_trainer.bash:get_opp_bash_rate()
+  eq_trainer.bash["bash_rate_label"]:echo("&lt;center&gt;You bash opponent: "..char_bash_rate.."%&lt;br&gt;Opponent bashes you: "..opp_bash_rate.."%")
+end</script>
+					<eventHandlerList />
+				</Script>
+			</ScriptGroup>
 		</ScriptGroup>
 	</ScriptPackage>
 </MudletPackage>

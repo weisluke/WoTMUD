@@ -4,7 +4,13 @@
 	<AliasPackage>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Horses</name>
-			<script>horse = horse or {}
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set horse</name>
+				<script>horse = horse or {}
 
 if matches[3] then
   horse.first = matches[4]
@@ -14,9 +20,10 @@ elseif horse.first then
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>(^sethorse$)|(^sethorse (\S+)$)</regex>
+				<command></command>
+				<packageName></packageName>
+				<regex>(^sethorse$)|(^sethorse (\S+)$)</regex>
+			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Ride Horse</name>
 				<script>--syntax: rh OR ride xxx
@@ -52,16 +59,8 @@ end
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Lead Horse</name>
-				<script>--syntax: lh
-
-horse = horse or {}
-
-if horse.first then
-  send("lead "..horse.first)
-else
-  cecho("&lt;red&gt;Horse not set!\n")
-end</script>
-				<command></command>
+				<script>--syntax: lh</script>
+				<command>lead</command>
 				<packageName></packageName>
 				<regex>^lh$</regex>
 			</Alias>
@@ -104,16 +103,8 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Diagnose Horse</name>
-				<script>--syntax: dh
-
-horse = horse or {}
-
-if horse.first then
-  send("diagnose " .. horse.first)
-else
-  cecho("&lt;red&gt;Horse not set!\n")
-end</script>
-				<command></command>
+				<script>--syntax: dh</script>
+				<command>diagnose mount</command>
 				<packageName></packageName>
 				<regex>^dh$</regex>
 			</Alias>
@@ -142,13 +133,6 @@ cecho("&lt;red&gt;Horse deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^l(\d+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Diagnose number.horse</name>
-				<script>send("diagnose "..matches[2]..".horse")</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^d(\d+)$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

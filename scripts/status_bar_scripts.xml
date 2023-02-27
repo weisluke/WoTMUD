@@ -985,7 +985,7 @@ end
 
 
 --change what tabs are displayed
---the list of default tabs can be found in the "Default tabs" item
+--the list of default tabs can be found in the "status_bar default tabs" item
 
 --if you hate the charge pulses being shown, here's your chance to hide it!
 status_bar.tab_settings["charge_pulses"].display = false

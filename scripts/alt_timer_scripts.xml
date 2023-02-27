@@ -5,12 +5,18 @@
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Alt Timer</name>
 			<packageName></packageName>
-			<script>alt_timer = alt_timer or {}</script>
+			<script></script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
-				<name>Start alt timer</name>
+				<name>alt_timer initializations</name>
 				<packageName></packageName>
-				<script>function alt_timer:sys_disconnection()
+				<script>alt_timer = alt_timer or {}</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>alt_timer:sys_disconnection</name>
+				<packageName></packageName>
+				<script>function alt_timer:sys_disconnection(event)
   cecho("&lt;green&gt;Starting timer for alting.\n")
   cecho("&lt;green&gt;Date - Time: " ..getTime(true, "yyyy.MM.dd - HH:mm:ss") .. "\n")
   self.sameside_timer = tempTimer(301, function() cecho("&lt;green&gt;You may log on a sameside alt now!\n") end)
@@ -21,9 +27,9 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "alt_timer:sys_disconnect
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>End alt timer</name>
+				<name>alt_timer:sys_connection</name>
 				<packageName></packageName>
-				<script>function alt_timer:sys_connection()
+				<script>function alt_timer:sys_connection(event)
   if self.sameside_timer then
     killTimer(self.sameside_timer)
   end

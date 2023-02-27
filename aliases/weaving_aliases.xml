@@ -60,7 +60,7 @@ weaving = weaving or {}
 
 local target = targeting.currtgt
 
-if not targeting.weaving then return end
+if not targeting.weaving then send("j", false) return end
 
 if target then
   if targeting.weaving then
@@ -88,7 +88,7 @@ weaving = weaving or {}
 
 local target = targeting.currtgt
 
-if not targeting.weaving then return end
+if not targeting.weaving then send("h", false) return end
 
 if target then
   if targeting.weaving then
@@ -112,7 +112,7 @@ end</script>
 				<script>send("channel 'refresh'")</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^refresh$</regex>
+				<regex>^fresh$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Armor self</name>

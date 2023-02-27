@@ -40,8 +40,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#55aaff</mBgColor>
+					<mFgColor>#55ffff</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -60,7 +60,7 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
+					<mFgColor>#55ffff</mFgColor>
 					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
@@ -80,8 +80,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#55aaff</mBgColor>
+					<mFgColor>#55ffff</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -100,8 +100,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#55aaff</mBgColor>
+					<mFgColor>#55aaff</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -120,8 +120,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#55aaff</mBgColor>
+					<mFgColor>#55aaff</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -140,8 +140,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#55aaff</mBgColor>
+					<mFgColor>#55aaff</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -200,7 +200,7 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
+					<mFgColor>#00aaff</mFgColor>
 					<mBgColor>#55aaff</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
@@ -236,8 +236,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ffaa00</mBgColor>
+					<mFgColor>#ffaa00</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -256,8 +256,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ffaa00</mBgColor>
+					<mFgColor>#ffaa00</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -276,8 +276,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ffaa00</mBgColor>
+					<mFgColor>#ff5500</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -296,8 +296,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ffaa00</mBgColor>
+					<mFgColor>#ff5500</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -317,7 +317,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ffaa00</mBgColor>
+					<mBgColor>#ff5500</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -337,7 +337,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ffaa00</mBgColor>
+					<mBgColor>#ff5500</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -372,8 +372,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ff0000</mBgColor>
+					<mFgColor>#aa0000</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -392,8 +392,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ff0000</mBgColor>
+					<mFgColor>#aa0000</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -412,8 +412,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ff0000</mBgColor>
+					<mFgColor>#aa0000</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -432,8 +432,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ff0000</mBgColor>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -452,8 +452,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ff0000</mBgColor>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -472,8 +472,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#ffffff</mFgColor>
-					<mBgColor>#ff0000</mBgColor>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -569,7 +569,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#c8ff00</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -589,7 +589,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#c8ff00</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -609,7 +609,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#c8ff00</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -629,7 +629,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#c8ff00</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -648,8 +648,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#c8ff00</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mFgColor>#000000</mFgColor>
+					<mBgColor>#c8ff00</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -668,8 +668,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#c8ff00</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mFgColor>#000000</mFgColor>
+					<mBgColor>#c8ff00</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -705,7 +705,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#aa5500</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -725,7 +725,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#aa5500</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -745,7 +745,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#aa5500</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -765,7 +765,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#aa5500</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -785,7 +785,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#aa5500</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -821,7 +821,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -841,7 +841,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -861,7 +861,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -881,7 +881,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -901,7 +901,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -921,7 +921,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -941,7 +941,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -961,7 +961,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -981,7 +981,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1001,7 +1001,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1021,7 +1021,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#000000</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1057,7 +1057,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#ffffff</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1077,7 +1077,7 @@
 					<mCommand></mCommand>
 					<packageName></packageName>
 					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#ffffff</mBgColor>
+					<mBgColor>transparent</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1096,8 +1096,8 @@
 					<mStayOpen>0</mStayOpen>
 					<mCommand></mCommand>
 					<packageName></packageName>
-					<mFgColor>#7f7f7f</mFgColor>
-					<mBgColor>#ffffff</mBgColor>
+					<mFgColor>#ffffff</mFgColor>
+					<mBgColor>#7f7f7f</mBgColor>
 					<mSoundFile></mSoundFile>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1118,7 +1118,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#55aaff</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1140,7 +1140,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ffff00</mFgColor>
-				<mBgColor>#303030</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1162,7 +1162,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#151515</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1184,7 +1184,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1204,7 +1204,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#aa0000</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1224,7 +1224,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#303030</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1244,7 +1244,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1264,7 +1264,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#55aaff</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1304,7 +1304,7 @@
 				<mCommand>rel</mCommand>
 				<packageName></packageName>
 				<mFgColor>#75ff6e</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1324,7 +1324,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff7f7f</mFgColor>
-				<mBgColor>#0e0e00</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1344,7 +1344,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff7f7f</mFgColor>
-				<mBgColor>#0e0e00</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1364,7 +1364,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#fff8bd</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1404,7 +1404,7 @@
 				<mCommand>rel</mCommand>
 				<packageName></packageName>
 				<mFgColor>#75ff6e</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
@@ -1424,7 +1424,7 @@
 				<mCommand></mCommand>
 				<packageName></packageName>
 				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#000000</mBgColor>
+				<mBgColor>transparent</mBgColor>
 				<mSoundFile></mSoundFile>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>

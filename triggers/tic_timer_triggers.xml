@@ -880,16 +880,16 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>The clouds disappear.</string>
 						<string>The sky starts to get cloudy.</string>
+						<string>The clouds disappear.</string>
 						<string>It starts to rain.</string>
 						<string>The rain stops.</string>
 						<string>Lightning starts to show in the sky.</string>
 						<string>The lightning stops.</string>
 						<string>It starts to snow.</string>
 						<string>The snow stops.</string>
-						<string>The snow lightens up a bit.</string>
 						<string>The snow is coming down more heavily now.</string>
+						<string>The snow lightens up a bit.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -921,10 +921,26 @@ end</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>You feel the blindness fade.</string>
+						<string>You feel your limbs are now responding again.</string>
+						<string>You breathe easier again as the cold sweats have faded.</string>
+						<string>You feel less paranoid.</string>
+						<string>You feel better.</string>
+						<string>Your eyes feel less protected.</string>
+						<string>You feel less sure of yourself.</string>
 						<string>Your extra burst of stamina fades.</string>
+						<string>You feel your extra strength fading.</string>
+						<string>You feel less touched by your master, The Great Lord of the Dark.</string>
 						<string>You feel sober again.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
@@ -1282,8 +1298,28 @@ end</script>
 						<string>A frail, old wisdom leaves</string>
 						<string>A beggar has arrived from</string>
 						<string>A beggar leaves</string>
+						<string>A villager has arrived from</string>
+						<string>A villager leaves</string>
+						<string>A frightened young thief has arrived from</string>
+						<string>A frightened young thief leaves</string>
+						<string>A prophet of the dragon has arrived from</string>
+						<string>A prophet of the dragon leaves</string>
+						<string>A poor trash collector has arrived from</string>
+						<string>A poor trash collector leaves</string>
+						<string>The collector has arrived from</string>
+						<string>The collector leaves</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
 						<integer>2</integer>
 						<integer>2</integer>
 						<integer>2</integer>

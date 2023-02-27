@@ -991,8 +991,10 @@ end</script>
 						<string>You feel an icy chill as if you plunged into a cold river.</string>
 						<string>You feel no connection to the True Source to release.</string>
 						<string>You can't alter a weave when you aren't in touch with the Source.</string>
+						<string>You fight a wave of sickness, and saidin slips from your grasp.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>

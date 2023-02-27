@@ -8,7 +8,7 @@
 			<script></script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
-				<name>Equipment Trainer Initializations</name>
+				<name>equip_db initializations</name>
 				<packageName></packageName>
 				<script>equip_db = equip_db or {configs = {}, eq_info = {}}
 
@@ -16,7 +16,7 @@
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Equipment Database Display Echo</name>
+				<name>equip_db:echo</name>
 				<packageName></packageName>
 				<script>function equip_db:echo(what, debug, err)
   --colored tags for message echo
@@ -40,7 +40,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Database creation</name>
+				<name>equip_db:create_db</name>
 				<packageName></packageName>
 				<script>equip_db.eq_fields = {
     weapons = {"name", "hands", "weapon_type", "ob", "pb", "dmg", "weight", "dmg_type"},
@@ -92,7 +92,7 @@ equip_db:create_db()</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Show help</name>
+				<name>equip_db:show_help</name>
 				<packageName></packageName>
 				<script>function equip_db:show_help()
   local help =
@@ -146,7 +146,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Reset equpment info</name>
+				<name>equip_db:reset_eq_info</name>
 				<packageName></packageName>
 				<script>function equip_db:reset_eq_info()
   self.eq_info = {}
@@ -154,7 +154,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Update items</name>
+				<name>equip_db:update_item</name>
 				<packageName></packageName>
 				<script>function equip_db:update_item(eq_type, info, exact_name)
   
@@ -217,7 +217,7 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Database update</name>
+				<name>equip_db:db_update</name>
 				<packageName></packageName>
 				<script>function equip_db:db_update(event, filename)
   --if the file that downloaded is not the database, return
@@ -237,10 +237,10 @@ registerAnonymousEventHandler("sysDownloadDone", "equip_db:db_update")</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Get weapons</name>
+					<name>equip_db:get_weapons</name>
 					<packageName></packageName>
 					<script>local function sort_weapons(e1, e2)
-  --sort first by weapon type, then ob, then pb, then dmg
+  --sort first by weapon type, then hands, then ob, then pb, then dmg
 
   if e1.weapon_type &lt; e2.weapon_type then
     return true
@@ -347,7 +347,7 @@ end
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Get armor</name>
+					<name>equip_db:get_armor</name>
 					<packageName></packageName>
 					<script>local function sort_armor(e1, e2)
   --sort first by setup, then eq slot, then abs, then db, then pb, then mvs
@@ -456,7 +456,7 @@ end
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Get trinkets</name>
+					<name>equip_db:get_trinkets</name>
 					<packageName></packageName>
 					<script>local function sort_trinkets(e1, e2)
   --sort first by setup, then eq slot, then db, then pb, then mvs
@@ -563,7 +563,7 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>Show weapons</name>
+					<name>equip_db:show_weapons</name>
 					<packageName></packageName>
 					<script>function equip_db:show_weapons(name, name_exact, weapon_type, weapon_type_exact)
   
@@ -603,7 +603,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Show armor</name>
+					<name>equip_db:show_armor</name>
 					<packageName></packageName>
 					<script>function equip_db:show_armor(name, name_exact, eq_slot, eq_slot_exact)
   local armor = self:get_armor(name, name_exact, eq_slot, eq_slot_exact)
@@ -642,7 +642,7 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>Show trinkets</name>
+					<name>equip_db:show_trinkets</name>
 					<packageName></packageName>
 					<script>function equip_db:show_trinkets(name, name_exact, eq_slot, eq_slot_exact)
   local trinkets = self:get_trinkets(name, name_exact, eq_slot, eq_slot_exact)

@@ -8,7 +8,7 @@
 			<script></script>
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
-				<name>Rent Database Creation</name>
+				<name>rents initializations</name>
 				<packageName></packageName>
 				<script>db:create(
   "rents",
@@ -64,7 +64,7 @@ rents.help =
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Rents Display Echo</name>
+				<name>rents:echo</name>
 				<packageName></packageName>
 				<script>function rents:echo(what, debug, err)
   --colored tags for message echo
@@ -88,9 +88,9 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>System disconnection</name>
+				<name>rents:sys_disconnection</name>
 				<packageName></packageName>
-				<script>function rents:sys_disconnection()
+				<script>function rents:sys_disconnection(event)
   rents.name = nil
   rents.clear_room = true
 end
@@ -100,7 +100,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>Rents rare items</name>
+				<name>rents rare items</name>
 				<packageName></packageName>
 				<script>rents.rares = {
     "a heron-marked longsword",

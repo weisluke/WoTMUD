@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Sort Items</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Sorting Items</name>
+				<script>--syntax: sort xxx
+--xxx should be both in the item name (when it's in your inventory)
+--and a keyword for the item. e.g., exp mob "scalp"s or "plate"s of pork
+
+sorting = sorting or {}
+sorting.what = matches[2]
+sorting.container = nil
+sorting.items = {}
+enableTrigger("Sort Items")
+send("inventory")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^sort (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Sorting Items into Container</name>
+				<script>--syntax: sort xxx yyy
+--xxx should be both in the item name (when it's in your inventory)
+--and a keyword for the item. e.g., exp mob "scalp"s or "plate"s of pork
+--yyy is the container for the items to be placed into when sorting
+
+sorting = sorting or {}
+sorting.what = matches[2]
+sorting.container = matches[3]
+sorting.items = {}
+enableTrigger("Sort Items")
+send("inventory")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^sort (\S+) (\S+)$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

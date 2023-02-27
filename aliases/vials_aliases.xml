@@ -15,7 +15,7 @@
 container = container or {}
 
 if container.first then
-  send("get fluid "..container.first)
+  send("get movepotion "..container.first)
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -30,7 +30,7 @@ end</script>
 container = container or {}
 
 if container.first then
-  send("get red "..container.first)
+  send("get fearpotion "..container.first)
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>

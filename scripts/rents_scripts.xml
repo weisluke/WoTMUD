@@ -46,6 +46,8 @@ rents.help =
             contain the given keyword(s). Not case sensitive, but if multiple keywords are
             used the order (and, if applicable, punctuation) matters.
             Examples: rents show item heron-engraved, rents show item a crystal lightstick
+        &lt;yellow&gt;rents show item rare&lt;reset&gt; - Shows all rare items in the rent database
+        &lt;yellow&gt;rents show item angreal&lt;reset&gt; - Shows all angreal in the rent database
         &lt;yellow&gt;rents show zone keyword(s)&lt;reset&gt; - Shows all items in the rent database whose
             zone name (in my map data) contains the provided keyword(s). Not case sensitive, 
             but if multiple keywords are used the order (and, if applicable, punctuation) matters.
@@ -134,6 +136,60 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
     "an obsidian encrusted sungwood staff",
     "a wicked knife bladed axe",
 }    </script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>rents angreal</name>
+				<packageName></packageName>
+				<script>rents.angreal =
+  {
+    "a disc of moonstone",
+    "a greenish, translucent sphere",
+    "a jade carving of an old man",
+    "a many-faceted stone",
+    "a necklace of fire sapphire",
+    "a sculpted statuette",
+    "a short, thick rod",
+    "a small crystalline circlet",
+    "a small crystalline globe",
+    "a small stone dagger",
+    "a wood carving of a bear",
+    "an ivory figurine",
+    "an orb filled with incandescent light",
+    "a carved ivory pyramid",
+    "Callandor",
+    "a bracelet of twisted silver",
+  }</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>rents:display_items</name>
+				<packageName></packageName>
+				<script>function rents:display_items(storage)
+  cecho(string.format("%-10s&lt;ansi_cyan&gt;%-40s&lt;reset&gt;%s&lt;green&gt;%-40s&lt;gold&gt;%-10s\n", "Name", "Room", "", "Item", "Cost"))
+  
+  for _, item in pairs(storage) do
+    local crowns = item.cost:match("(%d+) gold crowns")
+    local coppers = item.cost:match("(%d+) coppers")
+    if crowns then crowns = crowns.."g" else crowns = "0g" end
+    if coppers then coppers = coppers.."c" else coppers = "0c" end
+    local cost = crowns.." "..coppers
+    
+    local msg_format = "%-10s%-40s%s%-40s%-10s\n"
+    if string.len(getRoomName(item.room)) &gt;= 40 or string.len(item.item) &gt;= 40 then
+      msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
+    end
+  
+    local msg = string.format(msg_format, 
+      item.name,
+      getRoomName(item.room),
+      "", 
+      item.item,
+      cost
+      )
+    cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
+  end
+end</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>

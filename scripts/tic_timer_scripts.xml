@@ -21,8 +21,8 @@ tic_timer.configs = tic_timer.configs or
     aggro_is_exact = false,
     num_tics = -1,
     aggro_pulse = -1,
-    tic_length = 63.000,
-    tic_length_std_dev = 3.0,
+    tic_length = 62.000,
+    tic_length_std_dev = 1.0,
     tic_warning = 7.0,
     show_aggros = false
   }
@@ -48,13 +48,13 @@ function tic_timer:reset()
     aggro_is_exact = false,
     num_tics = -1,
     aggro_pulse = -1,
-    tic_length = 63.000,
-    tic_length_std_dev = 3.0,
+    tic_length = 62.000,
+    tic_length_std_dev = 1.0,
     tic_warning = warning,
     show_aggros = aggros
   }
   
-  self.tic_history = {63.0, size = 1}
+  self.tic_history = {62.0, size = 1}
   
   resetStopWatch(self.stopwatch)
   for name, id in pairs(self.temp_timers) do

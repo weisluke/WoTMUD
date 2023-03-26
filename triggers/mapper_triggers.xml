@@ -30,9 +30,11 @@ if
   )
 then
   wotmudmapper.roomname = matches[1]
+  --if on an immortal, remove room flags
   if string.match(wotmudmapper.roomname, "(.+) %(#%d+%)") ~= nil then
     wotmudmapper.roomname = string.match(wotmudmapper.roomname, "(.+) %(#%d+%)")
   end
+  --edge case where the mud spits out room names with spaces at the start
   if string.match(wotmudmapper.roomname, "^%s+(.+)") ~= nil then
     wotmudmapper.roomname = string.match(wotmudmapper.roomname, "^%s+(.+)")
   end
@@ -495,14 +497,15 @@ end</script>
 					<string>You are too exhausted\.$</string>
 					<string>You can't leave the Circle for (.+), since you were pkilled!$</string>
 					<string>You can't leave the Circle yet for (.+) since you were pkilled!$</string>
+					<string>You can't ride in there\.$</string>
 					<string>You can't ride on water\.$</string>
+					<string>You can't ride there on a horse!$</string>
+					<string>You don't see anything to start swimming in\.$</string>
 					<string>You need a boat to go there\.$</string>
 					<string>You try, but the mind-numbing cold prevents you\.\.$</string>
 					<string>You shudder at the concept of crossing water\.$</string>
 					<string>You would need to climb there from here\.$</string>
 					<string>You would need to swim there, you can't just walk it\.$</string>
-					<string>You can't ride in there\.$</string>
-					<string>You can't ride there on a horse!$</string>
 					<string>Your mount is engaged in combat!$</string>
 					<string>Your mount is too exhausted\.$</string>
 					<string>Your mount ought to be awake and standing first!$</string>
@@ -511,6 +514,7 @@ end</script>
 					<string>You're in pretty bad shape, unable to do anything!$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>

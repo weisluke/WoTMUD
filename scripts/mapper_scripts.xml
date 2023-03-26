@@ -810,8 +810,18 @@ end
 --pushes first letter of command (made lowercase), such that wotmudmapper.queue always contains lowercase, single letters
 
 function wotmudmapper:track_map_commands(event, com)
-  if self:is_movement(com) or self:is_look(com) or self:is_flee(com) then
-    self.queue:pushright(com:lower():sub(1,1))
+  if self:is_movement(com) or self:is_look(com) or self:is_flee(com) or self:is_swim(com) then
+    --swim needs handled special since it is two commands (swim + direction)
+    if self:is_swim(com) then
+      com = com:lower():split()
+      while table.index_of(com, "") do
+        table.remove(com, table.index_of(com, ""))
+      end
+      com = com[2]
+      self.queue:pushright(com:sub(1,1))
+    else
+      self.queue:pushright(com:lower():sub(1,1))
+    end
     self:echo("Added command (" .. com .. ") to queue.\n", true)
     if self.following then
       self.following = false
@@ -892,6 +902,30 @@ function wotmudmapper:is_flee(com)
     if table.contains({"f", "fl", "fle", "flee"}, com:lower()) then
       return true
     end
+  end
+  return false
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>wotmudmapper:is_swim</name>
+					<packageName></packageName>
+					<script>--return true if command is swim, false if not swim. ignores capitalization
+
+function wotmudmapper:is_swim(com)
+  if com ~= nil then
+  
+    com = com:lower():split()
+    while table.index_of(com, "") do
+      table.remove(com, table.index_of(com, ""))
+    end
+    
+    if table.size(com) == 2 then
+      if table.contains({"sw", "swi", "swim"}, com[1]) and self:is_movement(com[2]) then
+        return true
+      end
+    end
+    
   end
   return false
 end</script>

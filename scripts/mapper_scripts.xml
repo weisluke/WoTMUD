@@ -321,6 +321,8 @@ end
   registerAnonymousEventHandler("map_rightclick_update_roomdesc_event", "wotmudmapper:rightclick_update_roomdesc")
   
   registerAnonymousEventHandler("map_rightclick_display_roomdesc_event", "wotmudmapper:rightclick_display_roomdesc")
+  
+  raiseEvent("wotmudmapper:sysConnectionEvent")
 end
 
 registerAnonymousEventHandler("sysLoadEvent", "wotmudmapper:sys_connection")

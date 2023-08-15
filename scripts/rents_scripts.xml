@@ -185,7 +185,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
     
     local msg_format = "%-10s%-40s%s%-40s%-10s\n"
     
-    if item.room ~= 0 and (string.len(room_name) &gt;= 40 or string.len(item.item) &gt;= 40) then
+    if string.len(room_name) &gt;= 40 or string.len(item.item) &gt;= 40 then
       msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
     end
   

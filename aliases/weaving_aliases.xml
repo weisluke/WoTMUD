@@ -19,7 +19,7 @@ if weaving.longweave then
   index = (index % table.size(longweaves))+1
   weaving.longweave = longweaves[index]
 else
-  weaving.longweave = "fireball"
+  weaving.longweave = longweaves[1]
 end
 cecho("Long weave set to: "..weaving.longweave.."\n")</script>
 				<command></command>
@@ -37,7 +37,7 @@ if weaving.shortweave then
   index = (index % table.size(shortweaves))+1
   weaving.shortweave = shortweaves[index]
 else
-  weaving.shortweave = "earthquake"
+  weaving.shortweave = shortweaves[1]
 end
 cecho("Short weave set to: "..weaving.shortweave.."\n")</script>
 				<command></command>
@@ -67,7 +67,7 @@ if target then
     if weaving.longweave then
       send("channel '"..weaving.longweave.."' "..target)
     else
-      send("channel 'ice spikes' "..target)
+      send("channel 'ice spikes' h."..target)
     end
   else
     cecho("&lt;red&gt;Pk method not set to weaving!\n")
@@ -95,7 +95,7 @@ if target then
     if weaving.shortweave then
       send("channel '"..weaving.shortweave.."' "..target)
     else
-      send("channel 'earthquake' "..target)
+      send("channel 'earthquake' h."..target)
     end
   else
     cecho("&lt;red&gt;Pk method not set to weaving!\n")

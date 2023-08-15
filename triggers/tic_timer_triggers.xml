@@ -930,9 +930,11 @@ end</script>
 						<string>Your extra burst of stamina fades.</string>
 						<string>You feel your extra strength fading.</string>
 						<string>You feel less touched by your master, The Great Lord of the Dark.</string>
+						<string>The flows of fire and earth enhancing your vision have dissipated.</string>
 						<string>You feel sober again.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
@@ -1146,6 +1148,9 @@ end</script>
 						<string>Strange rustling noises are evident nearby. This can't be good...</string>
 						<string>Archers' arrows shower down from above.</string>
 						<string>Large rocks shower down from above!</string>
+						<string>Rolling clouds of blackness shroud the skies.</string>
+						<string>Dark clouds billow overhead, filling the skies.</string>
+						<string>Jagged thunder resonates the very depths of Thakan'dar.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -1182,6 +1187,9 @@ end</script>
 						<integer>3</integer>
 						<integer>1</integer>
 						<integer>1</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
@@ -1308,8 +1316,12 @@ end</script>
 						<string>A poor trash collector leaves</string>
 						<string>The collector has arrived from</string>
 						<string>The collector leaves</string>
+						<string>A lord has arrived from</string>
+						<string>A lord leaves</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>2</integer>
+						<integer>2</integer>
 						<integer>2</integer>
 						<integer>2</integer>
 						<integer>2</integer>

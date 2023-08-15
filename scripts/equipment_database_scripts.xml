@@ -86,9 +86,11 @@ function equip_db:create_db()
         },
     }
   )
+  
 end
 
-equip_db:create_db()</script>
+equip_db:create_db()
+</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
@@ -136,7 +138,7 @@ equip_db:create_db()</script>
             one sheet to another
         
         &lt;yellow&gt;edb delete&lt;reset&gt; - Delete the entire database. &lt;red&gt;USE WITH CAUTION!&lt;reset&gt;
-        &lt;yellow&gt;edb delete (weapons|armor|trinekts)&lt;reset&gt; - Delete the entire given sheet
+        &lt;yellow&gt;edb delete (weapons|armor|trinkets)&lt;reset&gt; - Delete the entire given sheet
         &lt;yellow&gt;edb delete (weapons|armor|trinkets) name xxx&lt;reset&gt; - Delete the item with the
             given name from the given sheet
                     
@@ -680,6 +682,13 @@ end</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>
+			<Script isActive="yes" isFolder="no">
+				<name>equip_db sysConnectionEvent</name>
+				<packageName></packageName>
+				<script>raiseEvent("equip_db:sysConnectionEvent")
+</script>
+				<eventHandlerList />
+			</Script>
 		</ScriptGroup>
 	</ScriptPackage>
 </MudletPackage>

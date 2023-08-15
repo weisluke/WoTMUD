@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>Toggle Logging</name>
+			<packageName></packageName>
+			<script>function toggle_logging(event)
+  if event == "sysConnectionEvent" then
+    local success, message, filename, code = startLogging(true)
+    if code == 1 then cecho(f"Started logging to {filename}\n") end
+    if code == -1 then cecho(f"Already started logging to {filename}\n") end
+  elseif event == "sysDisconnectionEvent" then
+    local success, message, filename, code = startLogging(false)
+    if code == 0 then cecho(f"Stopping logging to {filename}\n") end
+    if code == -2 then cecho(f"Already stopped logging to {filename}\n") end
+  else
+    cecho("Unknown event passed to toggle_logging.\n")
+  end
+end
+
+registerAnonymousEventHandler("sysConnectionEvent", "toggle_logging")
+
+registerAnonymousEventHandler("sysDisconnectionEvent", "toggle_logging")</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+</MudletPackage>

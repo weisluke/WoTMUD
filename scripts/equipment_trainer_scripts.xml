@@ -294,8 +294,6 @@ eq_trainer.eq.slots = {
   "shield",
   "wielded",
   "belt",
-  "sheath",
-  "sheath",
   "legs",
   "feet"
 }
@@ -309,9 +307,14 @@ end</script>
 				<name>eq_trainer get equipment</name>
 				<packageName></packageName>
 				<script>function eq_trainer:get_eq_setups()
+
+  local armor = {}
+  local trinkets = {}
   
-  local armor = equip_db:get_armor()
-  local trinkets = equip_db:get_trinkets()
+  if equip_db then
+    armor = equip_db:get_armor()
+    trinkets = equip_db:get_trinkets()
+  end
   
   local result = {}
   
@@ -327,9 +330,14 @@ end</script>
 end
 
 function eq_trainer:get_eq(eq_slot, setup)
+
+  local armor = {}
+  local trinkets = {}
   
-  local armor = equip_db:get_armor()
-  local trinkets = equip_db:get_trinkets()
+  if equip_db then
+    armor = equip_db:get_armor()
+    trinkets = equip_db:get_trinkets()
+  end
   
   local result = {}
   
@@ -352,7 +360,11 @@ end
 
 function eq_trainer:get_weapon_types()
 
-  local weapons = equip_db:get_weapons()
+  local weapons = {}
+  
+  if equip_db then
+    weapons = equip_db:get_weapons()
+  end
   
   local result = {}
   
@@ -367,7 +379,11 @@ end
 
 function eq_trainer:get_weapons(weapon_type, weapon_type_exact)
 
-  local weapons = equip_db:get_weapons(nil, nil, weapon_type, weapon_type_exact)
+  local weapons = {}
+  
+  if equip_db then
+    weapons = equip_db:get_weapons(nil, nil, weapon_type, weapon_type_exact)
+  end
   
   return weapons
 end
@@ -381,10 +397,16 @@ function eq_trainer:get_eq_in_slot(slot)
 end
 
 function eq_trainer:get_eq_from_name(name)
+
+  local weapons = {}
+  local armor = {}
+  local trinkets = {}
   
-  local weapons = equip_db:get_weapons()
-  local armor = equip_db:get_armor()
-  local trinkets = equip_db:get_trinkets()
+  if equip_db then
+    weapons = equip_db:get_weapons()
+    armor = equip_db:get_armor()
+    trinkets = equip_db:get_trinkets()
+  end
   
   local result = {}
   
@@ -1238,7 +1260,8 @@ end</script>
     )
   eq_trainer.char[label_name]:setStyleSheet(eq_trainer.style_sheets.plus)
   eq_trainer.char[label_name]:setClickCallback("eq_trainer:add_stat", stat)
-end</script>
+end
+</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -1289,7 +1312,8 @@ end</script>
   eq_trainer.char[label_name]:setStyleSheet(eq_trainer.style_sheets.plus)
   eq_trainer.char[label_name]:setClickCallback("eq_trainer:add_"..field)
   
-end</script>
+end
+</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
@@ -1627,95 +1651,63 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer equipment slot displays</name>
 					<packageName></packageName>
-					<script>for k, slot in pairs(eq_trainer.eq.slots) do
-  local label_name = ""
-  local w = 15
-  local h = 5
-  local x = 0
-  local y = (k - 1) * 5
-  
-  --create the label that gives the name of the slot
-  label_name = k.."_"..slot.."_label"
-  eq_trainer.eq[label_name] =
-    eq_trainer.eq[label_name] or
-    Geyser.Label:new(
-      eq_trainer:label_params("eq_trainer.eq."..label_name, x, y, w, h, slot),
-      eq_trainer.eq.container
-    )
-  
-  x = x + w
-  w = 85
-  --create the label that holds the equipment value in this slot
-  label_name = k.."_"..slot.."_val_label"
-  eq_trainer.eq[label_name] =
-    eq_trainer.eq[label_name] or
-    Geyser.Label:new(
-      eq_trainer:parent_params("eq_trainer.eq."..label_name, x, y, w, h, eq_trainer.eq[k].name),
-      eq_trainer.eq.container
-    )
-  eq_trainer.eq[label_name]:setStyleSheet(eq_trainer.style_sheets.scrollable)
-  
-  
-  --create child labels that will appear when the value label is clicked
-  local child_name = ""
-  local child
-  
-  w = 20
-  h = 2.5
-  --first child label is a nothing item
-  child_name = k.."_"..slot.."_nothing_label"
-  child = eq_trainer.eq[label_name]:addChild(
-    eq_trainer:child_params("eq_trainer.eq."..child_name, w, h, eq_trainer.eq.nothing.name)
-  )
-  child:setStyleSheet(eq_trainer.style_sheets.child)
-  child:setClickCallback("eq_trainer:set_eq", k, eq_trainer.eq.nothing)
-  
-  --if the slot is wielded (weapons), create child labels for all weapon types
-  if slot == "wielded" then
-    for _, wpn_type in pairs(eq_trainer:get_weapon_types()) do
+					<script>function eq_trainer:equipment_slot_displays()
+
+  for k, slot in pairs(eq_trainer.eq.slots) do
+    local label_name = ""
+    local w = 15
+    local h = 5
+    local x = 0
+    local y = (k - 1) * 5
     
-      child_name = k.."_"..slot.."_"..wpn_type:gsub(" ", "_").."_label"
-      child = eq_trainer.eq[label_name]:addChild(
-        eq_trainer:child_params("eq_trainer.eq."..child_name, w/2, h, wpn_type)
+    --create the label that gives the name of the slot
+    label_name = k.."_"..slot.."_label"
+    eq_trainer.eq[label_name] =
+      eq_trainer.eq[label_name] or
+      Geyser.Label:new(
+        eq_trainer:label_params("eq_trainer.eq."..label_name, x, y, w, h, slot),
+        eq_trainer.eq.container
       )
-      child:setStyleSheet(eq_trainer.style_sheets.child)
+    
+    x = x + w
+    w = 85
+    --create the label that holds the equipment value in this slot
+    label_name = k.."_"..slot.."_val_label"
+    eq_trainer.eq[label_name] =
+      eq_trainer.eq[label_name] or
+      Geyser.Label:new(
+        eq_trainer:parent_params("eq_trainer.eq."..label_name, x, y, w, h, eq_trainer.eq[k].name),
+        eq_trainer.eq.container
+      )
+    eq_trainer.eq[label_name]:setStyleSheet(eq_trainer.style_sheets.scrollable)
+    
+    
+    --create child labels that will appear when the value label is clicked
+    local child_name = ""
+    local child
+    
+    w = 20
+    h = 2.5
+    --first child label is a nothing item
+    child_name = k.."_"..slot.."_nothing_label"
+    child = eq_trainer.eq[label_name]:addChild(
+      eq_trainer:child_params("eq_trainer.eq."..child_name, w, h, eq_trainer.eq.nothing.name)
+    )
+    child:setStyleSheet(eq_trainer.style_sheets.child)
+    child:setClickCallback("eq_trainer:set_eq", k, eq_trainer.eq.nothing)
+    
+    --if the slot is wielded (weapons), create child labels for all weapon types
+    if slot == "wielded" then
+      for _, wpn_type in pairs(eq_trainer:get_weapon_types()) do
       
-      --create grandchild labels for all weapons in the given weapon type
-      for _, item in pairs(eq_trainer:get_weapons(wpn_type, true)) do
-        local grandchild_name = k.."_"..slot.."_"..item.name:gsub(" ", "_").."_label"
-        
-        local grandchild = child:addChild(
-          eq_trainer:child_params("eq_trainer.eq."..grandchild_name, w, h, item.name)
-        )
-        grandchild:setStyleSheet(eq_trainer.style_sheets.child)
-        grandchild:setClickCallback("eq_trainer:set_eq", k, item)
-      end
-    end
-  --else a shield
-  elseif slot == "shield" then
-    for _, item in pairs(eq_trainer:get_eq(slot)) do
-      child_name = k.."_"..slot.."_"..item.name:gsub(" ", "_").."_label"
-      child = eq_trainer.eq[label_name]:addChild(
-        eq_trainer:child_params("eq_trainer.eq."..child_name, w, h, item.name)
-      )
-      child:setStyleSheet(eq_trainer.style_sheets.child)
-      child:setClickCallback("eq_trainer:set_eq", k, item)
-    end  
-  --not a weapon or shield, armor or trinket 
-  else
-    for _, setup in pairs(eq_trainer:get_eq_setups()) do
-    
-      --if there is actually equipment of the given setup
-      if not table.is_empty(eq_trainer:get_eq(slot, setup)) then
-        --create the child label for the setup
-        child_name = k.."_"..slot.."_"..setup.."_label"
+        child_name = k.."_"..slot.."_"..wpn_type:gsub(" ", "_").."_label"
         child = eq_trainer.eq[label_name]:addChild(
-          eq_trainer:child_params("eq_trainer.eq."..child_name, w/2, h, setup)
+          eq_trainer:child_params("eq_trainer.eq."..child_name, w/2, h, wpn_type)
         )
         child:setStyleSheet(eq_trainer.style_sheets.child)
         
-        --create grandchild labels for all equipment in the given setup type
-        for _, item in pairs(eq_trainer:get_eq(slot, setup)) do
+        --create grandchild labels for all weapons in the given weapon type
+        for _, item in pairs(eq_trainer:get_weapons(wpn_type, true)) do
           local grandchild_name = k.."_"..slot.."_"..item.name:gsub(" ", "_").."_label"
           
           local grandchild = child:addChild(
@@ -1725,9 +1717,49 @@ end</script>
           grandchild:setClickCallback("eq_trainer:set_eq", k, item)
         end
       end
+    --else a shield
+    elseif slot == "shield" then
+      for _, item in pairs(eq_trainer:get_eq(slot)) do
+        child_name = k.."_"..slot.."_"..item.name:gsub(" ", "_").."_label"
+        child = eq_trainer.eq[label_name]:addChild(
+          eq_trainer:child_params("eq_trainer.eq."..child_name, w, h, item.name)
+        )
+        child:setStyleSheet(eq_trainer.style_sheets.child)
+        child:setClickCallback("eq_trainer:set_eq", k, item)
+      end  
+    --not a weapon or shield, armor or trinket 
+    else
+      for _, setup in pairs(eq_trainer:get_eq_setups()) do
+      
+        --if there is actually equipment of the given setup
+        if not table.is_empty(eq_trainer:get_eq(slot, setup)) then
+          --create the child label for the setup
+          child_name = k.."_"..slot.."_"..setup.."_label"
+          child = eq_trainer.eq[label_name]:addChild(
+            eq_trainer:child_params("eq_trainer.eq."..child_name, w/2, h, setup)
+          )
+          child:setStyleSheet(eq_trainer.style_sheets.child)
+          
+          --create grandchild labels for all equipment in the given setup type
+          for _, item in pairs(eq_trainer:get_eq(slot, setup)) do
+            local grandchild_name = k.."_"..slot.."_"..item.name:gsub(" ", "_").."_label"
+            
+            local grandchild = child:addChild(
+              eq_trainer:child_params("eq_trainer.eq."..grandchild_name, w, h, item.name)
+            )
+            grandchild:setStyleSheet(eq_trainer.style_sheets.child)
+            grandchild:setClickCallback("eq_trainer:set_eq", k, item)
+          end
+        end
+      end
     end
   end
-end</script>
+  
+end
+
+registerAnonymousEventHandler("equip_db:sysConnectionEvent", "eq_trainer:equipment_slot_displays")
+
+</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">

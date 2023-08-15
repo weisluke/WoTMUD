@@ -452,7 +452,7 @@ end</script>
     length during that interval based on the estimated number of tic events. Tic
     lengths are stored in a list and used to calculate the average tic length,
     which weights each tic length inversely proportional to the time since it
-    occured. This way, more recent tics are weighted more and can drive up the
+    occurred. This way, more recent tics are weighted more and can drive up the
     average as the tic length increases throughout the day. The tic history is used
     to determine a weighted standard deviation, in order to reject tics which are
     too long or short. The tic length is periodically adjusted based on known aggro

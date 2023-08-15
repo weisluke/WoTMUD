@@ -175,14 +175,23 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
     if coppers then coppers = coppers.."c" else coppers = "0c" end
     local cost = crowns.." "..coppers
     
+    local room_name = ""
+    
+    if item.room == 0 then
+      room_name = "bank"
+    else
+      room_name = getRoomName(item.room)
+    end
+    
     local msg_format = "%-10s%-40s%s%-40s%-10s\n"
-    if string.len(getRoomName(item.room)) &gt;= 40 or string.len(item.item) &gt;= 40 then
+    
+    if string.len(room_name) &gt;= 40 or string.len(item.item) &gt;= 40 then
       msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
     end
   
     local msg = string.format(msg_format, 
       item.name,
-      getRoomName(item.room),
+      room_name,
       "", 
       item.item,
       cost

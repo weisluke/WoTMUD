@@ -159,6 +159,51 @@ end</script>
 					<integer>1</integer>
 				</regexCodePropertyList>
 			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Bank balance</name>
+				<script>local amount = tonumber(matches[3])
+local coppers = amount%20
+local crowns = (amount - coppers)/20
+
+rents.cost = crowns.." gold crowns and "..coppers.." coppers"
+
+local rents_db = db:get_database("rents")
+
+if not rents.name then
+  rents:echo("\nUnable to store item to rent database. Type \"score\" to capture character name.\n", false, true)
+else
+
+  db:delete(
+    rents_db.storage,
+    db:AND(db:eq(rents_db.storage.item, "bank balance"), db:eq(rents_db.storage.name, rents.name))
+  )
+    
+  db:add(
+    rents_db.storage,
+    {
+      name = rents.name,
+      item = "bank balance",
+      cost = rents.cost
+    }
+  )
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^A (.+) whispers to you 'Your balance is the equivalent of (\d+) copper.'$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
 		</TriggerGroup>
 	</TriggerPackage>
 </MudletPackage>

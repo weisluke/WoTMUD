@@ -182,7 +182,7 @@ eq_trainer:update_displays()</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>^This ranks you as (.+) (\[(.+) (\d)\] )?\(Level (\d+)\)\.$</string>
+					<string>^This ranks you as (.+?) (\[(.+) (\d)\] )?\(Level (\d+)\)\.$</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

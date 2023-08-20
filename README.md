@@ -1,3 +1,5 @@
+NOTE: THERE APPEARS TO BE A BUG IN MUDLET 4.17 FOR WINDOWS WHEN USING THE MATERIAL IN THIS REPOSITORY. YOU CAN DOWNLOAD MUDLET 4.16 HERE: (https://www.mudlet.org/wp-content/files/?C=M;O=D)
+
 # WoTMUD
 WoTMUD triggers/aliases/scripts/timers/keys/buttons/maps
 

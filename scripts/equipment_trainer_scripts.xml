@@ -1757,8 +1757,11 @@ end</script>
   
 end
 
-registerAnonymousEventHandler("equip_db:sysConnectionEvent", "eq_trainer:equipment_slot_displays")
-
+if equip_db then
+  eq_trainer:equipment_slot_displays()
+else
+  registerAnonymousEventHandler("equip_db:sysConnectionEvent", "eq_trainer:equipment_slot_displays")
+end
 </script>
 					<eventHandlerList />
 				</Script>

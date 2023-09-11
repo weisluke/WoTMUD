@@ -991,7 +991,7 @@ end</script>
     send(com .. " " .. door .. " " .. dir)
   --otherwise send blank command
   else
-    send(com .. " " .. dir)
+    send(com .. " door " .. dir)
   end
 end</script>
 					<eventHandlerList />

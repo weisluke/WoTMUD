@@ -954,8 +954,7 @@ end</script>
           table.insert(temp_rooms, id)
         end
         --also add current room, to handle failed flees
-        --commenting this out for now as I determine whether or not it makes the most sense
-        --table.insert(temp_rooms, room)
+        table.insert(temp_rooms, room)
       --if the current movement command is a look
       elseif self.queue[i] == "l" then
         --insert the current room into the list of new possible rooms
@@ -975,21 +974,11 @@ end</script>
     rooms = table.n_union(temp_rooms, temp_rooms)
   end  
   
-  --variable to hold final list of valid rooms
-  local finalrooms = {}
-  
-  --for all rooms that we found
-  for _, id in pairs(rooms) do
-    --if there is a door in the direction desired, add it to the list of valid rooms
-    if getRoomUserData(id, dir) ~= "" then
-      table.insert(finalrooms, id)
-    end
-  end
   --if list of valid rooms contains only one, send the command for that door
-  if table.size(finalrooms) == 1 then
-    local door = getRoomUserData(finalrooms[1], dir)
+  if table.size(rooms) == 1 and getRoomUserData(rooms[1], dir) ~= "" then
+    local door = getRoomUserData(rooms[1], dir)
     send(com .. " " .. door .. " " .. dir)
-  --otherwise send blank command
+  --otherwise send generic command
   else
     send(com .. " door " .. dir)
   end

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Alt Timer</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>alt_timer initializations</name>
+				<packageName></packageName>
+				<script>alt_timer = alt_timer or {}
+
+alt_timer.container = alt_timer.container or Adjustable.Container:new({
+  name = "alt_timer.container",
+  titleText = "Alt Timer",
+  titleTxtColor = "#ffffff",
+  autoSave = false,
+  autoLoad = false,
+  hidden = true,
+  adjLabelstyle = [[
+    border-radius: 4px;
+    background: #222;
+    border: 1px solid #666;
+    font-family: Arial;
+    color: #fff;
+  ]],
+  buttonstyle = [[
+    QLabel {
+      border-radius: 4px;
+      background: #666;
+    }
+    QLabel::hover {
+      background: #444;
+    }
+  ]]
+})
+
+alt_timer.sameside_label = alt_timer.sameside_label or Geyser.Label:new({
+  name = "alt_timer.sameside_label",
+  x = 0,
+  y = 0,
+  width = "50%",
+  height = "100%",
+  stylesheet = [[
+    border-right: 1px solid #444;
+    background: transparent;
+    font-family: Arial;
+    color: #fff;
+  ]]
+}, alt_timer.container)
+
+alt_timer.crossrace_label = alt_timer.crossrace_label or Geyser.Label:new({
+  name = "alt_timer.crossrace_label",
+  x = "50%",
+  y = 0,
+  width = "50%",
+  height = "100%",
+  stylesheet = [[
+    background: transparent;
+    font-family: Arial;
+    color: #fff;
+  ]]
+}, alt_timer.container)
+
+function alt_timer:update_display(elapsed)
+  local t_sameside = 60*5 - elapsed
+  if t_sameside &gt;= 0 then
+    local mins = math.floor(t_sameside / 60)
+    local secs = t_sameside % 60
+    self.sameside_label:hecho(string.format("&lt;center&gt;&lt;p style='font-size: 16px;'&gt;#888888Same-Side&lt;/p&gt;&lt;p style='font-size: 32px'&gt;%d:%02d&lt;/p&gt;&lt;/center&gt;", mins, secs))
+  else
+    self.sameside_label:hecho("&lt;center&gt;&lt;p style='font-size: 16px;'&gt;#888888Same-Side&lt;/p&gt;&lt;p style='font-size: 32px'&gt;#00ff00Ready&lt;/p&gt;&lt;/center&gt;")
+  end
+  
+  local t_crossrace = 60*15 - elapsed
+  if t_crossrace &gt;= 0 then
+    local mins = math.floor(t_crossrace / 60)
+    local secs = t_crossrace % 60
+    self.crossrace_label:hecho(string.format("&lt;center&gt;&lt;p style='font-size: 16px'&gt;#888888Cross-Race&lt;/p&gt;&lt;p style='font-size: 32px'&gt;%d:%02d&lt;/p&gt;&lt;/center&gt;", mins, secs))
+  else
+    self.crossrace_label:hecho("&lt;center&gt;&lt;p style='font-size: 16px;'&gt;#888888Cross-Race&lt;/p&gt;&lt;p style='font-size: 32px'&gt;#00ff00Ready&lt;/p&gt;&lt;/center&gt;")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>alt_timer:sys_disconnection</name>
+				<packageName></packageName>
+				<script>function alt_timer:sys_disconnection(event)
+  cecho("&lt;green&gt;Starting timer for alting.\n")
+  cecho("&lt;green&gt;Date - Time: " ..getTime(true, "yyyy.MM.dd - HH:mm:ss") .. "\n")
+  self.sameside_timer = tempTimer(60 * 5 + 1, function() cecho("&lt;green&gt;You may log on a sameside alt now!\n") end)
+  self.crossrace_timer = tempTimer(60 * 15 + 1, function() cecho("&lt;green&gt;You may log on a crossrace alt now!\n") end)
+
+  self:update_display(0)
+  self.container:resize("20%", "16%")
+  self.container:move("40%", "42%")
+  self.container:show()
+  
+  local started = os.clock()
+  self.elapsed_timer = tempTimer(1, 
+    function()
+      local elapsed = math.floor(os.clock() - started + .5)
+      if elapsed &gt; 60*15 then
+        killTimer(self.elapsed_timer)
+      end
+      self:update_display(elapsed)
+    end, 
+  true)
+end
+
+registerAnonymousEventHandler("sysDisconnectionEvent", "alt_timer:sys_disconnection")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>alt_timer:sys_connection</name>
+				<packageName></packageName>
+				<script>function alt_timer:sys_connection(event)
+  if self.sameside_timer then
+    killTimer(self.sameside_timer)
+  end
+  if self.crossrace_timer then
+    killTimer(self.crossrace_timer)
+  end
+  if self.elapsed_timer then
+    killTimer(self.elapsed_timer)
+  end
+  self.container:hide()
+end
+
+registerAnonymousEventHandler("sysConnectionEvent", "alt_timer:sys_connection")</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>

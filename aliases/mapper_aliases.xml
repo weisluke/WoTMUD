@@ -905,7 +905,7 @@ end
 if not matches[5] then
   zonename = matches[4]
   for k, v in pairs(foundrooms) do
-    if string.lower(getRoomUserData(k, "zone")) ~= string.lower(zonename) then
+    if not string.find(string.lower(getRoomUserData(k, "zone")), string.lower(zonename)) then
       foundrooms[k] = nil
     end
   end
@@ -970,7 +970,7 @@ foundrooms = table.n_union(foundrooms, foundrooms)
 if not matches[5] then
   zonename = matches[4]
   for k, v in pairs(foundrooms) do
-    if string.lower(getRoomUserData(v, "zone")) ~= string.lower(zonename) then
+    if not string.find(string.lower(getRoomUserData(v, "zone")), string.lower(zonename)) then
       foundrooms[k] = nil
     end
   end
@@ -1132,7 +1132,9 @@ else
   wotmudmapper.configs.map_window.zoom = val
   wotmudmapper:echo("Map window (zoom) updated to (" .. val .. ").\n")
   table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
-  setMapZoom(val)
+  for name, id in pairs(getAreaTable()) do
+    setMapZoom(val, id)
+  end
 end</script>
 				<command></command>
 				<packageName></packageName>

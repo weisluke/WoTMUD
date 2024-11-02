@@ -159,7 +159,7 @@ local newID = {}
 if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
   --if mapping and you were in a unique room
   if wotmudmapper.configs.mapping and table.size(lastID) == 1 then
-    tempID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
+    tempID = wotmudmapper:find_room()
     --if not in an already mapped room or if forcing a room
     if table.is_empty(tempID) or wotmudmapper.configs.forceroom then
       local x, y, z = getRoomCoordinates(lastID[1])
@@ -176,67 +176,68 @@ if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
       wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], com, wotmudmapper.roomexits)
       --else, you're just moving around in mapping mode
     else
-      if wotmudmapper:is_waygate(lastID[1]) and (com == "d" or com == "f") then
-        for _, room in pairs(wotmudmapper:get_waygates(lastID[1])) do
+      if wotmudmapper:is_waygate(lastID[1]) and com == "d" then
+        local waygates = wotmudmapper:get_waygates(lastID[1])
+        for _, room in pairs(wotmudmapper:find_room(waygates)) do
           table.insert(newID, room)
         end
       end
-      table.insert(newID, wotmudmapper:is_near_room(com, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(lastID[1])))
+      table.insert(newID, wotmudmapper:is_near_room(com, getRoomExits(lastID[1])))
       if table.is_empty(newID) then
         newID = tempID
       elseif
         table.size(newID) &gt; 1 and
-        (not table.is_empty(wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)))
+        (not table.is_empty(wotmudmapper:find_matching_exits(newID)))
       then
-        newID = wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)
+        newID = wotmudmapper:find_matching_exits(newID)
       end
       wotmudmapper.currentID = newID
     end
     --else, you're just moving around in non-mapping mode or with multiple potential rooms
   else
     for _, id in pairs(lastID) do
-      if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
-        for _, room in pairs(wotmudmapper:get_waygates(id)) do
+      if wotmudmapper:is_waygate(id) and com == "d" then
+        local waygates = wotmudmapper:get_waygates(id)
+        for _, room in pairs(wotmudmapper:find_room(waygates)) do
           table.insert(newID, room)
         end
       end
-      table.insert(newID, wotmudmapper:is_near_room(com, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(id)))
+      table.insert(newID, wotmudmapper:is_near_room(com, getRoomExits(id)))
     end
     newID = table.n_union(newID, newID)
     if table.is_empty(newID) then
-      newID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
+      newID = wotmudmapper:find_room()
     elseif
       table.size(newID) &gt; 1 and
-      (not table.is_empty(wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)))
+      (not table.is_empty(wotmudmapper:find_matching_exits(newID)))
     then
-      newID = wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)
+      newID = wotmudmapper:find_matching_exits(newID)
     end
     wotmudmapper.currentID = newID
   end
   --handling flees
 elseif wotmudmapper:is_flee(com) and (not table.is_empty(lastID)) then
   for _, id in pairs(lastID) do
-    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
-      for _, room in pairs(wotmudmapper:get_waygates(id)) do
-        table.insert(newID, room)
-      end
+    if wotmudmapper:is_waygate(id) then
+        local waygates = wotmudmapper:get_waygates(id)
+        for _, room in pairs(wotmudmapper:find_room(waygates)) do
+          table.insert(newID, room)
+        end
     end
     local rooms =
-      wotmudmapper:find_room_after_flee(
-        wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits, getRoomExits(id)
-      )
+      wotmudmapper:find_room_after_flee(getRoomExits(id))
     for _, room in pairs(rooms) do
       table.insert(newID, room)
     end
   end
   newID = table.n_union(newID, newID)
   if table.is_empty(newID) then
-    newID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
+    newID = wotmudmapper:find_room()
   elseif
     table.size(newID) &gt; 1 and
-    (not table.is_empty(wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)))
+    (not table.is_empty(wotmudmapper:find_matching_exits(newID)))
   then
-    newID = wotmudmapper:find_matching_exits(newID, wotmudmapper.roomexits)
+    newID = wotmudmapper:find_matching_exits(newID)
   end
   wotmudmapper.currentID = newID
   --if not looking at room and data is same, search for room
@@ -246,7 +247,7 @@ elseif
   wotmudmapper.roomname == getRoomName(lastID[1]) and
   wotmudmapper.roomdesc == getRoomUserData(lastID[1], "description"))
 then
-  wotmudmapper.currentID = wotmudmapper:find_room(wotmudmapper.roomname, wotmudmapper.roomdesc, wotmudmapper.roomexits)
+  wotmudmapper.currentID = wotmudmapper:find_room()
 end
 
 if table.is_empty(wotmudmapper.currentID) then
@@ -317,18 +318,18 @@ local newID = {}
 --if com is a direction and you were in a valid room
 if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
   for _, id in pairs(lastID) do
-    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
+    if wotmudmapper:is_waygate(id) and com == "d" then
       for _, room in pairs(wotmudmapper:get_waygates(id)) do
         table.insert(newID, room)
       end
     end
-    table.insert(newID, wotmudmapper:is_near_room(com, wotmudmapper.roomname, wotmudmapper.roomdesc, getRoomExits(id)))
+    table.insert(newID, wotmudmapper:is_near_room(com, getRoomExits(id)))
   end
   wotmudmapper.currentID = table.n_union(newID, newID)
   --handling flees
 elseif wotmudmapper:is_flee(com) and (not table.is_empty(lastID)) then
   for _, id in pairs(lastID) do
-    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
+    if wotmudmapper:is_waygate(id) then
       for _, room in pairs(wotmudmapper:get_waygates(id)) do
         table.insert(newID, room)
       end

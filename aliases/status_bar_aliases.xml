@@ -17,6 +17,11 @@ else
   val = val.."%"
   status_bar:echo("Status bar width updated from ("..status_bar.configs.w..") to ("..val..").\n")
   status_bar.configs.w = val
+  
+  local mx, my = getMainWindowSize()
+  local x = getBorderLeft() / mx * 100
+  status_bar.configs.x = x.."%"
+  
   table.save(getMudletHomeDir() .. "/status_bar.configs.lua", status_bar.configs)
   status_bar:show_status_bar(true)
 end</script>

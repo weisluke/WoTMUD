@@ -99,10 +99,10 @@ end</script>
   self.container:move("40%", "42%")
   self.container:show()
   
-  local started = os.clock()
+  local started = os.time()
   self.elapsed_timer = tempTimer(1, 
     function()
-      local elapsed = math.floor(os.clock() - started + .5)
+      local elapsed = math.floor(os.time() - started + .5)
       if elapsed &gt; 60*15 then
         killTimer(self.elapsed_timer)
       end

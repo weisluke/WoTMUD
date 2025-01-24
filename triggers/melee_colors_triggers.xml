@@ -871,7 +871,7 @@
 						<colorTriggerFgColor>#000000</colorTriggerFgColor>
 						<colorTriggerBgColor>#000000</colorTriggerBgColor>
 						<regexCodeList>
-							<string>((.+) sends (.+) sprawling with a powerful bash!)</string>
+							<string>((.+) sends (.+)(?&lt;!you) sprawling with a powerful bash!)</string>
 						</regexCodeList>
 						<regexCodePropertyList>
 							<integer>1</integer>

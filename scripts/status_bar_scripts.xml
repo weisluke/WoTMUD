@@ -231,9 +231,9 @@ end</script>
   
   --if the Adjustable.Container is the status bar, calculate new values and convert to percentages
   if container_name == "status_bar.container" then
-    y = -height
     width = width/mx*100
     height = height/my*100
+    y = -height
     self.configs.y = y.."%"
     self.configs.w = width.."%"
     self.configs.h = height.."%"
@@ -871,7 +871,7 @@ end</script>
     ["shield"] = 0,
     ["silence"] = 10,
     ["sleep"] = 10,
-    ["slice weaves"] = 8,
+    ["slice weaves"] = 3,
     ["slow"] = 10,
     ["sonic boom"] = 15,
     ["strength"] = 12,

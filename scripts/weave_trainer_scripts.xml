@@ -201,12 +201,11 @@ weave_trainer.pracs.weaves =
     "create phantom object",
     "create water",
     "cure blindness",
-    "cure critical wounds",
     "cure fear",
     "cure light wounds",
     "cure poison",
-    "cure serious wounds",
     "deafen",
+    "delve",
     "earthquake",
     "elemental staff",
     "fear",
@@ -255,12 +254,11 @@ weave_trainer.pracs.requirements =
     ["create phantom object"] = {air = 0, earth = 3, fire = 0, spirit = 0, water = 0},
     ["create water"] = {air = 0, earth = 0, fire = 0, spirit = 0, water = 1},
     ["cure blindness"] = {air = 0, earth = 0, fire = 1, spirit = 3, water = 0},
-    ["cure critical wounds"] = {air = 0, earth = 1, fire = 0, spirit = 2, water = 5},
     ["cure fear"] = {air = 0, earth = 0, fire = 0, spirit = 4, water = 0},
     ["cure light wounds"] = {air = 0, earth = 1, fire = 0, spirit = 2, water = 1},
     ["cure poison"] = {air = 0, earth = 4, fire = 0, spirit = 0, water = 3},
-    ["cure serious wounds"] = {air = 0, earth = 1, fire = 0, spirit = 2, water = 4},
     ["deafen"] = {air = 0, earth = 2, fire = 0, spirit = 1, water = 0},
+    ["delve"] = {air = 0, earth = 1, fire = 0, spirit = 2, water = 5},
     ["earthquake"] = {air = 0, earth = 4, fire = 0, spirit = 0, water = 0},
     ["elemental staff"] = {air = 4, earth = 0, fire = 3, spirit = 0, water = 5},
     ["fear"] = {air = 0, earth = 0, fire = 0, spirit = 2, water = 0},
@@ -270,7 +268,7 @@ weave_trainer.pracs.requirements =
     ["gate"] = {air = 0, earth = 7, fire = 0, spirit = 4, water = 0},
     ["hailstorm"] = {air = 1, earth = 0, fire = 0, spirit = 0, water = 4},
     ["hammer of air"] = {air = 4, earth = 0, fire = 0, spirit = 0, water = 0},
-    ["heal"] = {air = 0, earth = 1, fire = 0, spirit = 2, water = 6},
+    ["heal"] = {air = 0, earth = 1, fire = 0, spirit = 2, water = 4},
     ["hurricane"] = {air = 6, earth = 0, fire = 0, spirit = 0, water = 0},
     ["ice spikes"] = {air = 3, earth = 0, fire = 0, spirit = 0, water = 3},
     ["incinerate"] = {air = 0, earth = 7, fire = 7, spirit = 7, water = 0},
@@ -299,10 +297,9 @@ weave_trainer.pracs.requirements =
 weave_trainer.pracs.clanned =
   {
     "contagion",
-    "cure critical wounds",
     "cure fear",
     "cure poison",
-    "cure serious wounds",
+    "delve",
     "elemental staff",
     "fireball",
     "flame strike",
@@ -775,8 +772,8 @@ function weave_trainer:prac_residuals(skill)
       self.weaves.percents[v] = math.max(self.weaves.percents[v], math.floor(self.weaves.percents[skill]*0.4))
     end
   end
-  if table.contains({"cure light wounds", "cure serious wounds", "cure critical wounds", "heal"}, skill) then
-    for k, v in pairs({"cure light wounds", "cure serious wounds", "cure critical wounds", "heal"}) do
+  if table.contains({"cure light wounds", "delve", "heal"}, skill) then
+    for k, v in pairs({"cure light wounds", "delve", "heal"}) do
       self.weaves.percents[v] = math.max(self.weaves.percents[v], math.floor(self.weaves.percents[skill]*0.4))
     end
   end

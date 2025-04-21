@@ -19,6 +19,8 @@ potions =
     moves = {flatwort = 3, kaf = 2, ivy = 1},
     strength = {goatflower = 3, nightsbane = 1, fennel = 1, willow = 1},
     blind = {sheepstongue = 2, crimson = 1, sleepwell = 1, healall = 1},
+    tinful = {flatwort = 2, fennel = 2, willow = 1, goatflower = 1},
+    forkroot = {forkroot = 3, sleepwell = 1, belladonna = 1, sheepstongue = 1}
   }
 for herb, num in pairs(potions[potion]) do
   for i = 1, num, 1 do
@@ -27,7 +29,7 @@ for herb, num in pairs(potions[potion]) do
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^get (fear|poison|moves|strength|blind) herbs (.+)$</regex>
+				<regex>^get (fear|poison|moves|strength|blind|tinful|forkroot) herbs (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Mix Potion Container</name>
@@ -40,6 +42,8 @@ potions =
     moves = {flatwort = 3, kaf = 2, ivy = 1},
     strength = {goatflower = 3, nightsbane = 1, fennel = 1, willow = 1},
     blind = {sheepstongue = 2, crimson = 1, sleepwell = 1, healall = 1},
+    tinful = {flatwort = 2, fennel = 2, willow = 1, goatflower = 1},
+    forkroot = {forkroot = 3, sleepwell = 1, belladonna = 1, sheepstongue = 1}
   }
 for herb, num in pairs(potions[potion]) do
   for i = 1, num, 1 do
@@ -49,7 +53,7 @@ end
 send("mix " .. container)</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^mix (fear|poison|moves|strength|blind) (.+)$</regex>
+				<regex>^mix (fear|poison|moves|strength|blind|tinful|forkroot) (.+)$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

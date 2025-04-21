@@ -47,11 +47,11 @@ status_bar.notice:echo("NOTICE", "green", "c")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You start paying increased attention to your surroundings.</string>
+						<string>You start paying increased attention to your surroundings\.$</string>
 						<string>- NOTICE </string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
+						<integer>1</integer>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>
@@ -70,15 +70,15 @@ status_bar.notice:echo("notice", "red", "c")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You stop paying increased attention to your surroundings.</string>
-						<string>You sit down.</string>
-						<string>You sit down and rest your tired bones.</string>
+						<string>You stop paying increased attention to your surroundings\.$</string>
+						<string>You sit down\.$</string>
+						<string>You sit down and rest your tired bones\.$</string>
 						<string>You are subjected to the following effects:</string>
 					</regexCodeList>
 					<regexCodePropertyList>
-						<integer>3</integer>
-						<integer>3</integer>
-						<integer>3</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
 						<integer>3</integer>
 					</regexCodePropertyList>
 				</Trigger>

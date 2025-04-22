@@ -38,28 +38,11 @@ then
   if string.match(wotmudmapper.roomname, "^%s+(.+)") ~= nil then
     wotmudmapper.roomname = string.match(wotmudmapper.roomname, "^%s+(.+)")
   end
-  wotmudmapper.roomdesc = ""
-  wotmudmapper.brief = true
-  wotmudmapper.dark = false
-  
   wotmudmapper:echo("\nRoom name (" .. wotmudmapper.roomname .. ") captured.", true)
   
-  if
-    table.contains(
-      {
-        "At a Vine-Carved Door",
-        "Approaching a Vine-Carved Door",
-        "Twisting Through the Ways",
-        "An Island in Darkness",
-        "An Island in the Ways",
-      },
-      wotmudmapper.roomname
-    )
-  then
-    wotmudmapper.inways = true
-  else
-    wotmudmapper.inways = false
-  end
+  wotmudmapper.roomdesc = nil
+  wotmudmapper.brief = true
+  
   enableTrigger("Map Description")
 end</script>
 				<triggerType>0</triggerType>
@@ -88,16 +71,18 @@ if
   not string.find(line, "obvious exits:")
 then
   wotmudmapper.brief = false
-  if wotmudmapper.roomdesc == "" then
+  if wotmudmapper.roomdesc == nil then
     wotmudmapper.roomdesc = line
   else
     wotmudmapper.roomdesc = wotmudmapper.roomdesc .. "\n" .. line
   end
+  
   if
     wotmudmapper.configs.mapbrief and not wotmudmapper:is_look(wotmudmapper.queue:checkleftvalue())
   then
     deleteLine()
   end
+  
   setTriggerStayOpen("Catch Name", 1)
 end</script>
 					<triggerType>0</triggerType>
@@ -125,129 +110,86 @@ wotmudmapper.roomexits = string.lower(matches[2])
 wotmudmapper:echo("\nRoom exits (" .. wotmudmapper.roomexits .. ") captured.\n", true)
 wotmudmapper.roomexits = string.split(wotmudmapper.roomexits)
 wotmudmapper.roomexits = table.n_intersection(wotmudmapper.roomexits, {"n","e","s","w","u","d"})
-
-local com, lastID, tempID
---Specifying the type of movement. If not fleeing or following, then take from queue
-if not wotmudmapper.flee and not wotmudmapper.following then
-  com = wotmudmapper.queue:popleft()
-else
-  --else, fleeing or following
-  if wotmudmapper.following then
-    --treat following as a flee movement
-    com = "f"
-    --setting following at false for the following map movement
-    wotmudmapper.following = false
-  else
-    --checking if next command in line is flee
-    com = wotmudmapper.queue:checkleftvalue()
-    --if yes, then take command from queue
-    if wotmudmapper:is_flee(com) then
-      wotmudmapper.queue:popleft()
-    else
-      --if no, then it is autowimpy flee
-      com = "f"
-    end
-    --setting flee at false for the following map movement
-    wotmudmapper.flee = false
-  end
+  
+if wotmudmapper:is_dark_name() then
+  wotmudmapper.roomname = nil
 end
---finished specifying if movement was regular or a flee
+if wotmudmapper:is_dark_desc() then
+  wotmudmapper.roomdesc = nil
+end
+
+--get the last direction used (or flee, if fleeing or following)
+local com = wotmudmapper:get_direction()
+
 --loading the previous roomID.
-lastID = wotmudmapper.currentID
+local lastID = wotmudmapper.currentID
 local newID = {}
---if com is a direction and you were in a valid room
-if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
-  --if mapping and you were in a unique room
-  if wotmudmapper.configs.mapping and table.size(lastID) == 1 then
-    tempID = wotmudmapper:find_room()
-    --if not in an already mapped room or if forcing a room
-    if table.is_empty(tempID) or wotmudmapper.configs.forceroom then
-      local x, y, z = getRoomCoordinates(lastID[1])
-      x, y, z = wotmudmapper:set_coordinates_offset(x, y, z, com)
-      wotmudmapper.currentID = wotmudmapper:create_room(x, y, z, getRoomArea(lastID[1]))
-      wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], com, wotmudmapper.roomexits)
-      if wotmudmapper.configs.autojoin then
-        wotmudmapper:auto_join_rooms(wotmudmapper.currentID[1])
-      end
-      wotmudmapper.configs.forceroom = false
-      --if in a known room, link with previous room
-    elseif table.size(tempID) == 1 and tempID[1] ~= lastID[1] then
-      wotmudmapper.currentID = tempID
-      wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], com, wotmudmapper.roomexits)
-      --else, you're just moving around in mapping mode
-    else
-      if wotmudmapper:is_waygate(lastID[1]) and com == "d" then
-        local waygates = wotmudmapper:get_waygates(lastID[1])
-        for _, room in pairs(wotmudmapper:find_room(waygates)) do
-          table.insert(newID, room)
-        end
-      end
-      table.insert(newID, wotmudmapper:is_near_room(com, getRoomExits(lastID[1])))
-      if table.is_empty(newID) then
-        newID = tempID
-      elseif
-        table.size(newID) &gt; 1 and
-        (not table.is_empty(wotmudmapper:find_matching_exits(newID)))
-      then
-        newID = wotmudmapper:find_matching_exits(newID)
-      end
-      wotmudmapper.currentID = newID
-    end
-    --else, you're just moving around in non-mapping mode or with multiple potential rooms
-  else
-    for _, id in pairs(lastID) do
-      if wotmudmapper:is_waygate(id) and com == "d" then
-        local waygates = wotmudmapper:get_waygates(id)
-        for _, room in pairs(wotmudmapper:find_room(waygates)) do
-          table.insert(newID, room)
-        end
-      end
-      table.insert(newID, wotmudmapper:is_near_room(com, getRoomExits(id)))
-    end
-    newID = table.n_union(newID, newID)
-    if table.is_empty(newID) then
-      newID = wotmudmapper:find_room()
-    elseif
-      table.size(newID) &gt; 1 and
-      (not table.is_empty(wotmudmapper:find_matching_exits(newID)))
-    then
-      newID = wotmudmapper:find_matching_exits(newID)
-    end
-    wotmudmapper.currentID = newID
-  end
-  --handling flees
-elseif wotmudmapper:is_flee(com) and (not table.is_empty(lastID)) then
-  for _, id in pairs(lastID) do
-    if wotmudmapper:is_waygate(id) then
-        local waygates = wotmudmapper:get_waygates(id)
-        for _, room in pairs(wotmudmapper:find_room(waygates)) do
-          table.insert(newID, room)
-        end
-    end
-    local rooms =
-      wotmudmapper:find_room_after_flee(getRoomExits(id))
-    for _, room in pairs(rooms) do
-      table.insert(newID, room)
-    end
-  end
-  newID = table.n_union(newID, newID)
-  if table.is_empty(newID) then
-    newID = wotmudmapper:find_room()
-  elseif
-    table.size(newID) &gt; 1 and
-    (not table.is_empty(wotmudmapper:find_matching_exits(newID)))
-  then
-    newID = wotmudmapper:find_matching_exits(newID)
-  end
-  wotmudmapper.currentID = newID
-  --if not looking at room and data is same, search for room
-elseif
-  not (wotmudmapper:is_look(com) and
-  table.size(lastID) == 1 and
-  wotmudmapper.roomname == getRoomName(lastID[1]) and
-  wotmudmapper.roomdesc == getRoomUserData(lastID[1], "description"))
+
+--if you are mapping, were in a unique room, and command is a movement
+if wotmudmapper.configs.mapping 
+  and table.size(lastID) == 1 
+  and wotmudmapper:is_movement(com) 
 then
-  wotmudmapper.currentID = wotmudmapper:find_room()
+  local tempID = wotmudmapper:find_matching_room()
+  --if not in an already mapped room or if forcing a room
+  if table.is_empty(tempID) or wotmudmapper.configs.forceroom then
+    local x, y, z = getRoomCoordinates(lastID[1])
+    x, y, z = wotmudmapper:set_coordinates_offset(x, y, z, com)
+    wotmudmapper.currentID = wotmudmapper:create_room(x, y, z, getRoomArea(lastID[1]))
+    wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], com, wotmudmapper.roomexits)
+    if wotmudmapper.configs.autojoin then
+      wotmudmapper:auto_join_rooms(wotmudmapper.currentID[1])
+    end
+    wotmudmapper.configs.forceroom = false
+    --if in a known room, link with previous room
+  elseif table.size(tempID) == 1 and tempID[1] ~= lastID[1] then
+    wotmudmapper.currentID = tempID
+    wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], com, wotmudmapper.roomexits)
+    --else, you're just moving around in mapping mode
+  else
+    if wotmudmapper:is_waygate(lastID[1]) and com == "d" then
+      local waygates = wotmudmapper:get_waygates(lastID[1])
+      table.insert(newID, wotmudmapper:find_matching_room(waygates))
+    end
+    table.insert(newID, wotmudmapper:nearby_rooms(lastID[1], com))
+    --flatten any lists that were inserted
+    newID = table.n_flatten(newID)
+    --and remove duplicate room IDs
+    wotmudmapper.currentID = table.n_union(newID, newID)
+    --one last check that rooms can't be narrowed down any further
+    wotmudmapper.currentID = wotmudmapper:find_matching_room(wotmudmapper.currentID)
+    if table.is_empty(wotmudmapper.currentID) then
+      wotmudmapper.currentID = wotmudmapper:find_matching_room()
+    end
+  end
+--not mapping from a unique room
+elseif wotmudmapper:is_movement(com) or wotmudmapper:is_flee(com) then
+  for _, id in pairs(lastID) do
+    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
+      local waygates = wotmudmapper:get_waygates(id)
+      table.insert(newID, wotmudmapper:find_matching_room(waygates))
+    end
+    table.insert(newID, wotmudmapper:nearby_rooms(id, com))
+  end
+  --flatten any lists that were inserted
+  newID = table.n_flatten(newID)
+  --and remove duplicate room IDs
+  wotmudmapper.currentID = table.n_union(newID, newID)
+  --one last check that rooms can't be narrowed down any further
+  wotmudmapper.currentID = wotmudmapper:find_matching_room(wotmudmapper.currentID)
+  if table.is_empty(wotmudmapper.currentID) then
+    wotmudmapper.currentID = wotmudmapper:find_matching_room()
+  end
+--if not looking at room and data is same, search for room
+elseif
+  not (
+    wotmudmapper:is_look(com) and
+    table.size(lastID) == 1 and
+    (wotmudmapper.roomname == nil or wotmudmapper.roomname == getRoomName(lastID[1])) and
+    (wotmudmapper.roomdesc == nil or wotmudmapper.roomdesc == getRoomUserData(lastID[1], "description"))
+  )
+then
+  wotmudmapper.currentID = wotmudmapper:find_matching_room()
 end
 
 if table.is_empty(wotmudmapper.currentID) then
@@ -279,72 +221,45 @@ end</script>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Night/Blind/Fog Movement</name>
-				<script>if not wotmudmapper.dark then
-  wotmudmapper.dark = true
+				<script>--if already handling a room we know is dark from the name
+if wotmudmapper:is_dark_name() then
+  return
 end
-wotmudmapper.roomname = ""
-wotmudmapper.roomdesc = ""
-wotmudmapper.roomexits = {}
 
-local com, lastID
---Specifying the type of movement. If not fleeing or following, then take from queue
-if not wotmudmapper.flee and not wotmudmapper.following then
-  com = wotmudmapper.queue:popleft()
-else
-  --else, fleeing or following
-  if wotmudmapper.following then
-    --treat following as a flee movement
-    com = "f"
-    --setting following at false for the following map movement
-    wotmudmapper.following = false
-  else
-    --checking if next command in line is flee
-    com = wotmudmapper.queue:checkleftvalue()
-    --if yes, then take command from queue
-    if wotmudmapper:is_flee(com) then
-      wotmudmapper.queue:popleft()
-    else
-      --if no, then it is autowimpy flee
-      com = "f"
-    end
-    --setting flee at false for the following map movement
-    wotmudmapper.flee = false
-  end
-end
---finished specifying if movement was regular or a flee
---loading the previous roomID.
-lastID = wotmudmapper.currentID
+wotmudmapper.roomname = nil
+wotmudmapper.roomdesc = nil
+wotmudmapper.roomexits = nil
+
+--get the last direction used (or flee, if fleeing or following)
+local com = wotmudmapper:get_direction()
+
+--loading the previous roomID
+local lastID = wotmudmapper.currentID
 local newID = {}
---if com is a direction and you were in a valid room
-if wotmudmapper:is_movement(com) and (not table.is_empty(lastID)) then
+
+if wotmudmapper:is_movement(com) or wotmudmapper:is_flee(com) then
+  --for every current room
   for _, id in pairs(lastID) do
-    if wotmudmapper:is_waygate(id) and com == "d" then
-      for _, room in pairs(wotmudmapper:get_waygates(id)) do
-        table.insert(newID, room)
-      end
+    --if 1) room is a waygate and 2) we are going down or fleeing
+    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
+      --insert all the waygates
+      table.insert(newID, wotmudmapper:get_waygates(id))
     end
-    table.insert(newID, wotmudmapper:is_near_room(com, getRoomExits(id)))
+    --insert all nearby rooms as well
+    table.insert(newID, wotmudmapper:nearby_rooms(id, com))
   end
+  --flatten any lists that were inserted
+  newID = table.n_flatten(newID)
+  --and remove duplicate room IDs
   wotmudmapper.currentID = table.n_union(newID, newID)
-  --handling flees
-elseif wotmudmapper:is_flee(com) and (not table.is_empty(lastID)) then
-  for _, id in pairs(lastID) do
-    if wotmudmapper:is_waygate(id) then
-      for _, room in pairs(wotmudmapper:get_waygates(id)) do
-        table.insert(newID, room)
-      end
-    end
-    for dir, to_id in pairs(getRoomExits(id)) do
-      table.insert(newID, to_id)
-    end
+  --one last check that rooms can't be narrowed down any further
+  wotmudmapper.currentID = wotmudmapper:find_matching_room(wotmudmapper.currentID)
+  if table.is_empty(wotmudmapper.currentID) then
+    wotmudmapper.currentID = wotmudmapper:find_matching_room()
   end
-  wotmudmapper.currentID = table.n_union(newID, newID)
-  --if not looking at room, search for room from all rooms in the map
+--if not looking at known room, search for room from all rooms in the map
 elseif not (wotmudmapper:is_look(com) and table.size(lastID) == 1) then
-  wotmudmapper.currentID={}
-  for id, rname in pairs(getRooms()) do
-    table.insert(wotmudmapper.currentID, id)
-  end
+  wotmudmapper.currentID = wotmudmapper:get_rooms()
 end
 
 if table.is_empty(wotmudmapper.currentID) then
@@ -411,9 +326,10 @@ if wotmudmapper.following then
   wotmudmapper.following = false
 end
 
+if table.size(wotmudmapper.currentID) &gt; 1 then
 --reduce possible roommatches based on fact that a direction doesn't work
-if matches[1] == "Alas, you cannot go that way..." then
-  if table.size(wotmudmapper.currentID) &gt; 1 then
+  if matches[1] == "Alas, you cannot go that way..." then
+  
     local roommatches = {}
     for _, id in pairs(wotmudmapper.currentID) do
       --initialiasing table
@@ -436,14 +352,13 @@ if matches[1] == "Alas, you cannot go that way..." then
       end
     end
     wotmudmapper.currentID = roommatches
-  end
---reduce possible room matches based on fact that a direction led to water
-elseif matches[1] == "You need a boat to go there." 
-  or matches[1] == "You would need to swim there, you can't just walk it."
-  or matches[1] == "You can't ride on water."
-  or matches[1] == "You shudder at the concept of crossing water." then
-  
-  if table.size(wotmudmapper.currentID) &gt; 1 then
+    
+  --reduce possible room matches based on fact that a direction led to water
+  elseif matches[1] == "You need a boat to go there." 
+    or matches[1] == "You would need to swim there, you can't just walk it."
+    or matches[1] == "You can't ride on water."
+    or matches[1] == "You shudder at the concept of crossing water." then
+    
     local roommatches = {}
     for _, id in pairs(wotmudmapper.currentID) do
       --what room would the movement take us to
@@ -463,7 +378,8 @@ elseif matches[1] == "You need a boat to go there."
       end
     end
     wotmudmapper.currentID = roommatches
-  end  
+     
+  end
 end
 if table.size(wotmudmapper.currentID) == 1 then
   centerview(wotmudmapper.currentID[1])
@@ -584,18 +500,17 @@ if
     },
     matches[1]
   )
+  --but only try to narrow down results if room isn't already known
+  and table.size(wotmudmapper.currentID) &gt; 1
 then
-  --only try to narrow down results if room isn't already known
-  if table.size(wotmudmapper.currentID) &gt; 1 then
-    local roommatches = {}
-    for _, id in pairs(wotmudmapper.currentID) do
-      --if room has door in direction entered, add to potential matches
-      if getRoomUserData(id, com) ~= "" then
-        table.insert(roommatches, id)
-      end
+  local roommatches = {}
+  for _, id in pairs(wotmudmapper.currentID) do
+    --if room has door in direction entered, add to potential matches
+    if getRoomUserData(id, com) ~= "" then
+      table.insert(roommatches, id)
     end
-    wotmudmapper.currentID = roommatches
   end
+  wotmudmapper.currentID = roommatches
 end
 if table.size(wotmudmapper.currentID) == 1 then
   centerview(wotmudmapper.currentID[1])

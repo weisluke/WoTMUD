@@ -32,16 +32,12 @@ wotmudmapper.roomexits = wotmudmapper.roomexits or {}
 wotmudmapper.zone = wotmudmapper.zone or ""
 --true only if wotmudmapper.roomdesc is empty string or in the dark
 wotmudmapper.brief = wotmudmapper.brief or false
---true only if night/blind/fog triggers match
-wotmudmapper.dark = wotmudmapper.dark or false
 --used by triggers to determine whether most recent movement was a manual flee or autoflee
 wotmudmapper.flee = wotmudmapper.flee or false
 --set to true on "You follow (.+)\.$"
 wotmudmapper.following = wotmudmapper.following or false
 --variable to hold door direction. only used in mapping mode to create doors
 wotmudmapper.door = wotmudmapper.door or "n"
---true only if wotmudmapper.roomname matches a room name from inside The Ways zone
-wotmudmapper.inways = wotmudmapper.inways or false
 
 --default configuration values to be used or updated in wotmudmapper.configs
 wotmudmapper.defaults = {
@@ -808,17 +804,14 @@ end
 				<Script isActive="yes" isFolder="no">
 					<name>wotmudmapper:track_map_commands</name>
 					<packageName></packageName>
-					<script>--if command is a direction, look, or flee, add to list of commands affecting map movement (wotmudmapper.queue)
+					<script>--if command is a direction, look, flee, or swim, add to list of commands affecting map movement (wotmudmapper.queue)
 --pushes first letter of command (made lowercase), such that wotmudmapper.queue always contains lowercase, single letters
 
 function wotmudmapper:track_map_commands(event, com)
   if self:is_movement(com) or self:is_look(com) or self:is_flee(com) or self:is_swim(com) then
     --swim needs handled special since it is two commands (swim + direction)
     if self:is_swim(com) then
-      com = com:lower():split()
-      while table.index_of(com, "") do
-        table.remove(com, table.index_of(com, ""))
-      end
+      com = com:lower():split("%s+")
       com = com[2]
       self.queue:pushright(com:sub(1,1))
     else
@@ -916,18 +909,12 @@ end</script>
 
 function wotmudmapper:is_swim(com)
   if com ~= nil then
-  
-    com = com:lower():split()
-    while table.index_of(com, "") do
-      table.remove(com, table.index_of(com, ""))
-    end
-    
+    com = com:lower():split("%s+")
     if table.size(com) == 2 then
       if table.contains({"sw", "swi", "swim"}, com[1]) and self:is_movement(com[2]) then
         return true
       end
     end
-    
   end
   return false
 end</script>
@@ -985,6 +972,42 @@ end</script>
 end</script>
 					<eventHandlerList />
 				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>wotmudmapper:get_direction</name>
+					<packageName></packageName>
+					<script>--return the last direction that led to the current movement
+--if movement was from autoflee or following someone, treat it as a flee
+
+function wotmudmapper:get_direction()
+  local com
+  
+  --Specifying the type of movement. If not fleeing or following, then take from queue
+  if not self.flee and not self.following then
+    com = self.queue:popleft()
+  elseif self.following then
+    --treat following as a flee movement
+    com = "f"
+    --and reset variable
+    self.following = false
+  else
+    --checking if next command in line is flee
+    com = self.queue:checkleftvalue()
+    --if yes, then take command from queue
+    if self:is_flee(com) then
+      self.queue:popleft()
+    else
+      --if no, then it is autowimpy flee
+      com = "f"
+    end
+    --and reset variable
+    self.flee = false
+  end
+  --finished specifying if movement was regular or a flee
+  
+  return com
+end</script>
+					<eventHandlerList />
+				</Script>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Performing room searches bases on various criteria</name>
@@ -992,24 +1015,48 @@ end</script>
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
-					<name>wotmudmapper:find_room</name>
+					<name>wotmudmapper:get_rooms</name>
+					<packageName></packageName>
+					<script>--return a list of rooms
+--if name is nil, return every room id
+--otherwise, return rooms with the provided case-sensitive name
+function wotmudmapper:get_rooms(name)
+  local result = {}
+  
+  if name == nil then
+    for id, name in pairs(getRooms()) do
+      table.insert(result, id)
+    end
+  else
+    for id, name in pairs(searchRoom(name, true, true)) do
+      table.insert(result, id)
+    end
+  end
+  
+  return result
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>wotmudmapper:find_matching_room</name>
 					<packageName></packageName>
 					<script>--returns a list of IDs of the rooms with name/desc/exits matching the currently captured room, or an empty list
---if provided a list of room IDs, that list will be checked against the currently captured room
+--if provided a list of room IDs, that list will be narrowed down against the currently captured room
+--by checking names, descriptions, and exits, in that order, if applying the check does not empty the list
 
-function wotmudmapper:find_room(rooms)
+function wotmudmapper:find_matching_room(rooms)
   local result = {}
   
   if rooms == nil then
-    rooms = searchRoom(self.roomname, true, true)
+    result = self:get_rooms(self.roomname)
   else
-    rooms = self:find_matching_name(rooms)
+    result = self:find_matching_name(rooms)
   end
   
-  result = self:find_matching_desc(rooms)
-  
-  --if more than one possible match, narrow based on exits
-  if table.size(result) &gt; 1 then
+  if table.size(result) &gt; 1 and not table.is_empty(self:find_matching_desc(result)) then
+    result = self:find_matching_desc(result)
+  end
+  if table.size(result) &gt; 1 and not table.is_empty(self:find_matching_exits(result)) then
     result = self:find_matching_exits(result)
   end
   
@@ -1021,14 +1068,18 @@ end</script>
 					<name>wotmudmapper:find_matching_name</name>
 					<packageName></packageName>
 					<script>--expects rooms to be a list of room IDs
---returns a list of {ID=roomname} for the rooms whose names match the currently captured room name
+--returns a list of room IDs for the rooms whose names match the currently captured room name
 
 function wotmudmapper:find_matching_name(rooms)
+  if self.roomname == nil then
+    return rooms
+  end
+  
   local result = {}
   
   for _, id in pairs(rooms) do
     if getRoomName(id) == self.roomname then
-      result[id] = self.roomname
+      table.insert(result, id)
     end
   end
   
@@ -1039,13 +1090,17 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>wotmudmapper:find_matching_desc</name>
 					<packageName></packageName>
-					<script>--expects rooms to be of the form {ID=roomname}
---returns a list of room IDs for rooms whose descriptions match the currently captured description
+					<script>--expects rooms to be a list of room IDs
+--returns a list of room IDs for the rooms whose descriptions match the currently captured description
 
 function wotmudmapper:find_matching_desc(rooms)
+  if self.roomdesc == nil then
+    return rooms
+  end
+  
   local result = {}
   
-  for id, rname in pairs(rooms) do
+  for _, id in pairs(rooms) do
     --if brief mode on, add all rooms with matching name to possible matches
     if self.brief then
       table.insert(result, id)
@@ -1062,22 +1117,26 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>wotmudmapper:find_matching_exits</name>
 					<packageName></packageName>
-					<script>--assumes exits is of the form {"n","e","s"}
+					<script>--expects rooms to be a list of room IDs
+--returns a list of room IDs for the rooms whose exits match the currently captured exits
 
 function wotmudmapper:find_matching_exits(rooms)
+  if self.roomexits == nil then
+    return rooms
+  end
+  
   local result = {}
-
   local map_exits, seen_minus_map, map_minus_seen, alldoors
   
-  for _, room in pairs(rooms) do
+  for _, id in pairs(rooms) do
     map_exits = {}
     --create table of exit keys (grabbing first letter of "north","south",etc.)
-    for dir, id in pairs(getRoomExits(room)) do
+    for dir, id in pairs(getRoomExits(id)) do
       table.insert(map_exits, dir:sub(1, 1))
     end
     --if there are exit stubs leading to unmapped rooms, include those
-    if getExitStubs(room) then
-      for _, dirnum in pairs(getExitStubs(room)) do
+    if getExitStubs(id) then
+      for _, dirnum in pairs(getExitStubs(id)) do
         table.insert(map_exits, self.exitmap[dirnum]:sub(1, 1))
       end
     end
@@ -1089,20 +1148,20 @@ function wotmudmapper:find_matching_exits(rooms)
     
     --if room exits match seen exits, insert room into possible matches
     if table.is_empty(seen_minus_map) and table.is_empty(map_minus_seen) then
-      table.insert(result, room)
+      table.insert(result, id)
     --if room has extra exits from seen exits
     --and ALL extra exits are doors (which could be hidden and closed)
     --then add room to possible matches
     elseif table.is_empty(seen_minus_map) and not table.is_empty(map_minus_seen) then
       alldoors = true
       for _, dir in pairs(map_minus_seen) do
-        if getRoomUserData(room, dir) == "" then
+        if getRoomUserData(id, dir) == "" then
           alldoors = false
           break
         end
       end
       if alldoors then
-        table.insert(result, room)
+        table.insert(result, id)
       end
     end
   end
@@ -1112,55 +1171,107 @@ end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>wotmudmapper:find_room_after_flee</name>
+					<name>wotmudmapper:nearby_rooms</name>
 					<packageName></packageName>
-					<script>--assumes last_exits is of the form {"north":roomID1,"south":roomID2}
-
-function wotmudmapper:find_room_after_flee(last_exits)
+					<script>--room is a room ID, com is a direction, flee, or look
+function wotmudmapper:nearby_rooms(room, com)
   local result = {}
   
-  --if name/desc of connecting room match currently captured name/desc, add to table
-  for dir, id in pairs(last_exits) do
-    if getRoomName(id) == self.roomname then
-      if self.brief then
-        table.insert(result, id)
-      elseif getRoomUserData(id, "description") == self.roomdesc then
-        table.insert(result, id)
-      end
+  --mapping of {direction: roomID}
+  local lastexits = getRoomExits(room)
+  
+  if self:is_movement(com) then
+    table.insert(result, lastexits[self.exitmap[self.exitmap[com]]])
+  elseif self:is_flee(com) then
+    for _, id in pairs(lastexits) do
+      table.insert(result, id)
     end
-  end
-  --if more than 1 match, and narrowing by exits doesn't give empty result, then narrow by exits
-  if
-    table.size(result) &gt; 1 and
-    (not table.is_empty(self:find_matching_exits(result)))
-  then
-    result = self:find_matching_exits(result)
+  else
+    table.insert(result, room)
   end
   
-  return result
+  return self:find_matching_room(result)
 end</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>wotmudmapper:is_near_room</name>
+					<name>wotmudmapper:is_dark_name</name>
 					<packageName></packageName>
-					<script>--assumes lastexits is of the form {"north":roomID1,"south":roomID2}
-
-function wotmudmapper:is_near_room(dir, lastexits)
-  local newID = lastexits[self.exitmap[self.exitmap[dir]]]
-  if not newID then
-    return nil
+					<script>function wotmudmapper:is_dark_name()
+  if
+    table.contains(
+      {
+        "A Pitch-Black City Street",
+        "A Pitch-Black Road",
+        "A Pitch-Black Field",
+        "A Pitch-Black Forest",
+        "Pitch-Black Hills",
+        "Pitch-Black Mountains",
+        "A Pitch-Black Swamp",
+        "A Moonlit City Street",
+        "A Moonlit Road",
+        "A Moonlit Field",
+        "A Moonlit Forest",
+        "Moonlit Hills",
+        "Moonlit Mountains",
+        "A Moonlit Swamp",
+      },
+      self.roomname
+    )
+  then
+    return true
+  else
+    return false
   end
-  if self.dark then
-    return newID
-  elseif getRoomName(newID) == self.roomname then
-    if self.brief then
-      return newID
-    elseif getRoomUserData(newID, "description") == self.roomdesc then
-      return newID
-    end
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>wotmudmapper:is_dark_desc</name>
+					<packageName></packageName>
+					<script>function wotmudmapper:is_dark_desc()
+  if
+    table.contains(
+      {
+        "It is pitch black...",
+        "The streets are strange by moonlight, their gray details pale and indistinct.",
+        "The road is limned by moonlight, its gray details pale and indistinct.",
+        "The field is limned by moonlight, its gray details pale and indistinct.",
+        "The forest is dappled by moonlight, a dark tangle of long, crooked shadows.",
+        "The hills are limned by moonlight, their gray details ghostly and indistinct.",
+        "The mountains are limned by moonlight, their gray details dim and indistinct.",
+        "The swamp is strange by moonlight, its gray details ghostly and indistinct.",
+      },
+      self.roomdesc
+    )
+  then
+    return true
+  else
+    return false
   end
-  return nil
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>wotmudmapper:is_ways_name</name>
+					<packageName></packageName>
+					<script>function wotmudmapper:is_ways_name(name)
+  if
+    table.contains(
+      {
+        "At a Vine-Carved Door",
+        "Approaching a Vine-Carved Door",
+        "Twisting Through the Ways",
+        "An Island in Darkness",
+        "An Island in the Ways",
+      },
+      name
+    )
+  then
+    return true
+  else
+    return false
+  end
 end</script>
 					<eventHandlerList />
 				</Script>
@@ -1173,8 +1284,7 @@ end</script>
 				<Script isActive="yes" isFolder="no">
 					<name>wotmudmapper:create_room</name>
 					<packageName></packageName>
-					<script>--assumes wotmudmapper.roomexits is of the form {"n","e","s","w","u","d"}
---returns list containing only new room ID
+					<script>--returns list containing only new room ID
 
 function wotmudmapper:create_room(x, y, z, areaID)
   --create new room ID
@@ -1270,22 +1380,19 @@ end</script>
     --and get list of rooms at the offset position
     a, b, c = self:set_coordinates_offset(x, y, z, v)
     roomList = getRoomsByPosition(areaID, a, b, c)
-    --if only one room at offset position
-    if table.size(roomList) == 1 then
-      --if that room has stubs, add them to list
-      if getExitStubs(roomList[0]) then
-        for kk, vv in pairs(getExitStubs(roomList[0])) do
-          table.insert(secondExits, string.sub(wotmudmapper.exitmap[vv], 1, 1))
-        end
-        --compare exit stubs from second room to exit stubs from first room
-        --and join appropriately
-        for kk, vv in pairs(secondExits) do
-          if vv == complements[v] then
-            setExit(roomID, roomList[0], self.exitmap[v])
-            self:echo("Linked room ("..roomID..") to room ("..roomList[0]..") with a/an ("..v..") exit.\n",true)
-            setExit(roomList[0], roomID, wotmudmapper.exitmap[vv])
-            self:echo("Linked room ("..roomList[0]..") to room ("..roomID..") with a/an ("..vv..") exit.\n",true)
-          end
+    --if only one room at offset position and that room has stubs
+    if (table.size(roomList) == 1 and getExitStubs(roomList[0])) then
+      for kk, vv in pairs(getExitStubs(roomList[0])) do
+        table.insert(secondExits, string.sub(wotmudmapper.exitmap[vv], 1, 1))
+      end
+      --compare exit stubs from second room to exit stubs from first room
+      --and join appropriately
+      for kk, vv in pairs(secondExits) do
+        if vv == complements[v] then
+          setExit(roomID, roomList[0], self.exitmap[v])
+          self:echo("Linked room ("..roomID..") to room ("..roomList[0]..") with a/an ("..v..") exit.\n",true)
+          setExit(roomList[0], roomID, wotmudmapper.exitmap[vv])
+          self:echo("Linked room ("..roomList[0]..") to room ("..roomID..") with a/an ("..vv..") exit.\n",true)
         end
       end
     end
@@ -1344,11 +1451,7 @@ end</script>
 					<script>--set mapper door direction based on look or searches
 
 function wotmudmapper:looking_for_doors(event, com)
-  com = com:lower():split()
-  while table.index_of(com, "") do
-    table.remove(com, table.index_of(com, ""))
-  end
-  
+  com = com:lower():split("%s+")
   if table.size(com) == 2 then
     if (self:is_search(com[1]) or self:is_look(com[1])) and self:is_movement(com[2]) then
       self.door = string.sub(com[2], 1, 1)
@@ -1486,7 +1589,7 @@ end</script>
   for dir,id in pairs(getRoomExits(self.currentID[1])) do
     table.insert(safe_rooms, string.sub(dir,1,1))
   end
-  local unsafe_rooms = table.n_complement(self.roomexits, safe_rooms)
+  local unsafe_rooms = table.n_complement(self.roomexits or {}, safe_rooms)
   if getExitStubs(self.currentID[1]) then
     for _, dirnum in pairs(getExitStubs(self.currentID[1])) do
       table.insert(unsafe_rooms,string.sub(self.exitmap[dirnum],1,1))

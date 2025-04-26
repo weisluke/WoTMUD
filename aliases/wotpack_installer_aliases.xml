@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>wotpack_installer</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Install help</name>
+				<script>cecho(wotpack_installer.help)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wotpack help$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>View available files</name>
+				<script>local packages = {}
+local num_packages = 0
+
+for _, ftype in pairs(wotpack_installer.file_types) do
+  for _, name in pairs(wotpack_installer[ftype]) do
+    local fname = name:match("(.+)_"..ftype)
+    if not table.contains(packages,fname) then
+      table.insert(packages,fname)
+      num_packages = num_packages + 1
+    end
+  end
+end
+
+table.sort(packages)
+
+local n_cols = 5
+local n_rows = math.floor(num_packages / n_cols)
+
+wotpack_installer:echo("Files currently available for installation:\n")
+cecho("----------------------------------------------------------------------------------------------------\n")
+for i=1,n_rows,1 do
+  for j=1,n_cols,1 do
+    if packages[(j - 1) * n_rows + i] then
+      local fname = packages[(j - 1) * n_rows + i]
+      cechoLink(string.format("%-19s|", fname), 
+        function()
+          --for every filetype, localized to this function
+          for _, ftype in pairs(wotpack_installer.file_types) do
+            if table.contains(wotpack_installer[ftype], fname .. "_" .. ftype) then
+              wotpack_installer:download_install(fname, ftype)
+            end
+          end 
+        end, 
+        "Click to install "..fname.." package", 
+        true
+      )
+    end
+  end
+  cecho("\n")
+end
+cecho("----------------------------------------------------------------------------------------------------\n")
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wotpack view files$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Installer Base</name>
+				<script>--syntax: wotpack update
+
+wotpack_installer:echo("Downloading updated installer...\n")
+local url="https://raw.githubusercontent.com/"..wotpack_installer.user.."/WoTMUD/"..wotpack_installer.branch.."/wotpack_installer.mpackage"
+local saveto = getMudletHomeDir() .. "/wotpack_installer.mpackage"
+downloadFile(saveto, url)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wotpack update$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Install All</name>
+				<script>--syntax: wotpack install all
+
+for _, ftype in pairs(wotpack_installer.file_types) do
+  for _, name in pairs(wotpack_installer[ftype]) do
+    local fname = name:match("(.+)_"..ftype)
+    wotpack_installer:download_install(fname, ftype)
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wotpack install all$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Uninstall All</name>
+				<script>--syntax: wotpack uninstall xxx yyy
+
+for _, ftype in pairs(wotpack_installer.file_types) do
+  for _, name in pairs(wotpack_installer[ftype]) do
+    uninstallPackage(name)
+    wotpack_installer:echo(name.." uninstalled.\n")
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wotpack uninstall all$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Install</name>
+				<script>--syntax: wotpack install xxx
+
+local fname = matches[2]
+fname = fname:gsub(" ", "_"):lower()
+if fname ~= "all" then
+  local is_package = false
+  for _, ftype in pairs(wotpack_installer.file_types) do
+    if table.contains(wotpack_installer[ftype], fname .. "_" .. ftype) then
+      is_package = true
+      wotpack_installer:download_install(fname, ftype)
+    end
+  end
+  if not is_package then
+    wotpack_installer:echo(
+      "Package " ..
+      fname ..
+      " not known. View files available for download with \"wotpack view files\"\n",
+      false,
+      true
+    )
+  end
+end
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wotpack install (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Uninstall</name>
+				<script>--syntax: wotpack uninstall xxx
+
+local fname = matches[2]
+fname = fname:gsub(" ", "_"):lower()
+if fname ~= "all" then
+  local is_package = false
+  for _, ftype in pairs(wotpack_installer.file_types) do
+    if table.contains(wotpack_installer[ftype], fname .. "_" .. ftype) then
+      is_package = true
+      uninstallPackage(fname .. "_" .. ftype)
+      wotpack_installer:echo(fname .. "_" .. ftype .. " uninstalled.\n")
+    end
+  end
+  if not is_package then
+    wotpack_installer:echo(
+      "Package " ..
+      fname ..
+      " not known. View files available for download with \"wotpack view files\"\n",
+      false,
+      true
+    )
+  end
+end
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wotpack uninstall (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change branch</name>
+				<script>local branch = matches[2]
+
+wotpack_installer:echo("Branch updated from ("..wotpack_installer.branch..") to ("..branch..")\n")
+wotpack_installer.branch = branch</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^wotpack branch (.+)$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+</MudletPackage>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>wotpack_installer</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer initializations</name>
+				<packageName></packageName>
+				<script>wotpack_installer = wotpack_installer or {}
+wotpack_installer.configs = wotpack_installer.configs or {}
+wotpack_installer.user = wotpack_installer.user or "weisluke"
+wotpack_installer.branch = wotpack_installer.branch or "master"
+
+wotpack_installer.file_types = {"scripts", "aliases", "triggers", "keys", "timers"}
+
+wotpack_installer.aliases =
+  {
+    "communications_aliases",
+    "containers_aliases",
+    "dice_rolls_aliases",
+    "doors_aliases",
+    "equipment_database_aliases",
+    "equipment_trainer_aliases",
+    "friend_aliases",
+    "gating_aliases",
+    "horses_aliases",
+    "lights_aliases",
+    "mapper_aliases",
+    "master_mob_aliases",
+    "pk_aliases",
+    "player_numbers_aliases",
+    "portal_stones_aliases",
+    "potion_mixing_aliases",
+    "practice_trainer_aliases",
+    "rents_aliases",
+    "sort_items_aliases",
+    "statting_aliases",
+    "status_bar_aliases",
+    "targeting_aliases",
+    "tic_timer_aliases",
+    "vials_aliases",
+    "weapons_aliases",
+    "weave_trainer_aliases",
+    "weaving_aliases",
+    "wotmud_wiki_search_aliases",
+  }
+wotpack_installer.keys = 
+  {
+    "mapper_keys", 
+    "numpad_keys"
+  }
+wotpack_installer.scripts =
+  {
+    "alt_timer_scripts",
+    "communications_scripts",
+    "equipment_database_scripts",
+    "equipment_trainer_scripts",
+    "mapper_scripts",
+    "pad_input_line_scripts",
+    "player_numbers_scripts",
+    "practice_trainer_scripts",
+    "rents_scripts",
+    "statting_scripts",
+    "status_bar_scripts",
+    "tic_timer_scripts",
+    "toggle_logging_scripts",
+    "weave_trainer_scripts",
+  }
+wotpack_installer.timers = 
+  {
+    "status_bar_timers"
+  }
+wotpack_installer.triggers =
+  {
+    "char_status_color_triggers",
+    "communications_triggers",
+    "delete_lines_triggers",
+    "dice_rolls_triggers",
+    "equipment_database_triggers",
+    "equipment_trainer_triggers",
+    "gating_triggers",
+    "hp-mv-sp_colors_triggers",
+    "locates_triggers",
+    "mapper_triggers",
+    "master_mob_triggers",
+    "melee_colors_triggers",
+    "miscellaneous_triggers",
+    "player_numbers_triggers",
+    "practice_trainer_triggers",
+    "rents_triggers",
+    "room_highlights_triggers",
+    "sort_items_triggers",
+    "statting_triggers",
+    "status_bar_triggers",
+    "tic_timer_triggers",
+    "weave_colors_triggers",
+    "weave_trainer_triggers",
+    "weaving_triggers"
+  }
+  
+wotpack_installer.help = [[
+    &lt;cyan&gt;WoTMUD Package Installer Help&lt;reset&gt;
+    
+    This script allows you to install various things from https://github.com/]]..wotpack_installer.user..[[/WoTMUD
+    Any already installed files with the same name will be uninstalled, so that the newly
+    downloaded ones can be installed.
+    
+    When inputting file names and types, capitalization does not matter. You may substitute
+    underscores with spaces however, as they will be appropriately filled in as needed.
+    
+    Commands are as follows:
+    
+    &lt;yellow&gt;wotpack help&lt;reset&gt; - Display this help file
+    &lt;yellow&gt;wotpack update&lt;reset&gt; - Download and install the latest version of this installer package
+        from github. This will make sure that you have the most up-to-date list of available files
+    &lt;yellow&gt;wotpack install all&lt;reset&gt; - Download and install ALL triggers/aliases/scripts/timers/keys/buttons
+        from github
+    &lt;yellow&gt;wotpack uninstall all&lt;reset&gt; - Uninstalls ALL triggers/aliases/scripts/timers/keys/buttons that were
+        downloaded from github
+    &lt;yellow&gt;wotpack install name&lt;reset&gt; - Downloads and installs any triggers/aliases/scripts/timers/keys/buttons
+        with the given name prefix
+        Example: wotpack install mapper, will install the mapper triggers/aliases/scripts necessary
+        for it to work
+    &lt;yellow&gt;wotpack uninstall name&lt;reset&gt; - Uninstall any triggers/aliases/scripts/timers/keys/buttons with the
+        given name prefix
+        Example: wotpack uninstall mapper  
+    
+    Type &lt;yellow&gt;wotpack view files&lt;reset&gt; to view currently available files 
+       
+]]</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer:echo</name>
+				<packageName></packageName>
+				<script>function wotpack_installer:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;lawn_green&gt;(&lt;forest_green&gt;wotpack_installer&lt;lawn_green&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer:update_base</name>
+				<packageName></packageName>
+				<script>function wotpack_installer:update_base(event, filename)
+  -- is the file that downloaded ours?
+  if not filename:find("wotpack_installer.mpackage", 1, true) then
+    return
+  end
+  uninstallPackage("wotpack_installer")
+  self:echo("Old wotpack_installer package uninstalled.\n")
+  installPackage(filename)
+  self:echo("New wotpack_installer package successfully installed.\n")
+end
+
+registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:update_base")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer:update_file</name>
+				<packageName></packageName>
+				<script>function wotpack_installer:update_file(event, filename)
+  local _,fname = filename:match("(.+)/(.+).xml")
+  if not fname then
+    return
+  end
+  local _,ftype = fname:match("(.+)_(.+)")
+  -- is the file that downloaded a valid one?
+  if not table.contains(self[ftype],fname) then
+    return
+  end
+  uninstallPackage(fname)
+  self:echo("Old "..fname.." uninstalled.\n")
+  installPackage(filename)
+  self:echo("New "..fname.." successfully installed.\n")
+end
+
+registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:update_file")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer:install_base</name>
+				<packageName></packageName>
+				<script>function wotpack_installer:install_base(event, name)
+  --if installed file is not the desired one
+  if name ~= "wotpack_installer" then return end
+  --otherwise, display help message
+  cecho(self.help)
+  --if first time installation, change font
+  if not io.exists(getMudletHomeDir() .. "/wotpack_first_install.txt") then
+    local file = io.open(getMudletHomeDir() .. "/wotpack_first_install.txt", "w+")
+    file:write("Welcome to the Wheel of Time MUD!\n")
+    io.close(file)
+    setFont("Comic Sans MS")
+  end 
+end
+
+registerAnonymousEventHandler("sysInstallPackage", "wotpack_installer:install_base")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer:download_install</name>
+				<packageName></packageName>
+				<script>--assumes fname is lowercase and has had any spaces replaced with underscores
+function wotpack_installer:download_install(fname, ftype)
+  if not io.exists(getMudletHomeDir() .. "/wotpack_installer_downloads") then
+    lfs.mkdir(getMudletHomeDir() .. "/wotpack_installer_downloads")
+  end
+  if not io.exists(getMudletHomeDir() .. "/wotpack_installer_downloads/" .. ftype) then
+    lfs.mkdir(getMudletHomeDir() .. "/wotpack_installer_downloads/" .. ftype)
+  end
+  local dname = fname .. "_" .. ftype
+  local path_end = ftype .. "/" .. dname .. ".xml"
+  local url = "https://raw.githubusercontent.com/"..self.user.."/WoTMUD/"..self.branch.."/" .. path_end
+  local saveto = getMudletHomeDir() .. "/wotpack_installer_downloads/" .. path_end
+  self:echo("Downloading updated " .. dname .. "...\n")
+  downloadFile(saveto, url)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer:sys_connection</name>
+				<packageName></packageName>
+				<script>function wotpack_installer:sys_connection(event)
+  self.user = "weisluke"
+  self.branch = "master"
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "wotpack_installer:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "wotpack_installer:sys_connection")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer:sys_disconnection</name>
+				<packageName></packageName>
+				<script>function wotpack_installer:sys_disconnection(event)
+  self.user = "weisluke"
+  self.branch = "master"
+end
+
+registerAnonymousEventHandler("sysExitEvent", "wotpack_installer:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "wotpack_installer:sys_disconnection")</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>

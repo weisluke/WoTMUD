@@ -87,7 +87,7 @@ for _, ftype in pairs(wotpack_installer.file_types) do
   end
 end
 
-display(wotpack_installer.to_download)</script>
+</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^wotpack install all$</regex>
@@ -130,7 +130,7 @@ if fname ~= "all" then
   end
 end
 
-display(wotpack_installer.to_download)</script>
+</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^wotpack install (.+)$</regex>

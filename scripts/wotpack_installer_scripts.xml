@@ -219,10 +219,9 @@ end</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>wotpack_installer.download_complete</name>
+				<name>wotpack_installer:download_complete</name>
 				<packageName></packageName>
-				<script>function wotpack_installer.download_complete(event, filename)
-  local self = wotpack_installer
+				<script>function wotpack_installer:download_complete(event, filename)
   local _,fname = filename:match("(.+)/(.+).xml")
   if not fname then
     return
@@ -244,7 +243,7 @@ end</script>
   end
 end
 
-registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer.download_complete")
+registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_complete")
 
 </script>
 				<eventHandlerList />

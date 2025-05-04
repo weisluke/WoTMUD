@@ -15,6 +15,9 @@ wotpack_installer.configs = wotpack_installer.configs or {}
 wotpack_installer.user = wotpack_installer.user or "weisluke"
 wotpack_installer.branch = wotpack_installer.branch or "master"
 
+wotpack_installer.to_download = wotpack_installer.to_download or {}
+wotpack_installer.to_install = wotpack_installer.to_install or {}
+
 wotpack_installer.file_types = {"scripts", "aliases", "triggers", "keys", "timers"}
 
 wotpack_installer.aliases =
@@ -176,28 +179,6 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:update_base"
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>wotpack_installer:update_file</name>
-				<packageName></packageName>
-				<script>function wotpack_installer:update_file(event, filename)
-  local _,fname = filename:match("(.+)/(.+).xml")
-  if not fname then
-    return
-  end
-  local _,ftype = fname:match("(.+)_(.+)")
-  -- is the file that downloaded a valid one?
-  if not table.contains(self[ftype],fname) then
-    return
-  end
-  uninstallPackage(fname)
-  self:echo("Old "..fname.." uninstalled.\n")
-  installPackage(filename)
-  self:echo("New "..fname.." successfully installed.\n")
-end
-
-registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:update_file")</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
 				<name>wotpack_installer:install_base</name>
 				<packageName></packageName>
 				<script>function wotpack_installer:install_base(event, name)
@@ -206,8 +187,8 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:update_file"
   --otherwise, display help message
   cecho(self.help)
   --if first time installation, change font
-  if not io.exists(getMudletHomeDir() .. "/wotpack_first_install.txt") then
-    local file = io.open(getMudletHomeDir() .. "/wotpack_first_install.txt", "w+")
+  if not io.exists(f"{getMudletHomeDir()}/wotpack_first_install.txt") then
+    local file = io.open(f"{getMudletHomeDir()}/wotpack_first_install.txt", "w+")
     file:write("Welcome to the Wheel of Time MUD!\n")
     io.close(file)
     setFont("Comic Sans MS")
@@ -218,23 +199,94 @@ registerAnonymousEventHandler("sysInstallPackage", "wotpack_installer:install_ba
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>wotpack_installer:download_install</name>
+				<name>wotpack_installer:download</name>
 				<packageName></packageName>
 				<script>--assumes fname is lowercase and has had any spaces replaced with underscores
-function wotpack_installer:download_install(fname, ftype)
-  if not io.exists(getMudletHomeDir() .. "/wotpack_installer_downloads") then
-    lfs.mkdir(getMudletHomeDir() .. "/wotpack_installer_downloads")
+function wotpack_installer:download(fname, ftype)
+  if not io.exists(f"{getMudletHomeDir()}/wotpack_installer_downloads") then
+    lfs.mkdir(f"{getMudletHomeDir()}/wotpack_installer_downloads")
   end
-  if not io.exists(getMudletHomeDir() .. "/wotpack_installer_downloads/" .. ftype) then
-    lfs.mkdir(getMudletHomeDir() .. "/wotpack_installer_downloads/" .. ftype)
+  if not io.exists(f"{getMudletHomeDir()}/wotpack_installer_downloads/{ftype}") then
+    lfs.mkdir(f"{getMudletHomeDir()}/wotpack_installer_downloads/{ftype}")
   end
-  local dname = fname .. "_" .. ftype
-  local path_end = ftype .. "/" .. dname .. ".xml"
-  local url = "https://raw.githubusercontent.com/"..self.user.."/WoTMUD/"..self.branch.."/" .. path_end
-  local saveto = getMudletHomeDir() .. "/wotpack_installer_downloads/" .. path_end
-  self:echo("Downloading updated " .. dname .. "...\n")
+  local dname = f"{fname}_{ftype}"
+  local path_end = f"{ftype}/{dname}.xml"
+  local url = f"https://raw.githubusercontent.com/{self.user}/WoTMUD/{self.branch}/{path_end}"
+  local saveto = f"{getMudletHomeDir()}/wotpack_installer_downloads/{path_end}"
+  self:echo(f"Downloading updated {dname}...\n")
   downloadFile(saveto, url)
 end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer:download_complete</name>
+				<packageName></packageName>
+				<script>function wotpack_installer:download_complete(event, filename)
+  local _,fname = filename:match("(.+)/(.+).xml")
+  if not fname then
+    return
+  end
+  local _,ftype = fname:match("(.+)_(.+)")
+  -- is the file that downloaded a valid one?
+  if not table.contains(self[ftype],fname) then
+    return
+  end
+  
+  table.insert(self.to_install, filename)
+  table.remove(self.to_download, table.index_of(self.to_download, fname))
+  
+  if table.is_empty(self.to_download) 
+    and not table.is_empty(self.to_install) 
+    and not self.is_installing then
+      self.is_installing = true
+      res = coroutine.resume(self.coroutine)
+  end
+end
+
+registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_complete")
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotpack_installer.install</name>
+				<packageName></packageName>
+				<script>function wotpack_installer.install()
+  local self = wotpack_installer
+  
+  repeat 
+    filename = self.to_install[1]
+    local _,fname = filename:match("(.+)/(.+).xml")
+    if table.contains(getPackages(), fname) then
+      uninstallPackage(fname)
+      self:echo(f"Old {fname} uninstalled.\n")
+    end
+    installPackage(filename)
+    self:echo(f"New {fname} successfully installed.\n")
+    tempTimer(1, 
+      function() 
+        res=coroutine.resume(wotpack_installer.coroutine)
+      end
+    )
+    table.remove(self.to_install, 1)
+    coroutine.yield()
+  until table.is_empty(self.to_install)
+  tempTimer(1, 
+    function() 
+      res=coroutine.resume(wotpack_installer.coroutine)
+      if not res then
+        wotpack_installer.is_installing = false
+        wotpack_installer.coroutine = coroutine.create(wotpack_installer.install)
+        wotpack_installer:echo("Done installing files.\n")
+      end
+    end
+  )
+end
+
+wotpack_installer.coroutine = wotpack_installer.coroutine or coroutine.create(wotpack_installer.install)
+wotpack_installer.is_installing = wotpack_installer.is_installing or false
+
+</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">

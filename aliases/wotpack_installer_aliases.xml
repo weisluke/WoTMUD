@@ -22,7 +22,7 @@ local num_packages = 0
 
 for _, ftype in pairs(wotpack_installer.file_types) do
   for _, name in pairs(wotpack_installer[ftype]) do
-    local fname = name:match("(.+)_"..ftype)
+    local fname = name:match(f"(.+)_{ftype}")
     if not table.contains(packages,fname) then
       table.insert(packages,fname)
       num_packages = num_packages + 1
@@ -45,12 +45,12 @@ for i=1,n_rows,1 do
         function()
           --for every filetype, localized to this function
           for _, ftype in pairs(wotpack_installer.file_types) do
-            if table.contains(wotpack_installer[ftype], fname .. "_" .. ftype) then
-              wotpack_installer:download_install(fname, ftype)
+            if table.contains(wotpack_installer[ftype], f"{fname}_{ftype}") then
+              wotpack_installer:download(fname, ftype)
             end
           end 
         end, 
-        "Click to install "..fname.." package", 
+        f"Click to install {fname} package", 
         true
       )
     end
@@ -68,8 +68,8 @@ cecho("-------------------------------------------------------------------------
 				<script>--syntax: wotpack update
 
 wotpack_installer:echo("Downloading updated installer...\n")
-local url="https://raw.githubusercontent.com/"..wotpack_installer.user.."/WoTMUD/"..wotpack_installer.branch.."/wotpack_installer.mpackage"
-local saveto = getMudletHomeDir() .. "/wotpack_installer.mpackage"
+local url = f"https://raw.githubusercontent.com/{wotpack_installer.user}/WoTMUD/{wotpack_installer.branch}/wotpack_installer.mpackage"
+local saveto = f"{getMudletHomeDir()}/wotpack_installer.mpackage"
 downloadFile(saveto, url)</script>
 				<command></command>
 				<packageName></packageName>
@@ -81,10 +81,13 @@ downloadFile(saveto, url)</script>
 
 for _, ftype in pairs(wotpack_installer.file_types) do
   for _, name in pairs(wotpack_installer[ftype]) do
-    local fname = name:match("(.+)_"..ftype)
-    wotpack_installer:download_install(fname, ftype)
+    local fname = name:match(f"(.+)_{ftype}")
+    table.insert(wotpack_installer.to_download, name)
+    wotpack_installer:download(fname, ftype)
   end
-end</script>
+end
+
+display(wotpack_installer.to_download)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^wotpack install all$</regex>
@@ -96,7 +99,7 @@ end</script>
 for _, ftype in pairs(wotpack_installer.file_types) do
   for _, name in pairs(wotpack_installer[ftype]) do
     uninstallPackage(name)
-    wotpack_installer:echo(name.." uninstalled.\n")
+    wotpack_installer:echo(f"{name} uninstalled.\n")
   end
 end</script>
 				<command></command>
@@ -112,22 +115,22 @@ fname = fname:gsub(" ", "_"):lower()
 if fname ~= "all" then
   local is_package = false
   for _, ftype in pairs(wotpack_installer.file_types) do
-    if table.contains(wotpack_installer[ftype], fname .. "_" .. ftype) then
+    if table.contains(wotpack_installer[ftype], f"{fname}_{ftype}") then
       is_package = true
-      wotpack_installer:download_install(fname, ftype)
+      table.insert(wotpack_installer.to_download, f"{fname}_{ftype}")
+      wotpack_installer:download(fname, ftype)
     end
   end
   if not is_package then
     wotpack_installer:echo(
-      "Package " ..
-      fname ..
-      " not known. View files available for download with \"wotpack view files\"\n",
+      f"Package {fname} not known. View files available for download with \"wotpack view files\"\n",
       false,
       true
     )
   end
 end
-</script>
+
+display(wotpack_installer.to_download)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^wotpack install (.+)$</regex>
@@ -141,17 +144,15 @@ fname = fname:gsub(" ", "_"):lower()
 if fname ~= "all" then
   local is_package = false
   for _, ftype in pairs(wotpack_installer.file_types) do
-    if table.contains(wotpack_installer[ftype], fname .. "_" .. ftype) then
+    if table.contains(wotpack_installer[ftype], f"{fname}_{ftype}") then
       is_package = true
-      uninstallPackage(fname .. "_" .. ftype)
-      wotpack_installer:echo(fname .. "_" .. ftype .. " uninstalled.\n")
+      display(uninstallPackage(f"{fname}_{ftype}"))
+      wotpack_installer:echo(f"{fname}_{ftype} uninstalled.\n")
     end
   end
   if not is_package then
     wotpack_installer:echo(
-      "Package " ..
-      fname ..
-      " not known. View files available for download with \"wotpack view files\"\n",
+      f"Package {fname} not known. View files available for download with \"wotpack view files\"\n",
       false,
       true
     )
@@ -166,7 +167,7 @@ end
 				<name>Change branch</name>
 				<script>local branch = matches[2]
 
-wotpack_installer:echo("Branch updated from ("..wotpack_installer.branch..") to ("..branch..")\n")
+wotpack_installer:echo(f"Branch updated from ({wotpack_installer.branch}) to ({branch})\n")
 wotpack_installer.branch = branch</script>
 				<command></command>
 				<packageName></packageName>

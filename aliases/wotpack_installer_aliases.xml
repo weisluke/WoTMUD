@@ -146,7 +146,7 @@ if fname ~= "all" then
   for _, ftype in pairs(wotpack_installer.file_types) do
     if table.contains(wotpack_installer[ftype], f"{fname}_{ftype}") then
       is_package = true
-      display(uninstallPackage(f"{fname}_{ftype}"))
+      uninstallPackage(f"{fname}_{ftype}")
       wotpack_installer:echo(f"{fname}_{ftype} uninstalled.\n")
     end
   end

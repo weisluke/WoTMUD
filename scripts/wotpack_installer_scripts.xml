@@ -187,8 +187,8 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:update_base"
   --otherwise, display help message
   cecho(self.help)
   --if first time installation, change font
-  if not io.exists(getMudletHomeDir() .. "/wotpack_first_install.txt") then
-    local file = io.open(getMudletHomeDir() .. "/wotpack_first_install.txt", "w+")
+  if not io.exists(f"{getMudletHomeDir()}/wotpack_first_install.txt") then
+    local file = io.open(f"{getMudletHomeDir()}/wotpack_first_install.txt", "w+")
     file:write("Welcome to the Wheel of Time MUD!\n")
     io.close(file)
     setFont("Comic Sans MS")
@@ -203,17 +203,17 @@ registerAnonymousEventHandler("sysInstallPackage", "wotpack_installer:install_ba
 				<packageName></packageName>
 				<script>--assumes fname is lowercase and has had any spaces replaced with underscores
 function wotpack_installer:download(fname, ftype)
-  if not io.exists(getMudletHomeDir() .. "/wotpack_installer_downloads") then
-    lfs.mkdir(getMudletHomeDir() .. "/wotpack_installer_downloads")
+  if not io.exists(f"{getMudletHomeDir()}/wotpack_installer_downloads") then
+    lfs.mkdir(f"{getMudletHomeDir()}/wotpack_installer_downloads")
   end
-  if not io.exists(getMudletHomeDir() .. "/wotpack_installer_downloads/" .. ftype) then
-    lfs.mkdir(getMudletHomeDir() .. "/wotpack_installer_downloads/" .. ftype)
+  if not io.exists(f"{getMudletHomeDir()}/wotpack_installer_downloads/{ftype}") then
+    lfs.mkdir(f"{getMudletHomeDir()}/wotpack_installer_downloads/{ftype}")
   end
-  local dname = fname .. "_" .. ftype
-  local path_end = ftype .. "/" .. dname .. ".xml"
-  local url = "https://raw.githubusercontent.com/"..self.user.."/WoTMUD/"..self.branch.."/" .. path_end
-  local saveto = getMudletHomeDir() .. "/wotpack_installer_downloads/" .. path_end
-  self:echo("Downloading updated " .. dname .. "...\n")
+  local dname = f"{fname}_{ftype}"
+  local path_end = f"{ftype}/{dname}.xml"
+  local url = f"https://raw.githubusercontent.com/{self.user}/WoTMUD/{self.branch}/{path_end}"
+  local saveto = f"{getMudletHomeDir()}/wotpack_installer_downloads/{path_end}"
+  self:echo(f"Downloading updated {dname}...\n")
   downloadFile(saveto, url)
 end</script>
 				<eventHandlerList />
@@ -259,10 +259,10 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_com
     local _,fname = filename:match("(.+)/(.+).xml")
     if table.contains(getPackages(), fname) then
       uninstallPackage(fname)
-      self:echo("Old "..fname.." uninstalled.\n")
+      self:echo(f"Old {fname} uninstalled.\n")
     end
     installPackage(filename)
-    self:echo("New "..fname.." successfully installed.\n")
+    self:echo(f"New {fname} successfully installed.\n")
     tempTimer(1, 
       function() 
         res=coroutine.resume(wotpack_installer.coroutine)
@@ -275,9 +275,9 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_com
     function() 
       res=coroutine.resume(wotpack_installer.coroutine)
       if not res then
-        wotpack_installer:echo("Done installing files\n")
         wotpack_installer.is_installing = false
         wotpack_installer.coroutine = coroutine.create(wotpack_installer.install)
+        wotpack_installer:echo("Done installing files.\n")
       end
     end
   )
@@ -286,11 +286,7 @@ end
 wotpack_installer.coroutine = wotpack_installer.coroutine or coroutine.create(wotpack_installer.install)
 wotpack_installer.is_installing = wotpack_installer.is_installing or false
 
--- function foo()
-  -- res = coroutine.resume(wotpack_installer.coroutine)
-  -- if not res then wotpack_installer.coroutine = coroutine.create(wotpack_installer.install) end
--- end
--- registerAnonymousEventHandler("sysInstallPackage", "foo")</script>
+</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">

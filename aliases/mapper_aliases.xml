@@ -293,7 +293,7 @@ end</script>
 					<script>--syntax: cmz zonename
 
 wotmudmapper.zone = matches[2]
-wotmudmapper:echo("New rooms will be of zone (" .. matches[2] .. ").\n")</script>
+wotmudmapper:echo(f"New rooms will be of zone ({matches[2]}).\n")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^cmz (.+)$</regex>

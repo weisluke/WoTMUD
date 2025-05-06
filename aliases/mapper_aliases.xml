@@ -1024,7 +1024,7 @@ end</script>
 				<packageName></packageName>
 				<regex>^map save json$</regex>
 			</Alias>
-			<Alias isActive="no" isFolder="no">
+			<Alias isActive="yes" isFolder="no">
 				<name>Map Window Config Alias</name>
 				<script>local key = matches[2]
 local val = matches[3]

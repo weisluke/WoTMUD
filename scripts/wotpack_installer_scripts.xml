@@ -257,15 +257,21 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_com
     if table.contains(getPackages(), fname) then
       uninstallPackage(fname)
       self:echo(f"Old {fname} uninstalled.\n")
+      tempTimer(0.5, 
+        function() 
+          res=coroutine.resume(wotpack_installer.coroutine)
+        end
+      )
+      coroutine.yield()
     end
     installPackage(filename)
     self:echo(f"New {fname} successfully installed.\n")
-    tempTimer(1, 
+    table.remove(self.to_install, 1)
+    tempTimer(0.5, 
       function() 
         res=coroutine.resume(wotpack_installer.coroutine)
       end
     )
-    table.remove(self.to_install, 1)
     coroutine.yield()
   until table.is_empty(self.to_install)
   tempTimer(1, 
@@ -282,7 +288,6 @@ end
 
 wotpack_installer.coroutine = wotpack_installer.coroutine or coroutine.create(wotpack_installer.install)
 wotpack_installer.is_installing = wotpack_installer.is_installing or false
-
 </script>
 				<eventHandlerList />
 			</Script>

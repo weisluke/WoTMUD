@@ -38,7 +38,7 @@ then
   if string.match(wotmudmapper.roomname, "^%s+(.+)") ~= nil then
     wotmudmapper.roomname = string.match(wotmudmapper.roomname, "^%s+(.+)")
   end
-  wotmudmapper:echo("\nRoom name (" .. wotmudmapper.roomname .. ") captured.", true)
+  wotmudmapper:echo(f"\nRoom name ({wotmudmapper.roomname}) captured.", true)
   
   wotmudmapper.roomdesc = nil
   wotmudmapper.brief = true
@@ -107,7 +107,7 @@ end</script>
 
 --puts current exits in a table of the form {"n","e","s","w","u","d"}
 wotmudmapper.roomexits = string.lower(matches[2])
-wotmudmapper:echo("\nRoom exits (" .. wotmudmapper.roomexits .. ") captured.\n", true)
+wotmudmapper:echo(f"\nRoom exits ({wotmudmapper.roomexits}) captured.\n", true)
 wotmudmapper.roomexits = string.split(wotmudmapper.roomexits)
 wotmudmapper.roomexits = table.n_intersection(wotmudmapper.roomexits, {"n","e","s","w","u","d"})
   
@@ -180,7 +180,7 @@ elseif wotmudmapper:is_movement(com) or wotmudmapper:is_flee(com) then
   if table.is_empty(wotmudmapper.currentID) then
     wotmudmapper.currentID = wotmudmapper:find_matching_room()
   end
---if not looking at room and data is same, search for room
+--if not (looking at room and data is same), search for room
 elseif
   not (
     wotmudmapper:is_look(com) and
@@ -221,7 +221,8 @@ end</script>
 			</TriggerGroup>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Night/Blind/Fog Movement</name>
-				<script>--if already handling a room we know is dark from the name
+				<script>--return if already handling a room we know is dark from the name
+--since "It is pitch black..." can be a room description in the dark
 if wotmudmapper:is_dark_name() then
   return
 end
@@ -493,10 +494,10 @@ end
 if
   table.contains(
     {
-      "The " .. matches[2] .. " is closed.",
-      "The " .. matches[2] .. " seems to be closed.",
-      "&gt; The " .. matches[2] .. " is closed.",
-      "&gt; The " .. matches[2] .. " seems to be closed.",
+      f"The {matches[2]} is closed.",
+      f"The {matches[2]} seems to be closed.",
+      f"&gt; The {matches[2]} is closed.",
+      f"&gt; The {matches[2]} seems to be closed.",
     },
     matches[1]
   )
@@ -697,12 +698,12 @@ end</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>"Where" clickable center room</name>
 				<script>local roomname = matches[2]
-local foundrooms = searchRoom(roomname, true, true)
+local foundrooms = wotmudmapper:get_rooms(roomname)
 local roomID
 
-for k, v in pairs(foundrooms) do
-  if getRoomUserData(k, "zone") ~= wotmudmapper.zone then
-    foundrooms[k] = nil
+for i, id in pairs(foundrooms) do
+  if getRoomUserData(id, "zone") ~= wotmudmapper.zone then
+    foundrooms[i] = nil
   end
 end
 
@@ -710,15 +711,15 @@ if table.is_empty(foundrooms) then
   selectCaptureGroup(2)
   setLink(function() end, "No matches found!")
 elseif table.size(foundrooms) == 1 then
-  for k, v in pairs(foundrooms) do
+  for _, id in pairs(foundrooms) do
     selectCaptureGroup(2)
-    setLink(function() centerview(k) end, "Click to center map on room.")
+    setLink(function() centerview(id) end, "Click to center map on room.")
   end
 else
   selectCaptureGroup(2)
   setLink(function() 
-    for k,v in spairs(foundrooms) do
-      echoLink("Room ID: " .. k .. "\n", function() centerview(k) end, "Click to center map on room.",true)
+    for _, id in spairs(foundrooms) do
+      echoLink(f"Room ID: {id}\n", function() centerview(id) end, "Click to center map on room.",true)
     end 
   end, "Click to display rooms with matching name.")
 end

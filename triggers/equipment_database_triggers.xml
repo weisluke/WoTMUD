@@ -22,8 +22,9 @@
 				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
-equip_db.eq_info.db = tonumber(multimatches[3][2])
-equip_db.eq_info.pb = tonumber(multimatches[3][3])
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.db = tonumber(multimatches[5][2])
+equip_db.eq_info.pb = tonumber(multimatches[5][3])
 
 equip_db:update_item("trinkets", equip_db.eq_info, true)
 
@@ -42,11 +43,15 @@ equip_db:reset_eq_info()
 				<regexCodeList>
 					<string>^It is (.+)\.$</string>
 					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
 					<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+)\.$</string>
 					<string>1</string>
 					<string>It is in</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
 					<integer>1</integer>
 					<integer>5</integer>
 					<integer>1</integer>
@@ -59,9 +64,10 @@ equip_db:reset_eq_info()
 				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
-equip_db.eq_info.db = tonumber(multimatches[3][2])
-equip_db.eq_info.pb = tonumber(multimatches[3][3])
-equip_db.eq_info.mvs = tonumber(multimatches[3][4])
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.db = tonumber(multimatches[5][2])
+equip_db.eq_info.pb = tonumber(multimatches[5][3])
+equip_db.eq_info.mvs = tonumber(multimatches[5][4])
 
 equip_db:update_item("trinkets", equip_db.eq_info, true)
 
@@ -80,11 +86,15 @@ equip_db:reset_eq_info()
 				<regexCodeList>
 					<string>^It is (.+)\.$</string>
 					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
 					<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+), Moves: (-?\d+)\.$</string>
 					<string>1</string>
 					<string>It is in</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
 					<integer>1</integer>
 					<integer>5</integer>
 					<integer>1</integer>
@@ -97,10 +107,11 @@ equip_db:reset_eq_info()
 				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
-equip_db.eq_info.db = tonumber(multimatches[3][2])
-equip_db.eq_info.pb = tonumber(multimatches[3][3])
-equip_db.eq_info.mvs = tonumber(multimatches[3][4])
-equip_db.eq_info.abs = tonumber(multimatches[3][5])
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.db = tonumber(multimatches[5][2])
+equip_db.eq_info.pb = tonumber(multimatches[5][3])
+equip_db.eq_info.mvs = tonumber(multimatches[5][4])
+equip_db.eq_info.abs = tonumber(multimatches[5][5])
 
 equip_db:update_item("armor", equip_db.eq_info, true)
 
@@ -119,11 +130,15 @@ equip_db:reset_eq_info()
 				<regexCodeList>
 					<string>^It is (.+)\.$</string>
 					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
 					<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+), Moves: (-?\d+), Armor absorb: (-?\d+\.\d*)%\.$</string>
 					<string>1</string>
 					<string>It is in</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
 					<integer>1</integer>
 					<integer>5</integer>
 					<integer>1</integer>
@@ -136,55 +151,12 @@ equip_db:reset_eq_info()
 				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
-equip_db.eq_info.hands = (multimatches[3][2] == "" and 1 or 0) --set 2h weapon to 0, as unclear if actually 2h or 1.5h
-equip_db.eq_info.weapon_type = multimatches[3][3]
-equip_db.eq_info.ob = tonumber(multimatches[5][2])
-equip_db.eq_info.pb = tonumber(multimatches[5][3])
-equip_db.eq_info.dmg = multimatches[5][4]
-
-equip_db:update_item("weapons", equip_db.eq_info, true)
-
-equip_db:reset_eq_info()
-</script>
-				<triggerType>0</triggerType>
-				<conditonLineDelta>3</conditonLineDelta>
-				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
-				<mFgColor>#ff0000</mFgColor>
-				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
-				<colorTriggerFgColor>#000000</colorTriggerFgColor>
-				<colorTriggerBgColor>#000000</colorTriggerBgColor>
-				<regexCodeList>
-					<string>^It is (.+)\.$</string>
-					<string>1</string>
-					<string>^It is an? (two-handed )?(.+)\.$</string>
-					<string>1</string>
-					<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
-					<string>1</string>
-					<string>It is in</string>
-				</regexCodeList>
-				<regexCodePropertyList>
-					<integer>1</integer>
-					<integer>5</integer>
-					<integer>1</integer>
-					<integer>5</integer>
-					<integer>1</integer>
-					<integer>5</integer>
-					<integer>2</integer>
-				</regexCodePropertyList>
-			</Trigger>
-			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-				<name>Weapon - not hardened</name>
-				<script>equip_db:reset_eq_info()
-
-equip_db.eq_info.name = multimatches[1][2]
-equip_db.eq_info.hands = (multimatches[3][2] == "" and 1 or 0) --set 2h weapon to 0, as unclear if actually 2h or 1.5h
-equip_db.eq_info.weapon_type = multimatches[3][3]
-equip_db.eq_info.ob = tonumber(multimatches[5][2])
-equip_db.eq_info.pb = tonumber(multimatches[5][3])
-equip_db.eq_info.dmg = multimatches[5][4]
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.hands = (multimatches[5][2] == "" and 1 or 0) --set 2h weapon to 0, as unclear if actually 2h or 1.5h
+equip_db.eq_info.weapon_type = multimatches[5][3]
+equip_db.eq_info.ob = tonumber(multimatches[7][2])
+equip_db.eq_info.pb = tonumber(multimatches[7][3])
+equip_db.eq_info.dmg = multimatches[7][4]
 
 equip_db:update_item("weapons", equip_db.eq_info, true)
 
@@ -202,6 +174,57 @@ equip_db:reset_eq_info()
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
 					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^It is an? (two-handed )?(.+)\.$</string>
+					<string>1</string>
+					<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Weapon - not hardened</name>
+				<script>equip_db:reset_eq_info()
+
+equip_db.eq_info.name = multimatches[1][2]
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.hands = (multimatches[5][2] == "" and 1 or 0) --set 2h weapon to 0, as unclear if actually 2h or 1.5h
+equip_db.eq_info.weapon_type = multimatches[5][3]
+equip_db.eq_info.ob = tonumber(multimatches[7][2])
+equip_db.eq_info.pb = tonumber(multimatches[7][3])
+equip_db.eq_info.dmg = multimatches[7][4]
+
+equip_db:update_item("weapons", equip_db.eq_info, true)
+
+equip_db:reset_eq_info()
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>5</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
 					<string>1</string>
 					<string>^It is an? (two-handed )?(.+)\.$</string>
 					<string>1</string>
@@ -218,6 +241,8 @@ equip_db:reset_eq_info()
 					<integer>5</integer>
 					<integer>1</integer>
 					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
 					<integer>2</integer>
 					<integer>5</integer>
 					<integer>2</integer>
@@ -228,18 +253,19 @@ equip_db:reset_eq_info()
 				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
-equip_db.eq_info.hands = (multimatches[3][2] == "" and 1 or 0) --set 2h weapon to 0, as unclear if actually 2h or 1.5h
-equip_db.eq_info.weapon_type = multimatches[3][3]
-equip_db.eq_info.ob = tonumber(multimatches[5][2]) - 5
-equip_db.eq_info.pb = tonumber(multimatches[5][3])
-equip_db.eq_info.dmg = multimatches[5][4]
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.hands = (multimatches[5][2] == "" and 1 or 0) --set 2h weapon to 0, as unclear if actually 2h or 1.5h
+equip_db.eq_info.weapon_type = multimatches[5][3]
+equip_db.eq_info.ob = tonumber(multimatches[7][2]) - 5
+equip_db.eq_info.pb = tonumber(multimatches[7][3])
+equip_db.eq_info.dmg = multimatches[7][4]
 
 equip_db:update_item("weapons", equip_db.eq_info, true)
 
 equip_db:reset_eq_info()
 </script>
 				<triggerType>0</triggerType>
-				<conditonLineDelta>4</conditonLineDelta>
+				<conditonLineDelta>5</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
 				<mCommand></mCommand>
 				<packageName></packageName>
@@ -251,6 +277,8 @@ equip_db:reset_eq_info()
 				<regexCodeList>
 					<string>^It is (.+)\.$</string>
 					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
 					<string>^It is an? (two-handed )?(.+)\.$</string>
 					<string>1</string>
 					<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
@@ -260,6 +288,8 @@ equip_db:reset_eq_info()
 					<string>It is in</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
 					<integer>1</integer>
 					<integer>5</integer>
 					<integer>1</integer>

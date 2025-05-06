@@ -303,10 +303,10 @@ status_bar.char.hps.max = tonumber(matches[3])
 status_bar.char.mvs.current = tonumber(matches[4])
 status_bar.char.mvs.max = tonumber(matches[5])
 
-local msg_hp = "HP: " .. status_bar.char.hps.current .. "(" .. status_bar.char.hps.max .. ")"
+local msg_hp = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
 status_bar.hps:echo(msg_hp, "white", "c")
 
-local msg_mvs = "MV: " .. status_bar.char.mvs.current .. "(" .. status_bar.char.mvs.max .. ")"
+local msg_mvs = f"MV: {status_bar.char.mvs.current}({status_bar.char.mvs.max})"
 status_bar.mvs:echo(msg_mvs, "white", "c")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -319,7 +319,7 @@ status_bar.mvs:echo(msg_mvs, "white", "c")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You have (\d+)\((\d+)\) hit and (\d+)\((\d+)\) movement points\.$</string>
+						<string>You have (-?\d+)\((\d+)\) hit and (-?\d+)\((\d+)\) movement points\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -334,13 +334,13 @@ status_bar.char.sps.max = tonumber(matches[5])
 status_bar.char.mvs.current=tonumber(matches[6])
 status_bar.char.mvs.max = tonumber(matches[7])
 
-local msg_hp = "HP: " .. status_bar.char.hps.current .. "(" .. status_bar.char.hps.max .. ")"
+local msg_hp = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
 status_bar.hps:echo(msg_hp, "white", "c")
 
-local msg_sp = "SP: " .. status_bar.char.sps.current .. "(" .. status_bar.char.sps.max .. ")"
+local msg_sp = f"SP: {status_bar.char.sps.current}({status_bar.char.sps.max})"
 status_bar.sps_dps:echo(msg_sp, "white", "c")
 
-local msg_mv = "MV: " .. status_bar.char.mvs.current .. "(" .. status_bar.char.mvs.max .. ")"
+local msg_mv = f"MV: {status_bar.char.mvs.current}({status_bar.char.mvs.max})"
 status_bar.mvs:echo(msg_mv, "white", "c")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -353,8 +353,8 @@ status_bar.mvs:echo(msg_mv, "white", "c")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You have (\d+)\((\d+)\) hit, (\d+)\((\d+)\) saidar and (\d+)\((\d+)\) movement points\.$</string>
-						<string>You have (\d+)\((\d+)\) hit, (\d+)\((\d+)\) saidin and (\d+)\((\d+)\) movement points\.$</string>
+						<string>You have (-?\d+)\((\d+)\) hit, (-?\d+)\((\d+)\) saidar and (-?\d+)\((\d+)\) movement points\.$</string>
+						<string>You have (-?\d+)\((\d+)\) hit, (-?\d+)\((\d+)\) saidin and (-?\d+)\((\d+)\) movement points\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -370,13 +370,13 @@ status_bar.char.dps.max = tonumber(matches[5])
 status_bar.char.mvs.current=tonumber(matches[6])
 status_bar.char.mvs.max = tonumber(matches[7])
 
-local msg_hp = "HP: " .. status_bar.char.hps.current .. "(" .. status_bar.char.hps.max .. ")"
+local msg_hp = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
 status_bar.hps:echo(msg_hp, "white", "c")
 
-local msg_dp = "DP: " .. status_bar.char.dps.current .. "(" .. status_bar.char.dps.max .. ")"
+local msg_dp = f"DP: {status_bar.char.dps.current}({status_bar.char.dps.max})"
 status_bar.sps_dps:echo(msg_dp, "white", "c")
 
-local msg_mv = "MV: " .. status_bar.char.mvs.current .. "(" .. status_bar.char.mvs.max .. ")"
+local msg_mv = f"MV: {status_bar.char.mvs.current}({status_bar.char.mvs.max})"
 status_bar.mvs:echo(msg_mv, "white", "c")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -389,7 +389,7 @@ status_bar.mvs:echo(msg_mv, "white", "c")</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>You have (\d+)\((\d+)\) hit, (\d+)\((\d+)\) dark power and (\d+)\((\d+)\) movement points\.$</string>
+						<string>You have (-?\d+)\((\d+)\) hit, (-?\d+)\((\d+)\) dark power and (-?\d+)\((\d+)\) movement points\.$</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>1</integer>
@@ -414,7 +414,7 @@ status_bar.mvs:echo(msg_mv, "white", "c")</script>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Wimpy reset to:</name>
 					<script>status_bar.char.autoflee = tonumber(matches[2])
-local msg = "Autoflee: "..status_bar.char.autoflee
+local msg = f"Autoflee: {status_bar.char.autoflee}"
 status_bar.autoflee:echo(msg, "white", "c")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -697,9 +697,9 @@ end
 
 local msg = "Hit Points"
 if status_bar.char.hps.current then
-  msg = "HP: "..status_bar.char.hps.current.."("..status_bar.char.hps.max..")"
+  msg = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
 else
-  msg = "HP: "..(status_bar.char.hps.est_min or "???").."-"..(status_bar.char.hps.est_max or "???").."("..status_bar.char.hps.max..")"
+  msg = "HP: "..(status_bar.char.hps.est_min or "???").."-"..(status_bar.char.hps.est_max or "???")..f"({status_bar.char.hps.max})"
 end  
 status_bar.hps:echo(msg, "white", "c")</script>
 					<triggerType>0</triggerType>
@@ -724,7 +724,7 @@ status_bar.hps:echo(msg, "white", "c")</script>
 				<name>You are dead</name>
 				<script>status_bar.char.hps.current = 1
 
-local msg_hps = "HP: " .. status_bar.char.hps.current .. "(" .. status_bar.char.hps.max .. ")"
+local msg_hps = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
 status_bar.hps:echo(msg_hps, "white", "c")
 
 status_bar.char.fleelag = {min = 0, max = 0}

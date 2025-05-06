@@ -417,7 +417,7 @@ registerAnonymousEventHandler("tic", "status_bar:update_fleelag_on_tic")</script
     if self.char.hps.current then
       msg = f"HP: {self.char.hps.current}({self.char.hps.max})"
     else
-      msg = f"HP: {(self.char.hps.est_min or \"???\")}-{(self.char.hps.est_max or \"???\")}({self.char.hps.max})"
+      msg = f"HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???")..f"({self.char.hps.max})"
     end  
     self.hps:echo(msg, "white", "c")
   end
@@ -460,7 +460,7 @@ registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
     if self.char.sps.current then
       msg = f"SP: {self.char.sps.current}({self.char.sps.max})"
     else
-      msg = f"SP: {(self.char.sps.est_min or \"???\")}-{(self.char.sps.est_max or \"???\")}({self.char.sps.max})"
+      msg = f"SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???")..f"({self.char.sps.max})"
     end  
     self.sps_dps:echo(msg, "white", "c")
   end

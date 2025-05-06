@@ -90,7 +90,8 @@ end</script>
 				<packageName></packageName>
 				<script>function alt_timer:sys_disconnection(event)
   cecho("&lt;green&gt;Starting timer for alting.\n")
-  cecho("&lt;green&gt;Date - Time: " ..getTime(true, "yyyy.MM.dd - HH:mm:ss") .. "\n")
+  local time = getTime(true, "yyyy.MM.dd - HH:mm:ss")
+  cecho(f"&lt;green&gt;Date - Time: {time}\n")
   self.sameside_timer = tempTimer(60 * 5 + 1, function() cecho("&lt;green&gt;You may log on a sameside alt now!\n") end)
   self.crossrace_timer = tempTimer(60 * 15 + 1, function() cecho("&lt;green&gt;You may log on a crossrace alt now!\n") end)
 

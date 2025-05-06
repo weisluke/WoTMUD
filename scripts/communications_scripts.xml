@@ -70,15 +70,15 @@ end</script>
     local defaults = self.defaults or {}
     local configs = self.configs or {}
     -- load stored configs from file if it exists
-    if io.exists(getMudletHomeDir().."/communications.configs.lua") then
+    if io.exists(f"{getMudletHomeDir()}/communications.configs.lua") then
         self:echo("Loading communications configurations.\n", true)
-        table.load(getMudletHomeDir().."/communications.configs.lua",configs)
+        table.load(f"{getMudletHomeDir()}/communications.configs.lua",configs)
         self:echo("Communications configurations loaded.\n", true)
     end
     -- overwrite default values with stored config values
     configs = table.update(defaults, configs)
     self.configs = table.deepcopy(configs)
-    table.save(getMudletHomeDir() .. "/communications.configs.lua", self.configs)
+    table.save(f"{getMudletHomeDir()}/communications.configs.lua", self.configs)
 end
 </script>
 				<eventHandlerList />
@@ -102,7 +102,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "communications:sys_connecti
   self.configs = self.configs or {}
   
   self:echo("Saving communications configurations.\n", true)
-  table.save(getMudletHomeDir() .. "/communications.configs.lua", self.configs)
+  table.save(f"{getMudletHomeDir()}/communications.configs.lua", self.configs)
   self:echo("Communications configurations saved.\n", true)
 end
 
@@ -120,13 +120,13 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
   local x, y, w, h = configs.x, configs.y, configs.w, configs.h
   
   local r, g, b = unpack(color_table[configs.border])
-  local rgb_str = r..","..g..","..b
+  local rgb_str = f"{r},{g},{b}"
   
   self.container = self.container or
     Adjustable.Container:new(
       {
         name = "communications.container",
-        adjLabelstyle = "background-color:rgba("..rgb_str..",100%); border: 5px groove grey;",
+        adjLabelstyle = f"background-color:rgba({rgb_str},100%); border: 5px groove grey;",
         buttonstyle =
           [[
       QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
@@ -160,9 +160,9 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
   ]])
 
   for _, ctype in pairs(self.tabs) do
-    self[ctype .. "_tab"] = self[ctype .. "_tab"] or 
-      Geyser.Label:new({name = "communications." .. ctype .. "_tab"}, self.header)
-    self[ctype .. "_tab"]:setStyleSheet(
+    self[f"{ctype}_tab"] = self[f"{ctype}_tab"] or 
+      Geyser.Label:new({name = f"communications.{ctype}_tab"}, self.header)
+    self[f"{ctype}_tab"]:setStyleSheet(
       [[
     background-color: ]] ..
       configs.tabs ..
@@ -173,14 +173,14 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
     margin-left: 1px;
   ]]
     )
-    self[ctype .. "_tab"]:echo("&lt;center&gt;" .. ctype, configs.foreground)
-    self[ctype .. "_tab"]:setClickCallback("communications.click", ctype)
-    self[ctype .. "_tab"]:setColor(configs.tabs)
+    self[f"{ctype}_tab"]:echo(f"&lt;center&gt;{ctype}", configs.foreground)
+    self[f"{ctype}_tab"]:setClickCallback("communications.click", ctype)
+    self[f"{ctype}_tab"]:setColor(configs.tabs)
     
     self[ctype] = self[ctype] or 
       Geyser.MiniConsole:new(
         {
-          name = "communications." .. ctype,
+          name = f"communications.{ctype}",
           x = "0%",
           y = "0%",
           width = "100%",
@@ -188,7 +188,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
         },
         self.footer
       )
-    enableScrollBar("communications."..ctype)
+    enableScrollBar(f"communications.{ctype}")
     self[ctype]:enableAutoWrap()
     self[ctype]:setColor(configs.background)
     self[ctype]:setFontSize(configs.fontsize)
@@ -274,9 +274,9 @@ end</script>
       fg("yellow")
       setUnderline(true)
       if target == "1" then
-        echoLink(text, [[communications:show_help()]], "View: comms help", true)
+        echoLink(text, function() communications:show_help() end, "View: comms help", true)
       else
-        echoLink(text, [[communications:show_help("]] .. target .. [[")]], "View: comms help " .. target, true)
+        echoLink(text, function() communications:show_help(target) end, f"View: comms help {target}", true)
       end
       setUnderline(false)
       resetFormat()
@@ -379,11 +379,11 @@ communications.help.comms_window =
   width = width/mx*100
   height = height/my*100
   
-  self.configs.comms_window.x = x.."%"
-  self.configs.comms_window.y = y.."%"
-  self.configs.comms_window.w = width.."%"
-  self.configs.comms_window.h = height.."%"
-  table.save(getMudletHomeDir() .. "/communications.configs.lua", self.configs)
+  self.configs.comms_window.x = f"{x}%"
+  self.configs.comms_window.y = f"{y}%"
+  self.configs.comms_window.w = f"{width}%"
+  self.configs.comms_window.h = f"{height}%"
+  table.save(f"{getMudletHomeDir()}/communications.configs.lua", self.configs)
   
   self:show_comms(true)
 end

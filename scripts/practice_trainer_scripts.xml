@@ -121,10 +121,10 @@ practice_trainer.style_sheets.clickable = [[
   
   return {
     name = name,
-    x = x.."%",
-    y = y.."%",
-    width = w.."%",
-    height = h.."%",
+    x = f"{x}%",
+    y = f"{y}%",
+    width = f"{w}%",
+    height = f"{h}%",
   }
 end
 
@@ -141,10 +141,10 @@ end
   
   return {
     name = name,
-    x = x.."%",
-    y = y.."%",
-    width = w.."%",
-    height = h.."%",
+    x = f"{x}%",
+    y = f"{y}%",
+    width = f"{w}%",
+    height = f"{h}%",
     fgColor = fg,
     color = bg,
     message = [[&lt;center&gt;]] .. msg .. [[&lt;/center&gt;]],
@@ -160,10 +160,10 @@ end
 					<script>function practice_trainer:command_line_params(name, x, y, w, h, msg)
   return {
     name = name,
-    x = x.."%",
-    y = y.."%",
-    width = w.."%",
-    height = h.."%",
+    x = f"{x}%",
+    y = f"{y}%",
+    width = f"{w}%",
+    height = f"{h}%",
     stylesheet = "border: 1px solid silver;",
   }
 end
@@ -304,7 +304,7 @@ local y = 62
 practice_trainer[label_name] =
   practice_trainer[label_name] or
   Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer."..label_name, x, y, w, h),
+    practice_trainer:label_params(f"practice_trainer.{label_name}", x, y, w, h),
     practice_trainer.container
   )
 practice_trainer[label_name]:setFontSize(10)
@@ -334,7 +334,7 @@ local y = 65
 practice_trainer[label_name] =
   practice_trainer[label_name] or
   Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer."..label_name, x, y, w, h, "Reset"),
+    practice_trainer:label_params(f"practice_trainer.{label_name}", x, y, w, h, "Reset"),
     practice_trainer.container
   )
 practice_trainer[label_name]:setStyleSheet(practice_trainer.style_sheets.clickable) 
@@ -374,7 +374,7 @@ local y = 90
 practice_trainer.file[label_name] =
   practice_trainer.file[label_name] or
   Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.file."..label_name, x, y, w, h, "Type filename and press enter to save:"),
+    practice_trainer:label_params(f"practice_trainer.file.{label_name}", x, y, w, h, "Type filename and press enter to save:"),
     practice_trainer.container
   )
   
@@ -384,7 +384,7 @@ label_name = "save_name"
 practice_trainer.file[label_name] =
   practice_trainer.file[label_name] or
   Geyser.CommandLine:new(
-    practice_trainer:command_line_params("practice_trainer.file."..label_name, x, y, w, h),
+    practice_trainer:command_line_params(f"practice_trainer.file.{label_name}", x, y, w, h),
     practice_trainer.container
   )
 practice_trainer.file[label_name]:setAction(
@@ -400,7 +400,7 @@ label_name = "load_label"
 practice_trainer.file[label_name] =
   practice_trainer.file[label_name] or
   Geyser.Label:new(
-    practice_trainer:label_params("practice_trainer.file."..label_name, x, y, w, h, "Type filename and press enter to load:"),
+    practice_trainer:label_params(f"practice_trainer.file.{label_name}", x, y, w, h, "Type filename and press enter to load:"),
     practice_trainer.container
   )
 
@@ -410,7 +410,7 @@ label_name = "load_name"
 practice_trainer.file[label_name] =
   practice_trainer.file[label_name]  or
   Geyser.CommandLine:new(
-    practice_trainer:command_line_params("practice_trainer.file."..label_name, x, y, w, h),
+    practice_trainer:command_line_params(f"practice_trainer.file.{label_name}", x, y, w, h),
     practice_trainer.container
   )
 practice_trainer.file[label_name]:setAction(
@@ -430,8 +430,8 @@ practice_trainer.container:hide()</script>
 					<name>practice_trainer save and load functions</name>
 					<packageName></packageName>
 					<script>function practice_trainer:save_pracs(fname)
-  if not io.exists(getMudletHomeDir() .. "/practice_trainer") then
-    lfs.mkdir(getMudletHomeDir() .. "/practice_trainer")
+  if not io.exists(f"{getMudletHomeDir()}/practice_trainer") then
+    lfs.mkdir(f"{getMudletHomeDir()}/practice_trainer")
   end
   if fname == "" then
     self:echo("No filename provided.\n", false, true)
@@ -458,22 +458,22 @@ practice_trainer.container:hide()</script>
       fade = table.deepcopy(self.fade.pracs),
       queue = table.deepcopy(self.pracs.queue)
     }
-  local out_file = getMudletHomeDir() .. "/practice_trainer/" .. fname .. ".lua"
-  self:echo("Saving practices to "..out_file.."\n")
+  local out_file = f"{getMudletHomeDir()}/practice_trainer/{fname}.lua"
+  self:echo(f"Saving practices to {out_file}\n")
   table.save(out_file, out_table)
   self:echo("Practices saved.\n")
 end
 
 function practice_trainer:load_pracs(fname)
-  local in_file = getMudletHomeDir() .. "/practice_trainer/" .. fname .. ".lua"
+  local in_file = f"{getMudletHomeDir()}/practice_trainer/{fname}.lua"
   if not io.exists(in_file) then
-    self:echo("File "..in_file.." does not exist.\n",false,true)
+    self:echo(f"File {in_file} does not exist.\n",false,true)
     return
   end
   
   local in_table = {}
   
-  self:echo("Loading practices from "..in_file.."\n")
+  self:echo(f"Loading practices from {in_file}\n")
   table.load(in_file, in_table)
   
   self.char.sex = in_table.sex
@@ -989,7 +989,7 @@ for _, class in pairs(practice_trainer.pracs.classes) do
   practice_trainer[class].label =
     practice_trainer[class].label or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer."..class..".label", 0, 0, 100, 4, class, "black", colors[class]),
+      practice_trainer:label_params(f"practice_trainer.{class}.label", 0, 0, 100, 4, class, "black", colors[class]),
       practice_trainer[class].container
     )
   if class == "fade" then
@@ -1005,37 +1005,30 @@ for _, class in pairs(practice_trainer.pracs.classes) do
     local x = 0
     local y = k * h + 1
     
-    label_name = prac.."_label"
+    label_name = f"{prac}_label"
     practice_trainer[class][label_name] =
       practice_trainer[class][label_name] or
       Geyser.Label:new(
-        practice_trainer:label_params("practice_trainer."..class.."."..label_name, x, y, w, h, prac),
+        practice_trainer:label_params(f"practice_trainer.{class}.{label_name}", x, y, w, h, prac),
         practice_trainer[class].container
       )
     if prac == "ride" or prac == "wisdom lore" or prac == "survival" then
-      practice_trainer[class][label_name]:echo(
-        "&lt;center&gt;" ..
-        prac ..
-        " (level " ..
-        math.floor(
-          practice_trainer[class].percents[prac] / 14
-        ) ..
-        ")"
-      )
+      local value = math.floor(practice_trainer[class].percents[prac] / 14)
+      practice_trainer[class][label_name]:echo(f"&lt;center&gt;{prac} (level {value})")
     end
     
     x = x + w
     w = 15
-    label_name = prac .. "_%_label"
+    label_name = f"{prac}_%_label"
     practice_trainer[class][label_name] =
       practice_trainer[class][label_name] or
       Geyser.Label:new(
-        practice_trainer:label_params("practice_trainer.".. class.."."..label_name, x, y, w, h, practice_trainer[class].pracs[prac].."%"),
+        practice_trainer:label_params(f"practice_trainer.{class}.{label_name}", x, y, w, h, f"{practice_trainer[class].pracs[prac]}%"),
         practice_trainer[class].container
       )
     practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
     setLabelWheelCallback(
-      "practice_trainer."..class.."."..label_name,
+      f"practice_trainer.{class}.{label_name}",
       "practice_trainer:practice_scroll",
       class,
       prac
@@ -1043,11 +1036,11 @@ for _, class in pairs(practice_trainer.pracs.classes) do
     
     x = x + w
     w = 10
-    label_name = prac.."_-_label"
+    label_name = f"{prac}_-_label"
     practice_trainer[class][label_name] =
       practice_trainer[class][label_name] or
       Geyser.Label:new(
-        practice_trainer:label_params("practice_trainer." .. class .. "." .. label_name, x, y, w, h, "-"),
+        practice_trainer:label_params(f"practice_trainer.{class}.{label_name}", x, y, w, h, "-"),
         practice_trainer[class].container
       )
     practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
@@ -1056,11 +1049,11 @@ for _, class in pairs(practice_trainer.pracs.classes) do
     )
     
     x = x + w
-    label_name = prac.."_+_label"
+    label_name = f"{prac}_+_label"
     practice_trainer[class][label_name] =
       practice_trainer[class][label_name] or
       Geyser.Label:new(
-        practice_trainer:label_params("practice_trainer." .. class .. "." .. label_name, x, y, w, h, "+"),
+        practice_trainer:label_params(f"practice_trainer.{class}.{label_name}", x, y, w, h, "+"),
         practice_trainer[class].container
       )
     practice_trainer[class][label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
@@ -1088,35 +1081,35 @@ for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
   local x = (k - 1) * 20
   local y = 0
   
-  label_name = stat.."_label"
+  label_name = f"{stat}_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char." .. label_name, x, y, w, h, stat),
+      practice_trainer:label_params(f"practice_trainer.char.{label_name}", x, y, w, h, stat),
       practice_trainer.char.container
     )
     
   x = x + w
   w = 5
-  label_name = stat.."_val_label"
+  label_name = f"{stat}_val_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char." .. label_name, x, y, w, h, practice_trainer.char[stat]),
+      practice_trainer:label_params(f"practice_trainer.char.{label_name}", x, y, w, h, practice_trainer.char[stat]),
       practice_trainer.char.container
     )
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
   setLabelWheelCallback(
-    "practice_trainer.char." .. label_name, "practice_trainer:stat_scroll", stat
+    f"practice_trainer.char.{label_name}", "practice_trainer:stat_scroll", stat
   )
   
   x = x + w
   w = 4
-  label_name = stat.."_-_label"
+  label_name = f"{stat}_-_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char." .. label_name, x, y, w, h, "-"),
+      practice_trainer:label_params(f"practice_trainer.char.{label_name}", x, y, w, h, "-"),
       practice_trainer.char.container
     )
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
@@ -1125,11 +1118,11 @@ for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
   )
   
   x = x + w
-  label_name = stat.."_+_label"
+  label_name = f"{stat}_+_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char." .. label_name, x, y, w, h, "+"),
+      practice_trainer:label_params(f"practice_trainer.char.{label_name}", x, y, w, h, "+"),
       practice_trainer.char.container
     )
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
@@ -1147,40 +1140,40 @@ end</script>
   local x = (k - 1) * (w + 2)
   local y = 40
   
-  label_name = field.."_label"
+  label_name = f"{field}_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char."..label_name, x, y, w, h, practice_trainer.char[field]),
+      practice_trainer:label_params(f"practice_trainer.char.{label_name}", x, y, w, h, practice_trainer.char[field]),
       practice_trainer.char.container
     )
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.scrollable)
-  setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:"..field.."_scroll")
+  setLabelWheelCallback(f"practice_trainer.char.{label_name}", f"practice_trainer:{field}_scroll")
   
   x = x + w/2
   y = y + h
   w = 4
   x = x - w
-  label_name = field.."_-_label"
+  label_name = f"{field}_-_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char."..label_name, x, y, w, h, "-"),
+      practice_trainer:label_params(f"practice_trainer.char.{label_name}", x, y, w, h, "-"),
       practice_trainer.char.container
     )
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
-  practice_trainer.char[label_name]:setClickCallback("practice_trainer:subtract_"..field)
+  practice_trainer.char[label_name]:setClickCallback(f"practice_trainer:subtract_{field}")
   
   x = x + w
-  label_name = field.."_+_label"
+  label_name = f"{field}_+_label"
   practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char."..label_name, x, y, w, h, "+"),
+      practice_trainer:label_params(f"practice_trainer.char.{label_name}", x, y, w, h, "+"),
       practice_trainer.char.container
     )
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.plus)
-  practice_trainer.char[label_name]:setClickCallback("practice_trainer:add_"..field)
+  practice_trainer.char[label_name]:setClickCallback(f"practice_trainer:add_{field}")
   
 end</script>
 					<eventHandlerList />
@@ -1196,7 +1189,7 @@ local y = 40
 practice_trainer.char["total_pracs_label"] =
     practice_trainer.char["total_pracs_label"] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char.total_pracs_label", x, y, w, h, "Practices required: "..practice_trainer:get_total_pracs()),
+      practice_trainer:label_params("practice_trainer.char.total_pracs_label", x, y, w, h, f"Practices required: {practice_trainer:get_total_pracs()}"),
       practice_trainer.char.container
     )
 
@@ -1204,7 +1197,7 @@ y = y + h
 practice_trainer.char["level_label"] =
     practice_trainer.char["level_label"] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char.level_label", x, y, w, h, "Levels required: "..practice_trainer:pracs_to_level()),
+      practice_trainer:label_params("practice_trainer.char.level_label", x, y, w, h, f"Levels required: {practice_trainer:pracs_to_level()}"),
       practice_trainer.char.container
     )
 </script>
@@ -1222,7 +1215,8 @@ local y = 40
 practice_trainer.char[label_name] =
     practice_trainer.char[label_name] or
     Geyser.Label:new(
-      practice_trainer:label_params("practice_trainer.char."..label_name, x, y, w, h, (practice_trainer.char.warder_bond and "warder bond" or "no warder bond")),
+      practice_trainer:label_params(f"practice_trainer.char.{label_name}", x, y, w, h, 
+        (practice_trainer.char.warder_bond and "warder bond" or "no warder bond")),
       practice_trainer.char.container
     )
     
@@ -1231,7 +1225,7 @@ if practice_trainer.char.warder_bond then
 else
   practice_trainer.char[label_name]:setStyleSheet(practice_trainer.style_sheets.minus)
 end
-setLabelWheelCallback("practice_trainer.char."..label_name, "practice_trainer:warder_bond_scroll")
+setLabelWheelCallback(f"practice_trainer.char.{label_name}", "practice_trainer:warder_bond_scroll")
 practice_trainer.char[label_name]:setClickCallback("practice_trainer:warder_bond_scroll")</script>
 					<eventHandlerList />
 				</Script>
@@ -1240,9 +1234,9 @@ practice_trainer.char[label_name]:setClickCallback("practice_trainer:warder_bond
 				<name>practice_trainer:update_displays</name>
 				<packageName></packageName>
 				<script>function practice_trainer:update_sex_race_class_display()
-  self.char["sex_label"]:echo("&lt;center&gt;" .. self.char.sex)
-  self.char["race_label"]:echo("&lt;center&gt;" .. self.char.race)
-  self.char["class_label"]:echo("&lt;center&gt;" .. self.char.class)
+  self.char["sex_label"]:echo(f"&lt;center&gt;{self.char.sex}")
+  self.char["race_label"]:echo(f"&lt;center&gt;{self.char.race}")
+  self.char["class_label"]:echo(f"&lt;center&gt;{self.char.class}")
 end
 
 function practice_trainer:update_warder_bond_display()
@@ -1256,30 +1250,29 @@ end
 
 function practice_trainer:update_stats_display()
   for _, stat in pairs({"str", "int", "wil", "dex", "con"}) do
-    self.char[stat .. "_val_label"]:echo("&lt;center&gt;" .. self.char[stat])
+    self.char[f"{stat}_val_label"]:echo(f"&lt;center&gt;{self.char[stat]}")
   end
 end
 
 function practice_trainer:update_prac_display()
   for _, class in pairs(self.pracs.classes) do
     for k, prac in pairs(self.pracs[class]) do
-      self[class][prac .. "_%_label"]:echo(
-        "&lt;center&gt;" .. self[class].percents[prac] .. "%"
-      )
+      self[class][f"{prac}_%_label"]:echo(f"&lt;center&gt;{self[class].percents[prac]}%")
       if prac == "ride" or prac == "wisdom lore" or prac == "survival" then
-        self[class][prac.."_label"]:echo("&lt;center&gt;"..prac.." (level "..math.floor(self[class].percents[prac] / 14)..")")
+        local value = math.floor(self[class].percents[prac] / 14)
+        self[class][f"{prac}_label"]:echo(f"&lt;center&gt;{prac} (level {value})")
       end
     end
   end
 end
 
 function practice_trainer:update_total_pracs_display()
-  self.char["total_pracs_label"]:echo("&lt;center&gt;Practices required: "..self:get_total_pracs())
+  self.char["total_pracs_label"]:echo(f"&lt;center&gt;Practices required: {self:get_total_pracs()}")
 end
 
 
 function practice_trainer:update_levels_display()
-  self.char["level_label"]:echo("&lt;center&gt;Levels required: "..self:pracs_to_level())
+  self.char["level_label"]:echo(f"&lt;center&gt;Levels required: {self:pracs_to_level()}")
 end
 
 

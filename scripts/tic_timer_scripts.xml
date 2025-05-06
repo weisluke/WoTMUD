@@ -21,8 +21,8 @@ tic_timer.configs = tic_timer.configs or
     aggro_is_exact = false,
     num_tics = -1,
     aggro_pulse = -1,
-    tic_length = 62.000,
-    tic_length_std_dev = 1.0,
+    tic_length = 61.000,
+    tic_length_std_dev = 0.5,
     tic_warning = 7.0,
     show_aggros = false
   }
@@ -48,13 +48,13 @@ function tic_timer:reset()
     aggro_is_exact = false,
     num_tics = -1,
     aggro_pulse = -1,
-    tic_length = 62.000,
-    tic_length_std_dev = 1.0,
+    tic_length = 61.000,
+    tic_length_std_dev = 0.5,
     tic_warning = warning,
     show_aggros = aggros
   }
   
-  self.tic_history = {62.0, size = 1}
+  self.tic_history = {61.0, size = 1}
   
   resetStopWatch(self.stopwatch)
   for name, id in pairs(self.temp_timers) do
@@ -96,8 +96,8 @@ end</script>
 				<name>tic_timer:sys_connection</name>
 				<packageName></packageName>
 				<script>function tic_timer:sys_connection(event)
-  if io.exists(getMudletHomeDir() .. "/tic_timer.configs.lua") then
-    table.load(getMudletHomeDir() .. "/tic_timer.configs.lua", self.configs)
+  if io.exists(f"{getMudletHomeDir()}/tic_timer.configs.lua") then
+    table.load(f"{getMudletHomeDir()}/tic_timer.configs.lua", self.configs)
   end
   self.tic_history = {self.configs.tic_length, size = 1}
 end
@@ -119,7 +119,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "tic_timer:sys_connection")<
   self.configs.tic_length = tic_length
   --self.configs.tic_length_std_dev = tic_length_std_dev
   --save configuration to disk
-  table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", self.configs)
+  table.save(f"{getMudletHomeDir()}/tic_timer.configs.lua", self.configs)
 end
 
 registerAnonymousEventHandler("sysExitEvent", "tic_timer:sys_disconnection")
@@ -214,16 +214,16 @@ end
   
   --if event is an exact tic and the number of tics is not 0
   if exact and self.configs.num_tics ~= 0 then
-    self:echo("\nCurrent tic length: "..self.configs.tic_length, true, false)
-    self:echo("\nCurrent tic length std dev: "..self.configs.tic_length_std_dev, true, false)
+    self:echo(f"\nCurrent tic length: {self.configs.tic_length}", true, false)
+    self:echo(f"\nCurrent tic length std dev: {self.configs.tic_length_std_dev}", true, false)
     
     --ptl = previous tic length
     local ptl = self.configs.tic_length
     local ptl_std_dev = self.configs.tic_length_std_dev
     
     local time = getStopWatchTime(self.stopwatch)
-    self:echo("\nStopwatch time: "..time, true, false)
-    self:echo("\nTic timer num_tics = "..self.configs.num_tics, true, false)
+    self:echo(f"\nStopwatch time: {time}", true, false)
+    self:echo(f"\nTic timer num_tics = {self.configs.num_tics}", true, false)
     
     if time / self.configs.num_tics &gt; ptl + 3 * ptl_std_dev or time / self.configs.num_tics &lt; ptl - 3 * ptl_std_dev then
       self:echo(string.format("\nTic length of %.3f during this interval is more than 3 standard deviations from average.", time / self.configs.num_tics), true, true)
@@ -307,7 +307,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
     self.temp_timers.warning =
       tempTimer(aggro_length - self.configs.tic_warning, 
         function() 
-          self:echo("\n&lt;green&gt;Tic in "..self.configs.tic_warning.." seconds!\n")
+          self:echo(f"\n&lt;green&gt;Tic in {tic_timer.configs.tic_warning} seconds!\n")
         end
       )
       
@@ -337,7 +337,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
       )
   end
   
-  --if a tic just occured
+  --if a tic just occurred
   if self.configs.aggro_pulse == 0 then
     --late tic timer gives a window after the estimated tic during which a true tic event can arrive
     self.temp_timers.late_tic = 
@@ -385,16 +385,16 @@ registerAnonymousEventHandler("aggro_pulse", "tic_timer:aggro_pulse")</script>
     raiseEvent("tic", true, self.configs.tic_is_early, self.configs.tic_is_late)
   --otherwise, determine estimated tic length based on stopwatch time, current number of tics, and event pulse number
   else
-    self:echo("\nCurrent tic length: "..self.configs.tic_length, true, false)
+    self:echo(f"\nCurrent tic length: {self.configs.tic_length}", true, false)
     
     --ptl = previous tic length
     local ptl = self.configs.tic_length
     local ptl_std_dev = self.configs.tic_length_std_dev
     
-    self:echo("\nStopwatch time: "..time, true, false)
-    self:echo("\nTic timer num_tics = "..self.configs.num_tics, true, false)
-    self:echo("\nNumber of events: "..num_events, true, false)
-    self:echo("\nEvent pulse number: "..event_pulse_num.." / "..num_events_per_tic, true, false)
+    self:echo(f"\nStopwatch time: {time}", true, false)
+    self:echo(f"\nTic timer num_tics = {self.configs.num_tics}", true, false)
+    self:echo(f"\nNumber of events: {num_events}", true, false)
+    self:echo(f"\nEvent pulse number: {event_pulse_num} / {num_events_per_tic}", true, false)
     
     local est_tic_length = time / (self.configs.num_tics + event_pulse_num / num_events_per_tic)
     

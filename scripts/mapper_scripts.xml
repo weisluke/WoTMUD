@@ -1595,14 +1595,15 @@ end</script>
   
   --displaying the zone
   self.zone = getRoomUserData(self.currentID[1], "zone")
-  if self.configs.showzone then
+  if self.configs.showzone 
+    and (self.zone and self.zone ~= "")
+    and (self.zone_urls[self.zone] and self.zone_urls[self.zone] ~= "")
+  then
+    local url = f"https://wotmud.fandom.com/wiki/{self.zone_urls[self.zone]}"
+    
     cechoLink(f"\n&lt;{self.configs.zonecolor}&gt;Zone: {self.zone}",
     function()
-      if wotmudmapper.zone ~= "" then
-        if wotmudmapper.zone_urls[wotmudmapper.zone] ~= "" then
-          openUrl(f"https://wotmud.fandom.com/wiki/{wotmudmapper.zone_urls[wotmudmapper.zone]}")
-        end
-      end
+      openUrl(url)
     end,
     "Click to open the WoTMUD wiki page for this zone", true)
   end

@@ -69,12 +69,6 @@ if targeting[index] then
   targeting.currtgt = tgt
   cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
   
-  if color ~= "reset" then
-    status_bar["target"]:echo(tgt:upper(), color, "c")
-  else
-    status_bar["target"]:echo(tgt:upper(), "white", "c")
-  end
-  
 else
   cecho(f"&lt;red&gt;Target {index} not set!\n")
 end</script>
@@ -137,7 +131,7 @@ for i, tgt in ipairs(targeting) do
 end
 targeting.currtgt = nil
 cecho("Targets cleared.\n")
-status_bar["target"]:echo("Target", "white", "c")</script>
+</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^clear tgts$</regex>
@@ -168,12 +162,7 @@ local color = colors[tgt] or "reset"
   
 targeting.currtgt = tgt
 cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
-
-if color ~= "reset" then
-  status_bar["target"]:echo(tgt:upper(), color, "c")
-else
-  status_bar["target"]:echo(tgt:upper(), "white", "c")
-end</script>
+</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tgt (\S+)$</regex>
@@ -248,22 +237,7 @@ else
   targeting.weaving=false
   cecho("PK method set to: bashing\n")
 end
-
-if targeting.charging then
-  status_bar.tab_settings["charge_pulses"].display = true
-  status_bar:show_status_bar(true)
-else
-  status_bar.tab_settings["charge_pulses"].display = false
-  status_bar:show_status_bar(true)
-end
-
-if targeting.stabbing then
-  status_bar.tab_settings["sneak"].display = true
-  status_bar:show_status_bar(true)
-else
-  status_bar.tab_settings["sneak"].display = false
-  status_bar:show_status_bar(true)
-end</script>
+</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^pkmode$</regex>

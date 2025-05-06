@@ -1598,9 +1598,9 @@ end</script>
   if self.configs.showzone then
     cechoLink(f"\n&lt;{self.configs.zonecolor}&gt;Zone: {self.zone}",
     function()
-      if self.zone ~= "" then
-        if self.zone_urls[self.zone] ~= "" then
-          openUrl(f"https://wotmud.fandom.com/wiki/{self.zone_urls[self.zone]}")
+      if wotmudmapper.zone ~= "" then
+        if wotmudmapper.zone_urls[wotmudmapper.zone] ~= "" then
+          openUrl(f"https://wotmud.fandom.com/wiki/{wotmudmapper.zone_urls[wotmudmapper.zone]}")
         end
       end
     end,

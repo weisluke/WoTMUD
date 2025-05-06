@@ -1071,7 +1071,7 @@ end</script>
 					<packageName></packageName>
 					<script>local w = 26
 local h = 100
-local x = 38
+local x = 40
 local y = 0
 
 weave_trainer.char["total_pracs_label"] =

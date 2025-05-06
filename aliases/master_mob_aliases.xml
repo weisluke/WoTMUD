@@ -18,10 +18,10 @@
 					<name>Display Mob</name>
 					<script>--syntax: setmob
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  cecho("Mob is set as: &lt;gold&gt;"..mob.first.."\n")
+  cecho(f"Mob is set as: &lt;gold&gt;{mob.first}\n")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -33,10 +33,10 @@ end</script>
 					<name>Set Mob</name>
 					<script>--syntax: setmob xxx
 
-mob=mob or {}
+mob = mob or {}
 
 mob.first = matches[2]
-cecho("Mob is set as: &lt;gold&gt;"..mob.first.."\n")
+cecho(f"Mob is set as: &lt;gold&gt;{mob.first}\n")
 </script>
 					<command></command>
 					<packageName></packageName>
@@ -46,10 +46,10 @@ cecho("Mob is set as: &lt;gold&gt;"..mob.first.."\n")
 					<name>Display Mob Target</name>
 					<script>--syntax: mobtgt
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.target then
-  cecho("Mob target is set as: &lt;gold&gt;"..mob.target.."\n")
+  cecho(f"Mob target is set as: &lt;gold&gt;{mob.target}\n")
 else
   cecho("&lt;red&gt;No target specified!\n")
 end</script>
@@ -61,10 +61,10 @@ end</script>
 					<name>Set Mob Target</name>
 					<script>--syntax: mobtgt xxx
 
-mob=mob or {}
+mob = mob or {}
 
-mob.target=matches[2]
-cecho("Mob target is set as: &lt;gold&gt;"..mob.target.."\n")
+mob.target = matches[2]
+cecho(f"Mob target is set as: &lt;gold&gt;{mob.target}\n")
 </script>
 					<command></command>
 					<packageName></packageName>
@@ -74,11 +74,11 @@ cecho("Mob target is set as: &lt;gold&gt;"..mob.target.."\n")
 					<name>Order Mob Kill Target</name>
 					<script>--syntax: omk
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
   if mob.target then
-    send("order "..mob.first.." kill h."..mob.target)
+    send(f"order {mob.first} kill h.{mob.target}")
   else
     cecho("&lt;red&gt;No target specified!\n")
   end
@@ -93,10 +93,10 @@ end</script>
 					<name>Order Mob Kill Specific</name>
 					<script>--syntax: omk xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  send("order "..mob.first.." kill h."..matches[2])
+  send(f"order {mob.first} kill h.{matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -108,10 +108,10 @@ end</script>
 					<name>Order Mob Bash</name>
 					<script>--syntax: omb
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  send("order "..mob.first.." bash")
+  send(f"order {mob.first} bash")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -123,10 +123,10 @@ end</script>
 					<name>Order Mob Bash Specific</name>
 					<script>--syntax: omb xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  send("order "..mob.first.." bash h."..matches[2])
+  send(f"order {mob.first} bash h.{matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -138,11 +138,11 @@ end</script>
 					<name>Order Mob Assist Leader</name>
 					<script>--syntax: oma
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
   if mob.leader then
-    send("order "..mob.first.." assist "..mob.leader)
+    send(f"order {mob.first} assist {mob.leader}")
   else
     cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
   end
@@ -157,10 +157,10 @@ end</script>
 					<name>Order Mob Assist Specific</name>
 					<script>--syntax: oma xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  send("order "..mob.first.." assist "..matches[2])
+  send(f"order {mob.first} assist {matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -172,11 +172,11 @@ end</script>
 					<name>Order Mob Rescue Leader</name>
 					<script>--syntax: omr
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
   if mob.leader then
-    send("order "..mob.first.." rescue "..mob.leader)
+    send(f"order {mob.first} rescue {mob.leader}")
   else
     cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
   end
@@ -191,10 +191,10 @@ end</script>
 					<name>Order Mob Rescue Specific</name>
 					<script>--syntax: omr xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  send("order "..mob.first.." rescue "..matches[2])
+  send(f"order {mob.first} rescue {matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -206,10 +206,10 @@ end</script>
 					<name>Order Mob Sit</name>
 					<script>--syntax: oms
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  send("order "..mob.first.." sit")
+  send(f"order {mob.first} sit")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -221,11 +221,11 @@ end</script>
 					<name>Order Mob Follow</name>
 					<script>--syntax: omf
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
   if mob.leader then
-    send("order "..mob.first.." follow "..mob.leader)
+    send(f"order {mob.first} follow {mob.leader}")
   else
     cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
   end
@@ -240,10 +240,10 @@ end</script>
 					<name>Order Mob Disengage</name>
 					<script>--syntax: omd
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  send("order "..mob.first.." disengage")
+  send(f"order {mob.first} disengage")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -255,10 +255,10 @@ end</script>
 					<name>Order Mob Flee</name>
 					<script>--syntax: omff
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  send("order "..mob.first.." flee")
+  send(f"order {mob.first} flee")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -270,10 +270,10 @@ end</script>
 					<name>Order Mob</name>
 					<script>--syntax: om xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.first then
-  send("order "..mob.first.." "..matches[2])
+  send(f"order {mob.first} {matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -292,10 +292,10 @@ end</script>
 					<name>Display Mob</name>
 					<script>--syntax: setmobs
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  cecho("Mob is set as: &lt;gold&gt;"..mob.second.."\n")
+  cecho(f"Mob is set as: &lt;gold&gt;{mob.second}\n")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -307,10 +307,10 @@ end</script>
 					<name>Set Mob</name>
 					<script>--syntax: setmobs xxx
 
-mob=mob or {}
+mob = mob or {}
 
 mob.second = matches[2]
-cecho("Mob is set as: &lt;gold&gt;"..mob.second.."\n")
+cecho(f"Mob is set as: &lt;gold&gt;{mob.second}\n")
 </script>
 					<command></command>
 					<packageName></packageName>
@@ -320,10 +320,10 @@ cecho("Mob is set as: &lt;gold&gt;"..mob.second.."\n")
 					<name>Display Mob Target</name>
 					<script>--syntax: mobtgts
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.targets then
-  cecho("Mob target is set as: &lt;gold&gt;"..mob.targets.."\n")
+  cecho(f"Mob target is set as: &lt;gold&gt;{mob.targets}\n")
 else
   cecho("&lt;red&gt;No target specified!\n")
 end</script>
@@ -335,10 +335,10 @@ end</script>
 					<name>Set Mob Target</name>
 					<script>--syntax: mobtgts xxx
 
-mob=mob or {}
+mob = mob or {}
 
-mob.targets=matches[2]
-cecho("Mob target is set as: &lt;gold&gt;"..mob.targets.."\n")
+mob.targets = matches[2]
+cecho(f"Mob target is set as: &lt;gold&gt;{mob.targets}\n")
 </script>
 					<command></command>
 					<packageName></packageName>
@@ -348,11 +348,11 @@ cecho("Mob target is set as: &lt;gold&gt;"..mob.targets.."\n")
 					<name>Order Mob Kill Target</name>
 					<script>--syntax: ommk
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
   if mob.targets then
-    send("order "..mob.second.." kill h."..mob.targets)
+    send(f"order {mob.second} kill h.{mob.targets}")
   else
     cecho("&lt;red&gt;No target specified!\n")
   end
@@ -367,10 +367,10 @@ end</script>
 					<name>Order Mob Kill Specific</name>
 					<script>--syntax: ommk xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  send("order "..mob.second.." kill h."..matches[2])
+  send(f"order {mob.second} kill h.{matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -382,10 +382,10 @@ end</script>
 					<name>Order Mob Bash</name>
 					<script>--syntax: ommb
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  send("order "..mob.second.." bash")
+  send(f"order {mob.second} bash")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -397,10 +397,10 @@ end</script>
 					<name>Order Mob Bash Specific</name>
 					<script>--syntax: ommb xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  send("order "..mob.second.." bash h."..matches[2])
+  send(f"order {mob.second} bash h.{matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -412,11 +412,11 @@ end</script>
 					<name>Order Mob Assist Leader</name>
 					<script>--syntax: omma
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
   if mob.leader then
-    send("order "..mob.second.." assist "..mob.leader)
+    send(f"order {mob.second} assist {mob.leader}")
   else
     cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
   end
@@ -431,10 +431,10 @@ end</script>
 					<name>Order Mob Assist Specific</name>
 					<script>--syntax: omma xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  send("order "..mob.second.." assist "..matches[2])
+  send(f"order {mob.second} assist {matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -446,11 +446,11 @@ end</script>
 					<name>Order Mob Rescue Leader</name>
 					<script>--syntax: ommr
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
   if mob.leader then
-    send("order "..mob.second.." rescue "..mob.leader)
+    send(f"order {mob.second} rescue {mob.leader}")
   else
     cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
   end
@@ -465,10 +465,10 @@ end</script>
 					<name>Order Mob Rescue Specific</name>
 					<script>--syntax: ommr xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  send("order "..mob.second.." rescue "..matches[2])
+  send(f"order {mob.second} rescue {matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -480,10 +480,10 @@ end</script>
 					<name>Order Mob Sit</name>
 					<script>--syntax: omms
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  send("order "..mob.second.." sit")
+  send(f"order {mob.second} sit")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -495,11 +495,11 @@ end</script>
 					<name>Order Mob Follow</name>
 					<script>--syntax: ommf
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
   if mob.leader then
-    send("order "..mob.second.." follow "..mob.leader)
+    send(f"order {mob.second} follow {mob.leader}")
   else
     cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
   end
@@ -514,10 +514,10 @@ end</script>
 					<name>Order Mob Disengage</name>
 					<script>--syntax: ommd
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  send("order "..mob.second.." disengage")
+  send(f"order {mob.second} disengage")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -529,10 +529,10 @@ end</script>
 					<name>Order Mob Flee</name>
 					<script>--syntax: omff
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  send("order "..mob.second.." flee")
+  send(f"order {mob.second} flee")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
@@ -544,10 +544,10 @@ end</script>
 					<name>Order Mob</name>
 					<script>--syntax: om xxx
 
-mob=mob or {}
+mob = mob or {}
 
 if mob.second then
-  send("order "..mob.second.." "..matches[2])
+  send(f"order {mob.second} {matches[2]}")
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>

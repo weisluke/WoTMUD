@@ -24,7 +24,7 @@ weave_trainer.container:raiseAll()</script>
   )
 else
   for _, item in pairs(weave_trainer.pracs.queue) do
-    send("practice "..item)
+    send(f"practice {item}")
   end
 end</script>
 				<command></command>
@@ -34,9 +34,9 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show saved setups</name>
 				<script>weave_trainer:echo("Showing saved weave setups\n")
-for k, v in lfs.dir(getMudletHomeDir().."/weave_trainer") do 
-  if k:sub(-4,-1) == ".lua" then
-    cecho(k:sub(1,-5).."\n")
+for fname in lfs.dir(f"{getMudletHomeDir()}/weave_trainer") do 
+  if fname:sub(-4,-1) == ".lua" then
+    cecho(fname:sub(1,-5).."\n")
   end
 end</script>
 				<command></command>

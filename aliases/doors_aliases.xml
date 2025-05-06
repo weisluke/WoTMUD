@@ -22,7 +22,7 @@ door = door or {}
 
 local door = door.first
 if door ~= nil then
-  send("open " .. door)
+  send(f"open {door}")
 else
   cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
 end</script>
@@ -38,7 +38,7 @@ door = door or {}
 
 local door = door.first
 if door ~= nil then
-  send("cl " .. door)
+  send(f"cl {door}")
 else
   cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
 end</script>
@@ -53,7 +53,7 @@ end</script>
 door = door or {}
 
 door.first = matches[2]
-cecho("First door is set as: &lt;gold&gt;" .. matches[2] .. "\n")</script>
+cecho(f"First door is set as: &lt;gold&gt;{door.first}\n")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^setdoor (\S+)$</regex>
@@ -78,7 +78,7 @@ door = door or {}
 
 local door = door.first
 if door ~= nil then
-  send("pick " .. door)
+  send(f"pick {door}")
 else
   cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
 end</script>
@@ -94,7 +94,7 @@ door = door or {}
 
 local door = door.first
 if door ~= nil then
-  send("knock " .. door)
+  send(f"knock {door}")
 else
   cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
 end</script>
@@ -110,7 +110,7 @@ door = door or {}
 
 local door = door.first
 if door ~= nil then
-  send("unlock " .. door)
+  send(f"unlock {door}")
 else
   cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
 end</script>
@@ -126,7 +126,7 @@ door = door or {}
 
 local door = door.first
 if door ~= nil then
-  send("lock " .. door)
+  send(f"lock {door}")
 else
   cecho("&lt;red&gt;First door not set!\n&lt;yellow&gt;'setdoor xxx' to set first door.\n")
 end</script>

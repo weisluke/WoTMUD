@@ -32,7 +32,7 @@ local rents_db = db:get_database("rents")
 local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.name,name))
 
 if table.is_empty(storage) then
-  rents:echo("No items for the character \""..name.."\" found in the rent database.\n", false, true)
+  rents:echo(f"No items for the character \"{name}\" found in the rent database.\n", false, true)
 else
   rents:display_items(storage)
 end</script>
@@ -50,18 +50,18 @@ local storage = {}
 
 if name == "rare" then
   for _, rare in pairs(rents.rares) do
-    storage = table.n_union(storage, db:fetch(rents_db.storage, db:like(rents_db.storage.item,"%"..rare.."%")))
+    storage = table.n_union(storage, db:fetch(rents_db.storage, db:like(rents_db.storage.item, f"%{rare}%")))
   end
 elseif name == "angreal" then
   for _, angreal in pairs(rents.angreal) do
-    storage = table.n_union(storage, db:fetch(rents_db.storage, db:like(rents_db.storage.item,"%"..angreal.."%")))
+    storage = table.n_union(storage, db:fetch(rents_db.storage, db:like(rents_db.storage.item, f"%{angreal}%")))
   end
 else
-  storage = db:fetch(rents_db.storage, db:like(rents_db.storage.item,"%"..name.."%"))
+  storage = db:fetch(rents_db.storage, db:like(rents_db.storage.item, f"%{name}%"))
 end
 
 if table.is_empty(storage) then
-  rents:echo("No items containing the phrase \""..name.."\" found in the rent database\n", false, true)
+  rents:echo(f"No items containing the phrase \"{name}\" found in the rent database\n", false, true)
 else
   rents:display_items(storage)
 end</script>
@@ -75,10 +75,10 @@ end</script>
 
 local rents_db = db:get_database("rents")
 
-local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.zone, "%"..name.."%"))
+local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.zone, f"%{name}%"))
 
 if table.is_empty(storage) then
-  rents:echo("No items for zone \""..name.."\" found in the rent database\n", false, true)
+  rents:echo(f"No items for zone \"{name}\" found in the rent database\n", false, true)
 else
   rents:display_items(storage)
 end</script>
@@ -133,7 +133,7 @@ end
 local rents_db = db:get_database("rents")
 
 db:delete(rents_db.storage, db:eq(rents_db.storage.room, room))
-rents:echo("All items for room \""..getRoomName(room).."\" have been removed from the rent database.\n")</script>
+rents:echo(f"All items for room \"{getRoomName(room)}\" have been removed from the rent database.\n")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^rents delete room( \d+)?$</regex>

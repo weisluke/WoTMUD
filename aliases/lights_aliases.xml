@@ -17,7 +17,7 @@ light = light or {}
 
 if container.first then
   if light.first then
-    send("get "..light.first.." "..container.first)
+    send(f"get {light.first} {container.first}")
   else
     cecho("&lt;red&gt;Light not set!\n")
   end
@@ -35,7 +35,7 @@ end</script>
 light = light or {}
 
 if light.first then
-  send("hold "..light.first)
+  send(f"hold {light.first}")
 else
   cecho("&lt;red&gt;Light not set!\n")
 end
@@ -51,7 +51,7 @@ end
 light = light or {}
 
 if light.first then
-  send("exam "..light.first)
+  send(f"exam {light.first}")
 else
   cecho("&lt;red&gt;Light not set!\n")
 end
@@ -67,7 +67,7 @@ end
 light = light or {}
 
 if light.first then
-  send("remove "..light.first)
+  send(f"remove {light.first}")
 else
   cecho("&lt;red&gt;Light not set!\n")
 end
@@ -85,7 +85,7 @@ light = light or {}
 
 if container.first then
   if light.first then
-    send("put "..light.first.." "..container.first)
+    send(f"put {light.first} {container.first}")
   else
     cecho("&lt;red&gt;Light not set!\n")
   end
@@ -104,9 +104,9 @@ light = light or {}
 
 if matches[3] then
   light.first = matches[4]
-  cecho("Light is set as: &lt;gold&gt;" .. matches[4] .. "\n")
+  cecho(f"Light is set as: &lt;gold&gt;{light.first}\n")
 elseif light.first then
-  cecho("Light is set as: &lt;gold&gt;" .. light.first .. "\n")
+  cecho(f"Light is set as: &lt;gold&gt;{light.first}\n")
 else
   cecho("&lt;red&gt;Light not set!\n")
 end</script>
@@ -120,7 +120,7 @@ end</script>
 
 light = light or {}
 
-light.first=nil
+light.first = nil
 cecho("&lt;red&gt;Light deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>

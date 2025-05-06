@@ -22,8 +22,8 @@
 db:close("equipment")
 
 equip_db:echo("Downloading updated database...\n")
-local url="https://raw.githubusercontent.com/weisluke/WoTMUD/master/Database_equipment.db"
-local saveto = getMudletHomeDir() .. "/Database_equipment.db"
+local url = "https://raw.githubusercontent.com/weisluke/WoTMUD/master/Database_equipment.db"
+local saveto = f"{getMudletHomeDir()}/Database_equipment.db"
 downloadFile(saveto, url)</script>
 				<command></command>
 				<packageName></packageName>
@@ -178,28 +178,6 @@ equip_db:update_item(eq_type, {name=name, weapon_type=weapon_type})</script>
 					<regex>^edb (weapons) weapon_type (.+) \\(.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
-					<name>Update weight</name>
-					<script>local eq_type = matches[2]
-local name = matches[3]
-local weight = tonumber(matches[4])
-
-equip_db:update_item(eq_type, {name=name, weight=weight})</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^edb (weapons|armor|trinkets) weight (.+) (\d+\.?\d*)$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
-					<name>Force update weight</name>
-					<script>local eq_type = matches[2]
-local name = matches[3]
-local weight = tonumber(matches[4])
-
-equip_db:update_item(eq_type, {name=name, weight=weight}, true)</script>
-					<command></command>
-					<packageName></packageName>
-					<regex>^edb force (weapons|armor|trinkets) weight (.+) (\d+\.?\d*)$</regex>
-				</Alias>
-				<Alias isActive="yes" isFolder="no">
 					<name>Update dmg_type</name>
 					<script>local eq_type = matches[2]
 local name = matches[3]
@@ -294,7 +272,7 @@ local field = matches[2]
 
 local equipment = db:get_database("equipment")
 db:delete(equipment[field], true)
-equip_db:echo("The equipment database for ("..field..") has been deleted.\n")
+equip_db:echo(f"The equipment database for ({field}) has been deleted.\n")
 equip_db:create_db()</script>
 					<command></command>
 					<packageName></packageName>
@@ -308,8 +286,8 @@ local field = matches[2]
 local name = matches[3]
 
 local equipment = db:get_database("equipment")
-db:delete(equipment[field], db:like(equipment[field].name, "%"..name.."%"))
-equip_db:echo("The equipment database ("..field..") entry for ("..name..") has been deleted.\n")
+db:delete(equipment[field], db:like(equipment[field].name, f"%{name}%"))
+equip_db:echo(f"The equipment database ({field}) entry for ({name}) has been deleted.\n")
 equip_db:create_db()</script>
 					<command></command>
 					<packageName></packageName>
@@ -324,14 +302,14 @@ local sheet2 = matches[4]
 
 local equipment = db:get_database("equipment")
 
-local items = db:fetch(equipment[sheet1], db:like(equipment[sheet1].name, "%"..name.."%"))
+local items = db:fetch(equipment[sheet1], db:like(equipment[sheet1].name, f"%{name}%"))
 
 if table.is_empty(items) then
-  equip_db:echo("\nItem ("..name..") not found in the equipment database.\n", false, true)   
+  equip_db:echo(f"\nItem ({name}) not found in the equipment database.\n", false, true)   
 elseif table.size(items) &gt; 1 then
-  equip_db:echo("\nItem ("..name..") is not unique. Found the following items:\n", false, true)
+  equip_db:echo(f"\nItem ({name}) is not unique. Found the following items:\n", false, true)
   for _, item in pairs(items) do
-    cecho(item.name.."\n")
+    cecho(f"{item.name}\n")
   end
 else
   item = items[1]
@@ -340,7 +318,7 @@ else
     item.abs = nil
   end
   db:add(equipment[sheet2], item)
-  equip_db:echo("Item ("..item.name..") moved from ("..sheet1..") to ("..sheet2..").\n")  
+  equip_db:echo(f"Item ({item.name}) moved from ({sheet1}) to ({sheet2}).\n")  
 end</script>
 				<command></command>
 				<packageName></packageName>

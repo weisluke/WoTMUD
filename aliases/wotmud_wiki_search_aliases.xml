@@ -4,7 +4,7 @@
 	<AliasPackage>
 		<Alias isActive="yes" isFolder="no">
 			<name>Wiki Search</name>
-			<script>openUrl("https://wotmud.fandom.com/wiki/Special:Search?query="..matches[2])</script>
+			<script>openUrl(f"https://wotmud.fandom.com/wiki/Special:Search?query={matches[2]}")</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^wiki (.+)$</regex>

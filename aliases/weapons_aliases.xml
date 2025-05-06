@@ -15,7 +15,7 @@
 weapon = weapon or {}
 
 if weapon.first then
-  send("sheath "..weapon.first)
+  send(f"sheath {weapon.first}")
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -34,7 +34,7 @@ end</script>
 				<name>Scalp Corpse</name>
 				<script>--syntax: scc
 for i=1, string.len(matches[2]),1 do
-  send("scalp "..i..".corpse")
+  send(f"scalp {i}.corpse")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -43,7 +43,7 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Scalp Corpses</name>
 				<script>for i=1,tonumber(matches[2]),1 do
-  send("scalp "..i..".corpse")
+  send(f"scalp {i}.corpse")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -51,7 +51,7 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Scalp specific corpse</name>
-				<script>send("scalp "..matches[2]..".corpse")</script>
+				<script>send(f"scalp {matches[2]}.corpse")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^sc(\d+)$</regex>
@@ -70,7 +70,7 @@ end</script>
 weapon = weapon or {}
 
 if weapon.first then
-  send("draw "..weapon.first)
+  send(f"draw {weapon.first}")
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -85,7 +85,7 @@ end</script>
 weapon = weapon or {}
 
 if weapon.first then
-  send("rem "..weapon.first)
+  send(f"rem {weapon.first}")
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -100,7 +100,7 @@ end</script>
 weapon = weapon or {}
 
 if weapon.first then
-  send("wield "..weapon.first)
+  send(f"wield {weapon.first}")
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -116,9 +116,9 @@ weapon = weapon or {}
 
 if matches[3] then
   weapon.first = matches[4]
-  cecho("Weapon is set as: &lt;gold&gt;"..matches[4].."\n")
+  cecho(f"Weapon is set as: &lt;gold&gt;{weapon.first}\n")
 elseif weapon.first then
-  cecho("Weapon is set as: &lt;gold&gt;"..weapon.first.."\n")
+  cecho(f"Weapon is set as: &lt;gold&gt;{weapon.first}\n")
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
@@ -132,7 +132,7 @@ end</script>
 
 weapon = weapon or {}
 
-weapon.first=nil
+weapon.first = nil
 cecho("&lt;red&gt;Weapon deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>

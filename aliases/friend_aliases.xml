@@ -14,9 +14,9 @@
 
 if matches[3] then
   friend = matches[4]
-  cecho("Friend set to "..friend.."\n")
+  cecho(f"Friend set to {friend}\n")
 elseif friend then
-  cecho("Friend set as "..friend.."\n")
+  cecho(f"Friend set as {friend}\n")
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
@@ -29,7 +29,7 @@ end</script>
 				<script>--syntax: tf what
 
 if friend then
-  send("tell "..friend.." "..matches[2])
+  send(f"tell {friend} {matches[2]}")
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
@@ -42,7 +42,7 @@ end</script>
 				<script>--syntax: af
 
 if friend then
-  send("assist "..friend)
+  send(f"assist {friend}")
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
@@ -55,7 +55,7 @@ end</script>
 				<script>--syntax: gf
 
 if friend then
-  send("group "..friend)
+  send(f"group {friend}")
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
@@ -68,7 +68,7 @@ end</script>
 				<script>--syntax: df
 
 if friend then
-  send("diagnose "..friend)
+  send(f"diagnose {friend}")
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
@@ -81,7 +81,7 @@ end</script>
 				<script>--syntax: lf
 
 if friend then
-  send("look "..friend)
+  send(f"look {friend}")
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
@@ -94,7 +94,7 @@ end</script>
 				<script>--syntax: rf
 
 if friend then
-  send("rescue "..friend)
+  send(f"rescue {friend}")
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>

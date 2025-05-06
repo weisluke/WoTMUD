@@ -32,7 +32,7 @@ table.sort(dice_rolls, dice_sort)
 
 cecho("Dice rolls:\n")
 for _, tab in pairs(dice_rolls) do
-  cecho(tab.name.." = "..tab.value.."\n")
+  cecho(f"{tab.name} = {tab.value}\n")
 end</script>
 				<command></command>
 				<packageName></packageName>

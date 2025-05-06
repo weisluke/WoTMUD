@@ -5,7 +5,7 @@
 		<Alias isActive="yes" isFolder="no">
 			<name>Get LS/DS Numbers</name>
 			<script>local url = "https://api.writtenrealms.com/api/v1/wot/who/?format=json"
-local saveto = getMudletHomeDir() .. "/player_numbers.json"
+local saveto = f"{getMudletHomeDir()}/player_numbers.json"
 downloadFile(saveto, url)
 send("who",false)</script>
 			<command></command>

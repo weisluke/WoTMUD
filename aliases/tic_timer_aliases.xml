@@ -51,7 +51,7 @@ local tic_length = tonumber(matches[2])
 tic_timer:reset()
 tic_timer.configs.tic_length = tic_length
 tic_timer.tic_history[1] = tic_length
-tic_timer:echo("&lt;green&gt;Tic timer reset with a tic length of "..tic_length.." seconds!\n")</script>
+tic_timer:echo(f"&lt;green&gt;Tic timer reset with a tic length of {tic_length} seconds!\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tic length (\d+(\.\d+)?)$</regex>
@@ -73,7 +73,7 @@ tic_timer:echo(string.format("Tic length std dev updated to: %.3f seconds.\n", t
 
 tic_timer.configs.dbug = not tic_timer.configs.dbug
 tic_timer:echo("Tic timer debug set to: " .. (tic_timer.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
-table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)</script>
+table.save(f"{getMudletHomeDir()}/tic_timer.configs.lua", tic_timer.configs)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tic timer debug$</regex>
@@ -90,61 +90,61 @@ for name, id in pairs(tic_timer.mob_triggers) do
   tic_timer.mob_triggers[name] = nil
 end
 
-tic_timer.mob_triggers["the_he"] = tempRegexTrigger("The "..mob.." clambers to his feet\\.$", 
+tic_timer.mob_triggers["the_he"] = tempRegexTrigger(f"The {mob} clambers to his feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer.mob_triggers["a_he"] = tempRegexTrigger("A "..mob.." clambers to his feet\\.$", 
+tic_timer.mob_triggers["a_he"] = tempRegexTrigger(f"A {mob} clambers to his feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer.mob_triggers["an_he"] = tempRegexTrigger("An "..mob.." clambers to his feet\\.$", 
+tic_timer.mob_triggers["an_he"] = tempRegexTrigger(f"An {mob} clambers to his feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer.mob_triggers["the_she"] = tempRegexTrigger("The "..mob.." clambers to her feet\\.$", 
+tic_timer.mob_triggers["the_she"] = tempRegexTrigger(f"The {mob} clambers to her feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer.mob_triggers["a_she"] = tempRegexTrigger("A "..mob.." clambers to her feet\\.$", 
+tic_timer.mob_triggers["a_she"] = tempRegexTrigger(f"A {mob} clambers to her feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer.mob_triggers["an_she"] = tempRegexTrigger("An "..mob.." clambers to her feet\\.$", 
+tic_timer.mob_triggers["an_she"] = tempRegexTrigger(f"An {mob} clambers to her feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer.mob_triggers["the_it"] = tempRegexTrigger("The "..mob.." clambers to its feet\\.$", 
+tic_timer.mob_triggers["the_it"] = tempRegexTrigger(f"The {mob} clambers to its feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer.mob_triggers["a_it"] = tempRegexTrigger("A "..mob.." clambers to its feet\\.$", 
+tic_timer.mob_triggers["a_it"] = tempRegexTrigger(f"A {mob} clambers to its feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer.mob_triggers["an_it"] = tempRegexTrigger("An "..mob.." clambers to its feet\\.$", 
+tic_timer.mob_triggers["an_it"] = tempRegexTrigger(f"An {mob} clambers to its feet\\.$", 
   function() 
     if tic_timer.configs.on then
       tic_timer:pulse_event(6)
     end 
   end)
-tic_timer:echo("Created mob stand triggers for ("..mob..")\n")</script>
+tic_timer:echo(f"Created mob stand triggers for ({mob})\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tic timer mob (.+)$</regex>
@@ -166,8 +166,8 @@ display(tic_timer.tic_history)</script>
 local num = tonumber(matches[2])
 if num &lt;= 10 then
   tic_timer.configs.tic_warning = tonumber(matches[2])
-  tic_timer:echo("Tic warning message updated to "..num.." seconds.\n")
-  table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)
+  tic_timer:echo(f"Tic warning message updated to {num} seconds.\n")
+  table.save(f"{getMudletHomeDir()}/tic_timer.configs.lua", tic_timer.configs)
 else
   tic_timer:echo("Tic warning message must be less than 10 seconds.\n", false, true)
 end</script>
@@ -180,8 +180,8 @@ end</script>
 				<script>--syntax: tic timer show aggros
 
 tic_timer.configs.show_aggros = not tic_timer.configs.show_aggros
-tic_timer:echo("Tic timer will now " .. (tic_timer.configs.show_aggros and "&lt;green&gt;show&lt;reset&gt;" or "&lt;red&gt;hide&lt;reset&gt;").." aggro pulse messages.\n")
-table.save(getMudletHomeDir() .. "/tic_timer.configs.lua", tic_timer.configs)</script>
+tic_timer:echo("Tic timer will now " .. (tic_timer.configs.show_aggros and "&lt;green&gt;show&lt;reset&gt;" or "&lt;red&gt;hide&lt;reset&gt;") .. " aggro pulse messages.\n")
+table.save(f"{getMudletHomeDir()}/tic_timer.configs.lua", tic_timer.configs)</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^tic timer show aggros$</regex>
@@ -200,7 +200,7 @@ display(tic_timer.configs)</script>
 				<script>local txt = ""
 
 for _, time in ipairs(tic_timer.tic_history) do
-  txt = txt..time.."\n"
+  txt = f"{txt}{time}\n"
 end
 
 setClipboardText(txt)</script>

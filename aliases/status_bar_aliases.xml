@@ -14,15 +14,15 @@
 if (not tonumber(val)) or (tonumber(val) &lt; 1) then
   status_bar:echo("Width must be a positive number (interpreted as a percentage of screen width).\n",false,true)
 else
-  val = val.."%"
-  status_bar:echo("Status bar width updated from ("..status_bar.configs.w..") to ("..val..").\n")
+  val = f"{val}%"
+  status_bar:echo(f"Status bar width updated from ({status_bar.configs.w}) to ({val}).\n")
   status_bar.configs.w = val
   
   local mx, my = getMainWindowSize()
   local x = getBorderLeft() / mx * 100
-  status_bar.configs.x = x.."%"
+  status_bar.configs.x = f"{x}%"
   
-  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", status_bar.configs)
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", status_bar.configs)
   status_bar:show_status_bar(true)
 end</script>
 				<command></command>
@@ -35,11 +35,11 @@ end</script>
 if (not tonumber(val)) or (tonumber(val) &lt; 1) then
   status_bar:echo("Height must be a positive number (interpreted as a percentage of screen height).\n",false,true)
 else
-  val = val.."%"
-  status_bar:echo("Status bar height updated from ("..status_bar.configs.h..") to ("..val..").\n")
+  val = f"{val}%"
+  status_bar:echo(f"Status bar height updated from ({status_bar.configs.h}) to ({val}).\n")
   status_bar.configs.h = val
-  status_bar.configs.y = "-"..val
-  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", status_bar.configs)
+  status_bar.configs.y = f"-{val}"
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", status_bar.configs)
   status_bar:show_status_bar(true)
 end</script>
 				<command></command>
@@ -53,9 +53,9 @@ if (not tonumber(val)) or (tonumber(val) &lt; 1) then
   status_bar:echo("Fontsize must be a positive number.\n",false,true)
 else
   val = tonumber(val)
-  status_bar:echo("Status bar fontsize updated from ("..status_bar.configs.fontsize..") to ("..val..").\n")
+  status_bar:echo(f"Status bar fontsize updated from ({status_bar.configs.fontsize}) to ({val}).\n")
   status_bar.configs.fontsize = val
-  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", status_bar.configs)
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", status_bar.configs)
   status_bar:show_status_bar(true)
 end</script>
 				<command></command>

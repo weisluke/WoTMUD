@@ -113,7 +113,7 @@ if communications.configs.comms_window[key] ~= nil then
     end
   elseif key == "tabs" then
     if not color_table[val] then
-      communications:echo("Color (" .. val .. ") not known.\n", false, true)
+      communications:echo(f"Color ({val}) not known.\n", false, true)
     else
       local tabs = communications.configs.comms_window.tabs
       communications:echo(f"Communications window ({key}) updated from (&lt;{tabs}&gt;{tabs}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")

@@ -8,7 +8,7 @@
 
 local d1 = tonumber(matches[2])
 local d2 = tonumber(matches[3])
-local who = matches[4].." roll "
+local who = f"{matches[4]} roll "
 local index = 1
 
 while table.contains(dice_rolls, who..index) do

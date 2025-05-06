@@ -19,10 +19,11 @@
 					<script>--syntax: createarea xxx
 
 local areaID = addAreaName(matches[2])
+
 if areaID then
-  wotmudmapper:echo("New area (" .. matches[2] .. ") created.\n")
+  wotmudmapper:echo(f"New area ({matches[2]}) created.\n")
 else
-  wotmudmapper:echo("Area (" .. matches[2] .. ") already exists.\n",false,true)
+  wotmudmapper:echo(f"Area ({matches[2]}) already exists.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -34,16 +35,16 @@ end</script>
 
 local areaID = addAreaName(matches[2])
 
-if areaID and wotmudmapper.roomname~="" then
+if areaID and wotmudmapper.roomname ~= "" then
   wotmudmapper.currentID = wotmudmapper:create_room(0, 0, 0, areaID)
   wotmudmapper:echo("New room created.\n")
   centerview(wotmudmapper.currentID[1])
-elseif wotmudmapper.roomname~="" then
+elseif wotmudmapper.roomname ~= "" then
   wotmudmapper.currentID = wotmudmapper:create_room(0, 0, 0, matches[2])
   wotmudmapper:echo("New room created.\n")
   centerview(wotmudmapper.currentID[1])
 else
-  wotmudmapper:echo("Current room name not known.\n",false,true)
+  wotmudmapper:echo("Current room name not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -53,22 +54,24 @@ end</script>
 					<name>Move Room to Area</name>
 					<script>--syntax: movetoarea xxx
 
-local moved
+local moved = false
+
 if table.size(wotmudmapper.currentID) == 1 then
-  for k, v in pairs(getAreaTable()) do
-    if k == matches[2] then
-      setRoomArea(wotmudmapper.currentID[1], v)
-      wotmudmapper:echo("Room ("..wotmudmapper.currentID[1]..") moved to area (" .. k .. ").\n")
+  for name, id in pairs(getAreaTable()) do
+    if name == matches[2] then
+      setRoomArea(wotmudmapper.currentID[1], id)
+      wotmudmapper:echo(f"Room ({wotmudmapper.currentID[1]}) moved to area ({name}).\n")
       moved = true
       centerview(wotmudmapper.currentID[1])
       break
     end
   end
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end
+
 if not moved then
-  wotmudmapper:echo("Area ("..matches[2]..") not known.\n",false,true)
+  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -90,7 +93,7 @@ wotmudmapper:show_area_list()</script>
 if areaid then
   wotmudmapper:show_room_list(areaid)
 else
-  wotmudmapper:echo("Area ("..matches[2]..") not known.\n",false,true)
+  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -100,19 +103,20 @@ end</script>
 					<name>Rename Area</name>
 					<script>--syntax: renamearea IDnumber newname
 --IDnumber can be found from the "arealist" command
-local renamed
-for k, v in pairs(getAreaTable()) do
-  if v == tonumber(matches[2]) then
-    setAreaName(v, matches[3])
-    wotmudmapper:echo(
-      "Area (" .. k .. ") renamed to (" .. matches[3] .. ").\n"
-    )
+
+local renamed = false
+
+for name, id in pairs(getAreaTable()) do
+  if id == tonumber(matches[2]) then
+    setAreaName(id, matches[3])
+    wotmudmapper:echo(f"Area ({name}) renamed to ({matches[3]}).\n")
     renamed = true
     break
   end
 end
+
 if not renamed then
-  wotmudmapper:echo("Area ("..matches[2]..") not known.\n", false, true)
+  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -122,23 +126,25 @@ end</script>
 					<name>Delete an Area</name>
 					<script>--syntax: deletearea xxx
 
-local deleted
-for k, v in pairs(getAreaTable()) do
-  if k == matches[2] then
-    if type(getMapLabels(v))=="table" then
-      for kk,vv in pairs(getMapLabels(v)) do
-        deleteMapLabel(v,kk)
+local deleted = false
+
+for name, id in pairs(getAreaTable()) do
+  if name == matches[2] then
+    if type(getMapLabels(id)) == "table" then
+      for i, txt in pairs(getMapLabels(id)) do
+        deleteMapLabel(id, i)
       end
     end
-    deleteArea(v)
+    deleteArea(id)
     updateMap()
-    wotmudmapper:echo("Area ("..matches[2]..") deleted. All its rooms, if any, have been deleted.\n")
+    wotmudmapper:echo(f"Area ({matches[2]}) deleted. All its rooms, if any, have been deleted.\n")
     deleted = true
     break
   end
 end
+
 if not deleted then
-  wotmudmapper:echo("Area ("..matches[2]..") not known.\n",false,true)
+  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -151,9 +157,9 @@ end</script>
 if roomExists(matches[2]) then
   deleteRoom(matches[2])
   updateMap()
-  wotmudmapper:echo("Room ("..matches[2]..") deleted.\n")
+  wotmudmapper:echo(f"Room ({matches[2]}) deleted.\n")
 else
-  wotmudmapper:echo("Room ("..matches[2]..") not known.\n",false,true)
+  wotmudmapper:echo(f"Room ({matches[2]}) not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -163,7 +169,7 @@ end</script>
 					<name>Update Room Name</name>
 					<script>--syntax: updatederoomname roomIDnumber
 
-setRoomName(matches[2],wotmudmapper.roomname)
+setRoomName(matches[2], wotmudmapper.roomname)
 wotmudmapper:echo("Room name updated.\n")</script>
 					<command></command>
 					<packageName></packageName>
@@ -190,18 +196,14 @@ wotmudmapper:echo("Room description updated.\n")</script>
 					<name>List Room Data</name>
 					<script>--Syntax: listroomdata
 --displays a list of all the data stored for your current room (this includes the description, zone, and doors)
+
 if table.size(wotmudmapper.currentID) == 1 then
-  for k, v in pairs(getRoomUserDataKeys(wotmudmapper.currentID[1])) do
-    wotmudmapper:echo(
-      "&lt;gold&gt;Key&lt;white&gt;: " ..
-      v ..
-      ", &lt;gold&gt;value&lt;white&gt;: " ..
-      getRoomUserData(wotmudmapper.currentID[1], v) ..
-      "&lt;reset&gt;\n"
-    )
+  for _, key in pairs(getRoomUserDataKeys(wotmudmapper.currentID[1])) do
+    local val = getRoomUserData(wotmudmapper.currentID[1], key)
+    wotmudmapper:echo(f"&lt;gold&gt;Key&lt;white&gt;: {key}, &lt;gold&gt;value&lt;white&gt;: {val}&lt;reset&gt;\n")
   end
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -210,13 +212,12 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Set Room Data</name>
 					<script>--Syntax: setroomdata field data
+
 if table.size(wotmudmapper.currentID) == 1 then
   setRoomUserData(wotmudmapper.currentID[1], matches[2], matches[3])
-  wotmudmapper:echo(
-    "Room data for (" .. matches[2] .. ") set to (" .. matches[3] .. ").\n"
-  )
+  wotmudmapper:echo(f"Room data for ({matches[2]}) set to ({matches[3]}).\n")
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -226,17 +227,13 @@ end</script>
 					<name>Get Room Data</name>
 					<script>--Syntax: getroomdata field
 --Displays the data stored for a specific field
+
 if table.size(wotmudmapper.currentID) == 1 then
-  if getRoomUserData(wotmudmapper.currentID[1], matches[2]) ~= "" then
-    wotmudmapper:echo(
-      "Room data for (" ..
-      matches[2] ..
-      "): " ..
-      getRoomUserData(wotmudmapper.currentID[1], matches[2]) ..
-      ".\n"
-    )
+  local val = getRoomUserData(wotmudmapper.currentID[1], matches[2])
+  if val ~= "" then
+    wotmudmapper:echo(f"Room data for ({matches[2]}): {val}.\n")
   else
-    wotmudmapper:echo("No data for key (" .. matches[2] .. ") stored for room.\n", false, true)
+    wotmudmapper:echo(f"No data for key ({matches[2]}) stored for room.\n", false, true)
   end
 else
   wotmudmapper:echo("Current room not known.\n", false, true)
@@ -249,11 +246,12 @@ end</script>
 					<name>Delete Room Data</name>
 					<script>--Syntax: deleteroomdata field
 --Will delete the user data stored for a specific field in the current room
+
 if table.size(wotmudmapper.currentID) == 1 then
   clearRoomUserDataItem(wotmudmapper.currentID[1], matches[2])
-  wotmudmapper:echo("Room data for (" .. matches[2] .. ") deleted.\n")
+  wotmudmapper:echo(f"Room data for ({matches[2]}) deleted.\n")
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -264,11 +262,12 @@ end</script>
 					<script>--syntax: deleteallroomdata
 --This will delete ALL user specific data about a room
 --This includes clearing out the room description, zone, and doors
+
 if table.size(wotmudmapper.currentID) == 1 then
   clearRoomUserData(wotmudmapper.currentID[1])
   wotmudmapper:echo("All room data deleted.\n")
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -281,9 +280,9 @@ end</script>
 if table.size(wotmudmapper.currentID) == 1 then
   setRoomUserData(wotmudmapper.currentID[1], "zone", matches[2])
   wotmudmapper.zone = matches[2]
-  wotmudmapper:echo("Zone of current room set to (" .. matches[2] .. ")\n")
+  wotmudmapper:echo(f"Zone of current room set to ({matches[2]})\n")
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -293,8 +292,8 @@ end</script>
 					<name>Change Mapping Zone</name>
 					<script>--syntax: cmz zonename
 
-wotmudmapper.zone=matches[2]
-wotmudmapper:echo("New rooms will be of zone ("..matches[2]..").\n")</script>
+wotmudmapper.zone = matches[2]
+wotmudmapper:echo(f"New rooms will be of zone ({matches[2]}).\n")</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^cmz (.+)$</regex>
@@ -303,15 +302,16 @@ wotmudmapper:echo("New rooms will be of zone ("..matches[2]..").\n")</script>
 					<name>Shift room</name>
 					<script>--syntax: shiftroom direction
 --shifts the current room in the direction
+
 local direction = matches[2]
 if table.size(wotmudmapper.currentID) == 1 then
-  local x,y,z = getRoomCoordinates(wotmudmapper.currentID[1])
-  x,y,z = wotmudmapper:set_coordinates_offset(x, y, z, direction)
+  local x, y, z = getRoomCoordinates(wotmudmapper.currentID[1])
+  x, y, z = wotmudmapper:set_coordinates_offset(x, y, z, direction)
   setRoomCoordinates(wotmudmapper.currentID[1], x, y, z)
-  wotmudmapper:echo("Current room shifted ("..direction..").\n")
+  wotmudmapper:echo(f"Current room shifted ({direction}).\n")
   centerview(wotmudmapper.currentID[1])
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -319,21 +319,13 @@ end</script>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Change zone color</name>
-					<script>local color = matches[2]
-if color_table[color] then
-  wotmudmapper:echo(
-    "Map (zonecolor) changed from (&lt;" ..
-    wotmudmapper.configs.zonecolor ..
-    "&gt;" ..
-    wotmudmapper.configs.zonecolor ..
-    "&lt;reset&gt;) to (&lt;" ..
-    color ..
-    "&gt;" ..
-    color ..
-    "&lt;reset&gt;).\n"
-  )
-  wotmudmapper.configs.zonecolor = color
-  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+					<script>local new_color = matches[2]
+
+if color_table[new_color] then
+  local old_color = wotmudmapper.configs.zonecolor
+  wotmudmapper:echo(f"Map (zonecolor) changed from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{new_color}&gt;{new_color}&lt;reset&gt;).\n")
+  wotmudmapper.configs.zonecolor = new_color
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
 else
   wotmudmapper:echo("Color not known.\n", false, true)
 end</script>
@@ -347,12 +339,13 @@ end</script>
 --adds a one character marker to the room on the map. "setmarker " to clear the marker
 --(if it's hard to tell, that means type in setmarker followed by one space to clear the room marker)
 --ex: "setmarker #" will place a "#" symbol on the room in the map
+
 if table.size(wotmudmapper.currentID) == 1 then
   setRoomChar(wotmudmapper.currentID[1], matches[2])
-  wotmudmapper:echo("Marker ("..matches[2]..") added to current room.\n")
+  wotmudmapper:echo(f"Marker ({matches[2]}) added to current room.\n")
   updateMap()
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -371,11 +364,11 @@ end</script>
 local doortype = matches[2]
 local direction = matches[3]
 local doorname = matches[4]
-local numtype = {visible=1,hidden=2,locked=3}
+local numtype = {visible = 1, hidden = 2, locked = 3}
 if table.size(wotmudmapper.currentID) == 1 then
   wotmudmapper:create_door(wotmudmapper.currentID[1], direction, numtype[doortype], doorname)
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -384,13 +377,16 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Delete Door</name>
 					<script>--Syntax: deletedoor direction
+
 local direction = matches[2]
+
 if table.size(wotmudmapper.currentID) == 1 then
-  wotmudmapper:echo("Door ("..direction..") named ("..getRoomUserData(wotmudmapper.currentID[1],direction)..") deleted.\n")
+  local name = getRoomUserData(wotmudmapper.currentID[1], direction)
+  wotmudmapper:echo(f"Door ({direction}) named ({name}) deleted.\n")
   wotmudmapper:create_door(wotmudmapper.currentID[1], direction, 0, "")
   clearRoomUserDataItem(wotmudmapper.currentID[1], direction)
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -459,21 +455,12 @@ wotmudmapper:door_com_dir("lock", matches[2])</script>
 				</AliasGroup>
 				<Alias isActive="yes" isFolder="no">
 					<name>Change door color</name>
-					<script>local color = matches[2]
-if color_table[color] then
-  wotmudmapper:echo(
-    "Map (doorcolor) changed from (&lt;" ..
-    wotmudmapper.configs.doorcolor ..
-    "&gt;" ..
-    wotmudmapper.configs.doorcolor ..
-    "&lt;reset&gt;) to (&lt;" ..
-    color ..
-    "&gt;" ..
-    color ..
-    "&lt;reset&gt;).\n"
-  )
-  wotmudmapper.configs.doorcolor = color
-  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+					<script>local new_color = matches[2]
+if color_table[new_color] then
+  local old_color = wotmudmapper.configs.doorcolor
+  wotmudmapper:echo(f"Map (doorcolor) changed from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{new_color}&gt;{new_color}&lt;reset&gt;).\n")
+  wotmudmapper.configs.doorcolor = new_color
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
 else
   wotmudmapper:echo("Color not known.\n", false, true)
 end</script>
@@ -493,8 +480,8 @@ end</script>
 					<script>--syntax: map legend
 
 cecho("&lt;light_goldenrod&gt;Map Legend\n")
-for k, v in pairs(wotmudmapper.map_colors) do
-  cecho("   &lt;"..v.."&gt;" .. k .. "&lt;reset&gt;\n")
+for env, color in pairs(wotmudmapper.map_colors) do
+  cecho(f"   &lt;{color}&gt;{env}&lt;reset&gt;\n")
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -506,17 +493,16 @@ end</script>
 --set current room to a particular environment type
 
 local env = string.lower(matches[2])
-
 if table.size(wotmudmapper.currentID) == 1 then
   if wotmudmapper.map_colors[env] then
     setRoomEnv(wotmudmapper.currentID[1], wotmudmapper.room_type_env_nums[env])
-    wotmudmapper:echo("Type of current room changed to &lt;"..wotmudmapper.map_colors[env].."&gt;"..env.."&lt;reset&gt;.\n")
+    wotmudmapper:echo(f"Type of current room changed to &lt;{wotmudmapper.map_colors[env]}&gt;{env}&lt;reset&gt;.\n")
     updateMap()
   else
-    wotmudmapper:echo("Type of room ("..env..") not known.\n",false,true)
+    wotmudmapper:echo(f"Type of room ({env}) not known.\n", false, true)
   end
 else
-  wotmudmapper:echo("Current room not known.\n",false,true)
+  wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -528,13 +514,12 @@ end</script>
 --make the rooms you're mapping all of a particular environment type
 
 local env = string.lower(matches[2])
-
 if wotmudmapper.map_colors[env] then
   wotmudmapper.configs.envcolor = wotmudmapper.room_type_env_nums[env]
-  wotmudmapper:echo("New rooms will be of type &lt;"..wotmudmapper.map_colors[env].."&gt;"..env.."&lt;reset&gt;.\n")
-  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+  wotmudmapper:echo(f"New rooms will be of type &lt;{wotmudmapper.map_colors[env]}&gt;{env}&lt;reset&gt;.\n")
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
 else
-  wotmudmapper:echo("Type of room ("..matches[2]..") not known.\n",false,true)
+  wotmudmapper:echo(f"Type of room ({matches[2]}) not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -546,7 +531,7 @@ end</script>
 
 wotmudmapper.map_colors = table.deepcopy(wotmudmapper.default_map_colors)
 wotmudmapper:echo("Map colors reset to default values.\n")
-table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
+table.save(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
 wotmudmapper:set_map_colors()</script>
 					<command></command>
 					<packageName></packageName>
@@ -555,31 +540,20 @@ wotmudmapper:set_map_colors()</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Change Map Colors</name>
 					<script>local env = string.lower(matches[2])
-local color = matches[3]
+local new_color = matches[3]
 
 if wotmudmapper.map_colors[env] ~= nil then
-  if color_table[color] then
-    wotmudmapper:echo(
-      "Map color for (" ..
-      env ..
-      ") changed from (&lt;" ..
-      wotmudmapper.map_colors[env] ..
-      "&gt;" ..
-      wotmudmapper.map_colors[env] ..
-      "&lt;reset&gt;) to (&lt;" ..
-      color ..
-      "&gt;" ..
-      color ..
-      "&lt;reset&gt;).\n"
-    )
-    wotmudmapper.map_colors[env] = color
-    table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
+  if color_table[new_color] then
+    local old_color = wotmudmapper.map_colors[env]
+    wotmudmapper:echo(f"Map color for ({env}) changed from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{new_color}&gt;{new_color}&lt;reset&gt;).\n")
+    wotmudmapper.map_colors[env] = new_color
+    table.save(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
     wotmudmapper:set_map_colors()
   else
     wotmudmapper:echo("Color not known.\n", false, true)
   end
 else
-  wotmudmapper:echo("Mapper window key (" .. env .. ") not known.\n", false, true)
+  wotmudmapper:echo(f"Mapper window key ({env}) not known.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -612,10 +586,10 @@ if table.size(wotmudmapper.currentID) == 1 and offsets[place] then
   if dir == "w" then
     x = x - 3 * num
   end
-  local directory = getMudletHomeDir().."/map image labels/horizontalmarker" .. num .. ".png"
+  local directory = f"{getMudletHomeDir()}/map image labels/horizontalmarker{num}.png"
   createMapImageLabel(areaID, directory, x, y, pos3, 1.5 + 3 * num, 0.3, 100, false)
 else
-  wotmudmapper:echo("Current room not known, or invalid location/direction specification.\n",false,true)
+  wotmudmapper:echo("Current room not known, or invalid location/direction specification.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -641,10 +615,10 @@ if table.size(wotmudmapper.currentID) == 1 and offsets[place] then
   if dir == "n" then
     y = y + 3 * num
   end
-  local directory = getMudletHomeDir().."/map image labels/verticalmarker" .. num .. ".png"
+  local directory = f"{getMudletHomeDir()}/map image labels/verticalmarker{num}.png"
   createMapImageLabel(areaID, directory, x, y, pos3, 0.3, 1.5 + 3 * num, 100, false)
 else
-  wotmudmapper:echo("Current room not known, or invalid location/direction specification.\n",false,true)
+  wotmudmapper:echo("Current room not known, or invalid location/direction specification.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -660,8 +634,17 @@ local labeltext = matches[4]
 local r, g, b
 local fontsize = 30
 
-local offsets = {n={-0.5,2.5},s={-0.5,-0.5},e={1.0,1.0},nw = {-2.5, 2.5}, ne = {0.5, 2.5}, sw = {-2.5, -0.5}, se = {0.5, -0.5}}
-
+local offsets =
+  {
+    n = {-0.5, 2.5},
+    s = {-0.5, -0.5},
+    e = {1.0, 1.0},
+    nw = {-2.5, 2.5},
+    ne = {0.5, 2.5},
+    sw = {-2.5, -0.5},
+    se = {0.5, -0.5},
+  }
+  
 if table.size(wotmudmapper.currentID) == 1 and offsets[place] and color_table[color] then
   r, g, b = unpack(color_table[color])
   local areaID = getRoomArea(wotmudmapper.currentID[1])
@@ -672,7 +655,7 @@ if table.size(wotmudmapper.currentID) == 1 and offsets[place] and color_table[co
   y = pos2 + y
   createMapLabel(areaID, labeltext, x, y, pos3, r, g, b, 50, 50, 50, 30, fontsize, false, false)
 else
-  wotmudmapper:echo("Current room not known, or invalid color/location/text specification.\n",false,true)
+  wotmudmapper:echo("Current room not known, or invalid color/location/text specification.\n", false, true)
 end</script>
 					<command></command>
 					<packageName></packageName>
@@ -681,6 +664,7 @@ end</script>
 				<Alias isActive="yes" isFolder="no">
 					<name>Show Possible Colors</name>
 					<script>--openUrl("https://wiki.mudlet.org/images/c/c3/ShowColors.png")
+
 showColors()</script>
 					<command></command>
 					<packageName></packageName>
@@ -699,7 +683,7 @@ showColors()</script>
 
 wotmudmapper.configs.mapping = not wotmudmapper.configs.mapping
 wotmudmapper:echo("Mapping is: " .. (wotmudmapper.configs.mapping and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^mapping$</regex>
@@ -711,7 +695,7 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 
 wotmudmapper.configs.bothways = not wotmudmapper.configs.bothways
 wotmudmapper:echo("Bothways set to: " .. (wotmudmapper.configs.bothways and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map bothways$</regex>
@@ -723,7 +707,7 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 
 wotmudmapper.configs.autojoin = not wotmudmapper.configs.autojoin
 wotmudmapper:echo("Autojoin set to: " .. (wotmudmapper.configs.autojoin and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map autojoin$</regex>
@@ -733,8 +717,8 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 					<script>--syntax: map brief
 
 wotmudmapper.configs.mapbrief = not wotmudmapper.configs.mapbrief
-wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.mapbrief and "hide" or "show").." room descriptions.\n")
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.mapbrief and "hide" or "show") .. " room descriptions.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map brief$</regex>
@@ -746,7 +730,7 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 
 wotmudmapper.configs.forceroom = true
 wotmudmapper:echo("Forcing new room.\n")
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^forceroom$</regex>
@@ -757,7 +741,7 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 
 wotmudmapper.configs.dbug = not wotmudmapper.configs.dbug
 wotmudmapper:echo("Map debug set to: " .. (wotmudmapper.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map debug$</regex>
@@ -766,8 +750,8 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 					<name>Display or hide zone name</name>
 					<script>wotmudmapper.configs.showzone = not wotmudmapper.configs.showzone
 
-wotmudmapper:echo("Mapper will now "..(wotmudmapper.configs.showzone and "show" or "hide").." zone names.\n")
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.showzone and "show" or "hide") .. " zone names.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map showzone$</regex>
@@ -779,7 +763,7 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 
 wotmudmapper.configs.offline = not wotmudmapper.configs.offline
 wotmudmapper:echo("Offline set to: " .. (wotmudmapper.configs.offline and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
 
 if wotmudmapper.configs.offline then
     enableKey("Offline Map")
@@ -812,8 +796,8 @@ end</script>
 					<name>Map widget</name>
 					<script>wotmudmapper.configs.map_window.widget = not wotmudmapper.configs.map_window.widget
 
-wotmudmapper:echo("Mapper will now "..(wotmudmapper.configs.map_window.widget and "use" or "not use").." the map widget.\n")
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.map_window.widget and "use" or "not use") .. " the map widget.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map widget$</regex>
@@ -825,7 +809,7 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 
 wotmudmapper.configs.speedwalk = not wotmudmapper.configs.speedwalk
 wotmudmapper:echo("Speedwalk set to: " .. (wotmudmapper.configs.speedwalk and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^map speedwalk$</regex>
@@ -836,8 +820,8 @@ table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.confi
 --toggle whether the mapper should follow you
 
 wotmudmapper.configs.on = not wotmudmapper.configs.on
-wotmudmapper:echo("The mapper " .. (wotmudmapper.configs.on and "&lt;green&gt;will&lt;reset&gt;" or "&lt;red&gt;will not&lt;reset&gt;").." follow you.\n")
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+wotmudmapper:echo("The mapper " .. (wotmudmapper.configs.on and "&lt;green&gt;will&lt;reset&gt;" or "&lt;red&gt;will not&lt;reset&gt;") .. " follow you.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
 
 if wotmudmapper.configs.on then
   enableTrigger("Mapper")
@@ -858,16 +842,16 @@ end</script>
 
 comlist = com:gmatch("%d*[neswud]")
 
-for v in comlist do
-  local num = v:split("[neswud]")[1]
-  local dir = v:split(num)[2] or v:split(num)[1]
+for com in comlist do
+  local num = com:split("[neswud]")[1]
+  local dir = com:split(num)[2] or com:split(num)[1]
   
   if num == "" then
     num = 1
   end
   
-  for i=1,tonumber(num),1 do
-    send(dir,false)
+  for i = 1, tonumber(num), 1 do
+    send(dir, false)
   end
 end</script>
 				<command></command>
@@ -881,7 +865,7 @@ end</script>
 local numcoms = wotmudmapper.queue.last - wotmudmapper.queue.first + 1
 display(wotmudmapper.queue)
 wotmudmapper.queue = List:new()
-wotmudmapper:echo("Queue reset. "..numcoms.." command(s) was/were removed.\n")</script>
+wotmudmapper:echo(f"Queue reset. {numcoms} command(s) was/were removed.\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^resetqueue$</regex>
@@ -904,9 +888,9 @@ if table.is_empty(foundrooms) then
 end
 if not matches[5] then
   zonename = matches[4]
-  for k, v in pairs(foundrooms) do
-    if not string.find(string.lower(getRoomUserData(k, "zone")), string.lower(zonename)) then
-      foundrooms[k] = nil
+  for id, name in pairs(foundrooms) do
+    if not string.find(string.lower(getRoomUserData(id, "zone")), string.lower(zonename)) then
+      foundrooms[id] = nil
     end
   end
 end
@@ -915,28 +899,20 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  for k, v in pairs(foundrooms) do
-    centerview(k)
+  for id, name in pairs(foundrooms) do
+    centerview(id)
   end
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
-  for k, v in spairs(foundrooms) do
+  for id, name in spairs(foundrooms) do
+    local zone = getRoomUserData(id, "zone")
     cechoLink(
-      "Room ID: " ..
-      k ..
-      ", &lt;ansi_cyan&gt;room name&lt;reset&gt;: " ..
-      getRoomName(k) ..
-      ", &lt;" ..
-      wotmudmapper.configs.zonecolor ..
-      "&gt;zone&lt;reset&gt;: " ..
-      getRoomUserData(k, "zone") ..
-      "\n",
-      [[centerview(]] .. k .. [[)]],
+      f"Room ID: {id}, &lt;ansi_cyan&gt;room name&lt;reset&gt;: {name}, &lt;{wotmudmapper.configs.zonecolor}&gt;zone&lt;reset&gt;: {zone}\n",
+      function() centerview(id) end,
       "Click to center map on room.",
       true
     )
   end
-  cecho("")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -969,9 +945,9 @@ foundrooms = table.n_union(foundrooms, foundrooms)
 
 if not matches[5] then
   zonename = matches[4]
-  for k, v in pairs(foundrooms) do
-    if not string.find(string.lower(getRoomUserData(v, "zone")), string.lower(zonename)) then
-      foundrooms[k] = nil
+  for i, room in pairs(foundrooms) do
+    if not string.find(string.lower(getRoomUserData(room, "zone")), string.lower(zonename)) then
+      foundrooms[i] = nil
     end
   end
 end
@@ -980,28 +956,21 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  for k, v in pairs(foundrooms) do
-    centerview(v)
+  for _, id in pairs(foundrooms) do
+    centerview(id)
   end
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
-  for k, v in spairs(foundrooms) do
+  for _, id in pairs(foundrooms) do
+    local name = getRoomName(id)
+    local zone = getRoomUserData(id, "zone")
     cechoLink(
-      "Room ID: " ..
-      v ..
-      ", &lt;ansi_cyan&gt;room name&lt;reset&gt;: " ..
-      getRoomName(v) ..
-      ", &lt;" ..
-      wotmudmapper.configs.zonecolor ..
-      "&gt;zone&lt;reset&gt;: " ..
-      getRoomUserData(v, "zone") ..
-      "\n",
-      [[centerview(]] .. v .. [[)]],
+      f"Room ID: {id}, &lt;ansi_cyan&gt;room name&lt;reset&gt;: {name}, &lt;{wotmudmapper.configs.zonecolor}&gt;zone&lt;reset&gt;: {zone}\n",
+      function() centerview(id) end,
       "Click to center map on room.",
       true
     )
   end
-  cecho("")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -1012,8 +981,8 @@ end</script>
 				<script>--syntax: map update
 
 wotmudmapper:echo("Downloading updated map...\n")
-local url="https://raw.githubusercontent.com/weisluke/WoTMUD/master/WoTMUD_map.dat"
-local saveto = getMudletHomeDir() .. "/WoTMUD_map.dat"
+local url = "https://raw.githubusercontent.com/weisluke/WoTMUD/master/WoTMUD_map.dat"
+local saveto = f"{getMudletHomeDir()}/WoTMUD_map.dat"
 downloadFile(saveto, url)</script>
 				<command></command>
 				<packageName></packageName>
@@ -1029,13 +998,13 @@ display(wotmudmapper.queue)</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Save Map</name>
-				<script>local dir=getMudletHomeDir() .. "/WoTMUD_map.dat"
-wotmudmapper:echo("Saving map to "..dir.."\n")
+				<script>local dir = f"{getMudletHomeDir()}/WoTMUD_map.dat"
+wotmudmapper:echo(f"Saving map to {dir}\n")
 local res = saveMap(dir)
 if res then
   wotmudmapper:echo("Map saved.\n")
 else
-  wotmudmapper:echo("Map failed to save.\n",false,true)
+  wotmudmapper:echo("Map failed to save.\n", false, true)
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -1043,13 +1012,13 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Save Map JSON</name>
-				<script>local dir=getMudletHomeDir() .. "/WoTMUD_map.json"
-wotmudmapper:echo("Saving map to "..dir.."\n")
+				<script>local dir = f"{getMudletHomeDir()}/WoTMUD_map.json"
+wotmudmapper:echo(f"Saving map to {dir}\n")
 local res = saveJsonMap(dir)
 if res then
   wotmudmapper:echo("Map saved.\n")
 else
-  wotmudmapper:echo("Map failed to save.\n",false,true)
+  wotmudmapper:echo("Map failed to save.\n", false, true)
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -1062,61 +1031,59 @@ local val = matches[3]
 if wotmudmapper.configs.map_window[key]~=nil then
   if key == "w" then
     if (not tonumber(val)) or (tonumber(val) &lt; 1) then
-      wotmudmapper:echo("Width must be a positive number (interpreted as a percentage of screen width).\n",false,true)
+      wotmudmapper:echo("Width must be a positive number (interpreted as a percentage of screen width).\n", false, true)
     else
-      val = val.."%"
+      val = f"{val}%"
       wotmudmapper.configs.map_window[key] = val
-      wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
-      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:show_map(true)
     end
   elseif key == "h" then
     if (not tonumber(val)) or (tonumber(val) &lt; 1) then
-      wotmudmapper:echo("Height must be a positive number (interpreted as a percentage of screen height).\n",false,true)
+      wotmudmapper:echo("Height must be a positive number (interpreted as a percentage of screen height).\n", false, true)
     else
-      val = val.."%"
+      val = f"{val}%"
       wotmudmapper.configs.map_window[key] = val
-      wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
-      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:show_map(true)
     end
   elseif key == "x" then
     if not tonumber(val) then
-      wotmudmapper:echo("X position must be a number (interpreted as a percentage of screen width).\n",false,true)
+      wotmudmapper:echo("X position must be a number (interpreted as a percentage of screen width).\n", false, true)
     else
-      val = val.."%"
+      val = f"{val}%"
       wotmudmapper.configs.map_window[key] = val
-      wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
-      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:show_map(true)
     end
   elseif key == "y" then
     if not tonumber(val) then
-      wotmudmapper:echo("Y position must be a number (interpreted as a percentage of screen height).\n",false,true)
+      wotmudmapper:echo("Y position must be a number (interpreted as a percentage of screen height).\n", false, true)
     else
-      val = val.."%"
+      val = f"{val}%"
       wotmudmapper.configs.map_window[key] = val
-      wotmudmapper:echo("Map window ("..key..") updated to ("..val..").\n")
-      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:show_map(true)
     end
   elseif key == "border" then
     if not color_table[val] then
-      wotmudmapper:echo("Color ("..val..") not known. Type \"viewcolors\" to see the list of available colors.\n", false, true)
+      wotmudmapper:echo(f"Color ({val}) not known. Type \"viewcolors\" to see the list of available colors.\n", false, true)
     else
-      wotmudmapper:echo("Map window ("..key..") updated from (&lt;"..
-        wotmudmapper.configs.map_window.border..
-        "&gt;"..wotmudmapper.configs.map_window.border..
-        "&lt;reset&gt;) to (&lt;"..val.."&gt;"..val.."&lt;reset&gt;).\n")
+      local old_border = wotmudmapper.configs.map_window.border
+      wotmudmapper:echo(f"Map window ({key}) updated from (&lt;{old_border}&gt;{old_border}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
       wotmudmapper.configs.map_window[key] = val
-      table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
       wotmudmapper:echo("Color change will only take effect upon restarting mudlet.\n")
     end
   else
-    wotmudmapper:echo("Key ("..key..") unable to be changed through this alias.\n",false,true)
+    wotmudmapper:echo(f"Key ({key}) unable to be changed through this alias.\n", false, true)
   end
 else
-  wotmudmapper:echo("Map window key (" .. key .. ") not known.\n", false, true)
+  wotmudmapper:echo(f"Map window key ({key}) not known.\n", false, true)
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -1130,8 +1097,8 @@ if (not tonumber(val)) or (tonumber(val) &lt; 1) then
 else
   val = tonumber(val)
   wotmudmapper.configs.map_window.zoom = val
-  wotmudmapper:echo("Map window (zoom) updated to (" .. val .. ").\n")
-  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+  wotmudmapper:echo(f"Map window (zoom) updated to ({val}).\n")
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
   for name, id in pairs(getAreaTable()) do
     setMapZoom(val, id)
   end
@@ -1143,8 +1110,8 @@ end</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Dock/Undock Map</name>
 				<script>wotmudmapper.configs.map_window.dock = not wotmudmapper.configs.map_window.dock
-wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.dock and "docked.\n" or "floating.\n")) 
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.dock and "docked.\n" or "floating.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
 wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
 				<command></command>
 				<packageName></packageName>
@@ -1153,8 +1120,8 @@ wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show/Hide Map</name>
 				<script>wotmudmapper.configs.map_window.visible = not wotmudmapper.configs.map_window.visible
-wotmudmapper:echo("Map will now be "..(wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
-table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", wotmudmapper.configs)
+wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
 wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
 				<command></command>
 				<packageName></packageName>
@@ -1195,30 +1162,27 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  for k, v in pairs(foundrooms) do
-    centerview(v)
+  for _, id in pairs(foundrooms) do
+    centerview(id)
   end
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
-  for k, v in pairs(foundrooms) do
+  for _, id in pairs(foundrooms) do
+    local name = getRoomName(id)
+    local zone = getRoomUserData(id, "zone")
     cechoLink(
-      "Room ID: " ..
-      v ..
-      ", &lt;ansi_cyan&gt;room name&lt;reset&gt;: " ..
-      getRoomName(v) ..
-      ", ",
-      [[wotmudmapper:echo("Displaying room description for room ID (]]..v..[[)\n") 
-        echo(getRoomUserData(]]..v..[[, "description").."\n")]],
+      f"Room ID: {id}, &lt;ansi_cyan&gt;room name&lt;reset&gt;: {name}, ",
+      function()
+        wotmudmapper:echo(f"Displaying room description for room ID ({id})\n") 
+        local desc = getRoomUserData(id, "description")
+        echo(f"{desc}\n")
+      end,
       "Click to display room description.",
       true
     )
     cechoLink(
-      "&lt;" ..
-      wotmudmapper.configs.zonecolor ..
-      "&gt;zone&lt;reset&gt;: " ..
-      getRoomUserData(v, "zone") ..
-      "\n",
-      [[centerview(]] .. v .. [[)]],
+      f"&lt;{wotmudmapper.configs.zonecolor}&gt;zone&lt;reset&gt;: {zone}\n",
+      function() centerview(id) end,
       "Click to center map on room.",
       true
     )

@@ -186,7 +186,7 @@ status_bar.tab_settings = status_bar.tab_settings or
     
   --create labels if necessary
     if not self[tab] then
-      self[tab] = Geyser.Label:new({name = "status_bar."..tab, x = "0%", y = "0%", width = w_str, height = "100%"}, self.container)
+      self[tab] = Geyser.Label:new({name = f"status_bar.{tab}", x = "0%", y = "0%", width = w_str, height = "100%"}, self.container)
       self[tab]:echo(self.tab_settings[tab].default_text, "white", "c")
       self[tab]:setStyleSheet([[
         background-color: black;
@@ -244,10 +244,10 @@ end</script>
   
   --regardless of what item was moved, calculate new status bar x position
   x = getBorderLeft() / mx * 100
-  self.configs.x = x.."%"
+  self.configs.x = f"{x}%"
   
   --save to disk
-  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", self.configs)
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
   
   self:show_status_bar(true)
 end
@@ -259,8 +259,8 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar
 				<name>status_bar:sys_connection</name>
 				<packageName></packageName>
 				<script>function status_bar:sys_connection(event)
-  if io.exists(getMudletHomeDir() .. "/status_bar.configs.lua") then
-    table.load(getMudletHomeDir() .. "/status_bar.configs.lua", self.configs)
+  if io.exists(f"{getMudletHomeDir()}/status_bar.configs.lua") then
+    table.load(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
   end
   self:show_status_bar(true)
 end
@@ -318,7 +318,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")
     con = nil,
   }
   --save configuration to disk
-  table.save(getMudletHomeDir() .. "/status_bar.configs.lua", self.configs)
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
 end
 
 registerAnonymousEventHandler("sysExitEvent", "status_bar:sys_disconnection")
@@ -368,17 +368,17 @@ registerAnonymousEventHandler("sysInstallPackage", "status_bar:status_bar_instal
     self.char.charge_pulses.max = math.min(7 + self.char.fleelag.max, 12)
     
     if self.char.fleelag.min == self.char.fleelag.max then
-      msg_flee = "Fleelag: "..self.char.fleelag.min
+      msg_flee = f"Fleelag: {self.char.fleelag.min}"
     else
-      msg_flee = "Fleelag: "..self.char.fleelag.min.."-"..self.char.fleelag.max
+      msg_flee = f"Fleelag: {self.char.fleelag.min}-{self.char.fleelag.max}"
     end
     
     status_bar.fleelag:echo(msg_flee, "white", "c")
     
     if self.char.charge_pulses.min == self.char.charge_pulses.max then
-      msg_charge = "Charge Pulses: "..self.char.charge_pulses.min
+      msg_charge = f"Charge Pulses: {self.char.charge_pulses.min}"
     else
-      msg_charge = "Charge Pulses: "..self.char.charge_pulses.min.."-"..self.char.charge_pulses.max
+      msg_charge = f"Charge Pulses: {self.char.charge_pulses.min}-{self.char.charge_pulses.max}"
     end
     
     self.charge_pulses:echo(msg_charge, "white", "c")
@@ -415,9 +415,9 @@ registerAnonymousEventHandler("tic", "status_bar:update_fleelag_on_tic")</script
     
     local msg = "Hit Points"
     if self.char.hps.current then
-      msg = "HP: "..self.char.hps.current.."("..self.char.hps.max..")"
+      msg = f"HP: {self.char.hps.current}({self.char.hps.max})"
     else
-      msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???").."("..self.char.hps.max..")"
+      msg = f"HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???")..f"({self.char.hps.max})"
     end  
     self.hps:echo(msg, "white", "c")
   end
@@ -458,9 +458,9 @@ registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
     
     local msg = "Spell Points"
     if self.char.sps.current then
-      msg = "SP: "..self.char.sps.current.."("..self.char.sps.max..")"
+      msg = f"SP: {self.char.sps.current}({self.char.sps.max})"
     else
-      msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???").."("..self.char.sps.max..")"
+      msg = f"SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???")..f"({self.char.sps.max})"
     end  
     self.sps_dps:echo(msg, "white", "c")
   end
@@ -533,10 +533,10 @@ registerAnonymousEventHandler("tic", "status_bar:update_sps_on_tic")</script>
   
   local msg = "Hit Points"
   if self.char.hps.current then
-    msg = "HP: "..self.char.hps.current.."("..self.char.hps.max..")"
+    msg = f"HP: {self.char.hps.current}({self.char.hps.max})"
   else
-    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???").."("..self.char.hps.max..")"
-  end  
+    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???")..f"({self.char.hps.max})"
+  end
   self.hps:echo(msg, "white", "c")
 end</script>
 					<eventHandlerList />
@@ -599,9 +599,9 @@ end</script>
   
   local msg = "Movement Points"
   if self.char.mvs.current then
-    msg = "MV: "..self.char.mvs.current.."("..self.char.mvs.max..")"
+    msg = f"MV: {self.char.mvs.current}({self.char.mvs.max})"
   else
-    msg = "MV: "..(self.char.mvs.est_min or "???").."-"..(self.char.mvs.est_max or "???").."("..self.char.mvs.max..")"
+    msg = "MV: "..(self.char.mvs.est_min or "???").."-"..(self.char.mvs.est_max or "???")..f"({self.char.mvs.max})"
   end  
   self.mvs:echo(msg, "white", "c")
 end</script>
@@ -663,9 +663,9 @@ end</script>
   
   local msg = "Spell Points"
   if self.char.sps.current then
-    msg = "SP: "..self.char.sps.current.."("..self.char.sps.max..")"
+    msg = f"SP: {self.char.sps.current}({self.char.sps.max})"
   else
-    msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???").."("..self.char.sps.max..")"
+    msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???")..f"({self.char.sps.max})"
   end  
   self.sps_dps:echo(msg, "white", "c")
 end</script>
@@ -727,9 +727,9 @@ end</script>
   
   local msg = "Dark Power"
   if self.char.dps.current then
-    msg = "DP: "..self.char.dps.current.."("..self.char.dps.max..")"
+    msg = f"DP: {self.char.dps.current}({self.char.dps.max})"
   else
-    msg = "DP: "..(self.char.dps.est_min or "???").."-"..(self.char.dps.est_max or "???").."("..self.char.dps.max..")"
+    msg = "DP: "..(self.char.dps.est_min or "???").."-"..(self.char.dps.est_max or "???")..f"({self.char.dps.max})"
   end  
   self.sps_dps:echo(msg, "white", "c")
 end</script>
@@ -755,17 +755,17 @@ end</script>
       self.char.charge_pulses.max = math.min(7 + self.char.fleelag.max, 12)
     
       if self.char.fleelag.min == self.char.fleelag.max then
-        msg_flee = "Fleelag: "..self.char.fleelag.min
+        msg_flee = f"Fleelag: {self.char.fleelag.min}"
       else
-        msg_flee = "Fleelag: "..self.char.fleelag.min.."-"..self.char.fleelag.max
+        msg_flee = f"Fleelag: {self.char.fleelag.min}-{self.char.fleelag.max}"
       end
       
       status_bar.fleelag:echo(msg_flee, "white", "c")
       
       if self.char.charge_pulses.min == self.char.charge_pulses.max then
-        msg_charge = "Charge Pulses: "..self.char.charge_pulses.min
+        msg_charge = f"Charge Pulses: {self.char.charge_pulses.min}"
       else
-        msg_charge = "Charge Pulses: "..self.char.charge_pulses.min.."-"..self.char.charge_pulses.max
+        msg_charge = f"Charge Pulses: {self.char.charge_pulses.min}-{self.char.charge_pulses.max}"
       end
       
       self.charge_pulses:echo(msg_charge, "white", "c")
@@ -815,9 +815,9 @@ registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_fleelag")
   
   local msg = "Hit Points"
   if self.char.hps.current then
-    msg = "HP: "..self.char.hps.current.."("..self.char.hps.max..")"
+    msg = f"HP: {self.char.hps.current}({self.char.hps.max})"
   else
-    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???").."("..self.char.hps.max..")"
+    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???")..f"({self.char.hps.max})"
   end  
   self.hps:echo(msg, "white", "c")
 end</script>
@@ -845,7 +845,7 @@ end</script>
     ["cure light wounds"] = 7,
     ["cure poison"] = 12,
     ["deafen"] = 10,
-    ["delve"] = 12,
+    ["delve"] = 3,
     ["earthquake"] = 15,
     ["elemental staff"] = 25,
     ["fear"] = 15,
@@ -904,9 +904,9 @@ end</script>
   
   local msg = "Spell Points"
   if self.char.sps.current then
-    msg = "SP: "..self.char.sps.current.."("..self.char.sps.max..")"
+    msg = f"SP: {self.char.sps.current}({self.char.sps.max})"
   else
-    msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???").."("..self.char.sps.max..")"
+    msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???")..f"({self.char.sps.max})"
   end  
   self.sps_dps:echo(msg, "white", "c")
   

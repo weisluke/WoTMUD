@@ -34,7 +34,7 @@ local tgt = matches[3]
 local color = colors[tgt] or "reset"
 
 targeting[index] = tgt
-cecho("Target "..index.." set to: &lt;"..color.."&gt;"..tgt.."\n")</script>
+cecho(f"Target {index} set to: &lt;{color}&gt;{tgt}\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^t(\d+) (\S+)$</regex>
@@ -67,10 +67,10 @@ if targeting[index] then
   local color = colors[tgt] or "reset"
   
   targeting.currtgt = tgt
-  cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
+  cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
   
 else
-  cecho("&lt;red&gt;Target "..index.." not set!\n")
+  cecho(f"&lt;red&gt;Target {index} not set!\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -100,7 +100,7 @@ weaving = weaving or {}
 
 if targeting.currtgt then
   local color = colors[targeting.currtgt] or "reset"
-  cecho("Your current target is: &lt;"..color.."&gt;"..targeting.currtgt.."\n")
+  cecho(f"Your current target is: &lt;{color}&gt;{targeting.currtgt}\n")
 end
 
 local pkmode = (targeting.bashing and "bashing") 
@@ -108,15 +108,15 @@ local pkmode = (targeting.bashing and "bashing")
             or (targeting.stabbing and "stabbing")
             or (targeting.weaving and "weaving")
             or "none"
-cecho("Your current pk mode is: "..pkmode.."\n")
+cecho(f"Your current pk mode is: {pkmode}\n")
 if targeting.weaving then
   cecho("Longweave set to: "..(weaving.longweave or "none").."\n")
   cecho("Shortweave set to: "..(weaving.shortweave or "none").."\n")
 end
 
-for k,v in ipairs(targeting) do
-  local color = colors[v] or "reset"
-  cecho("Target "..k.." = &lt;"..color.."&gt;"..v.."\n")
+for i, tgt in ipairs(targeting) do
+  local color = colors[tgt] or "reset"
+  cecho(f"Target {i} = &lt;{color}&gt;{tgt}\n")
 end</script>
 				<command></command>
 				<packageName></packageName>
@@ -126,8 +126,8 @@ end</script>
 				<name>Clear Targets</name>
 				<script>--syntax: clear tgts
 
-for k,v in ipairs(targeting) do
-  targeting[k] = nil
+for i, tgt in ipairs(targeting) do
+  targeting[i] = nil
 end
 targeting.currtgt = nil
 cecho("Targets cleared.\n")
@@ -161,7 +161,7 @@ local tgt = matches[2]
 local color = colors[tgt] or "reset"
   
 targeting.currtgt = tgt
-cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
+cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
 </script>
 				<command></command>
 				<packageName></packageName>
@@ -192,7 +192,7 @@ if targeting.currtgt then
   local tgt = targeting.currtgt
   local color = colors[tgt] or "reset"
   
-  cecho("Current target set to: &lt;"..color.."&gt;" .. tgt .. "\n")
+  cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
@@ -246,12 +246,12 @@ end
 				<name>Attack Target</name>
 				<script>--syntax: p
 
-targeting=targeting or {}
+targeting = targeting or {}
 
-local target=targeting.currtgt
+local target = targeting.currtgt
 
 if target then
-  send("k "..target)
+  send(f"k {target}")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
@@ -263,12 +263,12 @@ end</script>
 				<name>Attack h.Target</name>
 				<script>--syntax: o
 
-targeting=targeting or {}
+targeting = targeting or {}
 
-local target=targeting.currtgt
+local target = targeting.currtgt
 
 if target then
-  send("k h."..target)
+  send(f"k h.{target}")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
@@ -287,16 +287,16 @@ local target = targeting.currtgt
 
 if target then
   if targeting.bashing then
-    send("bash h." .. target)
+    send(f"bash h.{target}")
   elseif targeting.charging then
-    send("charge h." .. target)
+    send(f"charge h.{target}")
   elseif targeting.stabbing then
-    send("backstab h." .. target)
+    send(f"backstab h.{target}")
   elseif targeting.weaving then
     if weaving.longweave then
-      send("channel '"..weaving.longweave.."' h."..target)
+      send(f"channel '{weaving.longweave}' h.{target}")
     else
-      send("channel 'ice spikes' h."..target)
+      send(f"channel 'ice spikes' h.{target}")
     end
   else
     cecho("&lt;red&gt;No pk method set\n")
@@ -312,12 +312,12 @@ end</script>
 				<name>Diagnose h.target</name>
 				<script>--syntax: a
 
-targeting=targeting or {}
+targeting = targeting or {}
 
-local target=targeting.currtgt
+local target = targeting.currtgt
 
 if target then
-  send("diagnose h."..target)
+  send(f"diagnose h.{target}")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>

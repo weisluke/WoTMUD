@@ -15,7 +15,7 @@
 container = container or {}
 
 if container.first then
-  send("get movepotion "..container.first)
+  send(f"get movepotion {container.first}")
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -30,7 +30,7 @@ end</script>
 container = container or {}
 
 if container.first then
-  send("get fearpotion "..container.first)
+  send(f"get fearpotion {container.first}")
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -45,7 +45,7 @@ end</script>
 container = container or {}
 
 if container.first then
-  send("get draught "..container.first)
+  send(f"get draught {container.first}")
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -60,7 +60,7 @@ end</script>
 container = container or {}
 
 if container.first then
-  send("get syrup "..container.first)
+  send(f"get syrup {container.first}")
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -75,7 +75,7 @@ end</script>
 container = container or {}
 
 if container.first then
-  send("get thready "..container.first)
+  send(f"get thready {container.first}")
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
@@ -90,7 +90,7 @@ end</script>
 container = container or {}
 
 if container.first then
-  send("get cider "..container.first)
+  send(f"get cider {container.first}")
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>

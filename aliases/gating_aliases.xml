@@ -17,11 +17,9 @@ weaving = weaving or {}
 weaving.gatename = matches[2]
 
 if weaving.sex == "female" then
-  send("embrace")
-  send("channel 'gate'")
+  sendAll("embrace", "channel 'gate'")
 elseif weaving.sex == "male" then
-  send("seize")
-  send("channel 'gate'")
+  sendAll("seize", "channel 'gate'")
 else
   cecho("&lt;red&gt;Error! Character sex not known.\n")
 end</script>
@@ -39,16 +37,14 @@ weaving = weaving or {}
 gatecodes = {}
 
 if weaving.name then
-  if io.exists(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua") then
-    table.load(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua", gatecodes)
+  if io.exists(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua") then
+    table.load(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
   end
   if gatecodes[location] then
     if weaving.sex == "female" then
-      send("embrace")
-      send("channel 'gate' " .. gatecodes[location])
+      sendAll("embrace", f"channel 'gate' {gatecodes[location]}")
     elseif weaving.sex == "male" then
-      send("seize")
-      send("channel 'gate' " .. gatecodes[location])
+      sendAll("seize", f"channel 'gate' {gatecodes[location]}")
     else
       cecho("&lt;red&gt;Error! Character sex not known.\n")    
     end
@@ -69,7 +65,7 @@ end</script>
 weaving = weaving or {}
 
 if weaving.name then
-  table.save(getMudletHomeDir() .. "/" .. weaving.name .. "_gatecodes.lua", {})
+  table.save(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", {})
   cecho("Gate codes reset!\n")
 else
   cecho("&lt;red&gt;Error! Character name not known.\n")
@@ -86,14 +82,14 @@ weaving = weaving or {}
 gatecodes = {}
 
 if weaving.name then
-  if io.exists(getMudletHomeDir() .. "/" .. weaving.name .. "_gatecodes.lua") then
-    table.load(getMudletHomeDir() .. "/" .. weaving.name .. "_gatecodes.lua", gatecodes)
+  if io.exists(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua") then
+    table.load(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
   end
   if table.is_empty(gatecodes) then
     cecho("No gatecodes known!\n")
   else
-    for k, v in pairs(gatecodes) do
-      cecho("Location: " .. k .. ", code: " .. v .. "\n")
+    for loc, code in pairs(gatecodes) do
+      cecho(f"Location: {loc}, code: {code}\n")
     end
   end
 else
@@ -136,7 +132,7 @@ gatecodes =
 weaving = weaving or {}
 
 if weaving.name then
-  table.save(getMudletHomeDir() .. "/" .. weaving.name .. "_gatecodes.lua", gatecodes)
+  table.save(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
 else
   cecho("&lt;red&gt;Error! Character name not known.\n")
 end</script>

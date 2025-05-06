@@ -25,7 +25,7 @@ practice_trainer.container:raiseAll()</script>
 else
   for _, item in pairs(practice_trainer.pracs.queue) do
     if practice_trainer:get_skill_class(item) == "warrior" then
-      send("practice "..item)
+      send(f"practice {item}")
     end
   end
 end</script>
@@ -42,7 +42,7 @@ end</script>
 else
   for _, item in pairs(practice_trainer.pracs.queue) do
     if practice_trainer:get_skill_class(item) == "rogue" then
-      send("practice "..item)
+      send(f"practice {item}")
     end
   end
 end</script>
@@ -59,7 +59,7 @@ end</script>
 else
   for _, item in pairs(practice_trainer.pracs.queue) do
     if practice_trainer:get_skill_class(item) == "hunter" then
-      send("practice "..item)
+      send(f"practice {item}")
     end
   end
 end</script>
@@ -76,7 +76,7 @@ end</script>
 else
   for _, item in pairs(practice_trainer.pracs.queue) do
     if practice_trainer:get_skill_class(item) == "fade" then
-      send("practice "..item)
+      send(f"practice {item}")
     end
   end
 end</script>
@@ -94,11 +94,27 @@ send("hunter practice please")</script>
 				<regex>^prac circle$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
+				<name>Practice Shaidar</name>
+				<script>if practice_trainer:pracs_to_level() &gt; 51 then
+  practice_trainer:echo(
+    "More than 51 levels required. Cannot practice this practice setup.\n", false, true
+  )
+else
+  for _, item in pairs(practice_trainer.pracs.queue) do
+    send(f"practice {item}")
+  end
+end
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^prac shaidar$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
 				<name>Show saved setups</name>
 				<script>practice_trainer:echo("Showing saved practice setups\n")
-for k, v in lfs.dir(getMudletHomeDir().."/practice_trainer") do 
-  if k:sub(-4,-1) == ".lua" then
-    cecho(k:sub(1,-5).."\n")
+for fname in lfs.dir(f"{getMudletHomeDir()}/practice_trainer") do 
+  if fname:sub(-4,-1) == ".lua" then
+    cecho(fname:sub(1,-5).."\n")
   end
 end</script>
 				<command></command>

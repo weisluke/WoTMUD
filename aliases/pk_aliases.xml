@@ -10,7 +10,7 @@
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
 				<name>Change Wimpy</name>
-				<script>send("change wimpy "..matches[2])</script>
+				<script>send(f"change wimpy {matches[2]}")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^cw (.*)$</regex>
@@ -20,7 +20,7 @@
 				<script>if not matches[3] then
   send("bash")
 else
-  send("bash h."..matches[4])
+  send(f"bash h.{matches[4]}")
 end</script>
 				<command></command>
 				<packageName></packageName>

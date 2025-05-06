@@ -70,9 +70,9 @@ selectCaptureGroup(3)
 setLink(
   function()
     if weaving.sex == "female" then
-      sendAll("embrace", "channel 'travel' " .. code )
+      sendAll("embrace", f"channel 'travel' {code}")
     elseif weaving.sex == "male" then
-      sendAll("seize", "channel 'travel' " .. code )
+      sendAll("seize", f"channel 'travel' {code}")
     else
       cecho("&lt;red&gt;Error! Character sex not known.\n")    
     end

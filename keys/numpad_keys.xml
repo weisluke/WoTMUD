@@ -135,7 +135,7 @@
 				<script>local horse = horse.first
 
 if horse~=nil then
-  send("ride "..horse)
+  send(f"ride {horse}")
 else
   cecho("\n&lt;red&gt;Horse not set!\n")
 end</script>
@@ -189,7 +189,7 @@ end</script>
 				<script>local target=targeting.currtgt
 
 if target~=nil then
-  send("k "..target)
+  send(f"k {target}")
 else
   cecho("\n&lt;red&gt;Current target not set!\n")
 end</script>
@@ -203,7 +203,7 @@ end</script>
 				<script>local target=targeting.currtgt
 
 if target~=nil then
-  send("k h."..target)
+  send(f"k h.{target}")
 else
   cecho("\n&lt;red&gt;Current target not set!\n")
 end</script>

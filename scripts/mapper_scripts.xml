@@ -195,7 +195,7 @@ function List:popleft()
     self.last=-1
   end
   if value then
-    wotmudmapper:echo("Removed command ("..value..") from queue.\n",true)
+    wotmudmapper:echo(f"Removed command ({value}) from queue.\n",true)
   else
     wotmudmapper:echo("No commands left to remove from queue.\n",true)  
   end
@@ -263,21 +263,21 @@ end</script>
   --if config and color files exist on disk, load them in  
   self:echo("Loading map configurations.\n", true)
   -- load stored configs from file if it exists
-  if io.exists(getMudletHomeDir().."/wotmudmapper.configs.lua") then
-      table.load(getMudletHomeDir().."/wotmudmapper.configs.lua",configs)
+  if io.exists(f"{getMudletHomeDir()}/wotmudmapper.configs.lua") then
+      table.load(f"{getMudletHomeDir()}/wotmudmapper.configs.lua",configs)
   end
-  if io.exists(getMudletHomeDir().."/wotmudmapper.map_colors.lua") then
-      table.load(getMudletHomeDir().."/wotmudmapper.map_colors.lua",colors)
+  if io.exists(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua") then
+      table.load(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua",colors)
   end
   self:echo("Map configurations loaded.\n", true)
   
   -- overwrite default values with stored config values and save to disk
   configs = table.update(defaults, configs)
   self.configs = table.deepcopy(configs)
-  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", self.configs)
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", self.configs)
   colors = table.update(default_colors, colors)
   self.map_colors = table.deepcopy(colors)
-  table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", self.map_colors)
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua", self.map_colors)
 end
 </script>
 				<eventHandlerList />
@@ -345,8 +345,8 @@ registerAnonymousEventHandler("sysConnectionEvent", "wotmudmapper:sys_connection
   
   --save configs and colors to disk
   self:echo("Saving map configurations.\n", true)
-  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", self.configs)
-  table.save(getMudletHomeDir() .. "/wotmudmapper.map_colors.lua", self.map_colors)
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", self.configs)
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua", self.map_colors)
   self:echo("Map configurations saved.\n", true)
 end
 
@@ -397,13 +397,13 @@ registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</scr
   end
   
   local r, g, b = unpack(color_table[configs.border])
-  local rgb_str = r..","..g..","..b
+  local rgb_str = f"{r},{g},{b}"
   
   --create mapper container, position it, and resize it
   self.container = self.container or Adjustable.Container:new(
     {
       name = "wotmudmapper.container",
-      adjLabelstyle = "background-color:rgba("..rgb_str..",100%); border: 5px groove grey;",
+      adjLabelstyle = f"background-color:rgba({rgb_str},100%); border: 5px groove grey;",
       buttonstyle=[[
       QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
       QLabel::hover{ background-color: rgba(160,160,160,50%);}
@@ -471,11 +471,11 @@ end</script>
   width = width/mx*100
   height = height/my*100
   
-  self.configs.map_window.x = x.."%"
-  self.configs.map_window.y = y.."%"
-  self.configs.map_window.w = width.."%"
-  self.configs.map_window.h = height.."%"
-  table.save(getMudletHomeDir() .. "/wotmudmapper.configs.lua", self.configs)
+  self.configs.map_window.x = f"{x}%"
+  self.configs.map_window.y = f"{y}%"
+  self.configs.map_window.w = f"{width}%"
+  self.configs.map_window.h = f"{height}%"
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", self.configs)
   
   self:show_map(true)
 end
@@ -503,9 +503,9 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "wotmudmapp
       fg("yellow")
       setUnderline(true)
       if target == "1" then
-        echoLink(text, [[wotmudmapper:show_help()]], "View: map help", true)
+        echoLink(text, function() wotmudmapper:show_help() end, "View: map help", true)
       else
-        echoLink(text, [[wotmudmapper:show_help("]] .. target .. [[")]], "View: map help " .. target, true)
+        echoLink(text, function() wotmudmapper:show_help(target) end, f"View: map help {target}", true)
       end
       setUnderline(false)
       resetFormat()
@@ -756,7 +756,7 @@ wotmudmapper.help.misc =
   elseif table.size(rooms) &gt; 1 then
     self:echo("More than one room selected.\n",false,true)
   else
-    self:echo("Room name for room ID ("..rooms[1]..") updated from ("..getRoomName(rooms[1])..") to ("..self.roomname..")\n")
+    self:echo(f"Room name for room ID ({rooms[1]}) updated from ({getRoomName(rooms[1])}) to ({self.roomname})\n")
     setRoomName(rooms[1],self.roomname)
   end
   updateMap()
@@ -769,7 +769,7 @@ function wotmudmapper:rightclick_update_roomdesc(event)
   elseif table.size(rooms) &gt; 1 then
     self:echo("More than one room selected.\n",false,true)
   else
-    self:echo("Room description for room ID ("..rooms[1]..") updated.\n")
+    self:echo(f"Room description for room ID ({rooms[1]}) updated.\n")
     setRoomUserData(rooms[1], "description", self.roomdesc)
   end
   updateMap()
@@ -788,8 +788,9 @@ end
   elseif table.size(rooms) &gt; 1 then
     self:echo("More than one room selected.\n",false,true)
   else
-    self:echo("Displaying room description for room ID ("..rooms[1]..")\n")
-    cecho(getRoomUserData(rooms[1],"description").."\n")
+    self:echo(f"Displaying room description for room ID ({rooms[1]})\n")
+    local desc = getRoomUserData(rooms[1], "description")
+    cecho(f"{desc}\n")
   end
 end
 
@@ -817,7 +818,7 @@ function wotmudmapper:track_map_commands(event, com)
     else
       self.queue:pushright(com:lower():sub(1,1))
     end
-    self:echo("Added command (" .. com .. ") to queue.\n", true)
+    self:echo(f"Added command ({com}) to queue.\n", true)
     if self.following then
       self.following = false
     end
@@ -964,10 +965,10 @@ end</script>
   --if list of valid rooms contains only one, send the command for that door
   if table.size(rooms) == 1 and getRoomUserData(rooms[1], dir) ~= "" then
     local door = getRoomUserData(rooms[1], dir)
-    send(com .. " " .. door .. " " .. dir)
+    send(f"{com} {door} {dir}")
   --otherwise send generic command
   else
-    send(com .. " door " .. dir)
+    send(f"{com} door {dir}")
   end
 end</script>
 					<eventHandlerList />
@@ -1042,7 +1043,7 @@ end</script>
 					<packageName></packageName>
 					<script>--returns a list of IDs of the rooms with name/desc/exits matching the currently captured room, or an empty list
 --if provided a list of room IDs, that list will be narrowed down against the currently captured room
---by checking names, descriptions, and exits, in that order, if applying the check does not empty the list
+--by checking names, descriptions, and exits, in that order
 
 function wotmudmapper:find_matching_room(rooms)
   local result = {}
@@ -1053,9 +1054,8 @@ function wotmudmapper:find_matching_room(rooms)
     result = self:find_matching_name(rooms)
   end
   
-  if table.size(result) &gt; 1 and not table.is_empty(self:find_matching_desc(result)) then
-    result = self:find_matching_desc(result)
-  end
+  result = self:find_matching_desc(result)
+  
   if table.size(result) &gt; 1 and not table.is_empty(self:find_matching_exits(result)) then
     result = self:find_matching_exits(result)
   end
@@ -1094,18 +1094,18 @@ end</script>
 --returns a list of room IDs for the rooms whose descriptions match the currently captured description
 
 function wotmudmapper:find_matching_desc(rooms)
+  --if brief is on, roomdesc will be nil
+  --return all rooms
   if self.roomdesc == nil then
     return rooms
   end
   
   local result = {}
   
+  --if we made it this far, brief mode is off
+  --check description before adding
   for _, id in pairs(rooms) do
-    --if brief mode on, add all rooms with matching name to possible matches
-    if self.brief then
-      table.insert(result, id)
-    --if brief mode off, check description before adding
-    elseif getRoomUserData(id, "description") == self.roomdesc then
+    if getRoomUserData(id, "description") == self.roomdesc then
       table.insert(result, id)
     end
   end
@@ -1202,19 +1202,19 @@ end</script>
     table.contains(
       {
         "A Pitch-Black City Street",
-        "A Pitch-Black Road",
         "A Pitch-Black Field",
         "A Pitch-Black Forest",
+        "A Pitch-Black Road",
+        "A Pitch-Black Swamp",
         "Pitch-Black Hills",
         "Pitch-Black Mountains",
-        "A Pitch-Black Swamp",
         "A Moonlit City Street",
-        "A Moonlit Road",
         "A Moonlit Field",
         "A Moonlit Forest",
+        "A Moonlit Road",
+        "A Moonlit Swamp",
         "Moonlit Hills",
         "Moonlit Mountains",
-        "A Moonlit Swamp",
       },
       self.roomname
     )
@@ -1235,12 +1235,12 @@ end</script>
       {
         "It is pitch black...",
         "The streets are strange by moonlight, their gray details pale and indistinct.",
-        "The road is limned by moonlight, its gray details pale and indistinct.",
         "The field is limned by moonlight, its gray details pale and indistinct.",
         "The forest is dappled by moonlight, a dark tangle of long, crooked shadows.",
+        "The road is limned by moonlight, its gray details pale and indistinct.",
+        "The swamp is strange by moonlight, its gray details ghostly and indistinct.",
         "The hills are limned by moonlight, their gray details ghostly and indistinct.",
         "The mountains are limned by moonlight, their gray details dim and indistinct.",
-        "The swamp is strange by moonlight, its gray details ghostly and indistinct.",
       },
       self.roomdesc
     )
@@ -1303,7 +1303,7 @@ function wotmudmapper:create_room(x, y, z, areaID)
       setExitStub(newID, self.exitmap[dir], true)
     end
   end
-  wotmudmapper:echo("New room created. ID: ("..newID.."), name: ("..self.roomname..").\n",true)
+  wotmudmapper:echo(f"New room created. ID: ({newID}), name: ({self.roomname}).\n",true)
   return {newID}
 end</script>
 					<eventHandlerList />
@@ -1317,15 +1317,15 @@ function wotmudmapper:link_rooms(firRoomID, secRoomID, dir, exits)
   local complements = {n = "s", e = "w", s = "n", w = "e", u = "d", d = "u"}
   --set exit from first room to second room in direction
   setExit(firRoomID, secRoomID, self.exitmap[dir])
-  self:echo("Linked room ("..firRoomID..") to room ("..secRoomID..") with a/an ("..dir..") exit.\n",true)
+  self:echo(f"Linked room ({firRoomID}) to room ({secRoomID}) with a/an ({dir}) exit.\n",true)
   --if meant to set directions both ways
   if self.configs.bothways then
     --check exits in second room
-    for k, v in pairs(exits) do
+    for _, ex in pairs(exits) do
       --if one is complement of dir, add exit from second room to first room
-      if v == complements[dir] then
-        setExit(secRoomID, firRoomID, self.exitmap[v])
-        self:echo("Linked room ("..secRoomID..") to room ("..firRoomID..") with a/an ("..v..") exit.\n",true)
+      if ex == complements[dir] then
+        setExit(secRoomID, firRoomID, self.exitmap[ex])
+        self:echo(f"Linked room ({secRoomID}) to room ({firRoomID}) with a/an ({ex}) exit.\n",true)
         break
       end
     end
@@ -1369,30 +1369,30 @@ end</script>
   local a, b, c
   --if roomID has exit stubs, add them to table of exits
   if getExitStubs(roomID) then
-    for k, v in pairs(getExitStubs(roomID)) do
-      table.insert(firstExits, string.sub(self.exitmap[v], 1, 1))
+    for _, dir in pairs(getExitStubs(roomID)) do
+      table.insert(firstExits, string.sub(self.exitmap[dir], 1, 1))
     end
   end
   --for every exit stub
-  for k, v in pairs(firstExits) do
+  for _, dir in pairs(firstExits) do
     local secondExits = {}
     --find what coordinates would be offset in the stub direction
     --and get list of rooms at the offset position
-    a, b, c = self:set_coordinates_offset(x, y, z, v)
+    a, b, c = self:set_coordinates_offset(x, y, z, dir)
     roomList = getRoomsByPosition(areaID, a, b, c)
     --if only one room at offset position and that room has stubs
     if (table.size(roomList) == 1 and getExitStubs(roomList[0])) then
-      for kk, vv in pairs(getExitStubs(roomList[0])) do
-        table.insert(secondExits, string.sub(wotmudmapper.exitmap[vv], 1, 1))
+      for _, val in pairs(getExitStubs(roomList[0])) do
+        table.insert(secondExits, string.sub(self.exitmap[val], 1, 1))
       end
       --compare exit stubs from second room to exit stubs from first room
       --and join appropriately
-      for kk, vv in pairs(secondExits) do
-        if vv == complements[v] then
-          setExit(roomID, roomList[0], self.exitmap[v])
-          self:echo("Linked room ("..roomID..") to room ("..roomList[0]..") with a/an ("..v..") exit.\n",true)
-          setExit(roomList[0], roomID, wotmudmapper.exitmap[vv])
-          self:echo("Linked room ("..roomList[0]..") to room ("..roomID..") with a/an ("..vv..") exit.\n",true)
+      for _, val in pairs(secondExits) do
+        if val == complements[dir] then
+          setExit(roomID, roomList[0], self.exitmap[dir])
+          self:echo(f"Linked room ({roomID}) to room ({roomList[0]}) with a/an ({dir}) exit.\n",true)
+          setExit(roomList[0], roomID, self.exitmap[val])
+          self:echo(f"Linked room ({roomList[0]}) to room ({roomID}) with a/an ({val}) exit.\n",true)
         end
       end
     end
@@ -1415,17 +1415,7 @@ function wotmudmapper:create_door(currentID, direction, status, doorname)
   local doortype = {"visible", "hidden", "locked"}
   local doorcolor = {"green", "yellow", "red"}
   if status ~= 0 then
-    self:echo(
-      "&lt;" ..
-      doorcolor[status] ..
-      "&gt;" ..
-      doortype[status] ..
-      "&lt;reset&gt; door (" ..
-      direction ..
-      ") named (" ..
-      doorname ..
-      ") created.\n"
-    )
+    self:echo(f"&lt;{doorcolor[status]}&gt;{doortype[status]}&lt;reset&gt; door ({direction}) named ({doorname}) created.\n")
   end
 end</script>
 					<eventHandlerList />
@@ -1529,8 +1519,11 @@ end</script>
         if rlist[id] then
             cecho(string.format("&lt;%s&gt;%10d ", othercolor, id))
             fg(listcolor)
-            echoLink(string.format("%-30s (%d rooms)",rlist[id],countrooms(id)), [[wotmudmapper:show_room_list(]]..id..[[)]],
-                "View the room list for "..rlist[id], true)
+            echoLink(
+              string.format("%-30s (%d rooms)",rlist[id],countrooms(id)), 
+              function() wotmudmapper:show_room_list(id) end,
+              f"View the room list for {rlist[id]}", true
+            )
             echo("\n")
         end
     end
@@ -1597,31 +1590,29 @@ end</script>
     unsafe_rooms = table.n_union(unsafe_rooms, unsafe_rooms)
   end
   for _,dir in pairs(unsafe_rooms) do
-      self:echo(
-        "\nCaution. Direction " .. dir .. " leads to an unknown room.",
-        false,
-        true
-      )
+    self:echo(f"\nCaution. Direction {dir} leads to an unknown room.", false, true)
   end
   
   --displaying the zone
   self.zone = getRoomUserData(self.currentID[1], "zone")
   if self.configs.showzone then
-    cechoLink("\n&lt;"..self.configs.zonecolor.."&gt;Zone: " .. self.zone,
+    local url = ""
+    if self.zone_urls[self.zone] and self.zone_urls[self.zone] ~= "" then
+      url = f"https://wotmud.fandom.com/wiki/{self.zone_urls[self.zone]}"
+    end
+    
+    cechoLink(f"\n&lt;{self.configs.zonecolor}&gt;Zone: {self.zone}",
     function()
-      if self.zone ~= "" then
-        if self.zone_urls[self.zone] ~= "" then
-          openUrl("https://wotmud.fandom.com/wiki/"..self.zone_urls[self.zone])
-        end
-      end
+      openUrl(url)
     end,
     "Click to open the WoTMUD wiki page for this zone", true)
   end
   
   --showing the doors that have been stored
   for _, dir in pairs({"north", "east", "south", "west", "up", "down"}) do
-    if getRoomUserData(self.currentID[1], dir:sub(1, 1)) ~= "" then
-      cecho("\n&lt;"..self.configs.doorcolor.."&gt;Door " .. dir .. ": &lt;white&gt;" .. getRoomUserData(self.currentID[1], dir:sub(1, 1)))
+    local doorname = getRoomUserData(self.currentID[1], dir:sub(1, 1))
+    if doorname ~= "" then
+      cecho(f"\n&lt;{self.configs.doorcolor}&gt;Door {dir}: &lt;white&gt;{doorname}")
     end
   end  
 
@@ -1642,30 +1633,30 @@ end</script>
     end
     
     if newid then
-        self.currentID={newid}
-        self.roomexits = {}
-        centerview(newid)
-        cecho("&lt;ansi_cyan&gt;"..getRoomName(newid).."\n")
-        cecho(getRoomUserData(newid,"description"))
-        cecho("\n[ obvious exits: ")
-        exits = {}
-        for k, v in pairs(getRoomExits(newid)) do
-            table.insert(exits,string.sub(k,1,1))
-        end
-        if getExitStubs(newid) then
-            for k, v in pairs(getExitStubs(newid)) do
-                table.insert(exits,string.sub(self.exitmap[v],1,1))
-            end  
-        end      
-        exits = table.n_intersection({"n","e","s","w","u","d"},exits)
-        for k,v in pairs(exits) do
-            cecho(v:upper().." ")
-        end
-        cecho("]")
-        self:show_zone_door_info()
-        cecho("\n\n")
+      self.currentID={newid}
+      self.roomexits = {}
+      centerview(newid)
+      cecho(f"&lt;ansi_cyan&gt;{getRoomName(newid)}\n")
+      cecho(getRoomUserData(newid, "description"))
+      cecho("\n[ obvious exits: ")
+      exits = {}
+      for dir, id in pairs(getRoomExits(newid)) do
+        table.insert(exits,string.sub(dir,1,1))
+      end
+      if getExitStubs(newid) then
+        for _, dir in pairs(getExitStubs(newid)) do
+          table.insert(exits,string.sub(self.exitmap[dir],1,1))
+        end  
+      end      
+      exits = table.n_intersection({"n","e","s","w","u","d"},exits)
+      for _, dir in pairs(exits) do
+        cecho(dir:upper().." ")
+      end
+      cecho("]")
+      self:show_zone_door_info()
+      cecho("\n\n")
     else
-        cecho("Alas, you cannot go that way...\n\n")
+      cecho("Alas, you cannot go that way...\n\n")
     end  
   else
     cecho("Room not known!")
@@ -1683,10 +1674,10 @@ enableMapInfo("Zone info")
 
 registerMapInfo("Door info", function(roomId, selectionSize, areaId, displayedArea)
   local output = ""
-  for k, v in pairs({"north", "east", "south", "west", "up", "down"}) do
-    local dir = string.sub(v, 1, 1)
-    if getRoomUserData(roomId, dir) ~= "" then
-      output = output.."Door " .. v .. ": " .. getRoomUserData(roomId, dir).."\n"
+  for _, dir in pairs({"north", "east", "south", "west", "up", "down"}) do
+    local door = getRoomUserData(roomId, string.sub(dir, 1, 1))
+    if door ~= "" then
+      output = f"{output}Door {dir}: {door}\n"
     end
   end
   return output

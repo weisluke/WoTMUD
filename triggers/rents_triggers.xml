@@ -41,12 +41,21 @@
 				<name>Add item</name>
 				<script>enableTrigger("Rents_item_name")
 enableTrigger("Rents_disable_item_name")
-rents.cost = matches[2] .. " rent due"
+rents.cost = f"{matches[2]} rent due"
 
 if rents.clear_room then
   if rents.name then
     local rents_db = db:get_database("rents")
-    local room = getPlayerRoom()
+    local room
+    if wotmudmapper then
+      if table.size(wotmudmapper.currentID) == 1 then
+        room = wotmudmapper.currentID[1]
+      else
+        room = 0
+      end
+    else
+      room = getPlayerRoom()
+    end
     db:delete(
       rents_db.storage,
       db:AND(db:eq(rents_db.storage.room, room), db:eq(rents_db.storage.name, rents.name))
@@ -165,7 +174,7 @@ end</script>
 local coppers = amount%20
 local crowns = (amount - coppers)/20
 
-rents.cost = crowns.." gold crowns and "..coppers.." coppers"
+rents.cost = f"{crowns} gold crowns and {coppers} coppers"
 
 local rents_db = db:get_database("rents")
 

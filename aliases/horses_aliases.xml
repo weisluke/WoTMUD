@@ -14,9 +14,9 @@
 
 if matches[3] then
   horse.first = matches[4]
-  cecho("Horse is set as: &lt;gold&gt;"..matches[4].."\n")
+  cecho(f"Horse is set as: &lt;gold&gt;{horse.first}\n")
 elseif horse.first then
-  cecho("Horse is set as: &lt;gold&gt;"..horse.first.."\n")
+  cecho(f"Horse is set as: &lt;gold&gt;{horse.first}\n")
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -31,14 +31,14 @@ end</script>
 horse = horse or {}
 
 if matches[3] then
-  if matches[4]~=horse.first then
+  if matches[4] ~= horse.first then
     horse.first = matches[4]
-    cecho("Horse is set as: &lt;gold&gt;"..matches[4].."\n")
+    cecho(f"Horse is set as: &lt;gold&gt;{horse.first}\n")
   end
 end
 
 if horse.first then
-  send("ride "..horse.first)
+  send(f"ride {horse.first}")
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end
@@ -78,7 +78,7 @@ end
 horse = horse or {}
 
 if horse.first then
-  send("eq "..horse.first.." horseeq")
+  send(f"eq {horse.first} horseeq")
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -93,7 +93,7 @@ end</script>
 horse = horse or {}
 
 if horse.first then
-  send("remove horseeq "..horse.first)
+  send(f"remove horseeq {horse.first}")
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
@@ -114,7 +114,7 @@ end</script>
 
 horse = horse or {}
 
-horse.first=nil
+horse.first = nil
 cecho("&lt;red&gt;Horse deleted!\n")</script>
 				<command></command>
 				<packageName></packageName>
@@ -122,14 +122,14 @@ cecho("&lt;red&gt;Horse deleted!\n")</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Ride number.horse</name>
-				<script>send("ride "..matches[2]..".horse")</script>
+				<script>send(f"ride {matches[2]}.horse")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^r(\d+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Lead number.horse</name>
-				<script>send("lead "..matches[2]..".horse")</script>
+				<script>send(f"lead {matches[2]}.horse")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^l(\d+)$</regex>

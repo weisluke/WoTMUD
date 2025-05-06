@@ -73,8 +73,8 @@ local colors =
 
 if colors[race] then
   selectCaptureGroup(3)
-  creplace("&lt;"..colors[race].."&gt;"..string.upper(race))
-  cecho(" "..directions[dir])
+  creplace(f"&lt;{colors[race]}&gt;{string.upper(race)}")
+  cecho(f" {directions[dir]}")
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -135,8 +135,8 @@ local colors =
 
 if colors[race] then
   selectCaptureGroup(3)
-  creplace("&lt;"..colors[race].."&gt;"..string.upper(race))
-  cecho(" "..directions[dir])
+  creplace(f"&lt;{colors[race]}&gt;{string.upper(race)}")
+  cecho(f" {directions[dir]}")
 end</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
@@ -178,8 +178,8 @@ local colors =
 
 if colors[race] then
   selectCaptureGroup(3)
-  creplace("&lt;"..colors[race].."&gt;"..string.upper(race))
-  cecho(" "..directions[dir])
+  creplace(f"&lt;{colors[race]}&gt;{string.upper(race)}")
+  cecho(f" {directions[dir]}")
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -207,7 +207,7 @@ local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&
 
 selectCaptureGroup(3)
 creplace(string.upper(name))
-cecho(" "..directions[dir])</script>
+cecho(f" {directions[dir]}")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -247,8 +247,8 @@ local colors =
 
 if colors[race] then
   selectCaptureGroup(3)
-  creplace("&lt;"..colors[race].."&gt;"..string.upper(race))
-  cecho(" "..directions[dir])
+  creplace(f"&lt;{colors[race]}&gt;{string.upper(race)}")
+  cecho(f" {directions[dir]}")
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -276,7 +276,7 @@ local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&
 
 selectCaptureGroup(3)
 creplace(string.upper(name))
-cecho(" "..directions[dir])</script>
+cecho(f" {directions[dir]}")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -300,7 +300,7 @@ cecho(" "..directions[dir])</script>
 
 local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 if directions[dir] then
-  cecho(" " .. directions[dir])
+  cecho(f" {directions[dir]}")
 end</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>

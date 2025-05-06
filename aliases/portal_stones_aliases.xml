@@ -21,10 +21,9 @@ local patterns =
 container = container or {}
 
 if patterns[location] then
-  send("get disc column")
-  send("touch " .. patterns[location])
+  sendAll("get disc column", f"touch {patterns[location]}")
   if container.first then
-    send("put disc " .. container.first)
+    send(f"put disc {container.first}")
   end
 else
   cecho("Unknown location. Locations are:\nSH, THR, IJ, MIRK, ALTARA, TREMALKING, PASSGATE, MAREDO, EVILBRAEM\n")

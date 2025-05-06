@@ -44,15 +44,13 @@ weaving = weaving or {}
 gatecodes = {}
 
 if weaving.name then
-  if io.exists(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua") then
-    table.load(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua", gatecodes)
+  if io.exists(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua") then
+    table.load(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
   end
   if weaving.gatename then
     gatecodes[weaving.gatename] = code
-    table.save(getMudletHomeDir() .. "/"..weaving.name.."_gatecodes.lua", gatecodes)
-    cecho(
-      "\n&lt;green&gt;Code '" .. code .. "' successfully stored to location '" .. weaving.gatename .. "'."
-    )
+    table.save(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
+    cecho(f"\n&lt;green&gt;Code '{code}' successfully stored to location '{weaving.gatename}'.")
   else
     cecho("\n&lt;red&gt;Unknown error! No location set to store code to.")
   end
@@ -168,16 +166,17 @@ if table.is_empty(foundrooms) then
   selectCaptureGroup(2)
   setLink(function() end, "No matches found!")
 elseif table.size(foundrooms) == 1 then
-  for k, v in pairs(foundrooms) do
+  for id, name in pairs(foundrooms) do
     selectCaptureGroup(2)
-    setLink(function() centerview(k) end, "Click to center map on room.")
+    setLink(function() centerview(id) end, "Click to center map on room.")
   end
 else
   selectCaptureGroup(2)
   
   setLink(function() 
-    for k,v in spairs(foundrooms) do
-      echoLink("Room ID: " .. k .. ", zone: " .. getRoomUserData(k, "zone") .. "\n", function() centerview(k) end, "Click to center map on room.",true)
+    for id, name in spairs(foundrooms) do
+      local zone = getRoomUserData(k, "zone"){zone}
+      echoLink(f"Room ID: {id}, zone: {zone}\n", function() centerview(id) end, "Click to center map on room.",true)
     end 
   end, "Click to display rooms with matching name.")
 end</script>

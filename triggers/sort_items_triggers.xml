@@ -83,9 +83,9 @@ for _, item in pairs(unique_items) do
   while table.contains(sorting.items, item) do
     local index = table.index_of(sorting.items, item)
     if sorting.container then
-      send("put "..index.."."..sorting.what.." "..sorting.container)
+      send(f"put {index}.{sorting.what} {sorting.container}")
     else
-      send("drop "..index.."."..sorting.what)
+      send(f"drop {index}.{sorting.what}")
     end
     table.remove(sorting.items, index)
     --increment how many of that item exist
@@ -100,9 +100,9 @@ if not sorting.container then
   for _, item in pairs(unique_items) do
     num = num + item_nums[item]
   end
-  send("get "..num.."."..sorting.what)
+  send(f"get {num}.{sorting.what}")
   --then get all of the rest
-  send("get all."..sorting.what)
+  send(f"get all.{sorting.what}")
 end
 
 disableTrigger("Sort Items")</script>

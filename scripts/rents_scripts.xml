@@ -171,9 +171,9 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
   for _, item in pairs(storage) do
     local crowns = item.cost:match("(%d+) gold crowns")
     local coppers = item.cost:match("(%d+) coppers")
-    if crowns then crowns = crowns.."g" else crowns = "0g" end
-    if coppers then coppers = coppers.."c" else coppers = "0c" end
-    local cost = crowns.." "..coppers
+    if crowns then crowns = f"{crowns}g" else crowns = "0g" end
+    if coppers then coppers = f"{coppers}c" else coppers = "0c" end
+    local cost = f"{crowns} {coppers}"
     
     local room_name = ""
     

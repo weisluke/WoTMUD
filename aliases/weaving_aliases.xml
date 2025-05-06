@@ -21,7 +21,7 @@ if weaving.longweave then
 else
   weaving.longweave = longweaves[1]
 end
-cecho("Long weave set to: "..weaving.longweave.."\n")</script>
+cecho(f"Long weave set to: {weaving.longweave}\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^lw$</regex>
@@ -39,14 +39,14 @@ if weaving.shortweave then
 else
   weaving.shortweave = shortweaves[1]
 end
-cecho("Short weave set to: "..weaving.shortweave.."\n")</script>
+cecho(f"Short weave set to: {weaving.shortweave}\n")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^sw$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Locate object</name>
-				<script>send("channel 'locate object' "..matches[2])</script>
+				<script>send(f"channel 'locate object' {matches[2]}")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^locobj (.+)$</regex>
@@ -65,9 +65,9 @@ if not targeting.weaving then send("j", false) return end
 if target then
   if targeting.weaving then
     if weaving.longweave then
-      send("channel '"..weaving.longweave.."' "..target)
+      send(f"channel '{weaving.longweave}' h.{target}")
     else
-      send("channel 'ice spikes' h."..target)
+      send(f"channel 'ice spikes' h.{target}")
     end
   else
     cecho("&lt;red&gt;Pk method not set to weaving!\n")
@@ -93,9 +93,9 @@ if not targeting.weaving then send("h", false) return end
 if target then
   if targeting.weaving then
     if weaving.shortweave then
-      send("channel '"..weaving.shortweave.."' "..target)
+      send(f"channel '{weaving.shortweave}' h.{target}")
     else
-      send("channel 'earthquake' h."..target)
+      send(f"channel 'earthquake' h.{target}")
     end
   else
     cecho("&lt;red&gt;Pk method not set to weaving!\n")
@@ -119,7 +119,7 @@ end</script>
 				<script>weaving = weaving or {}
 
 if weaving.name then
-  send("channel 'armor' "..weaving.name)
+  send(f"channel 'armor' {weaving.name}")
 else
   send("channel 'armor'")
 end</script>
@@ -129,7 +129,7 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Armor another</name>
-				<script>send("channel 'armor' "..matches[2])</script>
+				<script>send(f"channel 'armor' {matches[2]}")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^armor (.+)$</regex>
@@ -139,7 +139,7 @@ end</script>
 				<script>weaving = weaving or {}
 
 if weaving.name then
-  send("channel 'warding vs damage' "..weaving.name)
+  send(f"channel 'warding vs damage' {weaving.name}")
 else
   send("channel 'warding vs damage'")
 end</script>

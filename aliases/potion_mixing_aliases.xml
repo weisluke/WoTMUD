@@ -24,7 +24,7 @@ potions =
   }
 for herb, num in pairs(potions[potion]) do
   for i = 1, num, 1 do
-    send("get " .. herb .. " " .. container)
+    send(f"get {herb} {container}")
   end
 end</script>
 				<command></command>
@@ -47,10 +47,10 @@ potions =
   }
 for herb, num in pairs(potions[potion]) do
   for i = 1, num, 1 do
-    send("put " .. herb .. " " .. container)
+    send(f"put {herb} {container}")
   end
 end
-send("mix " .. container)</script>
+send(f"mix {container}")</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^mix (fear|poison|moves|strength|blind|tinful|forkroot) (.+)$</regex>

@@ -166,7 +166,7 @@ end</script>
   end
   
   if not table.index_of(table.keys(self.eq_fields), eq_type) then
-    self:echo("\nEquipment type ("..eq_type..") not known.\n", false, true)
+    self:echo(f"\nEquipment type ({eq_type}) not known.\n", false, true)
     return
   end
 
@@ -196,9 +196,9 @@ end</script>
   
   if table.is_empty(items) then
     db:add(equipment[eq_type], info)
-    self:echo("\nItem ("..info.name..") added to the equipment database.\n")   
+    self:echo(f"\nItem ({info.name}) added to the equipment database.\n")   
   elseif table.size(items) &gt; 1 then
-    self:echo("\nItem ("..info.name..") is not unique. Found the following items:\n", false, true)
+    self:echo(f"\nItem ({info.name}) is not unique. Found the following items:\n", false, true)
     for _, item in pairs(items) do
       cecho(item.name.."\n")
     end
@@ -208,7 +208,7 @@ end</script>
     info.name = item.name
     for _, field in pairs(self.eq_fields[eq_type]) do
       if info[field] and item[field] ~= info[field] then
-        self:echo("\n("..field..") for ("..item.name..") updated from ("..item[field]..") to ("..info[field]..")\n")
+        self:echo(f"\n({field}) for ({item.name}) updated from ({item[field]}) to ({info[field]})\n")
         item[field] = info[field]
       end
     end
@@ -306,7 +306,7 @@ function equip_db:get_weapons(name, name_exact, weapon_type, weapon_type_exact)
       weapons = db:fetch(equipment.weapons, 
           db:AND(
             db:eq(equipment.weapons.name, name), 
-            db:like(equipment.weapons.weapon_type, "%"..weapon_type.."%")
+            db:like(equipment.weapons.weapon_type, f"%{weapon_type}%")
           )
       )
     end
@@ -314,15 +314,15 @@ function equip_db:get_weapons(name, name_exact, weapon_type, weapon_type_exact)
     if weapon_type_exact then
       weapons = db:fetch(equipment.weapons, 
           db:AND(
-            db:like(equipment.weapons.name, "%"..name.."%"), 
+            db:like(equipment.weapons.name, f"%{name}%"), 
             db:eq(equipment.weapons.weapon_type, weapon_type)
           )
       )
     else
       weapons = db:fetch(equipment.weapons, 
           db:AND(
-            db:like(equipment.weapons.name, "%"..name.."%"), 
-            db:like(equipment.weapons.weapon_type, "%"..weapon_type.."%")
+            db:like(equipment.weapons.name, f"%{name}%"), 
+            db:like(equipment.weapons.weapon_type, f"%{weapon_type}%")
           )
       )
     end
@@ -415,7 +415,7 @@ function equip_db:get_armor(name, name_exact, eq_slot, eq_slot_exact)
       armor = db:fetch(equipment.armor, 
         db:AND(
           db:eq(equipment.armor.name, name), 
-          db:like(equipment.armor.eq_slot, "%"..eq_slot.."%")
+          db:like(equipment.armor.eq_slot, f"%{eq_slot}%")
         )
       )
     end
@@ -423,15 +423,15 @@ function equip_db:get_armor(name, name_exact, eq_slot, eq_slot_exact)
     if eq_slot_exact then
       armor = db:fetch(equipment.armor, 
         db:AND(
-          db:like(equipment.armor.name, "%"..name.."%"), 
+          db:like(equipment.armor.name, f"%{name}%"), 
           db:eq(equipment.armor.eq_slot, eq_slot)
         )
       )
     else
       armor = db:fetch(equipment.armor, 
         db:AND(
-          db:like(equipment.armor.name, "%"..name.."%"), 
-          db:like(equipment.armor.eq_slot, "%"..eq_slot.."%")
+          db:like(equipment.armor.name, f"%{name}%"), 
+          db:like(equipment.armor.eq_slot, f"%{eq_slot}%")
         )
       )
     end  
@@ -518,7 +518,7 @@ function equip_db:get_trinkets(name, name_exact, eq_slot, eq_slot_exact)
       trinkets = db:fetch(equipment.trinkets, 
           db:AND(
             db:eq(equipment.trinkets.name, name), 
-            db:like(equipment.trinkets.eq_slot, "%"..eq_slot.."%")
+            db:like(equipment.trinkets.eq_slot, f"%{eq_slot}%")
           )
       )
     end
@@ -526,15 +526,15 @@ function equip_db:get_trinkets(name, name_exact, eq_slot, eq_slot_exact)
     if eq_slot_exact then
       trinkets = db:fetch(equipment.trinkets, 
           db:AND(
-            db:like(equipment.trinkets.name, "%"..name.."%"), 
+            db:like(equipment.trinkets.name, f"%{name}%"), 
             db:eq(equipment.trinkets.eq_slot, eq_slot)
           )
       )
     else
       trinkets = db:fetch(equipment.trinkets, 
           db:AND(
-            db:like(equipment.trinkets.name, "%"..name.."%"), 
-            db:like(equipment.trinkets.eq_slot, "%"..eq_slot.."%")
+            db:like(equipment.trinkets.name, f"%{name}%"), 
+            db:like(equipment.trinkets.eq_slot, f"%{eq_slot}%")
           )
       )
     end

@@ -58,8 +58,12 @@
 					<string>Lord </string>
 					<string>Lady </string>
 					<string>General </string>
+					<string>Master</string>
+					<string>Mistress</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>0</integer>
+					<integer>0</integer>
 					<integer>0</integer>
 					<integer>0</integer>
 					<integer>0</integer>
@@ -377,7 +381,7 @@ echo(string.format(" MUD BMI: %.3f.", mudbmi))</script>
 					<name>Stat Total</name>
 					<script>local total=tonumber(matches[2])+tonumber(matches[3])+tonumber(matches[4])+tonumber(matches[5])+tonumber(matches[6])
 
-echo(" Total: "..total..".")</script>
+echo(f" Total: {total}.")</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -400,7 +404,7 @@ echo(" Total: "..total..".")</script>
 				<name>Defense</name>
 				<script>local defense=tonumber(matches[3])+tonumber(matches[4])
 
-echo(". Total Defence: "..defense..".")</script>
+echo(f". Total Defence: {defense}.")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -511,7 +515,7 @@ deleteLine()</script>
 				<script>local amount = tonumber(matches[3])
 local coppers = amount%20
 local crowns = (amount - coppers)/20
-cecho(" &lt;gold&gt;"..crowns.." gold crowns and " ..coppers.." coppers.")</script>
+cecho(f" &lt;gold&gt;{crowns} gold crowns and {coppers} coppers.")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -585,7 +589,7 @@ cecho(" &lt;gold&gt;"..crowns.." gold crowns and " ..coppers.." coppers.")</scri
 				<name>Reroll stat total</name>
 				<script>local total=tonumber(matches[2])+tonumber(matches[3])+tonumber(matches[4])+tonumber(matches[5])+tonumber(matches[6])
 
-echo(" Total: "..total)</script>
+echo(f" Total: {total}")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>

@@ -193,9 +193,9 @@ practice_trainer:update_displays()</script>
     "More than 51 levels required. Cannot practice this practice setup.\n", false, true
   )
 else
-  for k, v in pairs(practice_trainer.hunter.pracs) do
-    for i = 1, v, 1 do
-      send("practice " .. k)
+  for prac, num_pracs in pairs(practice_trainer.hunter.pracs) do
+    for i = 1, num_pracs, 1 do
+      send(f"practice {prac}")
     end
   end
 end
@@ -231,9 +231,9 @@ disableTrigger("practice_trainer_hunter")</script>
     "More than 51 levels required. Cannot practice this practice setup.\n", false, true
   )
 else
-  for k, v in pairs(practice_trainer.rogue.pracs) do
-    for i = 1, v, 1 do
-      send("practice " .. k)
+  for prac, num_pracs in pairs(practice_trainer.rogue.pracs) do
+    for i = 1, num_pracs, 1 do
+      send(f"practice {prac}")
     end
   end
 end
@@ -269,9 +269,9 @@ disableTrigger("practice_trainer_rogue")</script>
     "More than 51 levels required. Cannot practice this practice setup.\n", false, true
   )
 else
-  for k, v in pairs(practice_trainer.warrior.pracs) do
-    for i = 1, v, 1 do
-      send("practice " .. k)
+  for prac, num_pracs in pairs(practice_trainer.warrior.pracs) do
+    for i = 1, num_pracs, 1 do
+      send(f"practice {prac}")
     end
   end
 end

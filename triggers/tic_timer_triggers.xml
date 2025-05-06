@@ -169,7 +169,9 @@ end</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>Darkness covers the land, hiding the corruption of the Blight.</string>
+						<string>Darkness descends.</string>
 						<string>Darkness descends on the land.</string>
+						<string>Darkness descends throughout the forest.</string>
 						<string>Darkness descends upon the Spine of the World with the setting of the sun.</string>
 						<string>Darkness embraces the land once again.</string>
 						<string>Darkness engulfs the terrain as the sun disappears behind the black mountains.</string>
@@ -183,11 +185,11 @@ end</script>
 						<string>Darkness shrouds the island as the sun dips below the edge of the horizon.</string>
 						<string>Darkness spreads across the Spine of the World as the sun sets in the west.</string>
 						<string>Dawn breaks, painting the sky with pink and amber hues.</string>
-						<string>Darkness descends throughout the forest.</string>
 						<string>Dawn glints through the leaves of Stedding Tsochan.</string>
 						<string>Dawn heralds another storm on the horizon.</string>
 						<string>Day breaks over the hills.</string>
 						<string>Daylight breaches the foliage overhead.</string>
+						<string>Daylight filters in.</string>
 						<string>Daylight filters in through the thick canopy of the forest.</string>
 						<string>Dew settles on the grasslands as darkness descends.</string>
 						<string>Dew settles on the ground as the sun sets west of the mountains.</string>
@@ -216,8 +218,6 @@ end</script>
 						<string>Morning dew glitters in the day's first sunrays.</string>
 						<string>Mountain peaks hide the sun as it sets in the west.</string>
 						<string>Night falls over the ruined city, casting eerie shadows.</string>
-						<string>Radiant hues permeate the horizon as the sun sinks in the west.</string>
-						<string>Rays of light spread over the grasslands, stirring animals to life.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -288,6 +288,8 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>Radiant hues permeate the horizon as the sun sinks in the west.</string>
+						<string>Rays of light spread over the grasslands, stirring animals to life.</string>
 						<string>Rays of the golden sun spreads over the rugged hills as the sun rises.</string>
 						<string>Ruddy amber hues streak across the vanishing horizon as night falls.</string>
 						<string>Scarlet and gold paint the sky as the sun sets in the west.</string>
@@ -336,8 +338,6 @@ end</script>
 						<string>The evening sun sinks behind the horizon.</string>
 						<string>The faint rosy hue finally fades away as the sun dips below the horizon.</string>
 						<string>The fiery colors of dawn settle into the forest with the rising sun.</string>
-						<string>The fires of the sun begin to extinguish as it disappears on the horizon.</string>
-						<string>The first light of dawn illuminates Tarwin's Gap.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -408,6 +408,8 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The fires of the sun begin to extinguish as it disappears on the horizon.</string>
+						<string>The first light of dawn illuminates Tarwin's Gap.</string>
 						<string>The first light of morning glows in the eastern sky.</string>
 						<string>The first light of morning shines on Amador.</string>
 						<string>The first rays of dawn appear in the east.</string>
@@ -456,8 +458,6 @@ end</script>
 						<string>The sky brightens as the sun rises over the Tower of Morning.</string>
 						<string>The sky darkens as the sun sets in the west.</string>
 						<string>The sky glistens with beams of light as the sun rises over Tamika.</string>
-						<string>The sky glows with subdued light as the sun dips below the horizon.</string>
-						<string>The sky glows with the rising of the sun.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -528,6 +528,8 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The sky glows with subdued light as the sun dips below the horizon.</string>
+						<string>The sky glows with the rising of the sun.</string>
 						<string>The sky grows brighter as the sun peeks above the mountains.</string>
 						<string>The sky is awash in a burst of burning gold and crimson glory as the sun sets.</string>
 						<string>The sky is awash in shades of red and purple as the sun sinks behind the mountains.</string>
@@ -576,8 +578,6 @@ end</script>
 						<string>The sun peeks across the scorched hills of Kandor.</string>
 						<string>The sun peeks over the eastern seas.</string>
 						<string>The sun peeks over the eastern wall of the city.</string>
-						<string>The sun peeks over the Mountains of Mist.</string>
-						<string>The sun peeks over the topless towers of the city.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -648,6 +648,8 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The sun peeks over the Mountains of Mist.</string>
+						<string>The sun peeks over the topless towers of the city.</string>
 						<string>The sun peeks over the trees, heralding the dawn of a new day.</string>
 						<string>The sun rises above the tops of the black mountains.</string>
 						<string>The sun rises from behind the distant land of Shara.</string>
@@ -696,8 +698,6 @@ end</script>
 						<string>The sun sinks behind the Westwood to the west.</string>
 						<string>The sun sinks below the western horizon.</string>
 						<string>The sun sinks into a cloudbank in the western sky.</string>
-						<string>The sun sinks into the hills.</string>
-						<string>The sun sinks over the sea to the west.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -768,6 +768,8 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The sun sinks into the hills.</string>
+						<string>The sun sinks over the sea to the west.</string>
 						<string>The sun sinks quietly beneath the western horizon.</string>
 						<string>The sun sinks slowly beneath the Aryth Ocean on the western horizon.</string>
 						<string>The sun sinks slowly beneath the rolling hills to the west.</string>
@@ -818,6 +820,8 @@ end</script>
 						<string>Weak sunlight strains to brighten this blighted wasteland as the sun rises.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>3</integer>
+						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>

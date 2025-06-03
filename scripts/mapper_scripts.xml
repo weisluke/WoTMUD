@@ -34,7 +34,7 @@ wotmudmapper.zone = wotmudmapper.zone or ""
 wotmudmapper.brief = wotmudmapper.brief or false
 --used by triggers to determine whether most recent movement was a manual flee or autoflee
 wotmudmapper.flee = wotmudmapper.flee or false
---set to true on "You follow (.+)\.$"
+--set to true on "You follow (\S+)\.$"
 wotmudmapper.following = wotmudmapper.following or false
 --variable to hold door direction. only used in mapping mode to create doors
 wotmudmapper.door = wotmudmapper.door or "n"

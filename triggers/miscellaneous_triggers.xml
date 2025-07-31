@@ -155,6 +155,9 @@ elseif string.find(matches[2],"Hand of Light") then
 elseif string.find(matches[2],"Illian Companion") then
   selectCaptureGroup(2)
   fg("blue")
+elseif string.find(matches[2], "Illuminator") then
+  selectCaptureGroup(2)
+  fg("orange")
 elseif string.find(matches[2],"Red Eagle") then
   selectCaptureGroup(2)
   fg("red")

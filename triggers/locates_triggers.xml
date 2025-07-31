@@ -69,6 +69,7 @@ selectCaptureGroup(3)
 --uncomment the following, and if you click on the port code it will embrace/seize and channel 'travel' code
 setLink(
   function()
+    local code = code
     if weaving.sex == "female" then
       sendAll("embrace", f"channel 'travel' {code}")
     elseif weaving.sex == "male" then

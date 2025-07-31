@@ -1989,7 +1989,7 @@ function eq_trainer:get_anydice_dmg()
     dmg_str = f" + [highest of (1d3-1)*({self.char.str}-(13+1d7)) and 0]"
   end
   
-  return f"output {dmg_wpn}{dmg_hone}{dmg_rank}{dmg_str}"
+  return (f"output {dmg_wpn}{dmg_hone}{dmg_rank}{dmg_str}")
   
 end</script>
 					<eventHandlerList />
@@ -2251,7 +2251,7 @@ end</script>
     dmg_str = f"+max(rand(0,2)*({self.char.str}-rand(14,20)),0)"
   end
   
-  return f"{dmg_wpn}{dmg_hone}{dmg_rank}{dmg_str}"
+  return (f"{dmg_wpn}{dmg_hone}{dmg_rank}{dmg_str}")
   
 end
 

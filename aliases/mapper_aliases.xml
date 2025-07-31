@@ -1173,6 +1173,7 @@ else
     cechoLink(
       f"Room ID: {id}, &lt;ansi_cyan&gt;room name&lt;reset&gt;: {name}, ",
       function()
+        local id = id
         wotmudmapper:echo(f"Displaying room description for room ID ({id})\n") 
         local desc = getRoomUserData(id, "description")
         echo(f"{desc}\n")

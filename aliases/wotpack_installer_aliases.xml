@@ -45,6 +45,7 @@ for i=1,n_rows,1 do
         function()
           --for every filetype, localized to this function
           for _, ftype in pairs(wotpack_installer.file_types) do
+            local fname = fname
             if table.contains(wotpack_installer[ftype], f"{fname}_{ftype}") then
               wotpack_installer:download(fname, ftype)
             end

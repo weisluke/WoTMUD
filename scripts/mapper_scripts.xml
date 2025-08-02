@@ -30,8 +30,6 @@ wotmudmapper.roomdesc = wotmudmapper.roomdesc or ""
 wotmudmapper.roomexits = wotmudmapper.roomexits or {}
 --current zone name pulled from map data
 wotmudmapper.zone = wotmudmapper.zone or ""
---true only if wotmudmapper.roomdesc is empty string or in the dark
-wotmudmapper.brief = wotmudmapper.brief or false
 --used by triggers to determine whether most recent movement was a manual flee or autoflee
 wotmudmapper.flee = wotmudmapper.flee or false
 --set to true on "You follow (\S+)\.$"
@@ -1208,6 +1206,7 @@ end</script>
         "A Pitch-Black Swamp",
         "Pitch-Black Hills",
         "Pitch-Black Mountains",
+        "Pitch-Black Waters",
         "A Moonlit City Street",
         "A Moonlit Field",
         "A Moonlit Forest",
@@ -1215,6 +1214,7 @@ end</script>
         "A Moonlit Swamp",
         "Moonlit Hills",
         "Moonlit Mountains",
+        "Moonlit Waters",
       },
       self.roomname
     )
@@ -1241,6 +1241,7 @@ end</script>
         "The swamp is strange by moonlight, its gray details ghostly and indistinct.",
         "The hills are limned by moonlight, their gray details ghostly and indistinct.",
         "The mountains are limned by moonlight, their gray details dim and indistinct.",
+        "The waters shimmer in moonlight, their details pale and indistinct."
       },
       self.roomdesc
     )

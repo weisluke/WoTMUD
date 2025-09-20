@@ -16,6 +16,7 @@ mudlet.mapper_script = true
 mudlet.custom_speedwalk = true
 wotmudmapper = wotmudmapper or {}
 wotmudmapper.configs = wotmudmapper.configs or {}
+wotmudmapper.version = "1.0"
 
 
 --mapper variables
@@ -1202,6 +1203,7 @@ end</script>
         "A Pitch-Black City Street",
         "A Pitch-Black Field",
         "A Pitch-Black Forest",
+        "A Pitch-Black Interior",
         "A Pitch-Black Road",
         "A Pitch-Black Swamp",
         "Pitch-Black Hills",
@@ -1210,6 +1212,7 @@ end</script>
         "A Moonlit City Street",
         "A Moonlit Field",
         "A Moonlit Forest",
+        "A Moonlit Interior",
         "A Moonlit Road",
         "A Moonlit Swamp",
         "Moonlit Hills",
@@ -1237,6 +1240,7 @@ end</script>
         "The streets are strange by moonlight, their gray details pale and indistinct.",
         "The field is limned by moonlight, its gray details pale and indistinct.",
         "The forest is dappled by moonlight, a dark tangle of long, crooked shadows.",
+        "The interior is draped in moonlight, its gray details pale and indistinct.",
         "The road is limned by moonlight, its gray details pale and indistinct.",
         "The swamp is strange by moonlight, its gray details ghostly and indistinct.",
         "The hills are limned by moonlight, their gray details ghostly and indistinct.",

@@ -1193,6 +1193,13 @@ end</script>
 				<packageName></packageName>
 				<regex>^search room descs (.+)$</regex>
 			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Map version</name>
+				<script>wotmudmapper:echo(f'version {wotmudmapper.version}\n')</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map version$</regex>
+			</Alias>
 		</AliasGroup>
 	</AliasPackage>
 </MudletPackage>

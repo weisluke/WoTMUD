@@ -41,7 +41,6 @@ then
   wotmudmapper:echo(f"\nRoom name ({wotmudmapper.roomname}) captured.", true)
   
   wotmudmapper.roomdesc = nil
-  wotmudmapper.brief = true
   
   enableTrigger("Map Description")
 end</script>
@@ -70,7 +69,6 @@ if
   matches[2] ~= wotmudmapper.roomname and
   not string.find(line, "obvious exits:")
 then
-  wotmudmapper.brief = false
   if wotmudmapper.roomdesc == nil then
     wotmudmapper.roomdesc = line
   else

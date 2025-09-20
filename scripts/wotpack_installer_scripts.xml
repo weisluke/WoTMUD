@@ -12,8 +12,10 @@
 				<packageName></packageName>
 				<script>wotpack_installer = wotpack_installer or {}
 wotpack_installer.configs = wotpack_installer.configs or {}
+wotpack_installer.version = "1.0"
+
 wotpack_installer.user = wotpack_installer.user or "weisluke"
-wotpack_installer.branch = wotpack_installer.branch or "master"
+wotpack_installer.branch = wotpack_installer.branch or "main"
 
 wotpack_installer.to_download = wotpack_installer.to_download or {}
 wotpack_installer.to_install = wotpack_installer.to_install or {}

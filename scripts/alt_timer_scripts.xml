@@ -11,6 +11,9 @@
 				<name>alt_timer initializations</name>
 				<packageName></packageName>
 				<script>alt_timer = alt_timer or {}
+alt_timer.version = "1.0"
+alt_timer.t_sameside = 5 * 60 --sameside is 5 minutes
+alt_timer.t_crossrace = 10 * 60 --crossrace is 10 minutes
 
 alt_timer.container = alt_timer.container or Adjustable.Container:new({
   name = "alt_timer.container",
@@ -65,7 +68,7 @@ alt_timer.crossrace_label = alt_timer.crossrace_label or Geyser.Label:new({
 }, alt_timer.container)
 
 function alt_timer:update_display(elapsed)
-  local t_sameside = 60*5 - elapsed
+  local t_sameside = self.t_sameside - elapsed
   if t_sameside &gt;= 0 then
     local mins = math.floor(t_sameside / 60)
     local secs = t_sameside % 60
@@ -74,7 +77,7 @@ function alt_timer:update_display(elapsed)
     self.sameside_label:hecho("&lt;center&gt;&lt;p style='font-size: 16px;'&gt;#888888Same-Side&lt;/p&gt;&lt;p style='font-size: 32px'&gt;#00ff00Ready&lt;/p&gt;&lt;/center&gt;")
   end
   
-  local t_crossrace = 60*15 - elapsed
+  local t_crossrace = self.t_crossrace - elapsed
   if t_crossrace &gt;= 0 then
     local mins = math.floor(t_crossrace / 60)
     local secs = t_crossrace % 60
@@ -92,8 +95,8 @@ end</script>
   cecho("&lt;green&gt;Starting timer for alting.\n")
   local time = getTime(true, "yyyy.MM.dd - HH:mm:ss")
   cecho(f"&lt;green&gt;Date - Time: {time}\n")
-  self.sameside_timer = tempTimer(60 * 5 + 1, function() cecho("&lt;green&gt;You may log on a sameside alt now!\n") end)
-  self.crossrace_timer = tempTimer(60 * 15 + 1, function() cecho("&lt;green&gt;You may log on a crossrace alt now!\n") end)
+  self.sameside_timer = tempTimer(self.t_sameside + 1, function() cecho("&lt;green&gt;You may log on a sameside alt now!\n") end)
+  self.crossrace_timer = tempTimer(self.t_crossrace + 1, function() cecho("&lt;green&gt;You may log on a crossrace alt now!\n") end)
 
   self:update_display(0)
   self.container:resize("20%", "16%")
@@ -104,7 +107,7 @@ end</script>
   self.elapsed_timer = tempTimer(1, 
     function()
       local elapsed = math.floor(os.time() - started + .5)
-      if elapsed &gt; 60*15 then
+      if elapsed &gt; self.t_crossrace then
         killTimer(self.elapsed_timer)
       end
       self:update_display(elapsed)

@@ -16,7 +16,7 @@ mudlet.mapper_script = true
 mudlet.custom_speedwalk = true
 wotmudmapper = wotmudmapper or {}
 wotmudmapper.configs = wotmudmapper.configs or {}
-wotmudmapper.version = "1.0"
+wotmudmapper.version = "1.1"
 
 
 --mapper variables
@@ -1566,7 +1566,9 @@ registerAnonymousEventHandler("sysInstallPackage", "wotmudmapper:mapper_installe
   if table.size(wotmudmapper.currentID) == 1 then
     --just in case the user is clicking on a room that the map is centered on,
     --but they are not already in, calculate the path from current room
-    getPath(wotmudmapper.currentID[1], speedWalkTo)
+    if speedWalkTo ~= nil then
+      getPath(wotmudmapper.currentID[1], speedWalkTo)
+    end
     
     for _, dir in pairs(speedWalkDir) do
       send(dir)

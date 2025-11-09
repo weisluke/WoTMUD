@@ -1136,13 +1136,17 @@ end</script>
 				<regexCodePropertyList />
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Non fade</name>
-					<script>if matches[3] == "trolloc" then
+					<script>status_bar.char.sex = matches[2]
+status_bar.char.race = matches[3]
+status_bar.char.class = matches[4]
+
+if status_bar.char.race == "trolloc" then
   status_bar.tab_settings["smells"].display = true
 else
   status_bar.tab_settings["smells"].display = false
 end
 
-if matches[4] == "channeler" then
+if status_bar.char.class == "channeler" then
   status_bar.tab_settings["sps_dps"].display = true
   status_bar.tab_settings["one_power"].display = true
 else
@@ -1172,7 +1176,11 @@ status_bar:show_status_bar(true)</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Fade</name>
-					<script>status_bar.tab_settings["smells"].display = false
+					<script>status_bar.char.sex = matches[2]
+status_bar.char.race = "myrddraal"
+status_bar.char.class = "myrddraal"
+
+status_bar.tab_settings["smells"].display = false
 status_bar.tab_settings["sps_dps"].display = true
 status_bar.tab_settings["one_power"].display = false
 

@@ -273,49 +273,13 @@ registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")
 				<name>status_bar:sys_disconnection</name>
 				<packageName></packageName>
 				<script>function status_bar:sys_disconnection(event)
-  status_bar.char = {
-    mood = nil,
-    posture = nil,
-    hps = {
-      max = nil,
-      current = nil,
-      est_max = nil,
-      est_min = nil
-    },
-    sps = {
-      max = nil,
-      current = nil,
-      est_max = nil,
-      est_min = nil
-    },
-    dps = {
-      max = nil,
-      current = nil,
-      est_max = nil,
-      est_min = nil
-    },
-    mvs = {
-      max = nil,
-      current = nil,
-      est_max = nil,
-      est_min = nil
-    },
-    autoflee = nil,
-    fleelag = {
-      min = nil,
-      max = nil
-    },
-    charge_pulses = {
-      min = nil,
-      max = nil
-    },
-    notice = nil,
-    sneak = nil,
-    one_power = nil,
-    armor = nil,
-    int = nil,
-    wil = nil,
-    con = nil,
+  self.char = {
+    hps = {},
+    sps = {},
+    dps = {},
+    mvs = {},
+    fleelag = {},
+    charge_pulses = {}
   }
   --save configuration to disk
   table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
@@ -430,6 +394,7 @@ registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
 					<name>status_bar:update_sps_on_tic</name>
 					<packageName></packageName>
 					<script>function status_bar:update_sps_on_tic(event, exact, is_early, is_late)
+  if self.char.class ~= "channeler" then return end
   if is_early then
     self.char.int = self.char.int or 1
     self.char.wil = self.char.wil or 1
@@ -467,6 +432,50 @@ registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
 end
 
 registerAnonymousEventHandler("tic", "status_bar:update_sps_on_tic")</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>status_bar:update_sps_on_tic</name>
+					<packageName></packageName>
+					<script>function status_bar:update_dps_on_tic(event, exact, is_early, is_late)
+  if self.char.class ~= "myddraal" then return end
+  if is_early then
+    self.char.int = self.char.int or 1
+    self.char.wil = self.char.wil or 1
+    self.char.dps.max = self.char.dps.max or 1
+    local dp_regen = math.floor((self.char.int + self.char.wil)/2)
+    local dp_loss = -1
+    
+    if self.char.dps.current then
+      self.char.dps.est_min = math.max(self.char.dps.current + dp_loss, 0)
+      self.char.dps.est_max = math.min(self.char.dps.current + dp_regen, self.char.dps.max)
+      self.char.dps.current = nil
+    else
+      if self.char.dps.est_min then
+        self.char.dps.est_min = math.max(self.char.dps.est_min + dp_loss, 0)
+      end
+      if self.char.dps.est_max then
+        self.char.dps.est_max = math.min(self.char.dps.est_max + dp_regen, self.char.dps.max)
+      end
+    end
+    
+    if not self.char.dps.current and self.char.dps.est_min == self.char.dps.est_max then
+      self.char.dps.current = self.char.dps.est_min
+      self.char.dps.est_min = nil
+      self.char.dps.est_max = nil
+    end
+    
+    local msg = "Dark Points"
+    if self.char.dps.current then
+      msg = f"DP: {self.char.dps.current}({self.char.dps.max})"
+    else
+      msg = f"DP: "..(self.char.dps.est_min or "???").."-"..(self.char.dps.est_max or "???")..f"({self.char.dps.max})"
+    end  
+    self.dps_dps:echo(msg, "white", "c")
+  end
+end
+
+registerAnonymousEventHandler("tic", "status_bar:update_dps_on_tic")</script>
 					<eventHandlerList />
 				</Script>
 			</ScriptGroup>

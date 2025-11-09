@@ -435,10 +435,10 @@ registerAnonymousEventHandler("tic", "status_bar:update_sps_on_tic")</script>
 					<eventHandlerList />
 				</Script>
 				<Script isActive="yes" isFolder="no">
-					<name>status_bar:update_sps_on_tic</name>
+					<name>status_bar:update_dps_on_tic</name>
 					<packageName></packageName>
 					<script>function status_bar:update_dps_on_tic(event, exact, is_early, is_late)
-  if self.char.class ~= "myddraal" then return end
+  if self.char.class ~= "myrddraal" then return end
   if is_early then
     self.char.int = self.char.int or 1
     self.char.wil = self.char.wil or 1

@@ -21,8 +21,8 @@ dice_rolls.help =
     dice clear -- clear out ALL dice rolls
     dice show -- display dice rolls
     dice add xxx yyy -- add a name and number
-    dice remove xxx -- remove a name (case sensitive)
-    dice pop xxx -- remove the most recent roll for a name
+    dice remove xxx -- remove all rolls for a name (case sensitive)
+    dice pop xxx -- remove the most recent roll for a name (case sensitive)
  ]]
  
 function dice_rolls:echo(what, err)

@@ -109,7 +109,7 @@ end
       return false
     end
   end
-  return true
+  return false
 end
 
 function dice_rolls:show()

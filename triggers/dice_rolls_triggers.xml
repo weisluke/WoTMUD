@@ -4,18 +4,11 @@
 	<TriggerPackage>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Dice rolls</name>
-			<script>dice_rolls = dice_rolls or {}
-
-local d1 = tonumber(matches[2])
+			<script>local d1 = tonumber(matches[2])
 local d2 = tonumber(matches[3])
-local who = f"{matches[4]} roll "
-local index = 1
+local name = matches[4]
 
-while table.contains(dice_rolls, who..index) do
-  index = index + 1
-end
-
-table.insert(dice_rolls, {name=who..index, value=d1+d2})</script>
+dice_rolls:add(name, d1 + d2)</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>

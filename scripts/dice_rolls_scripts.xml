@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Dice rolls</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Dice rolls</name>
+				<packageName></packageName>
+				<script>dice_rolls = dice_rolls or {data={}}
+dice_rolls.version = "1.0"
+
+dice_rolls.help = 
+  [[Dice roll tracker
+    
+    dice help -- display this help message    
+    dice version -- display version number
+    dice clear -- clear out ALL dice rolls
+    dice show -- display dice rolls
+    dice add xxx yyy -- add a name and number
+    dice remove xxx -- remove a name (case sensitive)
+    dice pop xxx -- remove the most recent roll for a name
+ ]]
+ 
+function dice_rolls:echo(what, err)
+  --colored tags for message echo
+  local main_tag = "(dice_rolls): "
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if err then cecho(err_tag) end
+  cecho(what)
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Dice add</name>
+				<packageName></packageName>
+				<script>function dice_rolls:add(name, value)
+  if table.contains(self.data, name) then
+    table.insert(self.data[name], value)
+  else
+    self.data[name] = {value}
+  end
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Dice remove</name>
+				<packageName></packageName>
+				<script>function dice_rolls:remove(name)
+  if table.contains(self.data, name) then
+    self.data[name] = nil
+    self:echo(f'All data for {name} removed\n')
+  else
+    self:echo(f'{name} not found in dice roll data!\n', true)
+  end
+end
+
+function dice_rolls:pop(name)
+  if table.contains(self.data, name) then
+    local size = table.size(self.data[name])
+    self.data[name][size] = nil
+    self:echo(f'Most recent dice roll for {name} removed\n')
+  else
+    self:echo(f'{name} not found in dice roll data!\n', true)
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Dice clear</name>
+				<packageName></packageName>
+				<script>function dice_rolls:clear()
+  self.data = {}
+  self:echo("All data removed!\n")
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Dice show</name>
+				<packageName></packageName>
+				<script>function dice_rolls.sort(t, a, b)
+  --the two values in the table with the given keys
+  local t1 = t[a]
+  local t2 = t[b]
+  
+  for i=1, table.size(t1), 1 do
+    if t2[i] == nil then
+      return true
+    end
+    if t1[i] &gt; t2[i] then
+      return true
+    elseif t1[i] &lt; t2[i] then
+      return false
+    end
+  end
+  return true
+end
+
+function dice_rolls:show()
+  if table.is_empty(self.data) then
+    self:echo("No dice data stored!\n")
+    return
+  end
+  
+  local result = ""
+  for name, _ in spairs(self.data, self.sort) do
+    result = f'{result}{name}, '
+  end
+  self:echo(f'win order = {result}\n')
+  
+  for name, rolls in spairs(self.data, self.sort) do
+    cecho(string.format("%-20s|", name))
+    for _, value in ipairs(rolls) do
+      cecho(string.format("%-6s|", value))
+    end
+    cecho("\n")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>

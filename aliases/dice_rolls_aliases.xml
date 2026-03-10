@@ -9,11 +9,23 @@
 			<packageName></packageName>
 			<regex></regex>
 			<Alias isActive="yes" isFolder="no">
+				<name>Dice help</name>
+				<script>dice_rolls:echo(dice_rolls.help)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dice help$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Dice version</name>
+				<script>dice_rolls:echo(f'version {dice_rolls.version}\n')</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dice version$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
 				<name>Clear dice</name>
 				<script>--syntax: dice clear
-
-dice_rolls = {}
-cecho("Dice cleared\n")</script>
+dice_rolls:clear()</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^dice clear$</regex>
@@ -21,22 +33,40 @@ cecho("Dice cleared\n")</script>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show dice</name>
 				<script>--syntax: dice show
-
-dice_rolls = dice_rolls or {}
-
-local function dice_sort(t1, t2)
-  return t1.value &gt; t2.value
-end
-
-table.sort(dice_rolls, dice_sort)
-
-cecho("Dice rolls:\n")
-for _, tab in pairs(dice_rolls) do
-  cecho(f"{tab.name} = {tab.value}\n")
-end</script>
+dice_rolls:show()</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^dice show$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Dice add</name>
+				<script>--syntax: dice add name number
+
+local name = matches[2]
+local value = tonumber(matches[3])
+
+dice_rolls:add(name, value)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dice add (\S+) (\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Dice remove</name>
+				<script>local name = matches[2]
+
+dice_rolls:remove(name)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dice remove (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Dice pop</name>
+				<script>local name = matches[2]
+
+dice_rolls:pop(name)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^dice pop (\S+)$</regex>
 			</Alias>
 		</AliasGroup>
 	</AliasPackage>

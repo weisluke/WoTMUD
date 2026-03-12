@@ -52,6 +52,7 @@ end
   else
     self.data[name] = {value}
   end
+  self:echo(f'Added roll of {value} for {name}\n')
 end
 
 </script>
@@ -95,20 +96,27 @@ end
 				<name>Dice show</name>
 				<packageName></packageName>
 				<script>function dice_rolls.sort(t, a, b)
-  --the two values in the table with the given keys
+  --the two values in the table for the given keys (names)
+  --each of these are themselves tables of the dice rolls
   local t1 = t[a]
   local t2 = t[b]
   
   for i=1, table.size(t1), 1 do
+    --if second player doesn't have a roll this round,
+    --we are beating them by default
     if t2[i] == nil then
       return true
     end
+    --if second player has a worse roll, we beat them
     if t1[i] &gt; t2[i] then
       return true
+    --otherwise they beat us
     elseif t1[i] &lt; t2[i] then
       return false
     end
   end
+  --catch all when two people are exactly equal
+  --neither is better than the other
   return false
 end
 
@@ -127,7 +135,7 @@ function dice_rolls:show()
   for name, rolls in spairs(self.data, self.sort) do
     cecho(string.format("%-20s|", name))
     for _, value in ipairs(rolls) do
-      cecho(string.format("%-6s|", value))
+      cecho(string.format("%3s|", value))
     end
     cecho("\n")
   end

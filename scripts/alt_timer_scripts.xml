@@ -12,8 +12,9 @@
 				<packageName></packageName>
 				<script>alt_timer = alt_timer or {}
 alt_timer.version = "1.0"
-alt_timer.t_sameside = 5 * 60 --sameside is 5 minutes
-alt_timer.t_crossrace = 10 * 60 --crossrace is 10 minutes
+alt_timer.t_sameside = 5 * 1 --sameside is 5 minutes
+alt_timer.t_crossrace = 10 * 1 --crossrace is 10 minutes
+alt_timer.t_immortal = 15 * 1 --immortal is 15 minutes
 
 alt_timer.container = alt_timer.container or Adjustable.Container:new({
   name = "alt_timer.container",
@@ -44,7 +45,7 @@ alt_timer.sameside_label = alt_timer.sameside_label or Geyser.Label:new({
   name = "alt_timer.sameside_label",
   x = 0,
   y = 0,
-  width = "50%",
+  width = "33%",
   height = "100%",
   stylesheet = [[
     border-right: 1px solid #444;
@@ -56,9 +57,23 @@ alt_timer.sameside_label = alt_timer.sameside_label or Geyser.Label:new({
 
 alt_timer.crossrace_label = alt_timer.crossrace_label or Geyser.Label:new({
   name = "alt_timer.crossrace_label",
-  x = "50%",
+  x = "33%",
   y = 0,
-  width = "50%",
+  width = "33%",
+  height = "100%",
+  stylesheet = [[
+    border-right: 1px solid #444;
+    background: transparent;
+    font-family: Arial;
+    color: #fff;
+  ]]
+}, alt_timer.container)
+
+alt_timer.immortal_label = alt_timer.immortal_label or Geyser.Label:new({
+  name = "alt_timer.immortal_label",
+  x = "66%",
+  y = 0,
+  width = "33%",
   height = "100%",
   stylesheet = [[
     background: transparent;
@@ -85,6 +100,15 @@ function alt_timer:update_display(elapsed)
   else
     self.crossrace_label:hecho("&lt;center&gt;&lt;p style='font-size: 16px;'&gt;#888888Cross-Race&lt;/p&gt;&lt;p style='font-size: 32px'&gt;#00ff00Ready&lt;/p&gt;&lt;/center&gt;")
   end
+  
+  local t_immortal = self.t_immortal - elapsed
+  if t_immortal &gt;= 0 then
+    local mins = math.floor(t_immortal / 60)
+    local secs = t_immortal % 60
+    self.immortal_label:hecho(string.format("&lt;center&gt;&lt;p style='font-size: 16px'&gt;#888888Immortal&lt;/p&gt;&lt;p style='font-size: 32px'&gt;%d:%02d&lt;/p&gt;&lt;/center&gt;", mins, secs))
+  else
+    self.immortal_label:hecho("&lt;center&gt;&lt;p style='font-size: 16px;'&gt;#888888Immortal&lt;/p&gt;&lt;p style='font-size: 32px'&gt;#00ff00Ready&lt;/p&gt;&lt;/center&gt;")
+  end
 end</script>
 				<eventHandlerList />
 			</Script>
@@ -97,17 +121,18 @@ end</script>
   cecho(f"&lt;green&gt;Date - Time: {time}\n")
   self.sameside_timer = tempTimer(self.t_sameside + 1, function() cecho("&lt;green&gt;You may log on a sameside alt now!\n") end)
   self.crossrace_timer = tempTimer(self.t_crossrace + 1, function() cecho("&lt;green&gt;You may log on a crossrace alt now!\n") end)
+  self.immortal_timer = tempTimer(self.t_immortal + 1, function() cecho("&lt;green&gt;You may log on an immortal alt now!\n") end)
 
   self:update_display(0)
-  self.container:resize("20%", "16%")
-  self.container:move("40%", "42%")
+  self.container:resize("33%", "16%")
+  self.container:move("33%", "42%")
   self.container:show()
   
   local started = os.time()
   self.elapsed_timer = tempTimer(1, 
     function()
       local elapsed = math.floor(os.time() - started + .5)
-      if elapsed &gt; self.t_crossrace then
+      if elapsed &gt; self.t_immortal then
         killTimer(self.elapsed_timer)
       end
       self:update_display(elapsed)
@@ -127,6 +152,9 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "alt_timer:sys_disconnect
   end
   if self.crossrace_timer then
     killTimer(self.crossrace_timer)
+  end
+  if self.immortal_timer then
+    killTimer(self.immortal_timer)
   end
   if self.elapsed_timer then
     killTimer(self.elapsed_timer)

@@ -12,9 +12,9 @@
 				<packageName></packageName>
 				<script>alt_timer = alt_timer or {}
 alt_timer.version = "1.0"
-alt_timer.t_sameside = 5 * 1 --sameside is 5 minutes
-alt_timer.t_crossrace = 10 * 1 --crossrace is 10 minutes
-alt_timer.t_immortal = 15 * 1 --immortal is 15 minutes
+alt_timer.t_sameside = 5 * 60 --sameside is 5 minutes
+alt_timer.t_crossrace = 10 * 60 --crossrace is 10 minutes
+alt_timer.t_immortal = 15 * 60 --immortal is 15 minutes
 
 alt_timer.container = alt_timer.container or Adjustable.Container:new({
   name = "alt_timer.container",

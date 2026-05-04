@@ -835,7 +835,27 @@ else
 end</script>
 					<command></command>
 					<packageName></packageName>
-					<regex>(^map on$)|(^map off$)</regex>
+					<regex>^map (on|off)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Dock/Undock Map</name>
+					<script>wotmudmapper.configs.map_window.dock = not wotmudmapper.configs.map_window.dock
+wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.dock and "docked.\n" or "floating.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map dock$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show/Hide Map</name>
+					<script>wotmudmapper.configs.map_window.visible = not wotmudmapper.configs.map_window.visible
+wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^map show$</regex>
 				</Alias>
 			</AliasGroup>
 			<Alias isActive="yes" isFolder="no">
@@ -1142,26 +1162,6 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map zoom (\S+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Dock/Undock Map</name>
-				<script>wotmudmapper.configs.map_window.dock = not wotmudmapper.configs.map_window.dock
-wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.dock and "docked.\n" or "floating.\n"))
-table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
-wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^map dock$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Show/Hide Map</name>
-				<script>wotmudmapper.configs.map_window.visible = not wotmudmapper.configs.map_window.visible
-wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
-table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
-wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^map show$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Map Help Alias</name>

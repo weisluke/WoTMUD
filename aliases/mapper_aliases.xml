@@ -874,22 +874,16 @@ wotmudmapper:echo(f"Queue reset. {numcoms} command(s) was/were removed.\n")</scr
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Find Room</name>
-				<script>--syntax: findroom roomname zone zonename OR findroom roomname
+				<script>--syntax: findroom roomname OR findroom roomname zone zonename
 
-local roomname, zonename
-
-if matches[5] then
-  roomname = matches[6]
-else
-  roomname = matches[3]
-end
+local roomname = matches[2]
+local zonename = matches[4]
 
 local foundrooms = searchRoom(roomname, false, true)
 if table.is_empty(foundrooms) then
   foundrooms = searchRoom(roomname, false, false)
 end
-if not matches[5] then
-  zonename = matches[4]
+if zonename then
   for id, name in pairs(foundrooms) do
     if not string.find(string.lower(getRoomUserData(id, "zone")), string.lower(zonename)) then
       foundrooms[id] = nil
@@ -918,19 +912,14 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>(^findroom (.+) zone (.+)$)|(^findroom (.+)$)</regex>
+				<regex>^findroom (.+?)( zone (.+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Find Door</name>
-				<script>--syntax: finddoor doorname zone zonename OR finddoor doorname
+				<script>--syntax: finddoor doorname OR finddoor doorname zone zonename
 
-local doorname, zonename
-
-if matches[5] then
-  doorname = matches[6]
-else
-  doorname = matches[3]
-end
+local doorname = matches[2]
+local zonename = matches[4]
 
 local foundrooms = {}
 
@@ -945,8 +934,7 @@ end
 --remove duplicates
 foundrooms = table.n_union(foundrooms, foundrooms)
 
-if not matches[5] then
-  zonename = matches[4]
+if zonename then
   for i, room in pairs(foundrooms) do
     if not string.find(string.lower(getRoomUserData(room, "zone")), string.lower(zonename)) then
       foundrooms[i] = nil
@@ -976,7 +964,53 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>(^finddoor (.+) zone (.+)$)|(^finddoor (.+)$)</regex>
+				<regex>^finddoor (.+?)( zone (.+))?$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show Room</name>
+				<script>--syntax: showroom envname OR showroom envname zone zonename
+
+local env = matches[2]
+local zonename = matches[4]
+
+local foundrooms = getRooms()
+
+for id, name in pairs(foundrooms) do
+  if getRoomEnv(id) ~= wotmudmapper.room_type_env_nums[env] then
+    foundrooms[id] = nil
+  end
+end
+
+if zonename then
+  for id, name in pairs(foundrooms) do
+    if not string.find(string.lower(getRoomUserData(id, "zone")), string.lower(zonename)) then
+      foundrooms[id] = nil
+    end
+  end
+end
+
+if table.is_empty(foundrooms) then
+  wotmudmapper:echo("No matches found.\n", false, true)
+elseif table.size(foundrooms) == 1 then
+  wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
+  for id, name in pairs(foundrooms) do
+    centerview(id)
+  end
+else
+  wotmudmapper:echo("Multiple matches found.\n", false, true)
+  for id, name in spairs(foundrooms) do
+    local zone = getRoomUserData(id, "zone")
+    cechoLink(
+      f"Room ID: {id}, &lt;ansi_cyan&gt;room name&lt;reset&gt;: {name}, &lt;{wotmudmapper.configs.zonecolor}&gt;zone&lt;reset&gt;: {zone}\n",
+      function() centerview(id) end,
+      "Click to center map on room.",
+      true
+    )
+  end
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^showroom (.+?)( zone (.+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Update Map</name>

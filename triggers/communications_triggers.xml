@@ -284,7 +284,7 @@ else
     for id, name in spairs(foundrooms) do
       local zone = getRoomUserData(id, "zone")
       echoLink(
-        "Room ID: {id}, zone: {zone}\n", 
+        f"Room ID: {id}, zone: {zone}\n", 
         function() centerview(id) end, 
         "Click to center map on room.",
         true

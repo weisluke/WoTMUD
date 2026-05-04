@@ -267,6 +267,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar
     table.load(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
   end
   self:show_status_bar(true)
+  raiseEvent("status_bar:sys_connection_event")
 end
 
 registerAnonymousEventHandler("sysLoadEvent", "status_bar:sys_connection")
@@ -860,40 +861,46 @@ registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_one_power
 --(it's simply here so that this script doesn't do anything by default)
 if true then return end
 
+  
+status_bar = status_bar or {}
 
-
---the string here is the reference name for the tab (in this case, "target")
---I personally prefer to keep it simple, all lowercase and no spaces (using underscores if needed)
---examples (already used by me): "charge_pulses", "hps", "notice", "tic_timer", "sps_dps"
-if not table.index_of(status_bar.tabs, "target") then
-  table.insert(status_bar.tabs, "target")
+function status_bar.custom_tabs(event)
+  --the string here is the reference name for the tab (in this case, "target")
+  --I personally prefer to keep it simple, all lowercase and no spaces (using underscores if needed)
+  --examples (already used by me): "charge_pulses", "hps", "notice", "tic_timer", "sps_dps"
+  if not table.index_of(status_bar.tabs, "target") then
+    table.insert(status_bar.tabs, "target")
+  end
+  if table.index_of(status_bar.tabs, "target") then
+    --display: whether or not to show it
+    --max_chars: the maximum number of characters that may end up displayed in this tab
+    --e.g., for HPs, the longest string in the tab will be of the form "HP: xxx-yyy(zzz)" which is 16 characters
+    --default_text: what should the tab initially display. not super important, can use an empty string, but nice
+    --to give it something for when mudlet boots up so its not empty
+    status_bar.tab_settings["target"] = {display=true, max_chars = 9, default_text = "Target"}
+  end
+  
+  
+  
+  --change what tabs are displayed
+  --the list of default tabs can be found in the "status_bar default tabs" item
+  
+  --if you hate the charge pulses being shown, here's your chance to hide it!
+  status_bar.tab_settings["charge_pulses"].display = false
+   
+  --this simply shows the target tab created above. actually displaying your current target
+  --would require you to add more code to the aliases where you change your target
+  --this simply provides the framework for allocating a spot for it on the status bar
+  status_bar.tab_settings["target"].display = true
+  
+  
+  
+  --Finally, display the status bar with the changes
+  status_bar:show_status_bar(true)
 end
-if table.index_of(status_bar.tabs, "target") then
-  --display: whether or not to show it
-  --max_chars: the maximum number of characters that may end up displayed in this tab
-  --e.g., for HPs, the longest string in the tab will be of the form "HP: xxx-yyy(zzz)" which is 16 characters
-  --default_text: what should the tab initially display. not super important, can use an empty string, but nice
-  --to give it something for when mudlet boots up so its not empty
-  status_bar.tab_settings["target"] = {display=true, max_chars = 9, default_text = "Target"}
-end
 
-
-
---change what tabs are displayed
---the list of default tabs can be found in the "status_bar default tabs" item
-
---if you hate the charge pulses being shown, here's your chance to hide it!
-status_bar.tab_settings["charge_pulses"].display = false
- 
---this simply shows the target tab created above. actually displaying your current target
---would require you to add more code to the aliases where you change your target
---this simply provides the framework for allocating a spot for it on the status bar
-status_bar.tab_settings["target"].display = true
-
-
-
---Finally, display the status bar with the changes
-status_bar:show_status_bar(true)</script>
+registerAnonymousEventHandler("status_bar:sys_connection_event", "status_bar.custom_tabs")
+</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>

@@ -2012,7 +2012,7 @@ end</script>
   local level = math.min(self.char.level, 30)
 
   local ob = 0
-  if self.char.class == "warrior" then
+  if self.char.class == "warrior" and not self.char.warder_bond then
     ob = ob + 5
   end
   
@@ -2347,10 +2347,10 @@ function eq_trainer:get_std_dev_char_dmg()
   end
   
   if self.char.str &gt; 14 then
-    var_str = (self.char.str - 14)*(self.char.str - 13)*(2*self.char.str - 27)/42
+    var_str = (self.char.str - 14)*(self.char.str - 13)*(self.char.str * (383 - 9 * self.char.str) - 3528) / 1764
   end
   
-  return math.sqrt(var_wpn+var_hone+var_rank+var_str)
+  return math.sqrt(var_wpn + var_hone + var_rank + var_str)
   
 end</script>
 					<eventHandlerList />

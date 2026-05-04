@@ -303,7 +303,6 @@ weave_trainer.pracs.clanned =
     "contagion",
     "cure fear",
     "cure poison",
-    "delve",
     "elemental staff",
     "fireball",
     "flame strike",
@@ -751,6 +750,7 @@ function weave_trainer:add_percent(skill)
         "cure light wounds",
         "cure poison",
         "deafen",
+        "delve",
         "poison",
         "remove contagion",
         "sense warding",
@@ -776,8 +776,8 @@ function weave_trainer:prac_residuals(skill)
       self.weaves.percents[v] = math.max(self.weaves.percents[v], math.floor(self.weaves.percents[skill]*0.4))
     end
   end
-  if table.contains({"cure light wounds", "delve", "heal"}, skill) then
-    for k, v in pairs({"cure light wounds", "delve", "heal"}) do
+  if table.contains({"cure light wounds", "heal"}, skill) then
+    for k, v in pairs({"cure light wounds", "heal"}) do
       self.weaves.percents[v] = math.max(self.weaves.percents[v], math.floor(self.weaves.percents[skill]*0.4))
     end
   end

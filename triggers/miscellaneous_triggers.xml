@@ -553,8 +553,10 @@ cecho(f" &lt;gold&gt;{crowns} gold crowns and {coppers} coppers.")</script>
 					<string>You see signs of shadowspawn nearby.</string>
 					<string>You see signs of enemies nearby.</string>
 					<string>You sense shadowspawn nearby.</string>
+					<string>You catch a scent of shadowspawn nearby.</string>
 				</regexCodeList>
 				<regexCodePropertyList>
+					<integer>3</integer>
 					<integer>3</integer>
 					<integer>3</integer>
 					<integer>3</integer>

@@ -1273,4 +1273,12 @@ status_bar:show_status_bar(true)</script>
 			</TriggerGroup>
 		</TriggerGroup>
 	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

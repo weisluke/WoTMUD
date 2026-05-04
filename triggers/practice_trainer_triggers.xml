@@ -303,4 +303,12 @@ send("dismiss trainer")</script>
 			</TriggerGroup>
 		</TriggerGroup>
 	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

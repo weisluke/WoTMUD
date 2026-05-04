@@ -123,4 +123,12 @@ weave_trainer:update_displays()</script>
 			</Trigger>
 		</TriggerGroup>
 	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

@@ -359,4 +359,12 @@ equip_db:reset_eq_info()</script>
 			</Trigger>
 		</TriggerGroup>
 	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

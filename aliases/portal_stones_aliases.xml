@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
 	<AliasPackage>
 		<Alias isActive="yes" isFolder="no">
 			<name>Portal Stones</name>
@@ -33,4 +35,10 @@ end</script>
 			<regex>^portal (.+)$</regex>
 		</Alias>
 	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

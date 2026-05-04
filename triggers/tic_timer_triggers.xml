@@ -1977,4 +1977,12 @@ disableTrigger("Turn on hungry/thirsty tic timer")</script>
 			</TriggerGroup>
 		</TriggerGroup>
 	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

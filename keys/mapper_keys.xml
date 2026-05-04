@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage />
 	<KeyPackage>
 		<KeyGroup isActive="no" isFolder="yes">
 			<name>Offline Map</name>
@@ -65,4 +70,7 @@ wotmudmapper:offline_move("d")</script>
 			</Key>
 		</KeyGroup>
 	</KeyPackage>
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

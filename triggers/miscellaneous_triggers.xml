@@ -131,56 +131,49 @@
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Clan</name>
-				<script>if string.find(matches[2],"Queen's Guard") then
-  selectCaptureGroup(2)
-  fg("red")
-elseif string.find(matches[2],"Forester") then
-  selectCaptureGroup(2)
-  fg("forest_green")
-elseif string.find(matches[2],"Child of Light") then
-  selectCaptureGroup(2)
-  fg("yellow")
-elseif string.find(matches[2],"Dragonsworn") then
-  selectCaptureGroup(2)
-  fg("blue")
-elseif string.find(matches[2],"Gaidin") then
-  selectCaptureGroup(2)
-  fg("forest_green")
-elseif string.find(matches[2],"Gleeman") then
-  selectCaptureGroup(2)
-  fg("green")
-elseif string.find(matches[2],"Hand of Light") then
-  selectCaptureGroup(2)
-  fg("red")
-elseif string.find(matches[2],"Illian Companion") then
-  selectCaptureGroup(2)
-  fg("blue")
-elseif string.find(matches[2], "Illuminator") then
-  selectCaptureGroup(2)
-  fg("orange")
-elseif string.find(matches[2],"Red Eagle") then
-  selectCaptureGroup(2)
-  fg("red")
-elseif string.find(matches[2],"Rising Sun") then
-  selectCaptureGroup(2)
-  fg("gold")
-elseif string.find(matches[2],"Thiefbane") then
-  selectCaptureGroup(2)
-  fg("dark_slate_gray")
-elseif string.find(matches[2],"Wall Guard") then
-  selectCaptureGroup(2)
-  fg("brown")
-elseif string.find(matches[2],"White Tower") then
-  selectCaptureGroup(2)
-  fg("white")
-elseif string.find(matches[2],"Winged Guard") then
-  selectCaptureGroup(2)
-  fg("purple")
-elseif string.find(matches[2],"Ajah") then
+				<script>local clan_colors = {
+  ["Black Talon"] = "white",
+  ["Child of Light"] = "yellow",
+  ["Civil Watch"] = "white",
+  ["Defender of the Stone"] = "white",
+  ["Dragonsworn"] = "blue",
+  ["Forester"] = "forest_green",
+  ["Gaidin"] = "forest_green",
+  ["Gleeman"] = "green",
+  ["Hand of Light"] = "red",
+  ["Illian Companion"] = "blue",
+  ["Illuminator"] = "orange",
+  ["Iron Fist"] = "white",
+  ["Kandori Merchants' Guild"] = "white",
+  ["Kin"] = "white",
+  ["Legion of Unity"] = "white",
+  ["Queen's Guard"] = "red",
+  ["Red Eagle"] = "red",
+  ["Rising Sun"] = "gold",
+  ["Saldaean Cavalry"] = "white",
+  ["Shienaran Lancer"] = "white",
+  ["Sword and Hand"] = "white",
+  ["Thiefbane"] = "dark_slate_gray",
+  ["Tower Guard"] = "white",
+  ["Wall Guard"] = "brown",
+  ["White Tower"] = "white",
+  ["Winged Guard"] = "purple",
+  ["Wisdom"] = "white",
+  ["Wolfbrother"] = "gray",
+}
+
+for clan, color in pairs(clan_colors) do
+  if string.find(matches[2], clan) then
+    selectCaptureGroup(2)
+    fg(color)
+  end
+end
+if string.find(matches[2],"Ajah") then
   selectCaptureGroup(2)
   fg(string.split(string.lower(matches[2])," ")[1])
 end
-resetFormat()</script>
+resetFormat()
+</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -192,7 +185,7 @@ resetFormat()</script>
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
-					<string>\s\[(.*)\]</string>
+					<string>\s\[(.+)\]</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

@@ -1166,7 +1166,7 @@ end</script>
 					</Trigger>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-					<name>Eyes keen, a Domani razor stands here swishing its tail.</name>
+					<name>A Domani razor stands here, eyes keen and swishing its tail.</name>
 					<script></script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
@@ -1179,7 +1179,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
-						<string>Eyes keen, a Domani razor stands here swishing its tail.</string>
+						<string>A Domani razor stands here, eyes keen and swishing its tail.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>

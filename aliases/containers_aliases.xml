@@ -17,7 +17,7 @@
 container = container or {}
 
 if matches[3] then
-  container.first = matches[4]
+  container.first = matches[3]
   cecho(f"Container is set as: &lt;gold&gt;{container.first}\n")
 elseif container.first then
   cecho(f"Container is set as: &lt;gold&gt;{container.first}\n")
@@ -26,7 +26,7 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>(^setcontainer$)|(^setcontainer (\S+)$)</regex>
+				<regex>^setcontainer( (\S+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Delete Container</name>
@@ -47,7 +47,7 @@ cecho("&lt;red&gt;Container deleted!\n")</script>
 drink = drink or {}
 
 if matches[3] then
-  drink.first = matches[4]
+  drink.first = matches[3]
   cecho(f"Drink is set as: &lt;gold&gt;{drink.first}\n")
 elseif drink.first then
   cecho(f"Drink is set as: &lt;gold&gt;{drink.first}\n")
@@ -56,7 +56,7 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>(^setdrink$)|(^setdrink (\S+)$)</regex>
+				<regex>^setdrink( (\S+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Delete Drink</name>

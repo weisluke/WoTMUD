@@ -15,7 +15,7 @@
 				<script>horse = horse or {}
 
 if matches[3] then
-  horse.first = matches[4]
+  horse.first = matches[3]
   cecho(f"Horse is set as: &lt;gold&gt;{horse.first}\n")
 elseif horse.first then
   cecho(f"Horse is set as: &lt;gold&gt;{horse.first}\n")
@@ -24,7 +24,7 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>(^sethorse$)|(^sethorse (\S+)$)</regex>
+				<regex>^sethorse( (\S+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Ride Horse</name>

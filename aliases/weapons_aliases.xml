@@ -117,7 +117,7 @@ end</script>
 weapon = weapon or {}
 
 if matches[3] then
-  weapon.first = matches[4]
+  weapon.first = matches[3]
   cecho(f"Weapon is set as: &lt;gold&gt;{weapon.first}\n")
 elseif weapon.first then
   cecho(f"Weapon is set as: &lt;gold&gt;{weapon.first}\n")
@@ -126,7 +126,7 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>(^setweapon$)|(^setweapon (\S+)$)</regex>
+				<regex>^setweapon( (\S+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Delete Weapon</name>

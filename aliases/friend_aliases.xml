@@ -15,7 +15,7 @@
 				<script>--syntax: sf OR sf name
 
 if matches[3] then
-  friend = matches[4]
+  friend = matches[3]
   cecho(f"Friend set to {friend}\n")
 elseif friend then
   cecho(f"Friend set as {friend}\n")
@@ -24,7 +24,7 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>(^sf$)|(^sf (\w+)$)</regex>
+				<regex>^sf( (\w+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Tell Friend</name>

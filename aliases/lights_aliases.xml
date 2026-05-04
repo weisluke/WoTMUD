@@ -105,7 +105,7 @@ end</script>
 light = light or {}
 
 if matches[3] then
-  light.first = matches[4]
+  light.first = matches[3]
   cecho(f"Light is set as: &lt;gold&gt;{light.first}\n")
 elseif light.first then
   cecho(f"Light is set as: &lt;gold&gt;{light.first}\n")
@@ -114,7 +114,7 @@ else
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>(^setlight$)|(^setlight (\S+)$)</regex>
+				<regex>^setlight( (\S+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Delete Light</name>

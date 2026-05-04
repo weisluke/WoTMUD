@@ -556,7 +556,7 @@ end</script>
     }
   local upper = math.floor(upper_cutoffs[mvs] * self.char.mvs.max)
   local lower = math.ceil(lower_cutoffs[mvs] * self.char.mvs.max)
-    
+  
   local msg = self:update_table_with_range(self.char.mvs, lower, upper,
                 "Movement Points", "MV")
   self.mvs:echo(msg, "white", "c")
@@ -576,6 +576,7 @@ end</script>
       Fading = 0.3,
       Trickling = 0.15,
       None = 0.01,
+      Spent = 0,
     }
   local lower_cutoffs = {
       Bursting = 1, 
@@ -584,11 +585,12 @@ end</script>
       Good = 0.3, 
       Fading = 0.15, 
       Trickling = 0.01, 
-      None = 0
+      None = 0,
+      Spent = 0,
     }
   local upper = math.floor(upper_cutoffs[sps] * self.char.sps.max)
   local lower = math.ceil(lower_cutoffs[sps] * self.char.sps.max)
-    
+  
   local msg = self:update_table_with_range(self.char.sps, lower, upper,
                 "Spell Points", "SP")
   self.sps_dps:echo(msg, "white", "c")
@@ -608,6 +610,7 @@ end</script>
       Fading = 0.3,
       Trickling = 0.15,
       None = 0.01,
+      Spent = 0,
     }
   local lower_cutoffs = {
       Bursting = 1, 
@@ -616,11 +619,12 @@ end</script>
       Good = 0.3, 
       Fading = 0.15, 
       Trickling = 0.01, 
-      None = 0
+      None = 0,
+      Spent = 0,
     }
   local upper = math.floor(upper_cutoffs[dps] * self.char.dps.max)
   local lower = math.ceil(lower_cutoffs[dps] * self.char.dps.max)
-    
+  
   local msg = self:update_table_with_range(self.char.dps, lower, upper,
                 "Dark Power", "DP")
   self.sps_dps:echo(msg, "white", "c")

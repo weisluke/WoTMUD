@@ -898,7 +898,7 @@ end</script>
 				</Trigger>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>Weather</name>
-					<script>if tic_timer.configs.on then
+					<script>if tic_timer.configs.on and (tic_timer.configs.aggro_pulse == 5 or tic_timer.configs.aggro_pulse == 0) then
   raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
 end</script>
 					<triggerType>0</triggerType>

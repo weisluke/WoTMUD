@@ -686,6 +686,7 @@ end</script>
 						<string>The sun sets the plains afire as it rises in the east.</string>
 						<string>The sun sets with a vivid display of colors over the western sky.</string>
 						<string>The sun sets, allowing shadows to creep forward.</string>
+						<string>The sun sets, and the shadows appear to come alive.</string>
 						<string>The sun sets, casting the streets into cool, violet shadows.</string>
 						<string>The sun sets, leaving a crisp coolness.</string>
 						<string>The sun sets, painting the skies over Seandar in a multitude of shades of red.</string>
@@ -697,7 +698,6 @@ end</script>
 						<string>The sun sinks behind the western wall of the city.</string>
 						<string>The sun sinks behind the Westwood to the west.</string>
 						<string>The sun sinks below the western horizon.</string>
-						<string>The sun sinks into a cloudbank in the western sky.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -768,6 +768,7 @@ end</script>
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
+						<string>The sun sinks into a cloudbank in the western sky.</string>
 						<string>The sun sinks into the hills.</string>
 						<string>The sun sinks over the sea to the west.</string>
 						<string>The sun sinks quietly beneath the western horizon.</string>
@@ -805,6 +806,7 @@ end</script>
 						<string>The weak light cast upon the dismal grove dissipates as the sun sets.</string>
 						<string>The western horizon glows in shades of red and violet as the sun sets.</string>
 						<string>The western sky blazes in shades of red as the sun slowly sets.</string>
+						<string>The western sky is ablaze in shades of red as the sun sets.</string>
 						<string>The White Tower is bathed in a reddish orange light as the sun sets.</string>
 						<string>The White Tower's spire gleams softly in the first light of a new day.</string>
 						<string>The world is basked in a purple glow as the sun dips below the hills.</string>
@@ -816,8 +818,6 @@ end</script>
 						<string>Warm golden light embraces the palace as the sun rises.</string>
 						<string>Weak daylight fades to black as the sun slowly sets.</string>
 						<string>Weak light filters through the hazy sky as the sun rises.</string>
-						<string>Weak light is cast through the grove as the sun rises.</string>
-						<string>Weak sunlight strains to brighten this blighted wasteland as the sun rises.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
 						<integer>3</integer>
@@ -868,6 +868,30 @@ end</script>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
+						<integer>3</integer>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Tic Triggers 8</name>
+					<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Weak light is cast through the grove as the sun rises.</string>
+						<string>Weak sunlight strains to brighten this blighted wasteland as the sun rises.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
 						<integer>3</integer>
 						<integer>3</integer>
 					</regexCodePropertyList>

@@ -723,9 +723,12 @@ status_bar.hps:echo(msg, "white", "c")</script>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>You are dead</name>
 				<script>status_bar.char.hps.current = 1
-
 local msg_hps = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
 status_bar.hps:echo(msg_hps, "white", "c")
+
+status_bar.char.mvs.current = 1
+local msg_mvs = f"MV: {status_bar.char.mvs.current}({status_bar.char.mvs.max})"
+status_bar.mvs:echo(msg_mvs, "white", "c")
 
 status_bar.char.fleelag = {min = 0, max = 0}
 local msg_fleelag = "Fleelag: 0"
@@ -733,7 +736,18 @@ status_bar.fleelag:echo(msg_fleelag, "white", "c")
 
 status_bar.char.charge_pulses = {min = 7, max = 7}
 local msg_charge_pulses = "Charge pulses: 7"
-status_bar.charge_pulses:echo(msg_charge_pulses, "white", "c")</script>
+status_bar.charge_pulses:echo(msg_charge_pulses, "white", "c")
+
+status_bar.char.notice = false
+status_bar.notice:echo("notice", "red", "c")
+
+status_bar.one_power:echo("released", "red", "c")
+
+status_bar.char.armor = false
+status_bar.armor:echo("armor", "red", "c")
+
+status_bar.char.sneak = false
+status_bar.sneak:echo("sneak", "red", "c")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -992,8 +1006,10 @@ end</script>
 						<string>You feel no connection to the True Source to release.</string>
 						<string>You can't alter a weave when you aren't in touch with the Source.</string>
 						<string>You fight a wave of sickness, and saidin slips from your grasp.</string>
+						<string>You are unable to sense the True Source at all from here.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>

@@ -311,6 +311,40 @@ registerAnonymousEventHandler("sysInstallPackage", "status_bar:status_bar_instal
 				<script></script>
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
+					<name>status_bar:update_table_on_tic</name>
+					<packageName></packageName>
+					<script>function status_bar:update_table_on_tic(tab, loss, gain, long_msg, short_msg)
+  tab.max = tab.max or 1
+  if tab.current then
+    tab.est_min = math.max(tab.current + loss, 0)
+    tab.est_max = math.min(tab.current + gain, tab.max)
+    tab.current = nil
+  else
+    if tab.est_min then
+      tab.est_min = math.max(tab.est_min + loss, 0)
+    end
+    if tab.est_max then
+      tab.est_max = math.min(tab.est_max + gain, tab.max)
+    end
+  end
+  
+  if not tab.current and tab.est_min == tab.est_max then
+    tab.current = tab.est_min
+    tab.est_min = nil
+    tab.est_max = nil
+  end
+  
+  local msg = long_msg
+  if tab.current then
+    msg = f"{short_msg}: {tab.current}({tab.max})"
+  else
+    msg = f"{short_msg}: "..(tab.est_min or "???").."-"..(tab.est_max or "???")..f"({tab.max})"
+  end
+  return msg
+end</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
 					<name>status_bar:update_fleelag_on_tic</name>
 					<packageName></packageName>
 					<script>function status_bar:update_fleelag_on_tic(event, exact, is_early, is_late)
@@ -362,31 +396,10 @@ registerAnonymousEventHandler("tic", "status_bar:update_fleelag_on_tic")</script
 					<script>function status_bar:update_health_on_tic(event, exact, is_early, is_late)
   if is_early then
     self.char.con = self.char.con or 1
-    self.char.hps.max = self.char.hps.max or 1
     local hp_regen = {0, 0, 0, 0, 0, 0, 0, 0, 18, 21, 22, 25, 26, 29, 30, 33, 35, 37, 39}
     
-    if self.char.hps.current then
-      self.char.hps.est_min = self.char.hps.current
-      self.char.hps.est_max = math.min(self.char.hps.current + hp_regen[self.char.con], self.char.hps.max)
-      self.char.hps.current = nil
-    else
-      if self.char.hps.est_max then
-        self.char.hps.est_max = math.min(self.char.hps.est_max + hp_regen[self.char.con], self.char.hps.max)
-      end
-    end
-    
-    if not self.char.hps.current and self.char.hps.est_min == self.char.hps.est_max then
-      self.char.hps.current = self.char.hps.est_min
-      self.char.hps.est_min = nil
-      self.char.hps.est_max = nil
-    end
-    
-    local msg = "Hit Points"
-    if self.char.hps.current then
-      msg = f"HP: {self.char.hps.current}({self.char.hps.max})"
-    else
-      msg = f"HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???")..f"({self.char.hps.max})"
-    end  
+    local msg = self:update_table_on_tic(self.char.hps, 0, hp_regen[self.char.con],
+                  "Hit Points", "HP")
     self.hps:echo(msg, "white", "c")
   end
 end
@@ -402,35 +415,11 @@ registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
   if is_early then
     self.char.int = self.char.int or 1
     self.char.wil = self.char.wil or 1
-    self.char.sps.max = self.char.sps.max or 1
     local sp_regen = math.floor((self.char.int + self.char.wil)/2)
     local sp_loss = -1
     
-    if self.char.sps.current then
-      self.char.sps.est_min = math.max(self.char.sps.current + sp_loss, 0)
-      self.char.sps.est_max = math.min(self.char.sps.current + sp_regen, self.char.sps.max)
-      self.char.sps.current = nil
-    else
-      if self.char.sps.est_min then
-        self.char.sps.est_min = math.max(self.char.sps.est_min + sp_loss, 0)
-      end
-      if self.char.sps.est_max then
-        self.char.sps.est_max = math.min(self.char.sps.est_max + sp_regen, self.char.sps.max)
-      end
-    end
-    
-    if not self.char.sps.current and self.char.sps.est_min == self.char.sps.est_max then
-      self.char.sps.current = self.char.sps.est_min
-      self.char.sps.est_min = nil
-      self.char.sps.est_max = nil
-    end
-    
-    local msg = "Spell Points"
-    if self.char.sps.current then
-      msg = f"SP: {self.char.sps.current}({self.char.sps.max})"
-    else
-      msg = f"SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???")..f"({self.char.sps.max})"
-    end  
+    local msg = self:update_table_on_tic(self.char.sps, sp_loss, sp_regen,
+                  "Spell Points", "SP")
     self.sps_dps:echo(msg, "white", "c")
   end
 end
@@ -446,35 +435,11 @@ registerAnonymousEventHandler("tic", "status_bar:update_sps_on_tic")</script>
   if is_early then
     self.char.int = self.char.int or 1
     self.char.wil = self.char.wil or 1
-    self.char.dps.max = self.char.dps.max or 1
     local dp_regen = math.floor((self.char.int + self.char.wil)/2)
     local dp_loss = -1
     
-    if self.char.dps.current then
-      self.char.dps.est_min = math.max(self.char.dps.current + dp_loss, 0)
-      self.char.dps.est_max = math.min(self.char.dps.current + dp_regen, self.char.dps.max)
-      self.char.dps.current = nil
-    else
-      if self.char.dps.est_min then
-        self.char.dps.est_min = math.max(self.char.dps.est_min + dp_loss, 0)
-      end
-      if self.char.dps.est_max then
-        self.char.dps.est_max = math.min(self.char.dps.est_max + dp_regen, self.char.dps.max)
-      end
-    end
-    
-    if not self.char.dps.current and self.char.dps.est_min == self.char.dps.est_max then
-      self.char.dps.current = self.char.dps.est_min
-      self.char.dps.est_min = nil
-      self.char.dps.est_max = nil
-    end
-    
-    local msg = "Dark Points"
-    if self.char.dps.current then
-      msg = f"DP: {self.char.dps.current}({self.char.dps.max})"
-    else
-      msg = f"DP: "..(self.char.dps.est_min or "???").."-"..(self.char.dps.est_max or "???")..f"({self.char.dps.max})"
-    end  
+    local msg = self:update_table_on_tic(self.char.dps, dp_loss, dp_regen,
+                  "Dark Power", "DP")
     self.dps_dps:echo(msg, "white", "c")
   end
 end
@@ -488,6 +453,48 @@ registerAnonymousEventHandler("tic", "status_bar:update_dps_on_tic")</script>
 				<packageName></packageName>
 				<script></script>
 				<eventHandlerList />
+				<Script isActive="yes" isFolder="no">
+					<name>status_bar:update_table_with_range</name>
+					<packageName></packageName>
+					<script>function status_bar:update_table_with_range(tab, lower, upper, long_msg, short_msg)  
+  if tab.current then
+    if tab.current &lt; lower or tab.current &gt; upper then
+      tab.est_min = lower
+      tab.est_max = upper
+      tab.current = nil
+    end
+  else
+    if tab.est_min then
+      tab.est_min = math.min(tab.est_min, upper)
+      tab.est_min = math.max(tab.est_min, lower)
+    else
+      tab.est_min = lower
+    end
+    
+    if tab.est_max then
+      tab.est_max = math.min(tab.est_max, upper)
+      tab.est_max = math.max(tab.est_max, lower)
+    else
+      tab.est_max = upper
+    end
+  end
+  
+  if not tab.current and tab.est_min == tab.est_max then
+    tab.current = tab.est_min
+    tab.est_min = nil
+    tab.est_max = nil
+  end
+  
+  local msg = long_msg
+  if tab.current then
+    msg = f"{short_msg}: {tab.current}({tab.max})"
+  else
+    msg = f"{short_msg}: "..(tab.est_min or "???").."-"..(tab.est_max or "???")..f"({tab.max})"
+  end
+  return msg
+end</script>
+					<eventHandlerList />
+				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>status_bar:update_hps_with_range</name>
 					<packageName></packageName>
@@ -516,40 +523,8 @@ registerAnonymousEventHandler("tic", "status_bar:update_dps_on_tic")</script>
   local upper = math.floor(upper_cutoffs[hps] * self.char.hps.max)
   local lower = math.ceil(lower_cutoffs[hps] * self.char.hps.max)
   
-  if self.char.hps.current then
-    if self.char.hps.current &lt; lower or self.char.hps.current &gt; upper then
-      self.char.hps.est_min = lower
-      self.char.hps.est_max = upper
-      self.char.hps.current = nil
-    end
-  else
-    if self.char.hps.est_min then
-      self.char.hps.est_min = math.min(self.char.hps.est_min, upper)
-      self.char.hps.est_min = math.max(self.char.hps.est_min, lower)
-    else
-      self.char.hps.est_min = lower
-    end
-    
-    if self.char.hps.est_max then
-      self.char.hps.est_max = math.min(self.char.hps.est_max, upper)
-      self.char.hps.est_max = math.max(self.char.hps.est_max, lower)
-    else
-      self.char.hps.est_max = upper
-    end
-  end
-  
-  if not self.char.hps.current and self.char.hps.est_min == self.char.hps.est_max then
-    self.char.hps.current = self.char.hps.est_min
-    self.char.hps.est_min = nil
-    self.char.hps.est_max = nil
-  end
-  
-  local msg = "Hit Points"
-  if self.char.hps.current then
-    msg = f"HP: {self.char.hps.current}({self.char.hps.max})"
-  else
-    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???")..f"({self.char.hps.max})"
-  end
+  local msg = self:update_table_with_range(self.char.hps, lower, upper,
+                "Hit Points", "HP")
   self.hps:echo(msg, "white", "c")
 end</script>
 					<eventHandlerList />
@@ -582,40 +557,8 @@ end</script>
   local upper = math.floor(upper_cutoffs[mvs] * self.char.mvs.max)
   local lower = math.ceil(lower_cutoffs[mvs] * self.char.mvs.max)
     
-  if self.char.mvs.current then
-    if self.char.mvs.current &lt; lower or self.char.mvs.current &gt; upper then
-      self.char.mvs.est_min = lower
-      self.char.mvs.est_max = upper
-      self.char.mvs.current = nil
-    end
-  else
-    if self.char.mvs.est_min then
-      self.char.mvs.est_min = math.min(self.char.mvs.est_min, upper)
-      self.char.mvs.est_min = math.max(self.char.mvs.est_min, lower)
-    else
-      self.char.mvs.est_min = lower
-    end
-        
-    if self.char.mvs.est_max then
-      self.char.mvs.est_max = math.min(self.char.mvs.est_max, upper)
-      self.char.mvs.est_max = math.max(self.char.mvs.est_max, lower)
-    else
-      self.char.mvs.est_max = upper
-    end
-  end
-  
-  if not self.char.mvs.current and self.char.mvs.est_min == self.char.mvs.est_max then
-    self.char.mvs.current = self.char.mvs.est_min
-    self.char.mvs.est_min = nil
-    self.char.mvs.est_max = nil
-  end
-  
-  local msg = "Movement Points"
-  if self.char.mvs.current then
-    msg = f"MV: {self.char.mvs.current}({self.char.mvs.max})"
-  else
-    msg = "MV: "..(self.char.mvs.est_min or "???").."-"..(self.char.mvs.est_max or "???")..f"({self.char.mvs.max})"
-  end  
+  local msg = self:update_table_with_range(self.char.mvs, lower, upper,
+                "Movement Points", "MV")
   self.mvs:echo(msg, "white", "c")
 end</script>
 					<eventHandlerList />
@@ -646,40 +589,8 @@ end</script>
   local upper = math.floor(upper_cutoffs[sps] * self.char.sps.max)
   local lower = math.ceil(lower_cutoffs[sps] * self.char.sps.max)
     
-  if self.char.sps.current then
-    if self.char.sps.current &lt; lower or self.char.sps.current &gt; upper then
-      self.char.sps.est_min = lower
-      self.char.sps.est_max = upper
-      self.char.sps.current = nil
-    end
-  else
-    if self.char.sps.est_min then
-      self.char.sps.est_min = math.min(self.char.sps.est_min, upper)
-      self.char.sps.est_min = math.max(self.char.sps.est_min, lower)
-    else
-      self.char.sps.est_min = lower
-    end
-    
-    if self.char.sps.est_max then
-      self.char.sps.est_max = math.min(self.char.sps.est_max, upper)
-      self.char.sps.est_max = math.max(self.char.sps.est_max, lower)
-    else
-      self.char.sps.est_max = upper
-    end
-  end
-  
-  if not self.char.sps.current and self.char.sps.est_min == self.char.sps.est_max then
-    self.char.sps.current = self.char.sps.est_min
-    self.char.sps.est_min = nil
-    self.char.sps.est_max = nil
-  end
-  
-  local msg = "Spell Points"
-  if self.char.sps.current then
-    msg = f"SP: {self.char.sps.current}({self.char.sps.max})"
-  else
-    msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???")..f"({self.char.sps.max})"
-  end  
+  local msg = self:update_table_with_range(self.char.sps, lower, upper,
+                "Spell Points", "SP")
   self.sps_dps:echo(msg, "white", "c")
 end</script>
 					<eventHandlerList />
@@ -710,40 +621,8 @@ end</script>
   local upper = math.floor(upper_cutoffs[dps] * self.char.dps.max)
   local lower = math.ceil(lower_cutoffs[dps] * self.char.dps.max)
     
-  if self.char.dps.current then
-    if self.char.dps.current &lt; lower or self.char.dps.current &gt; upper then
-      self.char.dps.est_min = lower
-      self.char.dps.est_max = upper
-      self.char.dps.current = nil
-    end
-  else
-    if self.char.dps.est_min then
-      self.char.dps.est_min = math.min(self.char.dps.est_min, upper)
-      self.char.dps.est_min = math.max(self.char.dps.est_min, lower)
-    else
-      self.char.dps.est_min = lower
-    end
-    
-    if self.char.dps.est_max then
-      self.char.dps.est_max = math.min(self.char.dps.est_max, upper)
-      self.char.dps.est_max = math.max(self.char.dps.est_max, lower)
-    else
-      self.char.dps.est_max = upper
-    end
-  end
-  
-  if not self.char.dps.current and self.char.dps.est_min == self.char.dps.est_max then
-    self.char.dps.current = self.char.dps.est_min
-    self.char.dps.est_min = nil
-    self.char.dps.est_max = nil
-  end
-  
-  local msg = "Dark Power"
-  if self.char.dps.current then
-    msg = f"DP: {self.char.dps.current}({self.char.dps.max})"
-  else
-    msg = "DP: "..(self.char.dps.est_min or "???").."-"..(self.char.dps.est_max or "???")..f"({self.char.dps.max})"
-  end  
+  local msg = self:update_table_with_range(self.char.dps, lower, upper,
+                "Dark Power", "DP")
   self.sps_dps:echo(msg, "white", "c")
 end</script>
 					<eventHandlerList />

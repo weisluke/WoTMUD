@@ -190,14 +190,7 @@ then
   wotmudmapper.currentID = wotmudmapper:find_matching_room()
 end
 
-if table.is_empty(wotmudmapper.currentID) then
-  wotmudmapper:echo("\nNo matches found.",false,true)
-elseif table.size(wotmudmapper.currentID) &gt; 1 then
-  wotmudmapper:echo("\nMultiple matches found.",false,true)
-else
-  centerview(wotmudmapper.currentID[1])
-  wotmudmapper:show_zone_door_info()
-end</script>
+wotmudmapper:update_room()</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>
@@ -261,14 +254,7 @@ elseif not (wotmudmapper:is_look(com) and table.size(lastID) == 1) then
   wotmudmapper.currentID = wotmudmapper:get_rooms()
 end
 
-if table.is_empty(wotmudmapper.currentID) then
-  wotmudmapper:echo("\nNo matches found.",false,true)
-elseif table.size(wotmudmapper.currentID) &gt; 1 then
-  wotmudmapper:echo("\nMultiple matches found.",false,true)
-else
-  centerview(wotmudmapper.currentID[1])
-  wotmudmapper:show_zone_door_info()
-end</script>
+wotmudmapper:update_room()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>

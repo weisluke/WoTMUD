@@ -1979,6 +1979,21 @@ function wotmudmapper:get_waygates(id)
 end</script>
 				<eventHandlerList />
 			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:update_room</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:update_room()
+  if table.is_empty(self.currentID) then
+    self:echo("\nNo matches found.",false,true)
+  elseif table.size(self.currentID) &gt; 1 then
+    self:echo("\nMultiple matches found.",false,true)
+  else
+    centerview(self.currentID[1])
+    self:show_zone_door_info()
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
 		</ScriptGroup>
 	</ScriptPackage>
 	<KeyPackage />

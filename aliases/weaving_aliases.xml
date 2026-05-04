@@ -16,7 +16,7 @@
 
 local longweaves = {"ice spikes", "fireball", "sonic boom"}
 
-if weaving.longweave then
+if weaving.longweave and table.index_of(longweaves, weaving.longweave) then
   local index = table.index_of(longweaves, weaving.longweave)
   index = (index % table.size(longweaves))+1
   weaving.longweave = longweaves[index]
@@ -34,7 +34,7 @@ cecho(f"Long weave set to: {weaving.longweave}\n")</script>
 
 local shortweaves = {"earthquake", "flame strike", "hammer of air", "call lightning"}
 
-if weaving.shortweave then
+if weaving.shortweave and table.index_of(shortweaves, weaving.shortweave) then
   local index = table.index_of(shortweaves, weaving.shortweave)
   index = (index % table.size(shortweaves))+1
   weaving.shortweave = shortweaves[index]

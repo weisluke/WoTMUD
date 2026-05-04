@@ -1129,9 +1129,11 @@ end</script>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
 						<string>The dark moon partially occludes the sun, casting the day into a twilight gloom.</string>
+						<string>The dark moon totally occludes the sun, turning it black and haloed by a fiery ring.</string>
 						<string>The eclipse ends, returning the sun to its full brightness.</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>3</integer>
 						<integer>3</integer>
 						<integer>3</integer>
 					</regexCodePropertyList>
@@ -1422,8 +1424,16 @@ end</script>
 						<string>The collector leaves</string>
 						<string>A lord has arrived from</string>
 						<string>A lord leaves</string>
+						<string>A Domani lady has arrived from</string>
+						<string>A Domani lady leaves</string>
+						<string>An elegant Domani lady has arrived from</string>
+						<string>An elegant Domani lady leaves</string>
 					</regexCodeList>
 					<regexCodePropertyList>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
+						<integer>2</integer>
 						<integer>2</integer>
 						<integer>2</integer>
 						<integer>2</integer>

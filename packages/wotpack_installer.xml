@@ -318,12 +318,12 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:update_base"
   --otherwise, display help message
   cecho(self.help)
   --if first time installation, change font
-  if not io.exists(f"{getMudletHomeDir()}/wotpack_first_install.txt") then
-    local file = io.open(f"{getMudletHomeDir()}/wotpack_first_install.txt", "w+")
-    file:write("Welcome to the Wheel of Time MUD!\n")
-    io.close(file)
-    setFont("Comic Sans MS")
-  end 
+  -- if not io.exists(f"{getMudletHomeDir()}/wotpack_first_install.txt") then
+    -- local file = io.open(f"{getMudletHomeDir()}/wotpack_first_install.txt", "w+")
+    -- file:write("Welcome to the Wheel of Time MUD!\n")
+    -- io.close(file)
+    -- setFont("Comic Sans MS")
+  -- end
 end
 
 registerAnonymousEventHandler("sysInstallPackage", "wotpack_installer:install_base")</script>

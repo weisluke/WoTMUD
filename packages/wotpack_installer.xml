@@ -127,14 +127,34 @@ end
 			<regex>^wotpack uninstall (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
-			<name>Change branch</name>
-			<script>local branch = matches[2]
+			<name>Change user</name>
+			<script>local user = matches[3]
 
-wotpack_installer:echo(f"Branch updated from ({wotpack_installer.branch}) to ({branch})\n")
-wotpack_installer.branch = branch</script>
+if user then
+  wotpack_installer:echo(f"User updated from ({wotpack_installer.user}) to ({user})\n")
+  wotpack_installer.user = user
+else
+  wotpack_installer:echo(f"user ({wotpack_installer.user})\n")
+end
+</script>
 			<command></command>
 			<packageName></packageName>
-			<regex>^wotpack branch (.+)$</regex>
+			<regex>^wotpack user( (.+))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Change branch</name>
+			<script>local branch = matches[3]
+
+if branch then
+  wotpack_installer:echo(f"Branch updated from ({wotpack_installer.branch}) to ({branch})\n")
+  wotpack_installer.branch = branch
+else
+  wotpack_installer:echo(f"branch ({wotpack_installer.branch})\n")
+end
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack branch( (.+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>wotpack version</name>

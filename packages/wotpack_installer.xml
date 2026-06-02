@@ -261,19 +261,18 @@ end</script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer:download</name>
 			<packageName></packageName>
-			<script>--assumes fname is lowercase and has had any spaces replaced with underscores
-function wotpack_installer:download(fname, ftype)
-  if not io.exists(f"{getMudletHomeDir()}/wotpack_installer_downloads") then
-    lfs.mkdir(f"{getMudletHomeDir()}/wotpack_installer_downloads")
+			<script>--assumes package is lowercase and has had any spaces replaced with underscores
+function wotpack_installer:download(package)
+  local saveto = f"{getMudletHomeDir()}/wotpack_installer_downloads/"
+  if not io.exists(saveto) then
+    lfs.mkdir(saveto)
   end
-  if not io.exists(f"{getMudletHomeDir()}/wotpack_installer_downloads/{ftype}") then
-    lfs.mkdir(f"{getMudletHomeDir()}/wotpack_installer_downloads/{ftype}")
-  end
-  local dname = f"{fname}_{ftype}"
-  local path_end = f"{ftype}/{dname}.xml"
-  local url = f"https://raw.githubusercontent.com/{self.user}/WoTMUD/{self.branch}/{path_end}"
-  local saveto = f"{getMudletHomeDir()}/wotpack_installer_downloads/{path_end}"
-  self:echo(f"Downloading updated {dname}...\n")
+  local file = f"{package}.xml"
+  local url = f"https://raw.githubusercontent.com/{self.user}/WoTMUD/{self.branch}/packages/{file}"
+  saveto = f"{saveto}{file}"
+  
+  self:echo(f"Downloading updated {package} package...\n")
+  table.insert(self.to_download, package)
   downloadFile(saveto, url)
 end</script>
 			<eventHandlerList />

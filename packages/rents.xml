@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Character name</name>
+			<script>rents.name = matches[2]</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^This ranks you as (\w+) (.+)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Add item</name>
+			<script>enableTrigger("Rents_item_name")
+enableTrigger("Rents_disable_item_name")
+rents.cost = f"{matches[2]} rent due"
+
+if rents.clear_room then
+  if rents.name then
+    local rents_db = db:get_database("rents")
+    local room
+    if wotmudmapper then
+      if table.size(wotmudmapper.currentID) == 1 then
+        room = wotmudmapper.currentID[1]
+      else
+        room = 0
+      end
+    else
+      room = getPlayerRoom()
+    end
+    db:delete(
+      rents_db.storage,
+      db:AND(db:eq(rents_db.storage.room, room), db:eq(rents_db.storage.name, rents.name))
+    )
+    rents.clear_room = false
+  end
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>\d+ items? stored for \d+ days?, (.+) rent due\.</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Rents_item_name</name>
+			<script>rents.item = matches[2]
+
+local rents_db = db:get_database("rents")
+
+if not rents.name then
+  rents:echo("\nUnable to store item to rent database. Type \"score\" to capture character name.\n", false, true)
+else
+  local room = getPlayerRoom()
+  local zone = getRoomUserData(room, "zone")
+  db:add(
+    rents_db.storage,
+    {
+      name = rents.name,
+      room = room,
+      zone = zone,
+      item = rents.item,
+      cost = rents.cost
+    }
+  )
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^\s+(.+)$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Rents_disable_item_name</name>
+			<script>rents.clear_room = true
+disableTrigger("Rents_item_name")
+disableTrigger("Rents_disable_item_name")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^(o|\*)?((^| )(R|S|F))?( I(\d+))?( R:(\d+))?( S:(\S+))?( HP:(\S+))?( SP:(\S+))?( DP:(\S+))?( MV:(\S+))?(^| )(&gt;|- .+ &gt;)</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Empty rent</name>
+			<script>if rents.name then
+  local rents_db = db:get_database("rents")
+  local room = getPlayerRoom()
+  db:delete(
+    rents_db.storage,
+    db:AND(db:eq(rents_db.storage.room, room), db:eq(rents_db.storage.name, rents.name))
+  )
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>tells you, 'I don't have any items for you here\.'$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Bank balance</name>
+			<script>local amount = tonumber(matches[3])
+local coppers = amount%20
+local crowns = (amount - coppers)/20
+
+rents.cost = f"{crowns} gold crowns and {coppers} coppers"
+
+local rents_db = db:get_database("rents")
+
+if not rents.name then
+  rents:echo("\nUnable to store item to rent database. Type \"score\" to capture character name.\n", false, true)
+else
+
+  db:delete(
+    rents_db.storage,
+    db:AND(db:eq(rents_db.storage.item, "bank balance"), db:eq(rents_db.storage.name, rents.name))
+  )
+    
+  db:add(
+    rents_db.storage,
+    {
+      name = rents.name,
+      item = "bank balance",
+      cost = rents.cost
+    }
+  )
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^A (.+) whispers to you 'Your balance is the equivalent of (\d+) copper.'$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show all rents</name>
+			<script>local rents_db = db:get_database("rents")
+
+local storage = db:fetch(rents_db.storage)
+
+if table.is_empty(storage) then
+  rents:echo("No items found in the rent database.\n", false, true)
+else
+  rents:display_items(storage)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^rents show$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Rents show name</name>
+			<script>local name = matches[2]
+
+local rents_db = db:get_database("rents")
+
+local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.name,name))
+
+if table.is_empty(storage) then
+  rents:echo(f"No items for the character \"{name}\" found in the rent database.\n", false, true)
+else
+  rents:display_items(storage)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^rents show name (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Rents show item</name>
+			<script>local name = matches[2]
+
+local rents_db = db:get_database("rents")
+
+local storage = {}
+
+if name == "rare" then
+  for _, rare in pairs(rents.rares) do
+    storage = table.n_union(storage, db:fetch(rents_db.storage, db:like(rents_db.storage.item, f"%{rare}%")))
+  end
+elseif name == "angreal" then
+  for _, angreal in pairs(rents.angreal) do
+    storage = table.n_union(storage, db:fetch(rents_db.storage, db:like(rents_db.storage.item, f"%{angreal}%")))
+  end
+else
+  storage = db:fetch(rents_db.storage, db:like(rents_db.storage.item, f"%{name}%"))
+end
+
+if table.is_empty(storage) then
+  rents:echo(f"No items containing the phrase \"{name}\" found in the rent database\n", false, true)
+else
+  rents:display_items(storage)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^rents show item (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Rents show zone</name>
+			<script>local name = matches[2]
+
+local rents_db = db:get_database("rents")
+
+local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.zone, f"%{name}%"))
+
+if table.is_empty(storage) then
+  rents:echo(f"No items for zone \"{name}\" found in the rent database\n", false, true)
+else
+  rents:display_items(storage)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^rents show zone (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Rents help</name>
+			<script>cecho(rents.help)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^rents help$</regex>
+		</Alias>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Deleting rent storage information</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rents delete</name>
+				<script>--deletes the ENTIRE rents database
+
+local rents_db = db:get_database("rents")
+db:delete(rents_db.storage, true)
+rents:echo("The entire rents database has been deleted.\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rents delete$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rents delete name</name>
+				<script>local name = matches[2]
+
+local rents_db = db:get_database("rents")
+
+db:delete(rents_db.storage, db:like(rents_db.storage.name, name))
+rents:echo("All items for character \""..name.."\" have been removed from the rent database.\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rents delete name (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rents delete room</name>
+				<script>local room = getPlayerRoom()
+
+if matches[2] then
+  room = tonumber(matches[2])
+end
+
+local rents_db = db:get_database("rents")
+
+db:delete(rents_db.storage, db:eq(rents_db.storage.room, room))
+rents:echo(f"All items for room \"{getRoomName(room)}\" have been removed from the rent database.\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^rents delete room( \d+)?$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>rents initializations</name>
+			<packageName></packageName>
+			<script>db:create(
+  "rents",
+  {
+    storage =
+      {
+        name = "",
+        room = 0,
+        zone = "",
+        item = "",
+        cost = "",
+        timestamp = db:Timestamp("CURRENT_TIMESTAMP"),
+      },
+  }
+)
+
+rents = rents or {clear_room = true}
+
+rents.help =
+  [[
+    &lt;cyan&gt;Rent Script&lt;reset&gt;
+
+    This script will track items that you have stored in your rents in a database located
+    at ]] .. getMudletHomeDir() .. [[/Database_rents.db
+    
+    Below is a brief overview of some commands that this script includes.
+    All commands can be found in the appropriate rents folder under mudlet aliases.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;rents show&lt;reset&gt; - Show all items in the rent database
+        &lt;yellow&gt;rents show name character&lt;reset&gt; - Shows all items in the rent database
+            associated with a particular character name. Not case sensitive. 
+            Examples: rents show name Adael, rents show name bludlust
+        &lt;yellow&gt;rents show item keyword(s)&lt;reset&gt; - Shows all items in the rent database that
+            contain the given keyword(s). Not case sensitive, but if multiple keywords are
+            used the order (and, if applicable, punctuation) matters.
+            Examples: rents show item heron-engraved, rents show item a crystal lightstick
+        &lt;yellow&gt;rents show item rare&lt;reset&gt; - Shows all rare items in the rent database
+        &lt;yellow&gt;rents show item angreal&lt;reset&gt; - Shows all angreal in the rent database
+        &lt;yellow&gt;rents show zone keyword(s)&lt;reset&gt; - Shows all items in the rent database whose
+            zone name (in my map data) contains the provided keyword(s). Not case sensitive, 
+            but if multiple keywords are used the order (and, if applicable, punctuation) matters.
+            Examples: rents show zone Caemlyn, rents show zone bandar eban,
+                rents show zone thakan'dar
+                
+        &lt;yellow&gt;rents delete&lt;reset&gt; - Delete the ENTIRE rent database. &lt;red&gt;Use with caution!&lt;reset&gt;
+        &lt;yellow&gt;rents delete name character&lt;reset&gt; - Deletes all entries in the rent database
+            for the provided character name. Not case sensitive.
+            Examples: rents delete name Adael, rents delete name bludlust
+        &lt;yellow&gt;rents delete room (roomID)&lt;reset&gt; - Deletes all entries in the rent database for the player's
+            current room, or the provided roomID number if one is given. 
+            Examples: rents delete room, rents delete room 139 
+        
+]]</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:echo</name>
+			<packageName></packageName>
+			<script>function rents:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;lawn_green&gt;(&lt;green&gt;rents&lt;lawn_green&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:sys_disconnection</name>
+			<packageName></packageName>
+			<script>function rents:sys_disconnection(event)
+  rents.name = nil
+  rents.clear_room = true
+end
+
+registerAnonymousEventHandler("sysExitEvent", "rents:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents rare items</name>
+			<packageName></packageName>
+			<script>rents.rares = {
+    "a heron-marked longsword",
+    "a heron-marked blade",
+    "a heron-marked greatsword", 
+    "a heron-marked foil",
+    "a heron-engraved scabbard",
+    "a belt bearing a dragon worked in silver",
+    "a black shirt trimmed with lace",
+    "an ornate chainmail shirt chased with gold",
+    "a sinister black trident",
+    "a massive war maul",
+    "a tainted war maul",
+    "a triple bladed dagger",
+    "a steel warhammer",
+    "a surcoat with exquisite embroidery",
+    "a gown of exquisite design",
+    "a silver medallion",
+    "a shocklance",
+    "a razor-sharp longsword",
+    "a partisan bearing the arms of Ghealdan",
+    "a pair of long-handled war axes",
+    "a pair of gold-hilted hooked swords",
+    "a nimble blade with a cuendillar pommel",
+    "a feathered Kandori paramerion",
+    "a diamond-tipped lance",
+    "a darkened steel trident",
+    "a crimson-hafted battleaxe",
+    "a polished onyx-inlaid shield",
+    "a jeweled wristcuff",
+    "an obsidian encrusted sungwood staff",
+    "a wicked knife bladed axe",
+}    </script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents angreal</name>
+			<packageName></packageName>
+			<script>rents.angreal =
+  {
+    "a disc of moonstone",
+    "a greenish, translucent sphere",
+    "a jade carving of an old man",
+    "a many-faceted stone",
+    "a necklace of fire sapphire",
+    "a sculpted statuette",
+    "a short, thick rod",
+    "a small crystalline circlet",
+    "a small crystalline globe",
+    "a small stone dagger",
+    "a wood carving of a bear",
+    "an ivory figurine",
+    "an orb filled with incandescent light",
+    "a carved ivory pyramid",
+    "Callandor",
+    "a bracelet of twisted silver",
+  }</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:display_items</name>
+			<packageName></packageName>
+			<script>function rents:display_items(storage)
+  cecho(string.format("%-10s&lt;ansi_cyan&gt;%-40s&lt;reset&gt;%s&lt;green&gt;%-40s&lt;gold&gt;%-10s\n", "Name", "Room", "", "Item", "Cost"))
+  
+  for _, item in pairs(storage) do
+    local crowns = item.cost:match("(%d+) gold crowns")
+    local coppers = item.cost:match("(%d+) coppers")
+    if crowns then crowns = f"{crowns}g" else crowns = "0g" end
+    if coppers then coppers = f"{coppers}c" else coppers = "0c" end
+    local cost = f"{crowns} {coppers}"
+    
+    local room_name = ""
+    
+    if item.room == 0 then
+      room_name = "bank"
+    else
+      room_name = getRoomName(item.room)
+    end
+    
+    local msg_format = "%-10s%-40s%s%-40s%-10s\n"
+    
+    if string.len(room_name) &gt;= 40 or string.len(item.item) &gt;= 40 then
+      msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
+    end
+  
+    local msg = string.format(msg_format, 
+      item.name,
+      room_name,
+      "", 
+      item.item,
+      cost
+      )
+    cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+</MudletPackage>

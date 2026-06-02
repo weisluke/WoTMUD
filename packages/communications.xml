@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Narrates</name>
+			<script>if communications.configs.colors["narrates"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["narrates"])
+  resetFormat()
+end
+communications:append("Narrates")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You narrate (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+				<string>&gt; (.+) narrates (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+				<string>^(.+) narrates (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Chats</name>
+			<script>if communications.configs.colors["chats"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["chats"])
+  resetFormat()
+end
+communications:append("Chats")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You chat (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+				<string>&gt; (.+) chats (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+				<string>^(.+) chats (&lt;([htsn]|\d+)&gt; )?'(.+)'$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Tells</name>
+			<script>if communications.configs.colors["tells"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["tells"])
+  resetFormat()
+end
+communications:append("Tells")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You tell (.+) '(.+)'$</string>
+				<string>You reply to (.+) '(.+)'$</string>
+				<string>&gt; (.+) tells you '(.+)'$</string>
+				<string>^(.+) tells you '(.+)'$</string>
+				<string>&gt; (.+) tells you, '(.+)'$</string>
+				<string>^(.+) tells you, '(.+)'$</string>
+				<string>&gt; (.+) whispers to you '(.+)'$</string>
+				<string>^(.+) whispers to you '(.+)'$</string>
+				<string>&gt; (.+) whispers to you, '(.+)'$</string>
+				<string>^(.+) whispers to you, '(.+)'$</string>
+				<string>You whisper to (.+) '(.+)'$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Says</name>
+			<script>if communications.configs.colors["says"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["says"])
+  resetFormat()
+end
+communications:append("Says")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You say '(.+)'$</string>
+				<string>&gt; (.+) says '(.+)'$</string>
+				<string>^(.+) says '(.+)'$</string>
+				<string>You hiss '(.+)'$</string>
+				<string>&gt; (.+) hisses '(.+)'$</string>
+				<string>^(.+) hisses '(.+)'$</string>
+				<string>You drawl '(.+)'$</string>
+				<string>&gt; (.+) drawls '(.+)'$</string>
+				<string>^(.+) drawls '(.+)'$</string>
+				<string>You drone '(.+)'$</string>
+				<string>&gt; (.+) drones '(.+)'$</string>
+				<string>^(.+) drones '(.+)'$</string>
+				<string>You rumble '(.+)'$</string>
+				<string>&gt; (.+) rumbles '(.+)'$</string>
+				<string>^(.+) rumbles '(.+)'$</string>
+				<string>You croon '(.+)'$</string>
+				<string>&gt; (.+) croons '(.+)'$</string>
+				<string>^(.+) croons '(.+)'$</string>
+				<string>You snarl '(.+)'$</string>
+				<string>&gt; (.+) snarls '(.+)'$</string>
+				<string>^(.+) snarls '(.+)'$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Yells</name>
+			<script>if communications.configs.colors["yells"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["yells"])
+  resetFormat()
+end
+communications:append("Yells")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You bellow '(.+)'$</string>
+				<string>&gt; (.+) bellows '(.+)'$</string>
+				<string>^(.+) bellows '(.+)'$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Immortals</name>
+			<script>if communications.configs.colors["immortals"] ~= "reset" then
+  selectCaptureGroup(1)
+  fg(communications.configs.colors["immortals"])
+  resetFormat()
+end
+communications:append("Misc")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You pray '(.+)'$</string>
+				<string>&gt; (.+) prays '(.+)'$</string>
+				<string>(.+) prays '(.+)'$</string>
+				<string>You answer (.+)'s prayer '(.+)'$</string>
+				<string>&gt; (.+) answers your prayer '(.+)'$</string>
+				<string>^(.+) answers your prayer '(.+)'$</string>
+				<string>&gt; (.+) speaks from the (\S+) '(.+)'$</string>
+				<string>^(.+) speaks from the (\S+) '(.+)'$</string>
+				<string>&gt; (.+) shouts (&lt;([htsn]|\d+)&gt; )'(.+)'$</string>
+				<string>(.+) shouts (&lt;([htsn]|\d+)&gt; )'(.+)'$</string>
+				<string>You wizshout (&lt;([htsn]|\d+)&gt; )?'(.+)'\.$</string>
+				<string>You /echo (.+)$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Rat and Raven Reports</name>
+			<script>selectCaptureGroup(1)
+communications:append("Misc")
+
+local roomname = matches[4]
+local foundrooms = searchRoom(roomname, true, true)
+
+if table.is_empty(foundrooms) then
+    selectCaptureGroup(4)
+    setLink(function() end, "No matches found!")
+elseif table.size(foundrooms) == 1 then
+  for id, name in pairs(foundrooms) do
+    selectCaptureGroup(4)
+    setLink(function() centerview(id) end, "Click to center map on room.")
+  end
+else
+  selectCaptureGroup(4)
+  
+  setLink(function() 
+    for id, name in spairs(foundrooms) do
+      local zone = getRoomUserData(id, "zone")
+      echoLink(
+        f"Room ID: {id}, zone: {zone}\n", 
+        function() centerview(id) end, 
+        "Click to center map on room.",
+        true
+      )
+    end 
+  end, "Click to display rooms with matching name.")
+  
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>transparent</mFgColor>
+			<mBgColor>transparent</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>&gt; (A rat squeaks '(.+) at (.+)')$</string>
+				<string>(^A rat squeaks '(.+) at (.+)'$)</string>
+				<string>&gt; (A raven caws '(.+) at (.+)')$</string>
+				<string>(^A raven caws '(.+) at (.+)'$)</string>
+				<string>&gt; (Someone squeaks '(.+) at (.+)')$</string>
+				<string>(^Someone squeaks '(.+) at (.+)'$)</string>
+				<string>&gt; (A red-eyed raven caws '(.+) at (.+)')$</string>
+				<string>(^A red-eyed raven caws '(.+) at (.+)'$)</string>
+				<string>&gt; (A flock of ravens caws '(.+) at (.+)')$</string>
+				<string>(^A flock of ravens caws '(.+) at (.+)'$)</string>
+				<string>&gt; (A large black rat squeaks '(.+) at (.+)')$</string>
+				<string>(^A large black rat squeaks '(.+) at (.+)'$)</string>
+				<string>&gt; (A crow caws '(.+) at (.+)')$</string>
+				<string>(^A crow caws '(.+) at (.+)'$)</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Reset Configs</name>
+			<script>communications.configs = table.deepcopy(communications.defaults)
+communications.configs.dbug = false
+communications:echo("Communications configurations reset to default values.\n")
+table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+communications:show_comms(true)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^comms configs reset$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Communications Window Config Alias</name>
+			<script>local key = matches[2]
+local val = matches[3]
+if communications.configs.comms_window[key] ~= nil then
+  if key == "w" then
+    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+      communications:echo(
+        "Width must be a positive number (interpreted as a percentage of screen width).\n",
+        false,
+        true
+      )
+    else
+      val = f"{val}%"
+      communications.configs.comms_window[key] = val
+      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  elseif key == "h" then
+    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+      communications:echo(
+        "Height must be a positive number (interpreted as a percentage of screen height).\n",
+        false,
+        true
+      )
+    else
+      val = f"{val}%"
+      communications.configs.comms_window[key] = val
+      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  elseif key == "x" then
+    if not tonumber(val) then
+      communications:echo("X position must be a number (interpreted as a percentage of screen width).\n", false, true)
+    else
+      val = f"{val}%"
+      communications.configs.comms_window[key] = val
+      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  elseif key == "y" then
+    if not tonumber(val) then
+      communications:echo("Y position must be a number (interpreted as a percentage of screen height).\n", false, true)
+    else
+      val = f"{val}%"
+      communications.configs.comms_window[key] = val
+      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  elseif key == "fontsize" then
+    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+      communications:echo("Font size must be a positive number.\n", false, true)
+    else
+      communications.configs.comms_window[key] = tonumber(val)
+      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  elseif key == "border" then
+    if not color_table[val] then
+      communications:echo(f"Color ({val}) not known.\n", false, true)
+    else
+      local old_border = communications.configs.comms_window.border
+      communications:echo(f"Communications window ({key}) updated from (&lt;{old_border}&gt;{old_border}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
+      communications.configs.comms_window[key] = val
+      table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+      communications:echo("Color change will only take effect upon restarting mudlet.\n")
+    end
+  elseif key == "background" then
+    if not color_table[val] then
+      communications:echo(f"Color ({val}) not known.\n", false, true)
+    else
+      local old_background = communications.configs.comms_window.background
+      communications:echo(f"Communications window ({key}) updated from (&lt;{old_background}&gt;{old_background}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
+      communications.configs.comms_window[key] = val
+      table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  elseif key == "foreground" then
+    if not color_table[val] then
+      communications:echo(f"Color ({val}) not known.\n", false, true)
+    else
+      local old_foreground = communications.configs.comms_window.foreground
+      communications:echo(f"Communications window ({key}) updated from (&lt;{old_foreground}&gt;{old_foreground}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
+      communications.configs.comms_window[key] = val
+      table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  elseif key == "tabs" then
+    if not color_table[val] then
+      communications:echo(f"Color ({val}) not known.\n", false, true)
+    else
+      local tabs = communications.configs.comms_window.tabs
+      communications:echo(f"Communications window ({key}) updated from (&lt;{tabs}&gt;{tabs}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
+      communications.configs.comms_window[key] = val
+      table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+      communications:show_comms(true)
+    end
+  else
+    communications:echo(f"Key ({key}) unable to be changed through this alias.\n", false, true)
+  end
+else
+  communications:echo(f"Communications window key ({key}) not known.\n", false, true)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^comms window (\S+) (\S+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show/Hide Comms</name>
+			<script>communications.configs.comms_window.visible = not communications.configs.comms_window.visible
+communications:echo("Communications will now be " .. (communications.configs.comms_window.visible and "shown.\n" or "hidden.\n"))
+table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+communications:show_comms(communications.configs.comms_window.visible)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^comms show$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Dock/Undock Comms</name>
+			<script>communications.configs.comms_window.dock = not communications.configs.comms_window.dock
+communications:echo("Communications will now be " .. (communications.configs.comms_window.dock and "docked.\n" or "floating.\n"))
+table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs) 
+communications:show_comms(communications.configs.comms_window.visible)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^comms dock$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Comms Colors</name>
+			<script>local key = string.lower(matches[2])
+local new_color = matches[3]
+if communications.configs.colors[key] ~= nil then
+  if color_table[new_color] or new_color == "reset" then
+    local old_color = communications.configs.colors[key]
+    communications:echo(f"Communications color for ({key}) changed from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{new_color}&gt;{new_color}&lt;reset&gt;).\n")
+    communications.configs.colors[key] = new_color
+    table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)
+  else
+    communications:echo("Color not known.\n", false, true)
+  end
+else
+  communications:echo(f"Communications window key ({key}) not known.\n", false, true)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^comms color (\S+) (\S+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Comms Help Alias</name>
+			<script>communications:show_help(matches[3])</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^comms help( (.*))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Debug</name>
+			<script>--syntax: comms debug
+
+communications.configs.dbug = not communications.configs.dbug
+communications:echo("Communications debug set to: " .. (communications.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(f"{getMudletHomeDir()}/communications.configs.lua", communications.configs)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^comms debug$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>communications initializations</name>
+			<packageName></packageName>
+			<script>communications = communications or {
+    tabs = {"All", "Narrates", "Chats", "Tells", "Says", "Yells", "Misc"},
+  }
+communications.configs = communications.configs or {}
+  
+communications.defaults = {
+  dbug = true,
+  comms_window={
+      border = "gray",
+      background = "black",
+      foreground = "white",
+      tabs = "navy",
+      visible=true,
+      x="-37%",
+      y="73%",
+      w="37%",
+      h="27%",
+      fontsize=12,
+      dock=false},
+  colors = {narrates="royal_blue",
+            chats="dark_green",
+            tells="firebrick",
+            says="reset",
+            yells="gold",
+            immortals="dodger_blue"}
+}
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:echo</name>
+			<packageName></packageName>
+			<script>function communications:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;dark_khaki&gt;(&lt;sienna&gt;communications&lt;dark_khaki&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing  
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:set_configs</name>
+			<packageName></packageName>
+			<script>function communications:set_configs()
+    local defaults = self.defaults or {}
+    local configs = self.configs or {}
+    -- load stored configs from file if it exists
+    if io.exists(f"{getMudletHomeDir()}/communications.configs.lua") then
+        self:echo("Loading communications configurations.\n", true)
+        table.load(f"{getMudletHomeDir()}/communications.configs.lua",configs)
+        self:echo("Communications configurations loaded.\n", true)
+    end
+    -- overwrite default values with stored config values
+    configs = table.update(defaults, configs)
+    self.configs = table.deepcopy(configs)
+    table.save(f"{getMudletHomeDir()}/communications.configs.lua", self.configs)
+end
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:sys_connection</name>
+			<packageName></packageName>
+			<script>function communications:sys_connection(event)
+  self:set_configs()
+  self:show_comms(self.configs.comms_window.visible)
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "communications:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "communications:sys_connection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:sys_disconnection</name>
+			<packageName></packageName>
+			<script>function communications:sys_disconnection(event)
+  self.configs = self.configs or {}
+  
+  self:echo("Saving communications configurations.\n", true)
+  table.save(f"{getMudletHomeDir()}/communications.configs.lua", self.configs)
+  self:echo("Communications configurations saved.\n", true)
+end
+
+registerAnonymousEventHandler("sysExitEvent", "communications:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disconnection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:show_comms</name>
+			<packageName></packageName>
+			<script>function communications:show_comms(bval)
+  local visible = bval
+  self.configs.comms_window.visible = visible
+  local configs = self.configs.comms_window
+  local x, y, w, h = configs.x, configs.y, configs.w, configs.h
+  
+  local r, g, b = unpack(color_table[configs.border])
+  local rgb_str = f"{r},{g},{b}"
+  
+  self.container = self.container or
+    Adjustable.Container:new(
+      {
+        name = "communications.container",
+        adjLabelstyle = f"background-color:rgba({rgb_str},100%); border: 5px groove grey;",
+        buttonstyle =
+          [[
+      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
+      QLabel::hover{ background-color: rgba(160,160,160,50%);}
+      ]],
+        buttonFontSize = 10,
+        buttonsize = 20,
+        titleText = "Communications",
+        titleTxtColor = "black",
+        padding = 15,
+      }
+    )
+  self.current_tab = self.current_tab or self.tabs[1]
+  self.container:move(x, y)
+  self.container:resize(w, h)
+  
+  self.header = self.header or 
+    Geyser.HBox:new(
+      {name = "communications.header", x = 0, y = 0, width = "100%", height = "10%"},
+      self.container
+    )
+    
+  self.footer = self.footer or 
+    Geyser.Label:new(
+      {name = "communications.footer", x = 0, y = "10%", width = "100%", height = "90%"},
+      self.container
+    )
+    
+  self.footer:setStyleSheet([[
+  background-color: ]]..configs.background..[[;
+  ]])
+
+  for _, ctype in pairs(self.tabs) do
+    self[f"{ctype}_tab"] = self[f"{ctype}_tab"] or 
+      Geyser.Label:new({name = f"communications.{ctype}_tab"}, self.header)
+    self[f"{ctype}_tab"]:setStyleSheet(
+      [[
+    background-color: ]] ..
+      configs.tabs ..
+      [[;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-right: 1px;
+    margin-left: 1px;
+  ]]
+    )
+    self[f"{ctype}_tab"]:echo(f"&lt;center&gt;{ctype}", configs.foreground)
+    self[f"{ctype}_tab"]:setClickCallback("communications.click", ctype)
+    self[f"{ctype}_tab"]:setColor(configs.tabs)
+    
+    self[ctype] = self[ctype] or 
+      Geyser.MiniConsole:new(
+        {
+          name = f"communications.{ctype}",
+          x = "0%",
+          y = "0%",
+          width = "100%",
+          height = "100%",
+        },
+        self.footer
+      )
+    enableScrollBar(f"communications.{ctype}")
+    self[ctype]:enableAutoWrap()
+    self[ctype]:setColor(configs.background)
+    self[ctype]:setFontSize(configs.fontsize)
+    self[ctype]:bg(configs.background)
+    self[ctype]:fg(configs.foreground)
+    self[ctype]:hide()
+  end
+  
+  if visible then
+    self.container:show()
+    self[self.current_tab]:show()
+  else
+    self.container:hide()
+  end
+  
+  x = tonumber(string.sub(x, 1, -2))
+  y = tonumber(string.sub(y, 1, -2))
+  w = tonumber(string.sub(w, 1, -2))
+  h = tonumber(string.sub(h, 1, -2))
+  
+  if x &lt; 0 then
+    x = x + 100
+  end
+  if y &lt; 0 then
+    y = y + 100
+  end
+  
+  --favor right docking &gt; left &gt; top
+  if configs.dock then
+    if x &gt; 100 - (w + 10) then
+      self.container:attachToBorder("right")
+    elseif x &lt; 10 then
+      self.container:attachToBorder("left")
+    elseif y &lt; h then
+      self.container:attachToBorder("top")
+    end
+  else
+    self.container:attachToBorder("float")
+  end
+end
+
+function communications.click(tab)
+  communications[communications.current_tab]:hide()
+  communications.current_tab = tab
+  communications[communications.current_tab]:show()
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:append</name>
+			<packageName></packageName>
+			<script>function communications:append(tab)
+  selectCaptureGroup(1)
+  copy()
+  local time = getTime()
+  local time_string = string.format("%02d:%02d ",time.hour,time.min)
+  
+  self.All:echo(time_string)
+  self[tab]:echo(time_string)
+  
+  self.All:appendBuffer()
+  self[tab]:appendBuffer()
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:show_help</name>
+			<packageName></packageName>
+			<script>function communications:show_help(cmd)
+  if cmd then
+    cmd = cmd:gsub(" ","_")
+    if not self.help[cmd] then
+      self:echo("No help file on that command.\n",false,true)
+      return
+    end
+  else
+    cmd = 1
+  end
+  for w in self.help[cmd]:gmatch("(.-)\n") do
+    local before, target, text, after = w:match("(.*)&lt;link: (.*)&gt;(.*)&lt;/link&gt;(.*)")
+    if target then
+      cecho(before)
+      fg("yellow")
+      setUnderline(true)
+      if target == "1" then
+        echoLink(text, function() communications:show_help() end, "View: comms help", true)
+      else
+        echoLink(text, function() communications:show_help(target) end, f"View: comms help {target}", true)
+      end
+      setUnderline(false)
+      resetFormat()
+      if after then
+        cecho(after)
+      end
+    else
+      cecho(w)
+    end
+    cecho("\n")
+  end
+end
+
+--definition of communications.help and sub-parts
+communications.help =
+  {
+[[
+    &lt;cyan&gt;Communications Script&lt;reset&gt;
+
+    This script will capture narrates, chats, tells, says, yells, immortal speaking,
+    and rat/raven reports, and store them in a tabbed chat window.
+    
+    You can copy/paste output from the window by selecting the text, right clicking,
+    and copying (ctrl + C will NOT work).
+    
+    The roomnames in rat/raven reports are clickable and will search the map for
+    possible matches.
+    
+    Below is a brief overview of commonly used commands that this script includes.
+    Additional information for further areas is available as well, though every command
+    may not be described here. All commands can be found in the appropriate communications
+    folder under mudlet aliases.
+
+    &lt;cyan&gt;Common Commands:&lt;reset&gt;
+        &lt;link: 1&gt;comms help (optional subfolder name)&lt;/link&gt; - Shows either this help file or the help file for
+            the subfolder given (e.g. comms help comms colors, comms help comms window, etc.)
+        &lt;yellow&gt;comms dock&lt;reset&gt; - Make the communications window either dock to the left or right half of 
+            the screen, or float
+        &lt;yellow&gt;comms show&lt;reset&gt; - Displays or hides a communications window in a fixed position
+        &lt;yellow&gt;comms debug&lt;reset&gt; - Toggles debug mode, in which extra messages are shown with the intent of
+            assisting in troubleshooting. Default: on
+        &lt;yellow&gt;comms configs reset&lt;reset&gt; - Reset the communications configuration values.
+            
+    &lt;cyan&gt;Information subfolders:&lt;reset&gt; These are sub-folders containing information for more commands
+        &lt;link: comms_colors&gt;comms colors&lt;/link&gt; - Commands used in changing communications colors
+        &lt;link: comms_window&gt;comms window&lt;/link&gt; - Altering the size and position of the communications display
+        
+]]
+}
+
+communications.help.comms_colors = 
+[[
+    &lt;cyan&gt;Communications Colors:&lt;reset&gt; These commands are used to change the colors of the communications lines
+        &lt;yellow&gt;comms color type color&lt;reset&gt; - Chance the color of the given communications type to the
+            provided color
+            Example: comms color narrates green, comms color says white
+
+]]
+
+communications.help.comms_window =
+[[
+    &lt;cyan&gt;Communications Window&lt;reset&gt;
+        &lt;yellow&gt;comms window setting value&lt;reset&gt; - This command changes the given setting to the given value,
+            detailing how the communications window should appear. Possible settings are:
+            &lt;yellow&gt;x&lt;reset&gt; - Specify the top left corner of the communications window as a
+                percentage of the screen width. Default: -37
+            &lt;yellow&gt;y&lt;reset&gt; - Specify the top left corner of the communications window as a
+                percentage of the screen height. Default: 0
+            &lt;yellow&gt;w&lt;reset&gt; - Specify the width of the communications window as a positive
+                percentage of the screen width. Default: 37
+            &lt;yellow&gt;h&lt;reset&gt; - Specify the height of the communications window as a positive
+                percentage of the screen height. Default: 73
+            &lt;yellow&gt;fontsize&lt;reset&gt; - Specify the font size of the communications window. 
+                Default: 12
+            &lt;yellow&gt;border&lt;reset&gt; - Specify the color of the border of the communications window. 
+                Default: gray
+            &lt;yellow&gt;background&lt;reset&gt; - Specify the color of the background of the communications tab windows. 
+                Default: black
+            &lt;yellow&gt;foreground&lt;reset&gt; - Specify the color of the foreground of the communications tab windows. 
+                Default: white
+            &lt;yellow&gt;tabs&lt;reset&gt; - Specify the color of the tabs of the communications windows. 
+                Default: navy
+        &lt;yellow&gt;comms dock&lt;reset&gt; - Make the communications window either dock to the left or right half of 
+            the screen, or float
+        &lt;yellow&gt;comms show&lt;reset&gt; - Displays or hides a communications window in a fixed position
+
+]]</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:reposition_comms</name>
+			<packageName></packageName>
+			<script>function communications:reposition_comms(event, containerName, width, height, x, y)
+  if containerName ~= "communications.container" then
+    return
+  end
+  local mx, my = getMainWindowSize()
+  x = x/mx*100
+  y = y/my*100
+  width = width/mx*100
+  height = height/my*100
+  
+  self.configs.comms_window.x = f"{x}%"
+  self.configs.comms_window.y = f"{y}%"
+  self.configs.comms_window.w = f"{width}%"
+  self.configs.comms_window.h = f"{height}%"
+  table.save(f"{getMudletHomeDir()}/communications.configs.lua", self.configs)
+  
+  self:show_comms(true)
+end
+
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "communications:reposition_comms")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:comms_installer_success</name>
+			<packageName></packageName>
+			<script>function communications:comms_installer_success(event, name)
+  --if installed file is not the desired one
+  if name ~= "communications_scripts" then return end
+  self:show_help()
+  self:set_configs()
+  self:show_comms(self.configs.comms_window.visible)
+end
+
+registerAnonymousEventHandler("sysInstallPackage", "communications:comms_installer_success")</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+</MudletPackage>

@@ -1,0 +1,4017 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Catch Name</name>
+			<script>--check that the line is not immortal communications (the only other possibility for a whole line being cyan)
+if
+  (line == matches[1] or string.find(line, " &gt; "..matches[1], 1, true)) and
+  not (
+    string.find(line, "speaks from the") or
+    string.find(line, "prays") or 
+    string.find(line, "answers your prayer") or 
+    string.find(line, "shouts &lt;")
+  )
+then
+  wotmudmapper.roomname = matches[1]
+  --if on an immortal, remove room flags
+  if string.match(wotmudmapper.roomname, "(.+) %(#%d+%)") ~= nil then
+    wotmudmapper.roomname = string.match(wotmudmapper.roomname, "(.+) %(#%d+%)")
+  end
+  --edge case where the mud spits out room names with spaces at the start
+  if string.match(wotmudmapper.roomname, "^%s+(.+)") ~= nil then
+    wotmudmapper.roomname = string.match(wotmudmapper.roomname, "^%s+(.+)")
+  end
+  wotmudmapper:echo(f"\nRoom name ({wotmudmapper.roomname}) captured.", true)
+  
+  wotmudmapper.roomdesc = nil
+  
+  enableTrigger("Map Description")
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>1</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#008080</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>FG14BG-2</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>6</integer>
+			</regexCodePropertyList>
+			<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Map Description</name>
+				<script>--if line is not the roomname and not the exit line, add to room description
+if
+  string.match(matches[2], wotmudmapper.roomname.." %(#%d+%)") == nil and
+  string.match(matches[2], "^%s+"..wotmudmapper.roomname.."$") == nil and
+  matches[2] ~= wotmudmapper.roomname and
+  not string.find(line, "obvious exits:")
+then
+  if wotmudmapper.roomdesc == nil then
+    wotmudmapper.roomdesc = line
+  else
+    wotmudmapper.roomdesc = wotmudmapper.roomdesc .. "\n" .. line
+  end
+  
+  if
+    wotmudmapper.configs.mapbrief and not wotmudmapper:is_look(wotmudmapper.queue:checkleftvalue())
+  then
+    deleteLine()
+  end
+  
+  setTriggerStayOpen("Catch Name", 1)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^(.*)$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Get Exits</name>
+					<script>disableTrigger("Map Description")
+
+--puts current exits in a table of the form {"n","e","s","w","u","d"}
+wotmudmapper.roomexits = string.lower(matches[2])
+wotmudmapper:echo(f"\nRoom exits ({wotmudmapper.roomexits}) captured.\n", true)
+wotmudmapper.roomexits = string.split(wotmudmapper.roomexits)
+wotmudmapper.roomexits = table.n_intersection(wotmudmapper.roomexits, {"n","e","s","w","u","d"})
+  
+if wotmudmapper:is_dark_name() then
+  wotmudmapper.roomname = nil
+end
+if wotmudmapper:is_dark_desc() then
+  wotmudmapper.roomdesc = nil
+end
+
+--get the last direction used (or flee, if fleeing or following)
+local com = wotmudmapper:get_direction()
+
+--loading the previous roomID.
+local lastID = wotmudmapper.currentID
+local newID = {}
+
+--if you are mapping, were in a unique room, and command is a movement
+if wotmudmapper.configs.mapping 
+  and table.size(lastID) == 1 
+  and wotmudmapper:is_movement(com) 
+then
+  local tempID = wotmudmapper:find_matching_room()
+  --if not in an already mapped room or if forcing a room
+  if table.is_empty(tempID) or wotmudmapper.configs.forceroom then
+    local x, y, z = getRoomCoordinates(lastID[1])
+    x, y, z = wotmudmapper:set_coordinates_offset(x, y, z, com)
+    wotmudmapper.currentID = wotmudmapper:create_room(x, y, z, getRoomArea(lastID[1]))
+    wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], com, wotmudmapper.roomexits)
+    if wotmudmapper.configs.autojoin then
+      wotmudmapper:auto_join_rooms(wotmudmapper.currentID[1])
+    end
+    wotmudmapper.configs.forceroom = false
+    --if in a known room, link with previous room
+  elseif table.size(tempID) == 1 and tempID[1] ~= lastID[1] then
+    wotmudmapper.currentID = tempID
+    wotmudmapper:link_rooms(lastID[1], wotmudmapper.currentID[1], com, wotmudmapper.roomexits)
+    --else, you're just moving around in mapping mode
+  else
+    if wotmudmapper:is_waygate(lastID[1]) and com == "d" then
+      local waygates = wotmudmapper:get_waygates(lastID[1])
+      table.insert(newID, wotmudmapper:find_matching_room(waygates))
+    end
+    table.insert(newID, wotmudmapper:nearby_rooms(lastID[1], com))
+    --flatten any lists that were inserted
+    newID = table.n_flatten(newID)
+    --and remove duplicate room IDs
+    wotmudmapper.currentID = table.n_union(newID, newID)
+    --one last check that rooms can't be narrowed down any further
+    wotmudmapper.currentID = wotmudmapper:find_matching_room(wotmudmapper.currentID)
+    if table.is_empty(wotmudmapper.currentID) then
+      wotmudmapper.currentID = wotmudmapper:find_matching_room()
+    end
+  end
+--not mapping from a unique room
+elseif wotmudmapper:is_movement(com) or wotmudmapper:is_flee(com) then
+  for _, id in pairs(lastID) do
+    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
+      local waygates = wotmudmapper:get_waygates(id)
+      table.insert(newID, wotmudmapper:find_matching_room(waygates))
+    end
+    table.insert(newID, wotmudmapper:nearby_rooms(id, com))
+  end
+  --flatten any lists that were inserted
+  newID = table.n_flatten(newID)
+  --and remove duplicate room IDs
+  wotmudmapper.currentID = table.n_union(newID, newID)
+  --one last check that rooms can't be narrowed down any further
+  wotmudmapper.currentID = wotmudmapper:find_matching_room(wotmudmapper.currentID)
+  if table.is_empty(wotmudmapper.currentID) then
+    wotmudmapper.currentID = wotmudmapper:find_matching_room()
+  end
+--if not (looking at room and data is same), search for room
+elseif
+  not (
+    wotmudmapper:is_look(com) and
+    table.size(lastID) == 1 and
+    (wotmudmapper.roomname == nil or wotmudmapper.roomname == getRoomName(lastID[1])) and
+    (wotmudmapper.roomdesc == nil or wotmudmapper.roomdesc == getRoomUserData(lastID[1], "description"))
+  )
+then
+  wotmudmapper.currentID = wotmudmapper:find_matching_room()
+end
+
+wotmudmapper:update_room()</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>transparent</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>^\[ obvious exits:(.*)\]$</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+		</TriggerGroup>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Night/Blind/Fog Movement</name>
+			<script>--return if already handling a room we know is dark from the name
+--since "It is pitch black..." can be a room description in the dark
+if wotmudmapper:is_dark_name() then
+  return
+end
+
+wotmudmapper.roomname = nil
+wotmudmapper.roomdesc = nil
+wotmudmapper.roomexits = nil
+
+--get the last direction used (or flee, if fleeing or following)
+local com = wotmudmapper:get_direction()
+
+--loading the previous roomID
+local lastID = wotmudmapper.currentID
+local newID = {}
+
+if wotmudmapper:is_movement(com) or wotmudmapper:is_flee(com) then
+  --for every current room
+  for _, id in pairs(lastID) do
+    --if 1) room is a waygate and 2) we are going down or fleeing
+    if wotmudmapper:is_waygate(id) and (com == "d" or com == "f") then
+      --insert all the waygates
+      table.insert(newID, wotmudmapper:get_waygates(id))
+    end
+    --insert all nearby rooms as well
+    table.insert(newID, wotmudmapper:nearby_rooms(id, com))
+  end
+  --flatten any lists that were inserted
+  newID = table.n_flatten(newID)
+  --and remove duplicate room IDs
+  wotmudmapper.currentID = table.n_union(newID, newID)
+  --one last check that rooms can't be narrowed down any further
+  wotmudmapper.currentID = wotmudmapper:find_matching_room(wotmudmapper.currentID)
+  if table.is_empty(wotmudmapper.currentID) then
+    wotmudmapper.currentID = wotmudmapper:find_matching_room()
+  end
+--if not looking at known room, search for room from all rooms in the map
+elseif not (wotmudmapper:is_look(com) and table.size(lastID) == 1) then
+  wotmudmapper.currentID = wotmudmapper:get_rooms()
+end
+
+wotmudmapper:update_room()</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>It is pitch black\.\.\.$</string>
+				<string>You can't see a damned thing in this thick fog!$</string>
+				<string>You can't see a damned thing, you're blinded!$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Hurricane/Fireworks movement</name>
+			<script>wotmudmapper.currentID={}
+
+for id, name in pairs(getRooms()) do
+  if getRoomUserData(id, "zone") == wotmudmapper.zone then
+    table.insert(wotmudmapper.currentID, id)
+  end
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>A hurricane force wind lifts you off the ground!$</string>
+				<string>\*KERBOOM\* The explosion rips you from the ground and tosses you through the air\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Movement Failure</name>
+			<script>local com = wotmudmapper.queue:popleft()
+if wotmudmapper.following then
+  wotmudmapper.following = false
+end
+
+if table.size(wotmudmapper.currentID) &gt; 1 then
+--reduce possible roommatches based on fact that a direction doesn't work
+  if matches[1] == "Alas, you cannot go that way..." then
+  
+    local roommatches = {}
+    for _, id in pairs(wotmudmapper.currentID) do
+      --initialiasing table
+      local map_exits = {}
+      --create table of exit keys (grabbing first letter of "north","south",etc.)
+      for dir, _ in pairs(getRoomExits(id)) do
+        table.insert(map_exits, string.sub(dir, 1, 1))
+      end
+      --if there are exit stubs leading to unmapped room, include those
+      if getExitStubs(id) then
+        for _, dirnum in pairs(getExitStubs(id)) do
+          table.insert(map_exits, string.sub(wotmudmapper.exitmap[dirnum], 1, 1))
+        end
+      end
+      --compare list of possible exits to exit that failed
+      --if possible exits doesn't contain direction that failed OR has a door (which could be hidden, and closed)
+      --then that room is a possible match
+      if (not table.contains(map_exits, com)) or getRoomUserData(id, com) ~= "" then
+        table.insert(roommatches, id)
+      end
+    end
+    wotmudmapper.currentID = roommatches
+    
+  --reduce possible room matches based on fact that a direction led to water
+  elseif matches[1] == "You need a boat to go there." 
+    or matches[1] == "You would need to swim there, you can't just walk it."
+    or matches[1] == "You can't ride on water."
+    or matches[1] == "You shudder at the concept of crossing water." then
+    
+    local roommatches = {}
+    for _, id in pairs(wotmudmapper.currentID) do
+      --what room would the movement take us to
+      local to_room = getRoomExits(id)[wotmudmapper.exitmap[wotmudmapper.exitmap[com]]]
+      --if it exists and is a water room, then it is a possible match
+      if to_room and getRoomEnv(to_room) == wotmudmapper.room_type_env_nums["water"] then
+        table.insert(roommatches, id)
+      end
+      
+      --if there are exit stubs in the direction leading to unmapped rooms, include the current room
+      if getExitStubs(id) then
+        for _, dirnum in pairs(getExitStubs(id)) do
+          if string.sub(wotmudmapper.exitmap[dirnum], 1, 1) == com then
+            table.insert(roommatches, id)
+          end
+        end
+      end
+    end
+    wotmudmapper.currentID = roommatches
+     
+  end
+end
+if table.size(wotmudmapper.currentID) == 1 then
+  centerview(wotmudmapper.currentID[1])
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ffaa00</mFgColor>
+			<mBgColor>transparent</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>(.+) blocks the path of (.+)\.$</string>
+				<string>(.+) blocks your path\.$</string>
+				<string>A (.+) blocks the way\.$</string>
+				<string>A massive blast of air buffets you, knocking you off balance\.$</string>
+				<string>Alas, you cannot go that way\.\.\.$</string>
+				<string>All you can do right now is think about the stars!$</string>
+				<string>An (.+) blocks the way\.$</string>
+				<string>An elite Queen's Guard blocks the way and says 'You are not allowed there, (.+)\.'$</string>
+				<string>Are you crazy\? You can't just walk out of a second story window!$</string>
+				<string>Berserk! Death! Death! Fight to the death!$</string>
+				<string>In your dreams, or what\?$</string>
+				<string>Maybe you should get on your feet first\?$</string>
+				<string>Nah\.\.\. You feel too relaxed to do that\.\.$</string>
+				<string>No way!  You're fighting for your life!$</string>
+				<string>The Eye of the World is no longer the place for you, (.+)\.$</string>
+				<string>The ground gives way, and you are sent hurtling down the embankment!$</string>
+				<string>You are too exhausted\.$</string>
+				<string>You can't leave the Circle for (.+), since you were pkilled!$</string>
+				<string>You can't leave the Circle yet for (.+) since you were pkilled!$</string>
+				<string>You can't ride in there\.$</string>
+				<string>You can't ride on water\.$</string>
+				<string>You can't ride there on a horse!$</string>
+				<string>You don't see anything to start swimming in\.$</string>
+				<string>You need a boat to go there\.$</string>
+				<string>You try, but the mind-numbing cold prevents you\.\.$</string>
+				<string>You shudder at the concept of crossing water\.$</string>
+				<string>You would need to climb there from here\.$</string>
+				<string>You would need to swim there, you can't just walk it\.$</string>
+				<string>Your mount is engaged in combat!$</string>
+				<string>Your mount is too exhausted\.$</string>
+				<string>Your mount ought to be awake and standing first!$</string>
+				<string>Your mount refuses to obey your command\.$</string>
+				<string>You'll have to take your chances and JUMP OUT!$</string>
+				<string>You're in pretty bad shape, unable to do anything!$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Doors in General</name>
+			<script>local com = wotmudmapper.queue:popleft()
+local direction
+if com == wotmudmapper.door and com then
+  direction = wotmudmapper.door
+elseif com then
+  direction = com
+else
+  direction = wotmudmapper.door
+end
+if
+  wotmudmapper.configs.mapping and
+  table.size(wotmudmapper.currentID) == 1 and
+  getRoomUserData(wotmudmapper.currentID[1], direction) == ""
+then
+  cecho("\n")
+  wotmudmapper:create_door(wotmudmapper.currentID[1], direction, 1, matches[2])
+end
+if wotmudmapper.following then
+  wotmudmapper.following = false
+end
+--if door was closed, use it to narrow down possible roommatches
+if
+  table.contains(
+    {
+      f"The {matches[2]} is closed.",
+      f"The {matches[2]} seems to be closed.",
+      f"&gt; The {matches[2]} is closed.",
+      f"&gt; The {matches[2]} seems to be closed.",
+    },
+    matches[1]
+  )
+  --but only try to narrow down results if room isn't already known
+  and table.size(wotmudmapper.currentID) &gt; 1
+then
+  local roommatches = {}
+  for _, id in pairs(wotmudmapper.currentID) do
+    --if room has door in direction entered, add to potential matches
+    if getRoomUserData(id, com) ~= "" then
+      table.insert(roommatches, id)
+    end
+  end
+  wotmudmapper.currentID = roommatches
+end
+if table.size(wotmudmapper.currentID) == 1 then
+  centerview(wotmudmapper.currentID[1])
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^The (.+) is open\.$</string>
+				<string>^The (.+) is obviously open\.$</string>
+				<string>^The (.+) is closed\.$</string>
+				<string>^The (.+) seems to be closed\.$</string>
+				<string>&gt; The (.+) is closed\.$</string>
+				<string>&gt; The (.+) seems to be closed\.$</string>
+				<string>&gt; The (.+) is open\.$</string>
+				<string>&gt; The (.+) is obviously open\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Hidden Doors</name>
+			<script>if wotmudmapper.configs.mapping and table.size(wotmudmapper.currentID) == 1 then
+  cecho("\n")
+  wotmudmapper:create_door(wotmudmapper.currentID[1], wotmudmapper.door, 2, matches[2])
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You skillfully discover a hidden (.+)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Resetting Queue</name>
+			<script>wotmudmapper.queue = List:new()</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You are helped out of the coach by the driver\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Resuming Trigger</name>
+			<script>wotmudmapper.queue = List:new()
+disableTrigger("Resuming Trigger")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^(o|\*)?((^| )(R|S|F))?( I(\d+))?( R:(\d+))?( S:(\S+))?( HP:(\S+))?( SP:(\S+))?( DP:(\S+))?( MV:(\S+))?(^| )(&gt;|- .+ &gt;)</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Pausing Trigger</name>
+			<script>enableTrigger("Resuming Trigger")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>\* Press &lt;Return&gt; to continue, q to quit \*&gt;$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Failing Flees</name>
+			<script>if wotmudmapper:is_flee(wotmudmapper.queue:checkleftvalue()) then
+  wotmudmapper.queue:popleft()
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>transparent</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>PANIC!  You couldn't escape!$</string>
+				<string>PANIC!  Fear paralyzes you!$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Fleeing</name>
+			<script>wotmudmapper.flee = true</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff007f</mFgColor>
+			<mBgColor>transparent</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You flee head over heels\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Following</name>
+			<script>wotmudmapper.following = true</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#aaff00</mFgColor>
+			<mBgColor>transparent</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You follow (\S+)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>"Where" clickable center room</name>
+			<script>local roomname = matches[2]
+local foundrooms = wotmudmapper:get_rooms(roomname)
+local roomID
+
+for i, id in pairs(foundrooms) do
+  if getRoomUserData(id, "zone") ~= wotmudmapper.zone then
+    foundrooms[i] = nil
+  end
+end
+
+if table.is_empty(foundrooms) then
+  selectCaptureGroup(2)
+  setLink(function() end, "No matches found!")
+elseif table.size(foundrooms) == 1 then
+  for _, id in pairs(foundrooms) do
+    selectCaptureGroup(2)
+    setLink(function() centerview(id) end, "Click to center map on room.")
+  end
+else
+  selectCaptureGroup(2)
+  setLink(function() 
+    for _, id in spairs(foundrooms) do
+      echoLink(f"Room ID: {id}\n", function() centerview(id) end, "Click to center map on room.",true)
+    end 
+  end, "Click to display rooms with matching name.")
+end
+</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^\S+\s* \- ([A-Z].+)$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Reset queue on successful login/connection</name>
+			<script>--mostly relevant for people creating new characters, since some of
+--the character selection options will add commands to the queue
+--e.g., selecting (s)eanchan at the start for a new character
+
+wotmudmapper.queue = List:new()</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^              ------:- http://www.wotmud.org -:--------$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Areas</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Create a New Area</name>
+				<script>--syntax: createarea xxx
+
+local areaID = addAreaName(matches[2])
+
+if areaID then
+  wotmudmapper:echo(f"New area ({matches[2]}) created.\n")
+else
+  wotmudmapper:echo(f"Area ({matches[2]}) already exists.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^createarea (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Create a Room at Areaname</name>
+				<script>--syntax: createroom areaname
+
+local areaID = addAreaName(matches[2])
+
+if areaID and wotmudmapper.roomname ~= "" then
+  wotmudmapper.currentID = wotmudmapper:create_room(0, 0, 0, areaID)
+  wotmudmapper:echo("New room created.\n")
+  centerview(wotmudmapper.currentID[1])
+elseif wotmudmapper.roomname ~= "" then
+  wotmudmapper.currentID = wotmudmapper:create_room(0, 0, 0, matches[2])
+  wotmudmapper:echo("New room created.\n")
+  centerview(wotmudmapper.currentID[1])
+else
+  wotmudmapper:echo("Current room name not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^createroom (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Move Room to Area</name>
+				<script>--syntax: movetoarea xxx
+
+local moved = false
+
+if table.size(wotmudmapper.currentID) == 1 then
+  for name, id in pairs(getAreaTable()) do
+    if name == matches[2] then
+      setRoomArea(wotmudmapper.currentID[1], id)
+      wotmudmapper:echo(f"Room ({wotmudmapper.currentID[1]}) moved to area ({name}).\n")
+      moved = true
+      centerview(wotmudmapper.currentID[1])
+      break
+    end
+  end
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end
+
+if not moved then
+  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^movetoarea (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show Areas</name>
+				<script>--syntax: arealist
+
+wotmudmapper:show_area_list()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^arealist$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show Rooms in an Area</name>
+				<script>local areaid = getAreaTable()[matches[2]]
+
+if areaid then
+  wotmudmapper:show_room_list(areaid)
+else
+  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^roomlist (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Rename Area</name>
+				<script>--syntax: renamearea IDnumber newname
+--IDnumber can be found from the "arealist" command
+
+local renamed = false
+
+for name, id in pairs(getAreaTable()) do
+  if id == tonumber(matches[2]) then
+    setAreaName(id, matches[3])
+    wotmudmapper:echo(f"Area ({name}) renamed to ({matches[3]}).\n")
+    renamed = true
+    break
+  end
+end
+
+if not renamed then
+  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^renamearea (\d+) (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete an Area</name>
+				<script>--syntax: deletearea xxx
+
+local deleted = false
+
+for name, id in pairs(getAreaTable()) do
+  if name == matches[2] then
+    if type(getMapLabels(id)) == "table" then
+      for i, txt in pairs(getMapLabels(id)) do
+        deleteMapLabel(id, i)
+      end
+    end
+    deleteArea(id)
+    updateMap()
+    wotmudmapper:echo(f"Area ({matches[2]}) deleted. All its rooms, if any, have been deleted.\n")
+    deleted = true
+    break
+  end
+end
+
+if not deleted then
+  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^deletearea (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete room</name>
+				<script>--syntax: deleteroom xxx
+
+if roomExists(matches[2]) then
+  deleteRoom(matches[2])
+  updateMap()
+  wotmudmapper:echo(f"Room ({matches[2]}) deleted.\n")
+else
+  wotmudmapper:echo(f"Room ({matches[2]}) not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^deleteroom (\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Update Room Name</name>
+				<script>--syntax: updatederoomname roomIDnumber
+
+setRoomName(matches[2], wotmudmapper.roomname)
+wotmudmapper:echo("Room name updated.\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^updateroomname (\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Update Room Description</name>
+				<script>--syntax: updateroomdesc roomIDnumber
+
+setRoomUserData(matches[2], "description", wotmudmapper.roomdesc)
+wotmudmapper:echo("Room description updated.\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^updateroomdesc (\d+)$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Room Data</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>List Room Data</name>
+				<script>--Syntax: listroomdata
+--displays a list of all the data stored for your current room (this includes the description, zone, and doors)
+
+if table.size(wotmudmapper.currentID) == 1 then
+  for _, key in pairs(getRoomUserDataKeys(wotmudmapper.currentID[1])) do
+    local val = getRoomUserData(wotmudmapper.currentID[1], key)
+    wotmudmapper:echo(f"&lt;gold&gt;Key&lt;white&gt;: {key}, &lt;gold&gt;value&lt;white&gt;: {val}&lt;reset&gt;\n")
+  end
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^listroomdata$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Room Data</name>
+				<script>--Syntax: setroomdata field data
+
+if table.size(wotmudmapper.currentID) == 1 then
+  setRoomUserData(wotmudmapper.currentID[1], matches[2], matches[3])
+  wotmudmapper:echo(f"Room data for ({matches[2]}) set to ({matches[3]}).\n")
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^setroomdata (\S+) (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Get Room Data</name>
+				<script>--Syntax: getroomdata field
+--Displays the data stored for a specific field
+
+if table.size(wotmudmapper.currentID) == 1 then
+  local val = getRoomUserData(wotmudmapper.currentID[1], matches[2])
+  if val ~= "" then
+    wotmudmapper:echo(f"Room data for ({matches[2]}): {val}.\n")
+  else
+    wotmudmapper:echo(f"No data for key ({matches[2]}) stored for room.\n", false, true)
+  end
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^getroomdata (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete Room Data</name>
+				<script>--Syntax: deleteroomdata field
+--Will delete the user data stored for a specific field in the current room
+
+if table.size(wotmudmapper.currentID) == 1 then
+  clearRoomUserDataItem(wotmudmapper.currentID[1], matches[2])
+  wotmudmapper:echo(f"Room data for ({matches[2]}) deleted.\n")
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^deleteroomdata (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete All Room Data</name>
+				<script>--syntax: deleteallroomdata
+--This will delete ALL user specific data about a room
+--This includes clearing out the room description, zone, and doors
+
+if table.size(wotmudmapper.currentID) == 1 then
+  clearRoomUserData(wotmudmapper.currentID[1])
+  wotmudmapper:echo("All room data deleted.\n")
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^deleteallroomdata$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change Room Zone</name>
+				<script>--syntax: crz zonename
+
+if table.size(wotmudmapper.currentID) == 1 then
+  setRoomUserData(wotmudmapper.currentID[1], "zone", matches[2])
+  wotmudmapper.zone = matches[2]
+  wotmudmapper:echo(f"Zone of current room set to ({matches[2]})\n")
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^crz (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change Mapping Zone</name>
+				<script>--syntax: cmz zonename
+
+wotmudmapper.zone = matches[2]
+wotmudmapper:echo(f"New rooms will be of zone ({matches[2]}).\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^cmz (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Shift room</name>
+				<script>--syntax: shiftroom direction
+--shifts the current room in the direction
+
+local direction = matches[2]
+if table.size(wotmudmapper.currentID) == 1 then
+  local x, y, z = getRoomCoordinates(wotmudmapper.currentID[1])
+  x, y, z = wotmudmapper:set_coordinates_offset(x, y, z, direction)
+  setRoomCoordinates(wotmudmapper.currentID[1], x, y, z)
+  wotmudmapper:echo(f"Current room shifted ({direction}).\n")
+  centerview(wotmudmapper.currentID[1])
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^shiftroom ([neswud])$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change zone color</name>
+				<script>local new_color = matches[2]
+
+if color_table[new_color] then
+  local old_color = wotmudmapper.configs.zonecolor
+  wotmudmapper:echo(f"Map (zonecolor) changed from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{new_color}&gt;{new_color}&lt;reset&gt;).\n")
+  wotmudmapper.configs.zonecolor = new_color
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+else
+  wotmudmapper:echo("Color not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map zonecolor (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Add Room Marker</name>
+				<script>--syntax: setmarker xxx
+--adds a one character marker to the room on the map. "setmarker " to clear the marker
+--(if it's hard to tell, that means type in setmarker followed by one space to clear the room marker)
+--ex: "setmarker #" will place a "#" symbol on the room in the map
+
+if table.size(wotmudmapper.currentID) == 1 then
+  setRoomChar(wotmudmapper.currentID[1], matches[2])
+  wotmudmapper:echo(f"Marker ({matches[2]}) added to current room.\n")
+  updateMap()
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^setmarker (.*)$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Doors</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Creating Doors</name>
+				<script>--Syntax: create (visible OR hidden OR locked) door direction doorname
+local doortype = matches[2]
+local direction = matches[3]
+local doorname = matches[4]
+local numtype = {visible = 1, hidden = 2, locked = 3}
+if table.size(wotmudmapper.currentID) == 1 then
+  wotmudmapper:create_door(wotmudmapper.currentID[1], direction, numtype[doortype], doorname)
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^create (visible|hidden|locked) door ([neswud]) (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Delete Door</name>
+				<script>--Syntax: deletedoor direction
+
+local direction = matches[2]
+
+if table.size(wotmudmapper.currentID) == 1 then
+  local name = getRoomUserData(wotmudmapper.currentID[1], direction)
+  wotmudmapper:echo(f"Door ({direction}) named ({name}) deleted.\n")
+  wotmudmapper:create_door(wotmudmapper.currentID[1], direction, 0, "")
+  clearRoomUserDataItem(wotmudmapper.currentID[1], direction)
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^deletedoor ([neswud])$</regex>
+			</Alias>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Doors with directions</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Open Door</name>
+					<script>--syntax: odn/ods/ode/odw/odu/odd
+
+wotmudmapper:door_com_dir("open", matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^od([neswud])$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Close Door</name>
+					<script>--syntax: cdn/cde/cds/cdw/cdu/cdd
+
+wotmudmapper:door_com_dir("close", matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^cd([neswud])$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Pick Door</name>
+					<script>--syntax: pdn/pde/pds/pdw/pdu/pdd
+
+wotmudmapper:door_com_dir("pick", matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^pd([neswud])$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Knock Door</name>
+					<script>--syntax: kdn/kde/kds/kdw/kdu/kdd
+
+wotmudmapper:door_com_dir("knock", matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^kd([neswud])$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Unlock Door</name>
+					<script>--syntax: udn/ude/uds/udw/udu/udd
+
+wotmudmapper:door_com_dir("unlock", matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^ud([neswud])$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Lock Door</name>
+					<script>--syntax: ldn/lde/lds/ldw/ldu/ldd
+
+wotmudmapper:door_com_dir("lock", matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^ld([neswud])$</regex>
+				</Alias>
+			</AliasGroup>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change door color</name>
+				<script>local new_color = matches[2]
+if color_table[new_color] then
+  local old_color = wotmudmapper.configs.doorcolor
+  wotmudmapper:echo(f"Map (doorcolor) changed from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{new_color}&gt;{new_color}&lt;reset&gt;).\n")
+  wotmudmapper.configs.doorcolor = new_color
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+else
+  wotmudmapper:echo("Color not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map doorcolor (.+)$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Coloring Rooms</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Color Legend</name>
+				<script>--syntax: map legend
+
+cecho("&lt;light_goldenrod&gt;Map Legend\n")
+for env, color in pairs(wotmudmapper.map_colors) do
+  cecho(f"   &lt;{color}&gt;{env}&lt;reset&gt;\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map legend$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change Room Color</name>
+				<script>--syntax: cre environment
+--set current room to a particular environment type
+
+local env = string.lower(matches[2])
+if table.size(wotmudmapper.currentID) == 1 then
+  if wotmudmapper.map_colors[env] then
+    setRoomEnv(wotmudmapper.currentID[1], wotmudmapper.room_type_env_nums[env])
+    wotmudmapper:echo(f"Type of current room changed to &lt;{wotmudmapper.map_colors[env]}&gt;{env}&lt;reset&gt;.\n")
+    updateMap()
+  else
+    wotmudmapper:echo(f"Type of room ({env}) not known.\n", false, true)
+  end
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^cre (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change Mapping Environment</name>
+				<script>--syntax: cme environment
+--make the rooms you're mapping all of a particular environment type
+
+local env = string.lower(matches[2])
+if wotmudmapper.map_colors[env] then
+  wotmudmapper.configs.envcolor = wotmudmapper.room_type_env_nums[env]
+  wotmudmapper:echo(f"New rooms will be of type &lt;{wotmudmapper.map_colors[env]}&gt;{env}&lt;reset&gt;.\n")
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+else
+  wotmudmapper:echo(f"Type of room ({matches[2]}) not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^cme (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Reset Map Colors</name>
+				<script>--syntax: map colors reset
+
+wotmudmapper.map_colors = table.deepcopy(wotmudmapper.default_map_colors)
+wotmudmapper:echo("Map colors reset to default values.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
+wotmudmapper:set_map_colors()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map colors reset$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change Map Colors</name>
+				<script>local env = string.lower(matches[2])
+local new_color = matches[3]
+
+if wotmudmapper.map_colors[env] ~= nil then
+  if color_table[new_color] then
+    local old_color = wotmudmapper.map_colors[env]
+    wotmudmapper:echo(f"Map color for ({env}) changed from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{new_color}&gt;{new_color}&lt;reset&gt;).\n")
+    wotmudmapper.map_colors[env] = new_color
+    table.save(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua", wotmudmapper.map_colors)
+    wotmudmapper:set_map_colors()
+  else
+    wotmudmapper:echo("Color not known.\n", false, true)
+  end
+else
+  wotmudmapper:echo(f"Mapper window key ({env}) not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map color (\S+) (\S+)$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Map Labels</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Add Line Horizontal</name>
+				<script>--syntax example: hline nw 3e
+
+local place = matches[2]
+local num = tonumber(matches[3])
+local dir = matches[4]
+local offsets = {nw = {-1.5, 1.5}, ne = {1.5, 1.5}, sw = {-1.5, -1.5}, se = {1.5, -1.5}}
+if table.size(wotmudmapper.currentID) == 1 and offsets[place] then
+  local areaID = getRoomArea(wotmudmapper.currentID[1])
+  local pos1, pos2, pos3 = getRoomCoordinates(wotmudmapper.currentID[1])
+  local x = offsets[place][1]
+  local y = offsets[place][2]
+  x = pos1 + x
+  y = pos2 + y
+  x = x - 0.75
+  y = y + 0.15
+  if dir == "w" then
+    x = x - 3 * num
+  end
+  local directory = f"{getMudletHomeDir()}/map image labels/horizontalmarker{num}.png"
+  createMapImageLabel(areaID, directory, x, y, pos3, 1.5 + 3 * num, 0.3, 100, false)
+else
+  wotmudmapper:echo("Current room not known, or invalid location/direction specification.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^hline (\S+) (\d+)([ew])$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Add Line Vertical</name>
+				<script>--syntax example: vline nw 3s
+
+local place = matches[2]
+local num = tonumber(matches[3])
+local dir = matches[4]
+local offsets = {nw = {-1.5, 1.5}, ne = {1.5, 1.5}, sw = {-1.5, -1.5}, se = {1.5, -1.5}}
+if table.size(wotmudmapper.currentID) == 1 and offsets[place] then
+  local areaID = getRoomArea(wotmudmapper.currentID[1])
+  local pos1, pos2, pos3 = getRoomCoordinates(wotmudmapper.currentID[1])
+  local x = offsets[place][1]
+  local y = offsets[place][2]
+  x = pos1 + x
+  y = pos2 + y
+  x = x - 0.15
+  y = y + 0.75
+  if dir == "n" then
+    y = y + 3 * num
+  end
+  local directory = f"{getMudletHomeDir()}/map image labels/verticalmarker{num}.png"
+  createMapImageLabel(areaID, directory, x, y, pos3, 0.3, 1.5 + 3 * num, 100, false)
+else
+  wotmudmapper:echo("Current room not known, or invalid location/direction specification.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^vline (\S+) (\d+)([ns])$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Make Text Label</name>
+				<script>--syntax: makelabel gray nw xxx
+--createMapLabel(areaID, text, posx, posy, posz, fgRed, fgGreen, fgBlue, bgRed, bgGreen, bgBlue, zoom, fontSize, showOnTop, noScaling)
+local color = matches[2]
+local place = matches[3]
+local labeltext = matches[4]
+local r, g, b
+local fontsize = 30
+
+local offsets =
+  {
+    n = {-0.5, 2.5},
+    s = {-0.5, -0.5},
+    e = {1.0, 1.0},
+    nw = {-2.5, 2.5},
+    ne = {0.5, 2.5},
+    sw = {-2.5, -0.5},
+    se = {0.5, -0.5},
+  }
+  
+if table.size(wotmudmapper.currentID) == 1 and offsets[place] and color_table[color] then
+  r, g, b = unpack(color_table[color])
+  local areaID = getRoomArea(wotmudmapper.currentID[1])
+  local pos1, pos2, pos3 = getRoomCoordinates(wotmudmapper.currentID[1])
+  local x = offsets[place][1]
+  local y = offsets[place][2]
+  x = pos1 + x
+  y = pos2 + y
+  createMapLabel(areaID, labeltext, x, y, pos3, r, g, b, 50, 50, 50, 30, fontsize, false, false)
+else
+  wotmudmapper:echo("Current room not known, or invalid color/location/text specification.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^makelabel (\S+) (\S+) (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show Possible Colors</name>
+				<script>--openUrl("https://wiki.mudlet.org/images/c/c3/ShowColors.png")
+
+showColors()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^viewcolors$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Mapper Booleans</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Mapping On/Off</name>
+				<script>--syntax: mapping
+
+wotmudmapper.configs.mapping = not wotmudmapper.configs.mapping
+wotmudmapper:echo("Mapping is: " .. (wotmudmapper.configs.mapping and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^mapping$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Bothways</name>
+				<script>--syntax: map bothways
+--toggle whether rooms are connected in both directions when mapping (i.e. use one way exits or no)
+
+wotmudmapper.configs.bothways = not wotmudmapper.configs.bothways
+wotmudmapper:echo("Bothways set to: " .. (wotmudmapper.configs.bothways and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map bothways$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Autojoin</name>
+				<script>--syntax: map autojoin
+--toggle whether rooms should autojoin to nearby rooms when mapping
+
+wotmudmapper.configs.autojoin = not wotmudmapper.configs.autojoin
+wotmudmapper:echo("Autojoin set to: " .. (wotmudmapper.configs.autojoin and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map autojoin$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Make Brief</name>
+				<script>--syntax: map brief
+
+wotmudmapper.configs.mapbrief = not wotmudmapper.configs.mapbrief
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.mapbrief and "hide" or "show") .. " room descriptions.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map brief$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Force New Room</name>
+				<script>--syntax: forceroom
+--Will force the next room created to be a new room
+
+wotmudmapper.configs.forceroom = true
+wotmudmapper:echo("Forcing new room.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^forceroom$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Debug</name>
+				<script>--syntax: map debug
+
+wotmudmapper.configs.dbug = not wotmudmapper.configs.dbug
+wotmudmapper:echo("Map debug set to: " .. (wotmudmapper.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map debug$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Display or hide zone name</name>
+				<script>wotmudmapper.configs.showzone = not wotmudmapper.configs.showzone
+
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.showzone and "show" or "hide") .. " zone names.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map showzone$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Map Offline</name>
+				<script>--syntax: map offline
+--toggle whether you can move map in offline mode
+
+wotmudmapper.configs.offline = not wotmudmapper.configs.offline
+wotmudmapper:echo("Offline set to: " .. (wotmudmapper.configs.offline and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+
+if wotmudmapper.configs.offline then
+    enableKey("Offline Map")
+    enableAlias("Offline Map Dirs")
+    enableAlias("Offline Map Look")
+else
+    disableKey("Offline Map")
+    disableAlias("Offline Map Dirs")
+    disableAlias("Offline Map Look")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map offline$</regex>
+				<Alias isActive="no" isFolder="no">
+					<name>Offline Map Dirs</name>
+					<script>wotmudmapper:offline_move(matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^([neswud])$</regex>
+				</Alias>
+				<Alias isActive="no" isFolder="no">
+					<name>Offline Map Look</name>
+					<script>wotmudmapper:offline_move("l")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^l$</regex>
+				</Alias>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Map widget</name>
+				<script>wotmudmapper.configs.map_window.widget = not wotmudmapper.configs.map_window.widget
+
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.map_window.widget and "use" or "not use") .. " the map widget.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map widget$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Map speedwalk</name>
+				<script>--syntax: map speedwalk
+--toggle whether you should be able to speedwalk by double clicking on rooms
+
+wotmudmapper.configs.speedwalk = not wotmudmapper.configs.speedwalk
+wotmudmapper:echo("Speedwalk set to: " .. (wotmudmapper.configs.speedwalk and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map speedwalk$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Map on/off</name>
+				<script>--syntax: map on OR map off
+--toggle whether the mapper should follow you
+
+wotmudmapper.configs.on = not wotmudmapper.configs.on
+wotmudmapper:echo("The mapper " .. (wotmudmapper.configs.on and "&lt;green&gt;will&lt;reset&gt;" or "&lt;red&gt;will not&lt;reset&gt;") .. " follow you.\n")
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+
+if wotmudmapper.configs.on then
+  enableTrigger("Mapper")
+  enableAlias("Doors with directions")
+  wotmudmapper.queue = List:new()
+else
+  disableTrigger("Mapper")
+  disableAlias("Doors with directions")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map (on|off)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Dock/Undock Map</name>
+				<script>wotmudmapper.configs.map_window.dock = not wotmudmapper.configs.map_window.dock
+wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.dock and "docked.\n" or "floating.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map dock$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show/Hide Map</name>
+				<script>wotmudmapper.configs.map_window.visible = not wotmudmapper.configs.map_window.visible
+wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
+table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map show$</regex>
+			</Alias>
+		</AliasGroup>
+		<Alias isActive="yes" isFolder="no">
+			<name>Speedwalk Alias</name>
+			<script>local com = matches[1]
+
+comlist = com:gmatch("%d*[neswud]")
+
+for com in comlist do
+  local num = com:split("[neswud]")[1]
+  local dir = com:split(num)[2] or com:split(num)[1]
+  
+  if num == "" then
+    num = 1
+  end
+  
+  for i = 1, tonumber(num), 1 do
+    send(dir, false)
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^\.(\d*[neswud])+$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Reset Queue</name>
+			<script>--syntax: resetqueue
+
+local numcoms = wotmudmapper.queue.last - wotmudmapper.queue.first + 1
+display(wotmudmapper.queue)
+wotmudmapper.queue = List:new()
+wotmudmapper:echo(f"Queue reset. {numcoms} command(s) was/were removed.\n")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^resetqueue$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Find Room</name>
+			<script>--syntax: findroom roomname OR findroom roomname zone zonename
+
+local roomname = matches[2]
+local zonename = matches[4]
+
+local foundrooms = searchRoom(roomname, false, true)
+if table.is_empty(foundrooms) then
+  foundrooms = searchRoom(roomname, false, false)
+end
+if zonename then
+  for id, name in pairs(foundrooms) do
+    if not string.find(string.lower(getRoomUserData(id, "zone")), string.lower(zonename)) then
+      foundrooms[id] = nil
+    end
+  end
+end
+
+if table.is_empty(foundrooms) then
+  wotmudmapper:echo("No matches found.\n", false, true)
+elseif table.size(foundrooms) == 1 then
+  wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
+  for id, name in pairs(foundrooms) do
+    centerview(id)
+  end
+else
+  wotmudmapper:echo("Multiple matches found.\n", false, true)
+  for id, name in spairs(foundrooms) do
+    local zone = getRoomUserData(id, "zone")
+    cechoLink(
+      f"Room ID: {id}, &lt;ansi_cyan&gt;room name&lt;reset&gt;: {name}, &lt;{wotmudmapper.configs.zonecolor}&gt;zone&lt;reset&gt;: {zone}\n",
+      function() centerview(id) end,
+      "Click to center map on room.",
+      true
+    )
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^findroom (.+?)( zone (.+))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Find Door</name>
+			<script>--syntax: finddoor doorname OR finddoor doorname zone zonename
+
+local doorname = matches[2]
+local zonename = matches[4]
+
+local foundrooms = {}
+
+for room, name in pairs(getRooms()) do
+  for _, dir in pairs({"n","e","s","w","u","d"}) do
+    if string.lower(getRoomUserData(room, dir)) == string.lower(doorname) then
+      table.insert(foundrooms,room)
+    end
+  end
+end
+
+--remove duplicates
+foundrooms = table.n_union(foundrooms, foundrooms)
+
+if zonename then
+  for i, room in pairs(foundrooms) do
+    if not string.find(string.lower(getRoomUserData(room, "zone")), string.lower(zonename)) then
+      foundrooms[i] = nil
+    end
+  end
+end
+
+if table.is_empty(foundrooms) then
+  wotmudmapper:echo("No matches found.\n", false, true)
+elseif table.size(foundrooms) == 1 then
+  wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
+  for _, id in pairs(foundrooms) do
+    centerview(id)
+  end
+else
+  wotmudmapper:echo("Multiple matches found.\n", false, true)
+  for _, id in pairs(foundrooms) do
+    local name = getRoomName(id)
+    local zone = getRoomUserData(id, "zone")
+    cechoLink(
+      f"Room ID: {id}, &lt;ansi_cyan&gt;room name&lt;reset&gt;: {name}, &lt;{wotmudmapper.configs.zonecolor}&gt;zone&lt;reset&gt;: {zone}\n",
+      function() centerview(id) end,
+      "Click to center map on room.",
+      true
+    )
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^finddoor (.+?)( zone (.+))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show Room</name>
+			<script>--syntax: showroom envname OR showroom envname zone zonename
+
+local env = matches[2]
+local zonename = matches[4]
+
+local foundrooms = getRooms()
+
+for id, name in pairs(foundrooms) do
+  if getRoomEnv(id) ~= wotmudmapper.room_type_env_nums[env] then
+    foundrooms[id] = nil
+  end
+end
+
+if zonename then
+  for id, name in pairs(foundrooms) do
+    if not string.find(string.lower(getRoomUserData(id, "zone")), string.lower(zonename)) then
+      foundrooms[id] = nil
+    end
+  end
+end
+
+if table.is_empty(foundrooms) then
+  wotmudmapper:echo("No matches found.\n", false, true)
+elseif table.size(foundrooms) == 1 then
+  wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
+  for id, name in pairs(foundrooms) do
+    centerview(id)
+  end
+else
+  wotmudmapper:echo("Multiple matches found.\n", false, true)
+  for id, name in spairs(foundrooms) do
+    local zone = getRoomUserData(id, "zone")
+    cechoLink(
+      f"Room ID: {id}, &lt;ansi_cyan&gt;room name&lt;reset&gt;: {name}, &lt;{wotmudmapper.configs.zonecolor}&gt;zone&lt;reset&gt;: {zone}\n",
+      function() centerview(id) end,
+      "Click to center map on room.",
+      true
+    )
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^showroom (.+?)( zone (.+))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Update Map</name>
+			<script>--syntax: map update
+
+wotmudmapper:echo("Downloading updated map...\n")
+local url = "https://raw.githubusercontent.com/weisluke/WoTMUD/master/WoTMUD_map.dat"
+local saveto = f"{getMudletHomeDir()}/WoTMUD_map.dat"
+downloadFile(saveto, url)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^map update$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show Queue</name>
+			<script>wotmudmapper:echo("Showing queue.\n")
+display(wotmudmapper.queue)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^showqueue$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Save Map</name>
+			<script>local dir = f"{getMudletHomeDir()}/WoTMUD_map.dat"
+wotmudmapper:echo(f"Saving map to {dir}\n")
+local res = saveMap(dir)
+if res then
+  wotmudmapper:echo("Map saved.\n")
+else
+  wotmudmapper:echo("Map failed to save.\n", false, true)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^map save$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Save Map JSON</name>
+			<script>local dir = f"{getMudletHomeDir()}/WoTMUD_map.json"
+wotmudmapper:echo(f"Saving map to {dir}\n")
+local res = saveJsonMap(dir)
+if res then
+  wotmudmapper:echo("Map saved.\n")
+else
+  wotmudmapper:echo("Map failed to save.\n", false, true)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^map save json$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Map Window Config Alias</name>
+			<script>local key = matches[2]
+local val = matches[3]
+if wotmudmapper.configs.map_window[key]~=nil then
+  if key == "w" then
+    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+      wotmudmapper:echo("Width must be a positive number (interpreted as a percentage of screen width).\n", false, true)
+    else
+      val = f"{val}%"
+      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:show_map(true)
+    end
+  elseif key == "h" then
+    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+      wotmudmapper:echo("Height must be a positive number (interpreted as a percentage of screen height).\n", false, true)
+    else
+      val = f"{val}%"
+      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:show_map(true)
+    end
+  elseif key == "x" then
+    if not tonumber(val) then
+      wotmudmapper:echo("X position must be a number (interpreted as a percentage of screen width).\n", false, true)
+    else
+      val = f"{val}%"
+      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:show_map(true)
+    end
+  elseif key == "y" then
+    if not tonumber(val) then
+      wotmudmapper:echo("Y position must be a number (interpreted as a percentage of screen height).\n", false, true)
+    else
+      val = f"{val}%"
+      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:show_map(true)
+    end
+  elseif key == "border" then
+    if not color_table[val] then
+      wotmudmapper:echo(f"Color ({val}) not known. Type \"viewcolors\" to see the list of available colors.\n", false, true)
+    else
+      local old_border = wotmudmapper.configs.map_window.border
+      wotmudmapper:echo(f"Map window ({key}) updated from (&lt;{old_border}&gt;{old_border}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
+      wotmudmapper.configs.map_window[key] = val
+      table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+      wotmudmapper:echo("Color change will only take effect upon restarting mudlet.\n")
+    end
+  else
+    wotmudmapper:echo(f"Key ({key}) unable to be changed through this alias.\n", false, true)
+  end
+else
+  wotmudmapper:echo(f"Map window key ({key}) not known.\n", false, true)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^map window (\S+) (\S+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Map Zoom</name>
+			<script>local val = matches[2]
+if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+  wotmudmapper:echo("Zoom must be a positive number (closer to 1 = more zoomed in).\n", false, true)
+else
+  val = tonumber(val)
+  wotmudmapper.configs.map_window.zoom = val
+  wotmudmapper:echo(f"Map window (zoom) updated to ({val}).\n")
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
+  for name, id in pairs(getAreaTable()) do
+    setMapZoom(val, id)
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^map zoom (\S+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Map Help Alias</name>
+			<script>wotmudmapper:show_help(matches[3])</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^map help( (.*))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Reset Configs</name>
+			<script>wotmudmapper.configs = table.deepcopy(wotmudmapper.defaults)
+wotmudmapper.configs.dbug = false
+wotmudmapper:echo("Map configurations reset to default values.\n")
+wotmudmapper:show_map(true)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^map configs reset$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Search room descriptions</name>
+			<script>--syntax: search room descs xxx
+
+local phrase = matches[2]
+local foundrooms = {}
+
+for id, name in pairs(getRooms()) do
+  local desc = getRoomUserData(id, "description")
+  if string.find(desc, phrase) then
+    table.insert(foundrooms, id)
+  end
+end
+
+if table.is_empty(foundrooms) then
+  wotmudmapper:echo("No matches found.\n", false, true)
+elseif table.size(foundrooms) == 1 then
+  wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
+  for _, id in pairs(foundrooms) do
+    centerview(id)
+  end
+else
+  wotmudmapper:echo("Multiple matches found.\n", false, true)
+  for _, id in pairs(foundrooms) do
+    local name = getRoomName(id)
+    local zone = getRoomUserData(id, "zone")
+    cechoLink(
+      f"Room ID: {id}, &lt;ansi_cyan&gt;room name&lt;reset&gt;: {name}, ",
+      function()
+        local id = id
+        wotmudmapper:echo(f"Displaying room description for room ID ({id})\n") 
+        local desc = getRoomUserData(id, "description")
+        echo(f"{desc}\n")
+      end,
+      "Click to display room description.",
+      true
+    )
+    cechoLink(
+      f"&lt;{wotmudmapper.configs.zonecolor}&gt;zone&lt;reset&gt;: {zone}\n",
+      function() centerview(id) end,
+      "Click to center map on room.",
+      true
+    )
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^search room descs (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Map version</name>
+			<script>wotmudmapper:echo(f'version {wotmudmapper.version}\n')</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^map version$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper initializations</name>
+			<packageName></packageName>
+			<script>--define mudlet required mapper variables and wotmudmapper table
+mudlet = mudlet or {}
+mudlet.mapper_script = true
+mudlet.custom_speedwalk = true
+wotmudmapper = wotmudmapper or {}
+wotmudmapper.configs = wotmudmapper.configs or {}
+wotmudmapper.version = "1.2"
+
+
+--mapper variables
+
+--table to hold list of possible current room IDs
+wotmudmapper.currentID = wotmudmapper.currentID or {}
+--current room name captured by triggers
+wotmudmapper.roomname = wotmudmapper.roomname or ""
+--current room description captured by triggers
+wotmudmapper.roomdesc = wotmudmapper.roomdesc or ""
+--table to hold list of room exits captured by triggers. list may include exits not in the map data. map data may include exits not in the list.
+wotmudmapper.roomexits = wotmudmapper.roomexits or {}
+--current zone name pulled from map data
+wotmudmapper.zone = wotmudmapper.zone or ""
+--used by triggers to determine whether most recent movement was a manual flee or autoflee
+wotmudmapper.flee = wotmudmapper.flee or false
+--set to true on "You follow (\S+)\.$"
+wotmudmapper.following = wotmudmapper.following or false
+--variable to hold door direction. only used in mapping mode to create doors
+wotmudmapper.door = wotmudmapper.door or "n"
+
+--default configuration values to be used or updated in wotmudmapper.configs
+wotmudmapper.defaults = {
+  on = true, --true if the map should actively follow you
+  mapping = false, --true if mapping mode is turned on
+  dbug = true, --debug for echoing messages
+  mapbrief = false, --true if map triggers should manually delete room description lines from the screen
+  bothways = true, --true if new room and old room should be connected both ways in mapping mode
+  autojoin = false, --true if rooms should be auto-connected based on exits and proximity in mapping mode
+  forceroom = false, --true if a new room should be force created in mapping mode
+  envcolor = 20, --default environment number for mapping
+  offline = false, --true if map is being used in offline mode
+  roomID = 1, --last known room ID before profile is shut down
+  showzone = true, --true if zone information should be displayed below room exits
+  zonecolor = "turquoise", --color of zone information displayed below room exits
+  doorcolor = "blue", --color of door information displayed below room exits
+  speedwalk = true, --whether or not double clicking rooms will make you speedwalk
+  map_window = {
+    border = "gray",
+    widget = false, --true if the map widget should be used instead of an Adjustable.Container
+    visible = true, --true if map should be shown
+    x = "-37%", --left border of map Adjustable.Container
+    y = "0%", --top border of map Adjustable.Container
+    w = "37%", --width of map Adjustable.container
+    h = "73%", --height of map Adjustable.container
+    zoom = 50, --map window zoom level
+    dock = false --true if map Adjustable.Container can be docked to left or right of screen
+    }
+  }
+
+--default map room type environment numbers and colors
+wotmudmapper.room_type_env_nums = {
+  inside = 20,
+  wilderness = 21,
+  road = 22, 
+  horse = 23,
+  swamp = 24,
+  water = 25,
+  drink = 26,
+  weaponsmith = 27,
+  armorer = 28,
+  blacksmith = 29,
+  bank  = 30,
+  stables = 31,
+  rent = 32,
+  grocer = 33,
+  warrior = 34,
+  rogue = 35,
+  hunter = 36,
+  pk = 37,
+  city = 38,
+  herb = 39,
+  tailor = 40,
+  nochannel = 41,
+  portalstone = 42,
+  trees = 43,
+  smob = 44,
+  herbalist = 45
+}
+wotmudmapper.default_map_colors = {
+  inside = "white",
+  wilderness = "forest_green",
+  road = "brown", 
+  horse = "burlywood",
+  swamp = "dark_violet",
+  water = "blue",
+  drink = "medium_aquamarine",
+  weaponsmith = "steel_blue",
+  armorer = "gray",
+  blacksmith = "dark_orange",
+  bank  = "gold",
+  stables = "purple",
+  rent = "green",
+  grocer = "red",
+  warrior = "sienna",
+  rogue = "dark_slate_gray",
+  hunter = "yellow_green",
+  pk = "light_gray",
+  city = "brown",
+  herb = "yellow",
+  tailor = "magenta",
+  nochannel = "gray",
+  portalstone = "gray",
+  trees = "lawn_green",
+  smob = "firebrick",
+  herbalist = "yellow"
+}
+
+--table of exit to number associations
+if not wotmudmapper.exitmap then
+  wotmudmapper.exitmap =
+    {
+      n = 1,
+      north = 1,
+      ne = 2,
+      northeast = 2,
+      nw = 3,
+      northwest = 3,
+      e = 4,
+      east = 4,
+      w = 5,
+      west = 5,
+      s = 6,
+      south = 6,
+      se = 7,
+      southeast = 7,
+      sw = 8,
+      southwest = 8,
+      u = 9,
+      up = 9,
+      d = 10,
+      down = 10,
+      ["in"] = 11,
+      ["out"] = 12,
+      [1] = "north",
+      [2] = "northeast",
+      [3] = "northwest",
+      [4] = "east",
+      [5] = "west",
+      [6] = "south",
+      [7] = "southeast",
+      [8] = "southwest",
+      [9] = "up",
+      [10] = "down",
+      [11] = "in",
+      [12] = "out",
+    }
+end
+
+
+--List functions
+List = {}
+
+function List:new()
+  local list = {first = 0, last = -1}
+  setmetatable(list, self)
+  self.__index = self
+  return list
+end
+
+function List:pushright(value)
+  local last = self.last + 1
+  self.last = last
+  self[last] = value
+end
+
+function List:popleft()
+  local first = self.first
+  local value = self[first]
+  --to allow garbage collection
+  self[first] = nil
+  self.first = first + 1
+  if first &gt;= self.last then
+    self.first=0
+    self.last=-1
+  end
+  if value then
+    wotmudmapper:echo(f"Removed command ({value}) from queue.\n",true)
+  else
+    wotmudmapper:echo("No commands left to remove from queue.\n",true)  
+  end
+  return value
+end
+
+function List:checkleftvalue()
+  return self[self.first]
+end
+
+--queue to store movement commands
+wotmudmapper.queue = List:new()</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:echo</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;lawn_green&gt;(&lt;forest_green&gt;wotmudmapper&lt;lawn_green&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:set_map_colors</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:set_map_colors()
+  --loop over environments and colors in color table
+  for env, color in pairs(self.map_colors) do
+    --unpack rgb values from mudlet color table
+    local r, g, b = unpack(color_table[color])
+    --set environment color for the given environment with the rgb values of the color
+    setCustomEnvColor(self.room_type_env_nums[env], r, g, b, 255)
+  end
+  --update map display
+  updateMap()
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:set_configs</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:set_configs()
+  --local copies of map configs/colors and their defaults
+  local defaults = table.deepcopy(self.defaults) or {}
+  local configs = table.deepcopy(self.configs) or {}
+  local default_colors = table.deepcopy(self.default_map_colors) or {}
+  local colors = table.deepcopy(self.map_colors) or {}
+  
+  --if config and color files exist on disk, load them in  
+  self:echo("Loading map configurations.\n", true)
+  -- load stored configs from file if it exists
+  if io.exists(f"{getMudletHomeDir()}/wotmudmapper.configs.lua") then
+      table.load(f"{getMudletHomeDir()}/wotmudmapper.configs.lua",configs)
+  end
+  if io.exists(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua") then
+      table.load(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua",colors)
+  end
+  self:echo("Map configurations loaded.\n", true)
+  
+  -- overwrite default values with stored config values and save to disk
+  configs = table.update(defaults, configs)
+  self.configs = table.deepcopy(configs)
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", self.configs)
+  colors = table.update(default_colors, colors)
+  self.map_colors = table.deepcopy(colors)
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua", self.map_colors)
+end
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:sys_connection</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:sys_connection(event)
+  --ensure the movement queue is empty
+  self.queue = List:new()
+  --set configuration values
+  self:set_configs()
+  
+  --show map window
+  self:show_map(self.configs.map_window.visible)
+  
+  --set colors and center on player location
+  self:set_map_colors()
+  self.currentID = {self.configs.roomID}
+  centerview(self.currentID[1])
+  
+  --ensure that offline mode is disabled
+  self.configs.offline = false
+  disableKey("Offline Map")
+  disableAlias("Offline Map Dirs")
+  disableAlias("Offline Map Look")
+  
+  --add map right click options and register their event handlers
+  addMapMenu("Update room information")
+  addMapEvent("map_rightclick_update_roomname", "map_rightclick_update_roomname_event", "Update room information", "Update room name") 
+  addMapEvent("map_rightclick_update_roomdesc", "map_rightclick_update_roomdesc_event", "Update room information", "Update room description")
+  
+  addMapEvent("map_rightclick_display_roomdesc", "map_rightclick_display_roomdesc_event", "", "Display room description")
+  
+  
+  registerAnonymousEventHandler("map_rightclick_update_roomname_event", "wotmudmapper:rightclick_update_roomname")
+  registerAnonymousEventHandler("map_rightclick_update_roomdesc_event", "wotmudmapper:rightclick_update_roomdesc")
+  
+  registerAnonymousEventHandler("map_rightclick_display_roomdesc_event", "wotmudmapper:rightclick_display_roomdesc")
+  
+  raiseEvent("wotmudmapper:sys_connection_event")
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "wotmudmapper:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "wotmudmapper:sys_connection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:sys_disconnection</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:sys_disconnection(event)
+  --set config values in preparation for disconnection
+  self.configs = self.configs or {}
+  self.configs.mapping = false
+  self.configs.forceroom = false
+  self.configs.offline = false
+  self.map_colors = self.map_colors or {}
+  
+  --if player location was known, save, otherwise set to mudlet roomID 1
+  if table.size(self.currentID) == 1 then
+    self.configs.roomID = self.currentID[1]
+  else
+    self.configs.roomID = 1
+  end
+  
+  --save configs and colors to disk
+  self:echo("Saving map configurations.\n", true)
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", self.configs)
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua", self.map_colors)
+  self:echo("Map configurations saved.\n", true)
+end
+
+registerAnonymousEventHandler("sysExitEvent", "wotmudmapper:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "wotmudmapper:sys_disconnection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:map_update</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:map_update(event, filename)
+  --if the file that downloaded is not the map, return
+  if not filename:find("WoTMUD_map.dat", 1, true) then
+    return
+  end
+  
+  --load in map file, set colors, and center on current player room
+  self:echo("Download complete.\n")
+  loadMap(filename)
+  self:echo("New map successfully uploaded.\n")
+  self:set_map_colors()
+  centerview(self.currentID[1])
+end
+
+registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:show_map</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:show_map(bval)
+  --set boolean of whether map is visible or not
+  local visible = bval
+  self.configs.map_window.visible = visible
+  
+  --local copy of map window config values
+  local configs = table.deepcopy(self.configs.map_window)
+  local x, y, w, h = configs.x, configs.y, configs.w, configs.h
+  
+  --if widget is used, open or close and return
+  if configs.widget then
+    if visible then
+      openMapWidget()
+    else
+      closeMapWidget()
+    end
+    return
+  end
+  
+  local r, g, b = unpack(color_table[configs.border])
+  local rgb_str = f"{r},{g},{b}"
+  
+  --create mapper container, position it, and resize it
+  self.container = self.container or Adjustable.Container:new(
+    {
+      name = "wotmudmapper.container",
+      adjLabelstyle = f"background-color:rgba({rgb_str},100%); border: 5px groove grey;",
+      buttonstyle=[[
+      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
+      QLabel::hover{ background-color: rgba(160,160,160,50%);}
+      ]],
+      buttonFontSize = 10,
+      buttonsize = 20,
+      titleText = "WoTMUD Map",
+      titleTxtColor = "black",
+      padding = 15
+    }
+  )
+  self.container:move(x, y)
+  self.container:resize(w,h)
+  self.mapper = self.mapper or Geyser.Mapper:new({name = "wotmudmapper.mapper", x = "0%", y = "0%", width = "100%", height = "100%"}, self.container)
+  
+  setMapZoom(configs.zoom)
+  
+  --show or hide mapper container
+  if visible then
+    self.container:show()
+  else
+    self.container:hide()
+  end
+  
+  --strip numeric values from mapper container position and size (since they are stored as percent strings)
+  x = tonumber(string.sub(x,1,-2))
+  y = tonumber(string.sub(y,1,-2))
+  w = tonumber(string.sub(w,1,-2))
+  h = tonumber(string.sub(h,1,-2))
+  
+  --account for negative values being measured from right or bottom of screen
+  if x &lt; 0 then
+    x = x+100
+  end
+  if y &lt; 0 then
+    y = y + 100
+  end
+  
+  --allow map to dock on the left or right of the screen if the center of the mapper is left or right of the screen midpoint
+  if configs.dock then
+    if x + 0.5*w &gt; 50 then
+        self.container:attachToBorder("right")
+    else
+        self.container:attachToBorder("left")
+    end
+  else
+    self.container:attachToBorder("float")
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:reposition_map</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:reposition_map(event, container_name, width, height, x, y)
+  --if the Adjustable.Container is not the mapper, return
+  if container_name ~= "wotmudmapper.container" then
+    return
+  end
+  
+  --get main window size. convert Adjustable.Container values to percentages, store, and save to disk
+  local mx, my = getMainWindowSize()
+  x = x/mx*100
+  y = y/my*100
+  width = width/mx*100
+  height = height/my*100
+  
+  self.configs.map_window.x = f"{x}%"
+  self.configs.map_window.y = f"{y}%"
+  self.configs.map_window.w = f"{width}%"
+  self.configs.map_window.h = f"{height}%"
+  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", self.configs)
+  
+  self:show_map(true)
+end
+
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "wotmudmapper:reposition_map")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:show_help</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:show_help(cmd)
+  if cmd then
+    cmd = cmd:gsub(" ","_")
+    if not self.help[cmd] then
+      self:echo("No help file on that command.\n",false,true)
+      return
+    end
+  else
+    cmd = 1
+  end
+  for w in self.help[cmd]:gmatch("(.-)\n") do
+    local before, target, text, after = w:match("(.*)&lt;link: (.*)&gt;(.*)&lt;/link&gt;(.*)")
+    if target then
+      cecho(before)
+      fg("yellow")
+      setUnderline(true)
+      if target == "1" then
+        echoLink(text, function() wotmudmapper:show_help() end, "View: map help", true)
+      else
+        echoLink(text, function() wotmudmapper:show_help(target) end, f"View: map help {target}", true)
+      end
+      setUnderline(false)
+      resetFormat()
+      if after then
+        cecho(after)
+      end
+    else
+      cecho(w)
+    end
+    cecho("\n")
+  end
+end
+
+--definition of wotmudmapper.help and sub-parts
+wotmudmapper.help =
+  {
+[[
+    &lt;cyan&gt;WoTMUD Mapping Script&lt;reset&gt;
+
+    This script will both follow movements through currently known rooms and allow for the
+    creation of new rooms. It requires "color complete" to be turned on in the MUD for room
+    names to be properly captured, and "autoexits" to be turned on to be able to determine
+    room exits. Both are necessary for the script to function properly. The script will work
+    with or without "brief" mode turned on in the MUD, though it will be more accurate with
+    brief mode off. You can choose to have the script hide room descriptions instead.
+    
+    This script defines the necessary function so that you can speedwalk by double clicking
+    on rooms.
+    
+    Below is a brief overview of commonly used commands that this script includes.
+    Additional information for further areas is available as well, though every command may
+    not be described here. All commands can be found in the appropriate mapper folder under
+    mudlet aliases.
+
+    &lt;cyan&gt;Common Commands:&lt;reset&gt;
+        &lt;link: 1&gt;map help (optional subfolder name)&lt;/link&gt; - Shows either this help file or the help file for
+            the subfolder given (e.g. map help booleans, map help doors, etc.)
+        &lt;yellow&gt;map show&lt;reset&gt; - Displays or hides a map window in a fixed position. Toggle off and restart
+            mudlet in order to make the map a dockable window via the mudlet toolbar map button
+        &lt;yellow&gt;map debug&lt;reset&gt; - Toggles debug mode, in which extra messages are shown with the intent of
+            assisting in troubleshooting. Default: on
+        &lt;yellow&gt;resetqueue&lt;reset&gt; - Clears the list of movement commands maintained by the script. Useful
+            if map appears to not be following correctly, or if aliases to open doors appear
+            to not work properly
+        &lt;yellow&gt;map update&lt;reset&gt; - Downloads, saves, and loads the latest version of the WoTMUD_map.dat file
+            from https://github.com/weisluke/WoTMUD
+        &lt;yellow&gt;map brief&lt;reset&gt; - Toggle whether map script should hide or show the descriptions from
+            rooms. Default: show
+            
+    &lt;cyan&gt;Information subfolders:&lt;reset&gt; These are sub-folders containing information for more commands
+        &lt;link: booleans&gt;booleans&lt;/link&gt; - Map variables that can be toggled on/off
+        &lt;link: creation&gt;creation&lt;/link&gt; - Commands used in creating new areas and rooms
+        &lt;link: room_data&gt;room data&lt;/link&gt; - Commands used in viewing and changing room data
+        &lt;link: doors&gt;doors&lt;/link&gt; - Commands used in creating and editing doors
+        &lt;link: room_colors&gt;room colors&lt;/link&gt; - Commands used in viewing and changing room colors
+        &lt;link: key_variables&gt;key variables&lt;/link&gt; - Variables used by the script to keep track of important information
+        &lt;link: map_window&gt;map window&lt;/link&gt; - Altering the size and position of the map display
+        &lt;link: misc&gt;misc&lt;/link&gt; - Miscellaneous commands
+        
+]]
+}
+
+wotmudmapper.help.booleans = 
+[[
+    &lt;cyan&gt;Mapper Booleans&lt;reset&gt; These commands control configuration options that can be toggled on/off
+        &lt;yellow&gt;mapping&lt;reset&gt; - Turn mapping mode on/off. Default: off (will reset to off when mudlet is closed)
+        &lt;yellow&gt;map bothways&lt;reset&gt; - Toggle whether map should set one-way or two-way exits when creating
+            new rooms. Default: on
+        &lt;yellow&gt;map autojoin&lt;reset&gt; - Toggle whether map should auto-join exits to nearby rooms when mapping,
+            or whether you must actually enter a room for a connection to be made. Default: off
+        &lt;yellow&gt;map brief&lt;reset&gt; - Toggle whether map script should hide or show the descriptions from
+            rooms. Default: show
+        &lt;yellow&gt;forceroom&lt;reset&gt; - Force the map to create a new room when a direction is input (as opposed to
+            potentially linking to a room that already exists). Useful when mapping in areas that
+            have multiple rooms with the same name (e.g. Blight)
+        &lt;yellow&gt;map debug&lt;reset&gt; - Toggles debug mode, in which extra messages are shown with the intent of
+            assisting in troubleshooting. Default: on
+        &lt;yellow&gt;map showzone&lt;reset&gt; - Toggle whether the map script should display or hide zone info
+        &lt;yellow&gt;map offline&lt;reset&gt; - Toggle whether map should be turned into offline mode, enabling offline
+            movement aliases and numpad key bindings that allow you to move around and look via
+            single character direction/look inputs (i.e. n/e/s/w/u/d/l), or through numpad numbers.
+            Default: off (will reset to off, and disable offline movement aliases/keys, when mudlet
+            is closed)
+            
+]]
+
+wotmudmapper.help.creation = 
+[[
+    &lt;cyan&gt;Map Creation&lt;reset&gt; These commands are used in creating new areas and rooms
+        &lt;yellow&gt;createarea areaname&lt;reset&gt; - Create an area with the given name
+        &lt;yellow&gt;createroom areaname&lt;reset&gt; - Create a new room at position (0,0,0) in the given area name, creating
+            the area as well if the name does not already exist
+        &lt;yellow&gt;movetoarea areaname&lt;reset&gt; - Move the current room to the given areaname, if it exists
+        &lt;yellow&gt;arealist&lt;reset&gt; - Show a list of all areas currently known, along with their ID numbers
+        &lt;yellow&gt;roomlist areaname&lt;reset&gt; - Show a list of all known rooms in a given area, along with their
+            ID numbers
+        &lt;yellow&gt;renamearea ID newname&lt;reset&gt; - Rename an area with the given ID number (from the arealist command)
+            to the new name given
+        &lt;yellow&gt;deletearea areaname&lt;reset&gt; - Delete an area and all rooms/labels within it
+        &lt;yellow&gt;deleteroom roomID&lt;reset&gt; - Delete a room with the given ID number
+        &lt;yellow&gt;updateroomname roomID&lt;reset&gt; - Update the name of the given room ID with the currently
+            stored room name
+        &lt;yellow&gt;updateroomdesc roomID&lt;reset&gt; - Update the description of the given room ID with the currently
+            stored description
+            
+]]
+
+wotmudmapper.help.room_data = 
+[[
+    &lt;cyan&gt;Room Data:&lt;reset&gt; These commands are used to view and edit data stored in/around rooms
+        &lt;yellow&gt;listroomdata&lt;reset&gt; - Display data stored for the current room. This will include room
+            description, doors, zone, and any further data you might wish to define and store.
+        &lt;yellow&gt;setroomdata key value&lt;reset&gt; - Set user data in the current room for a key (with no spaces)
+            and an arbitrarily long value.
+            Example: setroomdata herb_load sunburst, setroomdata nohide yes,
+                setroomdata nochannel true, etc.
+        &lt;yellow&gt;getroomdata key&lt;reset&gt; - Display data stored in the current room for the given key
+        &lt;yellow&gt;deleteroomdata key&lt;reset&gt; - Delete the data in the current room with the given key
+        &lt;yellow&gt;deleteallroomdata&lt;reset&gt; - Delete all data stored in the current room. This WILL delete
+            the room description and doors which could cause the map script to not function as well
+            as you might wish
+        &lt;yellow&gt;crz zonename&lt;reset&gt; - Change the zone of the current room to the given name
+        &lt;yellow&gt;cmz zonename&lt;reset&gt; - Change the zone that will be assigned to newly created rooms
+        &lt;yellow&gt;shiftroom direction&lt;reset&gt; - Shift the current room one unit in the given direction
+        &lt;yellow&gt;map zonecolor color&lt;reset&gt; - Change the display color for room zones
+        &lt;yellow&gt;makelabel color position text&lt;reset&gt; - Create a text label with the given color and text at
+            the given position relative to your current room. Possible positions include: n,
+            e, s, ne, se, sw, nw.
+        &lt;yellow&gt;viewcolors&lt;reset&gt; - View a list of possible colors that can be specified in the makelabel
+            command. Opens the relevant mudlet wiki page with the colors.
+        &lt;yellow&gt;setmarker symbol&lt;reset&gt; - Create a marker in your current room with the given symbol.
+        
+]]
+    
+wotmudmapper.help.doors = 
+[[
+    &lt;cyan&gt;Doors:&lt;reset&gt; These commands are related to creating and using doors stored in the map
+        &lt;yellow&gt;create status door direction doorname&lt;reset&gt; - Create a door with the given status and name in the
+            given direction. Possible statuses are: visible, hidden, locked (appearing as green,
+            yellow, and red respectively on the map)
+            Example: create hidden door n oakdoor
+            Doors will be automatically created when seen or searched if "mapping" is turned on
+        &lt;yellow&gt;deletedoor direction&lt;reset&gt; - Delete the door in the given direction
+        &lt;yellow&gt;map doorcolor color&lt;reset&gt; - Change the display color for room doors
+        
+        There exist aliases built in to the script to use the doors stored in the map with
+        various door commands and directional inputs. They are structured as: a one letter shortcut
+        for the door command + d + direction. Door commands include o(pen), c(lose), p(ick), l(ock),
+        u(nlock), and (k)nock.
+        Examples: cdn to close door north, pde to pick door east, lds to lock door south, etc.
+        
+        The script takes into account any movement commands that are waiting to be processed, and
+        uses them to capture the doornames from rooms that you may not currently be in.
+        Example: If I'm in Caemlyn Central Square, I can enter: n 4e 2n w s odd, and the script
+        will replace "odd" with "open wellstone down".
+        
+        If the door script appears to be working incorrectly, it may be because there are extra
+        commands mistakenly stored in the movement queue that did not get processed correctly.
+        Typing "resetqueue" to clear out extra commands should fix the issue.
+        
+]]
+    
+wotmudmapper.help.room_colors = 
+[[
+    &lt;cyan&gt;Room Colors:&lt;reset&gt; These commands are used to view and change the colors in rooms
+        &lt;yellow&gt;colorlegend&lt;reset&gt; - View the color legend for the map and its rooms
+        &lt;yellow&gt;crc type&lt;reset&gt; - Chance the color of the current room to the given type (from the
+            colorlegend list)
+            Example: crc Inn
+        &lt;yellow&gt;cme type&lt;reset&gt; - Chance the color the map assigns new rooms to the given type
+            Example: cme Wilderness
+            
+        The colors listed are just the basics that I've gone with. You could add your own by
+        editing some parts of the script, though if you have suggestions on additions to put
+        in, or alterations to make things more clear, I'd be more than happy to consider them.
+        
+]]
+
+wotmudmapper.help.key_variables = 
+[[
+    &lt;cyan&gt;Key Variables:&lt;reset&gt; These variables are used by the script to keep track of important information
+        &lt;yellow&gt;wotmudmapper.configs&lt;reset&gt; - Contains a number of different options that can be set
+            to modify script behavior
+        &lt;yellow&gt;wotmudmapper.currentID&lt;reset&gt; - Contains a list of possible roomIDs your character might
+            be in, according to the script
+        &lt;yellow&gt;wotmudmapper.roomname&lt;reset&gt; - Contains the name of the room your character is in,
+            according to the script
+        &lt;yellow&gt;wotmudmapper.roomdesc&lt;reset&gt; - Contains the description of the room your
+            character is in, according to the script
+        &lt;yellow&gt;wotmudmapper.roomexits&lt;reset&gt; - Contains a table of the exits of the room your
+            character is in, according to the script
+        &lt;yellow&gt;wotmudmapper.zone&lt;reset&gt; - Contains the zone of the room your character is in,
+            according to the script. This is pulled from roomdata for your currentID
+            
+]]
+
+
+wotmudmapper.help.map_window =
+[[
+    &lt;cyan&gt;Map Window&lt;reset&gt;
+        &lt;yellow&gt;map window setting value&lt;reset&gt; - This command changes the given setting to the given value,
+            detailing how the map window should appear. Possible settings are:
+            &lt;yellow&gt;x&lt;reset&gt; - Specify the top left corner of the map window as a
+                percentage of the screen width. Default: -37
+            &lt;yellow&gt;y&lt;reset&gt; - Specify the top left corner of the map window as a
+                percentage of the screen height. Default: 0
+            &lt;yellow&gt;w&lt;reset&gt; - Specify the width of the map window as a positive
+                percentage of the screen width. Default: 37
+            &lt;yellow&gt;h&lt;reset&gt; - Specify the height of the map window as a positive
+                percentage of the screen height. Default: 73
+            &lt;yellow&gt;border&lt;reset&gt; - Specify the color of the border of the map window.
+                Default: gray
+        &lt;yellow&gt;map zoom number&lt;reset&gt; - Specify the zoom level of the map. Closer to 1 = more zoomed
+                in. Default: 50
+        &lt;yellow&gt;map dock&lt;reset&gt; - Make the map either dock to the left or right half of the screen,
+                or float
+        &lt;yellow&gt;map show&lt;reset&gt; - Displays or hides a map window in a fixed position. Toggle off and restart
+            mudlet in order to make the map a dockable window via the mudlet toolbar map button
+            
+]]
+
+wotmudmapper.help.misc = 
+[[
+    &lt;cyan&gt;Misc:&lt;reset&gt; Various other commands that may be useful
+        &lt;yellow&gt;resetqueue&lt;reset&gt; - Clears the list of movement commands maintained by the script. Useful
+            if map appears to not be following correctly, or if aliases to open doors appear
+            to not work properly
+        &lt;yellow&gt;findroom roomname (zone zonename)&lt;reset&gt; - If a unique room with the provided name
+            exists, the map is centered on that room. Otherwise, a list of all results is
+            given. Providing a case sensitive WoTMUD zonename (as the map script prints them beneath
+            the exits or displays them on the map window) can be used to narrow down results
+        &lt;yellow&gt;map update&lt;reset&gt; - Downloads, saves, and loads the latest version of the WoTMUD_map.dat file
+            from https://github.com/weisluke/WoTMUD
+        &lt;yellow&gt;showqueue&lt;reset&gt; - Shows the list of currently stored movement commands
+        &lt;yellow&gt;map save&lt;reset&gt; - Saves a copy of the map to disk
+        &lt;yellow&gt;map configs reset&lt;reset&gt; - Reset the map configuration values.
+        
+]]</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:rightclick_update</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:rightclick_update_roomname(event)
+  local rooms = getMapSelection()["rooms"]
+  if table.is_empty(rooms) then
+    self:echo("No room selected.\n",false,true)
+  elseif table.size(rooms) &gt; 1 then
+    self:echo("More than one room selected.\n",false,true)
+  else
+    self:echo(f"Room name for room ID ({rooms[1]}) updated from ({getRoomName(rooms[1])}) to ({self.roomname})\n")
+    setRoomName(rooms[1],self.roomname)
+  end
+  updateMap()
+end
+
+function wotmudmapper:rightclick_update_roomdesc(event)
+  local rooms = getMapSelection()["rooms"]
+  if table.is_empty(rooms) then
+    self:echo("No room selected.\n",false,true)
+  elseif table.size(rooms) &gt; 1 then
+    self:echo("More than one room selected.\n",false,true)
+  else
+    self:echo(f"Room description for room ID ({rooms[1]}) updated.\n")
+    setRoomUserData(rooms[1], "description", self.roomdesc)
+  end
+  updateMap()
+end
+
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:rightclick_display_roomdesc</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:rightclick_display_roomdesc(event)
+  local rooms = getMapSelection()["rooms"]
+  if table.is_empty(rooms) then
+    self:echo("No room selected.\n",false,true)
+  elseif table.size(rooms) &gt; 1 then
+    self:echo("More than one room selected.\n",false,true)
+  else
+    self:echo(f"Displaying room description for room ID ({rooms[1]})\n")
+    local desc = getRoomUserData(rooms[1], "description")
+    cecho(f"{desc}\n")
+  end
+end
+
+</script>
+			<eventHandlerList />
+		</Script>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Keeping track of map commands</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:track_map_commands</name>
+				<packageName></packageName>
+				<script>--if command is a direction, look, flee, or swim, add to list of commands affecting map movement (wotmudmapper.queue)
+--pushes first letter of command (made lowercase), such that wotmudmapper.queue always contains lowercase, single letters
+
+function wotmudmapper:track_map_commands(event, com)
+  if self:is_movement(com) or self:is_look(com) or self:is_flee(com) or self:is_swim(com) then
+    --swim needs handled special since it is two commands (swim + direction)
+    if self:is_swim(com) then
+      com = com:lower():split("%s+")
+      com = com[2]
+      self.queue:pushright(com:sub(1,1))
+    else
+      self.queue:pushright(com:lower():sub(1,1))
+    end
+    self:echo(f"Added command ({com}) to queue.\n", true)
+    if self.following then
+      self.following = false
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "wotmudmapper:track_map_commands")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:is_movement</name>
+				<packageName></packageName>
+				<script>--return true if command is a direction, false if not a direction. ignores capitalization
+
+function wotmudmapper:is_movement(com)
+  if com ~= nil then
+    if
+      table.contains(
+        {
+          "n",
+          "no",
+          "nor",
+          "nort",
+          "north",
+          "e",
+          "ea",
+          "eas",
+          "east",
+          "s",
+          "so",
+          "sou",
+          "sout",
+          "south",
+          "w",
+          "we",
+          "wes",
+          "west",
+          "u",
+          "up",
+          "d",
+          "do",
+          "dow",
+          "down",
+        },
+        com:lower()
+      )
+    then
+      return true
+    end
+  end
+  return false
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:is_look</name>
+				<packageName></packageName>
+				<script>--return true if command is a look, false if not a look. ignores capitalization
+
+function wotmudmapper:is_look(com)
+  if com ~= nil then
+    if table.contains({"l", "lo", "loo", "look"}, com:lower()) then
+      return true
+    end
+  end
+  return false
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:is_flee</name>
+				<packageName></packageName>
+				<script>--return true if command is a flee, false if not a flee. ignores capitalization
+
+function wotmudmapper:is_flee(com)
+  if com ~= nil then
+    if table.contains({"f", "fl", "fle", "flee"}, com:lower()) then
+      return true
+    end
+  end
+  return false
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:is_swim</name>
+				<packageName></packageName>
+				<script>--return true if command is swim, false if not swim. ignores capitalization
+
+function wotmudmapper:is_swim(com)
+  if com ~= nil then
+    com = com:lower():split("%s+")
+    if table.size(com) == 2 then
+      if table.contains({"sw", "swi", "swim"}, com[1]) and self:is_movement(com[2]) then
+        return true
+      end
+    end
+  end
+  return false
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:door_com_dir</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:door_com_dir(com, dir)
+  --start out with list of current possible rooms
+  local rooms = table.deepcopy(self.currentID)
+  --loop over all commands in the movement queue
+  for i = self.queue.first, self.queue.last, 1 do
+    --variable to hold new possible rooms entered by the current movement command
+    local temp_rooms = {}
+    --for all possible rooms currently stored
+    for _, room in pairs(rooms) do
+      --get the exits in the room
+      local exits = getRoomExits(room)
+      --if the current movement command is a flee
+      if self.queue[i] == "f" then
+        --add all possible exits from current room to list of new possible rooms
+        for dir, id in pairs(exits) do
+          table.insert(temp_rooms, id)
+        end
+        --also add current room, to handle failed flees
+        table.insert(temp_rooms, room)
+      --if the current movement command is a look
+      elseif self.queue[i] == "l" then
+        --insert the current room into the list of new possible rooms
+        table.insert(temp_rooms, room)
+      --otherwise, the command is a movement
+      else
+        --if current movement command would take you to new room, add that new room to list of new possible rooms
+        if exits[self.exitmap[self.exitmap[self.queue[i]]]] then
+          table.insert(temp_rooms, exits[self.exitmap[self.exitmap[self.queue[i]]]])
+        --otherwise, the movement command would fail, so add current room to list of new possible rooms
+        else
+          table.insert(temp_rooms, room)
+        end  
+      end
+    end
+    --update rooms to loop over for next movement command. union ensures there are no duplicates
+    rooms = table.n_union(temp_rooms, temp_rooms)
+  end  
+  
+  --if list of valid rooms contains only one, send the command for that door
+  if table.size(rooms) == 1 and getRoomUserData(rooms[1], dir) ~= "" then
+    local door = getRoomUserData(rooms[1], dir)
+    send(f"{com} {door} {dir}")
+  --otherwise send generic command
+  else
+    send(f"{com} door {dir}")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:get_direction</name>
+				<packageName></packageName>
+				<script>--return the last direction that led to the current movement
+--if movement was from autoflee or following someone, treat it as a flee
+
+function wotmudmapper:get_direction()
+  local com
+  
+  --Specifying the type of movement. If not fleeing or following, then take from queue
+  if not self.flee and not self.following then
+    com = self.queue:popleft()
+  elseif self.following then
+    --treat following as a flee movement
+    com = "f"
+    --and reset variable
+    self.following = false
+  else
+    --checking if next command in line is flee
+    com = self.queue:checkleftvalue()
+    --if yes, then take command from queue
+    if self:is_flee(com) then
+      self.queue:popleft()
+    else
+      --if no, then it is autowimpy flee
+      com = "f"
+    end
+    --and reset variable
+    self.flee = false
+  end
+  --finished specifying if movement was regular or a flee
+  
+  return com
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Performing room searches bases on various criteria</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:get_rooms</name>
+				<packageName></packageName>
+				<script>--return a list of rooms
+--if name is nil, return every room id
+--otherwise, return rooms with the provided case-sensitive name
+function wotmudmapper:get_rooms(name)
+  local result = {}
+  
+  if name == nil then
+    for id, name in pairs(getRooms()) do
+      table.insert(result, id)
+    end
+  else
+    for id, name in pairs(searchRoom(name, true, true)) do
+      table.insert(result, id)
+    end
+  end
+  
+  return result
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:find_matching_room</name>
+				<packageName></packageName>
+				<script>--returns a list of IDs of the rooms with name/desc/exits matching the currently captured room, or an empty list
+--if provided a list of room IDs, that list will be narrowed down against the currently captured room
+--by checking names, descriptions, and exits, in that order
+
+function wotmudmapper:find_matching_room(rooms)
+  local result = {}
+  
+  if rooms == nil then
+    result = self:get_rooms(self.roomname)
+  else
+    result = self:find_matching_name(rooms)
+  end
+  
+  result = self:find_matching_desc(result)
+  
+  if table.size(result) &gt; 1 and not table.is_empty(self:find_matching_exits(result)) then
+    result = self:find_matching_exits(result)
+  end
+  
+  return result
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:find_matching_name</name>
+				<packageName></packageName>
+				<script>--expects rooms to be a list of room IDs
+--returns a list of room IDs for the rooms whose names match the currently captured room name
+
+function wotmudmapper:find_matching_name(rooms)
+  if self.roomname == nil then
+    return rooms
+  end
+  
+  local result = {}
+  
+  for _, id in pairs(rooms) do
+    if getRoomName(id) == self.roomname then
+      table.insert(result, id)
+    end
+  end
+  
+  return result
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:find_matching_desc</name>
+				<packageName></packageName>
+				<script>--expects rooms to be a list of room IDs
+--returns a list of room IDs for the rooms whose descriptions match the currently captured description
+
+function wotmudmapper:find_matching_desc(rooms)
+  --if brief is on, roomdesc will be nil
+  --return all rooms
+  if self.roomdesc == nil then
+    return rooms
+  end
+  
+  local result = {}
+  
+  --if we made it this far, brief mode is off
+  --check description before adding
+  for _, id in pairs(rooms) do
+    if getRoomUserData(id, "description") == self.roomdesc then
+      table.insert(result, id)
+    end
+  end
+  
+  return result
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:find_matching_exits</name>
+				<packageName></packageName>
+				<script>--expects rooms to be a list of room IDs
+--returns a list of room IDs for the rooms whose exits match the currently captured exits
+
+function wotmudmapper:find_matching_exits(rooms)
+  if self.roomexits == nil then
+    return rooms
+  end
+  
+  local result = {}
+  local map_exits, seen_minus_map, map_minus_seen, alldoors
+  
+  for _, id in pairs(rooms) do
+    map_exits = {}
+    --create table of exit keys (grabbing first letter of "north","south",etc.)
+    for dir, id in pairs(getRoomExits(id)) do
+      table.insert(map_exits, dir:sub(1, 1))
+    end
+    --if there are exit stubs leading to unmapped rooms, include those
+    if getExitStubs(id) then
+      for _, dirnum in pairs(getExitStubs(id)) do
+        table.insert(map_exits, self.exitmap[dirnum]:sub(1, 1))
+      end
+    end
+    
+    --comparison tables of exits seen minus map exits from room
+    seen_minus_map = table.n_complement(self.roomexits, map_exits)
+    --comparison tables of map exits from room minus exits seen
+    map_minus_seen = table.n_complement(map_exits, self.roomexits)
+    
+    --if room exits match seen exits, insert room into possible matches
+    if table.is_empty(seen_minus_map) and table.is_empty(map_minus_seen) then
+      table.insert(result, id)
+    --if room has extra exits from seen exits
+    --and ALL extra exits are doors (which could be hidden and closed)
+    --then add room to possible matches
+    elseif table.is_empty(seen_minus_map) and not table.is_empty(map_minus_seen) then
+      alldoors = true
+      for _, dir in pairs(map_minus_seen) do
+        if getRoomUserData(id, dir) == "" then
+          alldoors = false
+          break
+        end
+      end
+      if alldoors then
+        table.insert(result, id)
+      end
+    end
+  end
+  
+  return result
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:nearby_rooms</name>
+				<packageName></packageName>
+				<script>--room is a room ID, com is a direction, flee, or look
+function wotmudmapper:nearby_rooms(room, com)
+  local result = {}
+  
+  --mapping of {direction: roomID}
+  local lastexits = getRoomExits(room)
+  
+  if self:is_movement(com) then
+    table.insert(result, lastexits[self.exitmap[self.exitmap[com]]])
+  elseif self:is_flee(com) then
+    for _, id in pairs(lastexits) do
+      table.insert(result, id)
+    end
+  else
+    table.insert(result, room)
+  end
+  
+  return self:find_matching_room(result)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:is_dark_name</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:is_dark_name()
+  if
+    table.contains(
+      {
+        "A Pitch-Black City Street",
+        "A Pitch-Black Field",
+        "A Pitch-Black Forest",
+        "A Pitch-Black Interior",
+        "A Pitch-Black Road",
+        "A Pitch-Black Swamp",
+        "Pitch-Black Hills",
+        "Pitch-Black Mountains",
+        "Pitch-Black Waters",
+        "A Moonlit City Street",
+        "A Moonlit Field",
+        "A Moonlit Forest",
+        "A Moonlit Interior",
+        "A Moonlit Road",
+        "A Moonlit Swamp",
+        "Moonlit Hills",
+        "Moonlit Mountains",
+        "Moonlit Waters",
+      },
+      self.roomname
+    )
+  then
+    return true
+  else
+    return false
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:is_dark_desc</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:is_dark_desc()
+  if
+    table.contains(
+      {
+        "It is pitch black...",
+        "The streets are strange by moonlight, their gray details pale and indistinct.",
+        "The field is limned by moonlight, its gray details pale and indistinct.",
+        "The forest is dappled by moonlight, a dark tangle of long, crooked shadows.",
+        "The interior is draped in moonlight, its gray details pale and indistinct.",
+        "The road is limned by moonlight, its gray details pale and indistinct.",
+        "The swamp is strange by moonlight, its gray details ghostly and indistinct.",
+        "The hills are limned by moonlight, their gray details ghostly and indistinct.",
+        "The mountains are limned by moonlight, their gray details dim and indistinct.",
+        "The waters shimmer in moonlight, their details pale and indistinct."
+      },
+      self.roomdesc
+    )
+  then
+    return true
+  else
+    return false
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:is_ways_name</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:is_ways_name(name)
+  if
+    table.contains(
+      {
+        "At a Vine-Carved Door",
+        "Approaching a Vine-Carved Door",
+        "Twisting Through the Ways",
+        "An Island in Darkness",
+        "An Island in the Ways",
+      },
+      name
+    )
+  then
+    return true
+  else
+    return false
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Functions used during room creation and alteration</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:create_room</name>
+				<packageName></packageName>
+				<script>--returns list containing only new room ID
+
+function wotmudmapper:create_room(x, y, z, areaID)
+  --create new room ID
+  local newID = createRoomID()
+  addRoom(newID)
+  --set room name, description, zone, coordinates, area, and environment
+  setRoomName(newID, self.roomname)
+  setRoomUserData(newID, "description", self.roomdesc)
+  setRoomUserData(newID, "zone", self.zone)
+  setRoomCoordinates(newID, x, y, z)
+  setRoomArea(newID, areaID)
+  setRoomEnv(newID, self.configs.envcolor)
+  --if room has exits, create exit stubs
+  if not table.is_empty(self.roomexits) then
+    for _, dir in pairs(self.roomexits) do
+      setExitStub(newID, self.exitmap[dir], true)
+    end
+  end
+  wotmudmapper:echo(f"New room created. ID: ({newID}), name: ({self.roomname}).\n",true)
+  return {newID}
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:link_rooms</name>
+				<packageName></packageName>
+				<script>--assumes exits are for second room and of the form {"n","e","s","w","u","d"}, and direction is lowercase single letter
+
+function wotmudmapper:link_rooms(firRoomID, secRoomID, dir, exits)
+  local complements = {n = "s", e = "w", s = "n", w = "e", u = "d", d = "u"}
+  --set exit from first room to second room in direction
+  setExit(firRoomID, secRoomID, self.exitmap[dir])
+  self:echo(f"Linked room ({firRoomID}) to room ({secRoomID}) with a/an ({dir}) exit.\n",true)
+  --if meant to set directions both ways
+  if self.configs.bothways then
+    --check exits in second room
+    for _, ex in pairs(exits) do
+      --if one is complement of dir, add exit from second room to first room
+      if ex == complements[dir] then
+        setExit(secRoomID, firRoomID, self.exitmap[ex])
+        self:echo(f"Linked room ({secRoomID}) to room ({firRoomID}) with a/an ({ex}) exit.\n",true)
+        break
+      end
+    end
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:set_coordinates_offset</name>
+				<packageName></packageName>
+				<script>--assumes com is a lowercase single letter
+--gives coordinate offset based on direction
+
+function wotmudmapper:set_coordinates_offset(x, y, z, com)
+  if com == "n" then
+    return x, y + 3, z
+  elseif com == "e" then
+    return x + 3, y, z
+  elseif com == "s" then
+    return x, y - 3, z
+  elseif com == "w" then
+    return x - 3, y, z
+  elseif com == "u" then
+    return x, y, z + 3
+  elseif com == "d" then
+    return x, y, z - 3
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:auto_join_rooms</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:auto_join_rooms(roomID)
+  --initializing variables
+  local complements = {n = "s", e = "w", s = "n", w = "e", u = "d", d = "u"}
+  local areaID = getRoomArea(roomID)
+  local firstExits = {}
+  local roomList
+  local x, y, z = getRoomCoordinates(roomID)
+  local a, b, c
+  --if roomID has exit stubs, add them to table of exits
+  if getExitStubs(roomID) then
+    for _, dir in pairs(getExitStubs(roomID)) do
+      table.insert(firstExits, string.sub(self.exitmap[dir], 1, 1))
+    end
+  end
+  --for every exit stub
+  for _, dir in pairs(firstExits) do
+    local secondExits = {}
+    --find what coordinates would be offset in the stub direction
+    --and get list of rooms at the offset position
+    a, b, c = self:set_coordinates_offset(x, y, z, dir)
+    roomList = getRoomsByPosition(areaID, a, b, c)
+    --if only one room at offset position and that room has stubs
+    if (table.size(roomList) == 1 and getExitStubs(roomList[0])) then
+      for _, val in pairs(getExitStubs(roomList[0])) do
+        table.insert(secondExits, string.sub(self.exitmap[val], 1, 1))
+      end
+      --compare exit stubs from second room to exit stubs from first room
+      --and join appropriately
+      for _, val in pairs(secondExits) do
+        if val == complements[dir] then
+          setExit(roomID, roomList[0], self.exitmap[dir])
+          self:echo(f"Linked room ({roomID}) to room ({roomList[0]}) with a/an ({dir}) exit.\n",true)
+          setExit(roomList[0], roomID, self.exitmap[val])
+          self:echo(f"Linked room ({roomList[0]}) to room ({roomID}) with a/an ({val}) exit.\n",true)
+        end
+      end
+    end
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:create_door</name>
+				<packageName></packageName>
+				<script>--assumes direction is a lowercase single letter
+
+function wotmudmapper:create_door(currentID, direction, status, doorname)
+  if direction ~= "d" and direction ~= "u" then
+    setDoor(currentID, direction, status)
+  end
+  --store door direction and name in room user data
+  setRoomUserData(currentID, direction, doorname)
+  --echo message based on door type
+  local doortype = {"visible", "hidden", "locked"}
+  local doorcolor = {"green", "yellow", "red"}
+  if status ~= 0 then
+    self:echo(f"&lt;{doorcolor[status]}&gt;{doortype[status]}&lt;reset&gt; door ({direction}) named ({doorname}) created.\n")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:is_search</name>
+				<packageName></packageName>
+				<script>--return true if command is search, false if not search. ignores capitalization
+
+function wotmudmapper:is_search(com)
+  if com ~= nil then
+    if table.contains({"sea", "sear", "searc", "search"}, com:lower()) then
+      return true
+    end
+  end
+  return false
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:looking_for_doors</name>
+				<packageName></packageName>
+				<script>--set mapper door direction based on look or searches
+
+function wotmudmapper:looking_for_doors(event, com)
+  com = com:lower():split("%s+")
+  if table.size(com) == 2 then
+    if (self:is_search(com[1]) or self:is_look(com[1])) and self:is_movement(com[2]) then
+      self.door = string.sub(com[2], 1, 1)
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "wotmudmapper:looking_for_doors")</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Functons for displaying areas and rooms</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:show_room_list</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:show_room_list(areaid)
+  local listcolor, othercolor = "DarkSlateGrey", "LightSlateGray"
+  local roomlist, endresult = getAreaRooms(areaid) or {}, {}
+  -- obtain a roomname list for each of the room IDs we got
+  for _, id in pairs(roomlist) do
+    endresult[id] = getRoomName(id)
+  end
+  
+  table.sort(roomlist)
+  --display formatting
+  cecho(
+    string.format(
+      "&lt;%s&gt;List of all rooms in &lt;%s&gt;%s&lt;%s&gt; (areaID: &lt;%s&gt;%s&lt;%s&gt;, rooms: &lt;%s&gt;%d&lt;%s&gt;):\n",
+      listcolor,
+      othercolor,
+      getAreaTableSwap()[areaid],
+      listcolor,
+      othercolor,
+      areaid,
+      listcolor,
+      othercolor,
+      #roomlist,
+      listcolor
+    )
+  )
+  -- use pairs, as we can have gaps between room IDs
+  for _, roomid in spairs(roomlist) do
+    local roomname = endresult[roomid]
+    cecho(string.format("&lt;%s&gt;%10s", othercolor, roomid))
+    cecho(string.format("&lt;%s&gt;: &lt;%s&gt;%s&lt;%s&gt;.\n", listcolor, othercolor, roomname, listcolor))
+  end
+  resetFormat()
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:show_area_list</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:show_area_list()
+    local totalroomcount = 0
+    local rlist = getAreaTableSwap()
+    local listcolor, othercolor = "DarkSlateGrey","LightSlateGray"
+
+    -- count the amount of rooms in an area, taking care to count the room in the 0th
+    -- index as well if there is one
+    -- saves the total room count on the side as well
+    local function countrooms(areaid)
+        local allrooms = getAreaRooms(areaid) or {}
+        local areac = (#allrooms or 0) + (allrooms[0] and 1 or 0)
+        totalroomcount = totalroomcount + areac
+        return areac
+    end
+
+    cecho(string.format("&lt;%s&gt;List of map areas (click to view room list for an area):\n",listcolor))
+    for id, area in spairs(rlist) do
+        if rlist[id] then
+            cecho(string.format("&lt;%s&gt;%10d ", othercolor, id))
+            fg(listcolor)
+            echoLink(
+              string.format("%-30s (%d rooms)",rlist[id],countrooms(id)), 
+              function() wotmudmapper:show_room_list(id) end,
+              f"View the room list for {rlist[id]}", true
+            )
+            echo("\n")
+        end
+    end
+    cecho(string.format("&lt;%s&gt;Total number of rooms: %s\n", listcolor, totalroomcount))
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:mapper_installer_success</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:mapper_installer_success(event, name)
+  --if installed file is not the desired one
+  if name ~= "mapper_scripts" then return end
+  self:show_help()
+  self:set_configs()
+  self:set_map_colors()
+  
+  self:show_map(self.configs.map_window.visible)
+end
+
+registerAnonymousEventHandler("sysInstallPackage", "wotmudmapper:mapper_installer_success")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>doSpeedWalk</name>
+			<packageName></packageName>
+			<script>function doSpeedWalk()
+  --if you are not allowed to speedwalk, just return
+  if not wotmudmapper.configs.speedwalk then
+    wotmudmapper:echo("Speedwalking by double clicking on rooms is currently disabled. \"map speedwalk\" to enable it.\n", false, true)
+    return
+  end
+  
+  if table.size(wotmudmapper.currentID) == 1 then
+    --just in case the user is clicking on a room that the map is centered on,
+    --but they are not already in, calculate the path from current room
+    if speedWalkTo ~= nil then
+      getPath(wotmudmapper.currentID[1], speedWalkTo)
+    end
+    
+    for _, dir in pairs(speedWalkDir) do
+      send(dir)
+    end
+  else
+    wotmudmapper:echo("Current room not known.\n", false, true)
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:show_zone_door_info</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:show_zone_door_info()
+
+  --note room exits that lead to unknown rooms (as they may be DTs)
+  local safe_rooms = {}
+  for dir,id in pairs(getRoomExits(self.currentID[1])) do
+    table.insert(safe_rooms, string.sub(dir,1,1))
+  end
+  local unsafe_rooms = table.n_complement(self.roomexits or {}, safe_rooms)
+  if getExitStubs(self.currentID[1]) then
+    for _, dirnum in pairs(getExitStubs(self.currentID[1])) do
+      table.insert(unsafe_rooms,string.sub(self.exitmap[dirnum],1,1))
+    end
+    unsafe_rooms = table.n_union(unsafe_rooms, unsafe_rooms)
+  end
+  for _,dir in pairs(unsafe_rooms) do
+    self:echo(f"\nCaution. Direction {dir} leads to an unknown room.", false, true)
+  end
+  
+  --displaying the zone
+  self.zone = getRoomUserData(self.currentID[1], "zone")
+  if self.configs.showzone then
+    local url = ""
+    if self.zone_urls[self.zone] and self.zone_urls[self.zone] ~= "" then
+      url = f"https://wotmud.fandom.com/wiki/{self.zone_urls[self.zone]}"
+    end
+    
+    cechoLink(f"\n&lt;{self.configs.zonecolor}&gt;Zone: {self.zone}",
+    function()
+      openUrl(url)
+    end,
+    "Click to open the WoTMUD wiki page for this zone", true)
+  end
+  
+  --showing the doors that have been stored
+  for _, dir in pairs({"north", "east", "south", "west", "up", "down"}) do
+    local doorname = getRoomUserData(self.currentID[1], dir:sub(1, 1))
+    if doorname ~= "" then
+      cecho(f"\n&lt;{self.configs.doorcolor}&gt;Door {dir}: &lt;white&gt;{doorname}")
+    end
+  end  
+
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:offline_move</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:offline_move(direction)
+  if table.size(self.currentID) == 1 then
+    local exits = getRoomExits(self.currentID[1])
+    local newid = exits[self.exitmap[self.exitmap[direction]]]
+    
+    --specifically handle displaying the same room for the look command
+    if direction == "l" then
+      newid = self.currentID[1]
+    end
+    
+    if newid then
+      self.currentID={newid}
+      self.roomexits = {}
+      centerview(newid)
+      cecho(f"&lt;ansi_cyan&gt;{getRoomName(newid)}\n")
+      cecho(getRoomUserData(newid, "description"))
+      cecho("\n[ obvious exits: ")
+      exits = {}
+      for dir, id in pairs(getRoomExits(newid)) do
+        table.insert(exits,string.sub(dir,1,1))
+      end
+      if getExitStubs(newid) then
+        for _, dir in pairs(getExitStubs(newid)) do
+          table.insert(exits,string.sub(self.exitmap[dir],1,1))
+        end  
+      end      
+      exits = table.n_intersection({"n","e","s","w","u","d"},exits)
+      for _, dir in pairs(exits) do
+        cecho(dir:upper().." ")
+      end
+      cecho("]")
+      self:show_zone_door_info()
+      cecho("\n\n")
+    else
+      cecho("Alas, you cannot go that way...\n\n")
+    end  
+  else
+    cecho("Room not known!")
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper map info</name>
+			<packageName></packageName>
+			<script>registerMapInfo("Zone info", function(roomId, selectionSize, areaId, displayedArea)
+  return "Zone: "..getRoomUserData(roomId,"zone")
+end)
+enableMapInfo("Zone info")
+
+registerMapInfo("Door info", function(roomId, selectionSize, areaId, displayedArea)
+  local output = ""
+  for _, dir in pairs({"north", "east", "south", "west", "up", "down"}) do
+    local door = getRoomUserData(roomId, string.sub(dir, 1, 1))
+    if door ~= "" then
+      output = f"{output}Door {dir}: {door}\n"
+    end
+  end
+  return output
+end)
+enableMapInfo("Door info")
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper zone urls</name>
+			<packageName></packageName>
+			<script>wotmudmapper.zone_urls = {
+
+["Inner Caemlyn"] = "Inner_Caemlyn",
+["Outer Caemlyn"] = "Outer_Caemlyn",
+["Four Kings"] = "Four_Kings",
+["Hills of Kintara"] = "The_Hills_of_Kintara",
+["Andoran Countryside West"] = "Andoran_Countryside_West",
+["Aringill"] = "Aringill",
+["Tar Valon Road North of Caemlyn"] = "Tar_Valon_Road_North_of_Caemlyn",
+["Braem and Grass North-East of Caemlyn"] = "North_of_Aringill",
+[""] = "",
+["Maerone"] = "Maerone",
+["Andoran Countryside East"] = "Andoran_Countryside_East",
+["Caemlyn Road East of Whitebridge"] = "Caemlyn_Road_East_of_Whitebridge",
+["Forgotten Braem"] = "Forgotten_Braem",
+["Braem Wood"] = "Braem_Wood",
+["Southern Black Hills"] = "The_South_Black_Hills",
+["Whitebridge"] = "/Whitebridge",
+["South of Whitebridge"] = "South_of_Whitebridge",
+["Outskirts of Whitebridge"] = "Outskirts_of_Whitebridge",
+["Caemlyn Road West of Whitebridge"] = "Caemlyn_Road_West_of_Whitebridge",
+["In the Forest"] = "In_the_Forest",
+["Forested Valley"] = "Forested_Valley",
+["Caemlyn Road East of Baerlon"] = "Caemlyn_Road_East_of_Baerlon",
+["Tarendrelle at the Eldar"] = "Tarendrelle_at_the_Eldar",
+["Caralain Grass"] = "Caralain_Grass",
+["Black Hills"] = "Black_Hills",
+["Tar Valon Road South of Tar Valon"] = "Tar_Valon_Road_South_of_Tar_Valon",
+["Northern Black Hills"] = "The_North_Black_Hills",
+["Grasslands"] = "Grasslands",
+["Tar Valon Forest"] = "Tar_Valon_Forest",
+["The Lugard Highway"] = "The_Lugard_Highway",
+["Lugard"] = "Lugard_(zone)",
+["Rugged Hills of Murandy"] = "Rugged_Hills_of_Murandy",
+["Baerlon"] = "Baerlon",
+["Taren Ferry"] = "Taren_Ferry",
+["North Road"] = "North_Road",
+["Westwood by the Mountains"] = "Westwood_by_the_Mountains",
+["In the Mountains of Mist"] = "In_the_Mountains_of_Mist",
+["Watch Hill"] = "Watch_Hill",
+["Emond's Field"] = "Emond%27s_Field",
+["Quarry Road"] = "Quarry_Road",
+["The Volcano"] = "The_Volcano",
+["North Misty Mountains"] = "North_Misty_Mountains",
+["Old Road"] = "Old_Road",
+["Deven Ride"] = "Deven_Ride",
+["Mining Tunnels"] = "Mining_Tunnels",
+["South Misty Mountains"] = "South_Misty_Mountains",
+["The Waterwood"] = "The_Waterwood",
+["East of the Waterwood"] = "East_of_the_Waterwood",
+["The Northern Forests of Ghealdan"] = "The_Northern_Forests_of_Ghealdan",
+["Northern Plains of Altara"] = "Northern_Plains_of_Altara",
+["Jehannah"] = "Jehannah",
+["Glancor"] = "Glancor",
+["The Lakeside of Far Madding"] = "The_Lakeside_of_Far_Madding",
+["Stone of Tear"] = "The_Stone_of_Tear",
+["Far Madding North"] = "New_Far_Madding_North",
+["Far Madding South"] = "New_Far_Madding_South",
+["The Countryside of Far Madding"] = "The_Countryside_of_Far_Madding",
+["Western Plains of Maredo"] = "Western_Plains_of_Maredo",
+["Eastern Plains of Maredo"] = "Eastern_Plains_of_Maredo",
+["The Far Madding to Tear Road"] = "Far_Madding_-_Tear_Road",
+["Circles of Light/Darkness/Ravens"] = "",
+["Isle of Madmen North"] = "Isle_of_Madmen_North",
+["White Tower Upper Floors"] = "",
+["Tar Valon"] = "Tar_Valon_(zone)",
+["White Tower Ground Floor"] = "White_Tower_(zone)",
+["Kandor"] = "Kandor_(zone)",
+["Black Tower"] = "",
+["The Ruined Keep"] = "The_Ruined_Keep",
+["City in the Blight"] = "City_in_the_Blight",
+["Borderlands West of Fal Dara"] = "Borderlands_West_of_Fal_Dara",
+["Shadowspawn Stronghold"] = "Shadowspawn_Stronghold",
+["Shadar Logoth"] = "Shadar_Logoth_I",
+["Fallow Hills"] = "Fallow_Hills",
+["Chachin"] = "Chachin",
+["Dark Fortress"] = "Dark_Fortress",
+["Grasslands North of Seandar"] = "Grasslands_North_of_Seandar",
+["Flood Plains of Seandar"] = "Flood_Plains_of_Seandar",
+["Rocky Foothills"] = "Rocky_Foothills",
+["Thin Woodlands"] = "Thin_Woodlands",
+["Light Woods and Plains"] = "Light_Woods_and_Plains",
+["Woodlands of Saldaea"] = "Woodlands_of_Saldaea",
+["Northern Borderlands"] = "Northern_Borderlands",
+["The Tear Road"] = "Tear_Road",
+["Mayene Peninsula"] = "Mayene_Peninsula",
+["Seanchan Smob Chain"] = "",
+["NEW ZONE"] = "",
+["Deception Pass"] = "Deception_Pass",
+["South of Cold Rocks Hold"] = "South_of_Cold_Rocks_Hold",
+["Sharan Trade Town"] = "",
+["Underground"] = "Underground",
+["Blighted Mountain Pass"] = "Blighted_Mountain_Pass",
+["The Tar Valon to Cairhien Road"] = "The_Tar_Valon_to_Cairhien_Road",
+["Southeast Shores of Tar Valon"] = "Southeast_Shores_of_Tar_Valon",
+["Cairhien to Tar Valon Road"] = "The_Cairhien_to_Tar_Valon_Road",
+["The Cairhien Hills"] = "The_Cairhien_Hills",
+["Cairhien"] = "Cairhien_(zone)",
+["The Sun Palace"] = "The_Sun_Palace",
+["Cairhien Province"] = "Cairhien_Province",
+["A Bandit Stronghold"] = "A_Bandit_Stronghold",
+["Kinslayer's Dagger"] = "Kinslayer%27s_Dagger",
+["Along the Spine of the World"] = "Along_the_Spine_of_the_World",
+["Jangai Pass"] = "Jangai_Pass",
+["Desolate Valley in the Spine"] = "Desolate_Valley_in_the_Spine",
+["Fal Dara Road"] = "Fal_Dara_Road",
+["Northeast Shores of Tar Valon"] = "Northeast_Shores_of_Tar_Valon",
+["The Long Fal Dara Road"] = "The_Long_Fal_Dara_Road",
+["Eastern Borderlands"] = "Eastern_Borderlands",
+["Malfeasor Zone"] = "",
+["Deep Within the Spine of the World"] = "Deep_Within_the_Spine_of_the_World",
+["High Upon the Spine of the World"] = "High_Upon_the_Spine_of_the_World",
+["Treacherous Mountains"] = "Treacherous_Mountains_Within_the_Spine",
+["Stedding Shangtai"] = "Stedding_Shangtai",
+["Spine of the World Southern Range"] = "Spine_of_the_World_Southern_Range",
+["Bandit Warlord Zone"] = "",
+["Deep in Haddon Mirk"] = "Deep_in_Haddon_Mirk",
+["Haddon Mirk"] = "Haddon_Mirk",
+["Tear"] = "Tear_(zone)",
+["Drowned Lands"] = "Drowned_Lands",
+["Seanchan Outpost"] = "Seanchan_Outpost",
+["The Dry Forest"] = "The_Dry_Forest",
+["Mayene"] = "Mayene_(city)",
+["Snowy Mountains"] = "Snowy_Mountains",
+["Arad Doman East"] = "Arad_Doman_East",
+["Almoth Plain - Arad Doman Border"] = "Almoth_Plain_-_Arad_Doman_Border",
+["Arad Doman West"] = "Arad_Doman_West",
+["Bandar Eban"] = "Bandar_Eban_(zone)",
+["Domani Coastal Palace"] = "Domani_Coastal_Palace",
+["Northern Almoth Plain"] = "Northern_Almoth_Plain",
+["Southern Almoth Plain"] = "Southern_Almoth_Plain",
+["Darkwood"] = "Darkwood",
+["Stedding Yandar"] = "Stedding_Yandar",
+["Mountains of Mist"] = "Mountains_of_Mist",
+["Western Misty Mountains"] = "Western_Misty_Mountains",
+["Forested Hills"] = "Forested_Hills",
+["Amadicia"] = "Amadicia_(zone)",
+["Amador"] = "Amador_(zone)",
+["Fortress of Light"] = "Fortress_of_Light",
+["Serenda Palace"] = "Serenda_Palace",
+["Endless Blight"] = "Endless_Blight",
+["Amadician Countryside"] = "Amadician_Countryside",
+["South of Amador"] = "South_of_Amador",
+["The Shadow Coast East"] = "The_Shadow_Coast_East",
+["The Shadow Coast West"] = "The_Shadow_Coast_West",
+["Windbiter's Finger North"] = "Windbiter%27s_Finger_North",
+["Windbiter's Finger South"] = "Windbiter%27s_Finger_South",
+["Tanchico Road"] = "Tanchico_Road",
+["Tanchico"] = "East_City_of_Tanchico",
+["West City of Tanchico"] = "West_City_of_Tanchico",
+["Toman Head"] = "Toman_Head_Road",
+["Falme"] = "Falme",
+["The Waterless Sands"] = "The_Waterless_Sands",
+["Ruins of Rhahime Naille"] = "Ruins_of_Rhahime_Naille",
+["The Plain of Lances"] = "The_Plain_of_Lances",
+["Windy Plains"] = "Windy_Plains",
+["Northern Fal Dara Road"] = "Northern_Fal_Dara_Road",
+["Fal Dara Outskirts"] = "Fal_Dara_Outskirts",
+["Movable Trolloc Camp"] = "Moveable_Trolloc_Camp",
+["Borderlands North of Fal Dara"] = "Borderlands_North_of_Fal_Dara",
+["Fal Dara"] = "Fal_Dara",
+["Parched Ground"] = "Parched_Ground",
+["Tarwin's Gap"] = "Tarwin%27s_Gap",
+["The Blight"] = "The_Blight_(zone)",
+["North of Lockshear"] = "North_of_Lockshear",
+["Decayed Forest"] = "Decayed_Forest",
+["Dark Forest"] = "Dark_Forest",
+["Blighted Grove"] = "Blighted_Grove",
+["Blighted Mountains"] = "Blighted_Mountains",
+["Village of Lockshear"] = "Lockshear",
+["Tunnels and Caverns Beneath the Blight"] = "Tunnels_and_Caverns_Beneath_the_Blight",
+["Wastelands"] = "Wastelands",
+["Foothills Bordering the Spine of the World"] = "Foothills_Bordering_the_Spine",
+["Rocky Trail"] = "Rocky_Trail",
+["Sprawling Savannah"] = "Sprawling_Savannah",
+["Sparse Woods"] = "Sparse_Woods",
+["Wandering the Thick Forest"] = "Wandering_the_Thick_Forest",
+["Lush Forestland"] = "Lush_Forestland",
+["Saldaean Farmlands"] = "Saldaean_Farmlands",
+["Pine Forest"] = "Pine_Forest",
+["The Still Forest"] = "The_Still_Forest",
+["Stedding Tsochan"] = "Stedding_Tsochan",
+["Lugard Rooftops"] = "Lugard_Rooftops",
+["Lugard Road Through Murandy"] = "Lugard_Road_Through_Murandy",
+["Illian Road"] = "Illian_Road",
+["Illian Countryside"] = "Illian_Countryside",
+["Illian Peninsula"] = "Illian_Peninsula",
+["City of Illian"] = "City_of_Illian",
+["King's Palace and Council Hall"] = "King%27s_Palace_and_Council_Hall",
+["Murgoz Zone"] = "",
+["Southwest Tremalking"] = "Southwest_Tremalking",
+["Northwest Tremalking"] = "Northwest_Tremalking",
+["Central Tremalking"] = "Central_Tremalking",
+["East Tremalking"] = "East_Tremalking",
+["Twisted Forestlands"] = "Twisted_Forestlands",
+["Barren Hills"] = "Barren_Hills",
+["Southern Kandor"] = "Southern_Kandor",
+["Plains Along the Blight Border"] = "Plains_Along_the_Blight_Border",
+["Saldaean Plains"] = "Saldaean_Plains",
+["Maradon"] = "Maradon",
+["Stone Fortress"] = "Stone_Fortress",
+["Blighted Valley"] = "Blighted_Valley",
+["Southern Saldaean Countryside"] = "Southern_Saldaean_Countryside",
+["Imre Stand"] = "Imre_Stand",
+["Waste Bordering the Spine"] = "Waste_Bordering_the_Spine",
+["In the Aiel Waste"] = "In_the_Aiel_Waste",
+["The Endless Waste"] = "The_Endless_Waste",
+["Cold Rocks Hold"] = "Cold_Rocks_Hold",
+["The Ways"] = "The_Ways",
+["Blighted Hills"] = "Blighted_Hills",
+["Isle of Madmen South"] = "Isle_of_Madmen_South",
+["Isle Jafar"] = "Isle_Jafar",
+["The Sunken Castle"] = "The_Sunken_Castle",
+["Beneath the Desolate Mountains"] = "Beneath_the_Desolate_Mountains",
+["Scorched Earth"] = "Scorched_Earth",
+["Withered Forest"] = "Withered_Forest",
+["Ruined Blight"] = "Ruined_Blight",
+["Volcanic Blight"] = "Volcanic_Blight",
+["Shayol Ghul"] = "Shayol_Ghul",
+["Akkad"] = "",
+["Northern Shayol Ghul"] = "Northern_Shayol_Ghul",
+["The Dark Road"] = "The_Dark_Road",
+["Dying Plains"] = "The_Dying_Plains",
+["The Blasted Lands"] = "The_Blasted_Lands",
+["Blighted Ruins"] = "Blighted_Ruins",
+["Deep Within the Blasted Lands"] = "Deep_Within_the_Blasted_Lands",
+["Thakan'dar"] = "Thakan'dar",
+["Horse Thief"] = "Horse_Thief_Zone",
+["The Tear to Illian Road"] = "The_Tear_to_Illian_Road",
+["The Sea of Storms"] = "The_Sea_of_Storms",
+["The Coastal Roadway"] = "The_Coastal_Roadway",
+["Seanchan Shore"] = "Seanchan_Shore",
+["Foothills of Tamika"] = "Foothills_of_Tamika",
+["Seandar"] = "City_of_Seandar",
+["Court of Nine Moons and Tower of Ravens"] = "Court_of_Nine_Moons_and_Tower_of_Ravens",
+["Tree Top City"] = "",
+["Valan Luca's Menagerie"] = "Valan_Luca's_Menagerie",
+["Fortress of Light Dungeon"] = "Fortress_of_Light_Dungeon",
+["The Outer Forest of Shadows"] = "The_Outer_Forest_of_Shadows"
+}</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:set_player_location</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:set_player_location(event, room)
+  self.currentID={room}
+end
+
+registerAnonymousEventHandler("sysManualLocationSetEvent", "wotmudmapper:set_player_location")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper waygates</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:is_waygate(id)
+  --hardcoded list of mudlet room ids for waygates
+  --{tv, ef, spine, blight, tanchico, jafar, seandar}
+  if table.index_of({1616, 3263, 7224, 18198, 10494, 17126, 20069}, id) then
+    return true
+  end
+  return false  
+end
+
+function wotmudmapper:get_waygates(id)
+  --hardcoded list of mudlet rooms inside the ways that correspond to 1d from the waygates
+  local ways = {
+      [1616] = {16912, 17370, 18157, 17419},
+      [3263] = {16932, 17436, 17364, 16904, 19656},
+      [7224] = {16918, 17432, 17384},
+      [18198] = {17388, 16911, 18177},
+      [10494] = {16923, 17440, 17382, 16899},
+      [17126] = {16934, 18169, 19654, 17375},
+      [20069] = {16930, 17386, 18162},
+    }
+  return ways[id]
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:update_room</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:update_room()
+  if table.is_empty(self.currentID) then
+    self:echo("\nNo matches found.",false,true)
+  elseif table.size(self.currentID) &gt; 1 then
+    self:echo("\nMultiple matches found.",false,true)
+  else
+    centerview(self.currentID[1])
+    self:show_zone_door_info()
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage>
+		<KeyGroup isActive="no" isFolder="yes">
+			<name>Offline Map</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>-1</keyCode>
+			<keyModifier>0</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>North</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+wotmudmapper:offline_move("n")</script>
+				<command></command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>East</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+wotmudmapper:offline_move("e")</script>
+				<command></command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>South</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+wotmudmapper:offline_move("s")</script>
+				<command></command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>West</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+wotmudmapper:offline_move("w")</script>
+				<command></command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Up</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+wotmudmapper:offline_move("u")</script>
+				<command></command>
+				<keyCode>57</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Down</name>
+				<packageName></packageName>
+				<script>--centers the map on the room in the direction (if a valid room is in that direction)
+wotmudmapper:offline_move("d")</script>
+				<command></command>
+				<keyCode>51</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+	</KeyPackage>
+</MudletPackage>

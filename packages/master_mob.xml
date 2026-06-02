@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Character name</name>
+			<script>mob = mob or {}
+mob.leader = matches[2]</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^This ranks you as (\w+) (of|the) (.+)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>First Mob</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Display Mob</name>
+				<script>--syntax: setmob
+
+mob = mob or {}
+
+if mob.first then
+  cecho(f"Mob is set as: &lt;gold&gt;{mob.first}\n")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^setmob$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Mob</name>
+				<script>--syntax: setmob xxx
+
+mob = mob or {}
+
+mob.first = matches[2]
+cecho(f"Mob is set as: &lt;gold&gt;{mob.first}\n")
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^setmob (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Display Mob Target</name>
+				<script>--syntax: mobtgt
+
+mob = mob or {}
+
+if mob.target then
+  cecho(f"Mob target is set as: &lt;gold&gt;{mob.target}\n")
+else
+  cecho("&lt;red&gt;No target specified!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^mobtgt$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Mob Target</name>
+				<script>--syntax: mobtgt xxx
+
+mob = mob or {}
+
+mob.target = matches[2]
+cecho(f"Mob target is set as: &lt;gold&gt;{mob.target}\n")
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^mobtgt (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Kill Target</name>
+				<script>--syntax: omk
+
+mob = mob or {}
+
+if mob.first then
+  if mob.target then
+    send(f"order {mob.first} kill h.{mob.target}")
+  else
+    cecho("&lt;red&gt;No target specified!\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omk$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Kill Specific</name>
+				<script>--syntax: omk xxx
+
+mob = mob or {}
+
+if mob.first then
+  send(f"order {mob.first} kill h.{matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omk (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Bash</name>
+				<script>--syntax: omb
+
+mob = mob or {}
+
+if mob.first then
+  send(f"order {mob.first} bash")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omb$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Bash Specific</name>
+				<script>--syntax: omb xxx
+
+mob = mob or {}
+
+if mob.first then
+  send(f"order {mob.first} bash h.{matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omb (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Assist Leader</name>
+				<script>--syntax: oma
+
+mob = mob or {}
+
+if mob.first then
+  if mob.leader then
+    send(f"order {mob.first} assist {mob.leader}")
+  else
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^oma$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Assist Specific</name>
+				<script>--syntax: oma xxx
+
+mob = mob or {}
+
+if mob.first then
+  send(f"order {mob.first} assist {matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^oma (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Rescue Leader</name>
+				<script>--syntax: omr
+
+mob = mob or {}
+
+if mob.first then
+  if mob.leader then
+    send(f"order {mob.first} rescue {mob.leader}")
+  else
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omr$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Rescue Specific</name>
+				<script>--syntax: omr xxx
+
+mob = mob or {}
+
+if mob.first then
+  send(f"order {mob.first} rescue {matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omr (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Sit</name>
+				<script>--syntax: oms
+
+mob = mob or {}
+
+if mob.first then
+  send(f"order {mob.first} sit")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^oms$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Follow</name>
+				<script>--syntax: omf
+
+mob = mob or {}
+
+if mob.first then
+  if mob.leader then
+    send(f"order {mob.first} follow {mob.leader}")
+  else
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omf$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Disengage</name>
+				<script>--syntax: omd
+
+mob = mob or {}
+
+if mob.first then
+  send(f"order {mob.first} disengage")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omd$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Flee</name>
+				<script>--syntax: omff
+
+mob = mob or {}
+
+if mob.first then
+  send(f"order {mob.first} flee")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omff$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob</name>
+				<script>--syntax: om xxx
+
+mob = mob or {}
+
+if mob.first then
+  send(f"order {mob.first} {matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^om (.+)$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Second Mob</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Display Mob</name>
+				<script>--syntax: setmobs
+
+mob = mob or {}
+
+if mob.second then
+  cecho(f"Mob is set as: &lt;gold&gt;{mob.second}\n")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^setmobs$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Mob</name>
+				<script>--syntax: setmobs xxx
+
+mob = mob or {}
+
+mob.second = matches[2]
+cecho(f"Mob is set as: &lt;gold&gt;{mob.second}\n")
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^setmobs (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Display Mob Target</name>
+				<script>--syntax: mobtgts
+
+mob = mob or {}
+
+if mob.targets then
+  cecho(f"Mob target is set as: &lt;gold&gt;{mob.targets}\n")
+else
+  cecho("&lt;red&gt;No target specified!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^mobtgts$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Set Mob Target</name>
+				<script>--syntax: mobtgts xxx
+
+mob = mob or {}
+
+mob.targets = matches[2]
+cecho(f"Mob target is set as: &lt;gold&gt;{mob.targets}\n")
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^mobtgts (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Kill Target</name>
+				<script>--syntax: ommk
+
+mob = mob or {}
+
+if mob.second then
+  if mob.targets then
+    send(f"order {mob.second} kill h.{mob.targets}")
+  else
+    cecho("&lt;red&gt;No target specified!\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ommk$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Kill Specific</name>
+				<script>--syntax: ommk xxx
+
+mob = mob or {}
+
+if mob.second then
+  send(f"order {mob.second} kill h.{matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ommk (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Bash</name>
+				<script>--syntax: ommb
+
+mob = mob or {}
+
+if mob.second then
+  send(f"order {mob.second} bash")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ommb$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Bash Specific</name>
+				<script>--syntax: ommb xxx
+
+mob = mob or {}
+
+if mob.second then
+  send(f"order {mob.second} bash h.{matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ommb (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Assist Leader</name>
+				<script>--syntax: omma
+
+mob = mob or {}
+
+if mob.second then
+  if mob.leader then
+    send(f"order {mob.second} assist {mob.leader}")
+  else
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omma$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Assist Specific</name>
+				<script>--syntax: omma xxx
+
+mob = mob or {}
+
+if mob.second then
+  send(f"order {mob.second} assist {matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omma (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Rescue Leader</name>
+				<script>--syntax: ommr
+
+mob = mob or {}
+
+if mob.second then
+  if mob.leader then
+    send(f"order {mob.second} rescue {mob.leader}")
+  else
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ommr$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Rescue Specific</name>
+				<script>--syntax: ommr xxx
+
+mob = mob or {}
+
+if mob.second then
+  send(f"order {mob.second} rescue {matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ommr (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Sit</name>
+				<script>--syntax: omms
+
+mob = mob or {}
+
+if mob.second then
+  send(f"order {mob.second} sit")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omms$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Follow</name>
+				<script>--syntax: ommf
+
+mob = mob or {}
+
+if mob.second then
+  if mob.leader then
+    send(f"order {mob.second} follow {mob.leader}")
+  else
+    cecho("&lt;red&gt;Mob leader not set! Type \"score\" to capture your name\n")
+  end
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ommf$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Disengage</name>
+				<script>--syntax: ommd
+
+mob = mob or {}
+
+if mob.second then
+  send(f"order {mob.second} disengage")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ommd$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob Flee</name>
+				<script>--syntax: omff
+
+mob = mob or {}
+
+if mob.second then
+  send(f"order {mob.second} flee")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^ommff$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Order Mob</name>
+				<script>--syntax: om xxx
+
+mob = mob or {}
+
+if mob.second then
+  send(f"order {mob.second} {matches[2]}")
+else
+  cecho("&lt;red&gt;Mob not set!\n")
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^omm (.+)$</regex>
+			</Alias>
+		</AliasGroup>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+</MudletPackage>

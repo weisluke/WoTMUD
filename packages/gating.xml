@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>You memorize this place as</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You memorize this place as</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>2</integer>
+			</regexCodePropertyList>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Gating</name>
+				<script>local code = matches[2]
+
+weaving = weaving or {}
+gatecodes = {}
+
+if weaving.name then
+  if io.exists(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua") then
+    table.load(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
+  end
+  if weaving.gatename then
+    gatecodes[weaving.gatename] = code
+    table.save(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
+    cecho(f"\n&lt;green&gt;Code '{code}' successfully stored to location '{weaving.gatename}'.")
+  else
+    cecho("\n&lt;red&gt;Unknown error! No location set to store code to.")
+  end
+  send("release")
+else
+  cecho("\n&lt;red&gt;Error! Character name not known.")
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You memorize this place as (\S+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Successful Gate</name>
+			<script>send("release")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You concentrate and a bright slash of light dilates into a gateway to another place.</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>3</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Character name</name>
+			<script>weaving = weaving or {}
+weaving.name = matches[2]</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^This ranks you as (\w+) (of|the) (.+)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Character Sex</name>
+			<script>weaving = weaving or {}
+weaving.sex = matches[3]</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^You are a (\d+) year old (male|female) (.+)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>You can barely make out</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You can barely make out</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>2</integer>
+			</regexCodePropertyList>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Look portal</name>
+				<script>local roomname = matches[2]
+local foundrooms = searchRoom(roomname, true, true)
+
+if table.is_empty(foundrooms) then
+  selectCaptureGroup(2)
+  setLink(function() end, "No matches found!")
+elseif table.size(foundrooms) == 1 then
+  for id, name in pairs(foundrooms) do
+    selectCaptureGroup(2)
+    setLink(function() centerview(id) end, "Click to center map on room.")
+  end
+else
+  selectCaptureGroup(2)
+  
+  setLink(function() 
+    for id, name in spairs(foundrooms) do
+      local zone = getRoomUserData(k, "zone"){zone}
+      echoLink(f"Room ID: {id}, zone: {zone}\n", function() centerview(id) end, "Click to center map on room.",true)
+    end 
+  end, "Click to display rooms with matching name.")
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You can barely make out (.+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</Trigger>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Make gate</name>
+			<script>--syntax: makegate xxx
+
+weaving = weaving or {}
+
+weaving.gatename = matches[2]
+
+if weaving.sex == "female" then
+  sendAll("embrace", "channel 'gate'")
+elseif weaving.sex == "male" then
+  sendAll("seize", "channel 'gate'")
+else
+  cecho("&lt;red&gt;Error! Character sex not known.\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^makegate (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Gate to</name>
+			<script>--syntax: gate xxx
+
+local location = matches[2]
+
+weaving = weaving or {}
+gatecodes = {}
+
+if weaving.name then
+  if io.exists(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua") then
+    table.load(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
+  end
+  if gatecodes[location] then
+    if weaving.sex == "female" then
+      sendAll("embrace", f"channel 'gate' {gatecodes[location]}")
+    elseif weaving.sex == "male" then
+      sendAll("seize", f"channel 'gate' {gatecodes[location]}")
+    else
+      cecho("&lt;red&gt;Error! Character sex not known.\n")    
+    end
+  else
+    cecho("&lt;red&gt;Unknown error! No code known for this location.\n")
+  end
+else
+  cecho("&lt;red&gt;Error! Character name not known.\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^gate (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Delete gates</name>
+			<script>--syntax: resetgates
+
+weaving = weaving or {}
+
+if weaving.name then
+  table.save(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", {})
+  cecho("Gate codes reset!\n")
+else
+  cecho("&lt;red&gt;Error! Character name not known.\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^resetgates$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>View codes</name>
+			<script>--syntax: viewcodes
+
+weaving = weaving or {}
+gatecodes = {}
+
+if weaving.name then
+  if io.exists(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua") then
+    table.load(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
+  end
+  if table.is_empty(gatecodes) then
+    cecho("No gatecodes known!\n")
+  else
+    for loc, code in pairs(gatecodes) do
+      cecho(f"Location: {loc}, code: {code}\n")
+    end
+  end
+else
+  cecho("&lt;red&gt;Error! Character name not known.\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^viewcodes$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>ONETIME ADD OLD CODES</name>
+			<script>--syntax: addoldcodes
+
+--edit the table to reflect the codes you actually have
+--please pay attention to where there are, and aren't, apostrophes (")
+--please do not use numbers within the shortcuts (i.e., use fourkings instead of 4k)
+
+gatecodes =
+  {
+    tv = "ernloqphabefuytlow",
+    murgoz = "egomadsletorfleghi",
+    maradon = "luntoreliphafleque",
+    dwc = "ghixyzdarlowxerxer",
+    fd = "renpsaqarrenlowque",
+    tear = "ghtdasdarhonquelow",
+    maradonbrigands = "worworlunyelxerghi",
+    caem = "darlunpogpluuytque",
+    wb = "lowtoresasrauytxer",
+    gholam = "srayelpsalaslowlow",
+    cair = "xerxermadrenghique",
+    ef = "esavojtraxyzghixer",
+    lugard = "eldyeltorwezxerghi",
+    coldie = "worteltoresaxerque",
+    betrollocs = "eliqarphafliqueghi",
+    surelle = "fliflilowxerqueghi",
+    windingbrigands = "ghtlowphaghighixer",
+    fourkings = "pogdardassrauytlow",
+  }
+  
+weaving = weaving or {}
+
+if weaving.name then
+  table.save(f"{getMudletHomeDir()}/{weaving.name}_gatecodes.lua", gatecodes)
+else
+  cecho("&lt;red&gt;Error! Character name not known.\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^addoldcodes$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+</MudletPackage>

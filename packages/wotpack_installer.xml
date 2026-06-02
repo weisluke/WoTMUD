@@ -298,6 +298,26 @@ end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
+			<name>wotpack_installer:download_error</name>
+			<packageName></packageName>
+			<script>function wotpack_installer:download_error(event,what)
+  local _,package = what:match("(.+)/(.+).xml")
+  if not package then
+    return
+  end
+  -- is the package that we tried download a valid one?
+  if not table.contains(self.packages,package) then
+    return
+  end
+  
+  self:echo(f"Could not download package {package} from user ({self.user}) and branch ({self.branch})\n", false, true)
+  table.remove(self.to_download, table.index_of(self.to_download, package))
+end
+
+registerAnonymousEventHandler("sysDownloadError", "wotpack_installer:download_error")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer:download_complete</name>
 			<packageName></packageName>
 			<script>function wotpack_installer:download_complete(event, filename)

@@ -290,7 +290,7 @@ end</script>
     return
   end
   
-  table.insert(self.to_install, package)
+  table.insert(self.to_install, filename)
   table.remove(self.to_download, table.index_of(self.to_download, package))
   
   if table.is_empty(self.to_download) 

@@ -281,18 +281,17 @@ end</script>
 			<name>wotpack_installer:download_complete</name>
 			<packageName></packageName>
 			<script>function wotpack_installer:download_complete(event, filename)
-  local _,fname = filename:match("(.+)/(.+).xml")
-  if not fname then
+  local _,package = filename:match("(.+)/(.+).xml")
+  if not package then
     return
   end
-  local _,ftype = fname:match("(.+)_(.+)")
-  -- is the file that downloaded a valid one?
-  if not table.contains(self[ftype],fname) then
+  -- is the package that downloaded a valid one?
+  if not table.contains(self.packages,package) then
     return
   end
   
-  table.insert(self.to_install, filename)
-  table.remove(self.to_download, table.index_of(self.to_download, fname))
+  table.insert(self.to_install, package)
+  table.remove(self.to_download, table.index_of(self.to_download, package))
   
   if table.is_empty(self.to_download) 
     and not table.is_empty(self.to_install) 

@@ -126,4 +126,7 @@ cecho("&lt;red&gt;Light deleted!\n")</script>
 	<ActionPackage />
 	<ScriptPackage />
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

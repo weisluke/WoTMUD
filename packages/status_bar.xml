@@ -2246,4 +2246,7 @@ registerAnonymousEventHandler("status_bar:sys_connection_event", "status_bar.cus
 		</Script>
 	</ScriptPackage>
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

@@ -110,4 +110,7 @@ cecho("Friend removed.\n")</script>
 	<ActionPackage />
 	<ScriptPackage />
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

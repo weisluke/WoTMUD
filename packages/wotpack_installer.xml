@@ -493,4 +493,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "wotpack_installer:sys_di
 		</Script>
 	</ScriptPackage>
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

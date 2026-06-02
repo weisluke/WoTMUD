@@ -55,4 +55,7 @@ send(f"mix {container}")</script>
 	<ActionPackage />
 	<ScriptPackage />
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

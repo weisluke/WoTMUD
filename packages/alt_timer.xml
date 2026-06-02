@@ -166,4 +166,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "alt_timer:sys_connection")<
 		</Script>
 	</ScriptPackage>
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

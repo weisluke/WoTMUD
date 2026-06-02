@@ -134,4 +134,7 @@ cecho("&lt;red&gt;Horse deleted!\n")</script>
 	<ActionPackage />
 	<ScriptPackage />
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

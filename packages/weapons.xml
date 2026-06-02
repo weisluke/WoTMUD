@@ -138,4 +138,7 @@ cecho("&lt;red&gt;Weapon deleted!\n")</script>
 	<ActionPackage />
 	<ScriptPackage />
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

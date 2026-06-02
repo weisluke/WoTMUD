@@ -1723,4 +1723,7 @@ end</script>
 		</Script>
 	</ScriptPackage>
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

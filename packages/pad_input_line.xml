@@ -27,4 +27,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "pad_input_line")</script>
 		</Script>
 	</ScriptPackage>
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

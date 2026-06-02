@@ -908,4 +908,7 @@ registerAnonymousEventHandler("sysInstallPackage", "communications:comms_install
 		</Script>
 	</ScriptPackage>
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

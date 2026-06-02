@@ -30,4 +30,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "toggle_logging")</script
 		</Script>
 	</ScriptPackage>
 	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

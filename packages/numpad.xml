@@ -266,4 +266,7 @@ end</script>
 			<keyModifier>603979776</keyModifier>
 		</Key>
 	</KeyPackage>
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

@@ -4014,4 +4014,7 @@ wotmudmapper:offline_move("d")</script>
 			</Key>
 		</KeyGroup>
 	</KeyPackage>
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>

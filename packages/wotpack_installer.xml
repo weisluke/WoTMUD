@@ -314,10 +314,10 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_com
   
   repeat 
     filename = self.to_install[1]
-    local _,fname = filename:match("(.+)/(.+).xml")
-    if table.contains(getPackages(), fname) then
-      uninstallPackage(fname)
-      self:echo(f"Old {fname} uninstalled.\n")
+    local _,package = filename:match("(.+)/(.+).xml")
+    if table.contains(getPackages(), package) then
+      uninstallPackage(package)
+      self:echo(f"Old {package} package uninstalled.\n")
       tempTimer(0.5, 
         function() 
           res=coroutine.resume(wotpack_installer.coroutine)
@@ -326,7 +326,8 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_com
       coroutine.yield()
     end
     installPackage(filename)
-    self:echo(f"New {fname} successfully installed.\n")
+    self:echo(f"New {package} package successfully installed.\n")
+    if package == "wotpack_installer" then cecho(self.help) end
     table.remove(self.to_install, 1)
     tempTimer(0.5, 
       function() 

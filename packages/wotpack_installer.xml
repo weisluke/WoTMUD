@@ -430,7 +430,7 @@ wotpack_installer.is_installing = wotpack_installer.is_installing or false
 			<packageName></packageName>
 			<script>function wotpack_installer:sys_connection(event)
   self.user = "weisluke"
-  self.branch = "master"
+  self.branch = "main"
 end
 
 registerAnonymousEventHandler("sysLoadEvent", "wotpack_installer:sys_connection")
@@ -442,7 +442,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "wotpack_installer:sys_conne
 			<packageName></packageName>
 			<script>function wotpack_installer:sys_disconnection(event)
   self.user = "weisluke"
-  self.branch = "master"
+  self.branch = "main"
 end
 
 registerAnonymousEventHandler("sysExitEvent", "wotpack_installer:sys_disconnection")

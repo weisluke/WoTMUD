@@ -259,43 +259,6 @@ end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
-			<name>wotpack_installer:update_base</name>
-			<packageName></packageName>
-			<script>function wotpack_installer:update_base(event, filename)
-  -- is the file that downloaded ours?
-  if not filename:find("wotpack_installer.mpackage", 1, true) then
-    return
-  end
-  uninstallPackage("wotpack_installer")
-  self:echo("Old wotpack_installer package uninstalled.\n")
-  installPackage(filename)
-  self:echo("New wotpack_installer package successfully installed.\n")
-end
-
-registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:update_base")</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
-			<name>wotpack_installer:install_base</name>
-			<packageName></packageName>
-			<script>function wotpack_installer:install_base(event, name)
-  --if installed file is not the desired one
-  if name ~= "wotpack_installer" then return end
-  --otherwise, display help message
-  cecho(self.help)
-  --if first time installation, change font
-  -- if not io.exists(f"{getMudletHomeDir()}/wotpack_first_install.txt") then
-    -- local file = io.open(f"{getMudletHomeDir()}/wotpack_first_install.txt", "w+")
-    -- file:write("Welcome to the Wheel of Time MUD!\n")
-    -- io.close(file)
-    -- setFont("Comic Sans MS")
-  -- end
-end
-
-registerAnonymousEventHandler("sysInstallPackage", "wotpack_installer:install_base")</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer:download</name>
 			<packageName></packageName>
 			<script>--assumes fname is lowercase and has had any spaces replaced with underscores

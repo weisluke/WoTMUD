@@ -225,8 +225,8 @@ wotpack_installer.packages =
 wotpack_installer.help = [[
     &lt;cyan&gt;WoTMUD Package Installer Help&lt;reset&gt;
     
-    This script allows you to install various things from https://github.com/]]..wotpack_installer.user..[[/WoTMUD
-    Any already installed files with the same name will be uninstalled, so that the newly
+    This script allows you to install various packages from https://github.com/]]..wotpack_installer.user..[[/WoTMUD
+    Any already installed packages with the same name will be uninstalled, so that the newly
     downloaded ones can be installed.
     
     When inputting file names and types, capitalization does not matter. You may substitute
@@ -235,21 +235,17 @@ wotpack_installer.help = [[
     Commands are as follows:
     
     &lt;yellow&gt;wotpack help&lt;reset&gt; - Display this help file
-    &lt;yellow&gt;wotpack update&lt;reset&gt; - Download and install the latest version of this installer package
-        from github. This will make sure that you have the most up-to-date list of available files
-    &lt;yellow&gt;wotpack install all&lt;reset&gt; - Download and install ALL triggers/aliases/scripts/timers/keys/buttons
-        from github
-    &lt;yellow&gt;wotpack uninstall all&lt;reset&gt; - Uninstalls ALL triggers/aliases/scripts/timers/keys/buttons that were
-        downloaded from github
-    &lt;yellow&gt;wotpack install name&lt;reset&gt; - Downloads and installs any triggers/aliases/scripts/timers/keys/buttons
-        with the given name prefix
-        Example: wotpack install mapper, will install the mapper triggers/aliases/scripts necessary
-        for it to work
-    &lt;yellow&gt;wotpack uninstall name&lt;reset&gt; - Uninstall any triggers/aliases/scripts/timers/keys/buttons with the
-        given name prefix
+    &lt;yellow&gt;wotpack update&lt;reset&gt; - Download and install the latest version of this installer package.
+        This will make sure that you have the most up-to-date list of available files
+    &lt;yellow&gt;wotpack install all&lt;reset&gt; - Download and install ALL available packages
+    &lt;yellow&gt;wotpack uninstall all&lt;reset&gt; - Uninstalls ALL available packages
+    &lt;yellow&gt;wotpack install name&lt;reset&gt; - Downloads and installs the package with the given name
+        Example: wotpack install mapper, will install the mapper package
+    &lt;yellow&gt;wotpack uninstall name&lt;reset&gt; - Uninstalls the package with the given name
         Example: wotpack uninstall mapper  
     
-    Type &lt;yellow&gt;wotpack view files&lt;reset&gt; to view currently available files 
+    Type &lt;yellow&gt;wotpack view files&lt;reset&gt; to view currently available files. You may click
+        any items in the output list to install them.
        
 ]]</script>
 			<eventHandlerList />

@@ -19,14 +19,14 @@
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Bash</name>
-				<script>if not matches[3] then
-  send("bash")
+				<script>if matches[3] then
+  send(f"bash h.{matches[3]}")
 else
-  send(f"bash h.{matches[4]}")
+  send("bash")
 end</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>(^b$)|(^b (\S+)$)</regex>
+				<regex>^b( (\S+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Get All Corpse</name>

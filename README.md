@@ -37,7 +37,7 @@ Bryan, for providing an initial version of the "portal stones" aliases
 These files are for Mudlet (https://www.mudlet.org/), a client that can be used to connect to various MUD games. Mudlet can be downloaded at https://www.mudlet.org/download/ for Windows, Linux, and macOS.
 
 1. Open Mudlet. WoTMUD is one of the default profiles in Mudlet, so you can either (1) click on that profile and (4) connect, or (2) and (3) create a new profile with WoTMUD's information to (4) connect.
-![mudlet_login_1](https://user-images.githubusercontent.com/52049495/137241355-72d43d03-b406-49ad-8623-3eb2d646b96b.png)
+<img width="1919" height="1079" alt="mudlet_login_1" src="https://github.com/user-attachments/assets/45c8d887-0b20-4176-a39c-0aca1a2f62a3" />
 
 At this point if you are new to WoTMUD, I would recommend checking out our forums (https://forums.wotmud.info/) or game Discord server (https://forums.wotmud.info/viewtopic.php?f=74&t=7300) for more information. There is a Newbie Guide (https://forums.wotmud.info/viewtopic.php?f=76&t=12535) that should walk you through some of the basics of the game. At the very least, you need to have a character created that you can login to in order to proceed with the setup below.
 
@@ -45,25 +45,16 @@ I should be able to be reached by tagging @weisluke in the Discord (preferably i
 
 # Downloading and installing the package handler
    
-1. Click on the file "wotpack_installer.mpackage" above. It will take you to a new page.
-![wotpack_installer_1](https://user-images.githubusercontent.com/52049495/137250032-2c2aef39-d8a9-47da-806a-dfdfaf5f21d9.png)
-
-2. Click on the "Download" button. This should download the file and save it in your computer's default "Downloads" directory.
-   1. Alternatively, you can right click on the "Downloads" button and "Save link as" to save it to a specific spot on your computer, e.g. the desktop.
-![wotpack_installer_2](https://user-images.githubusercontent.com/52049495/137240737-23e0e19f-5c7e-49de-a497-06e431b414aa.png)
-
-3. Login to the MUD with Mudlet and open Packages -> Package Manager from the top toolbar of icons, and click the "Install new package" button at the bottom of the window that pops up. Navigate to the location you saved the wotpack_installer.mpackage file, select it, and click open. 
-![mudlet_packages_1](https://user-images.githubusercontent.com/52049495/137245638-82093947-ec96-4d65-96fb-632570e2612a.png)
-
-4. You should see an automatic help message from the package installation on your screen. If so, you can then close the Package Manager.
+1. If you are using a fresh install of mudlet, you should be able to simply input the following command into the command line and hit enter. ```lua installPackage('https://raw.githubusercontent.com/weisluke/WoTMUD/main/packages/wotpack_installer.xml')```
+2. You should see an automatic help message from the package installation on your screen.
    1. If not, try typing "wotpack help" into the command line and hit enter.
    2. If no help message appears, something likely went wrong. Reach out for help. 
 
 Assuming everything worked properly, what you have just installed is a script that will handle downloading and installing other triggers/aliases/scripts/timers/keys/buttons/maps from this repository via commands sent through the Mudlet command line.
 
-5. You will notice that your font changed after installing this package. Unless you're a male channeler who's already tainted, you will probably want to change the font to something other than Comic Sans. You can open Settings -> Main display, and from there change the font and font size. For reference, the default font used by Mudlet is "Bitstream Vera Sans Mono". Additionally, I would recommend making sure that the box marked "Echo Lua errors to the main console" is checked. This will assist with possible debugging, both if you need help, or if you eventually start making your own aliases/triggers/scripts.
+3. You can open Settings -> Main display, and from there change any desired setting such as the font and font size. For reference, the default font used by Mudlet is "Bitstream Vera Sans Mono". Additionally, I would recommend making sure that the box marked "Echo Lua errors to the main console" is checked. This will assist with possible debugging, both if you need help, or if you eventually start making your own aliases/triggers/scripts.
 ![mudlet_settings_1](https://user-images.githubusercontent.com/52049495/137246210-491b3c45-3d6f-452e-9896-fbad996c51fd.png)
-6. Additionally, you can change the default command separator in Settings -> Input line. For users who are unfamiliar, this allows you to type, e.g., "smile;wave" and have the commands "smile" and "wave" sent to the MUD separately. The default command separator is ";;", although many people prefer a single semi-colon ";" instead.
+4. Additionally, you can change the default command separator in Settings -> Input line. For users who are unfamiliar, this allows you to type, e.g., "smile;wave" and have the commands "smile" and "wave" sent to the MUD separately. The default command separator is ";;", although many people prefer a single semi-colon ";" instead.
 ![mudlet_settings_2](https://user-images.githubusercontent.com/52049495/137246430-b1498db2-4918-456c-8d11-73e31e1b2739.png)
 
 # Installing map scripts and a map file

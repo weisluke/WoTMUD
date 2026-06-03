@@ -61,31 +61,29 @@ Assuming everything worked properly, what you have just installed is a script th
 <details>
 <summary>Click to expand.</summary>
    
-1. The first step for installing these map scripts is to remove the generic mapper by going to Packages->Package Manager, clicking on the "generic_mapper", and then clicking "Remove packages". After that, you will need to restart Mudlet and login again. DO NOT SKIP THIS STEP.
-![mapper_install_1](https://user-images.githubusercontent.com/52049495/137246750-164a86ff-137a-4be5-8f59-8f9a0544736c.png)
-
-2. Make sure that you have the following settings on the MUD (by typing them into the command line):
+1. Make sure that you have the following settings on the MUD (by typing them into the command line):
    1. "color complete" on. The mapper scripts need the room name colors to properly work.
-   2. "brief" off. The mapper will work with brief mode on, just not as well (though still pretty dang well if I do say so myself, given the limitations of picking out rooms from only name and exit combinations). 
-3. Type "wotpack install mapper" into the command line and hit enter.
+   2. "brief" off. The mapper will work with brief mode on, just not as well (though still pretty dang well if I do say so myself, given the limitations of picking out rooms from only name and exit combinations).
+
+2. Type "wotpack install mapper" into the command line and hit enter.
 ![mapper_install_2](https://user-images.githubusercontent.com/52049495/137254629-cf6e9d2e-8676-40c0-af78-cd6bd581a6f6.png)
 
-4. If things are successful, you should receive some messages along the lines of "(wotpack_installer): New mapper_scripts successfully installed." A help message should pop up. A new window should appear in the top right of the screen as well, though it will say that there are no rooms in the map. This is because we need to download the map file. 
+3. If things are successful, you should receive some messages along the lines of "(wotpack_installer): New mapper_scripts successfully installed." A help message should pop up. A new window should appear in the top right of the screen as well, though it will say that there are no rooms in the map. This is because we need to download the map file. 
 ![mapper_install_3](https://user-images.githubusercontent.com/52049495/137247489-22d1b16a-27a7-40c3-9331-ebfcf809c1b1.png)
 
-5. Type "map update". You should again receive some messages about the map file downloading and installing. This may take a moment depending on your internet speed. Once that is done, the message in the top right map window may change to say that you have a map loaded, but Mudlet doesn't know where you are.
+4. Type "map update". You should again receive some messages about the map file downloading and installing. This may take a moment depending on your internet speed. Once that is done, the message in the top right map window may change to say that you have a map loaded, but Mudlet doesn't know where you are.
 ![mapper_install_4](https://user-images.githubusercontent.com/52049495/137247712-21450f8b-c8bd-43af-aec3-742d2730d68f.png)
 
-6. Look at your room. You should see a debugging message next to room names, room exits, and direction and look inputs. This is normal. See if the map centers on your position. If the rooms are too small, you can adjust their size at the bottom of the map window (along with the size of the room exit lines). You can also zoom in by scrolling with your mouse wheel on the map window, or (assuming everything has worked properly up to this point) by entering "map zoom 30" into the Mudlet command line.
+5. Look at your room. You should see a debugging message next to room names, room exits, and direction and look inputs. This is normal. See if the map centers on your position. If the rooms are too small, you can adjust their size at the bottom of the map window (along with the size of the room exit lines). You can also zoom in by scrolling with your mouse wheel on the map window, or (assuming everything has worked properly up to this point) by entering "map zoom 30" into the Mudlet command line.
 ![mapper_install_5](https://user-images.githubusercontent.com/52049495/137248267-59c8b130-2dfa-4973-959d-7253f640b772.png)
 
-7. You can type "map debug" to turn off the debug messages. If there are problems with the mapper, these messages can be useful in narrowing down what the issue is. 
+6. You can type "map debug" to turn off the debug messages. If there are problems with the mapper, these messages can be useful in narrowing down what the issue is. 
 ![mapper_install_6](https://user-images.githubusercontent.com/52049495/137248345-50ee7931-b074-4cb8-9db0-4c4f890f6f8a.png)
 
-8. You can type "map dock", and the map will snap to the left or right side of the screen when you drag it there. This will make the scroll bar visible without you having to move the map window slightly, and allow you to place the map on the left hand side if you prefer.
+7. You can type "map dock", and the map will snap to the left or right side of the screen when you drag it there. This will make the scroll bar visible without you having to move the map window slightly, and allow you to place the map on the left hand side if you prefer.
 ![mapper_dock](https://user-images.githubusercontent.com/52049495/137255044-54cb16c4-3511-4d2e-b0e7-9bc88faa334a.png)
    
-9. You can have the mapper manually gag room descriptions (while still using them to determine where you are) by typing "map brief". 
+8. You can have the mapper manually gag room descriptions (while still using them to determine where you are) by typing "map brief". 
 ![mapper_install_7](https://user-images.githubusercontent.com/52049495/138769138-9061d25d-48ae-4e4d-bbd9-2e5c76c8c9a7.png)
 
 ## Changing the map appearance

@@ -1938,7 +1938,7 @@ end</script>
 end
 
 eq_trainer:equipment_slot_displays()
-registerAnonymousEventHandler("equip_db:sysConnectionEvent", "eq_trainer:equipment_slot_displays")
+registerAnonymousEventHandler("equip_db:sys_connection_event", "eq_trainer:equipment_slot_displays")
 </script>
 				<eventHandlerList />
 			</Script>

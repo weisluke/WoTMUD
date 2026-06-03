@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage>
+		<KeyGroup isActive="yes" isFolder="yes">
+			<name>Directions</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>33554431</keyCode>
+			<keyModifier>0</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>North</name>
+				<packageName></packageName>
+				<script></script>
+				<command>n</command>
+				<keyCode>56</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>East</name>
+				<packageName></packageName>
+				<script></script>
+				<command>e</command>
+				<keyCode>54</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>South</name>
+				<packageName></packageName>
+				<script></script>
+				<command>s</command>
+				<keyCode>50</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>West</name>
+				<packageName></packageName>
+				<script></script>
+				<command>w</command>
+				<keyCode>52</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Up</name>
+				<packageName></packageName>
+				<script></script>
+				<command>u</command>
+				<keyCode>57</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Down</name>
+				<packageName></packageName>
+				<script></script>
+				<command>d</command>
+				<keyCode>51</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+		<KeyGroup isActive="yes" isFolder="yes">
+			<name>Doors</name>
+			<packageName></packageName>
+			<script></script>
+			<command></command>
+			<keyCode>33554431</keyCode>
+			<keyModifier>0</keyModifier>
+			<Key isActive="yes" isFolder="no">
+				<name>Open door north</name>
+				<packageName></packageName>
+				<script>wotmudmapper:door_com_dir("open", "n")</script>
+				<command></command>
+				<keyCode>16777235</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Open door east</name>
+				<packageName></packageName>
+				<script>wotmudmapper:door_com_dir("open", "e")</script>
+				<command></command>
+				<keyCode>16777236</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Open door south</name>
+				<packageName></packageName>
+				<script>wotmudmapper:door_com_dir("open", "s")</script>
+				<command></command>
+				<keyCode>16777237</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Open door west</name>
+				<packageName></packageName>
+				<script>wotmudmapper:door_com_dir("open", "w")</script>
+				<command></command>
+				<keyCode>16777234</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Open door up</name>
+				<packageName></packageName>
+				<script>wotmudmapper:door_com_dir("open", "u")</script>
+				<command></command>
+				<keyCode>16777238</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+			<Key isActive="yes" isFolder="no">
+				<name>Open door down</name>
+				<packageName></packageName>
+				<script>wotmudmapper:door_com_dir("open", "d")</script>
+				<command></command>
+				<keyCode>16777239</keyCode>
+				<keyModifier>536870912</keyModifier>
+			</Key>
+		</KeyGroup>
+		<Key isActive="yes" isFolder="no">
+			<name>Flee</name>
+			<packageName></packageName>
+			<script></script>
+			<command>f</command>
+			<keyCode>55</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Ride Horse</name>
+			<packageName></packageName>
+			<script>local horse = horse.first
+
+if horse~=nil then
+  send(f"ride {horse}")
+else
+  cecho("\n&lt;red&gt;Horse not set!\n")
+end</script>
+			<command></command>
+			<keyCode>47</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Dismount</name>
+			<packageName></packageName>
+			<script></script>
+			<command>dm</command>
+			<keyCode>42</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Stat</name>
+			<packageName></packageName>
+			<script></script>
+			<command>stat</command>
+			<keyCode>45</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Score</name>
+			<packageName></packageName>
+			<script></script>
+			<command>sc</command>
+			<keyCode>43</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Where</name>
+			<packageName></packageName>
+			<script></script>
+			<command>where</command>
+			<keyCode>49</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Notice</name>
+			<packageName></packageName>
+			<script></script>
+			<command>notice</command>
+			<keyCode>48</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Attack Target</name>
+			<packageName></packageName>
+			<script>local target=targeting.currtgt
+
+if target~=nil then
+  send(f"k {target}")
+else
+  cecho("\n&lt;red&gt;Current target not set!\n")
+end</script>
+			<command></command>
+			<keyCode>53</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Attack Hidden Target</name>
+			<packageName></packageName>
+			<script>local target=targeting.currtgt
+
+if target~=nil then
+  send(f"k h.{target}")
+else
+  cecho("\n&lt;red&gt;Current target not set!\n")
+end</script>
+			<command></command>
+			<keyCode>16777227</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Look</name>
+			<packageName></packageName>
+			<script></script>
+			<command>l</command>
+			<keyCode>46</keyCode>
+			<keyModifier>536870912</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Change Mood Wimpy</name>
+			<packageName></packageName>
+			<script></script>
+			<command>change mood wimpy</command>
+			<keyCode>55</keyCode>
+			<keyModifier>603979776</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Change Mood Normal</name>
+			<packageName></packageName>
+			<script></script>
+			<command>change mood normal</command>
+			<keyCode>56</keyCode>
+			<keyModifier>603979776</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Change Mood Brave</name>
+			<packageName></packageName>
+			<script></script>
+			<command>change mood brave</command>
+			<keyCode>57</keyCode>
+			<keyModifier>603979776</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Change Posture Defensive</name>
+			<packageName></packageName>
+			<script></script>
+			<command>change posture defensive</command>
+			<keyCode>52</keyCode>
+			<keyModifier>603979776</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Change Posture Normal</name>
+			<packageName></packageName>
+			<script></script>
+			<command>change posture normal</command>
+			<keyCode>53</keyCode>
+			<keyModifier>603979776</keyModifier>
+		</Key>
+		<Key isActive="yes" isFolder="no">
+			<name>Change Posture Offensive</name>
+			<packageName></packageName>
+			<script></script>
+			<command>change posture offensive</command>
+			<keyCode>54</keyCode>
+			<keyModifier>603979776</keyModifier>
+		</Key>
+	</KeyPackage>
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

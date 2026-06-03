@@ -1,0 +1,1370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Equipment Database</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>DB and PB</name>
+				<script>equip_db:reset_eq_info()
+
+equip_db.eq_info.name = multimatches[1][2]
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.db = tonumber(multimatches[5][2])
+equip_db.eq_info.pb = tonumber(multimatches[5][3])
+
+equip_db:update_item("trinkets", equip_db.eq_info, true)
+
+equip_db:reset_eq_info()
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>3</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+)\.$</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>DB, PB, and Moves</name>
+				<script>equip_db:reset_eq_info()
+
+equip_db.eq_info.name = multimatches[1][2]
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.db = tonumber(multimatches[5][2])
+equip_db.eq_info.pb = tonumber(multimatches[5][3])
+equip_db.eq_info.mvs = tonumber(multimatches[5][4])
+
+equip_db:update_item("trinkets", equip_db.eq_info, true)
+
+equip_db:reset_eq_info()
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>3</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+), Moves: (-?\d+)\.$</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>DB, PB, Moves, and Abs</name>
+				<script>equip_db:reset_eq_info()
+
+equip_db.eq_info.name = multimatches[1][2]
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.db = tonumber(multimatches[5][2])
+equip_db.eq_info.pb = tonumber(multimatches[5][3])
+equip_db.eq_info.mvs = tonumber(multimatches[5][4])
+equip_db.eq_info.abs = tonumber(multimatches[5][5])
+
+equip_db:update_item("armor", equip_db.eq_info, true)
+
+equip_db:reset_eq_info()
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>3</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+), Moves: (-?\d+), Armor absorb: (-?\d+\.\d*)%\.$</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Weapon - not honed</name>
+				<script>equip_db:reset_eq_info()
+
+equip_db.eq_info.name = multimatches[1][2]
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.hands = (multimatches[5][2] == "" and 1 or 0) --set 2h weapon to 0, as unclear if actually 2h or 1.5h
+equip_db.eq_info.weapon_type = multimatches[5][3]
+equip_db.eq_info.ob = tonumber(multimatches[7][2])
+equip_db.eq_info.pb = tonumber(multimatches[7][3])
+equip_db.eq_info.dmg = multimatches[7][4]
+
+equip_db:update_item("weapons", equip_db.eq_info, true)
+
+equip_db:reset_eq_info()
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>4</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^It is an? (two-handed )?(.+)\.$</string>
+					<string>1</string>
+					<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Weapon - not hardened</name>
+				<script>equip_db:reset_eq_info()
+
+equip_db.eq_info.name = multimatches[1][2]
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.hands = (multimatches[5][2] == "" and 1 or 0) --set 2h weapon to 0, as unclear if actually 2h or 1.5h
+equip_db.eq_info.weapon_type = multimatches[5][3]
+equip_db.eq_info.ob = tonumber(multimatches[7][2])
+equip_db.eq_info.pb = tonumber(multimatches[7][3])
+equip_db.eq_info.dmg = multimatches[7][4]
+
+equip_db:update_item("weapons", equip_db.eq_info, true)
+
+equip_db:reset_eq_info()
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>5</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^It is an? (two-handed )?(.+)\.$</string>
+					<string>1</string>
+					<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
+					<string>1</string>
+					<string>It has been honed by</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Weapon - hardened</name>
+				<script>equip_db:reset_eq_info()
+
+equip_db.eq_info.name = multimatches[1][2]
+equip_db.eq_info.weight = tonumber(multimatches[3][2])
+equip_db.eq_info.hands = (multimatches[5][2] == "" and 1 or 0) --set 2h weapon to 0, as unclear if actually 2h or 1.5h
+equip_db.eq_info.weapon_type = multimatches[5][3]
+equip_db.eq_info.ob = tonumber(multimatches[7][2]) - 5
+equip_db.eq_info.pb = tonumber(multimatches[7][3])
+equip_db.eq_info.dmg = multimatches[7][4]
+
+equip_db:update_item("weapons", equip_db.eq_info, true)
+
+equip_db:reset_eq_info()
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>5</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^It is an? (two-handed )?(.+)\.$</string>
+					<string>1</string>
+					<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
+					<string>1</string>
+					<string>It has been honed and hardened by</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Two handed weapon</name>
+				<script>equip_db:reset_eq_info()
+
+equip_db.eq_info.name = matches[2]
+equip_db.eq_info.hands = 2
+
+equip_db:update_item("weapons", equip_db.eq_info, true)
+
+equip_db:reset_eq_info()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You need two hands free to wield (.+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>1.5 handed weapon</name>
+				<script>equip_db:reset_eq_info()
+
+equip_db.eq_info.name = matches[2]
+equip_db.eq_info.hands = 1.5
+
+equip_db:update_item("weapons", equip_db.eq_info, true)
+
+equip_db:reset_eq_info()</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You grip (.+) with both hands\.$</string>
+					<string>^You shift (.+) to one hand\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show help</name>
+			<script>equip_db:show_help()</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^edb help$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Update equipment database</name>
+			<script>--syntax: edb update
+
+db:close("equipment")
+
+equip_db:echo("Downloading updated database...\n")
+local url = "https://raw.githubusercontent.com/weisluke/WoTMUD/master/Database_equipment.db"
+local saveto = f"{getMudletHomeDir()}/Database_equipment.db"
+downloadFile(saveto, url)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^edb update$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Reset database</name>
+			<script>equip_db:create_db()</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^edb reset$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Enable/disable triggers</name>
+			<script>if isActive("Equipment Database", "trigger") &gt; 0 then
+  disableTrigger("Equipment Database")
+  equip_db:echo("Triggers deactivated.\n")
+else
+  enableTrigger("Equipment Database")
+  equip_db:echo("Triggers activated.\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^edb triggers$</regex>
+		</Alias>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Show items</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Show all items</name>
+				<script>equip_db:show_weapons()
+equip_db:show_armor()
+equip_db:show_trinkets()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb show$</regex>
+			</Alias>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Weapons</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show weapons</name>
+					<script>equip_db:show_weapons()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show weapons$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show weapons name</name>
+					<script>equip_db:show_weapons(matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show weapons name (.+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show weapons type</name>
+					<script>equip_db:show_weapons(nil, nil, matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show weapons type (.+)$</regex>
+				</Alias>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Armor</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show armor</name>
+					<script>equip_db:show_armor()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show armor$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show armor name</name>
+					<script>equip_db:show_armor(matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show armor name (.+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show armor slot</name>
+					<script>equip_db:show_armor(nil, nil, matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show armor slot (.+)$</regex>
+				</Alias>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Trinkets</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show trinkets</name>
+					<script>equip_db:show_trinkets()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show trinkets$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show trinkets name</name>
+					<script>equip_db:show_trinkets(matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show trinkets name (.+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>Show trinkets slot</name>
+					<script>equip_db:show_trinkets(nil, nil, matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^edb show trinkets slot (.+)$</regex>
+				</Alias>
+			</AliasGroup>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Update items</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Update hands</name>
+				<script>local eq_type = matches[2]
+local name = matches[3]
+local hands = tonumber(matches[4])
+
+equip_db:update_item(eq_type, {name=name, hands=hands})</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb (weapons) hands (.+) (0|1|1.5|2)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Update weapon_type</name>
+				<script>local eq_type = matches[2]
+local name = matches[3]
+local weapon_type = matches[4]
+
+equip_db:update_item(eq_type, {name=name, weapon_type=weapon_type})</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb (weapons) weapon_type (.+) \\(.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Update dmg_type</name>
+				<script>local eq_type = matches[2]
+local name = matches[3]
+local dmg_type = matches[4]
+
+equip_db:update_item(eq_type, {name=name, dmg_type=dmg_type})</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb (weapons) dmg_type (.+) (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Update armor eq_slot</name>
+				<script>local eq_type = matches[2]
+local name = matches[3]
+local eq_slot = matches[4]
+
+equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb (armor) eq_slot (.+) (head|body|arms|hands|legs|feet|shield|)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Update trinkets eq_slot</name>
+				<script>local eq_type = matches[2]
+local name = matches[3]
+local eq_slot = matches[4]
+
+equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath|)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Force update trinkets eq_slot</name>
+				<script>local eq_type = matches[2]
+local name = matches[3]
+local eq_slot = matches[4]
+
+equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot}, true)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb force (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Update armor/trinkets setup</name>
+				<script>local eq_type = matches[2]
+local name = matches[3]
+local setup = matches[4]
+
+equip_db:update_item(eq_type, {name=name, setup=setup})</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb (armor|trinkets) setup (.+) ((\S+)|)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Force update armor/trinkets setup</name>
+				<script>local eq_type = matches[2]
+local name = matches[3]
+local setup = matches[4]
+
+equip_db:update_item(eq_type, {name=name, setup=setup}, true)</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb force (armor|trinkets) setup (.+) ((\S+)|)$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Deleting equipment database information</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>edb delete</name>
+				<script>--deletes the ENTIRE equipment database
+
+local equipment = db:get_database("equipment")
+for _, field in pairs(table.keys(equip_db.eq_fields)) do
+  db:delete(equipment[field], true)
+end
+equip_db:echo("The entire equipment database has been deleted.\n")
+equip_db:create_db()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb delete$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>edb delete weapons/armor/trinkets</name>
+				<script>--deletes the ENTIRE weapons or armor or trinkets database
+
+local field = matches[2]
+
+local equipment = db:get_database("equipment")
+db:delete(equipment[field], true)
+equip_db:echo(f"The equipment database for ({field}) has been deleted.\n")
+equip_db:create_db()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb delete (weapons|armor|trinkets)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>edb delete weapons/armor/trinkets name</name>
+				<script>--deletes the item with the given name from the given database sheet
+
+local field = matches[2]
+local name = matches[3]
+
+local equipment = db:get_database("equipment")
+db:delete(equipment[field], db:like(equipment[field].name, f"%{name}%"))
+equip_db:echo(f"The equipment database ({field}) entry for ({name}) has been deleted.\n")
+equip_db:create_db()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^edb delete (weapons|armor|trinkets) name (.+)$</regex>
+			</Alias>
+		</AliasGroup>
+		<Alias isActive="yes" isFolder="no">
+			<name>Move item from sheet</name>
+			<script>local sheet1 = matches[2]
+local name = matches[3]
+local sheet2 = matches[4]
+
+local equipment = db:get_database("equipment")
+
+local items = db:fetch(equipment[sheet1], db:like(equipment[sheet1].name, f"%{name}%"))
+
+if table.is_empty(items) then
+  equip_db:echo(f"\nItem ({name}) not found in the equipment database.\n", false, true)   
+elseif table.size(items) &gt; 1 then
+  equip_db:echo(f"\nItem ({name}) is not unique. Found the following items:\n", false, true)
+  for _, item in pairs(items) do
+    cecho(f"{item.name}\n")
+  end
+else
+  item = items[1]
+  db:delete(equipment[sheet1], item)
+  if sheet1 == "armor" and sheet2 == "trinkets" then
+    item.abs = nil
+  end
+  db:add(equipment[sheet2], item)
+  equip_db:echo(f"Item ({item.name}) moved from ({sheet1}) to ({sheet2}).\n")  
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^edb move (armor|trinkets) name (.+) (armor|trinkets)$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>equip_db initializations</name>
+			<packageName></packageName>
+			<script>equip_db = equip_db or {configs = {}, eq_info = {}}
+
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>equip_db:echo</name>
+			<packageName></packageName>
+			<script>function equip_db:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;gray&gt;(&lt;white&gt;equip_db&lt;gray&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>equip_db:create_db</name>
+			<packageName></packageName>
+			<script>equip_db.eq_fields = {
+    weapons = {"name", "hands", "weapon_type", "ob", "pb", "dmg", "weight", "dmg_type"},
+    armor = {"name", "eq_slot", "db", "pb", "mvs", "abs", "weight", "setup"},
+    trinkets = {"name", "eq_slot", "db", "pb", "mvs", "weight", "setup"}
+  }
+  
+function equip_db:create_db()
+  db:create(
+    "equipment",
+    {
+      weapons =
+        {
+          name = "",
+          hands = 0,
+          weapon_type = "",
+          ob = 0,
+          pb = 0,
+          dmg = "",
+          weight = 0,
+          dmg_type = "",
+        },
+      armor =
+        {
+          name = "",
+          eq_slot = "",
+          db = 0,
+          pb = 0,
+          mvs = 0,
+          abs = 0,
+          weight = 0,
+          setup = ""
+        },
+      trinkets =
+        {
+          name = "",
+          eq_slot = "",
+          db = 0,
+          pb = 0,
+          mvs = 0,
+          weight = 0,
+          setup = ""
+        },
+    }
+  )
+  
+end
+
+equip_db:create_db()
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>equip_db:show_help</name>
+			<packageName></packageName>
+			<script>function equip_db:show_help()
+  local help =
+  [[
+    &lt;cyan&gt;Equipment Database Script&lt;reset&gt;
+
+    This script will capture and store equipment stats in a database located at
+    at ]] .. getMudletHomeDir() .. [[/Database_equipment.db
+    
+    Below is a brief overview of some commands that this script includes.
+    All commands can be found in the appropriate equipment database folder
+    under mudlet aliases.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;edb help&lt;reset&gt; - Show this help message.
+        &lt;yellow&gt;edb update&lt;reset&gt; - Downloads, saves, and loads the latest version of the equipment
+            database from https://github.com/weisluke/WoTMUD 
+        &lt;yellow&gt;edb triggers&lt;reset&gt; - Enable/disable the equipment stat capture triggers
+        &lt;yellow&gt;edb show&lt;reset&gt; - Show all items in the database.
+        &lt;yellow&gt;edb show weapons/armor/trinkets&lt;reset&gt; - Show all weapons, armor, or trinkets.
+        &lt;yellow&gt;edb show weapons/armor/trinkets name xxx&lt;reset&gt; - Show all weapons, armor or trinkets with
+            the given name.
+            Ex: edb show weapons name heron, edb show armor name gold,
+                edb show trinkets name jeweled
+        &lt;yellow&gt;edb show weapons type xxx&lt;reset&gt; - Show all weapons of the given type.
+            Ex: edb show weapons type blade, edb show weapons type staff
+        &lt;yellow&gt;edb show armor/trinkets slot xxx&lt;reset&gt; - Show all armor or trinkets of the given slot.
+            Ex: edb show armor slot head, edb show trinkets slot wrist
+            
+    Commands for editing items in the database (not typically needed):
+    
+        &lt;yellow&gt;edb (weapons|armor|trinkets) weight xxx yyy&lt;reset&gt; - Set the weight of an item
+        &lt;yellow&gt;edb force (weapons|armor|trinkets) weight xxx yyy&lt;reset&gt; - Force the weight
+        &lt;yellow&gt;edb weapons dmg_type xxx yyy&lt;reset&gt; - Set the dmg type for a weapon
+        &lt;yellow&gt;edb (armor|trinkets) eq_slot xxx yyy&lt;reset&gt; - Set the eq slot for an item
+            Valid armor slots: head, body, arms, hands, legs, feet, shield
+            Valid trinket slots: finger, neck, wrist, cloak, belt, sheath
+        &lt;yellow&gt;edb (armor|trinkets) setup xxx yyy&lt;reset&gt; - Set the setup for an item
+        &lt;yellow&gt;edb force (armor|trinkets) setup xxx yyy&lt;reset&gt; - Force the setup
+        &lt;yellow&gt;edb move (armor|trinkets) name xxx (armor|trinkets)&lt;reset&gt; - Move an item from
+            one sheet to another
+        
+        &lt;yellow&gt;edb delete&lt;reset&gt; - Delete the entire database. &lt;red&gt;USE WITH CAUTION!&lt;reset&gt;
+        &lt;yellow&gt;edb delete (weapons|armor|trinkets)&lt;reset&gt; - Delete the entire given sheet
+        &lt;yellow&gt;edb delete (weapons|armor|trinkets) name xxx&lt;reset&gt; - Delete the item with the
+            given name from the given sheet
+                    
+]]
+  cecho(help)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>equip_db:reset_eq_info</name>
+			<packageName></packageName>
+			<script>function equip_db:reset_eq_info()
+  self.eq_info = {}
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>equip_db:update_item</name>
+			<packageName></packageName>
+			<script>function equip_db:update_item(eq_type, info, exact_name)
+  
+  if not info.name then
+    self:echo("\nAttempt to add item with no name.\n", false, true)
+    return
+  end
+  
+  if not table.index_of(table.keys(self.eq_fields), eq_type) then
+    self:echo(f"\nEquipment type ({eq_type}) not known.\n", false, true)
+    return
+  end
+
+  local equipment = db:get_database("equipment")
+  
+  local items = {}
+  
+  --need to loop over all sheets, as some items don't display stats
+  --present in their sheet
+  --e.g., a camouflaged hood doesn't have any abs, so it would register
+  --as a trinket. we don't want to create a new trinket item every time
+  --we examine the hood, we want to update the one that already exists
+  for _, sheet in pairs(table.keys(self.eq_fields)) do
+    local tab
+    if exact_name then
+      tab = db:fetch(equipment[sheet], db:eq(equipment[sheet].name, info.name))
+    else
+      tab = db:fetch(equipment[sheet], db:like(equipment[sheet].name, "%"..info.name.."%"))
+    end
+    
+    for _, item in pairs(tab) do
+      if not table.contains(items, item) then
+        table.insert(items, item)
+      end
+    end
+  end
+  
+  if table.is_empty(items) then
+    db:add(equipment[eq_type], info)
+    self:echo(f"\nItem ({info.name}) added to the equipment database.\n")   
+  elseif table.size(items) &gt; 1 then
+    self:echo(f"\nItem ({info.name}) is not unique. Found the following items:\n", false, true)
+    for _, item in pairs(items) do
+      cecho(item.name.."\n")
+    end
+  else
+    item = items[1]
+    --ensure that if we gave a shortcut to the name, we use the proper full name already in the database
+    info.name = item.name
+    for _, field in pairs(self.eq_fields[eq_type]) do
+      if info[field] and item[field] ~= info[field] then
+        self:echo(f"\n({field}) for ({item.name}) updated from ({item[field]}) to ({info[field]})\n")
+        item[field] = info[field]
+      end
+    end
+    db:update(equipment[eq_type], item)
+  end
+  
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>equip_db:db_update</name>
+			<packageName></packageName>
+			<script>function equip_db:db_update(event, filename)
+  --if the file that downloaded is not the database, return
+  if not filename:find("Database_equipment.db", 1, true) then
+    return
+  end
+  self:echo("Download complete.\n")
+  self:create_db()
+end
+
+registerAnonymousEventHandler("sysDownloadDone", "equip_db:db_update")</script>
+			<eventHandlerList />
+		</Script>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Get items</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>equip_db:get_weapons</name>
+				<packageName></packageName>
+				<script>local function sort_weapons(e1, e2)
+  --sort first by weapon type, then hands, then ob, then pb, then dmg
+
+  if e1.weapon_type &lt; e2.weapon_type then
+    return true
+  elseif e1.weapon_type &gt; e2.weapon_type then
+    return false
+  else
+    if e1.hands &gt; e2.hands then
+      return true
+    elseif e1.hands &lt; e2.hands then
+      return false
+    else
+      if e1.ob &gt; e2.ob then
+        return true
+      elseif e1.ob &lt; e2.ob then
+        return false
+      else
+        if e1.pb &gt; e2.pb then
+          return true
+        elseif e1.pb &lt; e2.pb then
+          return false
+        else
+          local dmg1 = e1.dmg
+          local dmg2 = e2.dmg
+          
+          local x1 = dmg1:match("(%d+)d%d+")
+          local y1 = dmg1:match("%d+d(%d+)")
+          
+          local x2 = dmg2:match("(%d+)d%d+")
+          local y2 = dmg2:match("%d+d(%d+)")
+          
+          if x1*(y1 + 1)/2 &gt; x2*(y2 + 1)/2 then
+            return true
+          elseif x1*(y1 + 1)/2 &lt; x2*(y2 + 1)/2 then
+            return false
+          else
+            return true
+          end      
+        end
+      end
+    end
+  end
+end
+
+function equip_db:get_weapons(name, name_exact, weapon_type, weapon_type_exact)
+  local equipment = db:get_database("equipment")
+  
+  name = name or ""
+  weapon_type = weapon_type or ""
+  
+  local weapons
+  
+  if name_exact then
+    if weapon_type_exact then
+      weapons = db:fetch(equipment.weapons, 
+          db:AND(
+            db:eq(equipment.weapons.name, name), 
+            db:eq(equipment.weapons.weapon_type, weapon_type)
+          )
+      )
+    else
+      weapons = db:fetch(equipment.weapons, 
+          db:AND(
+            db:eq(equipment.weapons.name, name), 
+            db:like(equipment.weapons.weapon_type, f"%{weapon_type}%")
+          )
+      )
+    end
+  else
+    if weapon_type_exact then
+      weapons = db:fetch(equipment.weapons, 
+          db:AND(
+            db:like(equipment.weapons.name, f"%{name}%"), 
+            db:eq(equipment.weapons.weapon_type, weapon_type)
+          )
+      )
+    else
+      weapons = db:fetch(equipment.weapons, 
+          db:AND(
+            db:like(equipment.weapons.name, f"%{name}%"), 
+            db:like(equipment.weapons.weapon_type, f"%{weapon_type}%")
+          )
+      )
+    end
+  end
+  
+  local sorted = false
+  
+  --sometimes sorting once doesn't do the trick, for some odd reason
+  repeat
+    table.sort(weapons, sort_weapons)
+    sorted = true
+  
+    for i=1, table.size(weapons)-1, 1 do
+      if not sort_weapons(weapons[i], weapons[i+1]) then
+        sorted = false
+      end
+    end
+  until(sorted)
+  
+  return weapons
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>equip_db:get_armor</name>
+				<packageName></packageName>
+				<script>local function sort_armor(e1, e2)
+  --sort first by setup, then eq slot, then abs, then db, then pb, then mvs
+  
+  local order = {"", "head", "body", "arms", "hands", "legs", "feet", "shield"}
+  
+  if e1.setup &lt; e2.setup then
+    return true
+  elseif e1.setup &gt; e2.setup then
+    return false
+  else
+    if table.index_of(order, e1.eq_slot) &lt; table.index_of(order, e2.eq_slot) then
+      return true
+    elseif table.index_of(order, e1.eq_slot) &gt; table.index_of(order, e2.eq_slot) then
+      return false
+    else
+      if e1.abs &gt; e2.abs then
+        return true
+      elseif e1.abs &lt; e2.abs then
+        return false
+      else
+        if e1.db &gt; e2.db then
+          return true
+        elseif e1.db &lt; e2.db then
+          return false
+        else
+          if e1.pb &gt; e2.pb then
+            return true
+          elseif e1.pb &lt; e2.pb then
+            return false
+          else
+            if e1.mvs &gt; e2.mvs then
+              return true
+            elseif e1.mvs &lt; e2.mvs then
+              return false
+            else
+              return true
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+function equip_db:get_armor(name, name_exact, eq_slot, eq_slot_exact)
+  local equipment = db:get_database("equipment")
+  
+  name = name or ""
+  eq_slot = eq_slot or ""
+  
+  local armor
+  
+  if name_exact then
+    if eq_slot_exact then
+      armor = db:fetch(equipment.armor, 
+        db:AND(
+          db:eq(equipment.armor.name, name), 
+          db:eq(equipment.armor.eq_slot, eq_slot)
+        )
+      )
+    else
+      armor = db:fetch(equipment.armor, 
+        db:AND(
+          db:eq(equipment.armor.name, name), 
+          db:like(equipment.armor.eq_slot, f"%{eq_slot}%")
+        )
+      )
+    end
+  else
+    if eq_slot_exact then
+      armor = db:fetch(equipment.armor, 
+        db:AND(
+          db:like(equipment.armor.name, f"%{name}%"), 
+          db:eq(equipment.armor.eq_slot, eq_slot)
+        )
+      )
+    else
+      armor = db:fetch(equipment.armor, 
+        db:AND(
+          db:like(equipment.armor.name, f"%{name}%"), 
+          db:like(equipment.armor.eq_slot, f"%{eq_slot}%")
+        )
+      )
+    end  
+  end
+  
+  local sorted = false
+  
+  --sometimes sorting once doesn't do the trick, for some odd reason
+  repeat
+    table.sort(armor, sort_armor)
+    sorted = true
+  
+    for i=1, table.size(armor)-1, 1 do
+      if not sort_armor(armor[i], armor[i+1]) then
+        sorted = false
+      end
+    end
+  until(sorted)
+  
+  return armor
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>equip_db:get_trinkets</name>
+				<packageName></packageName>
+				<script>local function sort_trinkets(e1, e2)
+  --sort first by setup, then eq slot, then db, then pb, then mvs
+  
+  local order = {"", "finger", "neck", "wrist", "cloak", "belt", "sheath"}
+  
+  if e1.setup &lt; e2.setup then
+    return true
+  elseif e1.setup &gt; e2.setup then
+    return false
+  else
+    if table.index_of(order, e1.eq_slot) &lt; table.index_of(order, e2.eq_slot) then
+      return true
+    elseif table.index_of(order, e1.eq_slot) &gt; table.index_of(order, e2.eq_slot) then
+      return false
+    else
+      if e1.db &gt; e2.db then
+        return true
+      elseif e1.db &lt; e2.db then
+        return false
+      else
+        if e1.pb &gt; e2.pb then
+          return true
+        elseif e1.pb &lt; e2.pb then
+          return false
+        else
+          if e1.mvs &gt; e2.mvs then
+            return true
+          elseif e1.mvs &lt; e2.mvs then
+            return false
+          else
+            return true
+          end
+        end
+      end
+    end
+  end
+end
+
+function equip_db:get_trinkets(name, name_exact, eq_slot, eq_slot_exact)
+  local equipment = db:get_database("equipment")
+  
+  name = name or ""
+  eq_slot = eq_slot or ""
+  
+  local trinkets
+  
+  if name_exact then
+    if eq_slot_exact then
+      trinkets = db:fetch(equipment.trinkets, 
+          db:AND(
+            db:eq(equipment.trinkets.name, name), 
+            db:eq(equipment.trinkets.eq_slot, eq_slot)
+          )
+      )
+    else
+      trinkets = db:fetch(equipment.trinkets, 
+          db:AND(
+            db:eq(equipment.trinkets.name, name), 
+            db:like(equipment.trinkets.eq_slot, f"%{eq_slot}%")
+          )
+      )
+    end
+  else
+    if eq_slot_exact then
+      trinkets = db:fetch(equipment.trinkets, 
+          db:AND(
+            db:like(equipment.trinkets.name, f"%{name}%"), 
+            db:eq(equipment.trinkets.eq_slot, eq_slot)
+          )
+      )
+    else
+      trinkets = db:fetch(equipment.trinkets, 
+          db:AND(
+            db:like(equipment.trinkets.name, f"%{name}%"), 
+            db:like(equipment.trinkets.eq_slot, f"%{eq_slot}%")
+          )
+      )
+    end
+  end
+  
+  local sorted = false
+  
+  --sometimes sorting once doesn't do the trick, for some odd reason
+  repeat
+    table.sort(trinkets, sort_trinkets)
+    sorted = true
+  
+    for i=1, table.size(trinkets)-1, 1 do
+      if not sort_trinkets(trinkets[i], trinkets[i+1]) then
+        sorted = false
+      end
+    end
+  until(sorted)
+  
+  return trinkets
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Show database items</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>equip_db:show_weapons</name>
+				<packageName></packageName>
+				<script>function equip_db:show_weapons(name, name_exact, weapon_type, weapon_type_exact)
+  
+  local weapons = self:get_weapons(name, name_exact, weapon_type, weapon_type_exact)
+  
+  if table.is_empty(weapons) then
+    self:echo("No weapons found in the equipment database.\n", false, true)
+  else
+    cecho("WEAPONS\n\n")
+    local msg_format = "%-45s%s%-7s%-15s%-5s%-5s%-7s%-6s%-9s\n"
+    cecho(string.format(msg_format, "Name", "", "Hands", "Weapon Type", "OB", "PB", "Dmg", "Wt", "Dmg Type"))    
+    
+    for _, item in pairs(weapons) do
+    
+      if string.len(item.name) &lt; 45 then
+        msg_format = "%-45s%s%-7s%-15s%-5s%-5s%-7s%-6s%-9s\n"
+      else
+        msg_format = "%-45s\n%-45s%-7s%-15s%-5s%-5s%-7s%-6s%-9s\n"
+      end
+      
+      local msg = string.format(msg_format, 
+        item.name,
+        "",
+        item.hands,
+        item.weapon_type,
+        item.ob, 
+        item.pb,
+        item.dmg,
+        item.weight,
+        item.dmg_type
+        )
+      cecho(msg)
+    end
+    cecho("\n")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>equip_db:show_armor</name>
+				<packageName></packageName>
+				<script>function equip_db:show_armor(name, name_exact, eq_slot, eq_slot_exact)
+  local armor = self:get_armor(name, name_exact, eq_slot, eq_slot_exact)
+  
+  if table.is_empty(armor) then
+    self:echo("No armor found in the equipment database.\n", false, true)
+  else
+    cecho("ARMOR\n\n")
+    local msg_format = "%-40s%s%-8s%-6s%-6s%-6s%-5s%-6s%-7s\n"
+    cecho(string.format(msg_format, "Name", "", "Slot", "DB", "PB", "Abs", "Mvs", "Wt", "Setup"))
+    
+    for _, item in pairs(armor) do
+    
+      if string.len(item.name) &lt; 40 then
+        msg_format = "%-40s%s%-8s%-6s%-6s%-6s%-5s%-6s%-7s\n"
+      else
+        msg_format = "%-40s\n%-40s%-8s%-6s%-6s%-6s%-5s%-6s%-7s\n"
+      end
+      
+      local msg = string.format(msg_format, 
+        item.name,
+        "",
+        item.eq_slot,
+        item.db, 
+        item.pb,
+        item.abs,
+        item.mvs,
+        item.weight,
+        item.setup
+        )
+      cecho(msg)
+    end
+    cecho("\n")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>equip_db:show_trinkets</name>
+				<packageName></packageName>
+				<script>function equip_db:show_trinkets(name, name_exact, eq_slot, eq_slot_exact)
+  local trinkets = self:get_trinkets(name, name_exact, eq_slot, eq_slot_exact)
+  
+  if table.is_empty(trinkets) then
+    self:echo("No trinkets found in the equipment database.\n", false, true)
+  else
+    cecho("TRINKETS\n\n")
+    local msg_format = "%-40s%s%-8s%-6s%-6s%-5s%-6s%-7s\n"
+    cecho(string.format(msg_format, "Name", "", "Slot", "DB", "PB", "Mvs", "Wt", "Setup"))
+    
+    for _, item in pairs(trinkets) do
+    
+      if string.len(item.name) &lt; 40 then
+        msg_format = "%-40s%s%-8s%-6s%-6s%-5s%-6s%-7s\n"
+      else
+        msg_format = "%-40s\n%-40s%-8s%-6s%-6s%-5s%-6s%-7s\n"
+      end
+      
+      local msg = string.format(msg_format, 
+        item.name,
+        "",
+        item.eq_slot,
+        item.db, 
+        item.pb,
+        item.mvs,
+        item.weight,
+        item.setup
+        )
+      cecho(msg)
+    end
+    cecho("\n")
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<Script isActive="yes" isFolder="no">
+			<name>equip_db sysConnectionEvent</name>
+			<packageName></packageName>
+			<script>raiseEvent("equip_db:sys_connection_event")
+</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Add target</name>
+			<script>--syntax: t1 xxx, t2 xxx, t3 xxx, t4 xxx, etc.
+
+local colors =
+  {
+    dark = "ansi_red",
+    light = "ansi_cyan",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    grayman = "ansi_red",
+    draghkar = "ansi_red",
+    human = "ansi_cyan",
+    seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white"
+  }
+
+targeting = targeting or {}
+
+local index = tonumber(matches[2])
+local tgt = matches[3]
+local color = colors[tgt] or "reset"
+
+targeting[index] = tgt
+cecho(f"Target {index} set to: &lt;{color}&gt;{tgt}\n")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^t(\d+) (\S+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Target specific</name>
+			<script>--syntax: t1, t2, t3, t4, etc.
+
+local colors =
+  {
+    dark = "ansi_red",
+    light = "ansi_cyan",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    grayman = "ansi_red",
+    draghkar = "ansi_red",
+    human = "ansi_cyan",
+    seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white"
+  }
+  
+targeting = targeting or {}
+
+local index = tonumber(matches[2])
+
+if targeting[index] then
+  local tgt = targeting[index]
+  local color = colors[tgt] or "reset"
+  
+  targeting.currtgt = tgt
+  cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
+  
+else
+  cecho(f"&lt;red&gt;Target {index} not set!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^t(\d+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show targets</name>
+			<script>--syntax: tgts
+
+local colors =
+  {
+    dark = "ansi_red",
+    light = "ansi_cyan",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    grayman = "ansi_red",
+    draghkar = "ansi_red",
+    human = "ansi_cyan",
+    seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white"
+  }
+  
+targeting = targeting or {}
+weaving = weaving or {}
+
+if targeting.currtgt then
+  local color = colors[targeting.currtgt] or "reset"
+  cecho(f"Your current target is: &lt;{color}&gt;{targeting.currtgt}\n")
+end
+
+local pkmode = (targeting.bashing and "bashing") 
+            or (targeting.charging and "charging")
+            or (targeting.stabbing and "stabbing")
+            or (targeting.weaving and "weaving")
+            or "none"
+cecho(f"Your current pk mode is: {pkmode}\n")
+if targeting.weaving then
+  cecho("Longweave set to: "..(weaving.longweave or "none").."\n")
+  cecho("Shortweave set to: "..(weaving.shortweave or "none").."\n")
+end
+
+for i, tgt in ipairs(targeting) do
+  local color = colors[tgt] or "reset"
+  cecho(f"Target {i} = &lt;{color}&gt;{tgt}\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tgts$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Clear Targets</name>
+			<script>--syntax: clear tgts
+
+for i, tgt in ipairs(targeting) do
+  targeting[i] = nil
+end
+targeting.currtgt = nil
+cecho("Targets cleared.\n")
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^clear tgts$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Set current target</name>
+			<script>--syntax: tgt xxx
+
+local colors =
+  {
+    dark = "ansi_red",
+    light = "ansi_cyan",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    grayman = "ansi_red",
+    draghkar = "ansi_red",
+    human = "ansi_cyan",
+    seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white"
+  }
+  
+targeting = targeting or {}
+
+local tgt = matches[2]
+local color = colors[tgt] or "reset"
+  
+targeting.currtgt = tgt
+cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tgt (\S+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show current target</name>
+			<script>--syntax: tgt
+
+local colors =
+  {
+    dark = "ansi_red",
+    light = "ansi_cyan",
+    trolloc = "ansi_red",
+    myrddraal = "ansi_red",
+    dreadlord = "ansi_red",
+    grayman = "ansi_red",
+    draghkar = "ansi_red",
+    human = "ansi_cyan",
+    seanchan = "ansi_magenta",
+    ogier = "ansi_green",
+    aiel = "ansi_white"
+  }
+  
+targeting = targeting or {}
+
+if targeting.currtgt then
+  local tgt = targeting.currtgt
+  local color = colors[tgt] or "reset"
+  
+  cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
+else
+  cecho("&lt;red&gt;Current target not set!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tgt$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Switch PK Modes</name>
+			<script>--syntax: pkmode
+
+targeting=targeting or {}
+
+if targeting.bashing then
+  targeting.bashing=false
+  targeting.charging=true
+  targeting.stabbing=false
+  targeting.weaving=false
+  cecho("PK method set to: charging\n")
+elseif targeting.charging then
+  targeting.bashing=false
+  targeting.charging=false
+  targeting.stabbing=true
+  targeting.weaving=false
+  cecho("PK method set to: stabbing\n")
+elseif targeting.stabbing then
+  targeting.bashing=false
+  targeting.charging=false
+  targeting.stabbing=false
+  targeting.weaving=true
+  cecho("PK method set to: weaving\n")
+elseif targeting.weaving then
+  targeting.bashing=false
+  targeting.charging=false
+  targeting.stabbing=false
+  targeting.weaving=false
+  cecho("PK method set to: none\n")
+else
+  targeting.bashing=true
+  targeting.charging=false
+  targeting.stabbing=false
+  targeting.weaving=false
+  cecho("PK method set to: bashing\n")
+end
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^pkmode$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Attack Target</name>
+			<script>--syntax: p
+
+targeting = targeting or {}
+
+local target = targeting.currtgt
+
+if target then
+  send(f"k {target}")
+else
+  cecho("&lt;red&gt;Current target not set!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^p$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Attack h.Target</name>
+			<script>--syntax: o
+
+targeting = targeting or {}
+
+local target = targeting.currtgt
+
+if target then
+  send(f"k h.{target}")
+else
+  cecho("&lt;red&gt;Current target not set!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^o$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Special on target</name>
+			<script>--syntax: q
+
+targeting = targeting or {}
+weaving = weaving or {}
+
+local target = targeting.currtgt
+
+if target then
+  if targeting.bashing then
+    send(f"bash h.{target}")
+  elseif targeting.charging then
+    send(f"charge h.{target}")
+  elseif targeting.stabbing then
+    send(f"backstab h.{target}")
+  elseif targeting.weaving then
+    if weaving.longweave then
+      send(f"channel '{weaving.longweave}' h.{target}")
+    else
+      send(f"channel 'ice spikes' h.{target}")
+    end
+  else
+    cecho("&lt;red&gt;No pk method set\n")
+  end
+else
+  cecho("&lt;red&gt;Current target not set!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^q$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Diagnose h.target</name>
+			<script>--syntax: a
+
+targeting = targeting or {}
+
+local target = targeting.currtgt
+
+if target then
+  send(f"diagnose h.{target}")
+else
+  cecho("&lt;red&gt;Current target not set!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^a$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

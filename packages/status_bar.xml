@@ -1,0 +1,2252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Notice</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Notice ON!</name>
+				<script>status_bar.char.notice = true
+status_bar.notice:echo("NOTICE", "green", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ffff00</mFgColor>
+				<mBgColor>#ff0000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You start paying increased attention to your surroundings\.$</string>
+					<string>- NOTICE </string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Notice OFF!</name>
+				<script>status_bar.char.notice = false
+status_bar.notice:echo("notice", "red", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00007f</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You stop paying increased attention to your surroundings\.$</string>
+					<string>You sit down\.$</string>
+					<string>You sit down and rest your tired bones\.$</string>
+					<string>You are subjected to the following effects:</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Armor</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Armor ON!</name>
+				<script>status_bar.char.armor = true
+status_bar.armor:echo("ARMOR", "green", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ffff00</mFgColor>
+				<mBgColor>#ff0000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>- ARMOR </string>
+					<string>You weave flows of Spirit around yourself, and you feel protected.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Armor OFF!</name>
+				<script>status_bar.char.armor = false
+status_bar.armor:echo("armor", "red", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00007f</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You suddenly feel less protected.</string>
+					<string>You are subjected to the following effects:</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Sneak</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Sneak ON!</name>
+				<script>status_bar.char.sneak = true
+status_bar.sneak:echo("SNEAK", "green", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ffff00</mFgColor>
+				<mBgColor>#ff0000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>- SNEAK </string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Sneak OFF!</name>
+				<script>status_bar.char.sneak = false
+status_bar.sneak:echo("sneak", "red", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00007f</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You are subjected to the following effects:</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Sneak</name>
+				<script>if matches[5] == "S" then
+  status_bar.char.sneak = true
+  status_bar.sneak:echo("SNEAK", "green", "c")
+else
+  status_bar.char.sneak = false
+  status_bar.sneak:echo("sneak", "red", "c")
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^(o|\*)?((^| )(R|S|F))?( I(\d+))?( R:(\d+))?( S:(\S+))?( HP:(\S+))?( SP:(\S+))?( DP:(\S+))?( MV:(\S+))?(^| )(&gt;|- .+ &gt;)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Posture</name>
+			<script>status_bar.char.posture = matches[2]
+
+local colors = {["Offensive"] = "white", ["Normal"] = "white", ["Defensive"] = "white"}
+
+status_bar.posture:echo(status_bar.char.posture, colors[status_bar.char.posture], "c")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^Your posture is: (\S+)\.$</string>
+				<string>Posture changed to: (\S+)$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Mood</name>
+			<script>status_bar.char.mood = matches[2]
+
+local colors = {["Brave"] = "white", ["Normal"] = "white", ["Wimpy"] = "white", ["Berserk"] = "white"}
+
+status_bar.mood:echo(status_bar.char.mood, colors[status_bar.char.mood], "c")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^Your mood is: (\S+)\.</string>
+				<string>Mood changed to: (\S+)$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Health and Moves</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Standard</name>
+				<script>status_bar.char.hps.current = tonumber(matches[2])
+status_bar.char.hps.max = tonumber(matches[3])
+status_bar.char.mvs.current = tonumber(matches[4])
+status_bar.char.mvs.max = tonumber(matches[5])
+
+local msg_hp = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
+status_bar.hps:echo(msg_hp, "white", "c")
+
+local msg_mvs = f"MV: {status_bar.char.mvs.current}({status_bar.char.mvs.max})"
+status_bar.mvs:echo(msg_mvs, "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You have (-?\d+)\((\d+)\) hit and (-?\d+)\((\d+)\) movement points\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Channeler</name>
+				<script>status_bar.char.hps.current = tonumber(matches[2])
+status_bar.char.hps.max = tonumber(matches[3])
+status_bar.char.sps.current = tonumber(matches[4])
+status_bar.char.sps.max = tonumber(matches[5])
+status_bar.char.mvs.current=tonumber(matches[6])
+status_bar.char.mvs.max = tonumber(matches[7])
+
+local msg_hp = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
+status_bar.hps:echo(msg_hp, "white", "c")
+
+local msg_sp = f"SP: {status_bar.char.sps.current}({status_bar.char.sps.max})"
+status_bar.sps_dps:echo(msg_sp, "white", "c")
+
+local msg_mv = f"MV: {status_bar.char.mvs.current}({status_bar.char.mvs.max})"
+status_bar.mvs:echo(msg_mv, "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You have (-?\d+)\((\d+)\) hit, (-?\d+)\((\d+)\) saidar and (-?\d+)\((\d+)\) movement points\.$</string>
+					<string>You have (-?\d+)\((\d+)\) hit, (-?\d+)\((\d+)\) saidin and (-?\d+)\((\d+)\) movement points\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Fade</name>
+				<script>status_bar.char.hps.current = tonumber(matches[2])
+status_bar.char.hps.max = tonumber(matches[3])
+status_bar.char.dps.current = tonumber(matches[4])
+status_bar.char.dps.max = tonumber(matches[5])
+status_bar.char.mvs.current=tonumber(matches[6])
+status_bar.char.mvs.max = tonumber(matches[7])
+
+local msg_hp = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
+status_bar.hps:echo(msg_hp, "white", "c")
+
+local msg_dp = f"DP: {status_bar.char.dps.current}({status_bar.char.dps.max})"
+status_bar.sps_dps:echo(msg_dp, "white", "c")
+
+local msg_mv = f"MV: {status_bar.char.mvs.current}({status_bar.char.mvs.max})"
+status_bar.mvs:echo(msg_mv, "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You have (-?\d+)\((\d+)\) hit, (-?\d+)\((\d+)\) dark power and (-?\d+)\((\d+)\) movement points\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Autoflee</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Wimpy reset to:</name>
+				<script>status_bar.char.autoflee = tonumber(matches[2])
+local msg = f"Autoflee: {status_bar.char.autoflee}"
+status_bar.autoflee:echo(msg, "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Wimpy reset to: (\d+) hit points\.</string>
+					<string>You will now flee if you go below (\d+) hit points\.$</string>
+					<string>You will flee below: (\d+) Hit Points$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Change Wimpy 0</name>
+				<script>status_bar.char.autoflee = 0
+local msg = "Autoflee: 0"
+status_bar.autoflee:echo(msg, "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You won't flee from any fight now.</string>
+					<string>Mood changed to: Berserk</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Melee Hits</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>((.+) your (.+) into bloody fragments!)</name>
+				<script>status_bar:update_hps_min_max(24, nil)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>((.+) your (.+) into bloody fragments!)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>((.+) your (.+) extremely hard\.)</name>
+				<script>status_bar:update_hps_min_max(20, 23)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>((.+) your (.+) extremely hard\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>((.+) your (.+) very hard\.)</name>
+				<script>status_bar:update_hps_min_max(15,19)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>((.+) your (.+) very hard\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>((.+) your (.+) hard\.)</name>
+				<script>status_bar:update_hps_min_max(11,14)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>((.+) your (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>((.+) your (.+)\.)</name>
+				<script>status_bar:update_hps_min_max(7,10)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>((.+)(?&lt;!barely) bites your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) blasts your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) cleaves your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) crushes your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) hacks your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) hits your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) lances your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) pierces your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) pounds your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) scythes your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) shoots your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) slashes your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) slices your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) smites your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) stabs your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) stings your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) strikes your (.+)(?&lt;!hard)\.)</string>
+					<string>((.+)(?&lt;!barely) whips your (.+)(?&lt;!hard)\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>((.+) barely (.+) your (.+)\.)</name>
+				<script>status_bar:update_hps_min_max(5,6)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>((.+) barely (?!tickle)(.+) your (.+)\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>((.+) tickles your (.+) with (.+)\.)</name>
+				<script>status_bar:update_hps_min_max(3,4)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>((.+)(?&lt;!barely) tickles your (.+) with (.+)\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>((.+) barely tickles your (.+) with (.+)\.)</name>
+				<script>status_bar:update_hps_min_max(1,2)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>((.+) barely tickles your (.+) with (.+)\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Bleeding</name>
+				<script>status_bar.char.hps.max = status_bar.char.hps.max or 1
+
+if status_bar.char.hps.current then
+  if status_bar.char.hps.current &gt; math.floor(0.2 * status_bar.char.hps.max) then
+    status_bar.char.hps.est_max = math.floor(0.2 * status_bar.char.hps.max)
+    status_bar.char.hps.current = nil
+  end
+else
+  if status_bar.char.hps.est_min and status_bar.char.hps.est_min &gt; math.floor(0.2 * status_bar.char.hps.max) then
+    status_bar.char.hps.est_min = nil
+  end
+  if status_bar.char.hps.est_max then
+    status_bar.char.hps.est_max = math.min(status_bar.char.hps.est_max, math.floor(0.2 * status_bar.char.hps.max))  
+  end
+end
+
+if not status_bar.char.hps.current and status_bar.char.hps.est_min == status_bar.char.hps.est_max then
+  status_bar.char.hps.current = status_bar.char.hps.est_min
+  status_bar.char.hps.est_min = nil
+  status_bar.char.hps.est_max = nil
+end
+
+local msg = "Hit Points"
+if status_bar.char.hps.current then
+  msg = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
+else
+  msg = "HP: "..(status_bar.char.hps.est_min or "???").."-"..(status_bar.char.hps.est_max or "???")..f"({status_bar.char.hps.max})"
+end  
+status_bar.hps:echo(msg, "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You wish that your wounds would stop BLEEDING so much!</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>You are dead</name>
+			<script>status_bar.char.hps.current = 1
+local msg_hps = f"HP: {status_bar.char.hps.current}({status_bar.char.hps.max})"
+status_bar.hps:echo(msg_hps, "white", "c")
+
+status_bar.char.mvs.current = 1
+local msg_mvs = f"MV: {status_bar.char.mvs.current}({status_bar.char.mvs.max})"
+status_bar.mvs:echo(msg_mvs, "white", "c")
+
+status_bar.char.fleelag = {min = 0, max = 0}
+local msg_fleelag = "Fleelag: 0"
+status_bar.fleelag:echo(msg_fleelag, "white", "c")
+
+status_bar.char.charge_pulses = {min = 7, max = 7}
+local msg_charge_pulses = "Charge pulses: 7"
+status_bar.charge_pulses:echo(msg_charge_pulses, "white", "c")
+
+status_bar.char.notice = false
+status_bar.notice:echo("notice", "red", "c")
+
+status_bar.one_power:echo("released", "red", "c")
+
+status_bar.char.armor = false
+status_bar.armor:echo("armor", "red", "c")
+
+status_bar.char.sneak = false
+status_bar.sneak:echo("sneak", "red", "c")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>You are dead!  Sorry...</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>3</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Stats</name>
+			<script>status_bar.char.int = tonumber(matches[3])
+status_bar.char.wil = tonumber(matches[4])
+status_bar.char.con=tonumber(matches[6])
+
+if status_bar.char.level then
+  status_bar.char.sps.max = status_bar.char.sps.max or 7 * status_bar.char.wil + math.min(status_bar.char.level, 30)
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^Your base abilities are: Str:(\d+) Int:(\d+) Wil:(\d+) Dex:(\d+) Con:(\d+)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Level</name>
+			<script>status_bar.char.level = tonumber(matches[3])
+
+if status_bar.char.wil then
+  status_bar.char.sps.max = status_bar.char.sps.max or 7 * status_bar.char.wil + math.min(status_bar.char.level, 30)
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^This ranks you as (.+) \(Level (\d+)\)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Personal Health and Movement Points</name>
+			<script>local hps = matches[13]
+local sps = matches[15]
+local dps = matches[17]
+local mvs = matches[19]
+
+if hps ~= "" then
+  status_bar:update_hps_with_range(hps)
+end
+if sps ~= "" then
+  status_bar:update_sps_with_range(sps)
+end
+if dps ~= "" then
+  status_bar:update_dps_with_range(dps)
+end
+if mvs ~= "" then
+  status_bar:update_mvs_with_range(mvs)
+end</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^(o|\*)?((^| )(R|S|F))?( I(\d+))?( R:(\d+))?( S:(\S+))?( HP:(\S+))?( SP:(\S+))?( DP:(\S+))?( MV:(\S+))?(^| )(&gt;|- .+ &gt;)</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>One Power</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You feel the flows of</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#55aaff</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You feel the flows of</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>saidin</name>
+					<script>status_bar.char.one_power = true
+status_bar.one_power:echo("SEIZED", "green", "c")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You feel the flows of saidin coursing through your body.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>saidar</name>
+					<script>status_bar.char.one_power = true
+status_bar.one_power:echo("EMBRACED", "green", "c")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You feel the flows of saidar coursing through your body.</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You are already in touch with</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#55aaff</mFgColor>
+				<mBgColor>#000000</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You are already in touch with</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>saidin</name>
+					<script>status_bar.char.one_power = true
+status_bar.one_power:echo("SEIZED", "green", "c")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You are already in touch with saidin, can't you feel it?</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>saidar</name>
+					<script>status_bar.char.one_power = true
+status_bar.one_power:echo("EMBRACED", "green", "c")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You are already in touch with saidar, can't you feel it?</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>3</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Released</name>
+				<script>status_bar.char.one_power = false
+status_bar.one_power:echo("released", "red", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You aren't in touch with saidin to release anything.</string>
+					<string>You aren't in touch with saidar to release anything.</string>
+					<string>You feel an icy chill as if you plunged into a cold river.</string>
+					<string>You feel no connection to the True Source to release.</string>
+					<string>You can't alter a weave when you aren't in touch with the Source.</string>
+					<string>You fight a wave of sickness, and saidin slips from your grasp.</string>
+					<string>You are unable to sense the True Source at all from here.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>DS Smells</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Set to no smells</name>
+				<script>status_bar.smells:echo("0 humans", "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Players in your Zone</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You catch a faint scent of a horse nearby.</name>
+				<script>status_bar.smells:echo("1 human", "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You catch a faint scent of a horse nearby.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You catch the scent of horses nearby.</name>
+				<script>status_bar.smells:echo("2-3 humans", "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You catch the scent of horses nearby.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You catch the scent of many horses nearby.</name>
+				<script>status_bar.smells:echo("4+ humans", "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You catch the scent of many horses nearby.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You catch a smell of horses nearby.</name>
+				<script>status_bar.smells:echo("1+ humans", "white", "c")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You catch a smell of horses nearby.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Edit tabs displayed based on character</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Non fade</name>
+				<script>status_bar.char.sex = matches[2]
+status_bar.char.race = matches[3]
+status_bar.char.class = matches[4]
+
+if status_bar.char.race == "trolloc" then
+  status_bar.tab_settings["smells"].display = true
+else
+  status_bar.tab_settings["smells"].display = false
+end
+
+if status_bar.char.class == "channeler" then
+  status_bar.tab_settings["sps_dps"].display = true
+  status_bar.tab_settings["one_power"].display = true
+else
+  status_bar.tab_settings["sps_dps"].display = false
+  status_bar.tab_settings["one_power"].display = false
+end
+
+status_bar:show_status_bar(true)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.$</string>
+					<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.  It's your birthday today!$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Fade</name>
+				<script>status_bar.char.sex = matches[2]
+status_bar.char.race = "myrddraal"
+status_bar.char.class = "myrddraal"
+
+status_bar.tab_settings["smells"].display = false
+status_bar.tab_settings["sps_dps"].display = true
+status_bar.tab_settings["one_power"].display = false
+
+status_bar:show_status_bar(true)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You are a \d+ year old (\w+) myrddraal\.$</string>
+					<string>^You are a \d+ year old (\w+) myrddraal\.  It's your birthday today!$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Check for posture</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>1</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Your mood is:</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Posture is present</name>
+					<script>status_bar.tab_settings["posture"].display = true
+
+status_bar:show_status_bar(true)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Your posture is:</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>2</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Posture is not present</name>
+					<script>status_bar.tab_settings["posture"].display = false
+
+status_bar:show_status_bar(true)</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>You are wanted by:</string>
+						<string>Your armor absorbs about</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>2</integer>
+						<integer>2</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</Trigger>
+		</TriggerGroup>
+	</TriggerPackage>
+	<TimerPackage>
+		<Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">
+			<name>Status bar tic display</name>
+			<script>if tic_timer and tic_timer.temp_timers.aggro_pulse then
+  --determine current time left on the timer
+  local remaining = remainingTime(tic_timer.temp_timers.aggro_pulse)
+  if remaining then
+    local ctime = tic_timer.configs.tic_length * (5 - tic_timer.configs.aggro_pulse)/6 + remaining
+    status_bar.tic_timer:echo(string.format("TNT: %0.1f", ctime), "white", "c")
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<time>00:00:00.100</time>
+		</Timer>
+	</TimerPackage>
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Width</name>
+			<script>val = matches[2]
+if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+  status_bar:echo("Width must be a positive number (interpreted as a percentage of screen width).\n",false,true)
+else
+  val = f"{val}%"
+  status_bar:echo(f"Status bar width updated from ({status_bar.configs.w}) to ({val}).\n")
+  status_bar.configs.w = val
+  
+  local mx, my = getMainWindowSize()
+  local x = getBorderLeft() / mx * 100
+  status_bar.configs.x = f"{x}%"
+  
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", status_bar.configs)
+  status_bar:show_status_bar(true)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^status bar width (\d+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Height</name>
+			<script>val = matches[2]
+if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+  status_bar:echo("Height must be a positive number (interpreted as a percentage of screen height).\n",false,true)
+else
+  val = f"{val}%"
+  status_bar:echo(f"Status bar height updated from ({status_bar.configs.h}) to ({val}).\n")
+  status_bar.configs.h = val
+  status_bar.configs.y = f"-{val}"
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", status_bar.configs)
+  status_bar:show_status_bar(true)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^status bar height (\d+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Fontsize</name>
+			<script>val = matches[2]
+if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+  status_bar:echo("Fontsize must be a positive number.\n",false,true)
+else
+  val = tonumber(val)
+  status_bar:echo(f"Status bar fontsize updated from ({status_bar.configs.fontsize}) to ({val}).\n")
+  status_bar.configs.fontsize = val
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", status_bar.configs)
+  status_bar:show_status_bar(true)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^status bar fontsize (\d+)$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar initializations</name>
+			<packageName></packageName>
+			<script>status_bar = status_bar or {}
+
+status_bar.configs = status_bar.configs or 
+  {
+    fontsize = 10,
+    visible = true,
+    x = "0%",
+    y = "-3%",
+    w = "60%",
+    h = "3%"
+  }</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:echo</name>
+			<packageName></packageName>
+			<script>function status_bar:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;gray&gt;(&lt;white&gt;status_bar&lt;gray&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar character information</name>
+			<packageName></packageName>
+			<script>status_bar.char = status_bar.char or
+  {
+    mood = nil,
+    posture = nil,
+    hps = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    sps = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    dps = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    mvs = {
+      max = nil,
+      current = nil,
+      est_max = nil,
+      est_min = nil
+    },
+    autoflee = nil,
+    fleelag = {
+      min = nil,
+      max = nil
+    },
+    charge_pulses = {
+      min = nil,
+      max = nil
+    },
+    notice = nil,
+    sneak = nil,
+    one_power = nil,
+    armor = nil,
+    int = nil,
+    wil = nil,
+    con = nil,
+  }</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar default tabs</name>
+			<packageName></packageName>
+			<script>status_bar.tabs =
+  {
+    "mood",
+    "posture",
+    "hps",
+    "sps_dps",
+    "mvs",
+    "autoflee",
+    "fleelag",
+    "charge_pulses",
+    "notice",
+    "sneak",
+    "one_power",
+    "armor",
+    "smells",
+    "tic_timer"
+  }
+
+status_bar.tab_settings = status_bar.tab_settings or
+  {
+    ["mood"] = {display = true, max_chars = 6, default_text = "Mood"},
+    ["posture"] = {display = true, max_chars = 9, default_text = "Posture"},
+    ["hps"] = {display = true, max_chars = 16, default_text = "Hit Points"},
+    ["sps_dps"] = {display = true, max_chars = 16, default_text = "Spell Points"},
+    ["mvs"] = {display = true, max_chars = 16, default_text = "Movement Points"},
+    ["autoflee"] = {display = true, max_chars = 13, default_text = "Autoflee"},
+    ["fleelag"] = {display = true, max_chars = 16, default_text = "Fleelag"},
+    ["charge_pulses"] = {display = true, max_chars = 20, default_text = "Charge Pulses"},
+    ["notice"] = {display = true, max_chars = 6, default_text = "Notice"},
+    ["sneak"] = {display = true, max_chars = 5, default_text = "Sneak"},
+    ["one_power"] = {display = true, max_chars = 9, default_text = "One Power"},
+    ["armor"] = {display = true, max_chars = 5, default_text = "Armor"},
+    ["smells"] = {display = true, max_chars = 10, default_text = "Smells"},
+    ["tic_timer"] = {display = true, max_chars = 9, default_text = "Tic Timer"},
+  }
+
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:show_status_bar</name>
+			<packageName></packageName>
+			<script>function status_bar:show_status_bar(bval)
+
+  local visible = bval
+  self.configs.visible = visible
+  local x, y, w, h = self.configs.x, self.configs.y, self.configs.w, self.configs.h
+  
+  self.container = self.container or Adjustable.Container:new(
+    {
+      name = "status_bar.container",
+      adjLabelstyle = "background-color:rgba(220,220,220,100%); border: 5px groove grey;",
+      buttonstyle=[[
+      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
+      QLabel::hover{ background-color: rgba(160,160,160,50%);}
+      ]],
+      buttonFontSize = 10,
+      buttonsize = 20,
+      titleText = "Status Bar",
+      titleTxtColor = "black",
+      padding = 15
+    }
+  )
+  
+  --determine sum of label sizes in characters
+  local total_chars = 0
+  for _, tab in pairs(self.tabs) do
+    --add max chars for the tab to total chars if the tab is being displayed
+    --add 2 for an empty space on either end of the string
+    if self.tab_settings[tab].display then
+      total_chars = total_chars + self.tab_settings[tab].max_chars + 2
+    end
+  end
+  
+  --starting position in the status bar (as a percentage of the total width)
+  --to be used for the tabs as they are looped over
+  local start = 0
+  
+  for _, tab in pairs(self.tabs) do
+    local w = self.tab_settings[tab].max_chars + 2
+    --convert chars to a percentage, then slightly downsize so there's space at the end of the status bar
+    w = w / total_chars * 100 * 0.997
+    local w_str = string.format("%.2f%%", w)
+    
+  --create labels if necessary
+    if not self[tab] then
+      self[tab] = Geyser.Label:new({name = f"status_bar.{tab}", x = "0%", y = "0%", width = w_str, height = "100%"}, self.container)
+      self[tab]:echo(self.tab_settings[tab].default_text, "white", "c")
+      self[tab]:setStyleSheet([[
+        background-color: black;
+        border: 1px solid gray;
+      ]])
+    end
+    --set the fontsize
+    self[tab]:setFontSize(self.configs.fontsize)
+    
+    --display and move labels if necessary
+    if self.tab_settings[tab].display then
+      local start_str = string.format("%.2f%%", start)
+      self[tab]:resize(w_str, "100%")
+      self[tab]:move(start_str, "0%")
+      self[tab]:show()
+      start = start + w
+    else
+      self[tab]:hide()
+    end
+  end
+  
+  --show or hide status bar container
+  if visible then
+    self.container:show()
+    self.container:move(x, y)
+    self.container:resize(w, h)
+    self.container:attachToBorder("bottom")
+    self.container:lockContainer("full")
+  else
+    self.container:hide()
+  end
+
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:resize</name>
+			<packageName></packageName>
+			<script>function status_bar:resize(event, container_name, width, height, x, y)
+  --get main window size
+  local mx, my = getMainWindowSize()
+  
+  --if the Adjustable.Container is the status bar, calculate new values and convert to percentages
+  if container_name == "status_bar.container" then
+    width = width/mx*100
+    height = height/my*100
+    y = -height
+    self.configs.y = y.."%"
+    self.configs.w = width.."%"
+    self.configs.h = height.."%"
+    
+    --set new bottom border as well
+    setBorderBottom((height + 1) * my / 100)
+  end
+  
+  --regardless of what item was moved, calculate new status bar x position
+  x = getBorderLeft() / mx * 100
+  self.configs.x = f"{x}%"
+  
+  --save to disk
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
+  
+  self:show_status_bar(true)
+end
+
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar:resize")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:sys_connection</name>
+			<packageName></packageName>
+			<script>function status_bar:sys_connection(event)
+  if io.exists(f"{getMudletHomeDir()}/status_bar.configs.lua") then
+    table.load(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
+  end
+  self:show_status_bar(true)
+  raiseEvent("status_bar:sys_connection_event")
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "status_bar:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:sys_disconnection</name>
+			<packageName></packageName>
+			<script>function status_bar:sys_disconnection(event)
+  self.char = {
+    hps = {},
+    sps = {},
+    dps = {},
+    mvs = {},
+    fleelag = {},
+    charge_pulses = {}
+  }
+  --save configuration to disk
+  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
+end
+
+registerAnonymousEventHandler("sysExitEvent", "status_bar:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "status_bar:sys_disconnection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:status_bar_installer_succes</name>
+			<packageName></packageName>
+			<script>function status_bar:status_bar_installer_success(event, name)
+  --if installed file is not the desired one
+  if name ~= "status_bar_scripts" then return end
+  self:show_status_bar(true)
+end
+
+registerAnonymousEventHandler("sysInstallPackage", "status_bar:status_bar_installer_success")</script>
+			<eventHandlerList />
+		</Script>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Update items on tic</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_table_on_tic</name>
+				<packageName></packageName>
+				<script>function status_bar:update_table_on_tic(tab, loss, gain, long_msg, short_msg)
+  tab.max = tab.max or 1
+  if tab.current then
+    tab.est_min = math.max(tab.current + loss, 0)
+    tab.est_max = math.min(tab.current + gain, tab.max)
+    tab.current = nil
+  else
+    if tab.est_min then
+      tab.est_min = math.max(tab.est_min + loss, 0)
+    end
+    if tab.est_max then
+      tab.est_max = math.min(tab.est_max + gain, tab.max)
+    end
+  end
+  
+  if not tab.current and tab.est_min == tab.est_max then
+    tab.current = tab.est_min
+    tab.est_min = nil
+    tab.est_max = nil
+  end
+  
+  local msg = long_msg
+  if tab.current then
+    msg = f"{short_msg}: {tab.current}({tab.max})"
+  else
+    msg = f"{short_msg}: "..(tab.est_min or "???").."-"..(tab.est_max or "???")..f"({tab.max})"
+  end
+  return msg
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_fleelag_on_tic</name>
+				<packageName></packageName>
+				<script>function status_bar:update_fleelag_on_tic(event, exact, is_early, is_late)
+  if is_early then
+    self.char.wil = self.char.wil or 1
+    local fleelag_loss = 1
+    if self.char.wil &lt; 12 then
+      fleelag_loss = 2
+    else
+      fleelag_loss = 3
+    end
+    
+    local msg_flee = "Fleelag"
+    local msg_charge = "Charge Pulses"
+    
+    self.char.fleelag.min = self.char.fleelag.min or 0
+    self.char.fleelag.max = self.char.fleelag.max or 0
+    
+    self.char.fleelag.min = math.floor(self.char.fleelag.min / fleelag_loss)
+    self.char.fleelag.max = math.floor(self.char.fleelag.max / fleelag_loss)
+    
+    self.char.charge_pulses.min = math.min(7 + self.char.fleelag.min, 12)
+    self.char.charge_pulses.max = math.min(7 + self.char.fleelag.max, 12)
+    
+    if self.char.fleelag.min == self.char.fleelag.max then
+      msg_flee = f"Fleelag: {self.char.fleelag.min}"
+    else
+      msg_flee = f"Fleelag: {self.char.fleelag.min}-{self.char.fleelag.max}"
+    end
+    
+    status_bar.fleelag:echo(msg_flee, "white", "c")
+    
+    if self.char.charge_pulses.min == self.char.charge_pulses.max then
+      msg_charge = f"Charge Pulses: {self.char.charge_pulses.min}"
+    else
+      msg_charge = f"Charge Pulses: {self.char.charge_pulses.min}-{self.char.charge_pulses.max}"
+    end
+    
+    self.charge_pulses:echo(msg_charge, "white", "c")
+  end 
+end
+
+registerAnonymousEventHandler("tic", "status_bar:update_fleelag_on_tic")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_health_on_tic</name>
+				<packageName></packageName>
+				<script>function status_bar:update_health_on_tic(event, exact, is_early, is_late)
+  if is_early then
+    self.char.con = self.char.con or 1
+    local hp_regen = {0, 0, 0, 0, 0, 0, 0, 0, 18, 21, 22, 25, 26, 29, 30, 33, 35, 37, 39}
+    
+    local msg = self:update_table_on_tic(self.char.hps, 0, hp_regen[self.char.con],
+                  "Hit Points", "HP")
+    self.hps:echo(msg, "white", "c")
+  end
+end
+
+registerAnonymousEventHandler("tic", "status_bar:update_health_on_tic")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_sps_on_tic</name>
+				<packageName></packageName>
+				<script>function status_bar:update_sps_on_tic(event, exact, is_early, is_late)
+  if self.char.class ~= "channeler" then return end
+  if is_early then
+    self.char.int = self.char.int or 1
+    self.char.wil = self.char.wil or 1
+    local sp_regen = math.floor((self.char.int + self.char.wil)/2)
+    local sp_loss = -1
+    
+    local msg = self:update_table_on_tic(self.char.sps, sp_loss, sp_regen,
+                  "Spell Points", "SP")
+    self.sps_dps:echo(msg, "white", "c")
+  end
+end
+
+registerAnonymousEventHandler("tic", "status_bar:update_sps_on_tic")</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_dps_on_tic</name>
+				<packageName></packageName>
+				<script>function status_bar:update_dps_on_tic(event, exact, is_early, is_late)
+  if self.char.class ~= "myrddraal" then return end
+  if is_early then
+    self.char.int = self.char.int or 1
+    self.char.wil = self.char.wil or 1
+    local dp_regen = math.floor((self.char.int + self.char.wil)/2)
+    local dp_loss = -1
+    
+    local msg = self:update_table_on_tic(self.char.dps, dp_loss, dp_regen,
+                  "Dark Power", "DP")
+    self.dps_dps:echo(msg, "white", "c")
+  end
+end
+
+registerAnonymousEventHandler("tic", "status_bar:update_dps_on_tic")</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Update items with range</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_table_with_range</name>
+				<packageName></packageName>
+				<script>function status_bar:update_table_with_range(tab, lower, upper, long_msg, short_msg)  
+  if tab.current then
+    if tab.current &lt; lower or tab.current &gt; upper then
+      tab.est_min = lower
+      tab.est_max = upper
+      tab.current = nil
+    end
+  else
+    if tab.est_min then
+      tab.est_min = math.min(tab.est_min, upper)
+      tab.est_min = math.max(tab.est_min, lower)
+    else
+      tab.est_min = lower
+    end
+    
+    if tab.est_max then
+      tab.est_max = math.min(tab.est_max, upper)
+      tab.est_max = math.max(tab.est_max, lower)
+    else
+      tab.est_max = upper
+    end
+  end
+  
+  if not tab.current and tab.est_min == tab.est_max then
+    tab.current = tab.est_min
+    tab.est_min = nil
+    tab.est_max = nil
+  end
+  
+  local msg = long_msg
+  if tab.current then
+    msg = f"{short_msg}: {tab.current}({tab.max})"
+  else
+    msg = f"{short_msg}: "..(tab.est_min or "???").."-"..(tab.est_max or "???")..f"({tab.max})"
+  end
+  return msg
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_hps_with_range</name>
+				<packageName></packageName>
+				<script>function status_bar:update_hps_with_range(hps)
+  self.char.hps.max = self.char.hps.max or 1
+  local upper_cutoffs = {
+      Healthy = 1,
+      Scratched = 1 - 1 / self.char.hps.max,
+      Hurt = 0.9,
+      Wounded = 0.75,
+      Battered = 0.5,
+      Beaten = 0.3,
+      Critical = 0.15,
+      Incapacitated = 0
+    }
+  local lower_cutoffs = {
+      Healthy = 1,
+      Scratched = 0.9,
+      Hurt = 0.75,
+      Wounded = 0.5,
+      Battered = 0.3,
+      Beaten = 0.15,
+      Critical = 0,
+      Incapacitated = 0
+    }
+  local upper = math.floor(upper_cutoffs[hps] * self.char.hps.max)
+  local lower = math.ceil(lower_cutoffs[hps] * self.char.hps.max)
+  
+  local msg = self:update_table_with_range(self.char.hps, lower, upper,
+                "Hit Points", "HP")
+  self.hps:echo(msg, "white", "c")
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_mvs_with_range</name>
+				<packageName></packageName>
+				<script>function status_bar:update_mvs_with_range(mvs)
+  self.char.mvs.max = self.char.mvs.max or 1
+  local upper_cutoffs = {
+      Fresh = 1,
+      Full = 1 - 1 / self.char.mvs.max,
+      Strong = 0.9,
+      Tiring = 0.75,
+      Winded = 0.5,
+      Weary = 0.3,
+      Haggard = 0.15,
+      Collapsing = 0
+    }
+  local lower_cutoffs = {
+      Fresh = 1, 
+      Full = 0.9, 
+      Strong = 0.75, 
+      Tiring = 0.5, 
+      Winded = 0.3, 
+      Weary = 0.15, 
+      Haggard = 0,
+      Collapsing = 0
+    }
+  local upper = math.floor(upper_cutoffs[mvs] * self.char.mvs.max)
+  local lower = math.ceil(lower_cutoffs[mvs] * self.char.mvs.max)
+  
+  local msg = self:update_table_with_range(self.char.mvs, lower, upper,
+                "Movement Points", "MV")
+  self.mvs:echo(msg, "white", "c")
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_sps_with_range</name>
+				<packageName></packageName>
+				<script>function status_bar:update_sps_with_range(sps)
+  self.char.sps.max = self.char.sps.max or 1
+  local upper_cutoffs = {
+      Bursting = 1,
+      Full = 1 - 1 / self.char.sps.max,
+      Strong = 0.9,
+      Good = 0.5,
+      Fading = 0.3,
+      Trickling = 0.15,
+      None = 0.01,
+      Spent = 0,
+    }
+  local lower_cutoffs = {
+      Bursting = 1, 
+      Full = 0.9, 
+      Strong = 0.5, 
+      Good = 0.3, 
+      Fading = 0.15, 
+      Trickling = 0.01, 
+      None = 0,
+      Spent = 0,
+    }
+  local upper = math.floor(upper_cutoffs[sps] * self.char.sps.max)
+  local lower = math.ceil(lower_cutoffs[sps] * self.char.sps.max)
+  
+  local msg = self:update_table_with_range(self.char.sps, lower, upper,
+                "Spell Points", "SP")
+  self.sps_dps:echo(msg, "white", "c")
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>status_bar:update_dps_with_range</name>
+				<packageName></packageName>
+				<script>function status_bar:update_dps_with_range(dps)
+  self.char.dps.max = self.char.dps.max or 1
+  local upper_cutoffs = {
+      Bursting = 1,
+      Full = 1 - 1 / self.char.dps.max,
+      Strong = 0.9,
+      Good = 0.5,
+      Fading = 0.3,
+      Trickling = 0.15,
+      None = 0.01,
+      Spent = 0,
+    }
+  local lower_cutoffs = {
+      Bursting = 1, 
+      Full = 0.9, 
+      Strong = 0.5, 
+      Good = 0.3, 
+      Fading = 0.15, 
+      Trickling = 0.01, 
+      None = 0,
+      Spent = 0,
+    }
+  local upper = math.floor(upper_cutoffs[dps] * self.char.dps.max)
+  local lower = math.ceil(lower_cutoffs[dps] * self.char.dps.max)
+  
+  local msg = self:update_table_with_range(self.char.dps, lower, upper,
+                "Dark Power", "DP")
+  self.sps_dps:echo(msg, "white", "c")
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:update_fleelag</name>
+			<packageName></packageName>
+			<script>function status_bar:update_fleelag(event, com)
+  local msg_flee = "Fleelag"
+  local msg_charge = "Charge Pulses"
+  
+  if com ~= nil then
+    if table.contains({"f", "fl", "fle", "flee"}, com:lower()) then
+      self.char.fleelag.min = self.char.fleelag.min or 0
+      self.char.fleelag.max = self.char.fleelag.max or 0
+    
+      self.char.fleelag.min = self.char.fleelag.min + 1
+      self.char.fleelag.max = self.char.fleelag.max + 2
+    
+      self.char.charge_pulses.min = math.min(7 + self.char.fleelag.min, 12)
+      self.char.charge_pulses.max = math.min(7 + self.char.fleelag.max, 12)
+    
+      if self.char.fleelag.min == self.char.fleelag.max then
+        msg_flee = f"Fleelag: {self.char.fleelag.min}"
+      else
+        msg_flee = f"Fleelag: {self.char.fleelag.min}-{self.char.fleelag.max}"
+      end
+      
+      status_bar.fleelag:echo(msg_flee, "white", "c")
+      
+      if self.char.charge_pulses.min == self.char.charge_pulses.max then
+        msg_charge = f"Charge Pulses: {self.char.charge_pulses.min}"
+      else
+        msg_charge = f"Charge Pulses: {self.char.charge_pulses.min}-{self.char.charge_pulses.max}"
+      end
+      
+      self.charge_pulses:echo(msg_charge, "white", "c")
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_fleelag")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:update_hps_min_max</name>
+			<packageName></packageName>
+			<script>function status_bar:update_hps_min_max(mindmg, maxdmg)
+  self.char.hps.max = self.char.hps.max or 1
+  
+  if self.char.hps.current then
+    if maxdmg then
+      self.char.hps.est_min = math.max(self.char.hps.current - maxdmg, 0)
+    end
+    if mindmg then
+      self.char.hps.est_max = math.max(self.char.hps.current - mindmg, 0)
+    end
+    self.char.hps.current = nil
+  else
+    if self.char.hps.est_min then
+      if maxdmg then
+        self.char.hps.est_min = math.max(self.char.hps.est_min - maxdmg, 0)
+      else
+        self.char.hps.est_min = nil
+      end
+    end
+    if self.char.hps.est_max then
+      if mindmg then
+        self.char.hps.est_max = math.max(self.char.hps.est_max - mindmg, 0)
+      else
+        self.char.hps.est_max = nil
+      end
+    end
+  end
+  
+  if not self.char.hps.current and self.char.hps.est_min == self.char.hps.est_max then
+    self.char.hps.current = self.char.hps.est_min
+    self.char.hps.est_min = nil
+    self.char.hps.est_max = nil
+  end
+  
+  local msg = "Hit Points"
+  if self.char.hps.current then
+    msg = f"HP: {self.char.hps.current}({self.char.hps.max})"
+  else
+    msg = "HP: "..(self.char.hps.est_min or "???").."-"..(self.char.hps.est_max or "???")..f"({self.char.hps.max})"
+  end  
+  self.hps:echo(msg, "white", "c")
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:update_sps_with_weave</name>
+			<packageName></packageName>
+			<script>function status_bar:update_sps_with_weave(weave)
+  if not weave then return end
+  
+  local weave_costs = {
+    ["armor"] = 5,
+    ["blind"] = 10,
+    ["call lightning"] = 12,
+    ["change weather"] = 7,
+    ["chill"] = 10,
+    ["contagion"] = 13,
+    ["create fog"] = 7,
+    ["create food"] = 5,
+    ["create phantom object"] = 15,
+    ["create water"] = 5,
+    ["cure blindness"] = 10,
+    ["cure fear"] = 10,
+    ["cure light wounds"] = 7,
+    ["cure poison"] = 12,
+    ["deafen"] = 10,
+    ["delve"] = 3,
+    ["earthquake"] = 15,
+    ["elemental staff"] = 25,
+    ["fear"] = 15,
+    ["fireball"] = 15,
+    ["flame strike"] = 10,
+    ["freeze"] = 15,
+    ["gate"] = 40,
+    ["hailstorm"] = 10,
+    ["hammer of air"] = 12,
+    ["heal"] = 10,
+    ["hurricane"] = 15,
+    ["ice spikes"] = 15,
+    ["incinerate"] = 25,
+    ["light ball"] = 5,
+    ["locate life"] = 12,
+    ["locate object"] = 12,
+    ["poison"] = 10,
+    ["refresh"] = 15,
+    ["remove contagion"] = 10,
+    ["remove warding"] = 10,
+    ["sense warding"] = 10,
+    ["shield"] = 0,
+    ["silence"] = 10,
+    ["sleep"] = 10,
+    ["slice weaves"] = 3,
+    ["slow"] = 10,
+    ["sonic boom"] = 15,
+    ["strength"] = 12,
+    ["sword of flame"] = 30,
+    ["travel"] = 20,
+    ["ward object"] = 10,
+    ["warding vs damage"] = 25,
+    ["warding vs evil"] = 7,
+    ["whirlpool"] = 20,
+  }
+  
+  if not weave_costs[weave] then return end
+  
+  self.char.sps.max = self.char.sps.max or 1
+  
+  if self.char.sps.current then
+    self.char.sps.est_min = math.max(self.char.sps.current - weave_costs[weave], 0)
+    self.char.sps.est_max = self.char.sps.current
+    self.char.sps.current = nil
+  else
+    if self.char.sps.est_min then
+      self.char.sps.est_min = math.max(self.char.sps.est_min - weave_costs[weave], 0)
+    end
+  end
+  
+  if not self.char.sps.current and self.char.sps.est_min == self.char.sps.est_max then
+    self.char.sps.current = self.char.sps.est_min
+    self.char.sps.est_min = nil
+    self.char.sps.est_max = nil
+  end
+  
+  local msg = "Spell Points"
+  if self.char.sps.current then
+    msg = f"SP: {self.char.sps.current}({self.char.sps.max})"
+  else
+    msg = "SP: "..(self.char.sps.est_min or "???").."-"..(self.char.sps.est_max or "???")..f"({self.char.sps.max})"
+  end  
+  self.sps_dps:echo(msg, "white", "c")
+  
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:is_weaving</name>
+			<packageName></packageName>
+			<script>function status_bar:is_weaving(event, com)
+  com = com:lower()
+  
+  if table.contains({"chann", "channe", "channel"}, com:split()[1]) then
+    local weave = com:match("'(.+)'")
+    
+    if weave then
+      self:update_sps_with_weave(weave)
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "status_bar:is_weaving")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:update_one_power</name>
+			<packageName></packageName>
+			<script>function status_bar:update_one_power(event, com)  
+  if com ~= nil then
+    if table.contains({"rel", "rele", "relea", "releas", "release"}, com:lower()) then
+      self.one_power:echo("released", "red", "c")
+    end
+  end
+end
+
+registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_one_power")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>Custom status bar tabs</name>
+			<packageName></packageName>
+			<script>--Edit lines below (or remove them, they're just examples) to add extra tabs that you want
+
+--Be sure to follow the format EXACTLY
+
+--You can then move this script outside of the status_bar_scripts folder,
+--so that it does not get overwritten in the future
+
+--I make no promises that the formatting here will not ever change,
+--but I will do my best
+
+--If you encounter issues/have questions, feel free to reach out and ask!
+
+--In addition, once you make your changes, remove this next line or change the true to false
+--(it's simply here so that this script doesn't do anything by default)
+if true then return end
+
+  
+status_bar = status_bar or {}
+
+function status_bar.custom_tabs(event)
+  --the string here is the reference name for the tab (in this case, "target")
+  --I personally prefer to keep it simple, all lowercase and no spaces (using underscores if needed)
+  --examples (already used by me): "charge_pulses", "hps", "notice", "tic_timer", "sps_dps"
+  if not table.index_of(status_bar.tabs, "target") then
+    table.insert(status_bar.tabs, "target")
+  end
+  if table.index_of(status_bar.tabs, "target") then
+    --display: whether or not to show it
+    --max_chars: the maximum number of characters that may end up displayed in this tab
+    --e.g., for HPs, the longest string in the tab will be of the form "HP: xxx-yyy(zzz)" which is 16 characters
+    --default_text: what should the tab initially display. not super important, can use an empty string, but nice
+    --to give it something for when mudlet boots up so its not empty
+    status_bar.tab_settings["target"] = {display=true, max_chars = 9, default_text = "Target"}
+  end
+  
+  
+  
+  --change what tabs are displayed
+  --the list of default tabs can be found in the "status_bar default tabs" item
+  
+  --if you hate the charge pulses being shown, here's your chance to hide it!
+  status_bar.tab_settings["charge_pulses"].display = false
+   
+  --this simply shows the target tab created above. actually displaying your current target
+  --would require you to add more code to the aliases where you change your target
+  --this simply provides the framework for allocating a spot for it on the status bar
+  status_bar.tab_settings["target"].display = true
+  
+  
+  
+  --Finally, display the status bar with the changes
+  status_bar:show_status_bar(true)
+end
+
+registerAnonymousEventHandler("status_bar:sys_connection_event", "status_bar.custom_tabs")
+</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

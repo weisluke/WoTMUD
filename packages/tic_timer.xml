@@ -1,0 +1,2690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>1 time per tic</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Tic Triggers 1</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>A ball of red light rises slowly from the edge of the grassland, bringing light to the savannah.</string>
+					<string>A blanket of heat covers the land as the sun rises.</string>
+					<string>A bright orange sun rises above the morning fog.</string>
+					<string>A bright sun rises over the forest.</string>
+					<string>A brilliant light spreads across the grassland.</string>
+					<string>A calm descends over the fort as night falls.</string>
+					<string>A chill breeze cuts through you as the sun sinks below the hills.</string>
+					<string>A deep orange sunset heralds the end of the day.</string>
+					<string>A dim orange glow spills over the land as the sun rises to the east.</string>
+					<string>A dismal light is cast across Shayol Ghul with the rising of the sun.</string>
+					<string>A dismal light is cast with the rising of the sun.</string>
+					<string>A dull light is cast through the sickly trees as the sun rises.</string>
+					<string>A feeble light casts shadows across the ruined landscape.</string>
+					<string>A fiery sky shows in the western horizon as the sun sets.</string>
+					<string>A gloomy light is cast across the twisted landscape.</string>
+					<string>A harsh light emerges as the sun rises.</string>
+					<string>A light, airy blue through the trees heralds the sunrise.</string>
+					<string>A rainbow of colors springs to life above the hills.</string>
+					<string>A red sun rises in the east, coloring the forest in shades of red and gold.</string>
+					<string>A shadow is cast over the land as the sun vanishes beyond Garen's Wall.</string>
+					<string>A sickly reddish glow spreads over the world as the sun returns.</string>
+					<string>A warm glow bathes the Illian road in a bright light.</string>
+					<string>A warm glow is cast by the rising sun.</string>
+					<string>A warm glow spreads across the sky as the sun rises in the east.</string>
+					<string>A yellow glow from above descends beneath black spires.</string>
+					<string>Amidst soft colors the sun rises above the mountains in the east.</string>
+					<string>An eerie howl breaks the silence as the sun slowly sets below the horizon.</string>
+					<string>An orange glow covers the grassland as the sun slowly sinks into the horizon.</string>
+					<string>An orange hue paints the sky as the setting sun glints off the Aryth Ocean.</string>
+					<string>As a glorious ball of brightly minted gold, the sun rises in the east.</string>
+					<string>As if by a painter's brush, the sun sets in a sky of violet, red, and blue.</string>
+					<string>As the night falls the cool of night refreshes the land.</string>
+					<string>As the sky burns in shades of fuchsia and gold the sun sets in the west.</string>
+					<string>As the sun dips below the horizon, the sounds of the forest take over.</string>
+					<string>As the sun lowers beneath the horizon, a gloomy darkness descends on the long road.</string>
+					<string>As the sun sets in the west, darkness descends on the forest.</string>
+					<string>As the sun sets over the Fortress of Light, torches blaze to bring the Light again.</string>
+					<string>As the sun sets, its rays fall blindingly on the Sea of Storms.</string>
+					<string>As the sun sets, the nocturnal sounds of the forest take over.</string>
+					<string>As the sun starts to set, the sounds of the night take over.</string>
+					<string>Birds begin to chatter as the sun rises.</string>
+					<string>Birds chirp merrily as the sun rises in the east.</string>
+					<string>Black peaks create looming shadows as the sun drops beneath the horizon.</string>
+					<string>Brilliant colors light the western sky as the sun sets.</string>
+					<string>Casting jagged shadows, the sun rises over Garen's Wall.</string>
+					<string>Casting jagged shadows, the sun rises over the Mountains of Mist.</string>
+					<string>Colorful birds chirp happily as the sun rises out of the eastern seas.</string>
+					<string>Creatures begin to stir among the grass as the sun rises in the east.</string>
+					<string>Dank shadows shroud the trees, the sun dipping beneath the horizon.</string>
+					<string>Dapples of sunlight fall onto the forest floor.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Tic Triggers 2</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Darkness covers the land, hiding the corruption of the Blight.</string>
+					<string>Darkness descends.</string>
+					<string>Darkness descends on the land.</string>
+					<string>Darkness descends throughout the forest.</string>
+					<string>Darkness descends upon the Spine of the World with the setting of the sun.</string>
+					<string>Darkness embraces the land once again.</string>
+					<string>Darkness engulfs the terrain as the sun disappears behind the black mountains.</string>
+					<string>Darkness falls across the road.</string>
+					<string>Darkness falls, casting pitch black shadows.</string>
+					<string>Darkness fills the Blight as the sun sets.</string>
+					<string>Darkness flees as the sun rises.</string>
+					<string>Darkness gently falls as the sun slips behind the rolling hills.</string>
+					<string>Darkness sets in as day turns to night.</string>
+					<string>Darkness settles on the land with the setting of the sun.</string>
+					<string>Darkness shrouds the island as the sun dips below the edge of the horizon.</string>
+					<string>Darkness spreads across the Spine of the World as the sun sets in the west.</string>
+					<string>Dawn breaks, painting the sky with pink and amber hues.</string>
+					<string>Dawn glints through the leaves of Stedding Tsochan.</string>
+					<string>Dawn heralds another storm on the horizon.</string>
+					<string>Day breaks over the hills.</string>
+					<string>Daylight breaches the foliage overhead.</string>
+					<string>Daylight filters in.</string>
+					<string>Daylight filters in through the thick canopy of the forest.</string>
+					<string>Dew settles on the grasslands as darkness descends.</string>
+					<string>Dew settles on the ground as the sun sets west of the mountains.</string>
+					<string>Dusk approaches, bringing glorious darkness upon the land.</string>
+					<string>Dusk gathers like a cloud over Stedding Tsochan.</string>
+					<string>Ebbing red and gold, the sun slowly sinks beneath the horizon.</string>
+					<string>Everything becomes a little darker.</string>
+					<string>Gilded rooftops shimmer as the sun rises above the Tower of Morning.</string>
+					<string>Gloomy light is cast through the dark skies as the sun rises.</string>
+					<string>Gnarled trees cast jagged shadows as the sun drops beneath the horizon.</string>
+					<string>Golden rays of morning sun peak from behind the horizon.</string>
+					<string>Golden rays of sunshine peek over the hills of the surrounding countryside.</string>
+					<string>Golden rays of the sunshine peek over the treetops to the east.</string>
+					<string>Heatwaves shimmer as the blistering sun arcs into the sky.</string>
+					<string>In the west, the setting sun shows the dark silhouette of the Mountains of Mist.</string>
+					<string>Light begins to peak from behind the hills.</string>
+					<string>Light breaks over the horizon through waves of heat as a new day begins.</string>
+					<string>Light fades as the red evening sun slowly drops below the horizon.</string>
+					<string>Light fades to dark, and the air takes on a sharp chill as the sun sets below the horizon.</string>
+					<string>Light reflects off the ocean as the sun rises.</string>
+					<string>Light splashes across the sky as the sun rises above the rooftops of Emonds Field.</string>
+					<string>Long shadows are cast as the sun rises behind the mountains to the east.</string>
+					<string>Long shadows are cast throughout the forest as the sun slowly sets.</string>
+					<string>Long shadows rise along the hills as the sun sets.</string>
+					<string>Low deep bronze tones fill the air as a wind blows from the north.</string>
+					<string>Morning dew glitters in the day's first sunrays.</string>
+					<string>Mountain peaks hide the sun as it sets in the west.</string>
+					<string>Night falls over the ruined city, casting eerie shadows.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Tic Triggers 3</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Radiant hues permeate the horizon as the sun sinks in the west.</string>
+					<string>Rays of light spread over the grasslands, stirring animals to life.</string>
+					<string>Rays of the golden sun spreads over the rugged hills as the sun rises.</string>
+					<string>Ruddy amber hues streak across the vanishing horizon as night falls.</string>
+					<string>Scarlet and gold paint the sky as the sun sets in the west.</string>
+					<string>Shadows dance as the sun makes its way into the sky.</string>
+					<string>Shadows descend upon the land as the sun drops behind the hills to the west.</string>
+					<string>Shadows embrace the city as twilight falls over Seandar.</string>
+					<string>Shadows grow beneath the peaks as dusk arrives.</string>
+					<string>Shadows grow short as the sun rises to the east.</string>
+					<string>Shadows lengthen along Garen's Wall as the sun sets.</string>
+					<string>Shadows lengthen as the sun approaches the horizon.</string>
+					<string>Shadows lengthen as the sun gently sinks behind the horizon.</string>
+					<string>Shadows lengthen as the sun sets beyond the mountains.</string>
+					<string>Shadows race across the land as the sun sets west of the Cliffs of Dawn.</string>
+					<string>Shadows thicken as the sun sets behind the mountains.</string>
+					<string>Soft rays of morning sun peak from behind the rolling hills.</string>
+					<string>Sparkles of light dance upon the sea as the sun rises.</string>
+					<string>Sparkling light draws a track toward the eastern horizon, heralding the sunrise.</string>
+					<string>Tarwin's Gap is blanketed in darkness as the sun sets.</string>
+					<string>The air catches a chill as the sun falls below the horizon.</string>
+					<string>The blazing hot sun sinks beneath the horizon of the Waste.</string>
+					<string>The blazing sun fades into greyness behind the towers.</string>
+					<string>The blazing sun rises over the eastern horizon.</string>
+					<string>The blistering sun scorches the parched ground.</string>
+					<string>The blistering wind gusts with the first rays of dawn over the mountains.</string>
+					<string>The blood red sun disappears behind the mountains.</string>
+					<string>The blush of a new dawn replaces the darkness.</string>
+					<string>The blustery plains are lit up with the sunrise.</string>
+					<string>The boiling red sun slowly rises over the blighted lands.</string>
+					<string>The burning sun rises above the mountains to the east.</string>
+					<string>The burnished disk of the sun settles behind the spires of Tar Valon.</string>
+					<string>The Cliffs of Dawn color red as the sun rises over the exotic land of Shara.</string>
+					<string>The clouds brooding above darken as the sun sets.</string>
+					<string>The clouds in the east burn pink and violet with the rising of the sun.</string>
+					<string>The crows of a nearby rooster signal the approach of dawn.</string>
+					<string>The Dark One releases the sun to illuminate his minions.</string>
+					<string>The Dark One's hand covers the sun.</string>
+					<string>The darkness comes.</string>
+					<string>The darkness leaves.</string>
+					<string>The darkness turns to a bright haze as the sun breaks the horizon to the east.</string>
+					<string>The day breaks, and sunlight starts to stream down onto the jungle floor.</string>
+					<string>The day has begun.</string>
+					<string>The desert air begins to cool with the setting of the sun.</string>
+					<string>The dull red sun becomes visible over the high peaks.</string>
+					<string>The dust of the plains in the air turns golden with the falling hush of dusk.</string>
+					<string>The dying glow on the horizon settles into darkness.</string>
+					<string>The evening sun sinks behind the horizon.</string>
+					<string>The faint rosy hue finally fades away as the sun dips below the horizon.</string>
+					<string>The fiery colors of dawn settle into the forest with the rising sun.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Tic Triggers 4</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>The fires of the sun begin to extinguish as it disappears on the horizon.</string>
+					<string>The first light of dawn illuminates Tarwin's Gap.</string>
+					<string>The first light of morning glows in the eastern sky.</string>
+					<string>The first light of morning shines on Amador.</string>
+					<string>The first rays of dawn appear in the east.</string>
+					<string>The first rays of light peak across the waters of the great sea to the east.</string>
+					<string>The first rays of sun shine on the broken gorge.</string>
+					<string>The forest comes to life with the rising of the sun.</string>
+					<string>The forest comes to life with the song of the forest birds and the chattering of squirrels.</string>
+					<string>The glorious darkness is broken by the rising of the sun.</string>
+					<string>The glow of the morning sun filters through the cracks of Garen's Wall.</string>
+					<string>The golden rays of dawn slowly appear over the palace walls.</string>
+					<string>The golden sun breaches the horizon, burnished rays burning away the night.</string>
+					<string>The golden sun sinks down behind the rugged hills.</string>
+					<string>The hills are awash in shadows as the sun sinks in the west.</string>
+					<string>The hot sun rises above the hard, cracked ground.</string>
+					<string>The howls of wolves fill the air as the sun sets.</string>
+					<string>The Imperial Capital is bathed in a warm glow as the sun rises.</string>
+					<string>The last rays of light begin to fade into blackness.</string>
+					<string>The last rays of light burn red against the foothills.</string>
+					<string>The last rays of light disappear as the sun sets in the west.</string>
+					<string>The last rays of the red sun disappear below the sea of green grass to the west.</string>
+					<string>The last ships sail from the harbor as the sun dips below the Calpene Peninsula.</string>
+					<string>The light becomes a little brighter.</string>
+					<string>The light begins to filter through the trees.</string>
+					<string>The lilac blue of dawn begins to grace the sky from the east.</string>
+					<string>The morning light burns off the reigning darkness in the sky.</string>
+					<string>The night chases the sun over the edge of the world.</string>
+					<string>The night has begun.</string>
+					<string>The nocturnal sounds of the forest begin to rise as the sun sets in the west.</string>
+					<string>The orange disk of the sun sinks below the grassy horizon.</string>
+					<string>The orange glow of the sun descends below the horizon.</string>
+					<string>The orange sun slowly rises from the Sea of Storms.</string>
+					<string>The piercing rays of dawn peek above the eastern horizon.</string>
+					<string>The piercing rays of the sun streak across the morning sky.</string>
+					<string>The pink hues of dusk slowly descend over the palace towers.</string>
+					<string>The plains are covered in a harsh red light as the sun sinks below the horizon.</string>
+					<string>The plains grow dark and lonely with the day's end.</string>
+					<string>The rising sun announces another day.</string>
+					<string>The rising sun casts both warm light and long shadows across the mountains.</string>
+					<string>The rising sun colors the Westwood red and gold.</string>
+					<string>The setting sun casts a dim red glow throughout the forest.</string>
+					<string>The setting sun frames the famed blue dome of Far Madding.</string>
+					<string>The setting sun takes one last look at the world before dropping below the horizon.</string>
+					<string>The shadows lengthen as the sun sinks beyond the horizon.</string>
+					<string>The shrill call of a jungle bird breaks the silence as the sun rises.</string>
+					<string>The sinking sun dips below the moss covered tree limbs.</string>
+					<string>The sky brightens as the sun rises over the Tower of Morning.</string>
+					<string>The sky darkens as the sun sets in the west.</string>
+					<string>The sky glistens with beams of light as the sun rises over Tamika.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Tic Triggers 5</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>The sky glows with subdued light as the sun dips below the horizon.</string>
+					<string>The sky glows with the rising of the sun.</string>
+					<string>The sky grows brighter as the sun peeks above the mountains.</string>
+					<string>The sky is awash in a burst of burning gold and crimson glory as the sun sets.</string>
+					<string>The sky is awash in shades of red and purple as the sun sinks behind the mountains.</string>
+					<string>The sky is painted in shades of red and purple as the sun slowly descends.</string>
+					<string>The sky turns orange and pink as the sun sinks into the Aryth Ocean.</string>
+					<string>The sky turns red as a fiery sun sets in the west.</string>
+					<string>The sky turns the color liquid gold as the sun sets beyond the Mountains of Mist.</string>
+					<string>The sky turns the color liquid gold as the sun sets beyond the plains.</string>
+					<string>The sound of roosters crowing greets the rising sun.</string>
+					<string>The sun begins its journey to its peak in the sky.</string>
+					<string>The sun begins to cast an orange glow on the trees as it rises.</string>
+					<string>The sun breaks into view as it rises over the walls.</string>
+					<string>The sun breaks the darkness as it rises over the eastern peaks.</string>
+					<string>The sun bursts into the eastern skies.</string>
+					<string>The sun casts a dim glow across the barren hills.</string>
+					<string>The sun casts a dim light through dismal skies.</string>
+					<string>The sun casts a golden glow over the city.</string>
+					<string>The sun casts its dreary morning light through the hazy sky.</string>
+					<string>The sun casts its yellow light over the long road.</string>
+					<string>The sun casts rays of burnished gold over the Spine of the World.</string>
+					<string>The sun climbs above the eastern horizon, sparkling on the city and the sea.</string>
+					<string>The sun climbs slowly above the trees in the east.</string>
+					<string>The sun creeps up from below the black towering peaks.</string>
+					<string>The sun creeps up over the trees.</string>
+					<string>The sun crests over the towers of Mayene, flooding the city with light.</string>
+					<string>The sun crests the horizon and light breaks through the trees.</string>
+					<string>The sun crests the horizon lighting the sky afire.</string>
+					<string>The sun crests the peaks of the Dragonwall to the east.</string>
+					<string>The sun descends below the treeline.</string>
+					<string>The sun descends beyond the horizon.</string>
+					<string>The sun descends past the horizon, striking red fire through the fetid air.</string>
+					<string>The sun dips behind the mountains in the west, enveloping the land in shadow.</string>
+					<string>The sun disappears beneath the western horizon.</string>
+					<string>The sun drops below the flat horizon of the plains.</string>
+					<string>The sun drops below the walls of the keep.</string>
+					<string>The sun drops quickly in the west in a glory of color.</string>
+					<string>The sun fades out of sight behind the mountains.</string>
+					<string>The sun falls behind the jagged snowy peaks.</string>
+					<string>The sun falls slowly behind the walls of the city.</string>
+					<string>The sun hits the hay.</string>
+					<string>The sun lowers in the sky, covering the landscape in eery twilight.</string>
+					<string>The sun paints the sky as it sets.</string>
+					<string>The sun peaks over the high watchtower of the keep.</string>
+					<string>The sun peaks over the treetops, shedding light across the land.</string>
+					<string>The sun peeks above the mountains washing the prairie in a yellow glow.</string>
+					<string>The sun peeks across the scorched hills of Kandor.</string>
+					<string>The sun peeks over the eastern seas.</string>
+					<string>The sun peeks over the eastern wall of the city.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Tic Triggers 6</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>The sun peeks over the Mountains of Mist.</string>
+					<string>The sun peeks over the topless towers of the city.</string>
+					<string>The sun peeks over the trees, heralding the dawn of a new day.</string>
+					<string>The sun rises above the tops of the black mountains.</string>
+					<string>The sun rises from behind the distant land of Shara.</string>
+					<string>The sun rises from behind the distant Spine of the World.</string>
+					<string>The sun rises gloriously above the Menagerie.</string>
+					<string>The sun rises in the east above the Spine of the World.</string>
+					<string>The sun rises in the east breathing life into a new day.</string>
+					<string>The sun rises in the east.</string>
+					<string>The sun rises in the eastern sky, setting it afire with color.</string>
+					<string>The sun rises in the eastern sky.</string>
+					<string>The sun rises over the eastern hills.</string>
+					<string>The sun rises over the eastern walls of the castle.</string>
+					<string>The sun rises over the peaks of the Spine.</string>
+					<string>The sun rises slowly from behind the Mountains of Mist.</string>
+					<string>The sun rises through the lilac and gold tinged clouds in the east.</string>
+					<string>The sun rises, bathing the Fortress of Light in a wash of gold.</string>
+					<string>The sun rises, burning away the shadows of the night.</string>
+					<string>The sun rises, casting bright light to drive away the shadows.</string>
+					<string>The sun rises, casting light into the shadows.</string>
+					<string>The sun rises, casting long shadows across the blighted land.</string>
+					<string>The sun rises, cutting through the sharp profiles of rocky mountains.</string>
+					<string>The sun rises.</string>
+					<string>The sun sets behind the city's western wall.</string>
+					<string>The sun sets behind the Spine of the World.</string>
+					<string>The sun sets below the water, turning it into a blaze of glorious colors.</string>
+					<string>The sun sets in the distance.</string>
+					<string>The sun sets in the west as a blaze of dark gold and bronzed red.</string>
+					<string>The sun sets in the western sky, throwing everything into twilight color.</string>
+					<string>The sun sets in the western sky.</string>
+					<string>The sun sets on the hazy western horizon.</string>
+					<string>The sun sets over fields of grain to the west.</string>
+					<string>The sun sets over the broken gorge.</string>
+					<string>The sun sets over the river.</string>
+					<string>The sun sets the plains afire as it rises in the east.</string>
+					<string>The sun sets with a vivid display of colors over the western sky.</string>
+					<string>The sun sets, allowing shadows to creep forward.</string>
+					<string>The sun sets, and the shadows appear to come alive.</string>
+					<string>The sun sets, casting the streets into cool, violet shadows.</string>
+					<string>The sun sets, leaving a crisp coolness.</string>
+					<string>The sun sets, painting the skies over Seandar in a multitude of shades of red.</string>
+					<string>The sun sets, washing the city in fiery colors.</string>
+					<string>The sun sets.</string>
+					<string>The sun sinks behind the Spine of the World.</string>
+					<string>The sun sinks behind the towering trees.</string>
+					<string>The sun sinks behind the waving plains of grass in the west.</string>
+					<string>The sun sinks behind the western wall of the city.</string>
+					<string>The sun sinks behind the Westwood to the west.</string>
+					<string>The sun sinks below the western horizon.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Tic Triggers 7</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>The sun sinks into a cloudbank in the western sky.</string>
+					<string>The sun sinks into the hills.</string>
+					<string>The sun sinks over the sea to the west.</string>
+					<string>The sun sinks quietly beneath the western horizon.</string>
+					<string>The sun sinks slowly beneath the Aryth Ocean on the western horizon.</string>
+					<string>The sun sinks slowly beneath the rolling hills to the west.</string>
+					<string>The sun slides from behind the Aryth Ocean into the early morning sky.</string>
+					<string>The sun slides gently behind the Menagerie tent spires.</string>
+					<string>The sun slides out of sight behind the walls of the Keep.</string>
+					<string>The sun slips below the hills to the west.</string>
+					<string>The sun slips slowly below the city walls.</string>
+					<string>The sun slowly descends behind the hills.</string>
+					<string>The sun slowly disappears in the western horizon.</string>
+					<string>The sun slowly rises above the plains.</string>
+					<string>The sun slowly rises, casting a warm glow across the Saldaean fields.</string>
+					<string>The sun slowly sets over the castle walls to the west.</string>
+					<string>The sun slowly sinks into the mountains to the west.</string>
+					<string>The sun slowly sets.</string>
+					<string>The sun slowly sinks behind the majestic towers of Mayene.</string>
+					<string>The sun slowly sinks in the west, casting long shadows across the city.</string>
+					<string>The sun starts to rise above the walls of the city.</string>
+					<string>The sun vanishes amongst the trees, letting night sweep the land.</string>
+					<string>The sunlight sweeps across the plains with the dawn.</string>
+					<string>The sun's blinding light is reflected in the lakes waters as it sets.</string>
+					<string>The sun's blinding light is reflected in the lake's waters as it sets.</string>
+					<string>The sun's first rays touch the eastern slopes of Garen's Wall.</string>
+					<string>The sun's golden rays glisten over the Aryth ocean as it rises.</string>
+					<string>The sun's light fills the sky as it rises.</string>
+					<string>The sun's orange rays streak the landscape as it sets.</string>
+					<string>The sun's rays flash across the grass as it sets in the west.</string>
+					<string>The symphony of bird song fills the air as the sun filters through the trees.</string>
+					<string>The tall towers above you shimmer brightly in the light of the rising sun.</string>
+					<string>The towers of the palace are painted in burning reds as the sun sets.</string>
+					<string>The twisted forestland darkens as the sun slowly sets.</string>
+					<string>The warmth of the morning sun heats the air.</string>
+					<string>The weak light cast upon the dismal grove dissipates as the sun sets.</string>
+					<string>The western horizon glows in shades of red and violet as the sun sets.</string>
+					<string>The western sky blazes in shades of red as the sun slowly sets.</string>
+					<string>The western sky is ablaze in shades of red as the sun sets.</string>
+					<string>The White Tower is bathed in a reddish orange light as the sun sets.</string>
+					<string>The White Tower's spire gleams softly in the first light of a new day.</string>
+					<string>The world is basked in a purple glow as the sun dips below the hills.</string>
+					<string>The world is submerged into coolness as the sun sinks into the horizon.</string>
+					<string>Thin rays of sunlight pierce the sky over the marshes.</string>
+					<string>Unseen watchers howl as the sun hides behind the horizon.</string>
+					<string>Violet hues light the snow-capped peaks to the west as the sun dips below them.</string>
+					<string>Vivid colors flood the sky as the sun sets over the hills.</string>
+					<string>Warm golden light embraces the palace as the sun rises.</string>
+					<string>Weak daylight fades to black as the sun slowly sets.</string>
+					<string>Weak light filters through the hazy sky as the sun rises.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Tic Triggers 8</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Weak light is cast through the grove as the sun rises.</string>
+					<string>Weak sunlight strains to brighten this blighted wasteland as the sun rises.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Weather</name>
+				<script>if tic_timer.configs.on and (tic_timer.configs.aggro_pulse == 5 or tic_timer.configs.aggro_pulse == 0) then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>The sky starts to get cloudy.</string>
+					<string>The clouds disappear.</string>
+					<string>It starts to rain.</string>
+					<string>The rain stops.</string>
+					<string>Lightning starts to show in the sky.</string>
+					<string>The lightning stops.</string>
+					<string>It starts to snow.</string>
+					<string>The snow stops.</string>
+					<string>The snow is coming down more heavily now.</string>
+					<string>The snow lightens up a bit.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Status effects</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You feel the blindness fade.</string>
+					<string>You feel your limbs are now responding again.</string>
+					<string>You breathe easier again as the cold sweats have faded.</string>
+					<string>You feel less paranoid.</string>
+					<string>You feel better.</string>
+					<string>Your eyes feel less protected.</string>
+					<string>You feel less sure of yourself.</string>
+					<string>Your extra burst of stamina fades.</string>
+					<string>You feel your extra strength fading.</string>
+					<string>You feel less touched by your master, The Great Lord of the Dark.</string>
+					<string>The flows of fire and earth enhancing your vision have dissipated.</string>
+					<string>You feel sober again.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Lights</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>A (.+) begins to dim a little\.$</string>
+					<string>A (.+) is definitely fading\.$</string>
+					<string>A (.+) is about to go out!$</string>
+					<string>A (.+) has gone out!$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Miscellaneous tic triggers</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>The corpse of (.+) has decayed into a pile of dust\.$</string>
+					<string>The dismembered corpse of (.+) has decayed into a pile of dust\.$</string>
+					<string>The corpse of (.+) decays in your hands\.$</string>
+					<string>(.+) incinerates into a pile of smoldering ashes\.$</string>
+					<string>The Wheel of Time spins</string>
+					<string>The Wheel of Time turns toward</string>
+					<string>The fog dissipates...</string>
+					<string>A glowing portal fades from existence.</string>
+					<string>You feel parched from the hot weather.</string>
+					<string>You move slightly, settling your cloak into position.</string>
+					<string>As you watch (.+) seems to melt into the background, vanishing\.$</string>
+					<string>You have been idle, and are pulled into a void.</string>
+					<string>(.+) disappears into the void\.$</string>
+					<string>Your heartbeat calms down more as you feel less panicked.</string>
+					<string>Your heartbeat races very rapidly as your forehead throbs.</string>
+					<string>Malfeasor, the twin bladed scythe of blood ebony (.*)stops glowing\.\.\.$</string>
+					<string>Malfeasor, the twin bladed scythe of blood ebony (.*)begins to glow\.\.\.$</string>
+					<string>The ancient greatsword, Justice (.*)stops glowing\.\.\.$</string>
+					<string>The ancient greatsword, Justice (.*)begins to glow\.\.\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Moon phases</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>The waxing crescent moon rises over the eastern horizon.</string>
+					<string>The first quarter moon rises over the eastern horizon.</string>
+					<string>The waxing gibbous moon rises over the eastern horizon.</string>
+					<string>The full moon rises over the eastern horizon.</string>
+					<string>The waning gibbous moon rises over the eastern horizon.</string>
+					<string>The third quarter moon rises over the eastern horizon.</string>
+					<string>The waning crescent moon rises over the eastern horizon.</string>
+					<string>The waxing crescent moon sinks into the western horizon.</string>
+					<string>The first quarter moon sinks into the western horizon.</string>
+					<string>The waxing gibbous moon sinks into the western horizon.</string>
+					<string>The full moon sinks into the western horizon.</string>
+					<string>The waning gibbous moon sinks into the western horizon.</string>
+					<string>The third quarter moon sinks into the western horizon.</string>
+					<string>The waning crescent moon sinks into the western horizon.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Eclipse</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>The dark moon partially occludes the sun, casting the day into a twilight gloom.</string>
+					<string>The dark moon totally occludes the sun, turning it black and haloed by a fiery ring.</string>
+					<string>The eclipse ends, returning the sun to its full brightness.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>2 times per tic</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>2 times per tic</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(2)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(.+) coughs and shivers\.$</string>
+					<string>You cough and shiver.</string>
+					<string>(.+) regains consciousness\.$</string>
+					<string>A baker bellows 'Time to make the donuts!'</string>
+					<string>You feel a sudden wave of nausea.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>6 times per tic</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>General</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(6)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(A|An|The) (.+) flaps (his|her|its) wings and flies high into the sky\.$</string>
+					<string>(A|An|The) (.+) is flying much lower now\.\.\.$</string>
+					<string>(A|An|The) (.+) flaps (his|her|its) wings as (he|she|it) comes in to land nearby\.$</string>
+					<string>(A|An|The) (.+) flaps (his|her|its) wings and begins to fly\.$</string>
+					<string>A shrill piercing scream reverberates through the area.</string>
+					<string>The (.+) gatekeeper closes the (.+)\.$</string>
+					<string>The (.+) gatekeeper locks the (.+)\.$</string>
+					<string>A (.+) gatekeeper closes the (.+)\.$</string>
+					<string>A (.+) gatekeeper locks the (.+)\.$</string>
+					<string>A (.+) Gatekeeper closes the (.+)\.$</string>
+					<string>A (.+) Gatekeeper locks the (.+)\.$</string>
+					<string>A rat starts following you.</string>
+					<string>A crow starts following you.</string>
+					<string>A raven starts following you.</string>
+					<string>A (.+) lamplighter runs off, mumbling about some low-paying job\.$</string>
+					<string>A (.+) lamplighter looks at a streetlamp and nods\.$</string>
+					<string>A (.+) lamplighter lights a streetlamp\.$</string>
+					<string>A (.+) lamplighter exclaims 'Finally\.\. Time to relax and have a beer!'$</string>
+					<string>A (.+) lamplighter extinguishes a streetlamp\.$</string>
+					<string>Someone lights something.</string>
+					<string>The (.+) alarm sounds loudly in the distance\.$</string>
+					<string>The steady toll of a gong calls defenders to the stone.</string>
+					<string>The (.+) alarm horn sounds loudly\.$</string>
+					<string>A loud grinding of stone on concrete resonates from above.</string>
+					<string>The grinding of stone on concrete from above becomes louder.</string>
+					<string>The (.+) alarm horn sounds loudly in the distance\.$</string>
+					<string>The (.+) alarm bell sounds loudly in the distance\.$</string>
+					<string>A (.+) sniffs the ground\.\.\.$</string>
+					<string>A (.+) growls menacingly\.$</string>
+					<string>The (.+) guardsmen ring the city alarm in the distance\.$</string>
+					<string>The Aryth Ocean glows green as the moonlight hits its surface.</string>
+					<string>A flock of ravens starts following you.</string>
+					<string>(A|An|The) (.+) flutters (his|her|its) wings\.$</string>
+					<string>A Tower gateguard closes the (.+)\.$</string>
+					<string>You hear a blood-curdling howl in the distance.</string>
+					<string>Strange rustling noises are evident nearby. This can't be good...</string>
+					<string>Archers' arrows shower down from above.</string>
+					<string>Large rocks shower down from above!</string>
+					<string>Rolling clouds of blackness shroud the skies.</string>
+					<string>Dark clouds billow overhead, filling the skies.</string>
+					<string>Jagged thunder resonates the very depths of Thakan'dar.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Tremalking boat</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(6)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>A ship of some kind is now visible in the distance.</string>
+					<string>A ship is definitely headed in this direction.</string>
+					<string>The Sea Wind is approaching the dock.</string>
+					<string>The Sea Wind is now docked.</string>
+					<string>The captain announces 'The Sea Wind departs in one hour.'</string>
+					<string>The captain announces 'Man your stations crewmen!'</string>
+					<string>The captain commands 'Prepare for departure!'</string>
+					<string>Waves clap loudly against the hull...</string>
+					<string>Whhoooooooossssshhhhh...</string>
+					<string>The grand sails flap loudly in the wind...</string>
+					<string>The ship continues on...</string>
+					<string>The ship steers a bit to starboard...</string>
+					<string>The ship rocks back and forth...</string>
+					<string>The ship begins to slow...</string>
+					<string>The captain says 'We've arrived! Please depart quickly to the docks.'</string>
+					<string>The crew hoists the plank back on board, leaving you off the ship.</string>
+					<string>The Sea Wind departs into the open sea...</string>
+					<string>The captain announces 'The ship departs in one hour.'</string>
+					<string>The Sea Wind steers hard to port...</string>
+					<string>The crew hustles you to the ship entrance.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Mob movement</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(6)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>A city lamplighter has arrived from</string>
+					<string>A city lamplighter leaves</string>
+					<string>A woman has arrived from</string>
+					<string>A woman leaves</string>
+					<string>A man has arrived from</string>
+					<string>A man leaves</string>
+					<string>The ratter has arrived from</string>
+					<string>The ratter leaves</string>
+					<string>A hunter for the horn has arrived from</string>
+					<string>A hunter for the horn leaves</string>
+					<string>An old man has arrived from</string>
+					<string>An old man leaves</string>
+					<string>A black dog has arrived from</string>
+					<string>A black dog leaves</string>
+					<string>A worker has arrived from</string>
+					<string>A worker leaves</string>
+					<string>A villager woman has arrived from</string>
+					<string>A villager woman leaves</string>
+					<string>A small dog has arrived from</string>
+					<string>A small dog leaves</string>
+					<string>A gambler has arrived from</string>
+					<string>A gambler leaves</string>
+					<string>A street sweeper has arrived from</string>
+					<string>A street sweeper leaves</string>
+					<string>A sailor has arrived from</string>
+					<string>A sailor leaves</string>
+					<string>A little boy has arrived from</string>
+					<string>A little boy leaves</string>
+					<string>A little girl has arrived from</string>
+					<string>A little girl leaves</string>
+					<string>A frail, old wisdom has arrived from</string>
+					<string>A frail, old wisdom leaves</string>
+					<string>A beggar has arrived from</string>
+					<string>A beggar leaves</string>
+					<string>A villager has arrived from</string>
+					<string>A villager leaves</string>
+					<string>A frightened young thief has arrived from</string>
+					<string>A frightened young thief leaves</string>
+					<string>A prophet of the dragon has arrived from</string>
+					<string>A prophet of the dragon leaves</string>
+					<string>A poor trash collector has arrived from</string>
+					<string>A poor trash collector leaves</string>
+					<string>The collector has arrived from</string>
+					<string>The collector leaves</string>
+					<string>A lord has arrived from</string>
+					<string>A lord leaves</string>
+					<string>A Domani lady has arrived from</string>
+					<string>A Domani lady leaves</string>
+					<string>An elegant Domani lady has arrived from</string>
+					<string>An elegant Domani lady leaves</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>20 times per tic</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>(You (.+) into bloody fragments!)</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00ff00</mFgColor>
+				<mBgColor>transparent</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You (?!pierce)(?!stab)(.+) into bloody fragments!)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>(You (.+) extremely hard\.)</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00ff00</mFgColor>
+				<mBgColor>transparent</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You (?!pierce)(?!stab)(.+) extremely hard\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>(You (.+) very hard\.)</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00ff00</mFgColor>
+				<mBgColor>transparent</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You (?!pierce)(?!stab)(.+) very hard\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>(You (.+) hard\.)</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00ff00</mFgColor>
+				<mBgColor>transparent</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You bite (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You blast (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You cleave (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You crush (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You hack (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You hit (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You lance (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You pound (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You scythe (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You shoot (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You slash (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You slice (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You smite (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You sting (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You strike (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+					<string>(You whip (.+)(?&lt;!extremely)(?&lt;!very) hard\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>(You (.+)\.)</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00ff00</mFgColor>
+				<mBgColor>transparent</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You bite (.+)(?&lt;!hard)\.)</string>
+					<string>(You blast (.+)(?&lt;!hard)\.)</string>
+					<string>(You cleave (.+)(?&lt;!hard)\.)</string>
+					<string>(You crush (.+)(?&lt;!hard)\.)</string>
+					<string>(You hack (.+)(?&lt;!hard)\.)</string>
+					<string>(You hit (?!yourself)(.+)(?&lt;!hard)\.)</string>
+					<string>(You lance (.+)(?&lt;!hard)\.)</string>
+					<string>(You pound (.+)(?&lt;!hard)\.)</string>
+					<string>(You scythe (.+)(?&lt;!hard)\.)</string>
+					<string>(You shoot (.+)(?&lt;!hard)\.)</string>
+					<string>(You slash (.+)(?&lt;!hard)\.)</string>
+					<string>(You slice (.+)(?&lt;!hard)\.)</string>
+					<string>(You smite (.+)(?&lt;!hard)\.)</string>
+					<string>(You sting (.+)(?&lt;!hard)\.)</string>
+					<string>(You strike (.+)(?&lt;!hard)\.)</string>
+					<string>(You whip (.+)(?&lt;!hard)\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>(You barely (.+)\.)</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00ff00</mFgColor>
+				<mBgColor>transparent</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You barely (?!tickle)(.+)(?&lt;!stab)(?&lt;!pierce)\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>(You tickle (.+) with your (.+)\.)</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00ff00</mFgColor>
+				<mBgColor>transparent</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You tickle (.+) with your (.+)(?&lt;!stab)(?&lt;!pierce)\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>(You barely tickle (.+) with your (.+)\.)</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00ff00</mFgColor>
+				<mBgColor>transparent</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You barely tickle (.+) with your (.+)(?&lt;!stab)(?&lt;!pierce)\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>(You fail to (.+)\.)</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#00ff00</mFgColor>
+				<mBgColor>transparent</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You fail to bite (.+)\.)</string>
+					<string>(You fail to blast (.+)\.)</string>
+					<string>(You fail to cleave (.+)\.)</string>
+					<string>(You fail to crush (.+)\.)</string>
+					<string>(You fail to hack (.+)\.)</string>
+					<string>(You fail to hit (.+)\.)</string>
+					<string>(You fail to lance (.+)\.)</string>
+					<string>(You fail to pound (.+)\.)</string>
+					<string>(You fail to scythe (.+)\.)</string>
+					<string>(You fail to shoot (.+)\.)</string>
+					<string>(You fail to slash (.+)\.)</string>
+					<string>(You fail to slice (.+)\.)</string>
+					<string>(You fail to smite (.+)\.)</string>
+					<string>(You fail to sting (.+)\.)</string>
+					<string>(You fail to strike (.+)\.)</string>
+					<string>(You fail to whip (.+)\.)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Other melee messages</name>
+				<script>if tic_timer.configs.on then
+  tic_timer:pulse_event(20)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>(You strike at (.+), but (.+) through (.+)\.)</string>
+					<string>((.+) swiftly dodges your attempt to (.+)\.)</string>
+					<string>(You try to (.+) dodges the attack\.)</string>
+					<string>(You try to (.+) deflects the blow\.)</string>
+					<string>(You try to (.+) parries successfully\.)</string>
+					<string>You completely miss (.+) with your (.+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>tic_timer_player_engaged</name>
+			<script>enableTrigger("20 times per tic")
+enableTrigger("tic_timer_player_unengaged")
+disableTrigger("tic_timer_player_engaged")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>: (\S+) &gt;</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>tic_timer_player_unengaged</name>
+			<script>disableTrigger("20 times per tic")
+enableTrigger("tic_timer_player_engaged")
+disableTrigger("tic_timer_player_unengaged")</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^(o|\*)?((^| )(R|S|F))?( I(\d+))?( R:(\d+))?( S:(\S+))?( HP:(\S+))?( SP:(\S+))?( DP:(\S+))?( MV:(\S+))?(^| )&gt;</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Moods</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Berserk</name>
+				<script>disableTrigger("20 times per tic")
+disableTrigger("tic_timer_player_engaged")
+disableTrigger("tic_timer_player_unengaged")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Mood changed to: Berserk</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Non-berserk</name>
+				<script>enableTrigger("tic_timer_player_engaged")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Mood changed to: Wimpy</string>
+					<string>Mood changed to: Normal</string>
+					<string>Mood changed to: Brave</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Food/Drink Tic Timer Triggers</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Hungry/Thirsty Tic Timer</name>
+				<script>if tic_timer.configs.on then
+  raiseEvent("tic", true, tic_timer.configs.tic_is_early, tic_timer.configs.tic_is_late)
+end</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You are hungry.</string>
+					<string>You are thirsty.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>3</integer>
+					<integer>3</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Turn off hungry/thirsty tic timer</name>
+				<script>disableTrigger("Hungry/Thirsty Tic Timer")
+enableTrigger("Turn on hungry/thirsty tic timer")
+disableTrigger("Turn off hungry/thirsty tic timer")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You have played (\d+) days and (\d+) hours \(real time\)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="no" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Turn on hungry/thirsty tic timer</name>
+				<script>enableTrigger("Hungry/Thirsty Tic Timer")
+enableTrigger("Turn off hungry/thirsty tic timer")
+disableTrigger("Turn on hungry/thirsty tic timer")</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^(o|\*)?((^| )(R|S|F))?( I(\d+))?( R:(\d+))?( S:(\S+))?( HP:(\S+))?( SP:(\S+))?( DP:(\S+))?( MV:(\S+))?(^| )(&gt;|- .+ &gt;)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Tic timer help</name>
+			<script>--syntax: tic timer help
+
+cecho(tic_timer.help)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer help$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Reset Tic Timer</name>
+			<script>--syntax: tic timer reset
+
+tic_timer:reset()
+tic_timer:echo("&lt;green&gt;Tic timer reset!\n")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer reset$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Toggle Timer</name>
+			<script>--syntax: tic timer
+
+if tic_timer.configs.on then
+  tic_timer:reset()
+  tic_timer.configs.on = false
+  tic_timer:echo("&lt;red&gt;Tic timer OFF!\n")
+else
+  tic_timer:reset()  
+  tic_timer:echo("&lt;green&gt;Tic timer ON and reset!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Set Tic Length</name>
+			<script>--syntax: tic length seconds
+--ex: tic length 63.271
+local tic_length = tonumber(matches[2])
+tic_timer:reset()
+tic_timer.configs.tic_length = tic_length
+tic_timer.tic_history[1] = tic_length
+tic_timer:echo(f"&lt;green&gt;Tic timer reset with a tic length of {tic_length} seconds!\n")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic length (\d+(\.\d+)?)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Set Tic Length Std Dev</name>
+			<script>--syntax: tic length std dev seconds
+--ex: tic length std dev 0.379
+
+tic_timer.configs.tic_length_std_dev = tonumber(matches[2])
+tic_timer:echo(string.format("Tic length std dev updated to: %.3f seconds.\n", tic_timer.configs.tic_length_std_dev))</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic length std dev (\d+(\.\d+)?)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Toggle debug</name>
+			<script>--syntax: tic timer debug
+
+tic_timer.configs.dbug = not tic_timer.configs.dbug
+tic_timer:echo("Tic timer debug set to: " .. (tic_timer.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+table.save(f"{getMudletHomeDir()}/tic_timer.configs.lua", tic_timer.configs)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer debug$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Tic timer mob</name>
+			<script>--syntax: tic timer mob xxx
+--ex: tic timer mob Caemlyn cityguard
+
+local mob = matches[2]
+
+for name, id in pairs(tic_timer.mob_triggers) do
+  killTimer(id)
+  tic_timer.mob_triggers[name] = nil
+end
+
+tic_timer.mob_triggers["the_he"] = tempRegexTrigger(f"The {mob} clambers to his feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["a_he"] = tempRegexTrigger(f"A {mob} clambers to his feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["an_he"] = tempRegexTrigger(f"An {mob} clambers to his feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["the_she"] = tempRegexTrigger(f"The {mob} clambers to her feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["a_she"] = tempRegexTrigger(f"A {mob} clambers to her feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["an_she"] = tempRegexTrigger(f"An {mob} clambers to her feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["the_it"] = tempRegexTrigger(f"The {mob} clambers to its feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["a_it"] = tempRegexTrigger(f"A {mob} clambers to its feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer.mob_triggers["an_it"] = tempRegexTrigger(f"An {mob} clambers to its feet\\.$", 
+  function() 
+    if tic_timer.configs.on then
+      tic_timer:pulse_event(6)
+    end 
+  end)
+tic_timer:echo(f"Created mob stand triggers for ({mob})\n")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer mob (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Tic history</name>
+			<script>--syntax: tic history
+
+display(tic_timer.tic_history)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer history$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Tic warning length</name>
+			<script>--syntax: tic timer warning xxx
+--ex: tic timer warning 7.39
+
+local num = tonumber(matches[2])
+if num &lt;= 10 then
+  tic_timer.configs.tic_warning = tonumber(matches[2])
+  tic_timer:echo(f"Tic warning message updated to {num} seconds.\n")
+  table.save(f"{getMudletHomeDir()}/tic_timer.configs.lua", tic_timer.configs)
+else
+  tic_timer:echo("Tic warning message must be less than 10 seconds.\n", false, true)
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer warning (\d+(\.\d+)?)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show aggro pulses</name>
+			<script>--syntax: tic timer show aggros
+
+tic_timer.configs.show_aggros = not tic_timer.configs.show_aggros
+tic_timer:echo("Tic timer will now " .. (tic_timer.configs.show_aggros and "&lt;green&gt;show&lt;reset&gt;" or "&lt;red&gt;hide&lt;reset&gt;") .. " aggro pulse messages.\n")
+table.save(f"{getMudletHomeDir()}/tic_timer.configs.lua", tic_timer.configs)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer show aggros$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show configs</name>
+			<script>--syntax: tic timer configs
+
+display(tic_timer.configs)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer configs$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Copy tic timer history</name>
+			<script>local txt = ""
+
+for _, time in ipairs(tic_timer.tic_history) do
+  txt = f"{txt}{time}\n"
+end
+
+setClipboardText(txt)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^tic timer copy history$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>tic_timer initializations</name>
+			<packageName></packageName>
+			<script>tic_timer = tic_timer or {}
+
+tic_timer.configs = tic_timer.configs or 
+  {
+    dbug = false,
+    on = true,
+    tic_is_early = true,
+    tic_is_late = false,
+    aggro_is_exact = false,
+    num_tics = -1,
+    aggro_pulse = -1,
+    tic_length = 61.000,
+    tic_length_std_dev = 0.5,
+    tic_warning = 7.0,
+    show_aggros = false
+  }
+
+tic_timer.stopwatch = tic_timer.stopwatch or createStopWatch(false)
+
+tic_timer.temp_timers = tic_timer.temp_timers or {}
+
+tic_timer.mob_triggers = tic_timer.mob_triggers or {}
+
+function tic_timer:reset()
+  --preserve some values
+  local debug = self.configs.dbug
+  local warning = self.configs.tic_warning
+  local aggros = self.configs.show_aggros
+  
+  self.configs = 
+  {
+    dbug = debug,
+    on = true,
+    tic_is_early = true,
+    tic_is_late = false,
+    aggro_is_exact = false,
+    num_tics = -1,
+    aggro_pulse = -1,
+    tic_length = 61.000,
+    tic_length_std_dev = 0.5,
+    tic_warning = warning,
+    show_aggros = aggros
+  }
+  
+  self.tic_history = {61.0, size = 1}
+  
+  resetStopWatch(self.stopwatch)
+  for name, id in pairs(self.temp_timers) do
+    killTimer(id)
+    self.temp_timers[name] = nil
+  end
+  for name, id in pairs(self.mob_triggers) do
+    killTimer(id)
+    self.mob_triggers[name] = nil
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>tic_timer:echo</name>
+			<packageName></packageName>
+			<script>function tic_timer:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;gray&gt;(&lt;white&gt;tic_timer&lt;gray&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>tic_timer:sys_connection</name>
+			<packageName></packageName>
+			<script>function tic_timer:sys_connection(event)
+  if io.exists(f"{getMudletHomeDir()}/tic_timer.configs.lua") then
+    table.load(f"{getMudletHomeDir()}/tic_timer.configs.lua", self.configs)
+  end
+  self.tic_history = {self.configs.tic_length, size = 1}
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "tic_timer:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "tic_timer:sys_connection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>tic_timer:sys_disconnection</name>
+			<packageName></packageName>
+			<script>function tic_timer:sys_disconnection(event)
+  --store current tic length locally
+  local tic_length = self.configs.tic_length
+  --local tic_length_std_dev = self.configs.tic_length_std_dev
+  --reset all variables and kill all timers
+  self:reset()
+  --restore tic length
+  self.configs.tic_length = tic_length
+  --self.configs.tic_length_std_dev = tic_length_std_dev
+  --save configuration to disk
+  table.save(f"{getMudletHomeDir()}/tic_timer.configs.lua", self.configs)
+end
+
+registerAnonymousEventHandler("sysExitEvent", "tic_timer:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "tic_timer:sys_disconnection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>tic_timer store tic lengths and calculate statistics</name>
+			<packageName></packageName>
+			<script>tic_timer.tic_history = tic_timer.tic_history or {tic_timer.configs.tic_length, size = 1}
+
+function tic_timer:push_tic_length(tic_length)
+  self.tic_history.size = self.tic_history.size + 1
+  table.insert(self.tic_history, tic_length)
+end
+
+function tic_timer:pop_tic_length()
+  table.remove(self.tic_history, self.tic_history.size)
+  self.tic_history.size = self.tic_history.size - 1
+end
+
+function tic_timer:tic_length_mean()
+  --calculate the weighted mean
+  --tics weighted by 1/(time since tic + 1)
+  --ie, the current tic is weighted by 1, the previous tic by 1/2, the one before that by 1/3, and so on
+  
+  local sum = 0
+  local weight = 0
+  
+  for i=1, self.tic_history.size, 1 do
+    sum = sum + self.tic_history[i] / (self.tic_history.size + 1 - i)
+    weight = weight + 1 / (self.tic_history.size + 1 - i)
+  end
+  
+  return sum / weight
+end
+
+function tic_timer:tic_length_std_dev()
+  --calculate the weighted standard deviation
+  --see, e.g., https://en.wikipedia.org/wiki/Weighted_arithmetic_mean#Reliability_weights
+  
+  local mean = self:tic_length_mean()
+  
+  local sum = 0
+  --sum of weights
+  local weight = 0
+  --sum of squares of weights
+  local weight2 = 0
+  
+  for i=1, self.tic_history.size, 1 do
+    sum = sum + (self.tic_history[i] - mean) * (self.tic_history[i] - mean) / (self.tic_history.size + 1 - i)
+    weight = weight + 1 / (self.tic_history.size + 1 - i)
+    weight2 = weight2 + 1 / ((self.tic_history.size + 1 - i) * (self.tic_history.size + 1 - i))
+  end
+  --empirically, the tic length standard deviation shouldn't be allowed to drop below 0.5 seconds
+  return math.max(math.sqrt(sum / (weight - weight2 / weight)), 0.5)
+end
+
+
+
+
+
+
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>tic_timer:tic</name>
+			<packageName></packageName>
+			<script>function tic_timer:tic(event, exact, is_early, is_late)
+  --if tic timer is not turned on, do nothing
+  if not self.configs.on then return end
+  
+  --if event is an exact tic and the tic timer is in its default unstarted state
+  if exact and self.configs.num_tics == -1 then
+    self:echo("\nStarting tic timer.")
+  end
+  
+  --if the tic is earlier than expected
+  --increment the number of tics and reset variables
+  if self.configs.tic_is_early then
+    self.configs.num_tics = self.configs.num_tics + 1
+    self.configs.tic_is_early = false
+    self.configs.tic_is_late = true
+  elseif not self.configs.tic_is_late then
+    --if event is seen outside the expected window, echo an error
+    --so that it can be investigated if need be
+    self:echo("\nTic event seen outside the expected window.", true, true)
+    self.configs.tic_is_early = false
+    self.configs.tic_is_late = true
+  end
+  
+  --if event is an exact tic and the number of tics is not 0
+  if exact and self.configs.num_tics ~= 0 then
+    self:echo(f"\nCurrent tic length: {self.configs.tic_length}", true, false)
+    self:echo(f"\nCurrent tic length std dev: {self.configs.tic_length_std_dev}", true, false)
+    
+    --ptl = previous tic length
+    local ptl = self.configs.tic_length
+    local ptl_std_dev = self.configs.tic_length_std_dev
+    
+    local time = getStopWatchTime(self.stopwatch)
+    self:echo(f"\nStopwatch time: {time}", true, false)
+    self:echo(f"\nTic timer num_tics = {self.configs.num_tics}", true, false)
+    
+    if time / self.configs.num_tics &gt; ptl + 3 * ptl_std_dev or time / self.configs.num_tics &lt; ptl - 3 * ptl_std_dev then
+      self:echo(string.format("\nTic length of %.3f during this interval is more than 3 standard deviations from average.", time / self.configs.num_tics), true, true)
+      self:echo("\nIgnoring this tic interval.", true, true)
+    else
+      for i=1,self.configs.num_tics, 1 do
+        self:push_tic_length(time / self.configs.num_tics)
+      end
+      self.configs.tic_length = self:tic_length_mean()
+      --note: std dev calculation requires self.tic_history.size &gt; 1
+      --as it uses the sample standard deviation (divides by sample size - 1)
+      --this should always be true as implemented currently
+      self.configs.tic_length_std_dev = self:tic_length_std_dev()
+    end
+    
+    --do not let tics change by more than 3 standard deviations
+    if self.configs.tic_length &gt; ptl + 3 * ptl_std_dev or self.configs.tic_length &lt; ptl - 3 * ptl_std_dev then
+      self:echo(string.format("\nNew tic length of %.3f is more than 3 standard deviations from average.", self.configs.tic_length), true, true)
+      for i=1, self.configs.num_tics, 1 do
+        self:pop_tic_length()
+      end
+      self:echo("\nIgnoring this tic interval.", true, true)
+      self.configs.tic_length = self:tic_length_mean()
+      self.configs.tic_length_std_dev = self:tic_length_std_dev()
+    end
+    self:echo(string.format("\nTic length updated to: %.3f seconds.", self.configs.tic_length))
+    self:echo(string.format("\nTic length std dev updated to: %.3f seconds.", self.configs.tic_length_std_dev), true, false)
+    self.configs.num_tics = 0
+  end
+  
+  if exact then
+    --if event is an exact tic then reset the stopwatch
+    startStopWatch(self.stopwatch)
+    --set aggro pulse to -1, so that when the aggro_pulse event is called next
+    --it gets properly set to 0
+    self.configs.aggro_pulse = -1
+  end
+  
+  raiseEvent("aggro_pulse", exact)
+end
+
+registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>tic_timer:aggro_pulse</name>
+			<packageName></packageName>
+			<script>function tic_timer:aggro_pulse(event, exact)
+  --aggro pulses occur every 1/6 of a tic
+  local aggro_length = self.configs.tic_length / 6.0
+  
+  --increase the aggro_pulse count
+  self.configs.aggro_pulse = (self.configs.aggro_pulse + 1) % 6
+  
+  
+  --kill off any existing warning timers
+  if self.temp_timers.warning then
+    killTimer(self.temp_timers.warning)
+  end
+    
+  --kill off any existing early tic timers
+  if self.temp_timers.early_tic then
+    killTimer(self.temp_timers.early_tic)
+  end
+  
+  --kill off any existing aggro pulse timers
+  if self.temp_timers.aggro_pulse then
+    killTimer(self.temp_timers.aggro_pulse)
+  end
+
+  --kill off any existing late tic timers
+  if self.temp_timers.late_tic then
+    killTimer(self.temp_timers.late_tic)
+  end
+    
+    
+  --if we are in the last aggro pulse before a tic
+  if self.configs.aggro_pulse == 5 then
+    
+    --warning timer gives a warning before the tic
+    self.temp_timers.warning =
+      tempTimer(aggro_length - self.configs.tic_warning, 
+        function() 
+          self:echo(f"\n&lt;green&gt;Tic in {tic_timer.configs.tic_warning} seconds!\n")
+        end
+      )
+      
+    --early tic timer gives a window before the estimated tic during which a true tic event can arrive
+    self.temp_timers.early_tic =
+      tempTimer(math.max(aggro_length - 3.0 * self.configs.tic_length_std_dev * (self.configs.num_tics + 1), 1), 
+        function() 
+          self.configs.tic_is_early = true
+          self:echo("tic_is_early = true\n", true, false)
+        end
+      )
+    
+    --this aggro pulse timer will raise an estimated tic event
+    self.temp_timers.aggro_pulse = 
+      tempTimer(aggro_length, 
+        function() 
+          raiseEvent("tic", false, self.configs.tic_is_early, self.configs.tic_is_late)
+        end
+      )
+  else
+    --aggro pulse timer raises an aggro pulse event
+    self.temp_timers.aggro_pulse = 
+      tempTimer(aggro_length, 
+        function() 
+          raiseEvent("aggro_pulse", false)
+        end
+      )
+  end
+  
+  --if a tic just occurred
+  if self.configs.aggro_pulse == 0 then
+    --late tic timer gives a window after the estimated tic during which a true tic event can arrive
+    self.temp_timers.late_tic = 
+      tempTimer(math.min(3 * self.configs.tic_length_std_dev * self.configs.num_tics, aggro_length - 1), 
+        function() 
+          self.configs.tic_is_late = false
+          self:echo("tic_is_late = false\n", true, false)
+        end
+      )
+  end
+  
+  if self.configs.show_aggros then
+    if exact and not self.configs.aggro_is_exact then
+      self:echo("\n&lt;red&gt;Exact aggro pulse\n")
+      self.configs.aggro_is_exact = true
+      tempTimer(1, function() self.configs.aggro_is_exact = false end)
+    elseif not exact then
+      self:echo("\n&lt;red&gt;Estimated aggro pulse\n")
+    end
+  end
+    
+end
+
+registerAnonymousEventHandler("aggro_pulse", "tic_timer:aggro_pulse")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>tic_timer:pulse_event</name>
+			<packageName></packageName>
+			<script>function tic_timer:pulse_event(num_events_per_tic)
+  --if tic timer is not turned on or in its default unstarted state, do nothing
+  if not self.configs.on or self.configs.num_tics == -1 then return end
+  
+  --grab current tic timer stopwatch time
+  local time = getStopWatchTime(self.stopwatch)
+  
+  --determine how many total number of events have occurred
+  local num_events = num_events_per_tic * time / self.configs.tic_length
+  
+  --determine the event pulse number. rounds number to nearest integer
+  local event_pulse_num = (math.floor(num_events + 0.5) % num_events_per_tic)
+ 
+  --if event pulse is a tic pulse, raise exact tic event
+  if (event_pulse_num == 0) then
+    raiseEvent("tic", true, self.configs.tic_is_early, self.configs.tic_is_late)
+  --otherwise, determine estimated tic length based on stopwatch time, current number of tics, and event pulse number
+  else
+    self:echo(f"\nCurrent tic length: {self.configs.tic_length}", true, false)
+    
+    --ptl = previous tic length
+    local ptl = self.configs.tic_length
+    local ptl_std_dev = self.configs.tic_length_std_dev
+    
+    self:echo(f"\nStopwatch time: {time}", true, false)
+    self:echo(f"\nTic timer num_tics = {self.configs.num_tics}", true, false)
+    self:echo(f"\nNumber of events: {num_events}", true, false)
+    self:echo(f"\nEvent pulse number: {event_pulse_num} / {num_events_per_tic}", true, false)
+    
+    local est_tic_length = time / (self.configs.num_tics + event_pulse_num / num_events_per_tic)
+    
+    for i=1,self.configs.num_tics + 1, 1 do
+      self:push_tic_length(est_tic_length)
+    end
+    est_tic_length = self:tic_length_mean()
+    for i=1, self.configs.num_tics + 1, 1 do
+      self:pop_tic_length()
+    end
+      
+    if est_tic_length &gt; ptl + 3 * ptl_std_dev or est_tic_length &lt; ptl - 3 * ptl_std_dev then
+      self:echo(string.format("\nTic length of %.3f is more than 3 standard deviations from average.", est_tic_length), true, true)
+      self:echo("\nIgnoring this tic interval.", true, true)
+    else
+      self.configs.tic_length = est_tic_length
+    end
+    self:echo(string.format("\nTic length updated to: %.3f seconds.", self.configs.tic_length), true, false)
+    
+    --if the event happens 6 times per tic, it is an aggro pulse
+    if num_events_per_tic == 6 then
+      --set the aggro pulse number to 1 less than the calculated number
+      --so that when the aggro_pulse event is called next it gets properly set
+      self.configs.aggro_pulse = event_pulse_num - 1
+      raiseEvent("aggro_pulse", true)
+    --if the event happens 2 times per tic, it is a half tic
+    elseif num_events_per_tic == 2 then
+      --set the aggro pulse number to 2 (1 less than a half tic, 3)
+      --so that when the aggro pulse event is called next it gets properly set
+      self.configs.aggro_pulse = 2
+      raiseEvent("aggro_pulse", true)
+    elseif num_events_per_tic == 20 then
+      --the only time something that occurs 20 times a tic
+      --lines up with an aggro pulse is at the half tic mark
+      --set the aggro pulse number to 2 (1 less than a half tic, 3)
+      --so that when the aggro pulse event is called next it gets properly set
+      if event_pulse_num == 10 then
+        self.configs.aggro_pulse = 2
+        raiseEvent("aggro_pulse", true)
+      end
+    end
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>tic_timer help</name>
+			<packageName></packageName>
+			<script>tic_timer.help =
+  [[
+    &lt;cyan&gt;Tic Timer Script&lt;reset&gt;
+
+    This script will attempt to estimate tics and aggro pulses on the MUD. A
+    stopwatch records the time between known tic messages and determines the tic
+    length during that interval based on the estimated number of tic events. Tic
+    lengths are stored in a list and used to calculate the average tic length,
+    which weights each tic length inversely proportional to the time since it
+    occurred. This way, more recent tics are weighted more and can drive up the
+    average as the tic length increases throughout the day. The tic history is used
+    to determine a weighted standard deviation, in order to reject tics which are
+    too long or short. The tic length is periodically adjusted based on known aggro
+    pulse events and combat rounds. 
+    
+    Below is a brief overview of some commands that this script includes. All
+    commands can be found in the appropriate tic timer folder under mudlet aliases.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;tic timer help&lt;reset&gt; - Display this help message
+        &lt;yellow&gt;tic timer reset&lt;reset&gt; - reset the tic timer to its default time settings
+            while preserving the debug, tic warning, and show aggro settings
+        &lt;yellow&gt;tic timer&lt;reset&gt; - toggle the tic timer on and off. toggling twice will
+            reset it
+        &lt;yellow&gt;tic length xxx&lt;reset&gt; - set the tic length to a particular value. this
+            will require an exact tic message from the mud to start the timer again
+            ex: tic length 63, tic length 61.79
+        &lt;yellow&gt;tic length std dev xxx&lt;reset&gt; - adjust the standard deviation used to
+            determine the allowable window for tic events. should only need set if you
+            are consistently seeing messages about events occuring outside the window
+            ex: tic length std dev 1, tic length std dev 0.739
+        &lt;yellow&gt;tic timer debug&lt;reset&gt; - toggle displaying debug messages
+        &lt;yellow&gt;tic timer mob xxx&lt;reset&gt; - create triggers for mob stands that will be used to judge aggro
+            pulse events. The temporary triggers created reset on mudlet disconnection,
+            and are of the form "(The)(A)(An) xxx clambers to (his)(her)(its) feet."
+            The provided mob is case sensitive.
+            ex: tic timer mob Caemlyn cityguard, tic timer mob chicken
+        &lt;yellow&gt;tic timer history&lt;reset&gt; - display the stored tic length history
+        &lt;yellow&gt;tic timer warning&lt;reset&gt; - set how early the tic warning message displays
+            ex: tic timer warning 7, tic timer warning 5, tic timer warning 3.21
+        &lt;yellow&gt;tic timer show aggros&lt;reset&gt; - toggle whether the tic timer will show
+            or hide estimated/exact aggro pulse messages
+        
+]]</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

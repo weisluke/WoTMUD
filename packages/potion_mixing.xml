@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Get Potion Herbs Container</name>
+			<script>local potion = matches[2]
+local container = matches[3]
+potions =
+  {
+    fear = {sunburst = 1, dogwort = 1, juniper = 1, belladonna = 2},
+    poison = {goatflower = 1, gheandin = 2, willow = 1, tincture = 1, healall = 1},
+    moves = {flatwort = 3, kaf = 2, ivy = 1},
+    strength = {goatflower = 3, nightsbane = 1, fennel = 1, willow = 1},
+    blind = {sheepstongue = 2, crimson = 1, sleepwell = 1, healall = 1},
+    tinful = {flatwort = 2, fennel = 2, willow = 1, goatflower = 1},
+    forkroot = {forkroot = 3, sleepwell = 1, belladonna = 1, sheepstongue = 1}
+  }
+for herb, num in pairs(potions[potion]) do
+  for i = 1, num, 1 do
+    send(f"get {herb} {container}")
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^get (fear|poison|moves|strength|blind|tinful|forkroot) herbs (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Mix Potion Container</name>
+			<script>local potion = matches[2]
+local container = matches[3]
+potions =
+  {
+    fear = {sunburst = 1, dogwort = 1, juniper = 1, belladonna = 2},
+    poison = {goatflower = 1, gheandin = 2, willow = 1, tincture = 1, healall = 1},
+    moves = {flatwort = 3, kaf = 2, ivy = 1},
+    strength = {goatflower = 3, nightsbane = 1, fennel = 1, willow = 1},
+    blind = {sheepstongue = 2, crimson = 1, sleepwell = 1, healall = 1},
+    tinful = {flatwort = 2, fennel = 2, willow = 1, goatflower = 1},
+    forkroot = {forkroot = 3, sleepwell = 1, belladonna = 1, sheepstongue = 1}
+  }
+for herb, num in pairs(potions[potion]) do
+  for i = 1, num, 1 do
+    send(f"put {herb} {container}")
+  end
+end
+send(f"mix {container}")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^mix (fear|poison|moves|strength|blind|tinful|forkroot) (.+)$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

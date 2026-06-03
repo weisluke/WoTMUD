@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Set Container</name>
+			<script>--syntax: setcontainer xxx
+
+container = container or {}
+
+if matches[3] then
+  container.first = matches[3]
+  cecho(f"Container is set as: &lt;gold&gt;{container.first}\n")
+elseif container.first then
+  cecho(f"Container is set as: &lt;gold&gt;{container.first}\n")
+else
+  cecho("&lt;red&gt;Container not set!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^setcontainer( (\S+))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Delete Container</name>
+			<script>--syntax: delcontainer
+
+container = container or {}
+
+container.first = nil
+cecho("&lt;red&gt;Container deleted!\n")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^delcontainer$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Set Drink</name>
+			<script>--syntax: setdrink
+
+drink = drink or {}
+
+if matches[3] then
+  drink.first = matches[3]
+  cecho(f"Drink is set as: &lt;gold&gt;{drink.first}\n")
+elseif drink.first then
+  cecho(f"Drink is set as: &lt;gold&gt;{drink.first}\n")
+else
+  cecho("&lt;red&gt;Drink not set!\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^setdrink( (\S+))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Delete Drink</name>
+			<script>--syntax: deldrink
+
+drink = drink or {}
+
+drink.first = nil
+cecho("&lt;red&gt;Drink deleted!\n")</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^deldrink$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage />
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

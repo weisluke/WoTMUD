@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Install help</name>
+			<script>cecho(wotpack_installer.help)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack help$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>View available files</name>
+			<script>local packages = wotpack_installer.packages
+local num_packages = table.size(packages)
+
+table.sort(packages)
+
+local n_cols = 5
+local n_rows = math.floor(num_packages / n_cols) + 1
+
+wotpack_installer:echo("Files currently available for installation:\n")
+cecho("----------------------------------------------------------------------------------------------------\n")
+for i=1,n_rows,1 do
+  for j=1,n_cols,1 do
+    local package = packages[(j - 1) * n_rows + i]
+    if package then
+      cechoLink(string.format("%-19s|", package), 
+        function()
+          local package = package
+          wotpack_installer:download(package) 
+        end, 
+        f"Click to install {package} package", 
+        true
+      )
+    end
+  end
+  cecho("\n")
+end
+cecho("----------------------------------------------------------------------------------------------------\n")
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack view files$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Installer Base</name>
+			<script>--syntax: wotpack update
+
+wotpack_installer:download("wotpack_installer")
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack update$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Install All</name>
+			<script>--syntax: wotpack install all
+
+for _, package in pairs(wotpack_installer.packages) do
+  wotpack_installer:download(package)
+end
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack install all$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Uninstall All</name>
+			<script>--syntax: wotpack uninstall xxx yyy
+
+for _, package in pairs(wotpack_installer.packages) do
+  uninstallPackage(package)
+  wotpack_installer:echo(f"{package} package uninstalled.\n")
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack uninstall all$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Install</name>
+			<script>--syntax: wotpack install xxx
+
+local package = matches[2]
+package = package:gsub(" ", "_"):lower()
+
+if package ~= "all" then
+  if table.contains(wotpack_installer.packages, package) then
+    wotpack_installer:download(package)
+  else
+    wotpack_installer:echo(
+      f"{package} package not known. View files available for download with \"wotpack view files\"\n",
+      false,
+      true
+    )
+  end
+end
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack install (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Uninstall</name>
+			<script>--syntax: wotpack uninstall xxx
+
+local package = matches[2]
+package = package:gsub(" ", "_"):lower()
+
+if package ~= "all" then
+  if table.contains(wotpack_installer.packages, package) then
+    uninstallPackage(package)
+    wotpack_installer:echo(f"{package} package uninstalled.\n")
+  else
+    wotpack_installer:echo(
+      f"{package} package not known. View files available for download with \"wotpack view files\"\n",
+      false,
+      true
+    )
+  end
+end
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack uninstall (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Change user</name>
+			<script>local user = matches[3]
+
+if user then
+  wotpack_installer:echo(f"User updated from ({wotpack_installer.user}) to ({user})\n")
+  wotpack_installer.user = user
+else
+  wotpack_installer:echo(f"user ({wotpack_installer.user})\n")
+end
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack user( (.+))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Change branch</name>
+			<script>local branch = matches[3]
+
+if branch then
+  wotpack_installer:echo(f"Branch updated from ({wotpack_installer.branch}) to ({branch})\n")
+  wotpack_installer.branch = branch
+else
+  wotpack_installer:echo(f"branch ({wotpack_installer.branch})\n")
+end
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack branch( (.+))?$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>wotpack version</name>
+			<script>wotpack_installer:echo(f'version {wotpack_installer.version}\n')</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wotpack version$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>wotpack_installer initializations</name>
+			<packageName></packageName>
+			<script>wotpack_installer = wotpack_installer or {}
+wotpack_installer.configs = wotpack_installer.configs or {}
+wotpack_installer.version = "2.0"
+
+wotpack_installer.user = wotpack_installer.user or "weisluke"
+wotpack_installer.branch = wotpack_installer.branch or "main"
+
+wotpack_installer.to_download = wotpack_installer.to_download or {}
+wotpack_installer.to_install = wotpack_installer.to_install or {}
+
+wotpack_installer.packages =
+  {
+    "alt_timer",
+    "char_status_colors",
+    "communications",
+    "containers",
+    "delete_lines",
+    "dice_rolls",
+    "equipment_database",
+    "equipment_trainer",
+    "friend",
+    "gating",
+    "horses",
+    "hp-mv-sp_colors",
+    "lights",
+    "locates",
+    "mapper",
+    "master_mob",
+    "melee_colors",
+    "miscellaneous",
+    "numpad",
+    "pad_input_line",
+    "pk",
+    "player_numbers",
+    "portal_stones",
+    "potion_mixing",
+    "practice_trainer",
+    "rents",
+    "room_highlights",
+    "sort_items",
+    "status_bar",
+    "targeting",
+    "tic_timer",
+    "toggle_logging",
+    "vials",
+    "weapons",
+    "weave_colors",
+    "weave_trainer",
+    "weaving",
+    "wotmud_wiki_search",
+    "wotpack_installer"
+  }
+  
+wotpack_installer.help = [[
+    &lt;cyan&gt;WoTMUD Package Installer Help&lt;reset&gt;
+    
+    This script allows you to install various packages from https://github.com/]]..wotpack_installer.user..[[/WoTMUD
+    Any already installed packages with the same name will be uninstalled, so that the newly
+    downloaded ones can be installed.
+    
+    When inputting file names and types, capitalization does not matter. You may substitute
+    underscores with spaces however, as they will be appropriately filled in as needed.
+    
+    Commands are as follows:
+    
+    &lt;yellow&gt;wotpack help&lt;reset&gt; - Display this help file
+    &lt;yellow&gt;wotpack update&lt;reset&gt; - Download and install the latest version of this installer package.
+        This will make sure that you have the most up-to-date list of available files
+    &lt;yellow&gt;wotpack install all&lt;reset&gt; - Download and install ALL available packages
+    &lt;yellow&gt;wotpack uninstall all&lt;reset&gt; - Uninstalls ALL available packages
+    &lt;yellow&gt;wotpack install name&lt;reset&gt; - Downloads and installs the package with the given name
+        Example: wotpack install mapper, will install the mapper package
+    &lt;yellow&gt;wotpack uninstall name&lt;reset&gt; - Uninstalls the package with the given name
+        Example: wotpack uninstall mapper  
+    
+    Type &lt;yellow&gt;wotpack view files&lt;reset&gt; to view currently available files. You may click
+        any items in the output list to install them.
+       
+]]</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotpack_installer:echo</name>
+			<packageName></packageName>
+			<script>function wotpack_installer:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;lawn_green&gt;(&lt;forest_green&gt;wotpack_installer&lt;lawn_green&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotpack_installer:download</name>
+			<packageName></packageName>
+			<script>--assumes package is lowercase and has had any spaces replaced with underscores
+function wotpack_installer:download(package)
+  local saveto = f"{getMudletHomeDir()}/wotpack_installer_downloads/"
+  if not io.exists(saveto) then
+    lfs.mkdir(saveto)
+  end
+  local file = f"{package}.xml"
+  local url = f"https://raw.githubusercontent.com/{self.user}/WoTMUD/{self.branch}/packages/{file}"
+  saveto = f"{saveto}{file}"
+  
+  self:echo(f"Downloading updated {package} package...\n")
+  table.insert(self.to_download, package)
+  downloadFile(saveto, url)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotpack_installer:download_error</name>
+			<packageName></packageName>
+			<script>function wotpack_installer:download_error(event,what)
+  local _,package = what:match("(.+)/(.+).xml")
+  if not package then
+    return
+  end
+  -- is the package that we tried download a valid one?
+  if not table.contains(self.packages,package) then
+    return
+  end
+  
+  self:echo(f"Could not download package {package} from user ({self.user}) and branch ({self.branch})\n", false, true)
+  table.remove(self.to_download, table.index_of(self.to_download, package))
+end
+
+registerAnonymousEventHandler("sysDownloadError", "wotpack_installer:download_error")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotpack_installer:download_complete</name>
+			<packageName></packageName>
+			<script>function wotpack_installer:download_complete(event, filename)
+  local _,package = filename:match("(.+)/(.+).xml")
+  if not package then
+    return
+  end
+  -- is the package that downloaded a valid one?
+  if not table.contains(self.packages,package) then
+    return
+  end
+  
+  table.insert(self.to_install, filename)
+  table.remove(self.to_download, table.index_of(self.to_download, package))
+  
+  if table.is_empty(self.to_download) 
+    and not table.is_empty(self.to_install) 
+    and not self.is_installing then
+      self.is_installing = true
+      res = coroutine.resume(self.coroutine)
+  end
+end
+
+registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_complete")
+
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotpack_installer.install</name>
+			<packageName></packageName>
+			<script>function wotpack_installer.install()
+  local self = wotpack_installer
+  
+  repeat 
+    filename = self.to_install[1]
+    local _,package = filename:match("(.+)/(.+).xml")
+    if table.contains(getPackages(), package) then
+      uninstallPackage(package)
+      self:echo(f"Old {package} package uninstalled.\n")
+      tempTimer(0.5, 
+        function() 
+          res=coroutine.resume(wotpack_installer.coroutine)
+        end
+      )
+      coroutine.yield()
+    end
+    installPackage(filename)
+    self:echo(f"New {package} package successfully installed.\n")
+    if package == "wotpack_installer" then cecho(self.help) end
+    table.remove(self.to_install, 1)
+    tempTimer(0.5, 
+      function() 
+        res=coroutine.resume(wotpack_installer.coroutine)
+      end
+    )
+    coroutine.yield()
+  until table.is_empty(self.to_install)
+  tempTimer(1, 
+    function() 
+      res=coroutine.resume(wotpack_installer.coroutine)
+      if not res then
+        wotpack_installer.is_installing = false
+        wotpack_installer.coroutine = coroutine.create(wotpack_installer.install)
+        wotpack_installer:echo("Done installing files.\n")
+      end
+    end
+  )
+end
+
+wotpack_installer.coroutine = wotpack_installer.coroutine or coroutine.create(wotpack_installer.install)
+wotpack_installer.is_installing = wotpack_installer.is_installing or false
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotpack_installer:sys_connection</name>
+			<packageName></packageName>
+			<script>function wotpack_installer:sys_connection(event)
+  self.user = "weisluke"
+  self.branch = "main"
+end
+
+registerAnonymousEventHandler("sysLoadEvent", "wotpack_installer:sys_connection")
+registerAnonymousEventHandler("sysConnectionEvent", "wotpack_installer:sys_connection")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotpack_installer:sys_disconnection</name>
+			<packageName></packageName>
+			<script>function wotpack_installer:sys_disconnection(event)
+  self.user = "weisluke"
+  self.branch = "main"
+end
+
+registerAnonymousEventHandler("sysExitEvent", "wotpack_installer:sys_disconnection")
+registerAnonymousEventHandler("sysDisconnectionEvent", "wotpack_installer:sys_disconnection")</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

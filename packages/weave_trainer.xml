@@ -1,0 +1,1312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Capture Stats</name>
+			<script>weave_trainer.char.int = tonumber(matches[3])
+
+if weave_trainer.char.int &lt; 12 then
+  weave_trainer.char.int = 12
+end
+
+weave_trainer:update_displays()</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^Your base abilities are: Str:(\d+) Int:(\d+) Wil:(\d+) Dex:(\d+) Con:(\d+)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Capture Sex, Race, and Class - non fade</name>
+			<script>weave_trainer.char.sex = matches[2]
+weave_trainer.char.race = matches[3]
+weave_trainer.char.class = matches[4]
+
+weave_trainer:update_displays()</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.$</string>
+				<string>^You are a \d+ year old (\w+) (\w+) (\w+)\.  It's your birthday today!$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Capture Sex, Race, and Class - fade</name>
+			<script>weave_trainer.char.sex = matches[2]
+weave_trainer.char.race = "fade"
+weave_trainer.char.class = "fade"
+
+weave_trainer:update_displays()</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^You are a \d+ year old (\w+) myrddraal\.$</string>
+				<string>^You are a \d+ year old (\w+) myrddraal\.  It's your birthday today!$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Rank</name>
+			<script>weave_trainer.char.rank = tonumber(matches[4])
+
+if weave_trainer.char.race == "dreadlord" then
+  weave_trainer.char.rank = math.min(weave_trainer.char.rank + 3, 9)
+end
+
+weave_trainer:update_displays()</script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList>
+				<string>^This ranks you as (.+) \[(.+) (\d)\] \(Level (\d+)\)\.$</string>
+			</regexCodeList>
+			<regexCodePropertyList>
+				<integer>1</integer>
+			</regexCodePropertyList>
+		</Trigger>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show Practice Trainer</name>
+			<script>weave_trainer.container:show()
+weave_trainer.container:raiseAll()</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wtrainer$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Practice Weaves</name>
+			<script>if weave_trainer:pracs_to_level() &gt; 51 then
+  weave_trainer:echo(
+    "More than 51 levels required. Cannot practice this weave setup.\n", false, true
+  )
+else
+  for _, item in pairs(weave_trainer.pracs.queue) do
+    send(f"practice {item}")
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^prac weaves$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show saved setups</name>
+			<script>weave_trainer:echo("Showing saved weave setups\n")
+for fname in lfs.dir(f"{getMudletHomeDir()}/weave_trainer") do 
+  if fname:sub(-4,-1) == ".lua" then
+    cecho(fname:sub(1,-5).."\n")
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wtrainer setups$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Show help</name>
+			<script>weave_trainer:show_help()</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^wtrainer help$</regex>
+		</Alias>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>weave_trainer initializations</name>
+			<packageName></packageName>
+			<script>weave_trainer = weave_trainer or {configs={}}
+weave_trainer.container =
+  weave_trainer.container or
+  Adjustable.Container:new(
+    {
+      name = "weave_trainer.container",
+      adjLabelstyle = "background-color:rgba(255,255,255,100%); border: 5px groove grey;",
+      buttonstyle =
+        [[
+      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
+      QLabel::hover{ background-color: rgba(160,160,160,50%);}
+      ]],
+      buttonFontSize = 10,
+      buttonsize = 20,
+      titleText = "Weave Trainer",
+      titleTxtColor = "black",
+      padding = 15,
+      x = "10%",
+      y = "5%",
+      width = "80%",
+      height = "90%",
+      autoLoad = false,
+      autoSave = false,
+    }
+  )
+weave_trainer.char = weave_trainer.char or {int = 19, rank = 0}</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>weave_trainer:echo</name>
+			<packageName></packageName>
+			<script>function weave_trainer:echo(what, debug, err)
+  --colored tags for message echo
+  local main_tag = "&lt;white&gt;(&lt;gray&gt;weave_trainer&lt;white&gt;): &lt;white&gt;"
+  local debug_tag = "&lt;deep_sky_blue&gt;(&lt;royal_blue&gt;debug&lt;deep_sky_blue&gt;): &lt;white&gt;"
+  local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
+  
+  --if debug message and config debug is false, return without echoing
+  if debug and not self.configs.dbug then return end
+  
+  --if start of message is new line, print that before colored tags of message echo
+  if what:sub(0,1)=="\n" then
+    cecho("\n")
+    what = what:sub(2)
+  end
+  cecho(main_tag)
+  if debug then cecho(debug_tag) end
+  if err then cecho(err_tag) end
+  cecho(what)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>weave_trainer style sheets</name>
+			<packageName></packageName>
+			<script>weave_trainer.style_sheets = weave_trainer.style_sheets or {}
+
+weave_trainer.style_sheets.plus = [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: green;
+    border-radius: 3px;
+  ]]
+  
+weave_trainer.style_sheets.minus = [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: red;
+    border-radius: 3px;
+  ]]
+  
+weave_trainer.style_sheets.scrollable = [[
+    background-color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 3px;
+  ]]
+  
+weave_trainer.style_sheets.clickable = [[
+    background-color: gray;
+    border-width: 3px;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 3px;
+  ]]
+  
+weave_trainer.style_sheets.clanned = [[
+      background-color: white;
+      border-width: 3px;
+      border-style: solid;
+      border-color: black;
+      border-radius: 3px;
+    ]]</script>
+			<eventHandlerList />
+		</Script>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Button creation functions</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer:container_params</name>
+				<packageName></packageName>
+				<script>function weave_trainer:container_params(name, x, y, w, h)
+  
+  return {
+    name = name,
+    x = f"{x}%",
+    y = f"{y}%",
+    width = f"{w}%",
+    height = f"{h}%",
+  }
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer:label_params</name>
+				<packageName></packageName>
+				<script>function weave_trainer:label_params(name, x, y, w, h, msg, fg, bg)
+  msg = msg or ""
+  fg = fg or "black"
+  bg = bg or "white"
+  
+  return {
+    name = name,
+    x = f"{x}%",
+    y = f"{y}%",
+    width = f"{w}%",
+    height = f"{h}%",
+    fgColor = fg,
+    color = bg,
+    message = [[&lt;center&gt;]] .. msg .. [[&lt;/center&gt;]],
+  }
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer:command_line_params</name>
+				<packageName></packageName>
+				<script>function weave_trainer:command_line_params(name, x, y, w, h)
+
+  return {
+    name = name,
+    x = f"{x}%",
+    y = f"{y}%",
+    width = f"{w}%",
+    height = f"{h}%",
+    stylesheet = "border: 1px solid silver;"
+  }
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<Script isActive="yes" isFolder="no">
+			<name>weave_trainer practices</name>
+			<packageName></packageName>
+			<script>weave_trainer.pracs = weave_trainer.pracs or {}
+weave_trainer.pracs.rates =
+  {
+    [12] = {10, 8, 5, 4, 2, 1},
+    [13] = {11, 8, 6, 4, 2, 1},
+    [14] = {12, 9, 7, 4, 2, 1},
+    [15] = {13, 10, 7, 5, 2, 1},
+    [16] = {14, 11, 8, 5, 2, 1},
+    [17] = {15, 12, 8, 6, 3, 1},
+    [18] = {16, 12, 9, 6, 3, 1},
+    [19] = {17, 13, 10, 6, 3, 1},
+  }
+weave_trainer.pracs.elements = {"air", "earth", "fire", "spirit", "water"}
+weave_trainer.pracs.weaves =
+  {
+    "armor",
+    "blind",
+    "call lightning",
+    "change weather",
+    "chill",
+    "contagion",
+    "create fog",
+    "create food",
+    "create phantom object",
+    "create water",
+    "cure blindness",
+    "cure fear",
+    "cure light wounds",
+    "cure poison",
+    "deafen",
+    "delve",
+    "earthquake",
+    "elemental staff",
+    "fear",
+    "fireball",
+    "flame strike",
+    "freeze",
+    "gate",
+    "hailstorm",
+    "hammer of air",
+    "heal",
+    "hurricane",
+    "ice spikes",
+    "incinerate",
+    "light ball",
+    "locate life",
+    "locate object",
+    "poison",
+    "refresh",
+    "remove contagion",
+    "remove warding",
+    "sense warding",
+    "shield",
+    "silence",
+    "sleep",
+    "slice weaves",
+    "slow",
+    "sonic boom",
+    "strength",
+    "sword of flame",
+    "travel",
+    "ward object",
+    "warding vs damage",
+    "warding vs evil",
+    "whirlpool",
+  }
+weave_trainer.pracs.requirements =
+  {
+    ["armor"] = {air = 0, earth = 0, fire = 0, spirit = 2, water = 0},
+    ["blind"] = {air = 0, earth = 1, fire = 1, spirit = 1, water = 0},
+    ["call lightning"] = {air = 3, earth = 0, fire = 1, spirit = 0, water = 2},
+    ["change weather"] = {air = 2, earth = 0, fire = 0, spirit = 0, water = 3},
+    ["chill"] = {air = 0, earth = 0, fire = 0, spirit = 0, water = 1},
+    ["contagion"] = {air = 0, earth = 4, fire = 0, spirit = 3, water = 0},
+    ["create fog"] = {air = 2, earth = 0, fire = 0, spirit = 0, water = 3},
+    ["create food"] = {air = 0, earth = 1, fire = 0, spirit = 0, water = 0},
+    ["create phantom object"] = {air = 0, earth = 3, fire = 0, spirit = 0, water = 0},
+    ["create water"] = {air = 0, earth = 0, fire = 0, spirit = 0, water = 1},
+    ["cure blindness"] = {air = 0, earth = 0, fire = 1, spirit = 3, water = 0},
+    ["cure fear"] = {air = 0, earth = 0, fire = 0, spirit = 4, water = 0},
+    ["cure light wounds"] = {air = 0, earth = 1, fire = 0, spirit = 2, water = 1},
+    ["cure poison"] = {air = 0, earth = 4, fire = 0, spirit = 0, water = 3},
+    ["deafen"] = {air = 0, earth = 2, fire = 0, spirit = 1, water = 0},
+    ["delve"] = {air = 1, earth = 0, fire = 0, spirit = 2, water = 1},
+    ["earthquake"] = {air = 0, earth = 4, fire = 0, spirit = 0, water = 0},
+    ["elemental staff"] = {air = 4, earth = 0, fire = 3, spirit = 0, water = 5},
+    ["fear"] = {air = 0, earth = 0, fire = 0, spirit = 2, water = 0},
+    ["fireball"] = {air = 0, earth = 0, fire = 7, spirit = 0, water = 0},
+    ["flame strike"] = {air = 0, earth = 0, fire = 4, spirit = 0, water = 0},
+    ["freeze"] = {air = 3, earth = 0, fire = 0, spirit = 5, water = 0},
+    ["gate"] = {air = 0, earth = 7, fire = 0, spirit = 4, water = 0},
+    ["hailstorm"] = {air = 1, earth = 0, fire = 0, spirit = 0, water = 4},
+    ["hammer of air"] = {air = 4, earth = 0, fire = 0, spirit = 0, water = 0},
+    ["heal"] = {air = 0, earth = 1, fire = 0, spirit = 2, water = 4},
+    ["hurricane"] = {air = 6, earth = 0, fire = 0, spirit = 0, water = 0},
+    ["ice spikes"] = {air = 3, earth = 0, fire = 0, spirit = 0, water = 3},
+    ["incinerate"] = {air = 0, earth = 7, fire = 7, spirit = 7, water = 0},
+    ["light ball"] = {air = 1, earth = 0, fire = 1, spirit = 0, water = 0},
+    ["locate life"] = {air = 2, earth = 2, fire = 0, spirit = 2, water = 4},
+    ["locate object"] = {air = 2, earth = 4, fire = 0, spirit = 2, water = 0},
+    ["poison"] = {air = 0, earth = 4, fire = 0, spirit = 0, water = 3},
+    ["refresh"] = {air = 0, earth = 2, fire = 0, spirit = 3, water = 2},
+    ["remove contagion"] = {air = 0, earth = 2, fire = 0, spirit = 2, water = 0},
+    ["remove warding"] = {air = 1, earth = 1, fire = 0, spirit = 3, water = 0},
+    ["sense warding"] = {air = 0, earth = 0, fire = 0, spirit = 2, water = 0},
+    ["shield"] = {air = 0, earth = 0, fire = 0, spirit = 5, water = 0},
+    ["silence"] = {air = 0, earth = 2, fire = 0, spirit = 1, water = 0},
+    ["sleep"] = {air = 3, earth = 0, fire = 0, spirit = 5, water = 0},
+    ["slice weaves"] = {air = 1, earth = 1, fire = 4, spirit = 2, water = 0},
+    ["slow"] = {air = 3, earth = 0, fire = 0, spirit = 5, water = 0},
+    ["sonic boom"] = {air = 3, earth = 0, fire = 1, spirit = 0, water = 2},
+    ["strength"] = {air = 0, earth = 3, fire = 0, spirit = 2, water = 3},
+    ["sword of flame"] = {air = 4, earth = 3, fire = 5, spirit = 0, water = 0},
+    ["travel"] = {air = 0, earth = 7, fire = 0, spirit = 2, water = 0},
+    ["ward object"] = {air = 0, earth = 0, fire = 0, spirit = 3, water = 0},
+    ["warding vs damage"] = {air = 4, earth = 4, fire = 0, spirit = 0, water = 4},
+    ["warding vs evil"] = {air = 0, earth = 0, fire = 0, spirit = 1, water = 0},
+    ["whirlpool"] = {air = 0, earth = 0, fire = 0, spirit = 0, water = 5},
+  }
+weave_trainer.pracs.clanned =
+  {
+    "contagion",
+    "cure fear",
+    "cure poison",
+    "elemental staff",
+    "fireball",
+    "flame strike",
+    "freeze",
+    "gate",
+    "hailstorm",
+    "hammer of air",
+    "heal",
+    "hurricane",
+    "incinerate",
+    "locate life",
+    "locate object",
+    "poison",
+    "shield",
+    "sleep",
+    "slice weaves",
+    "slow",
+    "sword of flame",
+    "travel",
+    "warding vs damage",
+    "whirlpool",
+  }
+  
+weave_trainer.elements = weave_trainer.elements or {}
+weave_trainer.elements.pracs = weave_trainer.elements.pracs or {}
+weave_trainer.elements.percents = weave_trainer.elements.percents or {}
+for _, skill in pairs(weave_trainer.pracs.elements) do
+  weave_trainer.elements.pracs[skill] = weave_trainer.elements.pracs[skill] or 0
+  weave_trainer.elements.percents[skill] = weave_trainer.elements.percents[skill] or 0
+end
+  
+weave_trainer.weaves = weave_trainer.weaves or {}
+weave_trainer.weaves.pracs = weave_trainer.weaves.pracs or {}
+weave_trainer.weaves.percents = weave_trainer.weaves.percents or {}
+for _, skill in pairs(weave_trainer.pracs.weaves) do
+  weave_trainer.weaves.pracs[skill] = weave_trainer.weaves.pracs[skill] or 0
+  weave_trainer.weaves.percents[skill] = weave_trainer.weaves.percents[skill] or 0
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>weave_trainer practice queue</name>
+			<packageName></packageName>
+			<script>weave_trainer.pracs.queue = weave_trainer.pracs.queue or {}
+
+function weave_trainer:push_queue(skill)
+  table.insert(self.pracs.queue, skill)
+end
+
+function weave_trainer:pop_queue(skill)
+  local skill_pos =
+    table.collect(
+      self.pracs.queue,
+      function(key, value)
+        if value == skill then
+          return true
+        end
+      end
+    )
+  local max_pos = table.maxn(skill_pos)
+  table.remove(self.pracs.queue, max_pos)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>weave_trainer info label</name>
+			<packageName></packageName>
+			<script>local label_name = "info_label"
+local w = 32
+local h = 30
+local x = 0
+local y = 70
+
+weave_trainer[label_name] =
+  weave_trainer[label_name] or
+  Geyser.Label:new(
+    weave_trainer:label_params(f"weave_trainer.{label_name}", x, y, w, h),
+    weave_trainer.container
+  )
+weave_trainer[label_name]:setFontSize(10)
+weave_trainer[label_name]:setStyleSheet([[
+  qproperty-wordWrap: true;
+]])
+weave_trainer[label_name]:echo(
+  [[
+  Click the green "+" buttons to increment a practice, int, or rank.&lt;br&gt;
+  Click the red "-" buttons to decrement a practice, int, or rank.&lt;br&gt;
+  Scroll with your mouse on the gray practice, int, or rank value boxes to increment and decrement.&lt;br&gt;
+  Weaves with black borders can only be practiced by clanned characters.&lt;br&gt;
+  Rank 1 dreadlord = Rank 4 human/seanchan.&lt;br&gt;
+  Practice setups can be saved or loaded using the input bars to the right.&lt;br&gt;
+  Type "wtrainer setups" to view saved setups.
+  ]]
+)</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>weave_trainer:reset_pracs</name>
+			<packageName></packageName>
+			<script>local label_name = "reset_pracs_label"
+local w = 10
+local h = 5
+local x = 90
+local y = 83
+
+weave_trainer[label_name] =
+  weave_trainer[label_name] or
+  Geyser.Label:new(
+    weave_trainer:label_params(f"weave_trainer.{label_name}", x, y, w, h, "Reset"),
+    weave_trainer.container
+  )
+weave_trainer[label_name]:setStyleSheet(weave_trainer.style_sheets.clickable) 
+weave_trainer[label_name]:setClickCallback("weave_trainer:reset_pracs")
+
+function weave_trainer:reset_pracs()
+  for _, element in pairs(self.pracs.elements) do
+    self.elements.pracs[element] = 0
+    self.elements.percents[element] = 0
+  end
+  for _, weave in pairs(self.pracs.weaves) do
+    self.weaves.pracs[weave] = 0
+    self.weaves.percents[weave] = 0
+  end
+  self.pracs.queue = {}
+  self:update_displays()
+end</script>
+			<eventHandlerList />
+		</Script>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Save and Load File</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer save and load file</name>
+				<packageName></packageName>
+				<script>weave_trainer.file = weave_trainer.file or {}
+
+local label_name = "save_label"
+local w = 30
+local h = 5
+local x = 32
+local y = 90
+
+
+weave_trainer.file[label_name] =
+  weave_trainer.file[label_name] or
+  Geyser.Label:new(
+    weave_trainer:label_params(f"weave_trainer.file.{label_name}", x, y, w, h, "Type filename and press enter to save:"),
+    weave_trainer.container
+  )
+
+x = x + w
+w = 38
+label_name = "save_name"
+weave_trainer.file[label_name] =
+  weave_trainer.file[label_name] or
+  Geyser.CommandLine:new(
+    weave_trainer:command_line_params(f"weave_trainer.file.{label_name}", x, y, w, h),
+    weave_trainer.container
+  )
+weave_trainer.file[label_name]:setAction(
+  function(commandLineInput)
+    weave_trainer:save_pracs(commandLineInput)
+  end
+)
+
+w = 30
+x = 32
+y = y + h
+label_name = "load_label"
+weave_trainer.file[label_name] =
+  weave_trainer.file[label_name] or
+  Geyser.Label:new(
+    weave_trainer:label_params(f"weave_trainer.file.{label_name}", x, y, w, h, "Type filename and press enter to load:"),
+    weave_trainer.container
+  )
+
+x = x + w
+w = 38
+label_name = "load_name"
+weave_trainer.file[label_name] =
+  weave_trainer.file[label_name] or
+  Geyser.CommandLine:new(
+    weave_trainer:command_line_params(f"weave_trainer.file.{label_name}", x, y, w, h),
+    weave_trainer.container
+  )
+weave_trainer.file[label_name]:setAction(
+  function(commandLineInput)
+    weave_trainer:load_pracs(commandLineInput)
+    weave_trainer:update_displays()
+  end
+)
+
+
+--hide the practice trainer after final item has been created,
+--otherwise the command line will show
+weave_trainer.container:hide()</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer save and load functions</name>
+				<packageName></packageName>
+				<script>function weave_trainer:save_pracs(fname)
+  if not io.exists(f"{getMudletHomeDir()}/weave_trainer") then
+    lfs.mkdir(f"{getMudletHomeDir()}/weave_trainer")
+  end
+  if fname == "" then
+    self:echo("No filename provided.\n", false, true)
+    return
+  end
+  if self:pracs_to_level() &gt; 51 then
+    self:echo("More than 51 levels required. Cannot save weave setup.\n", false, true)
+    return
+  end
+  local out_table = {
+    int = self.char.int,
+    rank = self.char.rank,
+    elements = table.deepcopy(self.elements.pracs),
+    weaves = table.deepcopy(self.weaves.pracs),
+    queue = table.deepcopy(self.pracs.queue)
+  }
+  local out_file = f"{getMudletHomeDir()}/weave_trainer/{fname}.lua"
+  self:echo(f"Saving practices to {out_file}\n")
+  table.save(out_file, out_table)
+  self:echo("Practices saved.\n")
+end
+
+function weave_trainer:load_pracs(fname)
+  local in_file = f"{getMudletHomeDir()}/weave_trainer/{fname}.lua"
+  if not io.exists(in_file) then
+    self:echo(f"File {in_file} does not exist.\n",false,true)
+    return
+  end
+  
+  local in_table = {}
+  
+  self:echo(f"Loading practices from {in_file}\n")
+  table.load(in_file, in_table)
+  
+  self.char.int = in_table.int
+  self.char.rank = in_table.rank
+  self.elements.pracs = table.deepcopy(in_table.elements)
+  self.weaves.pracs = table.deepcopy(in_table.weaves)
+  self.pracs.queue = table.deepcopy(in_table.queue)
+    
+  self:echo("Practices loaded.\n")
+  
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Update Information</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer update practice</name>
+				<packageName></packageName>
+				<script>function weave_trainer:add_practice(skill)
+  if skill == "sword of flame" and self.char.sex == "female" then return end
+  
+  for _, element in pairs(self.pracs.elements) do
+    if self.elements.pracs[element] &lt; self.pracs.requirements[skill][element] then
+      for i=self.elements.pracs[element]+1, self.pracs.requirements[skill][element], 1 do
+        self:add_element(element)
+      end
+    end
+    if self.elements.pracs[element] &lt; self.pracs.requirements[skill][element] then
+      return
+    end
+  end
+  self.weaves.pracs[skill] = self.weaves.pracs[skill] + 1
+  self:push_queue(skill)
+  self:update_displays()
+  if self:pracs_to_level() &gt; 51 or self.weaves.percents[skill] &gt; 99 then
+    self:subtract_practice(skill)
+  end
+end
+
+function weave_trainer:subtract_practice(skill)
+  if self.weaves.pracs[skill] &gt; 0 then
+    self.weaves.pracs[skill] = self.weaves.pracs[skill] - 1
+    self:pop_queue(skill)
+  end
+  self:update_displays()
+end
+
+function weave_trainer:practice_scroll(skill, event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_practice(skill)
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_practice(skill)
+  end
+end
+
+function weave_trainer:update_practices()
+  for k, v in pairs(self.pracs.weaves) do
+    while self.weaves.percents[v] &gt; 99 do
+      self:subtract_practice(v)
+    end
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer update element</name>
+				<packageName></packageName>
+				<script>function weave_trainer:add_element(element)
+  if self.elements.pracs[element] &lt; 7 then
+    self.elements.pracs[element] = self.elements.pracs[element] + 1
+    self:push_queue(element)
+  end
+  if self:pracs_to_level() &gt; 51 then
+    self:subtract_element(element)
+  end
+  self:update_displays()
+end
+
+function weave_trainer:subtract_element(element)
+  if self.elements.pracs[element] &gt; 0 then
+    self.elements.pracs[element] = self.elements.pracs[element] - 1
+    self:pop_queue(element)
+  end
+  for _, skill in pairs(self.pracs.weaves) do
+    if self.elements.pracs[element] &lt; self.pracs.requirements[skill][element] then
+      while table.contains(self.pracs.queue, skill) do
+        self:subtract_practice(skill)
+      end
+    end
+  end
+  self:update_displays()
+end
+
+function weave_trainer:element_scroll(element, event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_element(element)
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_element(element)
+  end
+end
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer update int</name>
+				<packageName></packageName>
+				<script>function weave_trainer:add_int()
+  if self.char.int &lt; 19 then
+    self.char.int = self.char.int + 1
+  end
+  self:update_displays()
+end
+
+function weave_trainer:subtract_int()
+  if self.char.int &gt; 12 then
+    self.char.int = self.char.int - 1
+  end
+  self:update_displays()
+end
+
+function weave_trainer:int_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_int()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_int()
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer update rank</name>
+				<packageName></packageName>
+				<script>function weave_trainer:add_rank()
+  if self.char.rank &lt; 9 then
+    self.char.rank = self.char.rank + 1
+  end
+  self:update_displays()
+end
+
+function weave_trainer:subtract_rank()
+  if self.char.rank &gt; 0 then
+    self.char.rank = self.char.rank - 1
+  end
+  self:update_displays()
+end
+
+function weave_trainer:rank_scroll(event)
+  if event.angleDeltaY &gt; 0 then
+    self:add_rank()
+  elseif event.angleDeltaY &lt; 0 then
+    self:subtract_rank()
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Convert Information</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer practice to percent</name>
+				<packageName></packageName>
+				<script>function weave_trainer:is_element(skill)
+  if table.contains({"air", "earth", "fire", "spirit", "water"}, skill) then
+    return true
+  end
+  return false
+end
+
+function weave_trainer:add_percent(skill)
+  local bonus = 0
+  for _, element in pairs(self.pracs.elements) do
+    if self.pracs.requirements[skill][element] ~= 0 then
+      bonus = bonus + self.elements.percents[element] - self.pracs.requirements[skill][element]
+    end
+  end
+  local prac_percent = self.weaves.percents[skill]
+
+  local prac_update = 0
+  if prac_percent &lt;= 20 then
+    prac_update = math.floor(self.pracs.rates[self.char.int][1])
+  elseif prac_percent &lt;= 40 then
+    prac_update = math.floor(self.pracs.rates[self.char.int][2])
+  elseif prac_percent &lt;= 60 then
+    prac_update = math.floor(self.pracs.rates[self.char.int][3])
+  elseif prac_percent &lt;= 80 then
+    prac_update = math.floor(self.pracs.rates[self.char.int][4])
+  elseif prac_percent &lt;= 90 then
+    prac_update = math.floor(self.pracs.rates[self.char.int][5])
+  else
+    prac_update = math.floor(self.pracs.rates[self.char.int][6])
+  end
+  
+  if table.contains({"gate", "travel"}, skill) then
+    prac_update = math.floor(0.85 * prac_update)
+  elseif
+    table.contains(
+      {
+        "create fog",
+        "cure blindness",
+        "cure light wounds",
+        "cure poison",
+        "deafen",
+        "delve",
+        "poison",
+        "remove contagion",
+        "sense warding",
+        "silence",
+        "ward object",
+      },
+      skill
+    )
+  then
+    prac_update = math.floor(1.5 * prac_update)
+  end
+  if prac_update == 0 then
+    prac_update = 1
+  end
+  prac_update = prac_update + math.floor(0.04 * bonus * prac_update)
+  prac_update = prac_update + math.floor(0.04 * self.char.rank * prac_update)
+  self.weaves.percents[skill] = prac_percent + prac_update
+end
+
+function weave_trainer:prac_residuals(skill)
+  if table.contains({"gate", "travel"}, skill) then
+    for k, v in pairs({"gate", "travel"}) do
+      self.weaves.percents[v] = math.max(self.weaves.percents[v], math.floor(self.weaves.percents[skill]*0.4))
+    end
+  end
+  if table.contains({"cure light wounds", "heal"}, skill) then
+    for k, v in pairs({"cure light wounds", "heal"}) do
+      self.weaves.percents[v] = math.max(self.weaves.percents[v], math.floor(self.weaves.percents[skill]*0.4))
+    end
+  end
+end
+
+function weave_trainer:update_percents()
+  for _, element in pairs(self.pracs.elements) do
+    self.elements.percents[element] = 0
+  end
+  for _, skill in pairs(self.pracs.weaves) do
+    self.weaves.percents[skill] = 0
+  end
+
+  for _, skill in pairs(self.pracs.queue) do
+    if self:is_element(skill) then
+      self.elements.percents[skill] = self.elements.percents[skill] + 1
+    else
+      self:add_percent(skill)
+      self:prac_residuals(skill)
+    end
+  end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer practice to level</name>
+				<packageName></packageName>
+				<script>function weave_trainer:get_total_element_pracs()
+  local element_totals = {air = 0, earth = 0, fire = 0, spirit = 0, water = 0}
+  for _, element in pairs(self.pracs.elements) do
+    element_totals[element] = self.elements.pracs[element] * (self.elements.pracs[element] + 1)
+  end
+  return element_totals
+end
+
+function weave_trainer:get_total_pracs()
+  local num_pracs = 0
+  local element_totals = self:get_total_element_pracs()
+  for element, total in pairs(element_totals) do
+    num_pracs = num_pracs + total
+  end
+  for _, skill in pairs(self.pracs.weaves) do
+    num_pracs = num_pracs + self.weaves.pracs[skill]
+  end
+  return num_pracs
+end
+
+function weave_trainer:pracs_to_level()
+  local level = 1
+  local pracs = 3
+  while pracs &lt; self:get_total_pracs() do
+    level = level + 1
+    if level &lt;= 10 then
+      pracs = pracs + 3
+    elseif level &lt;= 15 then
+      pracs = pracs + 5
+    elseif level &lt;= 25 then
+      pracs = pracs + 7
+    elseif level &lt;= 40 then
+      pracs = pracs + 8
+    else
+      pracs = pracs + 2
+    end
+  end
+  return level
+end</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Displays</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer weave practice displays</name>
+				<packageName></packageName>
+				<script>for k = 1, 3, 1 do
+  local label_name = f"container{k}"
+  local w = 32
+  local h = 80
+  local x = (k - 1) * (w + 2)
+  local y = 0
+  
+  weave_trainer.weaves[label_name] = 
+    weave_trainer.weaves[label_name] or
+    Geyser.Container:new(
+      weave_trainer:container_params(f"weave_trainer.weaves.{label_name}", x, y, w, h),
+      weave_trainer.container
+    )
+end
+
+local weaves_per_container = math.ceil(table.size(weave_trainer.pracs.weaves) / 3)
+
+
+for k, weave in pairs(weave_trainer.pracs.weaves) do
+  local container_num = math.floor((k - 1) / weaves_per_container) + 1
+  local container = f"container{container_num}"
+  
+  local label_name = ""
+  local w = 65
+  local h = 5
+  local x = 0
+  local y = ((k - 1) % weaves_per_container) * 5
+  
+  local lbl_msg = f"&lt;center&gt;{weave} ( "
+  for _, wtype in pairs(weave_trainer.pracs.elements) do
+    if weave_trainer.pracs.requirements[weave][wtype] ~= 0 then
+      lbl_msg =
+        f"{lbl_msg}{weave_trainer.pracs.requirements[weave][wtype]}{wtype:sub(1, 1):upper()} "
+    end
+  end
+  lbl_msg = f"{lbl_msg})"
+  
+  label_name = f"{weave}_label"
+  weave_trainer.weaves[label_name] =
+    weave_trainer.weaves[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.weaves.{label_name}", x, y, w, h, lbl_msg),
+      weave_trainer.weaves[container]
+    )
+  if table.contains(weave_trainer.pracs.clanned, weave) then
+    weave_trainer.weaves[label_name]:setStyleSheet(weave_trainer.style_sheets.clanned)
+  end
+  
+  x = x + w
+  w = 15
+  label_name = f"{weave}_%_label"
+  weave_trainer.weaves[label_name] =
+    weave_trainer.weaves[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.weaves.{label_name}", x, y, w, h, f"{weave_trainer.weaves.pracs[weave]}%"),
+      weave_trainer.weaves[container]
+    )
+  weave_trainer.weaves[label_name]:setStyleSheet(weave_trainer.style_sheets.scrollable)
+  setLabelWheelCallback(
+    f"weave_trainer.weaves.{label_name}", "weave_trainer:practice_scroll", weave
+  )
+  
+  x = x + w
+  w = 10
+  label_name = f"{weave}_-_label"
+  weave_trainer.weaves[label_name] =
+    weave_trainer.weaves[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.weaves.{label_name}", x, y, w, h, "-"),
+      weave_trainer.weaves[container]
+    )
+  weave_trainer.weaves[label_name]:setStyleSheet(weave_trainer.style_sheets.minus)
+  weave_trainer.weaves[label_name]:setClickCallback("weave_trainer:subtract_practice", weave)
+  
+  x = x + w
+  label_name = f"{weave}_+_label"
+  weave_trainer.weaves[label_name] =
+    weave_trainer.weaves[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.weaves.{label_name}", x, y, w, h, "+"),
+      weave_trainer.weaves[container]
+    )
+  weave_trainer.weaves[label_name]:setStyleSheet(weave_trainer.style_sheets.plus)
+  weave_trainer.weaves[label_name]:setClickCallback("weave_trainer:add_practice", weave)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer weave element displays</name>
+				<packageName></packageName>
+				<script>weave_trainer.elements.container =
+  weave_trainer.elements.container or
+  Geyser.Container:new(
+    {name = "weave_trainer.elements.container", x = "34%", y = "73%", width = "66%", height = "5%"},
+    weave_trainer.container
+  )
+  
+for k, element in pairs(weave_trainer.pracs.elements) do
+  local label_name = ""
+  local w = 6
+  local h = 100
+  local x = (k - 1) * 20
+  local y = 0
+  
+  label_name = f"{element}_label"
+  weave_trainer.elements[label_name] =
+    weave_trainer.elements[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.elements.{label_name}", x, 0, 6, 100, element),
+      weave_trainer.elements.container
+    )
+  
+  x = x + w
+  w = 5
+  label_name = f"{element}_val_label"
+  weave_trainer.elements[label_name] =
+    weave_trainer.elements[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.elements.{label_name}", x, y, w, h, weave_trainer.elements.pracs[element]),
+      weave_trainer.elements.container
+    )
+  weave_trainer.elements[label_name]:setStyleSheet(weave_trainer.style_sheets.scrollable)
+  setLabelWheelCallback(f"weave_trainer.elements.{label_name}", "weave_trainer:element_scroll", element)
+  
+  x = x + w
+  w = 4
+  label_name = f"{element}_-_label"
+  weave_trainer.elements[label_name] =
+    weave_trainer.elements[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.elements.{label_name}", x, y, w, h, "-"),
+      weave_trainer.elements.container
+    )
+  weave_trainer.elements[label_name]:setStyleSheet(weave_trainer.style_sheets.minus)
+  weave_trainer.elements[label_name]:setClickCallback(
+    "weave_trainer:subtract_element", element
+  )
+  
+  x = x + w
+  label_name = f"{element}_+_label"
+  weave_trainer.elements[label_name] =
+    weave_trainer.elements[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.elements.{label_name}", x, y, w, h, "+"),
+      weave_trainer.elements.container
+    )
+  weave_trainer.elements[label_name]:setStyleSheet(weave_trainer.style_sheets.plus)
+  weave_trainer.elements[label_name]:setClickCallback("weave_trainer:add_element", element)
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer character stats displays</name>
+				<packageName></packageName>
+				<script>weave_trainer.char.container =
+  weave_trainer.char.container or
+  Geyser.Container:new(
+    weave_trainer:container_params("weave_trainer.char.container", 34, 83, 56, 5),
+    weave_trainer.container
+  )
+  
+for k, field in pairs({"int", "rank"}) do
+  local label_name = ""
+  local w = 6
+  local h = 100
+  local x = (k - 1) * 20
+  local y = 0
+  
+  
+  label_name = f"{field}_label"
+  weave_trainer.char[label_name] =
+    weave_trainer.char[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.char.{label_name}", x, y, w, h, field),
+      weave_trainer.char.container
+    )
+  
+  x = x + w
+  w = 5
+  label_name = f"{field}_val_label"
+  weave_trainer.char[label_name] =
+    weave_trainer.char[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.char.{label_name}", x, y, w, h, weave_trainer.char[field]),
+      weave_trainer.char.container
+    )
+  weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.scrollable)
+  setLabelWheelCallback(f"weave_trainer.char.{label_name}", f"weave_trainer:{field}_scroll")
+  
+  x = x + w
+  w = 4
+  label_name = f"{field}_-_label"
+  weave_trainer.char[label_name] =
+    weave_trainer.char[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.char.{label_name}", x, y, w, h, "-"),
+      weave_trainer.char.container
+    )
+  weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.minus)
+  weave_trainer.char[label_name]:setClickCallback(f"weave_trainer:subtract_{field}")
+  
+  x = x + w
+  label_name = f"{field}_+_label"
+  weave_trainer.char[label_name] =
+    weave_trainer.char[label_name] or
+    Geyser.Label:new(
+      weave_trainer:label_params(f"weave_trainer.char.{label_name}", x, y, w, h, "+"),
+      weave_trainer.char.container
+    )
+  weave_trainer.char[label_name]:setStyleSheet(weave_trainer.style_sheets.plus)
+  weave_trainer.char[label_name]:setClickCallback(f"weave_trainer:add_{field}")
+  
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>weave_trainer total practice and level displays</name>
+				<packageName></packageName>
+				<script>local w = 26
+local h = 100
+local x = 40
+local y = 0
+
+weave_trainer.char["total_pracs_label"] =
+    weave_trainer.char["total_pracs_label"] or
+    Geyser.Label:new(
+      weave_trainer:label_params("weave_trainer.char.total_pracs_label", x, y, w, h, f"Practices required: {weave_trainer:get_total_pracs()}"),
+      weave_trainer.char.container
+    )
+
+x = x + w
+weave_trainer.char["level_label"] =
+    weave_trainer.char["level_label"] or
+    Geyser.Label:new(
+      weave_trainer:label_params("weave_trainer.char.level_label", x, y, w, h, f"Levels required: {weave_trainer:pracs_to_level()}"),
+      weave_trainer.char.container
+    )
+</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+		<Script isActive="yes" isFolder="no">
+			<name>weave_trainer:update_displays</name>
+			<packageName></packageName>
+			<script>function weave_trainer:update_int_rank_display()
+  self.char["int_val_label"]:echo(f"&lt;center&gt;{self.char.int}")
+  self.char["rank_val_label"]:echo(f"&lt;center&gt;{self.char.rank}")
+end
+
+function weave_trainer:update_element_display()
+  for _, element in pairs(self.pracs.elements) do
+    self.elements[f"{element}_val_label"]:echo(f"&lt;center&gt;{self.elements.pracs[element]}")
+  end
+end
+
+function weave_trainer:update_prac_display()
+  for _, weave in pairs(self.pracs.weaves) do
+    self.weaves[f"{weave}_%_label"]:echo(f"&lt;center&gt;{self.weaves.percents[weave]}%")
+  end
+end
+
+function weave_trainer:update_total_pracs_display()
+  self.char["total_pracs_label"]:echo(f"&lt;center&gt;Practices required: {self:get_total_pracs()}")
+end
+
+function weave_trainer:update_levels_display()
+  self.char["level_label"]:echo(f"&lt;center&gt;Levels required: {self:pracs_to_level()}")
+end
+
+function weave_trainer:update_displays()
+  self:update_percents()
+  self:update_practices()
+  self:update_int_rank_display()
+  self:update_element_display()
+  self:update_prac_display()
+  self:update_total_pracs_display()
+  self:update_levels_display()
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>weave_trainer:show_help</name>
+			<packageName></packageName>
+			<script>function weave_trainer:show_help()
+  local help =
+  [[
+    &lt;cyan&gt;Weave Trainer Script&lt;reset&gt;
+
+    This script provides a weave trainer you may use to plan out setups.
+    
+    Below is a brief overview of some commands that this script includes.
+    All commands can be found in the appropriate weave trainer folder
+    under mudlet aliases.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;wtrainer help&lt;reset&gt; - Show this help message.
+        &lt;yellow&gt;wtrainer&lt;reset&gt; - Show the weave trainer.
+        &lt;yellow&gt;prac weaves&lt;reset&gt; - Send commands to practice all weaves
+        &lt;yellow&gt;wtrainer setups&lt;reset&gt; - Display all stored weave setups. Files located at:
+            ]]..getMudletHomeDir()..[[/weave_trainer/ 
+                    
+]]
+  cecho(help)
+end</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
+</MudletPackage>

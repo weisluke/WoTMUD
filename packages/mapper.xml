@@ -1764,8 +1764,8 @@ end</script>
 			<script>--syntax: map update
 
 wotmudmapper:echo("Downloading updated map...\n")
-local url = "https://raw.githubusercontent.com/weisluke/WoTMUD/master/WoTMUD_map.dat"
-local saveto = f"{getMudletHomeDir()}/WoTMUD_map.dat"
+local url = "https://raw.githubusercontent.com/weisluke/WoTMUD/main/WoTMUD_map.json"
+local saveto = f"{getMudletHomeDir()}/WoTMUD_map.json"
 downloadFile(saveto, url)</script>
 			<command></command>
 			<packageName></packageName>
@@ -1781,20 +1781,6 @@ display(wotmudmapper.queue)</script>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Save Map</name>
-			<script>local dir = f"{getMudletHomeDir()}/WoTMUD_map.dat"
-wotmudmapper:echo(f"Saving map to {dir}\n")
-local res = saveMap(dir)
-if res then
-  wotmudmapper:echo("Map saved.\n")
-else
-  wotmudmapper:echo("Map failed to save.\n", false, true)
-end</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^map save$</regex>
-		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>Save Map JSON</name>
 			<script>local dir = f"{getMudletHomeDir()}/WoTMUD_map.json"
 wotmudmapper:echo(f"Saving map to {dir}\n")
 local res = saveJsonMap(dir)
@@ -1805,7 +1791,7 @@ else
 end</script>
 			<command></command>
 			<packageName></packageName>
-			<regex>^map save json$</regex>
+			<regex>^map save$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Map Window Config Alias</name>
@@ -2317,13 +2303,13 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "wotmudmapper:sys_disconn
 			<packageName></packageName>
 			<script>function wotmudmapper:map_update(event, filename)
   --if the file that downloaded is not the map, return
-  if not filename:find("WoTMUD_map.dat", 1, true) then
+  if not filename:find("WoTMUD_map.json", 1, true) then
     return
   end
   
   --load in map file, set colors, and center on current player room
   self:echo("Download complete.\n")
-  loadMap(filename)
+  loadJsonMap(filename)
   self:echo("New map successfully uploaded.\n")
   self:set_map_colors()
   centerview(self.currentID[1])

@@ -72,8 +72,11 @@ end
 			<script>--syntax: wotpack uninstall xxx yyy
 
 for _, package in pairs(wotpack_installer.packages) do
-  uninstallPackage(package)
-  wotpack_installer:echo(f"{package} package uninstalled.\n")
+  --don't want to uninstall this package handler itself!
+  if package ~= "wotpack_installer" then
+    uninstallPackage(package)
+    wotpack_installer:echo(f"{package} package uninstalled.\n")
+  end
 end</script>
 			<command></command>
 			<packageName></packageName>
@@ -111,8 +114,13 @@ package = package:gsub(" ", "_"):lower()
 
 if package ~= "all" then
   if table.contains(wotpack_installer.packages, package) then
-    uninstallPackage(package)
-    wotpack_installer:echo(f"{package} package uninstalled.\n")
+    --don't want to uninstall this package handler itself!
+    if package == "wotpack_installer" then
+      wotpack_installer:echo("Cannot uninstall this package handler via the command line.\n", false, true)
+    else
+      uninstallPackage(package)
+      wotpack_installer:echo(f"{package} package uninstalled.\n")
+    end
   else
     wotpack_installer:echo(
       f"{package} package not known. View files available for download with \"wotpack view files\"\n",

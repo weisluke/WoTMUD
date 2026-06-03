@@ -897,7 +897,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "communicat
 			<packageName></packageName>
 			<script>function communications:comms_installer_success(event, name)
   --if installed file is not the desired one
-  if name ~= "communications_scripts" then return end
+  if name ~= "communications" then return end
   self:show_help()
   self:set_configs()
   self:show_comms(self.configs.comms_window.visible)

@@ -1640,7 +1640,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "status_bar:sys_disconnec
 			<packageName></packageName>
 			<script>function status_bar:status_bar_installer_success(event, name)
   --if installed file is not the desired one
-  if name ~= "status_bar_scripts" then return end
+  if name ~= "status_bar" then return end
   self:show_status_bar(true)
 end
 
@@ -2190,7 +2190,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "status_bar:update_one_power
 
 --Be sure to follow the format EXACTLY
 
---You can then move this script outside of the status_bar_scripts folder,
+--You can then move this script outside of the status_bar folder,
 --so that it does not get overwritten in the future
 
 --I make no promises that the formatting here will not ever change,

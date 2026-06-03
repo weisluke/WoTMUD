@@ -1553,11 +1553,11 @@ wotmudmapper:echo("The mapper " .. (wotmudmapper.configs.on and "&lt;green&gt;wi
 table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)
 
 if wotmudmapper.configs.on then
-  enableTrigger("Mapper")
+  enableTrigger("mapper")
   enableAlias("Doors with directions")
   wotmudmapper.queue = List:new()
 else
-  disableTrigger("Mapper")
+  disableTrigger("mapper")
   disableAlias("Doors with directions")
 end</script>
 				<command></command>

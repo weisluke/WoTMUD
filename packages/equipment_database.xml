@@ -2,9 +2,24 @@
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
 	<TriggerPackage>
-		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-			<name>DB and PB</name>
-			<script>equip_db:reset_eq_info()
+		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Equipment Database</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>DB and PB</name>
+				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
 equip_db.eq_info.weight = tonumber(multimatches[3][2])
@@ -15,38 +30,38 @@ equip_db:update_item("trinkets", equip_db.eq_info, true)
 
 equip_db:reset_eq_info()
 </script>
-			<triggerType>0</triggerType>
-			<conditonLineDelta>3</conditonLineDelta>
-			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
-			<mFgColor>#ff0000</mFgColor>
-			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
-			<colorTriggerFgColor>#000000</colorTriggerFgColor>
-			<colorTriggerBgColor>#000000</colorTriggerBgColor>
-			<regexCodeList>
-				<string>^It is (.+)\.$</string>
-				<string>1</string>
-				<string>^It weighs (\d+\.\d+) pounds\.$</string>
-				<string>1</string>
-				<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+)\.$</string>
-				<string>1</string>
-				<string>It is in</string>
-			</regexCodeList>
-			<regexCodePropertyList>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>2</integer>
-			</regexCodePropertyList>
-		</Trigger>
-		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-			<name>DB, PB, and Moves</name>
-			<script>equip_db:reset_eq_info()
+				<triggerType>0</triggerType>
+				<conditonLineDelta>3</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+)\.$</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>DB, PB, and Moves</name>
+				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
 equip_db.eq_info.weight = tonumber(multimatches[3][2])
@@ -58,38 +73,38 @@ equip_db:update_item("trinkets", equip_db.eq_info, true)
 
 equip_db:reset_eq_info()
 </script>
-			<triggerType>0</triggerType>
-			<conditonLineDelta>3</conditonLineDelta>
-			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
-			<mFgColor>#ff0000</mFgColor>
-			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
-			<colorTriggerFgColor>#000000</colorTriggerFgColor>
-			<colorTriggerBgColor>#000000</colorTriggerBgColor>
-			<regexCodeList>
-				<string>^It is (.+)\.$</string>
-				<string>1</string>
-				<string>^It weighs (\d+\.\d+) pounds\.$</string>
-				<string>1</string>
-				<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+), Moves: (-?\d+)\.$</string>
-				<string>1</string>
-				<string>It is in</string>
-			</regexCodeList>
-			<regexCodePropertyList>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>2</integer>
-			</regexCodePropertyList>
-		</Trigger>
-		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-			<name>DB, PB, Moves, and Abs</name>
-			<script>equip_db:reset_eq_info()
+				<triggerType>0</triggerType>
+				<conditonLineDelta>3</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+), Moves: (-?\d+)\.$</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>DB, PB, Moves, and Abs</name>
+				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
 equip_db.eq_info.weight = tonumber(multimatches[3][2])
@@ -102,38 +117,38 @@ equip_db:update_item("armor", equip_db.eq_info, true)
 
 equip_db:reset_eq_info()
 </script>
-			<triggerType>0</triggerType>
-			<conditonLineDelta>3</conditonLineDelta>
-			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
-			<mFgColor>#ff0000</mFgColor>
-			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
-			<colorTriggerFgColor>#000000</colorTriggerFgColor>
-			<colorTriggerBgColor>#000000</colorTriggerBgColor>
-			<regexCodeList>
-				<string>^It is (.+)\.$</string>
-				<string>1</string>
-				<string>^It weighs (\d+\.\d+) pounds\.$</string>
-				<string>1</string>
-				<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+), Moves: (-?\d+), Armor absorb: (-?\d+\.\d*)%\.$</string>
-				<string>1</string>
-				<string>It is in</string>
-			</regexCodeList>
-			<regexCodePropertyList>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>2</integer>
-			</regexCodePropertyList>
-		</Trigger>
-		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-			<name>Weapon - not honed</name>
-			<script>equip_db:reset_eq_info()
+				<triggerType>0</triggerType>
+				<conditonLineDelta>3</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^Dodging bonus: (-?\d+), Parrying bonus: (-?\d+), Moves: (-?\d+), Armor absorb: (-?\d+\.\d*)%\.$</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Weapon - not honed</name>
+				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
 equip_db.eq_info.weight = tonumber(multimatches[3][2])
@@ -147,42 +162,42 @@ equip_db:update_item("weapons", equip_db.eq_info, true)
 
 equip_db:reset_eq_info()
 </script>
-			<triggerType>0</triggerType>
-			<conditonLineDelta>4</conditonLineDelta>
-			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
-			<mFgColor>#ff0000</mFgColor>
-			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
-			<colorTriggerFgColor>#000000</colorTriggerFgColor>
-			<colorTriggerBgColor>#000000</colorTriggerBgColor>
-			<regexCodeList>
-				<string>^It is (.+)\.$</string>
-				<string>1</string>
-				<string>^It weighs (\d+\.\d+) pounds\.$</string>
-				<string>1</string>
-				<string>^It is an? (two-handed )?(.+)\.$</string>
-				<string>1</string>
-				<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
-				<string>1</string>
-				<string>It is in</string>
-			</regexCodeList>
-			<regexCodePropertyList>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>2</integer>
-			</regexCodePropertyList>
-		</Trigger>
-		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-			<name>Weapon - not hardened</name>
-			<script>equip_db:reset_eq_info()
+				<triggerType>0</triggerType>
+				<conditonLineDelta>4</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^It is an? (two-handed )?(.+)\.$</string>
+					<string>1</string>
+					<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Weapon - not hardened</name>
+				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
 equip_db.eq_info.weight = tonumber(multimatches[3][2])
@@ -196,46 +211,46 @@ equip_db:update_item("weapons", equip_db.eq_info, true)
 
 equip_db:reset_eq_info()
 </script>
-			<triggerType>0</triggerType>
-			<conditonLineDelta>5</conditonLineDelta>
-			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
-			<mFgColor>#ff0000</mFgColor>
-			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
-			<colorTriggerFgColor>#000000</colorTriggerFgColor>
-			<colorTriggerBgColor>#000000</colorTriggerBgColor>
-			<regexCodeList>
-				<string>^It is (.+)\.$</string>
-				<string>1</string>
-				<string>^It weighs (\d+\.\d+) pounds\.$</string>
-				<string>1</string>
-				<string>^It is an? (two-handed )?(.+)\.$</string>
-				<string>1</string>
-				<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
-				<string>1</string>
-				<string>It has been honed by</string>
-				<string>1</string>
-				<string>It is in</string>
-			</regexCodeList>
-			<regexCodePropertyList>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>2</integer>
-				<integer>5</integer>
-				<integer>2</integer>
-			</regexCodePropertyList>
-		</Trigger>
-		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-			<name>Weapon - hardened</name>
-			<script>equip_db:reset_eq_info()
+				<triggerType>0</triggerType>
+				<conditonLineDelta>5</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^It is an? (two-handed )?(.+)\.$</string>
+					<string>1</string>
+					<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
+					<string>1</string>
+					<string>It has been honed by</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Weapon - hardened</name>
+				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = multimatches[1][2]
 equip_db.eq_info.weight = tonumber(multimatches[3][2])
@@ -249,46 +264,46 @@ equip_db:update_item("weapons", equip_db.eq_info, true)
 
 equip_db:reset_eq_info()
 </script>
-			<triggerType>0</triggerType>
-			<conditonLineDelta>5</conditonLineDelta>
-			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
-			<mFgColor>#ff0000</mFgColor>
-			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
-			<colorTriggerFgColor>#000000</colorTriggerFgColor>
-			<colorTriggerBgColor>#000000</colorTriggerBgColor>
-			<regexCodeList>
-				<string>^It is (.+)\.$</string>
-				<string>1</string>
-				<string>^It weighs (\d+\.\d+) pounds\.$</string>
-				<string>1</string>
-				<string>^It is an? (two-handed )?(.+)\.$</string>
-				<string>1</string>
-				<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
-				<string>1</string>
-				<string>It has been honed and hardened by</string>
-				<string>1</string>
-				<string>It is in</string>
-			</regexCodeList>
-			<regexCodePropertyList>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>1</integer>
-				<integer>5</integer>
-				<integer>2</integer>
-				<integer>5</integer>
-				<integer>2</integer>
-			</regexCodePropertyList>
-		</Trigger>
-		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-			<name>Two handed weapon</name>
-			<script>equip_db:reset_eq_info()
+				<triggerType>0</triggerType>
+				<conditonLineDelta>5</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^It is (.+)\.$</string>
+					<string>1</string>
+					<string>^It weighs (\d+\.\d+) pounds\.$</string>
+					<string>1</string>
+					<string>^It is an? (two-handed )?(.+)\.$</string>
+					<string>1</string>
+					<string>^Offensive bonus: (-?\d+), Parrying bonus: (-?\d+), Damage: (\d+d\d+)\.$</string>
+					<string>1</string>
+					<string>It has been honed and hardened by</string>
+					<string>1</string>
+					<string>It is in</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>1</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+					<integer>5</integer>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Two handed weapon</name>
+				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = matches[2]
 equip_db.eq_info.hands = 2
@@ -296,26 +311,26 @@ equip_db.eq_info.hands = 2
 equip_db:update_item("weapons", equip_db.eq_info, true)
 
 equip_db:reset_eq_info()</script>
-			<triggerType>0</triggerType>
-			<conditonLineDelta>0</conditonLineDelta>
-			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
-			<mFgColor>#ff0000</mFgColor>
-			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
-			<colorTriggerFgColor>#000000</colorTriggerFgColor>
-			<colorTriggerBgColor>#000000</colorTriggerBgColor>
-			<regexCodeList>
-				<string>^You need two hands free to wield (.+)\.$</string>
-			</regexCodeList>
-			<regexCodePropertyList>
-				<integer>1</integer>
-			</regexCodePropertyList>
-		</Trigger>
-		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
-			<name>1.5 handed weapon</name>
-			<script>equip_db:reset_eq_info()
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You need two hands free to wield (.+)\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>1.5 handed weapon</name>
+				<script>equip_db:reset_eq_info()
 
 equip_db.eq_info.name = matches[2]
 equip_db.eq_info.hands = 1.5
@@ -323,25 +338,26 @@ equip_db.eq_info.hands = 1.5
 equip_db:update_item("weapons", equip_db.eq_info, true)
 
 equip_db:reset_eq_info()</script>
-			<triggerType>0</triggerType>
-			<conditonLineDelta>0</conditonLineDelta>
-			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
-			<mFgColor>#ff0000</mFgColor>
-			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
-			<colorTriggerFgColor>#000000</colorTriggerFgColor>
-			<colorTriggerBgColor>#000000</colorTriggerBgColor>
-			<regexCodeList>
-				<string>^You grip (.+) with both hands\.$</string>
-				<string>^You shift (.+) to one hand\.$</string>
-			</regexCodeList>
-			<regexCodePropertyList>
-				<integer>1</integer>
-				<integer>1</integer>
-			</regexCodePropertyList>
-		</Trigger>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You grip (.+) with both hands\.$</string>
+					<string>^You shift (.+) to one hand\.$</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
 	</TriggerPackage>
 	<TimerPackage />
 	<AliasPackage>

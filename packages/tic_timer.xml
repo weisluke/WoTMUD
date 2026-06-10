@@ -1792,7 +1792,7 @@ end</script>
 					<string>(You try to (.+) dodges the attack\.)</string>
 					<string>(You try to (.+) deflects the blow\.)</string>
 					<string>(You try to (.+) parries successfully\.)</string>
-					<string>You completely miss (.+) with your (.+)\.$</string>
+					<string>(You completely miss (.+) with your (.+)\.)</string>
 				</regexCodeList>
 				<regexCodePropertyList>
 					<integer>1</integer>

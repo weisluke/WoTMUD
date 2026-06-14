@@ -124,7 +124,6 @@
   ["Dragonsworn"] = "blue",
   ["Forester"] = "forest_green",
   ["Gaidin"] = "forest_green",
-  ["Gleeman"] = "green",
   ["Hand of Light"] = "red",
   ["Illian Companion"] = "blue",
   ["Illuminator"] = "orange",
@@ -156,6 +155,19 @@ end
 if string.find(matches[2],"Ajah") then
   selectCaptureGroup(2)
   fg(string.split(string.lower(matches[2])," ")[1])
+end
+if string.find(matches[2],"Gleeman") then
+  local colors = {"red", "orange", "yellow", "green", "cyan", "blue", "purple", "magenta", "white"}
+  for i = 2, #colors do
+    local j = math.random(i)
+    colors[i], colors[j] = colors[j], colors[i]
+  end
+  selectCaptureGroup(2)
+  local _, x = getSelection()
+  for i = 1, 7 do
+    selectSection(x + i - 1, 1)
+    fg(colors[i])
+  end
 end
 resetFormat()
 </script>

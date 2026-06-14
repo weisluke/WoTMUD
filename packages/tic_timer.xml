@@ -2545,8 +2545,7 @@ registerAnonymousEventHandler("tic", "tic_timer:tic")</script>
   if self.configs.show_aggros then
     if exact and not self.configs.aggro_is_exact then
       self:echo("\n&lt;red&gt;Exact aggro pulse\n")
-      self.configs.aggro_is_exact = true
-      tempTimer(1, function() self.configs.aggro_is_exact = false end)
+      timeframe("tic_timer.configs.aggro_is_exact", {0, true}, {1, false})
     elseif not exact then
       self:echo("\n&lt;red&gt;Estimated aggro pulse\n")
     end

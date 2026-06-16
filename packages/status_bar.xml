@@ -2175,6 +2175,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "status_bar:is_weaving")</sc
 			<script>function status_bar:update_one_power(event, com)  
   if com ~= nil then
     if table.contains({"rel", "rele", "relea", "releas", "release"}, com:lower()) then
+      self.char.one_power = false
       self.one_power:echo("released", "red", "c")
     end
   end

@@ -2273,7 +2273,7 @@ end</script>
       db = db * 0.9
   end
   if self.char.armor then
-    db = db + 10
+    db = db + 5
   end
   if self.char.contagion then
     db = db * 0.8

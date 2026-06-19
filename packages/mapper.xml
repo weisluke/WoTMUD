@@ -2344,7 +2344,11 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "wotmudmapper:sys_disconn
   loadJsonMap(filename)
   self:echo("New map successfully uploaded.\n")
   self:set_map_colors()
-  centerview(self.currentID[1])
+  if table.is_empty(self.currentID) then
+    centerview(1)
+  else
+    centerview(self.currentID[1])
+  end
 end
 
 registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</script>

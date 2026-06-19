@@ -500,10 +500,10 @@ end</script>
 				<string>^The (.+) is obviously open\.$</string>
 				<string>^The (.+) is closed\.$</string>
 				<string>^The (.+) seems to be closed\.$</string>
-				<string>&gt; The (.+) is closed\.$</string>
-				<string>&gt; The (.+) seems to be closed\.$</string>
 				<string>&gt; The (.+) is open\.$</string>
 				<string>&gt; The (.+) is obviously open\.$</string>
+				<string>&gt; The (.+) is closed\.$</string>
+				<string>&gt; The (.+) seems to be closed\.$</string>
 			</regexCodeList>
 			<regexCodePropertyList>
 				<integer>1</integer>

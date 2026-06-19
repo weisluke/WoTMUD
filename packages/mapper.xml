@@ -455,24 +455,15 @@ end
 if wotmudmapper.following then
   wotmudmapper.following = false
 end
---if door was closed, use it to narrow down possible roommatches
-if
-  table.contains(
-    {
-      f"The {matches[2]} is closed.",
-      f"The {matches[2]} seems to be closed.",
-      f"&gt; The {matches[2]} is closed.",
-      f"&gt; The {matches[2]} seems to be closed.",
-    },
-    matches[1]
-  )
-  --but only try to narrow down results if room isn't already known
-  and table.size(wotmudmapper.currentID) &gt; 1
-then
+--use door to narrow down possible roommatches if room isn't already known
+if table.size(wotmudmapper.currentID) &gt; 1 then
   local roommatches = {}
   for _, id in pairs(wotmudmapper.currentID) do
-    --if room has door in direction entered, add to potential matches
-    if getRoomUserData(id, com) ~= "" then
+    --if room has door in direction entered, 
+    --or if dir was nil (edge case when following immortal who walks through closed door),
+    --add to potential matches
+    if (direction and getRoomUserData(id, direction) ~= "")
+      or not direction then
       table.insert(roommatches, id)
     end
   end
@@ -524,6 +515,26 @@ if
 then
   cecho("\n")
   wotmudmapper:create_door(wotmudmapper.currentID[1], direction, 2, door)
+end
+if wotmudmapper.following then
+  wotmudmapper.following = false
+end
+--use door to narrow down possible roommatches if room isn't already known
+if table.size(wotmudmapper.currentID) &gt; 1 then
+  local roommatches = {}
+  for _, id in pairs(wotmudmapper.currentID) do
+    --if room has door in direction entered, 
+    --or if dir was nil (edge case when following immortal who walks through closed door),
+    --add to potential matches
+    if (direction and getRoomUserData(id, direction) ~= "")
+      or not direction then
+      table.insert(roommatches, id)
+    end
+  end
+  wotmudmapper.currentID = roommatches
+end
+if table.size(wotmudmapper.currentID) == 1 then
+  centerview(wotmudmapper.currentID[1])
 end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>

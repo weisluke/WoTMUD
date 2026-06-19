@@ -1980,8 +1980,6 @@ wotmudmapper.zone = wotmudmapper.zone or ""
 wotmudmapper.flee = wotmudmapper.flee or false
 --set to true on "You follow (\S+)\.$"
 wotmudmapper.following = wotmudmapper.following or false
---variable to hold door direction. only used in mapping mode to create doors
-wotmudmapper.door = wotmudmapper.door or "n"
 
 --default configuration values to be used or updated in wotmudmapper.configs
 wotmudmapper.defaults = {
@@ -3394,6 +3392,7 @@ function wotmudmapper:looking_for_doors(event, com)
   com = com:lower():split("%s+")
   if table.size(com) == 2 then
     if (self:is_search(com[1]) or self:is_look(com[1])) and self:is_movement(com[2]) then
+      --variable to hold door direction. only used in mapping mode to create doors
       self.door = string.sub(com[2], 1, 1)
     end
   end

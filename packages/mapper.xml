@@ -439,22 +439,18 @@ end</script>
 		</Trigger>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Doors in General</name>
-			<script>local com = wotmudmapper.queue:popleft()
-local direction
-if com == wotmudmapper.door and com then
-  direction = wotmudmapper.door
-elseif com then
-  direction = com
-else
-  direction = wotmudmapper.door
-end
+			<script>local door = matches[2]
+local com = wotmudmapper.queue:popleft()
+--if com is nil, fall back to door (assumes we are looking or searching)
+local direction = com or wotmudmapper.door
+wotmudmapper.door = nil
 if
   wotmudmapper.configs.mapping and
-  table.size(wotmudmapper.currentID) == 1 and
-  getRoomUserData(wotmudmapper.currentID[1], direction) == ""
+  wotmudmapper:is_movement(direction) and 
+  table.size(wotmudmapper.currentID) == 1
 then
   cecho("\n")
-  wotmudmapper:create_door(wotmudmapper.currentID[1], direction, 1, matches[2])
+  wotmudmapper:create_door(wotmudmapper.currentID[1], direction, 1, door)
 end
 if wotmudmapper.following then
   wotmudmapper.following = false
@@ -518,9 +514,16 @@ end</script>
 		</Trigger>
 		<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Hidden Doors</name>
-			<script>if wotmudmapper.configs.mapping and table.size(wotmudmapper.currentID) == 1 then
+			<script>local door = matches[2]
+local direction = wotmudmapper.door
+wotmudmapper.door = nil
+if 
+  wotmudmapper.configs.mapping and 
+  wotmudmapper:is_movement(direction) and 
+  table.size(wotmudmapper.currentID) == 1
+then
   cecho("\n")
-  wotmudmapper:create_door(wotmudmapper.currentID[1], wotmudmapper.door, 2, matches[2])
+  wotmudmapper:create_door(wotmudmapper.currentID[1], direction, 2, door)
 end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>

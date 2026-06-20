@@ -89,6 +89,21 @@ dice_rolls:pop(name)</script>
 			<packageName></packageName>
 			<regex>^dice pop (\S+)$</regex>
 		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Dice say winners</name>
+			<script>send(f'say win order: {dice_rolls:winners()}')</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^dice say winners$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Dice snakeeyes</name>
+			<script>dice_rolls.snakeeyes = not dice_rolls.snakeeyes
+dice_rolls:echo("snakeeyes is: " .. (dice_rolls.snakeeyes and "&lt;green&gt;high&lt;reset&gt;.\n" or "&lt;red&gt;low&lt;reset&gt;.\n"))</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^dice snakeeyes$</regex>
+		</Alias>
 	</AliasPackage>
 	<ActionPackage />
 	<ScriptPackage>
@@ -96,6 +111,7 @@ dice_rolls:pop(name)</script>
 			<name>Dice rolls</name>
 			<packageName></packageName>
 			<script>dice_rolls = dice_rolls or {data={}}
+dice_rolls.snakeyes = dice_rolls.snakeyes or true
 dice_rolls.version = "1.0"
 
 dice_rolls.help = 
@@ -104,10 +120,12 @@ dice_rolls.help =
     dice help -- display this help message    
     dice version -- display version number
     dice clear -- clear out ALL dice rolls
+    dice snakeeyes -- toggle snakeeyes high or low
     dice show -- display dice rolls
-    dice add xxx yyy -- add a name and number
+    dice add NAME NUMBER -- add a name and number
     dice remove xxx -- remove all rolls for a name (case sensitive)
     dice pop xxx -- remove the most recent roll for a name (case sensitive)
+    dice say winners -- say the win order
  ]]
  
 function dice_rolls:echo(what, err)
@@ -183,6 +201,7 @@ end
 			<name>Dice sort</name>
 			<packageName></packageName>
 			<script>function dice_rolls.sort(t, a, b)
+  local self = dice_rolls
   --the two values in the table for the given keys (names)
   --each of these are themselves tables of the dice rolls
   local t1 = t[a]
@@ -194,8 +213,17 @@ end
     if t2[i] == nil then
       return true
     end
+    --if first player has snakeyes and second doesn't, we beat them
+    if self.snakeeyes and (t1[i] == 2 and t2[i] ~= 2) then
+      return true
+    --if second has snakeyes and first doesn't, they beat us
+    elseif self.snakeeyes and (t1[i] ~= 2 and t2[i] == 2) then
+      return false
+    --if they both have snakeeyes, it will continue to the next loop
+    --as the following statements won't fire
+    --if no snakeeyes toggle or other rolls however, we still need to compare
     --if second player has a worse roll, we beat them
-    if t1[i] &gt; t2[i] then
+    elseif t1[i] &gt; t2[i] then
       return true
     --otherwise they beat us
     elseif t1[i] &lt; t2[i] then
@@ -233,10 +261,7 @@ end
     return
   end
   
-  local result = ""
-  for name, _ in spairs(self.data, self.sort) do
-    result = f'{result}{name}, '
-  end
+  self:echo("snakeeyes is: " .. (dice_rolls.snakeeyes and "&lt;green&gt;high&lt;reset&gt;.\n" or "&lt;red&gt;low&lt;reset&gt;.\n"))
   self:echo(f'win order = {dice_rolls:winners()}\n')
   
   for name, rolls in spairs(self.data, self.sort) do

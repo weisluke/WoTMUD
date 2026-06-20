@@ -163,7 +163,9 @@ function dice_rolls:pop(name)
   else
     self:echo(f'{name} not found in dice roll data!\n', true)
   end
-end</script>
+end
+
+</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -178,7 +180,7 @@ end
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
-			<name>Dice show</name>
+			<name>Dice sort</name>
 			<packageName></packageName>
 			<script>function dice_rolls.sort(t, a, b)
   --the two values in the table for the given keys (names)
@@ -205,7 +207,27 @@ end
   return false
 end
 
-function dice_rolls:show()
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>Dice winners</name>
+			<packageName></packageName>
+			<script>function dice_rolls:winners()  
+  local result = {}
+  for name, _ in spairs(self.data, self.sort) do
+    table.insert(result, name)
+  end
+  return table.concat(result, ", ")
+end
+
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>Dice show</name>
+			<packageName></packageName>
+			<script>function dice_rolls:show()
   if table.is_empty(self.data) then
     self:echo("No dice data stored!\n")
     return
@@ -215,7 +237,7 @@ function dice_rolls:show()
   for name, _ in spairs(self.data, self.sort) do
     result = f'{result}{name}, '
   end
-  self:echo(f'win order = {result}\n')
+  self:echo(f'win order = {dice_rolls:winners()}\n')
   
   for name, rolls in spairs(self.data, self.sort) do
     cecho(string.format("%-20s|", name))
@@ -224,7 +246,9 @@ function dice_rolls:show()
     end
     cecho("\n")
   end
-end</script>
+end
+
+</script>
 			<eventHandlerList />
 		</Script>
 	</ScriptPackage>

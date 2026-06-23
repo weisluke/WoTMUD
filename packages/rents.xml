@@ -434,7 +434,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
 			<packageName></packageName>
 			<script>rents.rares = {
     "a heron-marked longsword",
-    "a heron-marked blade",
+    "a heron-mark blade",
     "a heron-marked greatsword", 
     "a heron-marked foil",
     "a heron-engraved scabbard",
@@ -463,6 +463,8 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
     "a jeweled wristcuff",
     "an obsidian encrusted sungwood staff",
     "a wicked knife bladed axe",
+    "a polearm with a serrated catchpole",
+    "a wildly-spiked axe",
 }    </script>
 			<eventHandlerList />
 		</Script>
@@ -513,7 +515,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
     
     local msg_format = "%-10s%-40s%s%-40s%-10s\n"
     
-    if string.len(room_name) &gt;= 40 or string.len(item.item) &gt;= 40 then
+    if room_name:len() &gt;= 40 or item.item:len() &gt;= 40 then
       msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
     end
   

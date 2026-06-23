@@ -111,8 +111,8 @@ dice_rolls:echo("snakeeyes is: " .. (dice_rolls.snakeeyes and "&lt;green&gt;high
 			<name>Dice rolls</name>
 			<packageName></packageName>
 			<script>dice_rolls = dice_rolls or {data={}}
-dice_rolls.snakeyes = dice_rolls.snakeyes or true
-dice_rolls.version = "1.0"
+dice_rolls.snakeeyes = dice_rolls.snakeeyes or true
+dice_rolls.version = "1.1"
 
 dice_rolls.help = 
   [[Dice roll tracker
@@ -213,10 +213,10 @@ end
     if t2[i] == nil then
       return true
     end
-    --if first player has snakeyes and second doesn't, we beat them
+    --if first player has snakeeyes and second doesn't, we beat them
     if self.snakeeyes and (t1[i] == 2 and t2[i] ~= 2) then
       return true
-    --if second has snakeyes and first doesn't, they beat us
+    --if second has snakeeyes and first doesn't, they beat us
     elseif self.snakeeyes and (t1[i] ~= 2 and t2[i] == 2) then
       return false
     --if they both have snakeeyes, it will continue to the next loop

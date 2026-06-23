@@ -38,7 +38,7 @@
 				</regexCodePropertyList>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>There are some tracks of a (.+) leaving (.+)\.</name>
-					<script>local race = string.lower(matches[3])
+					<script>local race = matches[3]:lower()
 local dir = matches[4]
 
 local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
@@ -58,9 +58,9 @@ local colors =
 
 if colors[race] then
   selectCaptureGroup(3)
-  creplace(f"&lt;{colors[race]}&gt;{string.upper(race)}")
+  creplace(f"&lt;{colors[race]}&gt;{race:upper()}")
   selectCaptureGroup(4)
-  creplace(f"{string.upper(dir)}")
+  creplace(f"{dir:upper()}")
   cecho(f" {directions[dir]}")
 end</script>
 					<triggerType>0</triggerType>
@@ -102,7 +102,7 @@ end</script>
 				</regexCodePropertyList>
 				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 					<name>There are some bloody traces of a (.+) leaving (.+)\.</name>
-					<script>local race = string.lower(matches[3])
+					<script>local race = matches[3]:lower()
 local dir = matches[4]
 
 local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
@@ -122,9 +122,9 @@ local colors =
 
 if colors[race] then
   selectCaptureGroup(3)
-  creplace(f"&lt;{colors[race]}&gt;{string.upper(race)}")
+  creplace(f"&lt;{colors[race]}&gt;{race:upper()}")
   selectCaptureGroup(4)
-  creplace(f"{string.upper(dir)}")
+  creplace(f"{dir:upper()}")
   cecho(f" {directions[dir]}")
 end</script>
 					<triggerType>0</triggerType>
@@ -147,7 +147,7 @@ end</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Some (.+) tracks of a (.+) leaving (.+)\.</name>
-				<script>local race = string.lower(matches[3])
+				<script>local race = matches[3]:lower()
 local dir = matches[4]
 
 local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
@@ -167,9 +167,9 @@ local colors =
 
 if colors[race] then
   selectCaptureGroup(3)
-  creplace(f"&lt;{colors[race]}&gt;{string.upper(race)}")
+  creplace(f"&lt;{colors[race]}&gt;{race:upper()}")
   selectCaptureGroup(4)
-  creplace(f"{string.upper(dir)}")
+  creplace(f"{dir:upper()}")
   cecho(f" {directions[dir]}")
 end</script>
 				<triggerType>0</triggerType>
@@ -197,9 +197,9 @@ local dir = matches[4]
 local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"} 
 
 selectCaptureGroup(3)
-creplace(string.upper(name))
+creplace(name:upper())
 selectCaptureGroup(4)
-creplace(f"{string.upper(dir)}")
+creplace(f"{dir:upper()}")
 cecho(f" {directions[dir]}")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
@@ -220,7 +220,7 @@ cecho(f" {directions[dir]}")</script>
 			</Trigger>
 			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="yes" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Some (.+) bloody traces of a (.+) leaving (.+)\.</name>
-				<script>local race = string.lower(matches[3])
+				<script>local race = matches[3]:lower()
 local dir = matches[4]
 
 local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
@@ -240,9 +240,9 @@ local colors =
 
 if colors[race] then
   selectCaptureGroup(3)
-  creplace(f"&lt;{colors[race]}&gt;{string.upper(race)}")
+  creplace(f"&lt;{colors[race]}&gt;{race:upper()}")
   selectCaptureGroup(4)
-  creplace(f"{string.upper(dir)}")
+  creplace(f"{dir:upper()}")
   cecho(f" {directions[dir]}")
 end</script>
 				<triggerType>0</triggerType>
@@ -270,9 +270,9 @@ local dir = matches[4]
 local directions = {north = "^^", east = "&gt;&gt;", south = "vv", west = "&lt;&lt;", up = "uu", down = "dd"}
 
 selectCaptureGroup(3)
-creplace(string.upper(name))
+creplace(name:upper())
 selectCaptureGroup(4)
-creplace(f"{string.upper(dir)}")
+creplace(f"{dir:upper()}")
 cecho(f" {directions[dir]}")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>

@@ -469,7 +469,7 @@ communications:show_comms(communications.configs.comms_window.visible)</script>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Comms Colors</name>
-			<script>local key = string.lower(matches[2])
+			<script>local key = matches[2]:lower()
 local new_color = matches[3]
 if communications.configs.colors[key] ~= nil then
   if color_table[new_color] or new_color == "reset" then

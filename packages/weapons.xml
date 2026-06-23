@@ -29,7 +29,7 @@ end</script>
 		<Alias isActive="yes" isFolder="no">
 			<name>Scalp Corpse</name>
 			<script>--syntax: scc
-for i=1, string.len(matches[2]),1 do
+for i=1,matches[2]:len(),1 do
   send(f"scalp {i}.corpse")
 end</script>
 			<command></command>

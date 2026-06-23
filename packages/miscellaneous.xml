@@ -154,7 +154,7 @@ for clan, color in pairs(clan_colors) do
 end
 if string.find(matches[2],"Ajah") then
   selectCaptureGroup(2)
-  fg(string.split(string.lower(matches[2])," ")[1])
+  fg(matches[2]:lower():split(" ")[1])
 end
 if string.find(matches[2],"Gleeman") then
   local colors = {"red", "orange", "yellow", "green", "cyan", "blue", "purple", "magenta", "white"}

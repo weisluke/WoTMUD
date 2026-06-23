@@ -1253,7 +1253,7 @@ end</script>
     
     for _, item in pairs(weapons) do
     
-      if string.len(item.name) &lt; 45 then
+      if item.name:len() &lt; 45 then
         msg_format = "%-45s%s%-7s%-15s%-5s%-5s%-7s%-6s%-9s\n"
       else
         msg_format = "%-45s\n%-45s%-7s%-15s%-5s%-5s%-7s%-6s%-9s\n"
@@ -1292,7 +1292,7 @@ end</script>
     
     for _, item in pairs(armor) do
     
-      if string.len(item.name) &lt; 40 then
+      if item.name:len() &lt; 40 then
         msg_format = "%-40s%s%-8s%-6s%-6s%-6s%-5s%-6s%-7s\n"
       else
         msg_format = "%-40s\n%-40s%-8s%-6s%-6s%-6s%-5s%-6s%-7s\n"
@@ -1331,7 +1331,7 @@ end</script>
     
     for _, item in pairs(trinkets) do
     
-      if string.len(item.name) &lt; 40 then
+      if item.name:len() &lt; 40 then
         msg_format = "%-40s%s%-8s%-6s%-6s%-5s%-6s%-7s\n"
       else
         msg_format = "%-40s\n%-40s%-8s%-6s%-6s%-5s%-6s%-7s\n"

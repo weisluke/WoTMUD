@@ -6,7 +6,7 @@
 	<AliasPackage>
 		<Alias isActive="yes" isFolder="no">
 			<name>Portal Stones</name>
-			<script>local location = string.lower(matches[2])
+			<script>local location = matches[2]:trim():lower()
 local patterns =
   {
     sh = "circle with an upside down triangle inside a triangle bisected by a wavy line",

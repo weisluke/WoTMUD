@@ -89,9 +89,9 @@ end</script>
 					<script>disableTrigger("Map Description")
 
 --puts current exits in a table of the form {"n","e","s","w","u","d"}
-wotmudmapper.roomexits = string.lower(matches[2])
+wotmudmapper.roomexits = matches[2]:lower()
 wotmudmapper:echo(f"\nRoom exits ({wotmudmapper.roomexits}) captured.\n", true)
-wotmudmapper.roomexits = string.split(wotmudmapper.roomexits)
+wotmudmapper.roomexits = wotmudmapper.roomexits:split()
 wotmudmapper.roomexits = table.n_intersection(wotmudmapper.roomexits, {"n","e","s","w","u","d"})
   
 if wotmudmapper:is_dark_name() then
@@ -306,12 +306,12 @@ if table.size(wotmudmapper.currentID) &gt; 1 then
       local map_exits = {}
       --create table of exit keys (grabbing first letter of "north","south",etc.)
       for dir, _ in pairs(getRoomExits(id)) do
-        table.insert(map_exits, string.sub(dir, 1, 1))
+        table.insert(map_exits, dir:sub(1, 1))
       end
       --if there are exit stubs leading to unmapped room, include those
       if getExitStubs(id) then
         for _, dirnum in pairs(getExitStubs(id)) do
-          table.insert(map_exits, string.sub(wotmudmapper.exitmap[dirnum], 1, 1))
+          table.insert(map_exits, wotmudmapper.exitmap[dirnum]:sub(1, 1))
         end
       end
       --compare list of possible exits to exit that failed
@@ -341,7 +341,7 @@ if table.size(wotmudmapper.currentID) &gt; 1 then
       --if there are exit stubs in the direction leading to unmapped rooms, include the current room
       if getExitStubs(id) then
         for _, dirnum in pairs(getExitStubs(id)) do
-          if string.sub(wotmudmapper.exitmap[dirnum], 1, 1) == com then
+          if wotmudmapper.exitmap[dirnum]:sub(1, 1) == com then
             table.insert(roommatches, id)
           end
         end
@@ -1255,7 +1255,7 @@ end</script>
 				<script>--syntax: cre environment
 --set current room to a particular environment type
 
-local env = string.lower(matches[2])
+local env = matches[2]:trim():lower()
 if table.size(wotmudmapper.currentID) == 1 then
   if wotmudmapper.map_colors[env] then
     setRoomEnv(wotmudmapper.currentID[1], wotmudmapper.room_type_env_nums[env])
@@ -1276,7 +1276,7 @@ end</script>
 				<script>--syntax: cme environment
 --make the rooms you're mapping all of a particular environment type
 
-local env = string.lower(matches[2])
+local env = matches[2]:trim():lower()
 if wotmudmapper.map_colors[env] then
   wotmudmapper.configs.envcolor = wotmudmapper.room_type_env_nums[env]
   wotmudmapper:echo(f"New rooms will be of type &lt;{wotmudmapper.map_colors[env]}&gt;{env}&lt;reset&gt;.\n")
@@ -1302,7 +1302,7 @@ wotmudmapper:set_map_colors()</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Change Map Colors</name>
-				<script>local env = string.lower(matches[2])
+				<script>local env = matches[2]:lower()
 local new_color = matches[3]
 
 if wotmudmapper.map_colors[env] ~= nil then
@@ -1657,16 +1657,13 @@ wotmudmapper:echo(f"Queue reset. {numcoms} command(s) was/were removed.\n")</scr
 			<name>Find Room</name>
 			<script>--syntax: findroom roomname OR findroom roomname zone zonename
 
-local roomname = matches[2]
-local zonename = matches[4]
+local roomname = matches[2]:trim():lower()
+local zonename = matches[4]:trim():lower()
 
-local foundrooms = searchRoom(roomname, false, true)
-if table.is_empty(foundrooms) then
-  foundrooms = searchRoom(roomname, false, false)
-end
+local foundrooms = searchRoom(roomname, false, false)
 if zonename then
   for id, name in pairs(foundrooms) do
-    if not string.find(string.lower(getRoomUserData(id, "zone")), string.lower(zonename)) then
+    if not string.find(getRoomUserData(id, "zone"):lower(), zonename, 1, true) then
       foundrooms[id] = nil
     end
   end
@@ -1676,9 +1673,8 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  for id, name in pairs(foundrooms) do
-    centerview(id)
-  end
+  id, name = next(foundrooms)
+  centerview(id)
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
   for id, name in spairs(foundrooms) do
@@ -1696,17 +1692,57 @@ end</script>
 			<regex>^findroom (.+?)( zone (.+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
+			<name>Find Zone</name>
+			<script>--syntax: findzone zonename
+local zonename = matches[2]:trim():lower()
+
+--format: foundzones[zone] = {id, count}
+local foundzones = {}
+
+for id, _ in pairs(getRooms()) do
+  local zone = getRoomUserData(id, "zone")
+  if string.find(zone:lower(), zonename, 1, true) then
+    if not foundzones[zone] then
+      foundzones[zone] = {id = id, count = 1}
+    else
+      foundzones[zone].count = foundzones[zone].count + 1
+    end
+  end
+end
+
+if table.is_empty(foundzones) then
+  wotmudmapper:echo("No matches found.\n", false, true)
+elseif table.size(foundzones) == 1 then
+  wotmudmapper:echo(f"One matching zone found. Map has been centered on a room in this zone.\n")
+  local zone, data = next(foundzones)
+  centerview(data.id)
+else
+  wotmudmapper:echo("Multiple matches found.\n", false, true)
+  for zone, data in spairs(foundzones) do
+    cechoLink(
+      f"&lt;{wotmudmapper.configs.zonecolor}&gt;Zone&lt;reset&gt;: {zone}, number of rooms: {data.count}\n",
+      function() centerview(data.id) end,
+      "Click to center map on a room in this zone.",
+      true
+    )
+  end
+end</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^findzone (.+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
 			<name>Find Door</name>
 			<script>--syntax: finddoor doorname OR finddoor doorname zone zonename
 
-local doorname = matches[2]
-local zonename = matches[4]
+local doorname = matches[2]:trim():lower()
+local zonename = matches[4]:trim():lower()
 
 local foundrooms = {}
 
 for room, name in pairs(getRooms()) do
   for _, dir in pairs({"n","e","s","w","u","d"}) do
-    if string.lower(getRoomUserData(room, dir)) == string.lower(doorname) then
+    if getRoomUserData(room, dir):lower() == doorname then
       table.insert(foundrooms,room)
     end
   end
@@ -1717,7 +1753,7 @@ foundrooms = table.n_union(foundrooms, foundrooms)
 
 if zonename then
   for i, room in pairs(foundrooms) do
-    if not string.find(string.lower(getRoomUserData(room, "zone")), string.lower(zonename)) then
+    if not string.find(getRoomUserData(room, "zone"):lower(), zonename, 1, true) then
       foundrooms[i] = nil
     end
   end
@@ -1727,9 +1763,8 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  for _, id in pairs(foundrooms) do
-    centerview(id)
-  end
+  _, id = next(foundrooms)
+  centerview(id)
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
   for _, id in pairs(foundrooms) do
@@ -1751,8 +1786,8 @@ end</script>
 			<name>Show Room</name>
 			<script>--syntax: showroom envname OR showroom envname zone zonename
 
-local env = matches[2]
-local zonename = matches[4]
+local env = matches[2]:trim():lower()
+local zonename = matches[4]:trim():lower()
 
 local foundrooms = getRooms()
 
@@ -1764,7 +1799,7 @@ end
 
 if zonename then
   for id, name in pairs(foundrooms) do
-    if not string.find(string.lower(getRoomUserData(id, "zone")), string.lower(zonename)) then
+    if not string.find(getRoomUserData(id, "zone"):lower(), zonename, 1, true) then
       foundrooms[id] = nil
     end
   end
@@ -1774,9 +1809,8 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  for id, name in pairs(foundrooms) do
-    centerview(id)
-  end
+  id, name = next(foundrooms)
+  centerview(id)
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
   for id, name in spairs(foundrooms) do
@@ -3356,7 +3390,7 @@ end</script>
   --if roomID has exit stubs, add them to table of exits
   if getExitStubs(roomID) then
     for _, dir in pairs(getExitStubs(roomID)) do
-      table.insert(firstExits, string.sub(self.exitmap[dir], 1, 1))
+      table.insert(firstExits, self.exitmap[dir]:sub(1, 1))
     end
   end
   --for every exit stub
@@ -3369,7 +3403,7 @@ end</script>
     --if only one room at offset position and that room has stubs
     if (table.size(roomList) == 1 and getExitStubs(roomList[0])) then
       for _, val in pairs(getExitStubs(roomList[0])) do
-        table.insert(secondExits, string.sub(self.exitmap[val], 1, 1))
+        table.insert(secondExits, self.exitmap[val]:sub(1, 1))
       end
       --compare exit stubs from second room to exit stubs from first room
       --and join appropriately
@@ -3431,7 +3465,7 @@ function wotmudmapper:looking_for_doors(event, com)
   if table.size(com) == 2 then
     if (self:is_search(com[1]) or self:is_look(com[1])) and self:is_movement(com[2]) then
       --variable to hold door direction. only used in mapping mode to create doors
-      self.door = string.sub(com[2], 1, 1)
+      self.door = com[2]:sub(1, 1)
     end
   end
 end
@@ -3578,12 +3612,12 @@ end</script>
   --note room exits that lead to unknown rooms (as they may be DTs)
   local safe_rooms = {}
   for dir,id in pairs(getRoomExits(self.currentID[1])) do
-    table.insert(safe_rooms, string.sub(dir,1,1))
+    table.insert(safe_rooms, dir:sub(1, 1))
   end
   local unsafe_rooms = table.n_complement(self.roomexits or {}, safe_rooms)
   if getExitStubs(self.currentID[1]) then
     for _, dirnum in pairs(getExitStubs(self.currentID[1])) do
-      table.insert(unsafe_rooms,string.sub(self.exitmap[dirnum],1,1))
+      table.insert(unsafe_rooms, self.exitmap[dirnum]:sub(1, 1))
     end
     unsafe_rooms = table.n_union(unsafe_rooms, unsafe_rooms)
   end
@@ -3639,11 +3673,11 @@ end</script>
       cecho("\n[ obvious exits: ")
       exits = {}
       for dir, id in pairs(getRoomExits(newid)) do
-        table.insert(exits,string.sub(dir,1,1))
+        table.insert(exits, dir:sub(1, 1))
       end
       if getExitStubs(newid) then
         for _, dir in pairs(getExitStubs(newid)) do
-          table.insert(exits,string.sub(self.exitmap[dir],1,1))
+          table.insert(exits, self.exitmap[dir]:sub(1, 1))
         end  
       end      
       exits = table.n_intersection({"n","e","s","w","u","d"},exits)
@@ -3673,7 +3707,7 @@ enableMapInfo("Zone info")
 registerMapInfo("Door info", function(roomId, selectionSize, areaId, displayedArea)
   local output = ""
   for _, dir in pairs({"north", "east", "south", "west", "up", "down"}) do
-    local door = getRoomUserData(roomId, string.sub(dir, 1, 1))
+    local door = getRoomUserData(roomId, dir:sub(1, 1))
     if door ~= "" then
       output = f"{output}Door {dir}: {door}\n"
     end

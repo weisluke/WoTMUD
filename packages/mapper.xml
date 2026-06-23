@@ -317,7 +317,7 @@ if table.size(wotmudmapper.currentID) &gt; 1 then
       --compare list of possible exits to exit that failed
       --if possible exits doesn't contain direction that failed OR has a door (which could be hidden, and closed)
       --then that room is a possible match
-      if (not table.contains(map_exits, com)) or getRoomUserData(id, com) ~= "" then
+      if (not table.contains(map_exits, com)) or wotmudmapper:has_door(id, com) then
         table.insert(roommatches, id)
       end
     end
@@ -460,10 +460,9 @@ if table.size(wotmudmapper.currentID) &gt; 1 then
   local roommatches = {}
   for _, id in pairs(wotmudmapper.currentID) do
     --if room has door in direction entered, 
-    --or if dir was nil (edge case when following immortal who walks through closed door),
+    --(or any direction if dir was nil, edge case when following immortal who walks through closed door),
     --add to potential matches
-    if (direction and getRoomUserData(id, direction) ~= "")
-      or not direction then
+    if wotmudmapper:has_door(id, direction) then
       table.insert(roommatches, id)
     end
   end
@@ -524,10 +523,9 @@ if table.size(wotmudmapper.currentID) &gt; 1 then
   local roommatches = {}
   for _, id in pairs(wotmudmapper.currentID) do
     --if room has door in direction entered, 
-    --or if dir was nil (edge case when following immortal who walks through closed door),
+    --(or any direction if dir was nil, edge case when following immortal who walks through closed door),
     --add to potential matches
-    if (direction and getRoomUserData(id, direction) ~= "")
-      or not direction then
+    if wotmudmapper:has_door(id, direction) then
       table.insert(roommatches, id)
     end
   end
@@ -1970,7 +1968,7 @@ local foundrooms = {}
 
 for id, name in pairs(getRooms()) do
   local desc = getRoomUserData(id, "description")
-  if string.find(desc, phrase) then
+  if string.find(desc, phrase, 1, true) then
     table.insert(foundrooms, id)
   end
 end
@@ -1979,9 +1977,8 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  for _, id in pairs(foundrooms) do
-    centerview(id)
-  end
+  _, id = next(foundrooms)
+  centerview(id)
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
   for _, id in pairs(foundrooms) do
@@ -2977,7 +2974,7 @@ end</script>
   end  
   
   --if list of valid rooms contains only one, send the command for that door
-  if table.size(rooms) == 1 and getRoomUserData(rooms[1], dir) ~= "" then
+  if table.size(rooms) == 1 and self:has_door(rooms[1], dir) then
     local door = getRoomUserData(rooms[1], dir)
     send(f"{com} {door} {dir}")
   --otherwise send generic command
@@ -3169,7 +3166,7 @@ function wotmudmapper:find_matching_exits(rooms)
     elseif table.is_empty(seen_minus_map) and not table.is_empty(map_minus_seen) then
       alldoors = true
       for _, dir in pairs(map_minus_seen) do
-        if getRoomUserData(id, dir) == "" then
+        if not self:has_door(id, dir) then
           alldoors = false
           break
         end
@@ -3292,6 +3289,30 @@ end</script>
   else
     return false
   end
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>wotmudmapper:has_door</name>
+				<packageName></packageName>
+				<script>function wotmudmapper:has_door(id, dir)
+  --direction provided
+  if dir then
+    if getRoomUserData(id, dir) ~= "" then 
+      return true 
+    else
+      return false
+    end
+  end
+  
+  --no direction provided, check all directions
+  for _, dir in pairs({"n","e","s","w","u","d"}) do
+    if getRoomUserData(id, dir) ~= "" then
+      return true
+    end
+  end
+  
+  return false
 end</script>
 				<eventHandlerList />
 			</Script>

@@ -712,10 +712,9 @@ if table.is_empty(foundrooms) then
   selectCaptureGroup(2)
   setLink(function() end, "No matches found!")
 elseif table.size(foundrooms) == 1 then
-  for _, id in pairs(foundrooms) do
-    selectCaptureGroup(2)
-    setLink(function() centerview(id) end, "Click to center map on room.")
-  end
+  _, id = next(foundrooms)
+  selectCaptureGroup(2)
+  setLink(function() centerview(id) end, "Click to center map on room.")
 else
   selectCaptureGroup(2)
   setLink(function() 

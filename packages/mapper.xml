@@ -1655,10 +1655,11 @@ wotmudmapper:echo(f"Queue reset. {numcoms} command(s) was/were removed.\n")</scr
 			<script>--syntax: findroom roomname OR findroom roomname zone zonename
 
 local roomname = matches[2]:trim():lower()
-local zonename = matches[4]:trim():lower()
+local zonename = matches[4]
 
 local foundrooms = searchRoom(roomname, false, false)
 if zonename then
+  zonename = zonename:trim():lower()
   for id, name in pairs(foundrooms) do
     if not string.find(getRoomUserData(id, "zone"):lower(), zonename, 1, true) then
       foundrooms[id] = nil
@@ -1733,7 +1734,7 @@ end</script>
 			<script>--syntax: finddoor doorname OR finddoor doorname zone zonename
 
 local doorname = matches[2]:trim():lower()
-local zonename = matches[4]:trim():lower()
+local zonename = matches[4]
 
 local foundrooms = {}
 
@@ -1749,6 +1750,7 @@ end
 foundrooms = table.n_union(foundrooms, foundrooms)
 
 if zonename then
+  zonename = zonename:trim():lower()
   for i, room in pairs(foundrooms) do
     if not string.find(getRoomUserData(room, "zone"):lower(), zonename, 1, true) then
       foundrooms[i] = nil
@@ -1784,7 +1786,7 @@ end</script>
 			<script>--syntax: showroom envname OR showroom envname zone zonename
 
 local env = matches[2]:trim():lower()
-local zonename = matches[4]:trim():lower()
+local zonename = matches[4]
 
 local foundrooms = getRooms()
 
@@ -1795,6 +1797,7 @@ for id, name in pairs(foundrooms) do
 end
 
 if zonename then
+  zonename = zonename:trim():lower()
   for id, name in pairs(foundrooms) do
     if not string.find(getRoomUserData(id, "zone"):lower(), zonename, 1, true) then
       foundrooms[id] = nil

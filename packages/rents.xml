@@ -602,8 +602,8 @@ RentViewer.oddRowColor    = {20, 20, 28}
 
 RentViewer.highlightColor = {128, 200, 255}
 
-RentViewer.currentSortField = "name"
-RentViewer.sortAscending    = true
+RentViewer.sort_by = "name"
+RentViewer.sort_ascending    = true
 
 local COLUMN_WIDTHS = {
   name     = 19,
@@ -645,7 +645,7 @@ end
 
 function RentViewer:get_unique_values(field)
   local list = {}
-  for _, rec in ipairs(self.cachedRecords or {}) do
+  for _, rec in ipairs(self.records) do
     table.insert(list, rec[field])
   end
   --remove duplicates
@@ -656,8 +656,8 @@ end
 
 function RentViewer:get_zones_for_name(name)
   local list = {}
-  for _, rec in ipairs(self.cachedRecords or {}) do
-    if name == "" or rec.name == name then
+  for _, rec in ipairs(self.records) do
+    if name == "All" or rec.name == name then
       table.insert(list, rec.zone)
     end
   end
@@ -669,17 +669,16 @@ end
 -- ============================================================
 -- DROPDOWN WIDGET
 -- ============================================================
-function RentViewer:createDropdown(cfg)
-  local dropdown = { value = "" }
-  local parent   = cfg.parent or self.window
-  local optionH  = 20
+function RentViewer:create_dropdown(cfg)
+  local parent = cfg.parent or self.window
+  local optionH = 20 --height for the options labels
 
-  dropdown.label = Geyser.Label:new({
-    name = cfg.name .. "Label",
+  local dropdown = Geyser.Label:new({
+    name = f'{cfg.name}.label',
     x = cfg.x, y = cfg.y,
     width = cfg.width, height = cfg.height,
   }, parent)
-  dropdown.label:setStyleSheet([[
+  dropdown:setStyleSheet([[
     background-color: rgb(30,30,40);
     border: 1px solid rgb(90,90,110);
     color: rgb(220,220,220);
@@ -687,31 +686,35 @@ function RentViewer:createDropdown(cfg)
     padding-left: 4px;
     border-radius: 4px;
   ]])
-  dropdown.label:echo("All")
+  dropdown:echo("All")
 
   dropdown.caret = Geyser.Label:new({
-    name = cfg.name .. "Caret",
+    name = f'{cfg.name}.caret',
     x = "-20px", y = 0, width = "20px", height = "100%",
-  }, dropdown.label)
-  dropdown.caret:setStyleSheet("background-color: rgba(0,0,0,0); color: rgb(130,130,150); font-size: 9px;")
+  }, dropdown)
+  dropdown.caret:setStyleSheet([[
+    background-color: rgba(0,0,0,0);
+    color: rgb(130,130,150);
+    font-size: 9px;
+  ]])
   dropdown.caret:echo("▼")
   dropdown.caret:setAlignment("center")
 
   local options = {"All"}
-  for _, v in ipairs(cfg.options or {}) do
-    table.insert(options, v)
+  for _, opt in ipairs(cfg.options or {}) do
+    table.insert(options, opt)
   end
 
   dropdown.list = Geyser.Container:new({
-    name = cfg.name .. "List",
+    name = f'{cfg.name}.list',
     x = cfg.x, y = cfg.y + cfg.height,
     width = cfg.width, height = math.min(optionH * #options, 300),
   }, parent)
   dropdown.list:hide()
 
-  for i, v in ipairs(options) do
+  for i, val in ipairs(options) do
     local opt = Geyser.Label:new({
-      name = cfg.name .. "Opt" .. i,
+      name = f'{cfg.name}.opt_{i}',
       x = 0, y = (i - 1) * optionH,
       width = cfg.width, height = optionH,
     }, dropdown.list)
@@ -721,89 +724,80 @@ function RentViewer:createDropdown(cfg)
       font-size: 11px;
       padding-left: 4px;
       border-bottom: 1px solid rgb(50,50,65);
+      border-radius: 4px;
     ]])
-    opt:echo(v)
+    opt:echo(val)
     opt:setClickCallback(function()
-      dropdown.value = (v == "All") and "" or v
-      dropdown.label:echo(v)
-      self:closeOpenDropdown()
-      if cfg.onChange then cfg.onChange(dropdown.value) end
+      dropdown:echo(val)
+      self:close_open_dropdown()
+      if cfg.on_change then cfg.on_change(dropdown.message) end
       self:refresh()
     end)
   end
 
-  local function toggleOpen()
-    if self.openDropdown == dropdown then
-      self:closeOpenDropdown()
+  local function toggle_open()
+    if self.open_dropdown == dropdown then
+      self:close_open_dropdown()
     else
-      self:closeOpenDropdown()
+      self:close_open_dropdown()
+      self.open_dropdown = dropdown
       dropdown.list:show()
-      self.openDropdown = dropdown
-      self.clickCatcher:show()
-      self.clickCatcher:raiseAll()
+      self.click_catcher:show()
+      self.click_catcher:raiseAll()
       dropdown.list:raiseAll()
     end
   end
 
-  dropdown.label:setClickCallback(toggleOpen)
-  dropdown.caret:setClickCallback(toggleOpen)
-
-  function dropdown:getText() return self.value end
-  function dropdown:setText(v)
-    self.value = v or ""
-    self.label:echo((self.value == "") and "All" or self.value)
-  end
+  dropdown:setClickCallback(toggle_open)
+  dropdown.caret:setClickCallback(toggle_open)
 
   return dropdown
 end
 
-function RentViewer:closeOpenDropdown()
-  if self.openDropdown then
-    self.openDropdown.list:hide()
-    self.openDropdown = nil
+function RentViewer:close_open_dropdown()
+  if self.open_dropdown then
+    self.open_dropdown.list:hide()
+    self.open_dropdown = nil
   end
-  self.clickCatcher:hide()
+  self.click_catcher:hide()
 end
 
 -- ============================================================
 -- LOCATION DROPDOWN REBUILD
 -- ============================================================
-function RentViewer:rebuildLocationDropdown(nameFilter)
-  if self.inputLocation then
-    if self.openDropdown == self.inputLocation then
-      self:closeOpenDropdown()
-    end
-    self.inputLocation.label:hide()
-    self.inputLocation.list:hide()
+function RentViewer:rebuild_location_dropdown(name)
+  if self.select_location then
+    self.select_location:delete()
+    self.select_location = nil
   end
 
-  self.inputLocation = self:createDropdown({
-    name    = "RentViewerInputLocation",
+  self.select_location = self:create_dropdown({
+    name    = "RentViewer.select_location",
     parent  = self.window,
     x       = self.locationDropdownX,
     y       = self.locationDropdownY,
     width   = self.locationDropdownW,
     height  = self.locationDropdownH,
-    options = self:get_zones_for_name(nameFilter),
+    options = self:get_zones_for_name(name),
   })
 end
 
 -- ============================================================
 -- RESET FILTERS
 -- ============================================================
-function RentViewer:resetFiltersAndSorting()
-  self.inputOmni:print("")
-  self.inputItem:print("")
-  self.inputName:setText(rents.name or "")
-  self.rareChecked = false
-  self:_updateRareCheckbox()
-  self.angrealChecked = false
-  self:_updateAngrealCheckbox()
-  self.summaryChecked = false
-  self:_updateSummaryCheckbox()
-  self:rebuildLocationDropdown("")
-  self.currentSortField = "name"
-  self.sortAscending    = true
+function RentViewer:reset()
+  self.input_all:print("")
+  self.select_name:echo("All")
+  self:rebuild_location_dropdown("All")
+  self.input_item:print("")
+  self.search_rare = false
+  self:update_button_rare()
+  self.search_angreal = false
+  self:update_button_angreal()
+  self.is_summary = false
+  self:update_button_summary()
+  self.sort_by = "name"
+  self.sort_ascending = true
 end
 
 -- ============================================================
@@ -811,11 +805,11 @@ end
 -- ============================================================
 function RentViewer:buildUI()
   if self.window then
-    self.window:hide()
+    self.window:delete()
     self.window = nil
   end
 
-  self.openDropdown = nil
+  self.open_dropdown = nil
 
   local startX, startY = getCenteredCoordinates()
 
@@ -824,40 +818,47 @@ function RentViewer:buildUI()
     x = startX, y = startY,
     width = self.width, height = self.height,
     titleText = "Rents",
-    titleTxtColor = "#ffffff",
-    adjLabelstyle = "background-color: rgb(15,15,20); border: 2px solid rgb(90,90,110); border-radius: 4px;",
-    buttonstyle   = [[
-      QLabel { border-radius: 4px; background-color: rgba(140,140,140,100%);}
-      QLabel::hover { background-color: rgba(160,160,160,50%);}
+    adjLabelstyle = [[
+      background-color: rgb(15,15,20); 
+      border: 2px solid rgb(90,90,110); 
+      border-radius: 4px;
+    ]],
+    buttonstyle = [[
+      QLabel {
+        border-radius: 4px;
+        background-color: rgba(140,140,140,100%);
+      }
+      QLabel::hover {
+        background-color: rgba(160,160,160,50%);
+      }
     ]],
     autoSave = false,
     autoLoad = false,
     hidden = true
   })
 
-  self.window:setTitle("Rents", "#ffffff", "9")
   self.window:resize(self.width, self.height)
   self.window:move(startX, startY)
 
   function self.window:hide(...)
     Adjustable.Container.hide(self, ...)
-    RentViewer:onHide()
+    RentViewer:hide()
   end
 
   -- Click-catcher: dismisses open dropdowns on outside clicks
-  self.clickCatcher = Geyser.Label:new({
-    name = "RentViewerClickCatcher",
+  self.click_catcher = Geyser.Label:new({
+    name = "RentViewer.click_catcher",
     x = 0, y = 0, width = "100%", height = "100%",
   }, self.window)
-  self.clickCatcher:setStyleSheet("background-color: rgba(0,0,0,0);")
-  self.clickCatcher:setClickCallback(function() self:closeOpenDropdown() end)
-  self.clickCatcher:hide()
+  self.click_catcher:setStyleSheet("background-color: rgba(0,0,0,0);")
+  self.click_catcher:setClickCallback(function() self:close_open_dropdown() end)
+  self.click_catcher:hide()
 
-  self:buildFilterBar()
-  self:buildTableArea()
+  self:build_filters()
+  self:build_display()
 end
 
-function RentViewer:buildFilterBar()
+function RentViewer:build_filters()
   local lblH    = 14
   local inputH  = 26
   local lblGap  = 2
@@ -868,8 +869,20 @@ function RentViewer:buildFilterBar()
   local labelY = filterY
   local inputY = filterY + lblH + lblGap
 
-  local lblStyle   = "color: rgb(160,160,180); font-size: 10px; background: transparent; padding: 0px; font-size: 10px;"
-  local inputStyle = "background-color: rgb(30,30,40); border: 1px solid rgb(90,90,110); border-radius: 4px; font-size: 14px; padding: 2px 4px;"
+  local lbl_style   = [[
+    color: rgb(160,160,180);
+    font-size: 10px;
+    background: transparent;
+    padding: 0px;
+    font-size: 10px;
+  ]]
+  local input_style = [[
+    background-color: rgb(30,30,40);
+    border: 1px solid rgb(90,90,110);
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 2px 4px;
+  ]]
   local omniW    = 175
   local nameW    = 225
   local locW     = 225
@@ -879,136 +892,138 @@ function RentViewer:buildFilterBar()
   local summaryW = 85
   local clearW   = 65
 
-  -- ── Search All ───────────────────────────────────────────
-  local lblOmni = Geyser.Label:new({
-    name = "RentViewerLblOmni", x = curX, y = labelY, width = omniW, height = lblH,
+  --Search All
+  local label_all = Geyser.Label:new({
+    name = "RentViewer.label_all", x = curX, y = labelY, width = omniW, height = lblH,
   }, self.window)
-  lblOmni:setStyleSheet(lblStyle)
-  lblOmni:echo("Search All")
+  label_all:setStyleSheet(lbl_style)
+  label_all:echo("Search All")
 
-  self.inputOmni = Geyser.CommandLine:new({
-    name = "RentViewerInputOmni", x = curX, y = inputY, width = omniW, height = inputH,
+  self.input_all = Geyser.CommandLine:new({
+    name = "RentViewer.input_all", x = curX, y = inputY, width = omniW, height = inputH,
   }, self.window)
-  self.inputOmni:setStyleSheet(inputStyle)
+  self.input_all:setStyleSheet(input_style)
+  self.input_all:setAction(function() end)
   curX = curX + omniW + colGap
 
-  -- ── Name ─────────────────────────────────────────────────
-  local lblName = Geyser.Label:new({
-    name = "RentViewerLblName", x = curX, y = labelY, width = nameW, height = lblH,
+  --Name
+  local label_name = Geyser.Label:new({
+    name = "RentViewer.label_name", x = curX, y = labelY, width = nameW, height = lblH,
   }, self.window)
-  lblName:setStyleSheet(lblStyle)
-  lblName:echo("Character")
+  label_name:setStyleSheet(lbl_style)
+  label_name:echo("Character")
 
-  self.inputName = self:createDropdown({
-    name    = "RentViewerInputName",
+  self.select_name = self:create_dropdown({
+    name    = "RentViewer.select_name",
     parent  = self.window,
     x = curX, y = inputY, width = nameW, height = inputH,
     options = self:get_unique_values("name"),
-    onChange = function(selectedName)
-      self:rebuildLocationDropdown(selectedName)
+    on_change = function(selectedName)
+      self:rebuild_location_dropdown(selectedName)
     end,
   })
   curX = curX + nameW + colGap
 
-  -- ── Location ──────────────────────────────────────────────
-  local lblLocation = Geyser.Label:new({
-    name = "RentViewerLblLocation", x = curX, y = labelY, width = locW, height = lblH,
+  --Location
+  local label_location = Geyser.Label:new({
+    name = "RentViewer.label_location", x = curX, y = labelY, width = locW, height = lblH,
   }, self.window)
-  lblLocation:setStyleSheet(lblStyle)
-  lblLocation:echo("Location")
+  label_location:setStyleSheet(lbl_style)
+  label_location:echo("Location")
 
   self.locationDropdownX = curX
   self.locationDropdownY = inputY
   self.locationDropdownW = locW
   self.locationDropdownH = inputH
 
-  self.inputLocation = self:createDropdown({
-    name    = "RentViewerInputLocation",
+  self.select_location = self:create_dropdown({
+    name    = "RentViewer.select_location",
     parent  = self.window,
     x = curX, y = inputY, width = locW, height = inputH,
     options = self:get_unique_values("zone"),
   })
   curX = curX + locW + colGap
 
-  -- ── Item ──────────────────────────────────────────────────
-  local lblItem = Geyser.Label:new({
-    name = "RentViewerLblItem", x = curX, y = labelY, width = itemW, height = lblH,
+  --Item
+  local label_item = Geyser.Label:new({
+    name = "RentViewer.label_item", x = curX, y = labelY, width = itemW, height = lblH,
   }, self.window)
-  lblItem:setStyleSheet(lblStyle)
-  lblItem:echo("Item")
+  label_item:setStyleSheet(lbl_style)
+  label_item:echo("Item")
 
-  self.inputItem = Geyser.CommandLine:new({
-    name = "RentViewerInputItem", x = curX, y = inputY, width = itemW, height = inputH,
+  self.input_item = Geyser.CommandLine:new({
+    name = "RentViewer.input_item", x = curX, y = inputY, width = itemW, height = inputH,
   }, self.window)
-  self.inputItem:setStyleSheet(inputStyle)
+  self.input_item:setStyleSheet(input_style)
+  self.input_item:setAction(function() end)
   curX = curX + itemW + colGap
 
-  -- ── Rare checkbox ─────────────────────────────────────────
-  self.rareChecked = false
-  self.chkRare = Geyser.Label:new({
-    name = "RentViewerChkRare", x = curX, y = inputY, width = rareW, height = inputH,
+  --Rare checkbox
+  self.search_rare = false
+  self.button_rare = Geyser.Label:new({
+    name = "RentViewer.button_rare", x = curX, y = inputY, width = rareW, height = inputH,
   }, self.window)
-  self:_updateRareCheckbox()
-  self.chkRare:setClickCallback(function()
-    self.rareChecked = not self.rareChecked
-    if self.rareChecked then
-      self.angrealChecked = false
-      self:_updateAngrealCheckbox()
+  self:update_button_rare()
+  self.button_rare:setClickCallback(function()
+    self.search_rare = not self.search_rare
+    if self.search_rare then
+      self.search_angreal = false
+      self:update_button_angreal()
     end
-    self:_updateRareCheckbox()
+    self:update_button_rare()
     self:refresh()
   end)
   curX = curX + rareW + colGap
 
-  -- ── Angreal checkbox ──────────────────────────────────────
-  self.angrealChecked = false
-  self.chkAngreal = Geyser.Label:new({
-    name = "RentViewerChkAngreal", x = curX, y = inputY, width = angrealW, height = inputH,
+  --Angreal checkbox
+  self.search_angreal = false
+  self.button_angreal = Geyser.Label:new({
+    name = "RentViewer.button_angreal", x = curX, y = inputY, width = angrealW, height = inputH,
   }, self.window)
-  self:_updateAngrealCheckbox()
-  self.chkAngreal:setClickCallback(function()
-    self.angrealChecked = not self.angrealChecked
-    if self.angrealChecked then
-      self.rareChecked = false
-      self:_updateRareCheckbox()
+  self:update_button_angreal()
+  self.button_angreal:setClickCallback(function()
+    self.search_angreal = not self.search_angreal
+    if self.search_angreal then
+      self.search_rare = false
+      self:update_button_rare()
     end
-    self:_updateAngrealCheckbox()
+    self:update_button_angreal()
     self:refresh()
   end)
   curX = curX + angrealW + colGap
 
-  -- ── Summary toggle ────────────────────────────────────────
-  self.summaryChecked = false
-  self.chkSummary = Geyser.Label:new({
-    name = "RentViewerChkSummary", x = -clearW - summaryW - colGap - 5, y = inputY, width = summaryW, height = inputH,
+  --Summary toggle
+  self.is_summary = false
+  self.button_summary = Geyser.Label:new({
+    name = "RentViewer.button_summary", x = -clearW - summaryW - colGap - 5, y = inputY, width = summaryW, height = inputH,
   }, self.window)
-  self:_updateSummaryCheckbox()
-  self.chkSummary:setClickCallback(function()
-    self.summaryChecked = not self.summaryChecked
-    self:_updateSummaryCheckbox()
+  self:update_button_summary()
+  self.button_summary:setClickCallback(function()
+    self.is_summary = not self.is_summary
+    self:update_button_summary()
     self:refresh()
   end)
 
-  -- ── Reset button ──────────────────────────────────────────
-  local btnClear = Geyser.Label:new({
-    name = "RentViewerBtnClear", x = -clearW - 5, y = inputY, width = clearW, height = inputH,
+  --Reset button
+  local button_refresh = Geyser.Label:new({
+    name = "RentViewer.button_refresh", x = -clearW - 5, y = inputY, width = clearW, height = inputH,
   }, self.window)
-  btnClear:setStyleSheet([[
+  button_refresh:setStyleSheet([[
     background-color: rgb(80,60,30);
     border: 1px solid rgb(140,110,60);
     color: white; font-weight: bold; font-size: 11px; border-radius: 4px;
   ]])
-  btnClear:echo("Reset")
-  btnClear:setAlignment("center")
-  btnClear:setClickCallback(function()
-    self:resetFiltersAndSorting()
+  button_refresh:echo("Reset")
+  button_refresh:setAlignment("center")
+  button_refresh:setClickCallback(function()
+    self:reset()
     self:refresh()
   end)
 end
 
-function RentViewer:_updateRareCheckbox()
-  if self.rareChecked then
-    self.chkRare:setStyleSheet([[
+function RentViewer:update_button_rare()
+  if self.search_rare then
+    self.button_rare:setStyleSheet([[
       background-color: rgb(40,80,40);
       border: 1px solid rgb(80,160,80);
       color: rgb(120,255,120);
@@ -1016,23 +1031,23 @@ function RentViewer:_updateRareCheckbox()
       font-weight: bold;
       border-radius: 4px;
     ]])
-    self.chkRare:echo("☑ Rare")
+    self.button_rare:echo("☑ Rare")
   else
-    self.chkRare:setStyleSheet([[
+    self.button_rare:setStyleSheet([[
       background-color: rgb(30,30,40);
       border: 1px solid rgb(90,90,110);
       color: rgb(180,180,180);
       font-size: 11px;
       border-radius: 4px;
     ]])
-    self.chkRare:echo("☐ Rare")
+    self.button_rare:echo("☐ Rare")
   end
-  self.chkRare:setAlignment("center")
+  self.button_rare:setAlignment("center")
 end
 
-function RentViewer:_updateAngrealCheckbox()
-  if self.angrealChecked then
-    self.chkAngreal:setStyleSheet([[
+function RentViewer:update_button_angreal()
+  if self.search_angreal then
+    self.button_angreal:setStyleSheet([[
       background-color: rgb(50,40,80);
       border: 1px solid rgb(120,80,200);
       color: rgb(190,140,255);
@@ -1040,23 +1055,23 @@ function RentViewer:_updateAngrealCheckbox()
       font-weight: bold;
       border-radius: 4px;
     ]])
-    self.chkAngreal:echo("☑ Angreal")
+    self.button_angreal:echo("☑ Angreal")
   else
-    self.chkAngreal:setStyleSheet([[
+    self.button_angreal:setStyleSheet([[
       background-color: rgb(30,30,40);
       border: 1px solid rgb(90,90,110);
       color: rgb(180,180,180);
       font-size: 11px;
       border-radius: 4px;
     ]])
-    self.chkAngreal:echo("☐ Angreal")
+    self.button_angreal:echo("☐ Angreal")
   end
-  self.chkAngreal:setAlignment("center")
+  self.button_angreal:setAlignment("center")
 end
 
-function RentViewer:_updateSummaryCheckbox()
-  if self.summaryChecked then
-    self.chkSummary:setStyleSheet([[
+function RentViewer:update_button_summary()
+  if self.is_summary then
+    self.button_summary:setStyleSheet([[
       background-color: rgb(40,55,75);
       border: 1px solid rgb(80,140,210);
       color: rgb(130,185,255);
@@ -1064,69 +1079,69 @@ function RentViewer:_updateSummaryCheckbox()
       font-weight: bold;
       border-radius: 4px;
     ]])
-    self.chkSummary:echo("☑ Summary")
+    self.button_summary:echo("☑ Summary")
   else
-    self.chkSummary:setStyleSheet([[
+    self.button_summary:setStyleSheet([[
       background-color: rgb(30,30,40);
       border: 1px solid rgb(90,90,110);
       color: rgb(180,180,180);
       font-size: 11px;
       border-radius: 4px;
     ]])
-    self.chkSummary:echo("☐ Summary")
+    self.button_summary:echo("☐ Summary")
   end
-  self.chkSummary:setAlignment("center")
+  self.button_summary:setAlignment("center")
 end
 
-function RentViewer:buildTableArea()
+function RentViewer:build_display()
   local filterY  = 20
   local filterH  = 42
   local tableTop = filterY + filterH + 12
   local headerH  = 25
   local countH   = 16
 
-  self.tableContainer = Geyser.Container:new({
-    name = "RentViewerTableContainer",
+  self.display_container = Geyser.Container:new({
+    name = "RentViewer.display_container",
     x = 5, y = tableTop, width = "-5px",
     height = "-" .. (countH + 4) .. "px",
   }, self.window)
 
-  self.headerContainer = Geyser.Container:new({
-    name = "RentViewerHeaderContainer",
+  self.header_container = Geyser.Container:new({
+    name = "RentViewer.header_container",
     x = 0, y = 0, width = "100%", height = headerH,
-  }, self.tableContainer)
+  }, self.display_container)
 
   self.console = Geyser.MiniConsole:new({
-    name = "RentViewerConsole",
+    name = "RentViewer.console",
     x = 0, y = headerH + 2, width = "100%", height = "-5px",
-  }, self.tableContainer)
+  }, self.display_container)
   self.console:setColor("black")
   self.console:setFont("Courier New")
   self.console:setFontSize(10)
   self.console:enableScrolling()
   self.console:enableScrollBar()
   
-  self.lblCount = Geyser.Label:new({
-    name = "RentViewerLblCount",
+  self.label_count = Geyser.Label:new({
+    name = "RentViewer.label_count",
     x = -305, y = "-" .. (countH + 1) .. "px",
     width = 300, height = countH,
   }, self.window)
-  self.lblCount:setStyleSheet("background-color: transparent; color: rgb(180,180,180); font-size: 11px;")
+  self.label_count:setStyleSheet("background-color: transparent; color: rgb(180,180,180); font-size: 11px;")
 
-  self:buildColumnHeaders()
+  self:build_column_headers()
 end
 
-function RentViewer:buildColumnHeaders()
+function RentViewer:build_column_headers()
   local charW = calcFontSize(10, "Courier New")
   if not charW or charW &lt;= 0 then charW = 8 end
 
   local CONSOLE_INDENT_PX = charW - 3
 
   local columns = {
-    { field = "name",     label = "Character", widthChars = COLUMN_WIDTHS.name },
-    { field = "location", label = "Location",  widthChars = COLUMN_WIDTHS.location },
-    { field = "item",     label = "Item",      widthChars = COLUMN_WIDTHS.item },
-    { field = "cost",     label = "Amount",    widthChars = COLUMN_WIDTHS.cost },
+    {field = "name",     label = "Character", widthChars = COLUMN_WIDTHS.name },
+    {field = "location", label = "Location",  widthChars = COLUMN_WIDTHS.location },
+    {field = "item",     label = "Item",      widthChars = COLUMN_WIDTHS.item },
+    {field = "cost",     label = "Amount",    widthChars = COLUMN_WIDTHS.cost },
   }
 
   self.headers = {}
@@ -1140,20 +1155,20 @@ function RentViewer:buildColumnHeaders()
       local nextColX = CONSOLE_INDENT_PX + (charOffset + col.widthChars + COLUMN_GAP) * charW
       labelWidth     = nextColX - labelX - 3
     else
-      labelWidth = self.headerContainer:get_width() - labelX
+      labelWidth = self.header_container:get_width() - labelX
     end
 
     local lbl = Geyser.Label:new({
-      name = "RentHeader_" .. col.field,
+      name = f'RentViewer.header.{col.field}',
       x = labelX, y = 0, width = labelWidth, height = "100%",
-    }, self.headerContainer)
+    }, self.header_container)
 
     lbl:setClickCallback(function()
-      if self.currentSortField == col.field then
-        self.sortAscending = not self.sortAscending
+      if self.sort_by == col.field then
+        self.sort_ascending = not self.sort_ascending
       else
-        self.currentSortField = col.field
-        self.sortAscending    = true
+        self.sort_by = col.field
+        self.sort_ascending = true
       end
       self:refresh()
     end)
@@ -1168,14 +1183,14 @@ function RentViewer:buildColumnHeaders()
   end
 end
 
-function RentViewer:startLiveTimer()
-  self.lastItemText = self.inputItem:getText() or ""
-  self.lastOmniText = self.inputOmni:getText() or ""
+function RentViewer:start_live_timer()
+  self.lastItemText = self.input_item:getText()
+  self.lastOmniText = self.input_all:getText()
   if self.liveTimer then killTimer(self.liveTimer) end
   self.liveTimer = tempTimer(0.3, function()
     if not self.window then return end
-    local okItem, itemText = pcall(function() return self.inputItem:getText() end)
-    local okOmni, omniText = pcall(function() return self.inputOmni:getText() end)
+    local okItem, itemText = pcall(function() return self.input_item:getText() end)
+    local okOmni, omniText = pcall(function() return self.input_all:getText() end)
     itemText = okItem and itemText or self.lastItemText
     omniText = okOmni and omniText or self.lastOmniText
     if itemText ~= self.lastItemText or omniText ~= self.lastOmniText then
@@ -1185,10 +1200,10 @@ function RentViewer:startLiveTimer()
     end
 
     if self.window.width ~= self.width .. "px" then
-        cecho(self.window.width)
+      --cecho(self.window.width)
 
       --cecho(self.window.width.. " " .. self.window.height .."\n")
-      self.window:resize(self.width, self.window.height)
+      --self.window:resize(self.width, self.window.height)
       --cecho("resized")
     end
   end, true)
@@ -1197,36 +1212,6 @@ end
 -- ============================================================
 -- RENDERING HELPERS
 -- ============================================================
-local function renderHighlightedCellold(console, text, width, matchTerm, textColor, highlightColor, bg)
-  local fitted = rents:fit_to_width(text, width)
-
-  if matchTerm and matchTerm ~= "" then
-    local lowerFitted      = fitted:lower()
-    local lowerTerm        = matchTerm:lower()
-    local startIdx, endIdx = lowerFitted:find(lowerTerm, 1, true)
-    if startIdx then
-      if startIdx &gt; 1 then
-        console:setFgColor(textColor[1],    textColor[2],    textColor[3])
-        console:setBgColor(bg[1], bg[2], bg[3])
-        console:echo(fitted:sub(1, startIdx - 1))
-      end
-      console:setFgColor(highlightColor[1], highlightColor[2], highlightColor[3])
-      console:setBgColor(bg[1], bg[2], bg[3])
-      console:echo(fitted:sub(startIdx, endIdx))
-      if endIdx &lt; #fitted then
-        console:setFgColor(textColor[1],    textColor[2],    textColor[3])
-        console:setBgColor(bg[1], bg[2], bg[3])
-        console:echo(fitted:sub(endIdx + 1))
-      end
-      return
-    end
-  end
-
-  console:setFgColor(textColor[1], textColor[2], textColor[3])
-  console:setBgColor(bg[1], bg[2], bg[3])
-  console:echo(fitted)
-end
-
 local function buildHighlightedText(text, width, matchTerm, textColor, highlightColor, bg)
   local fitted = rents:fit_to_width(text, width)
 
@@ -1266,7 +1251,7 @@ local function renderHighlightedPopup(console, text, width, matchTerm, textColor
 end
 
 local function renderHeaders(self)
-  local stylesheetTemplate = [[
+  local style = [[
     background-color: rgb(45, 45, 60);
     border-bottom: 2px solid rgb(90, 90, 115);
     color: %s;
@@ -1277,22 +1262,22 @@ local function renderHeaders(self)
   ]]
 
   for field, header in pairs(self.headers) do
-    local isActive = (self.currentSortField == field)
-    local color    = isActive and "rgb(255, 215, 0)" or "rgb(185, 185, 185)"
-    local weight   = isActive and "bold" or "normal"
+    local is_active = (self.sort_by == field)
+    local color    = is_active and "rgb(255, 215, 0)" or "rgb(185, 185, 185)"
+    local weight   = is_active and "bold" or "normal"
 
-    local displayLabel
-    if self.summaryChecked and field == "item" then
-      displayLabel = "Item Count"
-    elseif self.summaryChecked and field == "cost" then
-      displayLabel = "Sum Amount"
+    local text
+    if self.is_summary and field == "item" then
+      text = "Item Count"
+    elseif self.is_summary and field == "cost" then
+      text = "Sum Amount"
     else
-      displayLabel = header.label
+      text = header.label
     end
 
-    local text = displayLabel .. (isActive and (self.sortAscending and " ▲" or " ▼") or "")
+    text = text .. (is_active and (self.sort_ascending and " ▲" or " ▼") or "")
 
-    header.widget:setStyleSheet(stylesheetTemplate:format(color, weight, header.indent))
+    header.widget:setStyleSheet(style:format(color, weight, header.indent))
     header.widget:echo(text)
   end
 end
@@ -1300,79 +1285,68 @@ end
 -- ============================================================
 -- FILTER + REFRESH
 -- ============================================================
-function RentViewer:getActiveFilters()
+function RentViewer:get_active_filters()
   return {
-    omni     = (self.inputOmni:getText()     or ""):lower(),
-    item     = (self.inputItem:getText()     or ""):lower(),
-    location = (self.inputLocation:getText() or ""):lower(),
-    name     = (self.inputName:getText()     or ""):lower(),
-    rareOnly    = self.rareChecked   or false,
-    angrealOnly = self.angrealChecked or false,
+    omni     = self.input_all:getText():lower(),
+    item     = self.input_item:getText():lower(),
+    location = self.select_location.message:lower(),
+    name     = self.select_name.message:lower(),
+    search_rare = self.search_rare,
+    search_angreal = self.search_angreal,
   }
 end
 
-function RentViewer:filterRecords(filters)
+function RentViewer:filter_records(filters)
   local records = {}
 
-  for _, rec in ipairs(self.cachedRecords or {}) do
-    local name     = tostring(rec.name or "")
-    local location = rec.location or ""
-    local item     = tostring(rec.item or "")
+  for _, rec in ipairs(self.records) do
+    local name = rec.name:lower()
+    local zone = rec.zone:lower()
+    local location = rec.location:lower()
+    local item = rec.item:lower()
 
-    local matchOmni = filters.omni == ""
-      or item:lower():find(filters.omni, 1, true)
-      or name:lower():find(filters.omni, 1, true)
-      or location:lower():find(filters.omni, 1, true)
+    local match_all = (filters.omni == "")
+      or item:find(filters.omni, 1, true)
+      or name:find(filters.omni, 1, true)
+      or location:find(filters.omni, 1, true)
 
-    local matchItem     = filters.item     == "" or item:lower():find(filters.item, 1, true)
-    local matchLocation = filters.location == "" or location:lower():find(filters.location, 1, true)
-    local matchName     = filters.name     == "" or name:lower():find(filters.name, 1, true)
-
-    local matchRare = true
-    if filters.rareOnly then
-      matchRare = false
-      local itemLower = item:lower()
-      if #rents.rares &gt; 0 then
-        for _, rareName in ipairs(rents.rares) do
-          if itemLower:find(rareName:lower(), 1, true) then
-            matchRare = true
-            break
-          end
+    local match_item = (filters.item == "") or item:find(filters.item, 1, true)
+    local match_location = (filters.location == "all") or (zone == filters.location)
+    local match_name = (filters.name == "all") or (name == filters.name)
+    
+    local match_rare = true
+    if filters.search_rare then
+      match_rare = false
+      for _, rare in ipairs(rents.rares) do
+        if item:find(rare:lower(), 1, true) then
+          match_rare = true
+          break
         end
       end
     end
 
-    local matchAngreal = true
-    if filters.angrealOnly then
-      matchAngreal = false
-      local itemLower = item:lower()
-      if #rents.angreal &gt; 0 then
-        for _, angrealName in ipairs(rents.angreal) do
-          if itemLower:find(angrealName:lower(), 1, true) then
-            matchAngreal = true
-            break
-          end
+    local match_angreal = true
+    if filters.search_angreal then
+      match_angreal = false
+      for _, angreal in ipairs(rents.angreal) do
+        if item:find(angreal:lower(), 1, true) then
+          match_angreal = true
+          break
         end
       end
     end
 
-    if matchOmni and matchItem and matchLocation and matchName and matchRare and matchAngreal then
-      table.insert(records, {
-        name     = name,
-        room     = rec.room or 0,
-        location = location,
-        item     = item,
-        coppers  = rec.coppers or 0
-      })
+    if match_all and match_item and match_location and match_name and match_rare and match_angreal then
+      table.insert(records, rec)
     end
   end
 
   return records
 end
 
-function RentViewer:sortRecords(records)
-  local sortField = self.currentSortField
-  local ascending = self.sortAscending
+function RentViewer:sort_records(records)
+  local sort_by = self.sort_by
+  local ascending = self.sort_ascending
 
   table.sort(records, function(a, b)
     local function cmp_asc(valA, valB, fallback)
@@ -1392,7 +1366,7 @@ function RentViewer:sortRecords(records)
     local item = function(x) return x.item:lower() end
     local cost = function(x) return x.coppers end
 
-    if sortField == "name" then
+    if sort_by == "name" then
       return cmp_primary(name(a), name(b), function()
         return cmp_asc(loc(a), loc(b), function()
           return cmp_asc(item(a), item(b), function()
@@ -1400,7 +1374,7 @@ function RentViewer:sortRecords(records)
           end)
         end)
       end)
-    elseif sortField == "location" then
+    elseif sort_by == "location" then
       return cmp_primary(loc(a), loc(b), function()
         return cmp_asc(name(a), name(b), function()
           return cmp_asc(item(a), item(b), function()
@@ -1408,7 +1382,7 @@ function RentViewer:sortRecords(records)
           end)
         end)
       end)
-    elseif sortField == "item" then
+    elseif sort_by == "item" then
       return cmp_primary(item(a), item(b), function()
         return cmp_asc(name(a), name(b), function()
           return cmp_asc(loc(a), loc(b), function()
@@ -1429,8 +1403,8 @@ function RentViewer:sortRecords(records)
 end
 
 function RentViewer:sortSummaryGroups(groups)
-  local sortField = self.currentSortField
-  local ascending = self.sortAscending
+  local sort_by = self.sort_by
+  local ascending = self.sort_ascending
 
   table.sort(groups, function(a, b)
     local function cmp_asc(valA, valB, fallback)
@@ -1450,7 +1424,7 @@ function RentViewer:sortSummaryGroups(groups)
     local item = function(x) return x.count end
     local cost = function(x) return x.totalCost end
 
-    if sortField == "name" then
+    if sort_by == "name" then
       return cmp_primary(name(a), name(b), function()
         return cmp_asc(loc(a), loc(b), function()
           return cmp_asc(item(a), item(b), function()
@@ -1458,7 +1432,7 @@ function RentViewer:sortSummaryGroups(groups)
           end)
         end)
       end)
-    elseif sortField == "location" then
+    elseif sort_by == "location" then
       return cmp_primary(loc(a), loc(b), function()
         return cmp_asc(name(a), name(b), function()
           return cmp_asc(item(a), item(b), function()
@@ -1466,7 +1440,7 @@ function RentViewer:sortSummaryGroups(groups)
           end)
         end)
       end)
-    elseif sortField == "item" then
+    elseif sort_by == "item" then
       return cmp_primary(item(a), item(b), function()
         return cmp_asc(name(a), name(b), function()
           return cmp_asc(loc(a), loc(b), function()
@@ -1489,8 +1463,8 @@ end
 function RentViewer:refresh()
   renderHeaders(self)
 
-  local filters = self:getActiveFilters()
-  local records = self:filterRecords(filters)
+  local filters = self:get_active_filters()
+  local records = self:filter_records(filters)
 
   local console        = self.console
   local textColor      = self.textColor
@@ -1506,8 +1480,8 @@ function RentViewer:refresh()
     return ""
   end
 
-  -- ── Summary mode ──────────────────────────────────────────
-  if self.summaryChecked then
+  --Summary mode
+  if self.is_summary then
     local groups   = {}
     local keyOrder = {}
 
@@ -1571,7 +1545,7 @@ function RentViewer:refresh()
       end
       gap()
       
-      -- ── Item count cell ────────────────────────────────────
+      --Item count cell
       local itemText = grp.isBank and "bank balance" or (grp.count == 1 and "1 item" or grp.count .. " items")
       if grp.isBank or #grp.items == 0 then
         cell(itemText, COLUMN_WIDTHS.item, activeMatchFor(itemText, filters.location))
@@ -1602,15 +1576,15 @@ function RentViewer:refresh()
       console:echo(" No matching results.\n")
     end
 
-    self.lblCount:cecho("&lt;p style='text-align: right'&gt;&lt;gray&gt;" ..
+    self.label_count:cecho("&lt;p style='text-align: right'&gt;&lt;gray&gt;" ..
       string.format(#sorted == 1 and "%d result" or "%d results", #sorted))
     
     console:scrollTo(console:getLineCount())
     return
   end
 
-  -- ── Individual record mode (default) ──────────────────────
-  self:sortRecords(records)
+  --Individual record mode (default)
+  self:sort_records(records)
   local count = #records
 
   local rowToggle = false
@@ -1663,7 +1637,7 @@ function RentViewer:refresh()
     console:echo(" No matching results.\n")
   end
 
-  self.lblCount:cecho("&lt;p style='text-align: right'&gt;&lt;gray&gt;" ..
+  self.label_count:cecho("&lt;p style='text-align: right'&gt;&lt;gray&gt;" ..
     string.format(count == 1 and "%d result" or "%d results", count))    
     
   console:scrollTo(console:getLineCount())
@@ -1673,16 +1647,16 @@ end
 -- SHOW / HIDE
 -- ============================================================
 function RentViewer:show()
-  self.cachedRecords = self:fetch_records()
+  self.records = self:fetch_records()
 
   if not self.window then
     self:buildUI()
   end
 
-  self:closeOpenDropdown()
-  self:resetFiltersAndSorting()
+  self:close_open_dropdown()
+  self:reset()
   self:refresh()
-  self:startLiveTimer()
+  self:start_live_timer()
 
   local cx, cy = getCenteredCoordinates()
   self.window:move(cx, cy)
@@ -1690,20 +1664,15 @@ function RentViewer:show()
 end
 
 function RentViewer:hide()
-  if self.window then
-    self.window:hide()
-  end
-end
-
-function RentViewer:onHide()
+  self.records = nil
   if self.liveTimer then
     killTimer(self.liveTimer)
     self.liveTimer = nil
   end
-  self.cachedRecords = nil
 end
 
 function RentViewer:rebuild()
+  self.window:delete()
   self.window = nil
   self:show()
 end</script>

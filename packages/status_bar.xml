@@ -1445,7 +1445,7 @@ end</script>
 		<Script isActive="yes" isFolder="no">
 			<name>status_bar default tabs</name>
 			<packageName></packageName>
-			<script>status_bar.tabs =
+			<script>status_bar.tabs = status_bar.tabs or
   {
     "mood",
     "posture",
@@ -1465,7 +1465,7 @@ end</script>
 
 status_bar.tab_settings = status_bar.tab_settings or
   {
-    ["mood"] = {display = true, max_chars = 6, default_text = "Mood"},
+    ["mood"] = {display = true, max_chars = 7, default_text = "Mood"},
     ["posture"] = {display = true, max_chars = 9, default_text = "Posture"},
     ["hps"] = {display = true, max_chars = 16, default_text = "Hit Points"},
     ["sps_dps"] = {display = true, max_chars = 16, default_text = "Spell Points"},
@@ -1524,25 +1524,24 @@ status_bar.tab_settings = status_bar.tab_settings or
   local start = 0
   
   for _, tab in pairs(self.tabs) do
-    local w = self.tab_settings[tab].max_chars + 2
-    --convert chars to a percentage, then slightly downsize so there's space at the end of the status bar
-    w = w / total_chars * 100 * 0.997
-    local w_str = string.format("%.2f%%", w)
-    
-  --create labels if necessary
-    if not self[tab] then
-      self[tab] = Geyser.Label:new({name = f"status_bar.{tab}", x = "0%", y = "0%", width = w_str, height = "100%"}, self.container)
-      self[tab]:echo(self.tab_settings[tab].default_text, "white", "c")
-      self[tab]:setStyleSheet([[
-        background-color: black;
-        border: 1px solid gray;
-      ]])
-    end
-    --set the fontsize
-    self[tab]:setFontSize(self.configs.fontsize)
-    
-    --display and move labels if necessary
-    if self.tab_settings[tab].display then
+    if self.tab_settings[tab].display then 
+      local w = self.tab_settings[tab].max_chars + 2
+      --convert chars to a percentage, then slightly downsize so there's space at the end of the status bar
+      w = w / total_chars * 100 * 0.997
+      local w_str = string.format("%.2f%%", w)
+      
+      --create labels if necessary
+      if not self[tab] then
+        self[tab] = Geyser.Label:new({name = f"status_bar.{tab}", x = "0%", y = "0%", width = w_str, height = "100%"}, self.container)
+        self[tab]:echo(self.tab_settings[tab].default_text, "white", "c")
+        self[tab]:setStyleSheet([[
+          background-color: black;
+          border: 1px solid gray;
+        ]])
+      end
+      --set the fontsize
+      self[tab]:setFontSize(self.configs.fontsize)
+      
       local start_str = string.format("%.2f%%", start)
       self[tab]:resize(w_str, "100%")
       self[tab]:move(start_str, "0%")

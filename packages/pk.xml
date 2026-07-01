@@ -30,6 +30,13 @@ end</script>
 			<regex>^g$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
+			<name>Get All All.Corpse</name>
+			<script></script>
+			<command>get all all.corpse</command>
+			<packageName></packageName>
+			<regex>^gg$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
 			<name>Kick</name>
 			<script></script>
 			<command>kick</command>

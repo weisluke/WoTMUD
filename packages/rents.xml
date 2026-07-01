@@ -493,6 +493,22 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
+			<name>rents:fit_to_width</name>
+			<packageName></packageName>
+			<script>function rents:fit_to_width(s, width)
+  local res
+  if s:len() &gt; width then
+    res = f'{s:sub(1, width - 3)}...'
+  else
+    res = " "
+    res = res:rep(width - s:len())
+    res = f'{s}{res}'
+  end
+  return res
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
 			<name>rents:display_items</name>
 			<packageName></packageName>
 			<script>function rents:display_items(storage)
@@ -580,14 +596,6 @@ local function getCenteredCoordinates()
   local x = math.max(0, math.floor((screenW - RentViewer.width) / 2))
   local y = math.max(0, math.floor((screenH - RentViewer.height) / 2))
   return x, y
-end
-
-local function fitToWidth(s, width)
-  s = tostring(s or "")
-  if #s &gt; width then
-    return s:sub(1, width - 1) .. "…"
-  end
-  return s .. string.rep(" ", width - #s)
 end
 
 local function parseCost(cost)
@@ -1202,7 +1210,7 @@ end
 -- RENDERING HELPERS
 -- ============================================================
 local function renderHighlightedCellold(console, text, width, matchTerm, textColor, highlightColor, bg)
-  local fitted = fitToWidth(text, width)
+  local fitted = rents:fit_to_width(text, width)
 
   if matchTerm and matchTerm ~= "" then
     local lowerFitted      = fitted:lower()
@@ -1232,7 +1240,7 @@ local function renderHighlightedCellold(console, text, width, matchTerm, textCol
 end
 
 local function buildHighlightedText(text, width, matchTerm, textColor, highlightColor, bg)
-  local fitted = fitToWidth(text, width)
+  local fitted = rents:fit_to_width(text, width)
 
   local function tag(fg, background)
     return string.format("&lt;%d,%d,%d:%d,%d,%d&gt;", fg[1], fg[2], fg[3], background[1], background[2], background[3])

@@ -626,68 +626,43 @@ end
 -- ============================================================
 -- DATA
 -- ============================================================
-function RentViewer:fetchRecords()
-  if not db then return self.sampleData or {} end
-
+function RentViewer:fetch_records()
   local rents_db = db:get_database("rents")
-  if not rents_db or not rents_db.storage then return self.sampleData or {} end
-
-  local records = db:fetch(rents_db.storage) or {}
+  local records = db:fetch(rents_db.storage)
+  
   for _, rec in ipairs(records) do
-    if tostring(rec.item or ""):lower() == "bank balance" then
-      rec.zone     = "*Bank"
-      rec.roomName = ""
+    if rec.item == "bank balance" then
+      rec.zone = "*Bank"
       rec.location = "*Bank"
     else
-      rec.roomName = getRoomName(rec.room) or ""
-      rec.location = rec.zone .. ": " .. rec.roomName
+      local roomname = getRoomName(rec.room) or ""
+      rec.location = f'{rec.zone}: {roomname}'
     end
     rec.coppers = rents:str_to_coppers(rec.cost)
   end
   return records
 end
 
-function RentViewer:getUniqueValues(field)
-  local seen, list = {}, {}
+function RentViewer:get_unique_values(field)
+  local list = {}
   for _, rec in ipairs(self.cachedRecords or {}) do
-    local v = rec[field]
-    if v ~= nil and v ~= "" then
-      v = tostring(v)
-      if not seen[v] then
-        seen[v] = true
-        table.insert(list, v)
-      end
-    end
+    table.insert(list, rec[field])
   end
-  table.sort(list, function(a, b)
-    local na, nb = tonumber(a), tonumber(b)
-    if na and nb then return na &lt; nb end
-    return a &lt; b
-  end)
+  --remove duplicates
+  list = table.n_union(list, list)
+  table.sort(list)
   return list
 end
 
-function RentViewer:getZonesForName(nameFilter)
-  local seen, list   = {}, {}
-  local filteredName = (nameFilter or ""):lower()
+function RentViewer:get_zones_for_name(name)
+  local list = {}
   for _, rec in ipairs(self.cachedRecords or {}) do
-    local recName = tostring(rec.name or ""):lower()
-    if filteredName == "" or recName == filteredName then
-      local v = rec.zone
-      if v ~= nil and v ~= "" then
-        v = tostring(v)
-        if not seen[v] then
-          seen[v] = true
-          table.insert(list, v)
-        end
-      end
+    if name == "" or rec.name == name then
+      table.insert(list, rec.zone)
     end
   end
-  table.sort(list, function(a, b)
-    local na, nb = tonumber(a), tonumber(b)
-    if na and nb then return na &lt; nb end
-    return a &lt; b
-  end)
+  list = table.n_union(list, list)
+  table.sort(list)
   return list
 end
 
@@ -809,7 +784,7 @@ function RentViewer:rebuildLocationDropdown(nameFilter)
     y       = self.locationDropdownY,
     width   = self.locationDropdownW,
     height  = self.locationDropdownH,
-    options = self:getZonesForName(nameFilter),
+    options = self:get_zones_for_name(nameFilter),
   })
 end
 
@@ -928,7 +903,7 @@ function RentViewer:buildFilterBar()
     name    = "RentViewerInputName",
     parent  = self.window,
     x = curX, y = inputY, width = nameW, height = inputH,
-    options = self:getUniqueValues("name"),
+    options = self:get_unique_values("name"),
     onChange = function(selectedName)
       self:rebuildLocationDropdown(selectedName)
     end,
@@ -951,7 +926,7 @@ function RentViewer:buildFilterBar()
     name    = "RentViewerInputLocation",
     parent  = self.window,
     x = curX, y = inputY, width = locW, height = inputH,
-    options = self:getUniqueValues("zone"),
+    options = self:get_unique_values("zone"),
   })
   curX = curX + locW + colGap
 
@@ -1698,7 +1673,7 @@ end
 -- SHOW / HIDE
 -- ============================================================
 function RentViewer:show()
-  self.cachedRecords = self:fetchRecords()
+  self.cachedRecords = self:fetch_records()
 
   if not self.window then
     self:buildUI()

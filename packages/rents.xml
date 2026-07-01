@@ -493,6 +493,31 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
+			<name>rents:parse_cost</name>
+			<packageName></packageName>
+			<script>function rents:str_to_coppers(cost)
+  local COPPERS_PER_CROWN = 20
+  
+  local crowns = cost:match("(%d+) gold crowns")
+  local coppers = cost:match("(%d+) coppers")
+  crowns = tonumber(crowns) or 0
+  coppers = tonumber(coppers) or 0
+  return crowns * COPPERS_PER_CROWN + coppers
+end
+
+function rents:coppers_to_str(cost)
+  local COPPERS_PER_CROWN = 20
+  local crowns = math.floor(cost / COPPERS_PER_CROWN)
+  local coppers = cost % COPPERS_PER_CROWN
+  
+  local res = f"{crowns}g {coppers}c"
+  return res
+end
+
+</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
 			<name>rents:fit_to_width</name>
 			<packageName></packageName>
 			<script>function rents:fit_to_width(s, width)
@@ -598,18 +623,6 @@ local function getCenteredCoordinates()
   return x, y
 end
 
-local function parseCost(cost)
-  local s = tostring(cost or "")
-  if s == "" or s == "no rent due" then return 0 end
-
-  local gold   = tonumber(s:match("(%d+)%s*gold"))   or 0
-  local copper = tonumber(s:match("(%d+)%s*copper")) or 0
-  if gold == 0 and copper == 0 then return 0 end
-
-  local value = gold * 20 + copper
-  return value
-end
-
 -- ============================================================
 -- DATA
 -- ============================================================
@@ -629,7 +642,7 @@ function RentViewer:fetchRecords()
       rec.roomName = getRoomName(rec.room) or ""
       rec.location = rec.zone .. ": " .. rec.roomName
     end
-    rec.costNum = parseCost(rec.cost)
+    rec.coppers = rents:str_to_coppers(rec.cost)
   end
   return records
 end
@@ -1374,7 +1387,7 @@ function RentViewer:filterRecords(filters)
         room     = rec.room or 0,
         location = location,
         item     = item,
-        costNum  = rec.costNum or 0
+        coppers  = rec.coppers or 0
       })
     end
   end
@@ -1402,7 +1415,7 @@ function RentViewer:sortRecords(records)
     local name = function(x) return x.name:lower() end
     local loc  = function(x) return x.location:lower() end
     local item = function(x) return x.item:lower() end
-    local cost = function(x) return x.costNum end
+    local cost = function(x) return x.coppers end
 
     if sortField == "name" then
       return cmp_primary(name(a), name(b), function()
@@ -1539,9 +1552,9 @@ function RentViewer:refresh()
       end
       if not groups[key].isBank then
         groups[key].count = groups[key].count + 1
-        table.insert(groups[key].items, { name = rec.item, costNum = rec.costNum })
+        table.insert(groups[key].items, { name = rec.item, coppers = rec.coppers })
       end
-      groups[key].totalCost = groups[key].totalCost + rec.costNum
+      groups[key].totalCost = groups[key].totalCost + rec.coppers
     end
 
     local sorted = {}
@@ -1591,7 +1604,7 @@ function RentViewer:refresh()
         local hints   = {}
         local actions = {}
         for _, itm in ipairs(grp.items) do
-          local costStr    = string.format("%dg %dc", math.floor(itm.costNum / 20), itm.costNum % 20)
+          local costStr    = rents:coppers_to_str(itm.coppers)
           table.insert(hints, "   " .. itm.name .. "  |  " .. costStr .. "   ")
           table.insert(actions, "")
         end
@@ -1599,7 +1612,7 @@ function RentViewer:refresh()
       end
       gap()
       
-      local costStr = string.format("%dg %dc", math.floor(grp.totalCost / 20), grp.totalCost % 20)
+      local costStr = rents:coppers_to_str(grp.totalCost)
       cell(costStr, COLUMN_WIDTHS.cost, "")
 
       console:setFgColor(255, 255, 255)
@@ -1660,7 +1673,7 @@ function RentViewer:refresh()
     cell(rec.item,     COLUMN_WIDTHS.item,     activeMatchFor(rec.item,     filters.item))
     gap()
     
-    local costStr = string.format("%dg %dc", math.floor(rec.costNum / 20), rec.costNum % 20)
+    local costStr = rents:coppers_to_str(rec.coppers)
     cell(costStr, COLUMN_WIDTHS.cost, "")
 
     console:setFgColor(255, 255, 255)

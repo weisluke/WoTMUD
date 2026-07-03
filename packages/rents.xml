@@ -585,26 +585,26 @@ end</script>
 -- ============================================================
 -- CONFIG
 -- ============================================================
-RentViewer.windowName     = "RentViewer.window"
+RentViewer.windowName = "RentViewer.window"
 local w, h = getMainWindowSize()
-RentViewer.width          = w * 0.7
-RentViewer.height         = h * 0.7
+RentViewer.width = w * 0.7
+RentViewer.height = h * 0.7
 
-RentViewer.oddRowColor    = {20, 20, 28}
-RentViewer.evenRowColor   = {0, 0, 0}
-RentViewer.textColor      = {185, 185, 185}
+RentViewer.oddRowColor = {20, 20, 28}
+RentViewer.evenRowColor = {0, 0, 0}
+RentViewer.textColor = {185, 185, 185}
 
 RentViewer.highlightColor = {128, 200, 255}
 
 RentViewer.sort_by = "name"
-RentViewer.sort_ascending    = true
+RentViewer.sort_ascending = true
 
 w, h = calcFontSize(11)
 RentViewer.COLUMN_WIDTHS = {
-  name     = math.floor(0.16 * RentViewer.width / w),
-  location = math.floor(0.37 * RentViewer.width / w),
-  item     = math.floor(0.37 * RentViewer.width / w),
-  cost     = math.floor(0.1 * RentViewer.width / w),
+  name     = math.floor(0.16 * RentViewer.width / w) - 1,
+  location = math.floor(0.36 * RentViewer.width / w) - 1,
+  item     = math.floor(0.36 * RentViewer.width / w) - 1,
+  cost     = math.floor(0.12 * RentViewer.width / w),
 }
 
 </script>
@@ -725,11 +725,15 @@ end
     table.insert(options, opt)
   end
 
-  dropdown.list = Geyser.Container:new({
+  dropdown.list = Geyser.Label:new({
     name = f'{cfg.name}.list',
     x = 0, y = "100%",
-    width = "100%", height = optionH * #options,
+    --70% of the height if all the labels were as big as the main label
+    width = "100%", height = f'{70 * #options}%',
   }, dropdown)
+  dropdown.list:setStyleSheet([[
+      background-color: rgb(40,40,55);
+    ]])
   dropdown.list:hide()
 
   for i, val in ipairs(options) do
@@ -744,7 +748,6 @@ end
       font-size: 11px;
       padding-left: 4px;
       border-bottom: 1px solid rgb(50,50,65);
-      border-radius: 4px;
     ]])
     opt:echo(val)
     opt:setClickCallback(function()
@@ -752,6 +755,24 @@ end
       self:close_open_dropdown()
       if cfg.on_change then cfg.on_change(dropdown.message) end
       self:refresh()
+    end)
+    opt:setOnEnter(function()
+      opt:setStyleSheet([[
+        background-color: rgb(30,30,40);
+        color: rgb(220,220,220);
+        font-size: 11px;
+        padding-left: 4px;
+        border-bottom: 1px solid rgb(50,50,65);
+      ]])
+    end)
+    opt:setOnLeave(function()
+      opt:setStyleSheet([[
+        background-color: rgb(40,40,55);
+        color: rgb(220,220,220);
+        font-size: 11px;
+        padding-left: 4px;
+        border-bottom: 1px solid rgb(50,50,65);
+      ]])
     end)
   end
 
@@ -835,9 +856,9 @@ end
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:buildUI</name>
+				<name>RentViewer:build</name>
 				<packageName></packageName>
-				<script>function RentViewer:buildUI()
+				<script>function RentViewer:build()
   if self.window then
     self.window:delete()
     self.window = nil
@@ -1048,7 +1069,7 @@ end
 </script>
 				<eventHandlerList />
 			</Script>
-			<Script isActive="no" isFolder="no">
+			<Script isActive="yes" isFolder="no">
 				<name>RentViewer:update_button</name>
 				<packageName></packageName>
 				<script>function RentViewer:update_button_rare()
@@ -1377,28 +1398,29 @@ function RentViewer:refresh()
       if #grp.items == 0 then
         cell(itemText, COLUMN_WIDTHS.item, activeMatchFor(itemText, filters.location))
       else
-        local hints   = {}
+        local hints = {}
         local actions = {}
         for _, itm in ipairs(grp.items) do
-          local costStr    = rents:coppers_to_str(itm.coppers)
-          table.insert(hints, f"   {itm.name}  |  {costStr}   ")
+          local cost = rents:coppers_to_str(itm.coppers)
+          table.insert(hints, f"   {itm.name}  |  {cost}   ")
           table.insert(actions, "")
         end
         popup(itemText, COLUMN_WIDTHS.item, "", actions, hints)
       end
       
-      cell(rents:coppers_to_str(grp.coppers), COLUMN_WIDTHS.cost, "")
+      local cost = rents:coppers_to_str(grp.coppers)
+      cell(cost, COLUMN_WIDTHS.cost, "")
 
       console:echo("\n")
       console:resetFormat()
     end
 
     if #sorted == 0 then
-      console:echo("No matching results.\n")
+      console:echo(" No matching results.\n")
     end
 
-    self.label_count:cecho("&lt;p style='text-align: right'&gt;&lt;gray&gt;" ..
-      string.format(#sorted == 1 and "%d result" or "%d results", #sorted))
+    self.label_count:echo(string.format(#sorted == 1 and "%d result" or "%d results", #sorted))
+    self.label_count:setAlignment("center")
     
     return
   end
@@ -1436,7 +1458,8 @@ function RentViewer:refresh()
     
     cell(rec.item, COLUMN_WIDTHS.item, activeMatchFor(rec.item, filters.item))
     
-    cell(rents:coppers_to_str(rec.coppers), COLUMN_WIDTHS.cost, "")
+    local cost = rents:coppers_to_str(rec.coppers)
+    cell(cost, COLUMN_WIDTHS.cost, "")
     
     console:echo("\n")
     console:resetFormat()
@@ -1614,10 +1637,9 @@ end
   self.records = self:fetch_records()
 
   if not self.window then
-    self:buildUI()
+    self:build()
   end
 
-  self:close_open_dropdown()
   self:reset()
   self:refresh()
   self:start_live_timer()

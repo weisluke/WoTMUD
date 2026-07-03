@@ -203,81 +203,12 @@ end</script>
 	<AliasPackage>
 		<Alias isActive="yes" isFolder="no">
 			<name>Show all rents</name>
-			<script>local rents_db = db:get_database("rents")
+			<script>rents:show()
 
-local storage = db:fetch(rents_db.storage)
-
-if table.is_empty(storage) then
-  rents:echo("No items found in the rent database.\n", false, true)
-else
-  rents:display_items(storage)
-end</script>
+</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^rents show$</regex>
-		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>Rents show name</name>
-			<script>local name = matches[2]
-
-local rents_db = db:get_database("rents")
-
-local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.name,name))
-
-if table.is_empty(storage) then
-  rents:echo(f"No items for the character \"{name}\" found in the rent database.\n", false, true)
-else
-  rents:display_items(storage)
-end</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^rents show name (.+)$</regex>
-		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>Rents show item</name>
-			<script>local name = matches[2]
-
-local rents_db = db:get_database("rents")
-
-local storage = {}
-
-if name == "rare" then
-  for _, rare in pairs(rents.rares) do
-    storage = table.n_union(storage, db:fetch(rents_db.storage, db:like(rents_db.storage.item, f"%{rare}%")))
-  end
-elseif name == "angreal" then
-  for _, angreal in pairs(rents.angreal) do
-    storage = table.n_union(storage, db:fetch(rents_db.storage, db:like(rents_db.storage.item, f"%{angreal}%")))
-  end
-else
-  storage = db:fetch(rents_db.storage, db:like(rents_db.storage.item, f"%{name}%"))
-end
-
-if table.is_empty(storage) then
-  rents:echo(f"No items containing the phrase \"{name}\" found in the rent database\n", false, true)
-else
-  rents:display_items(storage)
-end</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^rents show item (.+)$</regex>
-		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>Rents show zone</name>
-			<script>local name = matches[2]
-
-local rents_db = db:get_database("rents")
-
-local storage = db:fetch(rents_db.storage, db:like(rents_db.storage.zone, f"%{name}%"))
-
-if table.is_empty(storage) then
-  rents:echo(f"No items for zone \"{name}\" found in the rent database\n", false, true)
-else
-  rents:display_items(storage)
-end</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^rents show zone (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Rents help</name>

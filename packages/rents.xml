@@ -164,7 +164,7 @@ rents.cost = f"{crowns} gold crowns and {coppers} coppers"
 local rents_db = db:get_database("rents")
 
 if not rents.name then
-  rents:echo("\nUnable to store item to rent database. Type \"score\" to capture character name.\n", false, true)
+  rents:echo("\nUnable to store bank balance to rent database. Type \"score\" to capture character name.\n", false, true)
 else
 
   db:delete(

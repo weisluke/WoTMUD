@@ -284,7 +284,11 @@ rents:echo(f"All items for room \"{getRoomName(room)}\" have been removed from t
   }
 )
 
-rents = rents or {clear_room = true}
+rents = rents or {}
+rents.name = rents.name or nil
+rents.clear_room = rents.clear_room or true
+rents.sort_by = rents.sort_by or "name"
+rents.sort_ascending = rents.sort_ascending or true
 
 rents.help =
   [[
@@ -297,21 +301,7 @@ rents.help =
     All commands can be found in the appropriate rents folder under mudlet aliases.
 
     &lt;cyan&gt;Commands:&lt;reset&gt;
-        &lt;yellow&gt;rents show&lt;reset&gt; - Show all items in the rent database
-        &lt;yellow&gt;rents show name character&lt;reset&gt; - Shows all items in the rent database
-            associated with a particular character name. Not case sensitive. 
-            Examples: rents show name Adael, rents show name bludlust
-        &lt;yellow&gt;rents show item keyword(s)&lt;reset&gt; - Shows all items in the rent database that
-            contain the given keyword(s). Not case sensitive, but if multiple keywords are
-            used the order (and, if applicable, punctuation) matters.
-            Examples: rents show item heron-engraved, rents show item a crystal lightstick
-        &lt;yellow&gt;rents show item rare&lt;reset&gt; - Shows all rare items in the rent database
-        &lt;yellow&gt;rents show item angreal&lt;reset&gt; - Shows all angreal in the rent database
-        &lt;yellow&gt;rents show zone keyword(s)&lt;reset&gt; - Shows all items in the rent database whose
-            zone name (in my map data) contains the provided keyword(s). Not case sensitive, 
-            but if multiple keywords are used the order (and, if applicable, punctuation) matters.
-            Examples: rents show zone Caemlyn, rents show zone bandar eban,
-                rents show zone thakan'dar
+        &lt;yellow&gt;rents show&lt;reset&gt; - Show the rent database viewer
                 
         &lt;yellow&gt;rents delete&lt;reset&gt; - Delete the ENTIRE rent database. &lt;red&gt;Use with caution!&lt;reset&gt;
         &lt;yellow&gt;rents delete name character&lt;reset&gt; - Deletes all entries in the rent database
@@ -363,64 +353,63 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
 		<Script isActive="yes" isFolder="no">
 			<name>rents rare items</name>
 			<packageName></packageName>
-			<script>rents.rares = {
-    "a heron-marked longsword",
-    "a heron-mark blade",
-    "a heron-marked greatsword", 
-    "a heron-marked foil",
-    "a heron-engraved scabbard",
-    "a belt bearing a dragon worked in silver",
-    "a black shirt trimmed with lace",
-    "an ornate chainmail shirt chased with gold",
-    "a sinister black trident",
-    "a massive war maul",
-    "a tainted war maul",
-    "a triple bladed dagger",
-    "a steel warhammer",
-    "a surcoat with exquisite embroidery",
-    "a gown of exquisite design",
-    "a silver medallion",
-    "a shocklance",
-    "a razor-sharp longsword",
-    "a partisan bearing the arms of Ghealdan",
-    "a pair of long-handled war axes",
-    "a pair of gold-hilted hooked swords",
-    "a nimble blade with a cuendillar pommel",
-    "a feathered Kandori paramerion",
-    "a diamond-tipped lance",
-    "a darkened steel trident",
-    "a crimson-hafted battleaxe",
-    "a polished onyx-inlaid shield",
-    "a jeweled wristcuff",
-    "an obsidian encrusted sungwood staff",
-    "a wicked knife bladed axe",
-    "a polearm with a serrated catchpole",
-    "a wildly-spiked axe",
+			<script>rents.rares = rents.rares or {
+  "a heron-marked longsword",
+  "a heron-mark blade",
+  "a heron-marked greatsword", 
+  "a heron-marked foil",
+  "a heron-engraved scabbard",
+  "a belt bearing a dragon worked in silver",
+  "a black shirt trimmed with lace",
+  "an ornate chainmail shirt chased with gold",
+  "a sinister black trident",
+  "a massive war maul",
+  "a tainted war maul",
+  "a triple bladed dagger",
+  "a steel warhammer",
+  "a surcoat with exquisite embroidery",
+  "a gown of exquisite design",
+  "a silver medallion",
+  "a shocklance",
+  "a razor-sharp longsword",
+  "a partisan bearing the arms of Ghealdan",
+  "a pair of long-handled war axes",
+  "a pair of gold-hilted hooked swords",
+  "a nimble blade with a cuendillar pommel",
+  "a feathered Kandori paramerion",
+  "a diamond-tipped lance",
+  "a darkened steel trident",
+  "a crimson-hafted battleaxe",
+  "a polished onyx-inlaid shield",
+  "a jeweled wristcuff",
+  "an obsidian encrusted sungwood staff",
+  "a wicked knife bladed axe",
+  "a polearm with a serrated catchpole",
+  "a wildly-spiked axe",
 }    </script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>rents angreal</name>
 			<packageName></packageName>
-			<script>rents.angreal =
-  {
-    "a disc of moonstone",
-    "a greenish, translucent sphere",
-    "a jade carving of an old man",
-    "a many-faceted stone",
-    "a necklace of fire sapphire",
-    "a sculpted statuette",
-    "a short, thick rod",
-    "a small crystalline circlet",
-    "a small crystalline globe",
-    "a small stone dagger",
-    "a wood carving of a bear",
-    "an ivory figurine",
-    "an orb filled with incandescent light",
-    "a carved ivory pyramid",
-    "Callandor",
-    "a bracelet of twisted silver",
-  }</script>
+			<script>rents.angreal = rents.angreal or {
+  "a disc of moonstone",
+  "a greenish, translucent sphere",
+  "a jade carving of an old man",
+  "a many-faceted stone",
+  "a necklace of fire sapphire",
+  "a sculpted statuette",
+  "a short, thick rod",
+  "a small crystalline circlet",
+  "a small crystalline globe",
+  "a small stone dagger",
+  "a wood carving of a bear",
+  "an ivory figurine",
+  "an orb filled with incandescent light",
+  "a carved ivory pyramid",
+  "Callandor",
+  "a bracelet of twisted silver",
+}</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -465,102 +454,27 @@ end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
-			<name>rents:display_items</name>
+			<name>rents:get_centered_coordinates</name>
 			<packageName></packageName>
-			<script>function rents:display_items(storage)
-  cecho(string.format("%-10s&lt;ansi_cyan&gt;%-40s&lt;reset&gt;%s&lt;green&gt;%-40s&lt;gold&gt;%-10s\n", "Name", "Room", "", "Item", "Cost"))
-  
-  for _, item in pairs(storage) do
-    local crowns = item.cost:match("(%d+) gold crowns")
-    local coppers = item.cost:match("(%d+) coppers")
-    if crowns then crowns = f"{crowns}g" else crowns = "0g" end
-    if coppers then coppers = f"{coppers}c" else coppers = "0c" end
-    local cost = f"{crowns} {coppers}"
-    
-    local room_name = ""
-    
-    if item.room == 0 then
-      room_name = "bank"
-    else
-      room_name = getRoomName(item.room)
-    end
-    
-    local msg_format = "%-10s%-40s%s%-40s%-10s\n"
-    
-    if room_name:len() &gt;= 40 or item.item:len() &gt;= 40 then
-      msg_format = "%-10s%-40s\n%10s%-80s%-10s\n"
-    end
-  
-    local msg = string.format(msg_format, 
-      item.name,
-      room_name,
-      "", 
-      item.item,
-      cost
-      )
-    cechoLink(msg, function() centerview(item.room) end, "Click to center map on room.", true)
-  end
-end</script>
-			<eventHandlerList />
-		</Script>
-		<ScriptGroup isActive="yes" isFolder="yes">
-			<name>Rent Viewer</name>
-			<packageName></packageName>
-			<script></script>
-			<eventHandlerList />
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer initialization</name>
-				<packageName></packageName>
-				<script>RentViewer = RentViewer or {}
-
--- ============================================================
--- CONFIG
--- ============================================================
-RentViewer.windowName = "RentViewer.window"
-local w, h = getMainWindowSize()
-RentViewer.width = w * 0.7
-RentViewer.height = h * 0.7
-
-RentViewer.oddRowColor = {20, 20, 28}
-RentViewer.evenRowColor = {0, 0, 0}
-RentViewer.textColor = {185, 185, 185}
-
-RentViewer.highlightColor = {128, 200, 255}
-
-RentViewer.sort_by = "name"
-RentViewer.sort_ascending = true
-
-w, h = calcFontSize(11)
-RentViewer.COLUMN_WIDTHS = {
-  name     = math.floor(0.16 * RentViewer.width / w) - 1,
-  location = math.floor(0.36 * RentViewer.width / w) - 1,
-  item     = math.floor(0.36 * RentViewer.width / w) - 1,
-  cost     = math.floor(0.12 * RentViewer.width / w),
-}
-
-</script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:get_centered_coordinates</name>
-				<packageName></packageName>
-				<script>-- ============================================================
--- UTILITIES
--- ============================================================
-function RentViewer:get_centered_coordinates()
+			<script>function rents:get_centered_coordinates()
   local w, h = getMainWindowSize()
+  
+  self.width = w * 0.7
+  self.height = h * 0.7
+
   local x = math.max(0, math.floor((w - self.width) / 2))
   local y = math.max(0, math.floor((h - self.height) / 2))
+  
   return x, y
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:fetch_records</name>
-				<packageName></packageName>
-				<script>function RentViewer:fetch_records()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:fetch_records</name>
+			<packageName></packageName>
+			<script>function rents:fetch_records()
   local rents_db = db:get_database("rents")
   local records = db:fetch(rents_db.storage)
   
@@ -572,19 +486,19 @@ end
       local roomname = getRoomName(rec.room) or ""
       rec.location = f'{rec.zone}: {roomname}'
     end
-    rec.coppers = rents:str_to_coppers(rec.cost)
+    rec.coppers = self:str_to_coppers(rec.cost)
   end
   return records
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:get_unique_values</name>
-				<packageName></packageName>
-				<script>--return the unique values within the records for the given field
-function RentViewer:get_unique_values(field)
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:get_unique_values</name>
+			<packageName></packageName>
+			<script>--return the unique values within the records for the given field
+function rents:get_unique_values(field)
   local res = {}
   for _, rec in ipairs(self.records) do
     table.insert(res, rec[field])
@@ -596,13 +510,13 @@ function RentViewer:get_unique_values(field)
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:get_zones_for_name</name>
-				<packageName></packageName>
-				<script>--return all the zones within the records for the given name
-function RentViewer:get_zones_for_name(name)
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:get_zones_for_name</name>
+			<packageName></packageName>
+			<script>--return all the zones within the records for the given name
+function rents:get_zones_for_name(name)
   local res = {}
   for _, rec in ipairs(self.records) do
     if name == "All" or rec.name == name then
@@ -615,12 +529,12 @@ function RentViewer:get_zones_for_name(name)
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:create_dropdown</name>
-				<packageName></packageName>
-				<script>function RentViewer:create_dropdown(cfg)
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:create_dropdown</name>
+			<packageName></packageName>
+			<script>function rents:create_dropdown(cfg)
   local parent = cfg.parent or self.window
   local optionH = 20 --height for the options labels
 
@@ -727,12 +641,12 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:close_open_dropdown</name>
-				<packageName></packageName>
-				<script>function RentViewer:close_open_dropdown()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:close_open_dropdown</name>
+			<packageName></packageName>
+			<script>function rents:close_open_dropdown()
   if self.open_dropdown then
     self.open_dropdown.list:hide()
     self.open_dropdown = nil
@@ -741,34 +655,33 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:rebuild_location_dropdown</name>
-				<packageName></packageName>
-				<script>function RentViewer:rebuild_location_dropdown(name)
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:rebuild_location_dropdown</name>
+			<packageName></packageName>
+			<script>function rents:rebuild_location_dropdown(name)
   if self.select_location then
     self.select_location:delete()
     self.select_location = nil
   end
 
   self.select_location = self:create_dropdown({
-    name = "RentViewer.select_location",
+    name = "rents.select_location",
     parent = self.window, 
     x = "38%", y = "5%", 
     width = "20%", height = "5%",
     options = self:get_unique_values("zone"),
   })
-  
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:reset</name>
-				<packageName></packageName>
-				<script>function RentViewer:reset()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:reset</name>
+			<packageName></packageName>
+			<script>function rents:reset()
   self.input_all:print("")
   self.select_name:echo("All")
   self:rebuild_location_dropdown("All")
@@ -784,12 +697,12 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:build</name>
-				<packageName></packageName>
-				<script>function RentViewer:build()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:build</name>
+			<packageName></packageName>
+			<script>function rents:build()
   if self.window then
     self.window:delete()
     self.window = nil
@@ -800,7 +713,7 @@ end
   local x, y = self:get_centered_coordinates()
 
   self.window = Adjustable.Container:new({
-    name = self.windowName,
+    name = "rents.window",
     x = x, y = y,
     width = self.width, height = self.height,
     titleText = "Rents",
@@ -825,12 +738,12 @@ end
 
   function self.window:hide(...)
     Adjustable.Container.hide(self, ...)
-    RentViewer:hide()
+    rents:hide()
   end
 
   -- Click-catcher: dismisses open dropdowns on outside clicks
   self.click_catcher = Geyser.Label:new({
-    name = "RentViewer.click_catcher",
+    name = "rents.click_catcher",
     x = 0, y = 0, width = "100%", height = "100%",
   }, self.window)
   self.click_catcher:setStyleSheet("background-color: rgba(0,0,0,0);")
@@ -842,12 +755,12 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:build_filters</name>
-				<packageName></packageName>
-				<script>function RentViewer:build_filters()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:build_filters</name>
+			<packageName></packageName>
+			<script>function rents:build_filters()
   local lbl_style   = [[
     color: rgb(160,160,180);
     font-size: 10px;
@@ -865,7 +778,7 @@ end
 
   --Search All
   local label_all = Geyser.Label:new({
-    name = "RentViewer.label_all", 
+    name = "rents.label_all", 
     x = "1%", y = "0%", 
     width = "15%", height = "5%",
   }, self.window)
@@ -873,7 +786,7 @@ end
   label_all:echo("Search All")
 
   self.input_all = Geyser.CommandLine:new({
-    name = "RentViewer.input_all", 
+    name = "rents.input_all", 
     x = "1%", y = "5%", 
     width = "15%", height = "5%",
   }, self.window)
@@ -882,7 +795,7 @@ end
 
   --Name
   local label_name = Geyser.Label:new({
-    name = "RentViewer.label_name", 
+    name = "rents.label_name", 
     x = "17%", y = "0%", 
     width = "20%", height = "5%",
   }, self.window)
@@ -890,7 +803,7 @@ end
   label_name:echo("Character")
 
   self.select_name = self:create_dropdown({
-    name = "RentViewer.select_name",
+    name = "rents.select_name",
     parent = self.window,
     x = "17%", y = "5%", 
     width = "20%", height = "5%",
@@ -902,7 +815,7 @@ end
 
   --Location
   local label_location = Geyser.Label:new({
-    name = "RentViewer.label_location", 
+    name = "rents.label_location", 
     x = "38%", y = "0%", 
     width = "20%", height = "5%",
   }, self.window)
@@ -913,7 +826,7 @@ end
 
   --Item
   local label_item = Geyser.Label:new({
-    name = "RentViewer.label_item", 
+    name = "rents.label_item", 
     x = "59%", y = "0%", 
     width = "15%", height = "5%",
   }, self.window)
@@ -921,7 +834,7 @@ end
   label_item:echo("Item")
 
   self.input_item = Geyser.CommandLine:new({
-    name = "RentViewer.input_item", 
+    name = "rents.input_item", 
     x = "59%", y = "5%", 
     width = "15%", height = "5%",
   }, self.window)
@@ -931,7 +844,7 @@ end
   --Rare checkbox
   self.search_rare = false
   self.button_rare = Geyser.Label:new({
-    name = "RentViewer.button_rare", 
+    name = "rents.button_rare", 
     x = "75%", y = "5%", 
     width = "5%", height = "5%",
   }, self.window)
@@ -949,7 +862,7 @@ end
   --Angreal checkbox
   self.search_angreal = false
   self.button_angreal = Geyser.Label:new({
-    name = "RentViewer.button_angreal",
+    name = "rents.button_angreal",
     x = "81%", y = "5%", 
     width = "5%", height = "5%",
   }, self.window)
@@ -967,7 +880,7 @@ end
   --Summary toggle
   self.is_summary = false
   self.button_summary = Geyser.Label:new({
-    name = "RentViewer.button_summary", 
+    name = "rents.button_summary", 
     x = "88%", y = "5%", 
     width = "6%", height = "5%",
   }, self.window)
@@ -980,7 +893,7 @@ end
 
   --Reset button
   local button_refresh = Geyser.Label:new({
-    name = "RentViewer.button_refresh",  
+    name = "rents.button_refresh",  
     x = "95%", y = "5%", 
     width = "4%", height = "5%",
   }, self.window)
@@ -998,12 +911,12 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:update_button</name>
-				<packageName></packageName>
-				<script>function RentViewer:update_button_rare()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:update_buttons</name>
+			<packageName></packageName>
+			<script>function rents:update_button_rare()
   if self.search_rare then
     self.button_rare:setStyleSheet([[
       background-color: rgb(40,80,40);
@@ -1027,7 +940,7 @@ end
   self.button_rare:setAlignment("center")
 end
 
-function RentViewer:update_button_angreal()
+function rents:update_button_angreal()
   if self.search_angreal then
     self.button_angreal:setStyleSheet([[
       background-color: rgb(50,40,80);
@@ -1051,7 +964,7 @@ function RentViewer:update_button_angreal()
   self.button_angreal:setAlignment("center")
 end
 
-function RentViewer:update_button_summary()
+function rents:update_button_summary()
   if self.is_summary then
     self.button_summary:setStyleSheet([[
       background-color: rgb(40,55,75);
@@ -1076,25 +989,25 @@ function RentViewer:update_button_summary()
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:build_display</name>
-				<packageName></packageName>
-				<script>function RentViewer:build_display()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:build_display</name>
+			<packageName></packageName>
+			<script>function rents:build_display()
   self.display_container = Geyser.Container:new({
-    name = "RentViewer.display_container",
+    name = "rents.display_container",
     x = "1%", y = "15%", 
     width = "98%", height = "80%",
   }, self.window)
 
   self.header_container = Geyser.Container:new({
-    name = "RentViewer.header_container",
+    name = "rents.header_container",
     x = 0, y = 0, width = "100%", height = "5%",
   }, self.display_container)
 
   self.console = Geyser.MiniConsole:new({
-    name = "RentViewerConsole",
+    name = "rents.console",
     x = 0, y = "5%", width = "100%", height = "95%",
   }, self.display_container)
   self.console:setColor("black")
@@ -1104,7 +1017,7 @@ end
   self.console:enableScrollBar()
   
   self.label_count = Geyser.Label:new({
-    name = "RentViewer.label_count",
+    name = "rents.label_count",
     x = "95%", y = "95%",
     width = "5%", height = "5%",
   }, self.window)
@@ -1118,12 +1031,12 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:build_column_headers</name>
-				<packageName></packageName>
-				<script>function RentViewer:build_column_headers()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:build_column_headers</name>
+			<packageName></packageName>
+			<script>function rents:build_column_headers()
   local columns = {
     {field = "name", label = "Character", x = "0%", width = "16%"},
     {field = "location", label = "Location", x = "16%", width = "36%"},
@@ -1135,7 +1048,7 @@ end
 
   for _, col in ipairs(columns) do
     local lbl = Geyser.Label:new({
-      name = f'RentViewer.header.{col.field}',
+      name = f'rents.header.{col.field}',
       x = col.x, y = 0, width = col.width, height = "100%",
     }, self.header_container)
 
@@ -1158,12 +1071,12 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:render_headers</name>
-				<packageName></packageName>
-				<script>function RentViewer:render_headers()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:render_headers</name>
+			<packageName></packageName>
+			<script>function rents:render_headers()
   local style = [[
     background-color: rgb(45, 45, 60);
     border-bottom: 2px solid rgb(90, 90, 115);
@@ -1180,9 +1093,9 @@ end
 
     local text
     if self.is_summary and field == "item" then
-      text = "Item Count"
+      text = "&amp;nbsp;Item Count"
     elseif self.is_summary and field == "cost" then
-      text = "Sum Amount"
+      text = "&amp;nbsp;Sum Amount"
     else
       text = f'&amp;nbsp;{header.label}'
     end
@@ -1195,12 +1108,12 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:refresh</name>
-				<packageName></packageName>
-				<script>-- ============================================================
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:refresh</name>
+			<packageName></packageName>
+			<script>-- ============================================================
 -- RENDERING HELPERS
 -- ============================================================
 local function buildHighlightedText(text, width, matchTerm, textColor, highlightColor, bg)
@@ -1241,16 +1154,32 @@ local function renderHighlightedPopup(console, text, width, matchTerm, textColor
   console:dechoPopup(buildHighlightedText(text, width, matchTerm, textColor, highlightColor, bg), actions, hints, true)
 end
 
-function RentViewer:refresh()
+function rents:refresh()
+  local odd_row_color = {20, 20, 28}
+  local even_row_color = {0, 0, 0}
+  local text_color = {185, 185, 185}
+  local highlight_color = {128, 200, 255}
+
   local console = self.console
-  local textColor = self.textColor
-  local highlightColor = self.highlightColor
   
   local COLUMN_WIDTHS = {}
+  local total_f = 0
+  local total_w = 0
   for field, header in pairs(self.headers) do
     local f = header.width:match("(%-?%d+%.?%d*)%%") / 100
     local w = self.display_container.get_width() * f / calcFontSize(console:getFontSize())
-    COLUMN_WIDTHS[field] = math.floor(w + 0.5)
+    w = math.floor(w) --convert to integer number of letters
+    
+    total_f = total_f + f
+    total_w = total_w + w
+    
+    local expected_w = self.display_container.get_width() * total_f / calcFontSize(console:getFontSize())
+    expected_w = math.floor(expected_w)
+    
+    --account for rounding
+    w = w + (expected_w - total_w) 
+    
+    COLUMN_WIDTHS[field] = w - 1 --account for space at the start
   end
   
   self:render_headers()
@@ -1266,6 +1195,11 @@ function RentViewer:refresh()
       return filters.all
     end
     return ""
+  end
+    
+  local function gap(bg)
+    console:setBgColor(unpack(bg))
+    console:echo(" ")
   end
 
   --Summary mode
@@ -1295,24 +1229,26 @@ function RentViewer:refresh()
     self:sort_records(sorted)
 
     for i, grp in ipairs(sorted) do
-      local bg  = ((i % 2) == 1) and self.oddRowColor or self.evenRowColor
+      local bg  = ((i % 2) == 1) and odd_row_color or even_row_color
 
       local function cell(text, width, matchTerm)
-        renderHighlightedCell(console, text, width, matchTerm, textColor, highlightColor, bg)
+        renderHighlightedCell(console, text, width, matchTerm, text_color, highlight_color, bg)
       end
       local function link(text, width, matchTerm, command, hint)
-        renderHighlightedLink(console, text, width, matchTerm, textColor, highlightColor, bg, command, hint)
+        renderHighlightedLink(console, text, width, matchTerm, text_color, highlight_color, bg, command, hint)
       end
       local function popup(text, width, matchTerm, actions, hints)
-        renderHighlightedPopup(console, text, width, matchTerm, textColor, highlightColor, bg, actions, hints)
+        renderHighlightedPopup(console, text, width, matchTerm, text_color, highlight_color, bg, actions, hints)
       end
 
       console:setBgColor(unpack(bg))
 
+      gap(bg)
       cell(grp.name, COLUMN_WIDTHS.name, 
         activeMatchFor(grp.name, filters.name ~= "all" and filters.name or "")
-      ) 
+      )
       
+      gap(bg)
       if grp.room and grp.room &gt; 0 then
         link(grp.location, COLUMN_WIDTHS.location, 
           activeMatchFor(grp.location, filters.location ~= "all" and filters.location or ""), 
@@ -1325,6 +1261,7 @@ function RentViewer:refresh()
       end
       
       --Item count cell
+      gap(bg)
       local itemText = (#grp.items == 1 and "1 item" or f'{#grp.items} items')
       if #grp.items == 0 then
         cell(itemText, COLUMN_WIDTHS.item, activeMatchFor(itemText, filters.location))
@@ -1332,14 +1269,15 @@ function RentViewer:refresh()
         local hints = {}
         local actions = {}
         for _, itm in ipairs(grp.items) do
-          local cost = rents:coppers_to_str(itm.coppers)
+          local cost = self:coppers_to_str(itm.coppers)
           table.insert(hints, f"   {itm.name}  |  {cost}   ")
           table.insert(actions, "")
         end
         popup(itemText, COLUMN_WIDTHS.item, "", actions, hints)
       end
       
-      local cost = rents:coppers_to_str(grp.coppers)
+      gap(bg)
+      local cost = self:coppers_to_str(grp.coppers)
       cell(cost, COLUMN_WIDTHS.cost, "")
 
       console:echo("\n")
@@ -1361,21 +1299,23 @@ function RentViewer:refresh()
   local count = #records
 
   for i, rec in ipairs(records) do
-    local bg  = ((i % 2) == 1) and self.oddRowColor or self.evenRowColor
+    local bg  = ((i % 2) == 1) and odd_row_color or even_row_color
 
     local function cell(text, width, matchTerm)
-      renderHighlightedCell(console, text, width, matchTerm, textColor, highlightColor, bg)
+      renderHighlightedCell(console, text, width, matchTerm, text_color, highlight_color, bg)
     end
     local function link(text, width, matchTerm, command, hint)
-      renderHighlightedLink(console, text, width, matchTerm, textColor, highlightColor, bg, command, hint)
+      renderHighlightedLink(console, text, width, matchTerm, text_color, highlight_color, bg, command, hint)
     end
 
     console:setBgColor(unpack(bg))
 
+    gap(bg)
     cell(rec.name, COLUMN_WIDTHS.name, 
       activeMatchFor(rec.name, filters.name ~= "all" and filters.name or "")
     )
     
+    gap(bg)
     if rec.room and rec.room &gt; 0 then
       link(rec.location, COLUMN_WIDTHS.location, 
         activeMatchFor(rec.location, filters.location ~= "all" and filters.location or ""), 
@@ -1387,9 +1327,11 @@ function RentViewer:refresh()
       )
     end
     
+    gap(bg)
     cell(rec.item, COLUMN_WIDTHS.item, activeMatchFor(rec.item, filters.item))
     
-    local cost = rents:coppers_to_str(rec.coppers)
+    gap(bg)
+    local cost = self:coppers_to_str(rec.coppers)
     cell(cost, COLUMN_WIDTHS.cost, "")
     
     console:echo("\n")
@@ -1405,36 +1347,36 @@ function RentViewer:refresh()
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:start_live_timer</name>
-				<packageName></packageName>
-				<script>function RentViewer:start_live_timer()
-  self.lastItemText = self.input_item:getText()
-  self.lastOmniText = self.input_all:getText()
-  if self.liveTimer then killTimer(self.liveTimer) end
-  self.liveTimer = tempTimer(0.3, function()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:start_live_timer</name>
+			<packageName></packageName>
+			<script>function rents:start_live_timer()
+  self.last_item_text = self.input_item:getText()
+  self.last_all_text = self.input_all:getText()
+  if self.live_timer then killTimer(self.live_timer) end
+  self.live_timer = tempTimer(0.3, function()
     if not self.window then return end
     local okItem, itemText = pcall(function() return self.input_item:getText() end)
-    local okOmni, omniText = pcall(function() return self.input_all:getText() end)
-    itemText = okItem and itemText or self.lastItemText
-    omniText = okOmni and omniText or self.lastOmniText
-    if itemText ~= self.lastItemText or omniText ~= self.lastOmniText then
-      self.lastItemText = itemText
-      self.lastOmniText = omniText
+    local okAll, omniText = pcall(function() return self.input_all:getText() end)
+    itemText = okItem and itemText or self.last_item_text
+    omniText = okAll and omniText or self.last_all_text
+    if itemText ~= self.last_item_text or omniText ~= self.last_all_text then
+      self.last_item_text = itemText
+      self.last_all_text = omniText
       self:refresh()
     end
   end, true)
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:filter_records</name>
-				<packageName></packageName>
-				<script>function RentViewer:get_active_filters()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:filter_records</name>
+			<packageName></packageName>
+			<script>function rents:get_active_filters()
   return {
     all = self.input_all:getText():lower(),
     item = self.input_item:getText():lower(),
@@ -1445,7 +1387,7 @@ end
   }
 end
 
-function RentViewer:filter_records(filters)
+function rents:filter_records(filters)
   local records = {}
 
   for _, rec in ipairs(self.records) do
@@ -1494,12 +1436,12 @@ function RentViewer:filter_records(filters)
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:sort_records</name>
-				<packageName></packageName>
-				<script>function RentViewer:sort_records(records)
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:sort_records</name>
+			<packageName></packageName>
+			<script>function rents:sort_records(records)
   local sort_by = self.sort_by
   local ascending = self.sort_ascending
 
@@ -1559,12 +1501,12 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:show_hide</name>
-				<packageName></packageName>
-				<script>function RentViewer:show()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:show_hide</name>
+			<packageName></packageName>
+			<script>function rents:show()
   self.records = self:fetch_records()
 
   if not self.window then
@@ -1578,21 +1520,21 @@ end
   self.window:show()
 end
 
-function RentViewer:hide()
+function rents:hide()
   self.records = nil
-  if self.liveTimer then
-    killTimer(self.liveTimer)
-    self.liveTimer = nil
+  if self.live_timer then
+    killTimer(self.live_timer)
+    self.live_timer = nil
   end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:rebuild</name>
-				<packageName></packageName>
-				<script>function RentViewer:rebuild()
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:rebuild</name>
+			<packageName></packageName>
+			<script>function rents:rebuild()
   if self.window then
     self.window:delete()
     self.window = nil
@@ -1601,23 +1543,22 @@ end
 end
 
 </script>
-				<eventHandlerList />
-			</Script>
-			<Script isActive="yes" isFolder="no">
-				<name>RentViewer:resize</name>
-				<packageName></packageName>
-				<script>function RentViewer:resize(event, container_name, width, height, x, y)
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:resize</name>
+			<packageName></packageName>
+			<script>function rents:resize(event, container_name, width, height, x, y)
   --if the Adjustable.Container is not the rent window, return
-  if container_name ~= "RentViewer.window" then
+  if container_name ~= "rents.window" then
     return
   end
   self:refresh()
 end
 
-registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "RentViewer:resize")</script>
-				<eventHandlerList />
-			</Script>
-		</ScriptGroup>
+registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "rents:resize")</script>
+			<eventHandlerList />
+		</Script>
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>

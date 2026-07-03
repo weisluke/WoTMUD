@@ -1197,8 +1197,15 @@ function rents:refresh()
   
   console:clear()
 
-  local function activeMatchFor(text, filter)
-    if filter ~= "all" then return filter end
+  local function activeMatchFor(text, field)
+    filter = filters[field]
+    if table.contains({"name", "location"}, field) then
+      if filter ~= "all" then
+        return filter
+      end
+    else
+      if filter ~= "" then return filter end
+    end
     if filters.all ~= "" and text:lower():find(filters.all, 1, true) then
       return filters.all
     end
@@ -1252,27 +1259,23 @@ function rents:refresh()
       console:setBgColor(unpack(bg))
 
       gap(bg)
-      cell(grp.name, COLUMN_WIDTHS.name, 
-        activeMatchFor(grp.name, filters.name ~= "all" and filters.name or "")
-      )
+      cell(grp.name, COLUMN_WIDTHS.name, activeMatchFor(grp.name, "name"))
       
       gap(bg)
       if grp.room and grp.room &gt; 0 then
         link(grp.location, COLUMN_WIDTHS.location, 
-          activeMatchFor(grp.location, filters.location ~= "all" and filters.location or ""), 
+          activeMatchFor(grp.location, "location"), 
           function() centerview(grp.room) end, "Click to center map on room."
         )
       else
-        cell(grp.location, COLUMN_WIDTHS.location, 
-          activeMatchFor(grp.location, filters.location ~= "all" and filters.location or "")
-        )
+        cell(grp.location, COLUMN_WIDTHS.location, activeMatchFor(grp.location, "location"))
       end
       
       --Item count cell
       gap(bg)
       local itemText = (#grp.items == 1 and "1 item" or f'{#grp.items} items')
       if #grp.items == 0 then
-        cell(itemText, COLUMN_WIDTHS.item, activeMatchFor(itemText, filters.location))
+        cell(itemText, COLUMN_WIDTHS.item, activeMatchFor(itemText, "location"))
       else
         local hints = {}
         local actions = {}
@@ -1319,24 +1322,20 @@ function rents:refresh()
     console:setBgColor(unpack(bg))
 
     gap(bg)
-    cell(rec.name, COLUMN_WIDTHS.name, 
-      activeMatchFor(rec.name, filters.name ~= "all" and filters.name or "")
-    )
+    cell(rec.name, COLUMN_WIDTHS.name, activeMatchFor(rec.name, "name"))
     
     gap(bg)
     if rec.room and rec.room &gt; 0 then
       link(rec.location, COLUMN_WIDTHS.location, 
-        activeMatchFor(rec.location, filters.location ~= "all" and filters.location or ""), 
+        activeMatchFor(rec.location, "location"), 
         function() centerview(rec.room) end, "Click to center map on room."
       )
     else
-      cell(rec.location, COLUMN_WIDTHS.location, 
-        activeMatchFor(rec.location, filters.location ~= "all" and filters.location or "")
-      )
+      cell(rec.location, COLUMN_WIDTHS.location, activeMatchFor(rec.location, "location"))
     end
     
     gap(bg)
-    cell(rec.item, COLUMN_WIDTHS.item, activeMatchFor(rec.item, filters.item))
+    cell(rec.item, COLUMN_WIDTHS.item, activeMatchFor(rec.item, "item"))
     
     gap(bg)
     local cost = self:coppers_to_str(rec.coppers)

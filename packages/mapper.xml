@@ -2425,7 +2425,9 @@ registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</scr
       buttonsize = 20,
       titleText = "WoTMUD Map",
       titleTxtColor = "black",
-      padding = 15
+      padding = 15,
+      autoSave = false,
+      autoLoad = false,
     }
   )
   self.container:move(x, y)

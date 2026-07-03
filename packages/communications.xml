@@ -628,16 +628,17 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
       {
         name = "communications.container",
         adjLabelstyle = f"background-color:rgba({rgb_str},100%); border: 5px groove grey;",
-        buttonstyle =
-          [[
-      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
-      QLabel::hover{ background-color: rgba(160,160,160,50%);}
-      ]],
+        buttonstyle = [[
+          QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
+          QLabel::hover{ background-color: rgba(160,160,160,50%);}
+        ]],
         buttonFontSize = 10,
         buttonsize = 20,
         titleText = "Communications",
         titleTxtColor = "black",
         padding = 15,
+        autoSave = false,
+        autoLoad = false,
       }
     )
   self.current_tab = self.current_tab or self.tabs[1]

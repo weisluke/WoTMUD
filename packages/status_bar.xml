@@ -1505,7 +1505,9 @@ status_bar.tab_settings = status_bar.tab_settings or
       buttonsize = 20,
       titleText = "Status Bar",
       titleTxtColor = "black",
-      padding = 15
+      padding = 15,
+      autoSave = false,
+      autoLoad = false,
     }
   )
   

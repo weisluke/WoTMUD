@@ -184,7 +184,8 @@ end</script>
 		<Key isActive="yes" isFolder="no">
 			<name>Attack Target</name>
 			<packageName></packageName>
-			<script>local target=targeting.currtgt
+			<script>targeting = targeting or {}
+local target=targeting.currtgt
 
 if target~=nil then
   send(f"k {target}")
@@ -198,7 +199,8 @@ end</script>
 		<Key isActive="yes" isFolder="no">
 			<name>Attack Hidden Target</name>
 			<packageName></packageName>
-			<script>local target=targeting.currtgt
+			<script>targeting = targeting or {}
+local target=targeting.currtgt
 
 if target~=nil then
   send(f"k h.{target}")

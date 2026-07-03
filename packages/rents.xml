@@ -217,6 +217,13 @@ end</script>
 			<packageName></packageName>
 			<regex>^rents help$</regex>
 		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Rents version</name>
+			<script>rents:echo(f'version {rents.version}\n')</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^rents version$</regex>
+		</Alias>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Deleting rent storage information</name>
 			<script></script>
@@ -285,6 +292,7 @@ rents:echo(f"All items for room \"{getRoomName(room)}\" have been removed from t
 )
 
 rents = rents or {}
+rents.version = "1.0"
 rents.name = rents.name or nil
 rents.clear_room = rents.clear_room or true
 rents.sort_by = rents.sort_by or "name"

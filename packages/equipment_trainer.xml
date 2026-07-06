@@ -213,6 +213,7 @@ eq_trainer.container =
       height = "80%",
       autoLoad = false,
       autoSave = false,
+      hidden = true
     }
   )
 
@@ -2684,12 +2685,6 @@ end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
-			<name>eq_trainer hide trainer</name>
-			<packageName></packageName>
-			<script>eq_trainer.container:hide()</script>
-			<eventHandlerList />
-		</Script>
-		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer show melee and skills calculator</name>
 			<packageName></packageName>
 			<script>local label_name = "show_melee_skills_calculator"
@@ -2745,10 +2740,11 @@ eq_trainer.melee_skills.container = eq_trainer.melee_skills.container or
       height = "60%",
       autoLoad = false,
       autoSave = false,
+      hidden = true
     }
   )
 
-eq_trainer.melee_skills.container:hide()</script>
+</script>
 				<eventHandlerList />
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">

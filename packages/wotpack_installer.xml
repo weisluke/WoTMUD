@@ -179,7 +179,7 @@ end
 			<packageName></packageName>
 			<script>wotpack_installer = wotpack_installer or {}
 wotpack_installer.configs = wotpack_installer.configs or {}
-wotpack_installer.version = "2.0"
+wotpack_installer.version = "2.1"
 
 wotpack_installer.user = wotpack_installer.user or "weisluke"
 wotpack_installer.branch = wotpack_installer.branch or "main"
@@ -359,6 +359,19 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_com
   repeat 
     filename = self.to_install[1]
     local _,package = filename:match("(.+)/(.+).xml")
+    for _, ftype in pairs({"aliases", "keys", "scripts", "timers", "triggers"}) do
+      local old_package = f"{package}_{ftype}"
+      if table.contains(getPackages(), old_package) then
+        uninstallPackage(old_package)
+        self:echo(f"Old {package} {ftype} uninstalled.\n")
+        tempTimer(0.5, 
+          function() 
+            res=coroutine.resume(wotpack_installer.coroutine)
+          end
+        )
+        coroutine.yield()
+      end
+    end
     if table.contains(getPackages(), package) then
       uninstallPackage(package)
       self:echo(f"Old {package} package uninstalled.\n")

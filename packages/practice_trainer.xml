@@ -438,10 +438,11 @@ practice_trainer.container =
       height = "80%",
       autoLoad = false,
       autoSave = false,
+      hidden = true
     }
   )
 practice_trainer.char =
-  practice_trainer.char or {str = 19, int = 16, wil = 12, dex = 18, con = 19}
+  practice_trainer.char or {str = 19, int = 17, wil = 17, dex = 19, con = 19}
 practice_trainer.char.sex = practice_trainer.char.sex or "male"
 practice_trainer.char.race = practice_trainer.char.race or "human"
 practice_trainer.char.class = practice_trainer.char.class or "hunter"
@@ -825,10 +826,7 @@ practice_trainer.file[label_name]:setAction(
   end
 )
 
-
---hide the practice trainer after final item has been created,
---otherwise the command line will show
-practice_trainer.container:hide()</script>
+</script>
 				<eventHandlerList />
 			</Script>
 			<Script isActive="yes" isFolder="no">

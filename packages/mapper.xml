@@ -2028,7 +2028,7 @@ mudlet.mapper_script = true
 mudlet.custom_speedwalk = true
 wotmudmapper = wotmudmapper or {}
 wotmudmapper.configs = wotmudmapper.configs or {}
-wotmudmapper.version = "1.5"
+wotmudmapper.version = "1.6"
 
 
 --mapper variables

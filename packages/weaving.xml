@@ -97,9 +97,9 @@ cecho(f"Short weave set to: {weaving.shortweave}\n")</script>
 targeting = targeting or {}
 weaving = weaving or {}
 
-local target = targeting.currtgt
+if not targeting.weaving then send(command, false) return end
 
-if not targeting.weaving then send("j", false) return end
+local target = targeting.currtgt
 
 if target then
   if targeting.weaving then
@@ -125,9 +125,9 @@ end</script>
 targeting = targeting or {}
 weaving = weaving or {}
 
-local target = targeting.currtgt
+if not targeting.weaving then send(command, false) return end
 
-if not targeting.weaving then send("h", false) return end
+local target = targeting.currtgt
 
 if target then
   if targeting.weaving then

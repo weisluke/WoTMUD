@@ -160,7 +160,7 @@ end</script>
 if weaving.name then
   send(f"channel 'armor' {weaving.name}")
 else
-  send("channel 'armor'")
+  cecho("&lt;red&gt;Unable to weave armor on self. Type \"score\" to capture character name.\n")
 end</script>
 			<command></command>
 			<packageName></packageName>
@@ -180,7 +180,7 @@ end</script>
 if weaving.name then
   send(f"channel 'warding vs damage' {weaving.name}")
 else
-  send("channel 'warding vs damage'")
+  cecho("&lt;red&gt;Unable to weave WvD on self. Type \"score\" to capture character name.\n")
 end</script>
 			<command></command>
 			<packageName></packageName>

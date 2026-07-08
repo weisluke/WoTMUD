@@ -2295,6 +2295,9 @@ end
 			<name>wotmudmapper:sys_connection</name>
 			<packageName></packageName>
 			<script>function wotmudmapper:sys_connection(event)
+  --ensure the generic mapper is uninstalled
+  self:uninstall_generic_mapper()
+  
   --ensure the movement queue is empty
   self.queue = List:new()
   --set configuration values
@@ -3585,13 +3588,8 @@ end</script>
   --if installed file is not the desired one
   if name ~= "mapper" then return end
   
-  --uninstall generic_mapper if it is still installed
-  if table.contains(getPackages(), "generic_mapper") then
-      uninstallPackage("generic_mapper")
-      --and be sure to clear out the generic_mapper namespace
-      map = nil
-      self:echo(f"generic_mapper package uninstalled.\n")
-  end
+  --ensure the generic mapper is uninstalled
+  self:uninstall_generic_mapper()
   
   self:show_help()
   self:set_configs()
@@ -3601,6 +3599,20 @@ end</script>
 end
 
 registerAnonymousEventHandler("sysInstallPackage", "wotmudmapper:mapper_installer_success")</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:uninstall_generic_mapper</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:uninstall_generic_mapper()
+  --uninstall generic_mapper if it is still installed
+  if table.contains(getPackages(), "generic_mapper") then
+      uninstallPackage("generic_mapper")
+      --and be sure to clear out the generic_mapper namespace
+      map = nil
+      self:echo(f"generic_mapper package uninstalled.\n")
+  end
+end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">

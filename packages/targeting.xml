@@ -8,26 +8,9 @@
 			<name>Add target</name>
 			<script>--syntax: t1 xxx, t2 xxx, t3 xxx, t4 xxx, etc.
 
-local colors =
-  {
-    dark = "ansi_red",
-    light = "ansi_cyan",
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
-    dreadlord = "ansi_red",
-    grayman = "ansi_red",
-    draghkar = "ansi_red",
-    human = "ansi_cyan",
-    seanchan = "ansi_magenta",
-    ogier = "ansi_green",
-    aiel = "ansi_white"
-  }
-
-targeting = targeting or {}
-
 local index = tonumber(matches[2])
 local tgt = matches[3]
-local color = colors[tgt] or "reset"
+local color = targeting.colors[tgt] or "white"
 
 targeting[index] = tgt
 cecho(f"Target {index} set to: &lt;{color}&gt;{tgt}\n")</script>
@@ -39,29 +22,11 @@ cecho(f"Target {index} set to: &lt;{color}&gt;{tgt}\n")</script>
 			<name>Target specific</name>
 			<script>--syntax: t1, t2, t3, t4, etc.
 
-local colors =
-  {
-    dark = "ansi_red",
-    light = "ansi_cyan",
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
-    dreadlord = "ansi_red",
-    grayman = "ansi_red",
-    draghkar = "ansi_red",
-    human = "ansi_cyan",
-    seanchan = "ansi_magenta",
-    ogier = "ansi_green",
-    aiel = "ansi_white"
-  }
-  
-targeting = targeting or {}
-
 local index = tonumber(matches[2])
+local tgt = targeting[index]
 
-if targeting[index] then
-  local tgt = targeting[index]
-  local color = colors[tgt] or "reset"
-  
+if tgt then
+  local color = targeting.colors[tgt] or "white"
   targeting.currtgt = tgt
   cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
   
@@ -76,42 +41,22 @@ end</script>
 			<name>Show targets</name>
 			<script>--syntax: tgts
 
-local colors =
-  {
-    dark = "ansi_red",
-    light = "ansi_cyan",
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
-    dreadlord = "ansi_red",
-    grayman = "ansi_red",
-    draghkar = "ansi_red",
-    human = "ansi_cyan",
-    seanchan = "ansi_magenta",
-    ogier = "ansi_green",
-    aiel = "ansi_white"
-  }
-  
-targeting = targeting or {}
 weaving = weaving or {}
+local tgt = targeting.currtgt
 
-if targeting.currtgt then
-  local color = colors[targeting.currtgt] or "reset"
-  cecho(f"Your current target is: &lt;{color}&gt;{targeting.currtgt}\n")
+if tgt then
+  local color = targeting.colors[tgt] or "white"
+  cecho(f"Your current target is: &lt;{color}&gt;{tgt}\n")
 end
 
-local pkmode = (targeting.bashing and "bashing") 
-            or (targeting.charging and "charging")
-            or (targeting.stabbing and "stabbing")
-            or (targeting.weaving and "weaving")
-            or "none"
-cecho(f"Your current pk mode is: {pkmode}\n")
-if targeting.weaving then
+cecho(f"Your current pk mode is: {targeting.pkmode}\n")
+if targeting.pkmode == "channel" then
   cecho("Longweave set to: "..(weaving.longweave or "none").."\n")
   cecho("Shortweave set to: "..(weaving.shortweave or "none").."\n")
 end
 
 for i, tgt in ipairs(targeting) do
-  local color = colors[tgt] or "reset"
+  local color = targeting.colors[tgt] or "white"
   cecho(f"Target {i} = &lt;{color}&gt;{tgt}\n")
 end</script>
 			<command></command>
@@ -136,25 +81,8 @@ cecho("Targets cleared.\n")
 			<name>Set current target</name>
 			<script>--syntax: tgt xxx
 
-local colors =
-  {
-    dark = "ansi_red",
-    light = "ansi_cyan",
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
-    dreadlord = "ansi_red",
-    grayman = "ansi_red",
-    draghkar = "ansi_red",
-    human = "ansi_cyan",
-    seanchan = "ansi_magenta",
-    ogier = "ansi_green",
-    aiel = "ansi_white"
-  }
-  
-targeting = targeting or {}
-
 local tgt = matches[2]
-local color = colors[tgt] or "reset"
+local color = targeting.colors[tgt] or "white"
   
 targeting.currtgt = tgt
 cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
@@ -167,27 +95,10 @@ cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
 			<name>Show current target</name>
 			<script>--syntax: tgt
 
-local colors =
-  {
-    dark = "ansi_red",
-    light = "ansi_cyan",
-    trolloc = "ansi_red",
-    myrddraal = "ansi_red",
-    dreadlord = "ansi_red",
-    grayman = "ansi_red",
-    draghkar = "ansi_red",
-    human = "ansi_cyan",
-    seanchan = "ansi_magenta",
-    ogier = "ansi_green",
-    aiel = "ansi_white"
-  }
+local tgt = targeting.currtgt
   
-targeting = targeting or {}
-
-if targeting.currtgt then
-  local tgt = targeting.currtgt
-  local color = colors[tgt] or "reset"
-  
+if tgt then
+  local color = targeting.colors[tgt] or "white"
   cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
 else
   cecho("&lt;red&gt;Current target not set!\n")
@@ -200,40 +111,16 @@ end</script>
 			<name>Switch PK Modes</name>
 			<script>--syntax: pkmode
 
-targeting=targeting or {}
+local pkmodes = {"bash", "charge", "backstab", "channel", "none"}
 
-if targeting.bashing then
-  targeting.bashing=false
-  targeting.charging=true
-  targeting.stabbing=false
-  targeting.weaving=false
-  cecho("PK method set to: charging\n")
-elseif targeting.charging then
-  targeting.bashing=false
-  targeting.charging=false
-  targeting.stabbing=true
-  targeting.weaving=false
-  cecho("PK method set to: stabbing\n")
-elseif targeting.stabbing then
-  targeting.bashing=false
-  targeting.charging=false
-  targeting.stabbing=false
-  targeting.weaving=true
-  cecho("PK method set to: weaving\n")
-elseif targeting.weaving then
-  targeting.bashing=false
-  targeting.charging=false
-  targeting.stabbing=false
-  targeting.weaving=false
-  cecho("PK method set to: none\n")
+local index = table.index_of(pkmodes, targeting.pkmode)
+if index then
+  index = (index % table.size(pkmodes))+1
+  targeting.pkmode = pkmodes[index]
 else
-  targeting.bashing=true
-  targeting.charging=false
-  targeting.stabbing=false
-  targeting.weaving=false
-  cecho("PK method set to: bashing\n")
+  targeting.pkmode = pkmodes[1]
 end
-</script>
+cecho(f"PK method set to: {targeting.pkmode}\n")</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^pkmode$</regex>
@@ -242,12 +129,10 @@ end
 			<name>Attack Target</name>
 			<script>--syntax: p
 
-targeting = targeting or {}
+local tgt = targeting.currtgt
 
-local target = targeting.currtgt
-
-if target then
-  send(f"k {target}")
+if tgt then
+  send(f"k {tgt}")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
@@ -259,12 +144,10 @@ end</script>
 			<name>Attack h.Target</name>
 			<script>--syntax: o
 
-targeting = targeting or {}
+local tgt = targeting.currtgt
 
-local target = targeting.currtgt
-
-if target then
-  send(f"k h.{target}")
+if tgt then
+  send(f"k h.{tgt}")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
@@ -276,26 +159,22 @@ end</script>
 			<name>Special on target</name>
 			<script>--syntax: q
 
-targeting = targeting or {}
 weaving = weaving or {}
 
-local target = targeting.currtgt
+local tgt = targeting.currtgt
+local pkmode = targeting.pkmode
 
-if target then
-  if targeting.bashing then
-    send(f"bash h.{target}")
-  elseif targeting.charging then
-    send(f"charge h.{target}")
-  elseif targeting.stabbing then
-    send(f"backstab h.{target}")
-  elseif targeting.weaving then
+if tgt then
+  if not pkmode or pkmode == "none" then
+    cecho("&lt;red&gt;No pk method set\n")
+  elseif pkmode == "channel" then
     if weaving.longweave then
-      send(f"channel '{weaving.longweave}' h.{target}")
+      send(f"channel '{weaving.longweave}' h.{tgt}")
     else
-      send(f"channel 'ice spikes' h.{target}")
+      send(f"channel 'ice spikes' h.{tgt}")
     end
   else
-    cecho("&lt;red&gt;No pk method set\n")
+    send(f"{pkmode} h.{tgt}")
   end
 else
   cecho("&lt;red&gt;Current target not set!\n")
@@ -308,12 +187,10 @@ end</script>
 			<name>Diagnose h.target</name>
 			<script>--syntax: a
 
-targeting = targeting or {}
+local tgt = targeting.currtgt
 
-local target = targeting.currtgt
-
-if target then
-  send(f"diagnose h.{target}")
+if tgt then
+  send(f"diagnose h.{tgt}")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
@@ -323,7 +200,30 @@ end</script>
 		</Alias>
 	</AliasPackage>
 	<ActionPackage />
-	<ScriptPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>targeting initializations</name>
+			<packageName></packageName>
+			<script>targeting = targeting or {pkmode = "bash"}
+
+targeting.colors = {
+  dark = "ansi_red",
+  light = "ansi_cyan",
+  trolloc = "ansi_red",
+  myrddraal = "ansi_red",
+  dreadlord = "ansi_red",
+  grayman = "ansi_red",
+  draghkar = "ansi_red",
+  human = "ansi_cyan",
+  seanchan = "ansi_magenta",
+  ogier = "ansi_green",
+  aiel = "ansi_white"
+}
+
+</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
 		<helpURL></helpURL>

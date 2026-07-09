@@ -9,11 +9,11 @@
 			<script>--syntax: t1 xxx, t2 xxx, t3 xxx, t4 xxx, etc.
 
 local index = tonumber(matches[2])
-local tgt = matches[3]
-local color = targeting.colors[tgt] or "white"
+local target = matches[3]
+local color = targeting.colors[target] or "white"
 
-targeting[index] = tgt
-cecho(f"Target {index} set to: &lt;{color}&gt;{tgt}\n")</script>
+targeting[index] = target
+cecho(f"Target {index} set to: &lt;{color}&gt;{target}\n")</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^t(\d+) (\S+)$</regex>
@@ -23,12 +23,12 @@ cecho(f"Target {index} set to: &lt;{color}&gt;{tgt}\n")</script>
 			<script>--syntax: t1, t2, t3, t4, etc.
 
 local index = tonumber(matches[2])
-local tgt = targeting[index]
+local target = targeting[index]
 
-if tgt then
-  local color = targeting.colors[tgt] or "white"
-  targeting.currtgt = tgt
-  cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
+if target then
+  local color = targeting.colors[target] or "white"
+  targeting.currtgt = target
+  cecho(f"Current target set to: &lt;{color}&gt;{target}\n")
   
 else
   cecho(f"&lt;red&gt;Target {index} not set!\n")
@@ -42,11 +42,11 @@ end</script>
 			<script>--syntax: tgts
 
 weaving = weaving or {}
-local tgt = targeting.currtgt
+local target = targeting.currtgt
 
-if tgt then
-  local color = targeting.colors[tgt] or "white"
-  cecho(f"Your current target is: &lt;{color}&gt;{tgt}\n")
+if target then
+  local color = targeting.colors[target] or "white"
+  cecho(f"Your current target is: &lt;{color}&gt;{target}\n")
 end
 
 cecho(f"Your current pk mode is: {targeting.pkmode}\n")
@@ -81,11 +81,11 @@ cecho("Targets cleared.\n")
 			<name>Set current target</name>
 			<script>--syntax: tgt xxx
 
-local tgt = matches[2]
-local color = targeting.colors[tgt] or "white"
+local target = matches[2]
+local color = targeting.colors[target] or "white"
   
-targeting.currtgt = tgt
-cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
+targeting.currtgt = target
+cecho(f"Current target set to: &lt;{color}&gt;{target}\n")
 </script>
 			<command></command>
 			<packageName></packageName>
@@ -95,11 +95,11 @@ cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
 			<name>Show current target</name>
 			<script>--syntax: tgt
 
-local tgt = targeting.currtgt
+local target = targeting.currtgt
   
-if tgt then
-  local color = targeting.colors[tgt] or "white"
-  cecho(f"Current target set to: &lt;{color}&gt;{tgt}\n")
+if target then
+  local color = targeting.colors[target] or "white"
+  cecho(f"Current target set to: &lt;{color}&gt;{target}\n")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
@@ -129,10 +129,10 @@ cecho(f"PK method set to: {targeting.pkmode}\n")</script>
 			<name>Attack Target</name>
 			<script>--syntax: p
 
-local tgt = targeting.currtgt
+local target = targeting.currtgt
 
-if tgt then
-  send(f"k {tgt}")
+if target then
+  send(f"k {target}")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
@@ -144,10 +144,10 @@ end</script>
 			<name>Attack h.Target</name>
 			<script>--syntax: o
 
-local tgt = targeting.currtgt
+local target = targeting.currtgt
 
-if tgt then
-  send(f"k h.{tgt}")
+if target then
+  send(f"k h.{target}")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
@@ -161,20 +161,20 @@ end</script>
 
 weaving = weaving or {}
 
-local tgt = targeting.currtgt
+local target = targeting.currtgt
 local pkmode = targeting.pkmode
 
-if tgt then
+if target then
   if not pkmode or pkmode == "none" then
     cecho("&lt;red&gt;No pk method set\n")
   elseif pkmode == "channel" then
     if weaving.longweave then
-      send(f"channel '{weaving.longweave}' h.{tgt}")
+      send(f"channel '{weaving.longweave}' h.{target}")
     else
-      send(f"channel 'ice spikes' h.{tgt}")
+      send(f"channel 'ice spikes' h.{target}")
     end
   else
-    send(f"{pkmode} h.{tgt}")
+    send(f"{pkmode} h.{target}")
   end
 else
   cecho("&lt;red&gt;Current target not set!\n")
@@ -187,10 +187,10 @@ end</script>
 			<name>Diagnose h.target</name>
 			<script>--syntax: a
 
-local tgt = targeting.currtgt
+local target = targeting.currtgt
 
-if tgt then
-  send(f"diagnose h.{tgt}")
+if target then
+  send(f"diagnose h.{target}")
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>

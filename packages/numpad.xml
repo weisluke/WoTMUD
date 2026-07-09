@@ -185,12 +185,12 @@ end</script>
 			<name>Attack Target</name>
 			<packageName></packageName>
 			<script>targeting = targeting or {}
-local target=targeting.currtgt
+local target = targeting.currtgt
 
-if target~=nil then
+if target ~= nil then
   send(f"k {target}")
 else
-  cecho("\n&lt;red&gt;Current target not set!\n")
+  cecho("&lt;red&gt;Current target not set!\n")
 end</script>
 			<command></command>
 			<keyCode>53</keyCode>
@@ -200,12 +200,12 @@ end</script>
 			<name>Attack Hidden Target</name>
 			<packageName></packageName>
 			<script>targeting = targeting or {}
-local target=targeting.currtgt
+local target = targeting.currtgt
 
-if target~=nil then
+if target ~= nil then
   send(f"k h.{target}")
 else
-  cecho("\n&lt;red&gt;Current target not set!\n")
+  cecho("&lt;red&gt;Current target not set!\n")
 end</script>
 			<command></command>
 			<keyCode>16777227</keyCode>

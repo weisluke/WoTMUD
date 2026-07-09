@@ -145,7 +145,7 @@ end</script>
 			<name>Dismount</name>
 			<packageName></packageName>
 			<script></script>
-			<command>dm</command>
+			<command>dism</command>
 			<keyCode>42</keyCode>
 			<keyModifier>536870912</keyModifier>
 		</Key>

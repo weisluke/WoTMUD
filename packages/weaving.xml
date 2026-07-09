@@ -53,8 +53,8 @@ weaving.name = matches[2]</script>
 
 local longweaves = {"ice spikes", "fireball", "sonic boom"}
 
-if weaving.longweave and table.index_of(longweaves, weaving.longweave) then
-  local index = table.index_of(longweaves, weaving.longweave)
+local index = table.index_of(longweaves, weaving.longweave)
+if index then
   index = (index % table.size(longweaves))+1
   weaving.longweave = longweaves[index]
 else
@@ -71,8 +71,8 @@ cecho(f"Long weave set to: {weaving.longweave}\n")</script>
 
 local shortweaves = {"earthquake", "flame strike", "hammer of air", "call lightning"}
 
-if weaving.shortweave and table.index_of(shortweaves, weaving.shortweave) then
-  local index = table.index_of(shortweaves, weaving.shortweave)
+local index = table.index_of(shortweaves, weaving.shortweave)
+if index then
   index = (index % table.size(shortweaves))+1
   weaving.shortweave = shortweaves[index]
 else

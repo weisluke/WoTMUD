@@ -292,7 +292,7 @@ rents:echo(f"All items for room \"{getRoomName(room)}\" have been removed from t
 )
 
 rents = rents or {}
-rents.version = "1.0"
+rents.version = "1.1"
 rents.name = rents.name or nil
 rents.clear_room = rents.clear_room or true
 rents.sort_by = rents.sort_by or "name"
@@ -1042,19 +1042,138 @@ end
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
+			<name>rents:get_column_widths_percentages</name>
+			<packageName></packageName>
+			<script>function rents:get_column_widths_percentages()
+  local function get_max(arr)
+    max = arr[1]
+    for i, val in ipairs(arr) do
+      if val &gt; max then max = val end
+    end
+    return max
+  end
+  
+  local res = {"name", "location", "item", "cost"}
+  
+  for i, field in ipairs(res) do
+    res[field] = self:get_unique_values(field)
+  end
+  --include (longest) header field values
+  table.insert(res.name, " Character ▲")
+  table.insert(res.location, " Location ▲")
+  table.insert(res.item, " Item Count ▲")
+  table.insert(res.cost, " Sum Amount ▲")
+  
+  --calculate the maximum length string for each column
+  --and the total string length
+  local total = 0
+  for _, field in ipairs(res) do
+    local list = res[field]
+    if field == "cost" then
+      --convert strings to how they will be output
+      for i, cost in ipairs(list) do
+        cost = self:str_to_coppers(cost)
+        cost = self:coppers_to_str(cost)
+        list[i] = cost
+      end
+      --and add summary items as those can be larger
+      local groups = self:get_summary_groups(self.records)
+      for _, grp in pairs(groups) do
+        table.insert(res.cost, self:coppers_to_str(grp.coppers))
+      end
+    end
+    for i, val in ipairs(list) do
+      --add one for space at the start
+      list[i] = val:len() + 1
+      if field == "cost" then
+        --add two characters for cost
+        --since it is before the scrollbar
+        list[i] = list[i] + 2
+      end
+    end
+    res[field] = get_max(list)
+    total = total + res[field]
+  end
+  
+  --convert to percentages
+  local total_f = 0
+  local total_w = 0
+  for _, field in ipairs(res) do
+    local value = res[field]
+    res[field] = {}
+    res[field].x = string.format("%.3f%%", total_w)
+    
+    local f = value / total * 100
+    --round down to three decimal places
+    local w = math.floor(f * 1000) / 1000
+    
+    total_f = total_f + f
+    total_w = total_w + w
+    
+    --round down to three decimal places
+    local expected_w = math.floor(total_f * 1000) / 1000
+    --account for rounding
+    w = w + (expected_w - total_w)
+    total_w = expected_w
+    
+    res[field].w = string.format("%.3f%%", w)
+  end
+  
+  return res
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:get_column_widths_characters</name>
+			<packageName></packageName>
+			<script>function rents:get_column_widths_characters()  
+  local res = {}
+  
+  local total_f = 0
+  local total_w = 0
+  for _, header in ipairs(self.headers) do
+    local field = header.field
+    local f = header.width:match("(%-?%d+%.?%d*)%%") / 100
+    --width in pixels
+    local w = self.display_container.get_width() * f
+    --width in letters
+    w = w / calcFontSize(self.console:getFontSize())
+    w = math.floor(w)
+    
+    total_f = total_f + f
+    total_w = total_w + w
+    
+    --expected total width in pixels
+    local expected_w = self.display_container.get_width() * total_f
+    --expected total width in leters
+    expected_w = expected_w / calcFontSize(self.console:getFontSize())
+    expected_w = math.floor(expected_w)
+    
+    --account for rounding
+    w = w + (expected_w - total_w)
+    total_w = expected_w
+    
+    res[field] = w - 1 --account for space at the start
+  end
+  return res
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
 			<name>rents:build_column_headers</name>
 			<packageName></packageName>
 			<script>function rents:build_column_headers()
+  local widths = self:get_column_widths_percentages()
   local columns = {
-    {field = "name", label = "Character", x = "0%", width = "16%"},
-    {field = "location", label = "Location", x = "16%", width = "36%"},
-    {field = "item", label = "Item", x = "52%", width = "36%"},
-    {field = "cost", label = "Amount", x = "88%", width = "12%"},
+    {field = "name", label = "Character", x = widths.name.x, width = widths.name.w},
+    {field = "location", label = "Location", x = widths.location.x, width = widths.location.w},
+    {field = "item", label = "Item", x = widths.item.x, width = widths.item.w},
+    {field = "cost", label = "Amount", x = widths.cost.x, width = widths.cost.w},
   }
 
   self.headers = {}
 
-  for _, col in ipairs(columns) do
+  for i, col in ipairs(columns) do
     local lbl = Geyser.Label:new({
       name = f'rents.header.{col.field}',
       x = col.x, y = 0, width = col.width, height = "100%",
@@ -1070,7 +1189,8 @@ end
       self:refresh()
     end)
 
-    self.headers[col.field] = {
+    self.headers[i] = {
+      field = col.field,
       widget = lbl,
       label  = col.label,
       width = col.width
@@ -1094,7 +1214,8 @@ end
     font-weight: %s;
   ]]
 
-  for field, header in pairs(self.headers) do
+  for _, header in ipairs(self.headers) do
+    local field = header.field
     local is_active = (self.sort_by == field)
     local color = is_active and "rgb(255, 215, 0)" or "rgb(185, 185, 185)"
     local weight = is_active and "bold" or "normal"
@@ -1116,6 +1237,36 @@ end
 end
 
 </script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>rents:get_summary_groups</name>
+			<packageName></packageName>
+			<script>function rents:get_summary_groups(records)
+  local groups = {}
+
+  for _, rec in ipairs(records) do
+    local key = rec.name .. "\n" .. rec.location
+    if not groups[key] then
+      groups[key] = {
+        name      = rec.name,
+        location  = rec.location,
+        room      = rec.room,
+        coppers   = 0,
+        items     = {},
+      }
+    end
+    table.insert(groups[key].items, {name = rec.item, coppers = rec.coppers})
+    groups[key].coppers = groups[key].coppers + rec.coppers
+  end
+
+  local res = {}
+  for k, grp in pairs(groups) do
+    table.insert(res, grp)
+  end
+  
+  return res
+end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -1170,25 +1321,7 @@ function rents:refresh()
 
   local console = self.console
   
-  local COLUMN_WIDTHS = {}
-  local total_f = 0
-  local total_w = 0
-  for field, header in pairs(self.headers) do
-    local f = header.width:match("(%-?%d+%.?%d*)%%") / 100
-    local w = self.display_container.get_width() * f / calcFontSize(console:getFontSize())
-    w = math.floor(w) --convert to integer number of letters
-    
-    total_f = total_f + f
-    total_w = total_w + w
-    
-    local expected_w = self.display_container.get_width() * total_f / calcFontSize(console:getFontSize())
-    expected_w = math.floor(expected_w)
-    
-    --account for rounding
-    w = w + (expected_w - total_w) 
-    
-    COLUMN_WIDTHS[field] = w - 1 --account for space at the start
-  end
+  local column_widths = self:get_column_widths_characters()
   
   self:render_headers()
 
@@ -1219,31 +1352,10 @@ function rents:refresh()
 
   --Summary mode
   if self.is_summary then
-    local groups   = {}
+    local groups = self:get_summary_groups(records)
+    self:sort_records(groups)
 
-    for _, rec in ipairs(records) do
-      local key = rec.name .. "\n" .. rec.location
-      if not groups[key] then
-        groups[key] = {
-          name      = rec.name,
-          location  = rec.location,
-          room      = rec.room,
-          coppers   = 0,
-          items     = {},
-        }
-      end
-      table.insert(groups[key].items, {name = rec.item, coppers = rec.coppers})
-      groups[key].coppers = groups[key].coppers + rec.coppers
-    end
-
-    local sorted = {}
-    for k, v in pairs(groups) do
-      table.insert(sorted, v)
-    end
-
-    self:sort_records(sorted)
-
-    for i, grp in ipairs(sorted) do
+    for i, grp in ipairs(groups) do
       local bg  = ((i % 2) == 1) and odd_row_color or even_row_color
 
       local function cell(text, width, matchTerm)
@@ -1259,23 +1371,23 @@ function rents:refresh()
       console:setBgColor(unpack(bg))
 
       gap(bg)
-      cell(grp.name, COLUMN_WIDTHS.name, activeMatchFor(grp.name, "name"))
+      cell(grp.name, column_widths.name, activeMatchFor(grp.name, "name"))
       
       gap(bg)
       if grp.room and grp.room &gt; 0 then
-        link(grp.location, COLUMN_WIDTHS.location, 
+        link(grp.location, column_widths.location, 
           activeMatchFor(grp.location, "location"), 
           function() centerview(grp.room) end, "Click to center map on room."
         )
       else
-        cell(grp.location, COLUMN_WIDTHS.location, activeMatchFor(grp.location, "location"))
+        cell(grp.location, column_widths.location, activeMatchFor(grp.location, "location"))
       end
       
       --Item count cell
       gap(bg)
       local itemText = (#grp.items == 1 and "1 item" or f'{#grp.items} items')
       if #grp.items == 0 then
-        cell(itemText, COLUMN_WIDTHS.item, activeMatchFor(itemText, "location"))
+        cell(itemText, column_widths.item, activeMatchFor(itemText, "location"))
       else
         local hints = {}
         local actions = {}
@@ -1284,22 +1396,22 @@ function rents:refresh()
           table.insert(hints, f"   {itm.name}  |  {cost}   ")
           table.insert(actions, "")
         end
-        popup(itemText, COLUMN_WIDTHS.item, "", actions, hints)
+        popup(itemText, column_widths.item, "", actions, hints)
       end
       
       gap(bg)
       local cost = self:coppers_to_str(grp.coppers)
-      cell(cost, COLUMN_WIDTHS.cost, "")
+      cell(cost, column_widths.cost, "")
 
       console:echo("\n")
       console:resetFormat()
     end
 
-    if #sorted == 0 then
+    if #groups == 0 then
       console:echo(" No matching results.\n")
     end
 
-    self.label_count:echo(string.format(#sorted == 1 and "%d result" or "%d results", #sorted))
+    self.label_count:echo(string.format(#groups == 1 and "%d result" or "%d results", #groups))
     self.label_count:setAlignment("center")
     
     return
@@ -1322,24 +1434,24 @@ function rents:refresh()
     console:setBgColor(unpack(bg))
 
     gap(bg)
-    cell(rec.name, COLUMN_WIDTHS.name, activeMatchFor(rec.name, "name"))
+    cell(rec.name, column_widths.name, activeMatchFor(rec.name, "name"))
     
     gap(bg)
     if rec.room and rec.room &gt; 0 then
-      link(rec.location, COLUMN_WIDTHS.location, 
+      link(rec.location, column_widths.location, 
         activeMatchFor(rec.location, "location"), 
         function() centerview(rec.room) end, "Click to center map on room."
       )
     else
-      cell(rec.location, COLUMN_WIDTHS.location, activeMatchFor(rec.location, "location"))
+      cell(rec.location, column_widths.location, activeMatchFor(rec.location, "location"))
     end
     
     gap(bg)
-    cell(rec.item, COLUMN_WIDTHS.item, activeMatchFor(rec.item, "item"))
+    cell(rec.item, column_widths.item, activeMatchFor(rec.item, "item"))
     
     gap(bg)
     local cost = self:coppers_to_str(rec.coppers)
-    cell(cost, COLUMN_WIDTHS.cost, "")
+    cell(cost, column_widths.cost, "")
     
     console:echo("\n")
     console:resetFormat()

@@ -589,19 +589,28 @@ end
     ]])
   dropdown.list:hide()
 
+  -- dropdown option styles
+  local unselected_style = [[
+    background-color: rgb(40,40,55);
+    color: rgb(220,220,220);
+    font-size: 11px;
+    padding-left: 4px;
+    border-bottom: 1px solid rgb(50,50,65);
+  ]]
+  local hover_style = [[
+    background-color: rgb(30,30,40);
+    color: rgb(220,220,220);
+    font-size: 11px;
+    padding-left: 4px;
+    border-bottom: 1px solid rgb(50,50,65);
+  ]]
   for i, val in ipairs(options) do
     local opt = Geyser.Label:new({
       name = f'{cfg.name}.opt_{i}',
       x = 0, y = f'{(i - 1) / #options * 100}%',
       width = "100%", height = f'{100 / #options}%',
     }, dropdown.list)
-    opt:setStyleSheet([[
-      background-color: rgb(40,40,55);
-      color: rgb(220,220,220);
-      font-size: 11px;
-      padding-left: 4px;
-      border-bottom: 1px solid rgb(50,50,65);
-    ]])
+    opt:setStyleSheet(unselected_style)
     opt:echo(val)
     opt:setClickCallback(function()
       dropdown:echo(val)
@@ -610,22 +619,10 @@ end
       self:refresh()
     end)
     opt:setOnEnter(function()
-      opt:setStyleSheet([[
-        background-color: rgb(30,30,40);
-        color: rgb(220,220,220);
-        font-size: 11px;
-        padding-left: 4px;
-        border-bottom: 1px solid rgb(50,50,65);
-      ]])
+      opt:setStyleSheet(hover_style)
     end)
     opt:setOnLeave(function()
-      opt:setStyleSheet([[
-        background-color: rgb(40,40,55);
-        color: rgb(220,220,220);
-        font-size: 11px;
-        padding-left: 4px;
-        border-bottom: 1px solid rgb(50,50,65);
-      ]])
+      opt:setStyleSheet(unselected_style)
     end)
   end
 

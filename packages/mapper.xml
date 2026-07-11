@@ -712,7 +712,7 @@ if table.is_empty(foundrooms) then
   selectCaptureGroup(2)
   setLink(function() end, "No matches found!")
 elseif table.size(foundrooms) == 1 then
-  _, id = next(foundrooms)
+  local _, id = next(foundrooms)
   selectCaptureGroup(2)
   setLink(function() centerview(id) end, "Click to center map on room.")
 else
@@ -1681,7 +1681,7 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  id, name = next(foundrooms)
+  local id, name = next(foundrooms)
   centerview(id)
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
@@ -1772,7 +1772,7 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  _, id = next(foundrooms)
+  local _, id = next(foundrooms)
   centerview(id)
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
@@ -1819,7 +1819,7 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  id, name = next(foundrooms)
+  local id, name = next(foundrooms)
   centerview(id)
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
@@ -1989,7 +1989,7 @@ if table.is_empty(foundrooms) then
   wotmudmapper:echo("No matches found.\n", false, true)
 elseif table.size(foundrooms) == 1 then
   wotmudmapper:echo("One matching room found. Map has been centered on this room.\n")
-  _, id = next(foundrooms)
+  local _, id = next(foundrooms)
   centerview(id)
 else
   wotmudmapper:echo("Multiple matches found.\n", false, true)
@@ -2038,7 +2038,7 @@ mudlet.mapper_script = true
 mudlet.custom_speedwalk = true
 wotmudmapper = wotmudmapper or {}
 wotmudmapper.configs = wotmudmapper.configs or {}
-wotmudmapper.version = "1.7"
+wotmudmapper.version = "1.8"
 
 
 --mapper variables

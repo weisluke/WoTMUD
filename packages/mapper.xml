@@ -2285,30 +2285,31 @@ end</script>
 			<name>wotmudmapper:set_configs</name>
 			<packageName></packageName>
 			<script>function wotmudmapper:set_configs()
-  --local copies of map configs/colors and their defaults
-  local defaults = table.deepcopy(self.defaults) or {}
-  local configs = table.deepcopy(self.configs) or {}
-  local default_colors = table.deepcopy(self.default_map_colors) or {}
-  local colors = table.deepcopy(self.map_colors) or {}
+  local home = getMudletHomeDir()
+  local configs_path = f"{home}/wotmudmapper.configs.lua"
+  local colors_path = f"{home}/wotmudmapper.map_colors.lua"
+  
+  --tables to be updated
+  local configs = {}
+  local colors = {}
   
   --if config and color files exist on disk, load them in  
   self:echo("Loading map configurations.\n", true)
-  -- load stored configs from file if it exists
-  if io.exists(f"{getMudletHomeDir()}/wotmudmapper.configs.lua") then
-      table.load(f"{getMudletHomeDir()}/wotmudmapper.configs.lua",configs)
-  end
-  if io.exists(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua") then
-      table.load(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua",colors)
-  end
+  if io.exists(configs_path) then table.load(configs_path, configs) end
+  if io.exists(colors_path) then table.load(colors_path, colors) end
   self:echo("Map configurations loaded.\n", true)
   
-  -- overwrite default values with stored config values and save to disk
-  configs = table.update(defaults, configs)
-  self.configs = table.deepcopy(configs)
-  table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", self.configs)
-  colors = table.update(default_colors, colors)
-  self.map_colors = table.deepcopy(colors)
-  table.save(f"{getMudletHomeDir()}/wotmudmapper.map_colors.lua", self.map_colors)
+  --update defaults with configs on disk
+  configs = table.update(self.default_configs, configs)
+  colors = table.update(self.default_map_colors, colors)
+  
+  --and update those with current configs
+  self.configs = table.update(configs, self.configs or {})
+  self.map_colors = table.update(colors, self.map_colors or {})
+  
+  --and save to disk
+  wotmudmapper:save_configs()
+  table.save(colors_path, self.map_colors)
 end
 </script>
 			<eventHandlerList />

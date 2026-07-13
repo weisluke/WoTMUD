@@ -578,18 +578,23 @@ end</script>
 			<name>communications:set_configs</name>
 			<packageName></packageName>
 			<script>function communications:set_configs()
-    local defaults = self.defaults or {}
-    local configs = self.configs or {}
-    -- load stored configs from file if it exists
-    if io.exists(f"{getMudletHomeDir()}/communications.configs.lua") then
-        self:echo("Loading communications configurations.\n", true)
-        table.load(f"{getMudletHomeDir()}/communications.configs.lua",configs)
-        self:echo("Communications configurations loaded.\n", true)
-    end
-    -- overwrite default values with stored config values
-    configs = table.update(defaults, configs)
-    self.configs = table.deepcopy(configs)
-    table.save(f"{getMudletHomeDir()}/communications.configs.lua", self.configs)
+  local home = getMudletHomeDir()
+  local configs_path = f"{home}/communications.configs.lua"
+  
+  --table to be updated
+  local configs = {}
+  
+  --if config file exist on disk, load it in
+  self:echo("Loading communications configurations.\n", true)
+  if io.exists(configs_path) then table.load(configs_path, configs) end
+  self:echo("Communications configurations loaded.\n", true)
+  
+  --update defaults with configs on disk
+  configs = table.update(self.default_configs, configs)
+  --and update those with current configs
+  self.configs = table.update(configs, self.configs or {})
+  --and save to disk
+  communications:save_configs()
 end
 </script>
 			<eventHandlerList />

@@ -1564,9 +1564,9 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Map widget</name>
-				<script>wotmudmapper.configs.map_window.widget = not wotmudmapper.configs.map_window.widget
+				<script>wotmudmapper.configs.window.widget = not wotmudmapper.configs.window.widget
 
-wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.map_window.widget and "use" or "not use") .. " the map widget.\n")
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.window.widget and "use" or "not use") .. " the map widget.\n")
 wotmudmapper:save_configs()</script>
 				<command></command>
 				<packageName></packageName>
@@ -1607,20 +1607,20 @@ end</script>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Dock/Undock Map</name>
-				<script>wotmudmapper.configs.map_window.dock = not wotmudmapper.configs.map_window.dock
-wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.dock and "docked.\n" or "floating.\n"))
+				<script>wotmudmapper.configs.window.dock = not wotmudmapper.configs.window.dock
+wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.window.dock and "docked.\n" or "floating.\n"))
 wotmudmapper:save_configs()
-wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
+wotmudmapper:show_map()</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map dock$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Show/Hide Map</name>
-				<script>wotmudmapper.configs.map_window.visible = not wotmudmapper.configs.map_window.visible
-wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.map_window.visible and "shown.\n" or "hidden.\n"))
+				<script>wotmudmapper.configs.window.visible = not wotmudmapper.configs.window.visible
+wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.window.visible and "shown.\n" or "hidden.\n"))
 wotmudmapper:save_configs()
-wotmudmapper:show_map(wotmudmapper.configs.map_window.visible)</script>
+wotmudmapper:show_map()</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^map show$</regex>
@@ -1875,13 +1875,13 @@ end</script>
 			<name>Map Window Config Alias</name>
 			<script>local key = matches[2]
 local val = matches[3]
-if wotmudmapper.configs.map_window[key]~=nil then
+if wotmudmapper.configs.window[key]~=nil then
   if key == "w" then
     if (not tonumber(val)) or (tonumber(val) &lt; 1) then
       wotmudmapper:echo("Width must be a positive number (interpreted as a percentage of screen width).\n", false, true)
     else
       val = f"{val}%"
-      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper.configs.window[key] = val
       wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
       wotmudmapper:save_configs()
       wotmudmapper:show_map(true)
@@ -1891,7 +1891,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper:echo("Height must be a positive number (interpreted as a percentage of screen height).\n", false, true)
     else
       val = f"{val}%"
-      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper.configs.window[key] = val
       wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
       wotmudmapper:save_configs()
       wotmudmapper:show_map(true)
@@ -1901,7 +1901,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper:echo("X position must be a number (interpreted as a percentage of screen width).\n", false, true)
     else
       val = f"{val}%"
-      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper.configs.window[key] = val
       wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
       wotmudmapper:save_configs()
       wotmudmapper:show_map(true)
@@ -1911,7 +1911,7 @@ if wotmudmapper.configs.map_window[key]~=nil then
       wotmudmapper:echo("Y position must be a number (interpreted as a percentage of screen height).\n", false, true)
     else
       val = f"{val}%"
-      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper.configs.window[key] = val
       wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
       wotmudmapper:save_configs()
       wotmudmapper:show_map(true)
@@ -1920,9 +1920,9 @@ if wotmudmapper.configs.map_window[key]~=nil then
     if not color_table[val] then
       wotmudmapper:echo(f"Color ({val}) not known. Type \"viewcolors\" to see the list of available colors.\n", false, true)
     else
-      local old_border = wotmudmapper.configs.map_window.border
+      local old_border = wotmudmapper.configs.window.border
       wotmudmapper:echo(f"Map window ({key}) updated from (&lt;{old_border}&gt;{old_border}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      wotmudmapper.configs.map_window[key] = val
+      wotmudmapper.configs.window[key] = val
       wotmudmapper:save_configs()
       wotmudmapper:echo("Color change will only take effect upon restarting mudlet.\n")
     end
@@ -1943,7 +1943,7 @@ if (not tonumber(val)) or (tonumber(val) &lt; 1) then
   wotmudmapper:echo("Zoom must be a positive number (closer to 1 = more zoomed in).\n", false, true)
 else
   val = tonumber(val)
-  wotmudmapper.configs.map_window.zoom = val
+  wotmudmapper.configs.window.zoom = val
   wotmudmapper:echo(f"Map window (zoom) updated to ({val}).\n")
   wotmudmapper:save_configs()
   for name, id in pairs(getAreaTable()) do
@@ -1963,7 +1963,7 @@ end</script>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Reset Configs</name>
-			<script>wotmudmapper.configs = table.deepcopy(wotmudmapper.defaults)
+			<script>wotmudmapper.configs = table.deepcopy(wotmudmapper.default_configs)
 wotmudmapper.configs.debug = false
 wotmudmapper:echo("Map configurations reset to default values.\n")
 wotmudmapper:show_map(true)</script>
@@ -2060,7 +2060,7 @@ wotmudmapper.flee = wotmudmapper.flee or false
 wotmudmapper.following = wotmudmapper.following or false
 
 --default configuration values to be used or updated in wotmudmapper.configs
-wotmudmapper.defaults = {
+wotmudmapper.default_configs = {
   on = true, --true if the map should actively follow you
   mapping = false, --true if mapping mode is turned on
   debug = false, --debug for echoing messages
@@ -2076,7 +2076,7 @@ wotmudmapper.defaults = {
   zonecolor = "turquoise", --color of zone information displayed below room exits
   doorcolor = "blue", --color of door information displayed below room exits
   speedwalk = false, --whether or not double clicking rooms will make you speedwalk
-  map_window = {
+  window = {
     border = "gray",
     widget = false, --true if the map widget should be used instead of an Adjustable.Container
     visible = true, --true if map should be shown
@@ -2327,7 +2327,7 @@ end
   self:set_configs()
   
   --show map window
-  self:show_map(self.configs.map_window.visible)
+  self:show_map(self.configs.window.visible)
   
   --set colors and center on player location
   self:set_map_colors()
@@ -2603,7 +2603,7 @@ wotmudmapper.help =
         &lt;link: doors&gt;doors&lt;/link&gt; - Commands used in creating and editing doors
         &lt;link: room_colors&gt;room colors&lt;/link&gt; - Commands used in viewing and changing room colors
         &lt;link: key_variables&gt;key variables&lt;/link&gt; - Variables used by the script to keep track of important information
-        &lt;link: map_window&gt;map window&lt;/link&gt; - Altering the size and position of the map display
+        &lt;link: window&gt;map window&lt;/link&gt; - Altering the size and position of the map display
         &lt;link: misc&gt;misc&lt;/link&gt; - Miscellaneous commands
         
 ]]
@@ -2745,7 +2745,7 @@ wotmudmapper.help.key_variables =
 ]]
 
 
-wotmudmapper.help.map_window =
+wotmudmapper.help.window =
 [[
     &lt;cyan&gt;Map Window&lt;reset&gt;
         &lt;yellow&gt;map window setting value&lt;reset&gt; - This command changes the given setting to the given value,
@@ -3620,7 +3620,7 @@ end</script>
   self:set_configs()
   self:set_map_colors()
   
-  self:show_map(self.configs.map_window.visible)
+  self:show_map(self.configs.window.visible)
 end
 
 registerAnonymousEventHandler("sysInstallPackage", "wotmudmapper:mapper_installer_success")</script>

@@ -1309,7 +1309,7 @@ else
   local x = getBorderLeft() / mx * 100
   status_bar.configs.x = f"{x}%"
   
-  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", status_bar.configs)
+  status_bar:save_configs()
   status_bar:show_status_bar(true)
 end</script>
 			<command></command>
@@ -1326,7 +1326,7 @@ else
   status_bar:echo(f"Status bar height updated from ({status_bar.configs.h}) to ({val}).\n")
   status_bar.configs.h = val
   status_bar.configs.y = f"-{val}"
-  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", status_bar.configs)
+  status_bar:save_configs()
   status_bar:show_status_bar(true)
 end</script>
 			<command></command>
@@ -1342,7 +1342,7 @@ else
   val = tonumber(val)
   status_bar:echo(f"Status bar fontsize updated from ({status_bar.configs.fontsize}) to ({val}).\n")
   status_bar.configs.fontsize = val
-  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", status_bar.configs)
+  status_bar:save_configs()
   status_bar:show_status_bar(true)
 end</script>
 			<command></command>
@@ -1389,6 +1389,16 @@ status_bar.configs = status_bar.configs or
   if debug then cecho(debug_tag) end
   if err then cecho(err_tag) end
   cecho(what)
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar:save_configs</name>
+			<packageName></packageName>
+			<script>function status_bar:save_configs()
+  local home = getMudletHomeDir()
+  local configs_path = f"{home}/status_bar.configs.lua"
+  table.save(configs_path, self.configs or {})
 end</script>
 			<eventHandlerList />
 		</Script>
@@ -1593,7 +1603,7 @@ end</script>
   self.configs.x = f"{x}%"
   
   --save to disk
-  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
+  status_bar:save_configs()
   
   self:show_status_bar(true)
 end
@@ -1629,7 +1639,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "status_bar:sys_connection")
     charge_pulses = {}
   }
   --save configuration to disk
-  table.save(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
+  status_bar:save_configs()
 end
 
 registerAnonymousEventHandler("sysExitEvent", "status_bar:sys_disconnection")

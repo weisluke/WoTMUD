@@ -463,7 +463,7 @@ disableTrigger("practice_trainer_warrior")</script>
   local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
   
   --if debug message and config debug is false, return without echoing
-  if debug and not self.configs.dbug then return end
+  if debug and not self.configs.debug then return end
   
   --if start of message is new line, print that before colored tags of message echo
   if what:sub(0,1)=="\n" then

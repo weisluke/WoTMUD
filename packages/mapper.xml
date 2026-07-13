@@ -1499,8 +1499,8 @@ table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.config
 				<name>Debug</name>
 				<script>--syntax: map debug
 
-wotmudmapper.configs.dbug = not wotmudmapper.configs.dbug
-wotmudmapper:echo("Map debug set to: " .. (wotmudmapper.configs.dbug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
+wotmudmapper.configs.debug = not wotmudmapper.configs.debug
+wotmudmapper:echo("Map debug set to: " .. (wotmudmapper.configs.debug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
 table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 				<command></command>
 				<packageName></packageName>
@@ -2062,7 +2062,7 @@ wotmudmapper.following = wotmudmapper.following or false
 wotmudmapper.defaults = {
   on = true, --true if the map should actively follow you
   mapping = false, --true if mapping mode is turned on
-  dbug = true, --debug for echoing messages
+  debug = false, --debug for echoing messages
   mapbrief = false, --true if map triggers should manually delete room description lines from the screen
   bothways = true, --true if new room and old room should be connected both ways in mapping mode
   autojoin = false, --true if rooms should be auto-connected based on exits and proximity in mapping mode
@@ -2240,7 +2240,7 @@ wotmudmapper.queue = List:new()</script>
   local err_tag = "&lt;coral&gt;(&lt;red&gt;error&lt;coral&gt;): &lt;white&gt;"
   
   --if debug message and config debug is false, return without echoing
-  if debug and not self.configs.dbug then return end
+  if debug and not self.configs.debug then return end
   
   --if start of message is new line, print that before colored tags of message echo
   if what:sub(0,1)=="\n" then

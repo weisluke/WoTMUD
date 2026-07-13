@@ -61,7 +61,7 @@ then
   end
   
   if
-    wotmudmapper.configs.mapbrief and not wotmudmapper:is_look(wotmudmapper.queue:checkleftvalue())
+    wotmudmapper.configs.brief and not wotmudmapper:is_look(wotmudmapper.queue:checkleftvalue())
   then
     deleteLine()
   end
@@ -1476,8 +1476,8 @@ table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.config
 				<name>Make Brief</name>
 				<script>--syntax: map brief
 
-wotmudmapper.configs.mapbrief = not wotmudmapper.configs.mapbrief
-wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.mapbrief and "hide" or "show") .. " room descriptions.\n")
+wotmudmapper.configs.brief = not wotmudmapper.configs.brief
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.brief and "hide" or "show") .. " room descriptions.\n")
 table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 				<command></command>
 				<packageName></packageName>
@@ -1518,13 +1518,13 @@ table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.config
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Display or hide door name</name>
-				<script>wotmudmapper.configs.showdoor = not wotmudmapper.configs.showdoor
+				<script>wotmudmapper.configs.showdoors = not wotmudmapper.configs.showdoors
 
-wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.showdoor and "show" or "hide") .. " door names.\n")
+wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.showdoors and "show" or "hide") .. " door names.\n")
 table.save(f"{getMudletHomeDir()}/wotmudmapper.configs.lua", wotmudmapper.configs)</script>
 				<command></command>
 				<packageName></packageName>
-				<regex>^map showdoor$</regex>
+				<regex>^map showdoors$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Map Offline</name>
@@ -1964,7 +1964,7 @@ end</script>
 		<Alias isActive="yes" isFolder="no">
 			<name>Reset Configs</name>
 			<script>wotmudmapper.configs = table.deepcopy(wotmudmapper.defaults)
-wotmudmapper.configs.dbug = false
+wotmudmapper.configs.debug = false
 wotmudmapper:echo("Map configurations reset to default values.\n")
 wotmudmapper:show_map(true)</script>
 			<command></command>
@@ -2049,7 +2049,8 @@ wotmudmapper.currentID = wotmudmapper.currentID or {}
 wotmudmapper.roomname = wotmudmapper.roomname or ""
 --current room description captured by triggers
 wotmudmapper.roomdesc = wotmudmapper.roomdesc or ""
---table to hold list of room exits captured by triggers. list may include exits not in the map data. map data may include exits not in the list.
+--table to hold list of room exits captured by triggers.
+--list may include exits not in the map data. map data may include exits not in the list.
 wotmudmapper.roomexits = wotmudmapper.roomexits or {}
 --current zone name pulled from map data
 wotmudmapper.zone = wotmudmapper.zone or ""
@@ -2063,7 +2064,7 @@ wotmudmapper.defaults = {
   on = true, --true if the map should actively follow you
   mapping = false, --true if mapping mode is turned on
   debug = false, --debug for echoing messages
-  mapbrief = false, --true if map triggers should manually delete room description lines from the screen
+  brief = false, --true if map triggers should manually delete room description lines from the screen
   bothways = true, --true if new room and old room should be connected both ways in mapping mode
   autojoin = false, --true if rooms should be auto-connected based on exits and proximity in mapping mode
   forceroom = false, --true if a new room should be force created in mapping mode
@@ -2071,10 +2072,10 @@ wotmudmapper.defaults = {
   offline = false, --true if map is being used in offline mode
   roomID = 1, --last known room ID before profile is shut down
   showzone = true, --true if zone information should be displayed below room exits
-  showdoor = true, --true if door information should be displayed below room exits
+  showdoors = true, --true if door information should be displayed below room exits
   zonecolor = "turquoise", --color of zone information displayed below room exits
   doorcolor = "blue", --color of door information displayed below room exits
-  speedwalk = true, --whether or not double clicking rooms will make you speedwalk
+  speedwalk = false, --whether or not double clicking rooms will make you speedwalk
   map_window = {
     border = "gray",
     widget = false, --true if the map widget should be used instead of an Adjustable.Container
@@ -2786,7 +2787,8 @@ wotmudmapper.help.misc =
   elseif table.size(rooms) &gt; 1 then
     self:echo("More than one room selected.\n",false,true)
   else
-    self:echo(f"Room name for room ID ({rooms[1]}) updated from ({getRoomName(rooms[1])}) to ({self.roomname})\n")
+    local roomname = getRoomName(rooms[1])
+    self:echo(f"Room name for room ID ({rooms[1]}) updated from ({roomname}) to ({self.roomname})\n")
     setRoomName(rooms[1],self.roomname)
   end
   updateMap()
@@ -3690,7 +3692,7 @@ end</script>
   end
   
   --showing the doors that have been stored
-  if self.configs.showdoor then
+  if self.configs.showdoors then
     for _, dir in pairs({"north", "east", "south", "west", "up", "down"}) do
       local doorname = getRoomUserData(self.currentID[1], dir:sub(1, 1))
       if doorname ~= "" then

@@ -769,295 +769,11 @@ wotmudmapper.queue = List:new()</script>
 	<TimerPackage />
 	<AliasPackage>
 		<AliasGroup isActive="yes" isFolder="yes">
-			<name>Areas</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
-			<Alias isActive="yes" isFolder="no">
-				<name>Create a New Area</name>
-				<script>--syntax: createarea xxx
-
-local areaID = addAreaName(matches[2])
-
-if areaID then
-  wotmudmapper:echo(f"New area ({matches[2]}) created.\n")
-else
-  wotmudmapper:echo(f"Area ({matches[2]}) already exists.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^createarea (.+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Create a Room at Areaname</name>
-				<script>--syntax: createroom areaname
-
-local areaID = addAreaName(matches[2])
-
-if areaID and wotmudmapper.roomname ~= "" then
-  wotmudmapper.currentID = wotmudmapper:create_room(0, 0, 0, areaID)
-  wotmudmapper:echo("New room created.\n")
-  centerview(wotmudmapper.currentID[1])
-elseif wotmudmapper.roomname ~= "" then
-  wotmudmapper.currentID = wotmudmapper:create_room(0, 0, 0, matches[2])
-  wotmudmapper:echo("New room created.\n")
-  centerview(wotmudmapper.currentID[1])
-else
-  wotmudmapper:echo("Current room name not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^createroom (.+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Move Room to Area</name>
-				<script>--syntax: movetoarea xxx
-
-local moved = false
-
-if table.size(wotmudmapper.currentID) == 1 then
-  for name, id in pairs(getAreaTable()) do
-    if name == matches[2] then
-      setRoomArea(wotmudmapper.currentID[1], id)
-      wotmudmapper:echo(f"Room ({wotmudmapper.currentID[1]}) moved to area ({name}).\n")
-      moved = true
-      centerview(wotmudmapper.currentID[1])
-      break
-    end
-  end
-else
-  wotmudmapper:echo("Current room not known.\n", false, true)
-end
-
-if not moved then
-  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^movetoarea (.+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Show Areas</name>
-				<script>--syntax: arealist
-
-wotmudmapper:show_area_list()</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^arealist$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Show Rooms in an Area</name>
-				<script>local areaid = getAreaTable()[matches[2]]
-
-if areaid then
-  wotmudmapper:show_room_list(areaid)
-else
-  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^roomlist (.+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Rename Area</name>
-				<script>--syntax: renamearea IDnumber newname
---IDnumber can be found from the "arealist" command
-
-local renamed = false
-
-for name, id in pairs(getAreaTable()) do
-  if id == tonumber(matches[2]) then
-    setAreaName(id, matches[3])
-    wotmudmapper:echo(f"Area ({name}) renamed to ({matches[3]}).\n")
-    renamed = true
-    break
-  end
-end
-
-if not renamed then
-  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^renamearea (\d+) (.+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Delete an Area</name>
-				<script>--syntax: deletearea xxx
-
-local deleted = false
-
-for name, id in pairs(getAreaTable()) do
-  if name == matches[2] then
-    if type(getMapLabels(id)) == "table" then
-      for i, txt in pairs(getMapLabels(id)) do
-        deleteMapLabel(id, i)
-      end
-    end
-    deleteArea(id)
-    updateMap()
-    wotmudmapper:echo(f"Area ({matches[2]}) deleted. All its rooms, if any, have been deleted.\n")
-    deleted = true
-    break
-  end
-end
-
-if not deleted then
-  wotmudmapper:echo(f"Area ({matches[2]}) not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^deletearea (.+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Delete room</name>
-				<script>--syntax: deleteroom xxx
-
-if roomExists(matches[2]) then
-  deleteRoom(matches[2])
-  updateMap()
-  wotmudmapper:echo(f"Room ({matches[2]}) deleted.\n")
-else
-  wotmudmapper:echo(f"Room ({matches[2]}) not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^deleteroom (\d+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Update Room Name</name>
-				<script>--syntax: updatederoomname roomIDnumber
-
-setRoomName(matches[2], wotmudmapper.roomname)
-wotmudmapper:echo("Room name updated.\n")</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^updateroomname (\d+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Update Room Description</name>
-				<script>--syntax: updateroomdesc roomIDnumber
-
-setRoomUserData(matches[2], "description", wotmudmapper.roomdesc)
-wotmudmapper:echo("Room description updated.\n")</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^updateroomdesc (\d+)$</regex>
-			</Alias>
-		</AliasGroup>
-		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Room Data</name>
 			<script></script>
 			<command></command>
 			<packageName></packageName>
 			<regex></regex>
-			<Alias isActive="yes" isFolder="no">
-				<name>List Room Data</name>
-				<script>--Syntax: listroomdata
---displays a list of all the data stored for your current room (this includes the description, zone, and doors)
-
-if table.size(wotmudmapper.currentID) == 1 then
-  for _, key in pairs(getRoomUserDataKeys(wotmudmapper.currentID[1])) do
-    local val = getRoomUserData(wotmudmapper.currentID[1], key)
-    wotmudmapper:echo(f"&lt;gold&gt;Key&lt;white&gt;: {key}, &lt;gold&gt;value&lt;white&gt;: {val}&lt;reset&gt;\n")
-  end
-else
-  wotmudmapper:echo("Current room not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^listroomdata$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Set Room Data</name>
-				<script>--Syntax: setroomdata field data
-
-if table.size(wotmudmapper.currentID) == 1 then
-  setRoomUserData(wotmudmapper.currentID[1], matches[2], matches[3])
-  wotmudmapper:echo(f"Room data for ({matches[2]}) set to ({matches[3]}).\n")
-else
-  wotmudmapper:echo("Current room not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^setroomdata (\S+) (.+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Get Room Data</name>
-				<script>--Syntax: getroomdata field
---Displays the data stored for a specific field
-
-if table.size(wotmudmapper.currentID) == 1 then
-  local val = getRoomUserData(wotmudmapper.currentID[1], matches[2])
-  if val ~= "" then
-    wotmudmapper:echo(f"Room data for ({matches[2]}): {val}.\n")
-  else
-    wotmudmapper:echo(f"No data for key ({matches[2]}) stored for room.\n", false, true)
-  end
-else
-  wotmudmapper:echo("Current room not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^getroomdata (\S+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Delete Room Data</name>
-				<script>--Syntax: deleteroomdata field
---Will delete the user data stored for a specific field in the current room
-
-if table.size(wotmudmapper.currentID) == 1 then
-  clearRoomUserDataItem(wotmudmapper.currentID[1], matches[2])
-  wotmudmapper:echo(f"Room data for ({matches[2]}) deleted.\n")
-else
-  wotmudmapper:echo("Current room not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^deleteroomdata (\S+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Delete All Room Data</name>
-				<script>--syntax: deleteallroomdata
---This will delete ALL user specific data about a room
---This includes clearing out the room description, zone, and doors
-
-if table.size(wotmudmapper.currentID) == 1 then
-  clearRoomUserData(wotmudmapper.currentID[1])
-  wotmudmapper:echo("All room data deleted.\n")
-else
-  wotmudmapper:echo("Current room not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^deleteallroomdata$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Change Room Zone</name>
-				<script>--syntax: crz zonename
-
-if table.size(wotmudmapper.currentID) == 1 then
-  setRoomUserData(wotmudmapper.currentID[1], "zone", matches[2])
-  wotmudmapper.zone = matches[2]
-  wotmudmapper:echo(f"Zone of current room set to ({matches[2]})\n")
-else
-  wotmudmapper:echo("Current room not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^crz (.*)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
-				<name>Change Mapping Zone</name>
-				<script>--syntax: cmz zonename
-
-wotmudmapper.zone = matches[2]
-wotmudmapper:echo(f"New rooms will be of zone ({matches[2]}).\n")</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^cmz (.+)$</regex>
-			</Alias>
 			<Alias isActive="yes" isFolder="no">
 				<name>Shift room</name>
 				<script>--syntax: shiftroom direction
@@ -1078,22 +794,6 @@ end</script>
 				<regex>^shiftroom ([neswud])$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
-				<name>Change zone color</name>
-				<script>local new_color = matches[2]
-
-if color_table[new_color] then
-  local old_color = wotmudmapper.configs.zonecolor
-  wotmudmapper:echo(f"Map (zonecolor) changed from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{new_color}&gt;{new_color}&lt;reset&gt;).\n")
-  wotmudmapper.configs.zonecolor = new_color
-  wotmudmapper:save_configs()
-else
-  wotmudmapper:echo("Color not known.\n", false, true)
-end</script>
-				<command></command>
-				<packageName></packageName>
-				<regex>^map zonecolor (.+)$</regex>
-			</Alias>
-			<Alias isActive="yes" isFolder="no">
 				<name>Add Room Marker</name>
 				<script>--syntax: setmarker xxx
 --adds a one character marker to the room on the map. "setmarker " to clear the marker
@@ -1110,6 +810,58 @@ end</script>
 				<command></command>
 				<packageName></packageName>
 				<regex>^setmarker (.*)$</regex>
+			</Alias>
+		</AliasGroup>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Zones</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change Room Zone</name>
+				<script>--syntax: crz zonename
+
+local zone = matches[2]
+
+if table.size(wotmudmapper.currentID) == 1 then
+  setRoomUserData(wotmudmapper.currentID[1], "zone", zone)
+  wotmudmapper.zone = zone
+  wotmudmapper:echo(f"Zone of current room set to ({zone})\n")
+else
+  wotmudmapper:echo("Current room not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^crz (.*)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change Mapping Zone</name>
+				<script>--syntax: cmz zonename
+
+local zone = matches[2]
+
+wotmudmapper.zone = zone
+wotmudmapper:echo(f"New rooms will be of zone ({zone}).\n")</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^cmz (.+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Change zone color</name>
+				<script>local new_color = matches[2]
+
+if color_table[new_color] then
+  local old_color = wotmudmapper.configs.zonecolor
+  wotmudmapper:echo(f"Map (zonecolor) changed from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{new_color}&gt;{new_color}&lt;reset&gt;).\n")
+  wotmudmapper.configs.zonecolor = new_color
+  wotmudmapper:save_configs()
+else
+  wotmudmapper:echo("Color not known.\n", false, true)
+end</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^map zonecolor (.+)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">

@@ -1845,8 +1845,8 @@ wotmudmapper.default_configs = {
     visible = true, --true if map should be shown
     zoom = 50, --map window zoom level
     dock = false --true if map can be docked to screen
-    }
   }
+}
 
 --default map room type environment numbers and colors
 wotmudmapper.room_type_env_nums = {
@@ -1908,43 +1908,42 @@ wotmudmapper.default_map_colors = {
 
 --table of exit to number associations
 if not wotmudmapper.exitmap then
-  wotmudmapper.exitmap =
-    {
-      n = 1,
-      north = 1,
-      ne = 2,
-      northeast = 2,
-      nw = 3,
-      northwest = 3,
-      e = 4,
-      east = 4,
-      w = 5,
-      west = 5,
-      s = 6,
-      south = 6,
-      se = 7,
-      southeast = 7,
-      sw = 8,
-      southwest = 8,
-      u = 9,
-      up = 9,
-      d = 10,
-      down = 10,
-      ["in"] = 11,
-      ["out"] = 12,
-      [1] = "north",
-      [2] = "northeast",
-      [3] = "northwest",
-      [4] = "east",
-      [5] = "west",
-      [6] = "south",
-      [7] = "southeast",
-      [8] = "southwest",
-      [9] = "up",
-      [10] = "down",
-      [11] = "in",
-      [12] = "out",
-    }
+  wotmudmapper.exitmap = {
+    n = 1,
+    north = 1,
+    ne = 2,
+    northeast = 2,
+    nw = 3,
+    northwest = 3,
+    e = 4,
+    east = 4,
+    w = 5,
+    west = 5,
+    s = 6,
+    south = 6,
+    se = 7,
+    southeast = 7,
+    sw = 8,
+    southwest = 8,
+    u = 9,
+    up = 9,
+    d = 10,
+    down = 10,
+    ["in"] = 11,
+    ["out"] = 12,
+    [1] = "north",
+    [2] = "northeast",
+    [3] = "northwest",
+    [4] = "east",
+    [5] = "west",
+    [6] = "south",
+    [7] = "southeast",
+    [8] = "southwest",
+    [9] = "up",
+    [10] = "down",
+    [11] = "in",
+    [12] = "out",
+  }
 end
 
 

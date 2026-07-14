@@ -339,7 +339,7 @@ communications:show_comms(true)</script>
 			<name>Communications Window Config Alias</name>
 			<script>local key = matches[2]
 local val = matches[3]
-if communications.configs.comms_window[key] ~= nil then
+if communications.configs.window[key] ~= nil then
   if key == "w" then
     if (not tonumber(val)) or (tonumber(val) &lt; 1) then
       communications:echo(
@@ -349,7 +349,7 @@ if communications.configs.comms_window[key] ~= nil then
       )
     else
       val = f"{val}%"
-      communications.configs.comms_window[key] = val
+      communications.configs.window[key] = val
       communications:echo(f"Communications window ({key}) updated to ({val}).\n")
       communications:save_configs()
       communications:show_comms(true)
@@ -363,7 +363,7 @@ if communications.configs.comms_window[key] ~= nil then
       )
     else
       val = f"{val}%"
-      communications.configs.comms_window[key] = val
+      communications.configs.window[key] = val
       communications:echo(f"Communications window ({key}) updated to ({val}).\n")
       communications:save_configs()
       communications:show_comms(true)
@@ -373,7 +373,7 @@ if communications.configs.comms_window[key] ~= nil then
       communications:echo("X position must be a number (interpreted as a percentage of screen width).\n", false, true)
     else
       val = f"{val}%"
-      communications.configs.comms_window[key] = val
+      communications.configs.window[key] = val
       communications:echo(f"Communications window ({key}) updated to ({val}).\n")
       communications:save_configs()
       communications:show_comms(true)
@@ -383,7 +383,7 @@ if communications.configs.comms_window[key] ~= nil then
       communications:echo("Y position must be a number (interpreted as a percentage of screen height).\n", false, true)
     else
       val = f"{val}%"
-      communications.configs.comms_window[key] = val
+      communications.configs.window[key] = val
       communications:echo(f"Communications window ({key}) updated to ({val}).\n")
       communications:save_configs()
       communications:show_comms(true)
@@ -392,7 +392,7 @@ if communications.configs.comms_window[key] ~= nil then
     if (not tonumber(val)) or (tonumber(val) &lt; 1) then
       communications:echo("Font size must be a positive number.\n", false, true)
     else
-      communications.configs.comms_window[key] = tonumber(val)
+      communications.configs.window[key] = tonumber(val)
       communications:echo(f"Communications window ({key}) updated to ({val}).\n")
       communications:save_configs()
       communications:show_comms(true)
@@ -401,9 +401,9 @@ if communications.configs.comms_window[key] ~= nil then
     if not color_table[val] then
       communications:echo(f"Color ({val}) not known.\n", false, true)
     else
-      local old_border = communications.configs.comms_window.border
+      local old_border = communications.configs.window.border
       communications:echo(f"Communications window ({key}) updated from (&lt;{old_border}&gt;{old_border}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      communications.configs.comms_window[key] = val
+      communications.configs.window[key] = val
       communications:save_configs()
       communications:echo("Color change will only take effect upon restarting mudlet.\n")
     end
@@ -411,9 +411,9 @@ if communications.configs.comms_window[key] ~= nil then
     if not color_table[val] then
       communications:echo(f"Color ({val}) not known.\n", false, true)
     else
-      local old_background = communications.configs.comms_window.background
+      local old_background = communications.configs.window.background
       communications:echo(f"Communications window ({key}) updated from (&lt;{old_background}&gt;{old_background}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      communications.configs.comms_window[key] = val
+      communications.configs.window[key] = val
       communications:save_configs()
       communications:show_comms(true)
     end
@@ -421,9 +421,9 @@ if communications.configs.comms_window[key] ~= nil then
     if not color_table[val] then
       communications:echo(f"Color ({val}) not known.\n", false, true)
     else
-      local old_foreground = communications.configs.comms_window.foreground
+      local old_foreground = communications.configs.window.foreground
       communications:echo(f"Communications window ({key}) updated from (&lt;{old_foreground}&gt;{old_foreground}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      communications.configs.comms_window[key] = val
+      communications.configs.window[key] = val
       communications:save_configs()
       communications:show_comms(true)
     end
@@ -431,9 +431,9 @@ if communications.configs.comms_window[key] ~= nil then
     if not color_table[val] then
       communications:echo(f"Color ({val}) not known.\n", false, true)
     else
-      local tabs = communications.configs.comms_window.tabs
+      local tabs = communications.configs.window.tabs
       communications:echo(f"Communications window ({key}) updated from (&lt;{tabs}&gt;{tabs}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      communications.configs.comms_window[key] = val
+      communications.configs.window[key] = val
       communications:save_configs()
       communications:show_comms(true)
     end
@@ -449,20 +449,20 @@ end</script>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Show/Hide Comms</name>
-			<script>communications.configs.comms_window.visible = not communications.configs.comms_window.visible
-communications:echo("Communications will now be " .. (communications.configs.comms_window.visible and "shown.\n" or "hidden.\n"))
+			<script>communications.configs.window.visible = not communications.configs.window.visible
+communications:echo("Communications will now be " .. (communications.configs.window.visible and "shown.\n" or "hidden.\n"))
 communications:save_configs()
-communications:show_comms(communications.configs.comms_window.visible)</script>
+communications:show_comms(communications.configs.window.visible)</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^comms show$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Dock/Undock Comms</name>
-			<script>communications.configs.comms_window.dock = not communications.configs.comms_window.dock
-communications:echo("Communications will now be " .. (communications.configs.comms_window.dock and "docked.\n" or "floating.\n"))
+			<script>communications.configs.window.dock = not communications.configs.window.dock
+communications:echo("Communications will now be " .. (communications.configs.window.dock and "docked.\n" or "floating.\n"))
 communications:save_configs()
-communications:show_comms(communications.configs.comms_window.visible)</script>
+communications:show_comms(communications.configs.window.visible)</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^comms dock$</regex>
@@ -518,24 +518,27 @@ communications.configs = communications.configs or {}
   
 communications.default_configs = {
   debug = false,
-  comms_window={
-      border = "gray",
-      background = "black",
-      foreground = "white",
-      tabs = "navy",
-      visible=true,
-      x="-37%",
-      y="73%",
-      w="37%",
-      h="27%",
-      fontsize=12,
-      dock=false},
-  colors = {narrates="royal_blue",
-            chats="dark_green",
-            tells="firebrick",
-            says="reset",
-            yells="gold",
-            immortals="dodger_blue"}
+  window = {
+    border = "gray",
+    background = "black",
+    foreground = "white",
+    tabs = "navy",
+    visible = true,
+    x = "-37%",
+    y = "73%",
+    w = "37%",
+    h = "27%",
+    fontsize = 12,
+    dock = false
+  },
+  colors = {
+    narrates="royal_blue",
+    chats="dark_green",
+    tells="firebrick",
+    says="reset",
+    yells="gold",
+    immortals="dodger_blue"
+  }
 }
 </script>
 			<eventHandlerList />
@@ -631,8 +634,8 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
 			<packageName></packageName>
 			<script>function communications:show_comms(bval)
   local visible = bval
-  self.configs.comms_window.visible = visible
-  local configs = self.configs.comms_window
+  self.configs.window.visible = visible
+  local configs = self.configs.window
   local x, y, w, h = configs.x, configs.y, configs.w, configs.h
   
   local r, g, b = unpack(color_table[configs.border])
@@ -839,7 +842,7 @@ communications.help =
             
     &lt;cyan&gt;Information subfolders:&lt;reset&gt; These are sub-folders containing information for more commands
         &lt;link: comms_colors&gt;comms colors&lt;/link&gt; - Commands used in changing communications colors
-        &lt;link: comms_window&gt;comms window&lt;/link&gt; - Altering the size and position of the communications display
+        &lt;link: window&gt;comms window&lt;/link&gt; - Altering the size and position of the communications display
         
 ]]
 }
@@ -853,7 +856,7 @@ communications.help.comms_colors =
 
 ]]
 
-communications.help.comms_window =
+communications.help.window =
 [[
     &lt;cyan&gt;Communications Window&lt;reset&gt;
         &lt;yellow&gt;comms window setting value&lt;reset&gt; - This command changes the given setting to the given value,
@@ -896,10 +899,10 @@ communications.help.comms_window =
   width = width/mx*100
   height = height/my*100
   
-  self.configs.comms_window.x = f"{x}%"
-  self.configs.comms_window.y = f"{y}%"
-  self.configs.comms_window.w = f"{width}%"
-  self.configs.comms_window.h = f"{height}%"
+  self.configs.window.x = f"{x}%"
+  self.configs.window.y = f"{y}%"
+  self.configs.window.w = f"{width}%"
+  self.configs.window.h = f"{height}%"
   communications:save_configs()
   
   self:show_comms(true)
@@ -916,7 +919,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "communicat
   if name ~= "communications" then return end
   self:show_help()
   self:set_configs()
-  self:show_comms(self.configs.comms_window.visible)
+  self:show_comms(self.configs.window.visible)
 end
 
 registerAnonymousEventHandler("sysInstallPackage", "communications:comms_installer_success")</script>

@@ -1854,14 +1854,10 @@ wotmudmapper.default_configs = {
   speedwalk = false, --whether or not double clicking rooms will make you speedwalk
   window = {
     border = "gray",
-    widget = false, --true if the map widget should be used instead of an Adjustable.Container
+    widget = false, --true if Geyser.UserWindow should be used instead of an Adjustable.Container
     visible = true, --true if map should be shown
-    x = "-37%", --left border of map Adjustable.Container
-    y = "0%", --top border of map Adjustable.Container
-    w = "37%", --width of map Adjustable.container
-    h = "73%", --height of map Adjustable.container
     zoom = 50, --map window zoom level
-    dock = false --true if map Adjustable.Container can be docked to left or right of screen
+    dock = false --true if map can be docked to screen
     }
   }
 
@@ -2109,7 +2105,8 @@ end
   self:set_configs()
   
   --show map window
-  self:show_map(self.configs.window.visible)
+  self:rebuild()
+  self:show_map()
   
   --set colors and center on player location
   self:set_map_colors()
@@ -2147,11 +2144,9 @@ registerAnonymousEventHandler("sysConnectionEvent", "wotmudmapper:sys_connection
 			<packageName></packageName>
 			<script>function wotmudmapper:sys_disconnection(event)
   --set config values in preparation for disconnection
-  self.configs = self.configs or {}
   self.configs.mapping = false
   self.configs.forceroom = false
   self.configs.offline = false
-  self.map_colors = self.map_colors or {}
   
   --if player location was known, save, otherwise set to mudlet roomID 1
   if table.size(self.currentID) == 1 then
@@ -2165,6 +2160,8 @@ registerAnonymousEventHandler("sysConnectionEvent", "wotmudmapper:sys_connection
   wotmudmapper:save_configs()
   wotmudmapper:save_colors()
   self:echo("Map configurations saved.\n", true)
+  
+  saveWindowLayout()
 end
 
 registerAnonymousEventHandler("sysExitEvent", "wotmudmapper:sys_disconnection")
@@ -2196,84 +2193,121 @@ registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</scr
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
-			<name>wotmudmapper:show_map</name>
+			<name>wotmudmapper:rebuild</name>
 			<packageName></packageName>
-			<script>function wotmudmapper:show_map(bval)
-  --set boolean of whether map is visible or not
-  local visible = bval
-  self.configs.map_window.visible = visible
+			<script>function wotmudmapper:rebuild()
+  local configs = self.configs.window
   
-  --local copy of map window config values
-  local configs = table.deepcopy(self.configs.map_window)
-  local x, y, w, h = configs.x, configs.y, configs.w, configs.h
+  if not self.mapper then
+    self.mapper = Geyser.Mapper:new({
+      name = "wotmudmapper.mapper",
+      x = "0%", y = "0%",
+      width = "100%", height = "100%"
+    })
+  end
+  self.mapper:hide()
+  self.mapper:changeContainer(Geyser)
   
-  --if widget is used, open or close and return
-  if configs.widget then
-    if visible then
-      openMapWidget()
-    else
-      closeMapWidget()
+  if self.container then
+    saveWindowLayout()
+    --if rebuilding *into* a widget, then previously it wasn't
+    if configs.widget then
+      self.container:detach() --to update main window borders
     end
-    return
+    self.container:delete()
+    self.container = nil
   end
   
+  if configs.widget then
+    self.container = Geyser.UserWindow:new(
+      {
+        name = "wotmudmapper.container",
+        titleText = "WoTMUD Map",
+        autoDock = false
+      }
+    )
+  else
+    self.container = Adjustable.Container:new(
+      {
+        name = "wotmudmapper.container",
+        buttonstyle=[[
+          QLabel{ 
+            border-radius: 7px;
+            background-color: rgba(140,140,140,100%);
+          }
+          QLabel::hover{
+            background-color: rgba(160,160,160,50%);
+          }
+        ]],
+        buttonFontSize = 10,
+        buttonsize = 20,
+        titleText = "WoTMUD Map",
+        titleTxtColor = "black",
+        autoSave = true,
+        autoLoad = true
+      }
+    )
+  end
+  local container = Geyser.Container:new({
+    name = "wotmudmapper._container",
+    x = "0%", y = "2%",
+    width = "100%", height = "98%", 
+  }, self.container)
+  self.mapper:changeContainer(container)
+  
+  self.mapper:raise() --needs raised as it was made before the container
+  self.mapper:show()
+  
+  loadWindowLayout()
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>wotmudmapper:show_map</name>
+			<packageName></packageName>
+			<script>function wotmudmapper:show_map()
+  local configs = self.configs.window
+
   local r, g, b = unpack(color_table[configs.border])
-  local rgb_str = f"{r},{g},{b}"
+  local border_color = f'rgba({r}, {g}, {b}, 100%)'
   
-  --create mapper container, position it, and resize it
-  self.container = self.container or Adjustable.Container:new(
-    {
-      name = "wotmudmapper.container",
-      adjLabelstyle = f"background-color:rgba({rgb_str},100%); border: 5px groove grey;",
-      buttonstyle=[[
-      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
-      QLabel::hover{ background-color: rgba(160,160,160,50%);}
-      ]],
-      buttonFontSize = 10,
-      buttonsize = 20,
-      titleText = "WoTMUD Map",
-      titleTxtColor = "black",
-      padding = 15,
-      autoSave = false,
-      autoLoad = false,
-    }
-  )
-  self.container:move(x, y)
-  self.container:resize(w,h)
-  self.mapper = self.mapper or Geyser.Mapper:new({name = "wotmudmapper.mapper", x = "0%", y = "0%", width = "100%", height = "100%"}, self.container)
+  local style = [[
+    background-color: %s;
+    border: 5px groove grey;
+  ]]
+  if not configs.widget then
+    self.container.adjLabel:setStyleSheet(style:format(border_color))
+  end
   
-  setMapZoom(configs.zoom)
+  --allow map to dock on the left or right of the screen
+  --if the center of the mapper is left or right of the screen midpoint
+  if not configs.widget then
+    if configs.dock then
+      local x = self.container.get_x()
+      local w, _ = getMainWindowSize()
+      
+      if x &gt; 0.5 * w then
+        self.container:attachToBorder("right")
+      else
+        self.container:attachToBorder("left")
+      end
+    else
+      self.container:attachToBorder("float")
+    end
+  else
+    if configs.dock then
+      self.container:enableAutoDock()
+    else
+      self.container:setDockPosition("floating")
+      self.container:disableAutoDock()
+    end
+  end
   
   --show or hide mapper container
-  if visible then
+  if configs.visible then
     self.container:show()
   else
     self.container:hide()
-  end
-  
-  --strip numeric values from mapper container position and size (since they are stored as percent strings)
-  x = tonumber(string.sub(x,1,-2))
-  y = tonumber(string.sub(y,1,-2))
-  w = tonumber(string.sub(w,1,-2))
-  h = tonumber(string.sub(h,1,-2))
-  
-  --account for negative values being measured from right or bottom of screen
-  if x &lt; 0 then
-    x = x+100
-  end
-  if y &lt; 0 then
-    y = y + 100
-  end
-  
-  --allow map to dock on the left or right of the screen if the center of the mapper is left or right of the screen midpoint
-  if configs.dock then
-    if x + 0.5*w &gt; 50 then
-        self.container:attachToBorder("right")
-    else
-        self.container:attachToBorder("left")
-    end
-  else
-    self.container:attachToBorder("float")
   end
 end</script>
 			<eventHandlerList />
@@ -2285,22 +2319,8 @@ end</script>
   --if the Adjustable.Container is not the mapper, return
   if container_name ~= "wotmudmapper.container" then
     return
-  end
-  
-  --get main window size. convert Adjustable.Container values to percentages, store, and save to disk
-  local mx, my = getMainWindowSize()
-  x = x/mx*100
-  y = y/my*100
-  width = width/mx*100
-  height = height/my*100
-  
-  self.configs.map_window.x = f"{x}%"
-  self.configs.map_window.y = f"{y}%"
-  self.configs.map_window.w = f"{width}%"
-  self.configs.map_window.h = f"{height}%"
-  wotmudmapper:save_configs()
-  
-  self:show_map(true)
+  end  
+  self:show_map()
 end
 
 registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "wotmudmapper:reposition_map")</script>

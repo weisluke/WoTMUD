@@ -1693,69 +1693,56 @@ end</script>
 			<regex>^map save$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
-			<name>Map Window Config Alias</name>
-			<script>local key = matches[2]
-local val = matches[3]
-if wotmudmapper.configs.window[key]~=nil then
-  if key == "w" then
-    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
-      wotmudmapper:echo("Width must be a positive number (interpreted as a percentage of screen width).\n", false, true)
-    else
-      val = f"{val}%"
-      wotmudmapper.configs.window[key] = val
-      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
-      wotmudmapper:save_configs()
-      wotmudmapper:show_map(true)
-    end
-  elseif key == "h" then
-    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
-      wotmudmapper:echo("Height must be a positive number (interpreted as a percentage of screen height).\n", false, true)
-    else
-      val = f"{val}%"
-      wotmudmapper.configs.window[key] = val
-      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
-      wotmudmapper:save_configs()
-      wotmudmapper:show_map(true)
-    end
-  elseif key == "x" then
-    if not tonumber(val) then
-      wotmudmapper:echo("X position must be a number (interpreted as a percentage of screen width).\n", false, true)
-    else
-      val = f"{val}%"
-      wotmudmapper.configs.window[key] = val
-      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
-      wotmudmapper:save_configs()
-      wotmudmapper:show_map(true)
-    end
-  elseif key == "y" then
-    if not tonumber(val) then
-      wotmudmapper:echo("Y position must be a number (interpreted as a percentage of screen height).\n", false, true)
-    else
-      val = f"{val}%"
-      wotmudmapper.configs.window[key] = val
-      wotmudmapper:echo(f"Map window ({key}) updated to ({val}).\n")
-      wotmudmapper:save_configs()
-      wotmudmapper:show_map(true)
-    end
-  elseif key == "border" then
-    if not color_table[val] then
-      wotmudmapper:echo(f"Color ({val}) not known. Type \"viewcolors\" to see the list of available colors.\n", false, true)
-    else
-      local old_border = wotmudmapper.configs.window.border
-      wotmudmapper:echo(f"Map window ({key}) updated from (&lt;{old_border}&gt;{old_border}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      wotmudmapper.configs.window[key] = val
-      wotmudmapper:save_configs()
-      wotmudmapper:echo("Color change will only take effect upon restarting mudlet.\n")
-    end
-  else
-    wotmudmapper:echo(f"Key ({key}) unable to be changed through this alias.\n", false, true)
-  end
-else
-  wotmudmapper:echo(f"Map window key ({key}) not known.\n", false, true)
-end</script>
+			<name>Map Window Border Color</name>
+			<script>--syntax: map window border xxx
+
+local color = matches[2]
+
+if not color_table[color] then
+  wotmudmapper:echo(f"Color ({color}) not known. Type \"viewcolors\" to see the list of available colors.\n", false, true)
+  return
+end
+
+local old_color = wotmudmapper.configs.window.border
+wotmudmapper:echo(f"Map window (border) updated from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{color}&gt;{color}&lt;reset&gt;).\n")
+wotmudmapper.configs.window.border = color
+wotmudmapper:save_configs()
+wotmudmapper:show_map()</script>
 			<command></command>
 			<packageName></packageName>
-			<regex>^map window (\S+) (\S+)$</regex>
+			<regex>^map window border (\S+)$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Map Window w/h/x/y</name>
+			<script>--resize or move map window using percentages of screen width
+--syntax: map window (w OR h OR x OR y) xxx
+
+local key = matches[2]
+local val = tonumber(matches[3])
+
+local container = wotmudmapper.container
+
+local values = {
+  x = container.x,
+  y = container.y,
+  w = container.width,
+  h = container.height
+}
+
+if (key == "w" or key == "h") and val &lt; 1 then
+  wotmudmapper:echo("width and height must be positive numbers (interpreted as a percentage of screen width).\n", false, true)
+  return
+end
+
+values[key] = f'{val}%'
+container:resize(values.w, values.h)
+container:move(values.x, values.y)
+wotmudmapper:show_map()
+
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^map window (w|h|x|y) (\-?\d+\.?\d*)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Map Zoom</name>

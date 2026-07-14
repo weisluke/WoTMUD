@@ -1346,6 +1346,13 @@ status_bar:show_status_bar()</script>
 			<packageName></packageName>
 			<regex>^status bar fontsize (\d+)$</regex>
 		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Status bar help</name>
+			<script>cecho(status_bar.help)</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^status bar help$</regex>
+		</Alias>
 	</AliasPackage>
 	<ActionPackage />
 	<ScriptPackage>
@@ -1491,8 +1498,8 @@ status_bar.tab_settings = status_bar.tab_settings or
 			<name>status_bar:build</name>
 			<packageName></packageName>
 			<script>function status_bar:build()
-  if self.container then
-    Adjustable.Container:saveAll()
+  if self.container then      
+    self.container:save()
     self.container:delete()
     self.container = nil
   end
@@ -1545,7 +1552,7 @@ end</script>
 			<packageName></packageName>
 			<script>function status_bar:rebuild()
   if self.container then
-    Adjustable.Container:saveAll()
+    self.container:save()
     self.container:delete()
     self.container = nil
   end
@@ -2270,6 +2277,25 @@ end
 
 registerAnonymousEventHandler("status_bar:sys_connection_event", "status_bar.custom_tabs")
 </script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>status_bar.help</name>
+			<packageName></packageName>
+			<script>status_bar.help =
+  [[
+    &lt;cyan&gt;Status Bar Script&lt;reset&gt;
+
+    This script will keep track of various character information. 
+    
+    Below is a brief overview of some commands that this script includes.
+
+    &lt;cyan&gt;Commands:&lt;reset&gt;
+        &lt;yellow&gt;status bar w xxx&lt;reset&gt; - Set the width to a percentage of the screen 
+        &lt;yellow&gt;status bar h xxx&lt;reset&gt; - Set the height to a percentage of the screen height
+        &lt;yellow&gt;status bar fontsize xxx&lt;reset&gt; - Set the font size
+        
+]]</script>
 			<eventHandlerList />
 		</Script>
 	</ScriptPackage>

@@ -473,15 +473,23 @@ communications:save_configs()</script>
 			<packageName></packageName>
 			<regex>^comms debug$</regex>
 		</Alias>
+		<Alias isActive="yes" isFolder="no">
+			<name>Comms version</name>
+			<script>communications:echo(f'version {communications.version}\n')</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^comms version$</regex>
+		</Alias>
 	</AliasPackage>
 	<ActionPackage />
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>communications initializations</name>
 			<packageName></packageName>
-			<script>communications = communications or {
-    tabs = {"All", "Narrates", "Chats", "Tells", "Says", "Yells", "Misc"},
-  }
+			<script>communications = communications or {}
+communications.version = "1.0"
+
+communications.tabs = {"All", "Narrates", "Chats", "Tells", "Says", "Yells", "Misc"}
 communications.configs = communications.configs or {}
   
 communications.default_configs = {
@@ -587,8 +595,11 @@ registerAnonymousEventHandler("sysConnectionEvent", "communications:sys_connecti
   communications:save_configs()
   self:echo("Communications configurations saved.\n", true)
   
-  Adjustable.Container:saveAll()
-  saveWindowLayout()
+  if self.configs.window.widget then
+    saveWindowLayout()
+  else
+    self.container:save()
+  end
 end
 
 registerAnonymousEventHandler("sysExitEvent", "communications:sys_disconnection")
@@ -640,11 +651,12 @@ end</script>
   local configs = self.configs.window
   
   if self.container then
-    Adjustable.Container:saveAll()
-    saveWindowLayout()
-    --if rebuilding *into* a widget, then previously it wasn't
+    --if building *into* a widget, then previously it wasn't
     if configs.widget then
+      self.container:save()
       self.container:detach() --to update main window borders
+    else
+      saveWindowLayout()
     end
     self.container:delete()
     self.container = nil
@@ -739,11 +751,12 @@ end</script>
   local configs = self.configs.window
   
   if self.container then
-    Adjustable.Container:saveAll()
-    saveWindowLayout()
     --if rebuilding *into* a widget, then previously it wasn't
     if configs.widget then
+      self.container:save()
       self.container:detach() --to update main window borders
+    else
+      saveWindowLayout()
     end
     self.container:delete()
     self.container = nil
@@ -900,9 +913,10 @@ communications.help =
     &lt;cyan&gt;Common Commands:&lt;reset&gt;
         &lt;link: 1&gt;comms help (optional subfolder name)&lt;/link&gt; - Shows either this help file or the help file for
             the subfolder given (e.g. comms help comms colors, comms help comms window, etc.)
-        &lt;yellow&gt;comms dock&lt;reset&gt; - Make the communications window either dock to the left or right half of 
+        &lt;yellow&gt;comms dock&lt;reset&gt; - Make the communications window either dock to the left, right, or top of 
             the screen, or float
-        &lt;yellow&gt;comms show&lt;reset&gt; - Displays or hides a communications window in a fixed position
+        &lt;yellow&gt;comms show&lt;reset&gt; - Displays or hides a communications window
+        &lt;yellow&gt;comms widget&lt;reset&gt; - Toggle what sort of window the communications appears within
         &lt;yellow&gt;comms debug&lt;reset&gt; - Toggles debug mode, in which extra messages are shown with the intent of
             assisting in troubleshooting. Default: on
         &lt;yellow&gt;comms configs reset&lt;reset&gt; - Reset the communications configuration values.
@@ -949,6 +963,7 @@ communications.help.window =
         &lt;yellow&gt;comms dock&lt;reset&gt; - Make the communications window either dock to the left or right half of 
             the screen, or float
         &lt;yellow&gt;comms show&lt;reset&gt; - Displays or hides a communications window in a fixed position
+        &lt;yellow&gt;comms widget&lt;reset&gt; - Toggle what sort of window the communications appears within
 
 ]]</script>
 			<eventHandlerList />

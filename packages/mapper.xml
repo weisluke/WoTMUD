@@ -1801,7 +1801,7 @@ mudlet.mapper_script = true
 mudlet.custom_speedwalk = true
 wotmudmapper = wotmudmapper or {}
 wotmudmapper.configs = wotmudmapper.configs or {}
-wotmudmapper.version = "1.8"
+wotmudmapper.version = "2.0"
 
 
 --mapper variables
@@ -3406,10 +3406,7 @@ end</script>
   self:uninstall_generic_mapper()
   
   self:show_help()
-  self:set_configs()
-  self:set_map_colors()
-  
-  self:show_map(self.configs.window.visible)
+  self:sys_connection()
 end
 
 registerAnonymousEventHandler("sysInstallPackage", "wotmudmapper:mapper_installer_success")</script>
@@ -3555,7 +3552,6 @@ end</script>
 			<script>registerMapInfo("Zone info", function(roomId, selectionSize, areaId, displayedArea)
   return "Zone: "..getRoomUserData(roomId,"zone")
 end)
-enableMapInfo("Zone info")
 
 registerMapInfo("Door info", function(roomId, selectionSize, areaId, displayedArea)
   local output = ""
@@ -3566,9 +3562,7 @@ registerMapInfo("Door info", function(roomId, selectionSize, areaId, displayedAr
     end
   end
   return output
-end)
-enableMapInfo("Door info")
-</script>
+end)</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">

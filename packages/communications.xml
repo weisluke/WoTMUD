@@ -406,6 +406,17 @@ communications:show_comms()</script>
 			</Alias>
 		</AliasGroup>
 		<Alias isActive="yes" isFolder="no">
+			<name>Comms Widget</name>
+			<script>communications.configs.window.widget = not communications.configs.window.widget
+wotmudmapper:echo("Communications will now " .. (communications.configs.window.widget and "use" or "not use") .. " a more flexible UserWindow.\n")
+communications:save_configs()
+communications:rebuild()
+communications:show_comms()</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^comms widget$</regex>
+		</Alias>
+		<Alias isActive="yes" isFolder="no">
 			<name>Show/Hide Comms</name>
 			<script>communications.configs.window.visible = not communications.configs.window.visible
 communications:echo("Communications will now be " .. (communications.configs.window.visible and "shown.\n" or "hidden.\n"))
@@ -578,6 +589,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "communications:sys_connecti
   communications:save_configs()
   self:echo("Communications configurations saved.\n", true)
   
+  Adjustable.Container:saveAll()
   saveWindowLayout()
 end
 
@@ -593,6 +605,33 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
   self[self.current_tab]:hide()
   self.current_tab = tab
   self[self.current_tab]:show()
+  self:color_tabs()
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:color_tabs</name>
+			<packageName></packageName>
+			<script>function communications:color_tabs()
+  local style = [[
+    background-color: %s;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-right: 1px;
+    margin-left: 1px;
+    qproperty-alignment: 'AlignVCenter | AlignHCenter';
+  ]]
+  local r, g, b = unpack(color_table[self.configs.window.tabs])
+  local selected_color = f'rgba({r}, {g}, {b}, 100%)'
+  local unselected_color = f'rgba({r}, {g}, {b}, 50%)'
+  
+  for _, tab in pairs(self.tabs) do
+    if tab == self.current_tab then
+      self[f'{tab}_tab']:setStyleSheet(style:format(selected_color))
+    else
+      self[f'{tab}_tab']:setStyleSheet(style:format(unselected_color))
+    end
+  end
 end</script>
 			<eventHandlerList />
 		</Script>
@@ -603,6 +642,7 @@ end</script>
   local configs = self.configs.window
   
   if self.container then
+    Adjustable.Container:saveAll()
     saveWindowLayout()
     --if rebuilding *into* a widget, then previously it wasn't
     if configs.widget then
@@ -694,7 +734,7 @@ end</script>
 end</script>
 			<eventHandlerList />
 		</Script>
-		<Script isActive="no" isFolder="no">
+		<Script isActive="yes" isFolder="no">
 			<name>communications:show_comms</name>
 			<packageName></packageName>
 			<script>function communications:show_comms()
@@ -713,12 +753,13 @@ end</script>
   
   self.current_tab = self.current_tab or self.tabs[1]
   
-  for _, ctype in pairs(self.tabs) do
-    self[ctype]:setColor(configs.background)
-    self[ctype]:setFontSize(configs.fontsize)
-    self[ctype]:bg(configs.background)
-    self[ctype]:fg(configs.foreground)
+  for _, tab in pairs(self.tabs) do
+    self[tab]:setColor(configs.background)
+    self[tab]:setFontSize(configs.fontsize)
+    self[tab]:bg(configs.background)
+    self[tab]:fg(configs.foreground)
   end
+  self:color_tabs()
   
   if not configs.widget then
     --favor right docking &gt; left &gt; top
@@ -767,7 +808,7 @@ end
   selectCaptureGroup(1)
   copy()
   local time = getTime()
-  local time_string = string.format("%02d:%02d ",time.hour,time.min)
+  local time_string = string.format("%02d:%02d ", time.hour, time.min)
   
   self.All:echo(time_string)
   self[tab]:echo(time_string)

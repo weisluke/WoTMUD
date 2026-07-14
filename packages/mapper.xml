@@ -2147,6 +2147,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "wotmudmapper:sys_connection
   wotmudmapper:save_colors()
   self:echo("Map configurations saved.\n", true)
   
+  Adjustable.Container:saveAll()
   saveWindowLayout()
 end
 
@@ -2195,6 +2196,7 @@ registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</scr
   self.mapper:changeContainer(Geyser)
   
   if self.container then
+    Adjustable.Container:saveAll()
     saveWindowLayout()
     --if rebuilding *into* a widget, then previously it wasn't
     if configs.widget then

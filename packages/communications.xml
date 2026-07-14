@@ -327,132 +327,90 @@ end</script>
 		<Alias isActive="yes" isFolder="no">
 			<name>Reset Configs</name>
 			<script>communications.configs = table.deepcopy(communications.default_configs)
-communications.configs.debug = false
 communications:echo("Communications configurations reset to default values.\n")
 communications:save_configs()
-communications:show_comms(true)</script>
+communications:show_comms()</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^comms configs reset$</regex>
 		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>Communications Window Config Alias</name>
-			<script>local key = matches[2]
-local val = matches[3]
-if communications.configs.window[key] ~= nil then
-  if key == "w" then
-    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
-      communications:echo(
-        "Width must be a positive number (interpreted as a percentage of screen width).\n",
-        false,
-        true
-      )
-    else
-      val = f"{val}%"
-      communications.configs.window[key] = val
-      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
-      communications:save_configs()
-      communications:show_comms(true)
-    end
-  elseif key == "h" then
-    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
-      communications:echo(
-        "Height must be a positive number (interpreted as a percentage of screen height).\n",
-        false,
-        true
-      )
-    else
-      val = f"{val}%"
-      communications.configs.window[key] = val
-      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
-      communications:save_configs()
-      communications:show_comms(true)
-    end
-  elseif key == "x" then
-    if not tonumber(val) then
-      communications:echo("X position must be a number (interpreted as a percentage of screen width).\n", false, true)
-    else
-      val = f"{val}%"
-      communications.configs.window[key] = val
-      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
-      communications:save_configs()
-      communications:show_comms(true)
-    end
-  elseif key == "y" then
-    if not tonumber(val) then
-      communications:echo("Y position must be a number (interpreted as a percentage of screen height).\n", false, true)
-    else
-      val = f"{val}%"
-      communications.configs.window[key] = val
-      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
-      communications:save_configs()
-      communications:show_comms(true)
-    end
-  elseif key == "fontsize" then
-    if (not tonumber(val)) or (tonumber(val) &lt; 1) then
-      communications:echo("Font size must be a positive number.\n", false, true)
-    else
-      communications.configs.window[key] = tonumber(val)
-      communications:echo(f"Communications window ({key}) updated to ({val}).\n")
-      communications:save_configs()
-      communications:show_comms(true)
-    end
-  elseif key == "border" then
-    if not color_table[val] then
-      communications:echo(f"Color ({val}) not known.\n", false, true)
-    else
-      local old_border = communications.configs.window.border
-      communications:echo(f"Communications window ({key}) updated from (&lt;{old_border}&gt;{old_border}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      communications.configs.window[key] = val
-      communications:save_configs()
-      communications:echo("Color change will only take effect upon restarting mudlet.\n")
-    end
-  elseif key == "background" then
-    if not color_table[val] then
-      communications:echo(f"Color ({val}) not known.\n", false, true)
-    else
-      local old_background = communications.configs.window.background
-      communications:echo(f"Communications window ({key}) updated from (&lt;{old_background}&gt;{old_background}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      communications.configs.window[key] = val
-      communications:save_configs()
-      communications:show_comms(true)
-    end
-  elseif key == "foreground" then
-    if not color_table[val] then
-      communications:echo(f"Color ({val}) not known.\n", false, true)
-    else
-      local old_foreground = communications.configs.window.foreground
-      communications:echo(f"Communications window ({key}) updated from (&lt;{old_foreground}&gt;{old_foreground}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      communications.configs.window[key] = val
-      communications:save_configs()
-      communications:show_comms(true)
-    end
-  elseif key == "tabs" then
-    if not color_table[val] then
-      communications:echo(f"Color ({val}) not known.\n", false, true)
-    else
-      local tabs = communications.configs.window.tabs
-      communications:echo(f"Communications window ({key}) updated from (&lt;{tabs}&gt;{tabs}&lt;reset&gt;) to (&lt;{val}&gt;{val}&lt;reset&gt;).\n")
-      communications.configs.window[key] = val
-      communications:save_configs()
-      communications:show_comms(true)
-    end
-  else
-    communications:echo(f"Key ({key}) unable to be changed through this alias.\n", false, true)
-  end
-else
-  communications:echo(f"Communications window key ({key}) not known.\n", false, true)
-end</script>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Communications Window</name>
+			<script></script>
 			<command></command>
 			<packageName></packageName>
-			<regex>^comms window (\S+) (\S+)$</regex>
-		</Alias>
+			<regex></regex>
+			<Alias isActive="yes" isFolder="no">
+				<name>Communications Window Border Color</name>
+				<script>local key = matches[2]
+local color = matches[3]
+
+if not color_table[color] then
+  communications:echo(f"Color ({color}) not known.\n", false, true)
+  return
+end
+
+local old_color = communications.configs.window[key]
+communications:echo(f"Communications window ({key}) updated from (&lt;{old_color}&gt;{old_color}&lt;reset&gt;) to (&lt;{color}&gt;{color}&lt;reset&gt;).\n")
+communications.configs.window[key] = color
+communications:save_configs()
+communications:show_comms()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^comms window (border|background|foreground|tabs) (\S+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Communications Window Fontsize Size</name>
+				<script>local fontsize = tonumber(matches[2])
+
+if fontsize &lt; 1 then
+  communications:echo("Font size must be a positive number.\n", false, true)
+  return
+end
+
+local old_fontsize = communications.configs.window.fontsize
+communications:echo(f"Communications window (fontsize) updated from ({old_fontsize}) to ({fontsize}).\n")
+communications.configs.window.fontsize = fontsize
+communications:save_configs()
+communications:show_comms()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^comms window fontsize (\d+)$</regex>
+			</Alias>
+			<Alias isActive="yes" isFolder="no">
+				<name>Communications Window w/h/x/y</name>
+				<script>local key = matches[2]
+local val = tonumber(matches[3])
+
+local container = communications.container
+
+local values = {
+  x = container.x,
+  y = container.y,
+  w = container.width,
+  h = container.height
+}
+
+if (key == "w" or key == "h") and val &lt; 1 then
+  communications:echo("width and height must be positive numbers (interpreted as a percentage of screen width).\n", false, true)
+  return
+end
+
+values[key] = f'{val}%'
+container:resize(values.w, values.h)
+container:move(values.x, values.y)
+communications:show_comms()</script>
+				<command></command>
+				<packageName></packageName>
+				<regex>^comms window (w|h|x|y) (\-?\d+\.?\d*)$</regex>
+			</Alias>
+		</AliasGroup>
 		<Alias isActive="yes" isFolder="no">
 			<name>Show/Hide Comms</name>
 			<script>communications.configs.window.visible = not communications.configs.window.visible
 communications:echo("Communications will now be " .. (communications.configs.window.visible and "shown.\n" or "hidden.\n"))
 communications:save_configs()
-communications:show_comms(communications.configs.window.visible)</script>
+communications:show_comms()</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^comms show$</regex>
@@ -462,7 +420,7 @@ communications:show_comms(communications.configs.window.visible)</script>
 			<script>communications.configs.window.dock = not communications.configs.window.dock
 communications:echo("Communications will now be " .. (communications.configs.window.dock and "docked.\n" or "floating.\n"))
 communications:save_configs()
-communications:show_comms(communications.configs.window.visible)</script>
+communications:show_comms()</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^comms dock$</regex>
@@ -523,21 +481,18 @@ communications.default_configs = {
     background = "black",
     foreground = "white",
     tabs = "navy",
+    widget = false,
     visible = true,
-    x = "-37%",
-    y = "73%",
-    w = "37%",
-    h = "27%",
     fontsize = 12,
     dock = false
   },
   colors = {
-    narrates="royal_blue",
-    chats="dark_green",
-    tells="firebrick",
-    says="reset",
-    yells="gold",
-    immortals="dodger_blue"
+    narrates = "royal_blue",
+    chats = "dark_green",
+    tells = "firebrick",
+    says = "reset",
+    yells = "gold",
+    immortals = "dodger_blue"
   }
 }
 </script>
@@ -607,7 +562,8 @@ end
 			<packageName></packageName>
 			<script>function communications:sys_connection(event)
   self:set_configs()
-  self:show_comms(self.configs.comms_window.visible)
+  self:rebuild()
+  self:show_comms()
 end
 
 registerAnonymousEventHandler("sysLoadEvent", "communications:sys_connection")
@@ -617,12 +573,12 @@ registerAnonymousEventHandler("sysConnectionEvent", "communications:sys_connecti
 		<Script isActive="yes" isFolder="no">
 			<name>communications:sys_disconnection</name>
 			<packageName></packageName>
-			<script>function communications:sys_disconnection(event)
-  self.configs = self.configs or {}
-  
+			<script>function communications:sys_disconnection(event)  
   self:echo("Saving communications configurations.\n", true)
   communications:save_configs()
   self:echo("Communications configurations saved.\n", true)
+  
+  saveWindowLayout()
 end
 
 registerAnonymousEventHandler("sysExitEvent", "communications:sys_disconnection")
@@ -630,131 +586,178 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
-			<name>communications:show_comms</name>
+			<name>communications.click</name>
 			<packageName></packageName>
-			<script>function communications:show_comms(bval)
-  local visible = bval
-  self.configs.window.visible = visible
+			<script>function communications.click(tab)
+  local self = communications
+  self[self.current_tab]:hide()
+  self.current_tab = tab
+  self[self.current_tab]:show()
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
+			<name>communications:rebuild</name>
+			<packageName></packageName>
+			<script>function communications:rebuild()
   local configs = self.configs.window
-  local x, y, w, h = configs.x, configs.y, configs.w, configs.h
   
-  local r, g, b = unpack(color_table[configs.border])
-  local rgb_str = f"{r},{g},{b}"
+  if self.container then
+    saveWindowLayout()
+    --if rebuilding *into* a widget, then previously it wasn't
+    if configs.widget then
+      self.container:detach() --to update main window borders
+    end
+    self.container:delete()
+    self.container = nil
+  end
   
-  self.container = self.container or
-    Adjustable.Container:new(
+  if configs.widget then
+    self.container = Geyser.UserWindow:new(
       {
         name = "communications.container",
-        adjLabelstyle = f"background-color:rgba({rgb_str},100%); border: 5px groove grey;",
+        titleText = "Communications",
+        autoDock = false
+      }
+    )
+  else
+    self.container = Adjustable.Container:new(
+      {
+        name = "communications.container",
         buttonstyle = [[
-          QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
-          QLabel::hover{ background-color: rgba(160,160,160,50%);}
+          QLabel{
+            border-radius: 7px;
+            background-color: rgba(140,140,140,100%);
+          }
+          QLabel::hover{
+            background-color: rgba(160,160,160,50%);
+          }
         ]],
         buttonFontSize = 10,
         buttonsize = 20,
         titleText = "Communications",
         titleTxtColor = "black",
         padding = 15,
-        autoSave = false,
-        autoLoad = false,
+        autoSave = true,
+        autoLoad = true,
       }
     )
-  self.current_tab = self.current_tab or self.tabs[1]
-  self.container:move(x, y)
-  self.container:resize(w, h)
+  end
   
-  self.header = self.header or 
-    Geyser.HBox:new(
-      {name = "communications.header", x = 0, y = 0, width = "100%", height = "10%"},
-      self.container
-    )
+  loadWindowLayout()
+  
+  self.header = Geyser.HBox:new({
+      name = "communications.header",
+      x = 0, y = 0,
+      width = "100%", height = "10%"
+    },
+    self.container
+  )
     
-  self.footer = self.footer or 
-    Geyser.Label:new(
-      {name = "communications.footer", x = 0, y = "10%", width = "100%", height = "90%"},
-      self.container
-    )
-    
-  self.footer:setStyleSheet([[
-  background-color: ]]..configs.background..[[;
-  ]])
-
-  for _, ctype in pairs(self.tabs) do
-    self[f"{ctype}_tab"] = self[f"{ctype}_tab"] or 
-      Geyser.Label:new({name = f"communications.{ctype}_tab"}, self.header)
-    self[f"{ctype}_tab"]:setStyleSheet(
-      [[
-    background-color: ]] ..
-      configs.tabs ..
-      [[;
+  self.footer = Geyser.Label:new({
+      name = "communications.footer", 
+      x = "0%", y = "10%",
+      width = "100%", height = "90%"
+    },
+    self.container
+  )
+  self.footer:setStyleSheet(f'background-color: {configs.background};')
+  
+  local style_tab = [[
+    background-color: %s;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     margin-right: 1px;
     margin-left: 1px;
+    qproperty-alignment: 'AlignVCenter | AlignHCenter';
   ]]
-    )
-    self[f"{ctype}_tab"]:echo(f"&lt;center&gt;{ctype}", configs.foreground)
+  for _, ctype in pairs(self.tabs) do
+    self[f"{ctype}_tab"] = Geyser.Label:new({name = f"communications.{ctype}_tab"}, self.header)
+    self[f"{ctype}_tab"]:setStyleSheet(style_tab:format(configs.tabs))
+    self[f"{ctype}_tab"]:echo(f"{ctype}", configs.foreground)
     self[f"{ctype}_tab"]:setClickCallback("communications.click", ctype)
-    self[f"{ctype}_tab"]:setColor(configs.tabs)
     
-    self[ctype] = self[ctype] or 
-      Geyser.MiniConsole:new(
-        {
-          name = f"communications.{ctype}",
-          x = "0%",
-          y = "0%",
-          width = "100%",
-          height = "100%",
-        },
-        self.footer
-      )
-    enableScrollBar(f"communications.{ctype}")
-    self[ctype]:enableAutoWrap()
+    self[ctype] = Geyser.MiniConsole:new({
+        name = f"communications.{ctype}",
+        x = "0%",
+        y = "0%",
+        width = "100%",
+        height = "100%",
+        scrollBar = true,
+        autoWrap = true
+      },
+      self.footer
+    )
+    self[ctype]:hide()
+  end
+  
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="no" isFolder="no">
+			<name>communications:show_comms</name>
+			<packageName></packageName>
+			<script>function communications:show_comms()
+  local configs = self.configs.window
+  
+  local r, g, b = unpack(color_table[configs.border])
+  local border_color = f'rgba({r}, {g}, {b}, 100%)'
+  
+  local style = [[
+    background-color: %s;
+    border: 5px groove grey;
+  ]]
+  if not configs.widget then
+    self.container.adjLabel:setStyleSheet(style:format(border_color))
+  end
+  
+  self.current_tab = self.current_tab or self.tabs[1]
+  
+  for _, ctype in pairs(self.tabs) do
     self[ctype]:setColor(configs.background)
     self[ctype]:setFontSize(configs.fontsize)
     self[ctype]:bg(configs.background)
     self[ctype]:fg(configs.foreground)
-    self[ctype]:hide()
   end
   
-  if visible then
+  if not configs.widget then
+    --favor right docking &gt; left &gt; top
+    if configs.dock then
+      local x = self.container:get_x()
+      local y = self.container:get_y()
+      local w = self.container:get_width()
+      local h = self.container:get_height()
+      local main_w, main_h = getMainWindowSize()
+      
+      if x + w &gt; 0.9 * main_w then
+        self.container:attachToBorder("right")
+      elseif x &lt; 0.1 * main_w then
+        self.container:attachToBorder("left")
+      elseif y &lt; h then
+        self.container:attachToBorder("top")
+      end
+    else
+      self.container:attachToBorder("float")
+    end
+  else
+    if configs.dock then
+      self.container:enableAutoDock()
+    else
+      self.container:setDockPosition("floating")
+      self.container:disableAutoDock()
+    end
+  end
+  
+  --show or hide communications container
+  if configs.visible then
     self.container:show()
     self[self.current_tab]:show()
   else
     self.container:hide()
   end
-  
-  x = tonumber(string.sub(x, 1, -2))
-  y = tonumber(string.sub(y, 1, -2))
-  w = tonumber(string.sub(w, 1, -2))
-  h = tonumber(string.sub(h, 1, -2))
-  
-  if x &lt; 0 then
-    x = x + 100
-  end
-  if y &lt; 0 then
-    y = y + 100
-  end
-  
-  --favor right docking &gt; left &gt; top
-  if configs.dock then
-    if x &gt; 100 - (w + 10) then
-      self.container:attachToBorder("right")
-    elseif x &lt; 10 then
-      self.container:attachToBorder("left")
-    elseif y &lt; h then
-      self.container:attachToBorder("top")
-    end
-  else
-    self.container:attachToBorder("float")
-  end
 end
 
-function communications.click(tab)
-  communications[communications.current_tab]:hide()
-  communications.current_tab = tab
-  communications[communications.current_tab]:show()
-end</script>
+</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
@@ -892,20 +895,8 @@ communications.help.window =
 			<script>function communications:reposition_comms(event, containerName, width, height, x, y)
   if containerName ~= "communications.container" then
     return
-  end
-  local mx, my = getMainWindowSize()
-  x = x/mx*100
-  y = y/my*100
-  width = width/mx*100
-  height = height/my*100
-  
-  self.configs.window.x = f"{x}%"
-  self.configs.window.y = f"{y}%"
-  self.configs.window.w = f"{width}%"
-  self.configs.window.h = f"{height}%"
-  communications:save_configs()
-  
-  self:show_comms(true)
+  end  
+  self:show_comms()
 end
 
 registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "communications:reposition_comms")</script>
@@ -918,8 +909,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "communicat
   --if installed file is not the desired one
   if name ~= "communications" then return end
   self:show_help()
-  self:set_configs()
-  self:show_comms(self.configs.window.visible)
+  self:sys_connection()
 end
 
 registerAnonymousEventHandler("sysInstallPackage", "communications:comms_installer_success")</script>

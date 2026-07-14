@@ -2269,7 +2269,7 @@ end</script>
   --if the center of the mapper is left or right of the screen midpoint
   if not configs.widget then
     if configs.dock then
-      local x = self.container.get_x()
+      local x = self.container:get_x()
       local w, _ = getMainWindowSize()
       
       if x &gt; 0.5 * w then

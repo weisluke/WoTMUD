@@ -1160,7 +1160,7 @@ else
   status_bar.tab_settings["one_power"].display = false
 end
 
-status_bar:show_status_bar(true)</script>
+status_bar:show_status_bar()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -1190,7 +1190,7 @@ status_bar.tab_settings["smells"].display = false
 status_bar.tab_settings["sps_dps"].display = true
 status_bar.tab_settings["one_power"].display = false
 
-status_bar:show_status_bar(true)</script>
+status_bar:show_status_bar()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
@@ -1233,7 +1233,7 @@ status_bar:show_status_bar(true)</script>
 					<name>Posture is present</name>
 					<script>status_bar.tab_settings["posture"].display = true
 
-status_bar:show_status_bar(true)</script>
+status_bar:show_status_bar()</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1255,7 +1255,7 @@ status_bar:show_status_bar(true)</script>
 					<name>Posture is not present</name>
 					<script>status_bar.tab_settings["posture"].display = false
 
-status_bar:show_status_bar(true)</script>
+status_bar:show_status_bar()</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
@@ -1296,55 +1296,52 @@ end</script>
 	</TimerPackage>
 	<AliasPackage>
 		<Alias isActive="yes" isFolder="no">
-			<name>Width</name>
-			<script>val = matches[2]
-if (not tonumber(val)) or (tonumber(val) &lt; 1) then
-  status_bar:echo("Width must be a positive number (interpreted as a percentage of screen width).\n",false,true)
-else
-  val = f"{val}%"
-  status_bar:echo(f"Status bar width updated from ({status_bar.configs.w}) to ({val}).\n")
-  status_bar.configs.w = val
-  
-  local mx, my = getMainWindowSize()
-  local x = getBorderLeft() / mx * 100
-  status_bar.configs.x = f"{x}%"
-  
-  status_bar:save_configs()
-  status_bar:show_status_bar(true)
-end</script>
+			<name>w/h</name>
+			<script>local key = matches[2]
+local val = tonumber(matches[3])
+
+local container = status_bar.container
+
+local values = {
+  x = container.x,
+  y = container.y,
+  w = container.width,
+  h = container.height
+}
+
+if val &lt; 1 then
+  status_bar:echo("width and height must be positive numbers (interpreted as a percentage of screen width).\n",false,true)
+  return
+end
+
+values[key] = f"{val}%"
+
+local mx, my = getMainWindowSize()
+local x = getBorderLeft() / mx * 100
+values.x = f"{x}%"
+
+values.y = f'-{values.h}'
+
+container:resize(values.w, values.h)
+container:move(values.x, values.y)
+
+status_bar:save_configs()
+status_bar:show_status_bar()</script>
 			<command></command>
 			<packageName></packageName>
-			<regex>^status bar width (\d+)$</regex>
-		</Alias>
-		<Alias isActive="yes" isFolder="no">
-			<name>Height</name>
-			<script>val = matches[2]
-if (not tonumber(val)) or (tonumber(val) &lt; 1) then
-  status_bar:echo("Height must be a positive number (interpreted as a percentage of screen height).\n",false,true)
-else
-  val = f"{val}%"
-  status_bar:echo(f"Status bar height updated from ({status_bar.configs.h}) to ({val}).\n")
-  status_bar.configs.h = val
-  status_bar.configs.y = f"-{val}"
-  status_bar:save_configs()
-  status_bar:show_status_bar(true)
-end</script>
-			<command></command>
-			<packageName></packageName>
-			<regex>^status bar height (\d+)$</regex>
+			<regex>^status bar (w|h) (\d+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Fontsize</name>
-			<script>val = matches[2]
-if (not tonumber(val)) or (tonumber(val) &lt; 1) then
+			<script>local val = tonumber(matches[2])
+if val &lt; 1 then
   status_bar:echo("Fontsize must be a positive number.\n",false,true)
-else
-  val = tonumber(val)
-  status_bar:echo(f"Status bar fontsize updated from ({status_bar.configs.fontsize}) to ({val}).\n")
-  status_bar.configs.fontsize = val
-  status_bar:save_configs()
-  status_bar:show_status_bar(true)
-end</script>
+  return
+end
+status_bar:echo(f"Status bar fontsize updated from ({status_bar.configs.fontsize}) to ({val}).\n")
+status_bar.configs.fontsize = val
+status_bar:save_configs()
+status_bar:show_status_bar()</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^status bar fontsize (\d+)$</regex>
@@ -1360,11 +1357,7 @@ end</script>
 status_bar.configs = status_bar.configs or 
   {
     fontsize = 10,
-    visible = true,
-    x = "0%",
-    y = "-3%",
-    w = "60%",
-    h = "3%"
+    visible = true
   }</script>
 			<eventHandlerList />
 		</Script>
@@ -1495,32 +1488,62 @@ status_bar.tab_settings = status_bar.tab_settings or
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
+			<name>status_bar:rebuild</name>
+			<packageName></packageName>
+			<script>function status_bar:rebuild()
+  if self.container then
+    Adjustable.Container:saveAll()
+    self.container:delete()
+    self.container = nil
+  end
+  
+  self.container = Adjustable.Container:new({
+    name = "status_bar.container",
+    adjLabelstyle = [[
+      background-color: rgba(220,220,220,100%);
+      border: 5px groove grey;
+    ]],
+    buttonstyle=[[
+      QLabel{
+        border-radius: 7px;
+        background-color: rgba(140,140,140,100%);
+      }
+      QLabel::hover{
+        background-color: rgba(160,160,160,50%);
+      }
+    ]],
+    x = "0%", y = "-3%",
+    width = "50%", height = "3%",
+    buttonFontSize = 10,
+    buttonsize = 20,
+    titleText = "Status Bar",
+    titleTxtColor = "black",
+    padding = 15,
+    autoSave = true,
+    autoLoad = true,
+  })
+  
+  for _, tab in pairs(self.tabs) do
+    self[tab] = Geyser.Label:new({
+      name = f"status_bar.{tab}",
+      x = "0%", y = "0%",
+      width = "100%", height = "100%",
+      hidden = true
+    }, self.container)
+    self[tab]:echo(self.tab_settings[tab].default_text)
+    self[tab]:setStyleSheet([[
+      background-color: black;
+      border: 1px solid gray;
+      qproperty-alignment: 'AlignVCenter | AlignHCenter';
+    ]])
+  end
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
 			<name>status_bar:show_status_bar</name>
 			<packageName></packageName>
-			<script>function status_bar:show_status_bar(bval)
-
-  local visible = bval
-  self.configs.visible = visible
-  local x, y, w, h = self.configs.x, self.configs.y, self.configs.w, self.configs.h
-  
-  self.container = self.container or Adjustable.Container:new(
-    {
-      name = "status_bar.container",
-      adjLabelstyle = "background-color:rgba(220,220,220,100%); border: 5px groove grey;",
-      buttonstyle=[[
-      QLabel{ border-radius: 7px; background-color: rgba(140,140,140,100%);}
-      QLabel::hover{ background-color: rgba(160,160,160,50%);}
-      ]],
-      buttonFontSize = 10,
-      buttonsize = 20,
-      titleText = "Status Bar",
-      titleTxtColor = "black",
-      padding = 15,
-      autoSave = false,
-      autoLoad = false,
-    }
-  )
-  
+			<script>function status_bar:show_status_bar()
   --determine sum of label sizes in characters
   local total_chars = 0
   for _, tab in pairs(self.tabs) do
@@ -1541,16 +1564,7 @@ status_bar.tab_settings = status_bar.tab_settings or
       --convert chars to a percentage, then slightly downsize so there's space at the end of the status bar
       w = w / total_chars * 100 * 0.997
       local w_str = string.format("%.2f%%", w)
-      
-      --create labels if necessary
-      if not self[tab] then
-        self[tab] = Geyser.Label:new({name = f"status_bar.{tab}", x = "0%", y = "0%", width = w_str, height = "100%"}, self.container)
-        self[tab]:echo(self.tab_settings[tab].default_text, "white", "c")
-        self[tab]:setStyleSheet([[
-          background-color: black;
-          border: 1px solid gray;
-        ]])
-      end
+    
       --set the fontsize
       self[tab]:setFontSize(self.configs.fontsize)
       
@@ -1565,10 +1579,8 @@ status_bar.tab_settings = status_bar.tab_settings or
   end
   
   --show or hide status bar container
-  if visible then
+  if self.configs.visible then
     self.container:show()
-    self.container:move(x, y)
-    self.container:resize(w, h)
     self.container:attachToBorder("bottom")
     self.container:lockContainer("full")
   else
@@ -1581,31 +1593,17 @@ end</script>
 		<Script isActive="yes" isFolder="no">
 			<name>status_bar:resize</name>
 			<packageName></packageName>
-			<script>function status_bar:resize(event, container_name, width, height, x, y)
+			<script>function status_bar:resize(event)
   --get main window size
   local mx, my = getMainWindowSize()
   
-  --if the Adjustable.Container is the status bar, calculate new values and convert to percentages
-  if container_name == "status_bar.container" then
-    width = width/mx*100
-    height = height/my*100
-    y = -height
-    self.configs.y = y.."%"
-    self.configs.w = width.."%"
-    self.configs.h = height.."%"
-    
-    --set new bottom border as well
-    setBorderBottom((height + 1) * my / 100)
-  end
-  
   --regardless of what item was moved, calculate new status bar x position
-  x = getBorderLeft() / mx * 100
-  self.configs.x = f"{x}%"
+  local x = getBorderLeft() / mx * 100
+  x = f"{x}%"
+  local y = self.container.y
   
-  --save to disk
-  status_bar:save_configs()
-  
-  self:show_status_bar(true)
+  self.container:move(x, y)  
+  self:show_status_bar()
 end
 
 registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar:resize")</script>
@@ -1618,7 +1616,8 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar
   if io.exists(f"{getMudletHomeDir()}/status_bar.configs.lua") then
     table.load(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
   end
-  self:show_status_bar(true)
+  self:rebuild()
+  self:show_status_bar()
   raiseEvent("status_bar:sys_connection_event")
 end
 
@@ -1652,7 +1651,8 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "status_bar:sys_disconnec
 			<script>function status_bar:status_bar_installer_success(event, name)
   --if installed file is not the desired one
   if name ~= "status_bar" then return end
-  self:show_status_bar(true)
+  self:rebuild()
+  self:show_status_bar()
 end
 
 registerAnonymousEventHandler("sysInstallPackage", "status_bar:status_bar_installer_success")</script>
@@ -2249,7 +2249,8 @@ function status_bar.custom_tabs(event)
   
   
   --Finally, display the status bar with the changes
-  status_bar:show_status_bar(true)
+  status_bar:rebuild()
+  status_bar:show_status_bar()
 end
 
 registerAnonymousEventHandler("status_bar:sys_connection_event", "status_bar.custom_tabs")

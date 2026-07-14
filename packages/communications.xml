@@ -410,8 +410,7 @@ communications:show_comms()</script>
 			<script>communications.configs.window.widget = not communications.configs.window.widget
 wotmudmapper:echo("Communications will now " .. (communications.configs.window.widget and "use" or "not use") .. " a more flexible UserWindow.\n")
 communications:save_configs()
-communications:rebuild()
-communications:show_comms()</script>
+communications:rebuild()</script>
 			<command></command>
 			<packageName></packageName>
 			<regex>^comms widget$</regex>
@@ -573,7 +572,6 @@ end
 			<packageName></packageName>
 			<script>function communications:sys_connection(event)
   self:set_configs()
-  self:rebuild()
   self:show_comms()
 end
 
@@ -636,9 +634,9 @@ end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
-			<name>communications:rebuild</name>
+			<name>communications:build</name>
 			<packageName></packageName>
-			<script>function communications:rebuild()
+			<script>function communications:build()
   local configs = self.configs.window
   
   if self.container then
@@ -735,9 +733,34 @@ end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
+			<name>communications:rebuild</name>
+			<packageName></packageName>
+			<script>function communications:rebuild()
+  local configs = self.configs.window
+  
+  if self.container then
+    Adjustable.Container:saveAll()
+    saveWindowLayout()
+    --if rebuilding *into* a widget, then previously it wasn't
+    if configs.widget then
+      self.container:detach() --to update main window borders
+    end
+    self.container:delete()
+    self.container = nil
+  end
+  
+  self:show_comms()  
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
 			<name>communications:show_comms</name>
 			<packageName></packageName>
 			<script>function communications:show_comms()
+  if not self.container then
+    self:build()
+  end
+  
   local configs = self.configs.window
   
   local r, g, b = unpack(color_table[configs.border])

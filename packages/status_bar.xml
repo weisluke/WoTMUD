@@ -1488,9 +1488,9 @@ status_bar.tab_settings = status_bar.tab_settings or
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
-			<name>status_bar:rebuild</name>
+			<name>status_bar:build</name>
 			<packageName></packageName>
-			<script>function status_bar:rebuild()
+			<script>function status_bar:build()
   if self.container then
     Adjustable.Container:saveAll()
     self.container:delete()
@@ -1541,9 +1541,27 @@ end</script>
 			<eventHandlerList />
 		</Script>
 		<Script isActive="yes" isFolder="no">
+			<name>status_bar:rebuild</name>
+			<packageName></packageName>
+			<script>function status_bar:rebuild()
+  if self.container then
+    Adjustable.Container:saveAll()
+    self.container:delete()
+    self.container = nil
+  end
+  
+  self:show_status_bar()
+end</script>
+			<eventHandlerList />
+		</Script>
+		<Script isActive="yes" isFolder="no">
 			<name>status_bar:show_status_bar</name>
 			<packageName></packageName>
 			<script>function status_bar:show_status_bar()
+  if not self.container then
+    self:build()
+  end
+  
   --determine sum of label sizes in characters
   local total_chars = 0
   for _, tab in pairs(self.tabs) do
@@ -1616,7 +1634,6 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "status_bar
   if io.exists(f"{getMudletHomeDir()}/status_bar.configs.lua") then
     table.load(f"{getMudletHomeDir()}/status_bar.configs.lua", self.configs)
   end
-  self:rebuild()
   self:show_status_bar()
   raiseEvent("status_bar:sys_connection_event")
 end
@@ -1651,7 +1668,6 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "status_bar:sys_disconnec
 			<script>function status_bar:status_bar_installer_success(event, name)
   --if installed file is not the desired one
   if name ~= "status_bar" then return end
-  self:rebuild()
   self:show_status_bar()
 end
 
@@ -2250,7 +2266,6 @@ function status_bar.custom_tabs(event)
   
   --Finally, display the status bar with the changes
   status_bar:rebuild()
-  status_bar:show_status_bar()
 end
 
 registerAnonymousEventHandler("status_bar:sys_connection_event", "status_bar.custom_tabs")

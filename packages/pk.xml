@@ -9,7 +9,7 @@
 			<script>send(f"change wimpy {matches[2]}")</script>
 			<command></command>
 			<packageName></packageName>
-			<regex>^cw (.*)$</regex>
+			<regex>^cw (\d+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Bash</name>
@@ -38,10 +38,14 @@ end</script>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Kick</name>
-			<script></script>
+			<script>if matches[3] then
+  send(f"kick h.{matches[3]}")
+else
+  send("kick")
+end</script>
 			<command>kick</command>
 			<packageName></packageName>
-			<regex>^kk$</regex>
+			<regex>^kk( (\S+))?$</regex>
 		</Alias>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Moods</name>

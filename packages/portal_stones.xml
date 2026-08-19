@@ -17,7 +17,10 @@ local patterns =
     tremalking = "circle with an upside down triangle inside two interlocking triangles pointing up",
     passgate = "circle with an upside down triangle inside a diamond with a circle within",
     maredo = "circle with an upside down triangle inside two vertical straight lines",
-    evilbraem = "circle with an upward pointing triangle inside two half-circles connected by a vertical line"
+    evilbraem = "circle with an upward pointing triangle inside two half-circles connected by a vertical line",
+    iomm = "circle with an upside down triangle inside upward pointing triangle intersected by a crenelated line",
+    baerlon = "circle with an upside down triangle inside two half-circles connected by a horizontal line",
+    jimmy = "circle with an upside down triangle inside two left leaning diagonal lines"
   }
   
 container = container or {}
@@ -28,7 +31,7 @@ if patterns[location] then
     send(f"put disc {container.first}")
   end
 else
-  cecho("Unknown location. Locations are:\nSH, THR, IJ, MIRK, ALTARA, TREMALKING, PASSGATE, MAREDO, EVILBRAEM\n")
+  cecho("Unknown location. Locations are:\nSH, THR, IJ, MIRK, ALTARA, TREMALKING, PASSGATE, MAREDO, EVILBRAEM, IOMM, BAERLON, JIMMY\n")
 end</script>
 			<command></command>
 			<packageName></packageName>

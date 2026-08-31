@@ -88,6 +88,10 @@ end</script>
 					<name>Get Exits</name>
 					<script>disableTrigger("Map Description")
 
+if wotmudmapper.roomdesc then
+  wotmudmapper:echo(f"\nRoom description captured.", true)
+end
+
 --puts current exits in a table of the form {"n","e","s","w","u","d"}
 wotmudmapper.roomexits = matches[2]:lower()
 wotmudmapper:echo(f"\nRoom exits ({wotmudmapper.roomexits}) captured.\n", true)

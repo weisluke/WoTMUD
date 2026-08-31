@@ -4,15 +4,15 @@
 	<TriggerPackage>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Character Information Captures</name>
-			<script></script>
+			<script />
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList />
@@ -27,11 +27,11 @@ practice_trainer:update_displays()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -53,11 +53,11 @@ practice_trainer:update_displays()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -81,11 +81,11 @@ practice_trainer:update_displays()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -97,15 +97,15 @@ practice_trainer:update_displays()</script>
 			</Trigger>
 			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 				<name>Warder Bond</name>
-				<script></script>
+				<script />
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList />
@@ -118,11 +118,11 @@ practice_trainer:update_displays()</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
+					<mCommand />
+					<packageName />
 					<mFgColor>#ff0000</mFgColor>
 					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
+					<mSoundFile />
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
@@ -140,11 +140,11 @@ practice_trainer:update_displays()</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
+					<mCommand />
+					<packageName />
 					<mFgColor>#ff0000</mFgColor>
 					<mBgColor>#ffff00</mBgColor>
-					<mSoundFile></mSoundFile>
+					<mSoundFile />
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
@@ -158,15 +158,15 @@ practice_trainer:update_displays()</script>
 		</TriggerGroup>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Trainer Triggers</name>
-			<script></script>
+			<script />
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList />
@@ -191,11 +191,11 @@ disableTrigger("practice_trainer_hunter")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -229,11 +229,11 @@ disableTrigger("practice_trainer_rogue")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -267,11 +267,11 @@ send("dismiss trainer")</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -293,8 +293,8 @@ send("dismiss trainer")</script>
 			<name>Show Practice Trainer</name>
 			<script>practice_trainer.container:show()
 practice_trainer.container:raiseAll()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^ptrainer$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -310,8 +310,8 @@ else
     end
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^prac warrior$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -327,8 +327,8 @@ else
     end
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^prac rogue$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -344,8 +344,8 @@ else
     end
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^prac hunter$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -361,8 +361,8 @@ else
     end
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^prac fade$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -370,8 +370,8 @@ end</script>
 			<script>send("stand")
 enableTrigger("practice_trainer_hunter")
 send("hunter practice please")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^prac circle$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -386,8 +386,8 @@ else
   end
 end
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^prac shaidar$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -398,15 +398,15 @@ for fname in lfs.dir(f"{getMudletHomeDir()}/practice_trainer") do
     cecho(fname:sub(1,-5).."\n")
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^ptrainer setups$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Show help</name>
 			<script>practice_trainer:show_help()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^ptrainer help$</regex>
 		</Alias>
 	</AliasPackage>
@@ -414,7 +414,7 @@ end</script>
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>practice_trainer initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>practice_trainer = practice_trainer or {configs = {}}
 practice_trainer.container =
   practice_trainer.container or
@@ -455,7 +455,7 @@ disableTrigger("practice_trainer_warrior")</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>practice_trainer:echo</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function practice_trainer:echo(what, debug, err)
   --colored tags for message echo
   local main_tag = "&lt;white&gt;(&lt;gray&gt;practice_trainer&lt;white&gt;): &lt;white&gt;"
@@ -479,7 +479,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>practice_trainer style sheets</name>
-			<packageName></packageName>
+			<packageName />
 			<script>practice_trainer.style_sheets = practice_trainer.style_sheets or {}
 
 practice_trainer.style_sheets.plus = [[
@@ -517,12 +517,12 @@ practice_trainer.style_sheets.clickable = [[
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Button creation functions</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer:container_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:container_params(name, x, y, w, h)
   
   return {
@@ -539,7 +539,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer:label_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:label_params(name, x, y, w, h, msg, fg, bg)
   msg = msg or ""
   fg = fg or "black"
@@ -562,7 +562,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer:command_line_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:command_line_params(name, x, y, w, h, msg)
   return {
     name = name,
@@ -580,7 +580,7 @@ end
 		</ScriptGroup>
 		<Script isActive="yes" isFolder="no">
 			<name>practice_trainer practices</name>
-			<packageName></packageName>
+			<packageName />
 			<script>practice_trainer.pracs = practice_trainer.pracs or {classes = {"warrior", "rogue", "hunter", "fade"}}
 practice_trainer.pracs.rates =
   {
@@ -676,7 +676,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>practice_trainer practice queue</name>
-			<packageName></packageName>
+			<packageName />
 			<script>practice_trainer.pracs.queue = practice_trainer.pracs.queue or {}
 
 function practice_trainer:push_queue(skill)
@@ -700,7 +700,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>practice_trainer info label</name>
-			<packageName></packageName>
+			<packageName />
 			<script>local label_name = "info_label"
 local w = 50
 local h = 26
@@ -730,7 +730,7 @@ practice_trainer[label_name]:echo(
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>practice_trainer:reset_prac</name>
-			<packageName></packageName>
+			<packageName />
 			<script>local label_name = "reset_pracs_label"
 local w = 10
 local h = 5
@@ -762,12 +762,12 @@ end</script>
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Save and Load File</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer save and load file</name>
-				<packageName></packageName>
+				<packageName />
 				<script>practice_trainer.file = practice_trainer.file or {}
 
 local label_name = "save_label"
@@ -831,7 +831,7 @@ practice_trainer.file[label_name]:setAction(
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer save and load functions</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:save_pracs(fname)
   if not io.exists(f"{getMudletHomeDir()}/practice_trainer") then
     lfs.mkdir(f"{getMudletHomeDir()}/practice_trainer")
@@ -901,12 +901,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Update Information</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer update practice</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:add_practice(class, skill)
   if self.char.race == "trolloc" and (skill == "ride" or skill == "swim") then
     return
@@ -951,7 +951,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer update stats</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:add_stat(stat)
   if self.char.race == "trolloc" and stat == "str" then
     if self.char[stat] &lt; 21 then
@@ -989,7 +989,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer update sex</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:sex_stipulations()
   if
     self.char.sex == "male" and
@@ -1027,7 +1027,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer update race</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:race_stipulations(dir)
   if self.char.race == "fade" then
     self.char.class = "fade"
@@ -1095,7 +1095,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer update class</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:class_stipulations(dir)
   if self.char.race == "fade" then
     self.char.class = "fade"
@@ -1154,7 +1154,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer update warder bond</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:warder_bond_scroll(event)
   if self.char.race ~= "human" or self.char.class == "channeler" then return end
   self.char.warder_bond = not self.char.warder_bond
@@ -1165,12 +1165,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Convert Information</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer practice to percent</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:get_skill_class(skill)
   for _, class in pairs(self.pracs.classes) do
     if table.contains(self.pracs[class], skill) then
@@ -1297,7 +1297,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer practice to level</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function practice_trainer:get_total_class_pracs()
   local prac_totals = {}
   
@@ -1356,12 +1356,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Displays</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer warrior/rogue/hunter/fade practices displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>practice_trainer.warrior.container =
   practice_trainer.warrior.container or
   Geyser.Container:new(
@@ -1469,7 +1469,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer character stats displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>practice_trainer.char.container =
   practice_trainer.char.container or
   Geyser.Container:new(
@@ -1535,7 +1535,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer character sex/race/class displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>for k, field in pairs({"sex", "race", "class"}) do
   local label_name = ""
   local w = 15
@@ -1583,7 +1583,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer total practice and level displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>local w = 26
 local h = 30
 local x = 73
@@ -1608,7 +1608,7 @@ practice_trainer.char["level_label"] =
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>practice_trainer warder bond display</name>
-				<packageName></packageName>
+				<packageName />
 				<script>local label_name = "warder_bond_label"
 local w = 15
 local h = 30
@@ -1635,7 +1635,7 @@ practice_trainer.char[label_name]:setClickCallback("practice_trainer:warder_bond
 		</ScriptGroup>
 		<Script isActive="yes" isFolder="no">
 			<name>practice_trainer:update_displays</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function practice_trainer:update_sex_race_class_display()
   self.char["sex_label"]:echo(f"&lt;center&gt;{self.char.sex}")
   self.char["race_label"]:echo(f"&lt;center&gt;{self.char.race}")
@@ -1693,7 +1693,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>practice_trainer:show_help</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function practice_trainer:show_help()
   local help =
   [[
@@ -1722,6 +1722,6 @@ end</script>
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

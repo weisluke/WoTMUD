@@ -32,11 +32,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>1</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#008080</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -71,11 +71,11 @@ end</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -179,11 +179,11 @@ wotmudmapper:update_room()</script>
 					<triggerType>0</triggerType>
 					<conditonLineDelta>0</conditonLineDelta>
 					<mStayOpen>0</mStayOpen>
-					<mCommand></mCommand>
-					<packageName></packageName>
+					<mCommand />
+					<packageName />
 					<mFgColor>#ff0000</mFgColor>
 					<mBgColor>transparent</mBgColor>
-					<mSoundFile></mSoundFile>
+					<mSoundFile />
 					<colorTriggerFgColor>#000000</colorTriggerFgColor>
 					<colorTriggerBgColor>#000000</colorTriggerBgColor>
 					<regexCodeList>
@@ -243,11 +243,11 @@ wotmudmapper:update_room()</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -273,11 +273,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -357,11 +357,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ffaa00</mFgColor>
 			<mBgColor>transparent</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -474,11 +474,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -537,11 +537,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -557,11 +557,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -577,11 +577,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -598,11 +598,11 @@ disableTrigger("Resuming Trigger")</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -618,11 +618,11 @@ disableTrigger("Resuming Trigger")</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -640,11 +640,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>transparent</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -662,11 +662,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff007f</mFgColor>
 			<mBgColor>transparent</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -682,11 +682,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#aaff00</mFgColor>
 			<mBgColor>transparent</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -727,11 +727,11 @@ end
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -751,11 +751,11 @@ wotmudmapper.queue = List:new()</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -770,10 +770,10 @@ wotmudmapper.queue = List:new()</script>
 	<AliasPackage>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Room Data</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Shift room</name>
 				<script>--syntax: shiftroom direction
@@ -789,8 +789,8 @@ if table.size(wotmudmapper.currentID) == 1 then
 else
   wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^shiftroom ([neswud])$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -807,17 +807,17 @@ if table.size(wotmudmapper.currentID) == 1 then
 else
   wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^setmarker (.*)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Zones</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Change Room Zone</name>
 				<script>--syntax: crz zonename
@@ -831,8 +831,8 @@ if table.size(wotmudmapper.currentID) == 1 then
 else
   wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^crz (.*)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -843,8 +843,8 @@ local zone = matches[2]
 
 wotmudmapper.zone = zone
 wotmudmapper:echo(f"New rooms will be of zone ({zone}).\n")</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^cmz (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -859,17 +859,17 @@ if color_table[new_color] then
 else
   wotmudmapper:echo("Color not known.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map zonecolor (.+)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Doors</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Creating Doors</name>
 				<script>--Syntax: create (visible OR hidden OR locked) door direction doorname
@@ -882,8 +882,8 @@ if table.size(wotmudmapper.currentID) == 1 then
 else
   wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^create (visible|hidden|locked) door ([neswud]) (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -900,23 +900,23 @@ if table.size(wotmudmapper.currentID) == 1 then
 else
   wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^deletedoor ([neswud])$</regex>
 			</Alias>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Doors with directions</name>
-				<script></script>
-				<command></command>
-				<packageName></packageName>
-				<regex></regex>
+				<script />
+				<command />
+				<packageName />
+				<regex />
 				<Alias isActive="yes" isFolder="no">
 					<name>Open Door</name>
 					<script>--syntax: odn/ods/ode/odw/odu/odd
 
 wotmudmapper:door_com_dir("open", matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^od([neswud])$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
@@ -924,8 +924,8 @@ wotmudmapper:door_com_dir("open", matches[2])</script>
 					<script>--syntax: cdn/cde/cds/cdw/cdu/cdd
 
 wotmudmapper:door_com_dir("close", matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^cd([neswud])$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
@@ -933,8 +933,8 @@ wotmudmapper:door_com_dir("close", matches[2])</script>
 					<script>--syntax: pdn/pde/pds/pdw/pdu/pdd
 
 wotmudmapper:door_com_dir("pick", matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^pd([neswud])$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
@@ -942,8 +942,8 @@ wotmudmapper:door_com_dir("pick", matches[2])</script>
 					<script>--syntax: kdn/kde/kds/kdw/kdu/kdd
 
 wotmudmapper:door_com_dir("knock", matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^kd([neswud])$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
@@ -951,8 +951,8 @@ wotmudmapper:door_com_dir("knock", matches[2])</script>
 					<script>--syntax: udn/ude/uds/udw/udu/udd
 
 wotmudmapper:door_com_dir("unlock", matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^ud([neswud])$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
@@ -960,8 +960,8 @@ wotmudmapper:door_com_dir("unlock", matches[2])</script>
 					<script>--syntax: ldn/lde/lds/ldw/ldu/ldd
 
 wotmudmapper:door_com_dir("lock", matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^ld([neswud])$</regex>
 				</Alias>
 			</AliasGroup>
@@ -976,17 +976,17 @@ if color_table[new_color] then
 else
   wotmudmapper:echo("Color not known.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map doorcolor (.+)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Coloring Rooms</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Color Legend</name>
 				<script>--syntax: map legend
@@ -995,8 +995,8 @@ cecho("&lt;light_goldenrod&gt;Map Legend\n")
 for env, color in pairs(wotmudmapper.map_colors) do
   cecho(f"   &lt;{color}&gt;{env}&lt;reset&gt;\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map legend$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1016,8 +1016,8 @@ if table.size(wotmudmapper.currentID) == 1 then
 else
   wotmudmapper:echo("Current room not known.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^cre (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1033,8 +1033,8 @@ if wotmudmapper.map_colors[env] then
 else
   wotmudmapper:echo(f"Type of room ({matches[2]}) not known.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^cme (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1045,8 +1045,8 @@ wotmudmapper.map_colors = table.deepcopy(wotmudmapper.default_map_colors)
 wotmudmapper:echo("Map colors reset to default values.\n")
 wotmudmapper:save_colors()
 wotmudmapper:set_map_colors()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map colors reset$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1068,17 +1068,17 @@ wotmudmapper:echo(f"Map color for ({env}) changed from (&lt;{old_color}&gt;{old_
 wotmudmapper.map_colors[env] = new_color
 wotmudmapper:save_colors()
 wotmudmapper:set_map_colors()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map color (\S+) (\S+)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Map Labels</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Add Line Horizontal</name>
 				<script>--syntax example: hline nw 3e
@@ -1104,8 +1104,8 @@ if table.size(wotmudmapper.currentID) == 1 and offsets[place] then
 else
   wotmudmapper:echo("Current room not known, or invalid location/direction specification.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^hline (\S+) (\d+)([ew])$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1133,8 +1133,8 @@ if table.size(wotmudmapper.currentID) == 1 and offsets[place] then
 else
   wotmudmapper:echo("Current room not known, or invalid location/direction specification.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^vline (\S+) (\d+)([ns])$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1170,8 +1170,8 @@ if table.size(wotmudmapper.currentID) == 1 and offsets[place] and color_table[co
 else
   wotmudmapper:echo("Current room not known, or invalid color/location/text specification.\n", false, true)
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^makelabel (\S+) (\S+) (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1179,17 +1179,17 @@ end</script>
 				<script>--openUrl("https://wiki.mudlet.org/images/c/c3/ShowColors.png")
 
 showColors()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^viewcolors$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Mapper Booleans</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Mapping On/Off</name>
 				<script>--syntax: mapping
@@ -1197,8 +1197,8 @@ showColors()</script>
 wotmudmapper.configs.mapping = not wotmudmapper.configs.mapping
 wotmudmapper:echo("Mapping is: " .. (wotmudmapper.configs.mapping and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
 wotmudmapper:save_configs()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^mapping$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1209,8 +1209,8 @@ wotmudmapper:save_configs()</script>
 wotmudmapper.configs.bothways = not wotmudmapper.configs.bothways
 wotmudmapper:echo("Bothways set to: " .. (wotmudmapper.configs.bothways and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
 wotmudmapper:save_configs()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map bothways$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1221,8 +1221,8 @@ wotmudmapper:save_configs()</script>
 wotmudmapper.configs.autojoin = not wotmudmapper.configs.autojoin
 wotmudmapper:echo("Autojoin set to: " .. (wotmudmapper.configs.autojoin and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
 wotmudmapper:save_configs()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map autojoin$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1232,8 +1232,8 @@ wotmudmapper:save_configs()</script>
 wotmudmapper.configs.brief = not wotmudmapper.configs.brief
 wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.brief and "hide" or "show") .. " room descriptions.\n")
 wotmudmapper:save_configs()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map brief$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1244,8 +1244,8 @@ wotmudmapper:save_configs()</script>
 wotmudmapper.configs.forceroom = true
 wotmudmapper:echo("Forcing new room.\n")
 wotmudmapper:save_configs()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^forceroom$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1255,8 +1255,8 @@ wotmudmapper:save_configs()</script>
 wotmudmapper.configs.debug = not wotmudmapper.configs.debug
 wotmudmapper:echo("Map debug set to: " .. (wotmudmapper.configs.debug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
 wotmudmapper:save_configs()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map debug$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1266,8 +1266,8 @@ wotmudmapper:save_configs()</script>
 wotmudmapper.configs.showzone = not wotmudmapper.configs.showzone
 wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.showzone and "show" or "hide") .. " zone names.\n")
 wotmudmapper:save_configs()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map showzone$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1277,8 +1277,8 @@ wotmudmapper:save_configs()</script>
 wotmudmapper.configs.showdoors = not wotmudmapper.configs.showdoors
 wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.showdoors and "show" or "hide") .. " door names.\n")
 wotmudmapper:save_configs()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map showdoors$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1299,21 +1299,21 @@ else
     disableAlias("Offline Map Dirs")
     disableAlias("Offline Map Look")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map offline$</regex>
 				<Alias isActive="no" isFolder="no">
 					<name>Offline Map Dirs</name>
 					<script>wotmudmapper:offline_move(matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^([neswud])$</regex>
 				</Alias>
 				<Alias isActive="no" isFolder="no">
 					<name>Offline Map Look</name>
 					<script>wotmudmapper:offline_move("l")</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^l$</regex>
 				</Alias>
 			</Alias>
@@ -1325,8 +1325,8 @@ wotmudmapper.configs.window.widget = not wotmudmapper.configs.window.widget
 wotmudmapper:echo("Mapper will now " .. (wotmudmapper.configs.window.widget and "use" or "not use") .. " the map widget.\n")
 wotmudmapper:save_configs()
 wotmudmapper:rebuild()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map widget$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1337,8 +1337,8 @@ wotmudmapper:rebuild()</script>
 wotmudmapper.configs.speedwalk = not wotmudmapper.configs.speedwalk
 wotmudmapper:echo("Speedwalk set to: " .. (wotmudmapper.configs.speedwalk and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
 wotmudmapper:save_configs()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map speedwalk$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1358,8 +1358,8 @@ else
   disableTrigger("mapper")
   disableAlias("Doors with directions")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map (on|off)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1370,8 +1370,8 @@ wotmudmapper.configs.window.dock = not wotmudmapper.configs.window.dock
 wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.window.dock and "docked.\n" or "floating.\n"))
 wotmudmapper:save_configs()
 wotmudmapper:show_map()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map dock$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1382,17 +1382,17 @@ wotmudmapper.configs.window.visible = not wotmudmapper.configs.window.visible
 wotmudmapper:echo("Map will now be " .. (wotmudmapper.configs.window.visible and "shown.\n" or "hidden.\n"))
 wotmudmapper:save_configs()
 wotmudmapper:show_map()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^map show$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Search Map</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Find Room</name>
 				<script>--syntax: findroom roomname OR findroom roomname zone zonename
@@ -1428,8 +1428,8 @@ else
     )
   end
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^findroom (.+?)( zone (.+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1468,8 +1468,8 @@ else
     )
   end
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^findzone (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1520,8 +1520,8 @@ else
     )
   end
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^finddoor (.+?)( zone (.+))?$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1568,8 +1568,8 @@ else
     )
   end
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^search room descs (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -1614,8 +1614,8 @@ else
     )
   end
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^showroom (.+?)( zone (.+))?$</regex>
 			</Alias>
 		</AliasGroup>
@@ -1637,8 +1637,8 @@ for com in comlist do
     send(dir, false)
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^\.(\d*[neswud])+$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -1649,8 +1649,8 @@ local numcoms = wotmudmapper.queue.last - wotmudmapper.queue.first + 1
 display(wotmudmapper.queue)
 wotmudmapper.queue = List:new()
 wotmudmapper:echo(f"Queue reset. {numcoms} command(s) was/were removed.\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^resetqueue$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -1661,8 +1661,8 @@ wotmudmapper:echo("Downloading updated map...\n")
 local url = "https://raw.githubusercontent.com/weisluke/WoTMUD/main/WoTMUD_map.json"
 local saveto = f"{getMudletHomeDir()}/WoTMUD_map.json"
 downloadFile(saveto, url)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^map update$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -1671,8 +1671,8 @@ downloadFile(saveto, url)</script>
 
 wotmudmapper:echo("Showing queue.\n")
 display(wotmudmapper.queue)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^showqueue$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -1687,8 +1687,8 @@ if res then
 else
   wotmudmapper:echo("Map failed to save.\n", false, true)
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^map save$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -1707,8 +1707,8 @@ wotmudmapper:echo(f"Map window (border) updated from (&lt;{old_color}&gt;{old_co
 wotmudmapper.configs.window.border = color
 wotmudmapper:save_configs()
 wotmudmapper:show_map()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^map window border (\S+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -1739,8 +1739,8 @@ container:move(values.x, values.y)
 wotmudmapper:show_map()
 
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^map window (w|h|x|y) (\-?\d+\.?\d*)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -1761,15 +1761,15 @@ wotmudmapper:save_configs()
 for name, id in pairs(getAreaTable()) do
   setMapZoom(val, id)
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^map zoom (\d+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Map Help Alias</name>
 			<script>wotmudmapper:show_help(matches[3])</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^map help( (.*))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -1777,15 +1777,15 @@ end</script>
 			<script>wotmudmapper.configs = table.deepcopy(wotmudmapper.default_configs)
 wotmudmapper:echo("Map configurations reset to default values.\n")
 wotmudmapper:show_map()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^map configs reset$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Map version</name>
 			<script>wotmudmapper:echo(f'version {wotmudmapper.version}\n')</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^map version$</regex>
 		</Alias>
 	</AliasPackage>
@@ -1793,7 +1793,7 @@ wotmudmapper:show_map()</script>
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>--define mudlet required mapper variables and wotmudmapper table
 mudlet = mudlet or {}
 mudlet.mapper_script = true
@@ -1990,7 +1990,7 @@ wotmudmapper.queue = List:new()</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:echo</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:echo(what, debug, err)
   --colored tags for message echo
   local main_tag = "&lt;lawn_green&gt;(&lt;forest_green&gt;wotmudmapper&lt;lawn_green&gt;): &lt;white&gt;"
@@ -2014,7 +2014,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:save_configs</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:save_configs()
   local home = getMudletHomeDir()
   local configs_path = f"{home}/wotmudmapper.configs.lua"
@@ -2030,7 +2030,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:set_map_colors</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:set_map_colors()
   --loop over environments and colors in color table
   for env, color in pairs(self.map_colors) do
@@ -2046,7 +2046,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:set_configs</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:set_configs()
   local home = getMudletHomeDir()
   local configs_path = f"{home}/wotmudmapper.configs.lua"
@@ -2079,7 +2079,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:sys_connection</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:sys_connection(event)
   --ensure the generic mapper is uninstalled
   self:uninstall_generic_mapper()
@@ -2125,7 +2125,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "wotmudmapper:sys_connection
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:sys_disconnection</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:sys_disconnection(event)
   --set config values in preparation for disconnection
   self.configs.mapping = false
@@ -2158,7 +2158,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "wotmudmapper:sys_disconn
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:map_update</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:map_update(event, filename)
   --if the file that downloaded is not the map, return
   if not filename:find("WoTMUD_map.json", 1, true) then
@@ -2182,7 +2182,7 @@ registerAnonymousEventHandler("sysDownloadDone", "wotmudmapper:map_update")</scr
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:build</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:build()
   local configs = self.configs.window
   
@@ -2254,7 +2254,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:rebuild</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:rebuild()
   local configs = self.configs.window
   
@@ -2276,7 +2276,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:show_map</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:show_map()
   if not self.container then
     self:build()
@@ -2330,7 +2330,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:reposition_map</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:reposition_map(event, container_name, width, height, x, y)
   --if the Adjustable.Container is not the mapper, return
   if container_name ~= "wotmudmapper.container" then
@@ -2344,7 +2344,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "wotmudmapp
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:show_help</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:show_help(cmd)
   if cmd then
     cmd = cmd:gsub(" ","_")
@@ -2588,7 +2588,7 @@ wotmudmapper.help.misc =
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:rightclick_update</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:rightclick_update_roomname(event)
   local rooms = getMapSelection()["rooms"]
   if table.is_empty(rooms) then
@@ -2621,7 +2621,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:rightclick_display_roomdesc</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:rightclick_display_roomdesc(event)
   local rooms = getMapSelection()["rooms"]
   if table.is_empty(rooms) then
@@ -2640,12 +2640,12 @@ end
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Keeping track of map commands</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:track_map_commands</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--if command is a direction, look, flee, or swim, add to list of commands affecting map movement (wotmudmapper.queue)
 --pushes first letter of command (made lowercase), such that wotmudmapper.queue always contains lowercase, single letters
 
@@ -2671,7 +2671,7 @@ registerAnonymousEventHandler("sysDataSendRequest", "wotmudmapper:track_map_comm
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:is_movement</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--return true if command is a direction, false if not a direction. ignores capitalization
 
 function wotmudmapper:is_movement(com)
@@ -2716,7 +2716,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:is_look</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--return true if command is a look, false if not a look. ignores capitalization
 
 function wotmudmapper:is_look(com)
@@ -2731,7 +2731,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:is_flee</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--return true if command is a flee, false if not a flee. ignores capitalization
 
 function wotmudmapper:is_flee(com)
@@ -2746,7 +2746,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:is_swim</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--return true if command is swim, false if not swim. ignores capitalization
 
 function wotmudmapper:is_swim(com)
@@ -2764,7 +2764,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:door_com_dir</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function wotmudmapper:door_com_dir(com, dir)
   --start out with list of current possible rooms
   local rooms = table.deepcopy(self.currentID)
@@ -2816,7 +2816,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:get_direction</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--return the last direction that led to the current movement
 --if movement was from autoflee or following someone, treat it as a flee
 
@@ -2853,12 +2853,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Performing room searches bases on various criteria</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:get_rooms</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--return a list of rooms
 --if name is nil, return every room id
 --otherwise, return rooms with the provided case-sensitive name
@@ -2881,7 +2881,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:find_matching_room</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--returns a list of IDs of the rooms with name/desc/exits matching the currently captured room, or an empty list
 --if provided a list of room IDs, that list will be narrowed down against the currently captured room
 --by checking names, descriptions, and exits, in that order
@@ -2907,7 +2907,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:find_matching_name</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--expects rooms to be a list of room IDs
 --returns a list of room IDs for the rooms whose names match the currently captured room name
 
@@ -2930,7 +2930,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:find_matching_desc</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--expects rooms to be a list of room IDs
 --returns a list of room IDs for the rooms whose descriptions match the currently captured description
 
@@ -2957,7 +2957,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:find_matching_exits</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--expects rooms to be a list of room IDs
 --returns a list of room IDs for the rooms whose exits match the currently captured exits
 
@@ -3013,7 +3013,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:nearby_rooms</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--room is a room ID, com is a direction, flee, or look
 function wotmudmapper:nearby_rooms(room, com)
   local result = {}
@@ -3037,7 +3037,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:is_dark_name</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function wotmudmapper:is_dark_name()
   if
     table.contains(
@@ -3073,7 +3073,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:is_dark_desc</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function wotmudmapper:is_dark_desc()
   if
     table.contains(
@@ -3101,7 +3101,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:is_ways_name</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function wotmudmapper:is_ways_name(name)
   if
     table.contains(
@@ -3124,7 +3124,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:has_door</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function wotmudmapper:has_door(id, dir)
   --direction provided
   if dir then
@@ -3149,12 +3149,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Functions used during room creation and alteration</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:create_room</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--returns list containing only new room ID
 
 function wotmudmapper:create_room(x, y, z, areaID)
@@ -3181,7 +3181,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:link_rooms</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--assumes exits are for second room and of the form {"n","e","s","w","u","d"}, and direction is lowercase single letter
 
 function wotmudmapper:link_rooms(firRoomID, secRoomID, dir, exits)
@@ -3206,7 +3206,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:set_coordinates_offset</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--assumes com is a lowercase single letter
 --gives coordinate offset based on direction
 
@@ -3229,7 +3229,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:auto_join_rooms</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function wotmudmapper:auto_join_rooms(roomID)
   --initializing variables
   local complements = {n = "s", e = "w", s = "n", w = "e", u = "d", d = "u"}
@@ -3273,7 +3273,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:create_door</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--assumes direction is a lowercase single letter
 
 function wotmudmapper:create_door(currentID, direction, status, doorname)
@@ -3293,7 +3293,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:is_search</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--return true if command is search, false if not search. ignores capitalization
 
 function wotmudmapper:is_search(com)
@@ -3308,7 +3308,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:looking_for_doors</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--set mapper door direction based on look or searches
 
 function wotmudmapper:looking_for_doors(event, com)
@@ -3327,12 +3327,12 @@ registerAnonymousEventHandler("sysDataSendRequest", "wotmudmapper:looking_for_do
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Functons for displaying areas and rooms</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:show_room_list</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function wotmudmapper:show_room_list(areaid)
   local listcolor, othercolor = "DarkSlateGrey", "LightSlateGray"
   local roomlist, endresult = getAreaRooms(areaid) or {}, {}
@@ -3370,7 +3370,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>wotmudmapper:show_area_list</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function wotmudmapper:show_area_list()
     local totalroomcount = 0
     local rlist = getAreaTableSwap()
@@ -3406,7 +3406,7 @@ end</script>
 		</ScriptGroup>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:mapper_installer_success</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:mapper_installer_success(event, name)
   --if installed file is not the desired one
   if name ~= "mapper" then return end
@@ -3423,7 +3423,7 @@ registerAnonymousEventHandler("sysInstallPackage", "wotmudmapper:mapper_installe
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:uninstall_generic_mapper</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:uninstall_generic_mapper()
   --uninstall generic_mapper if it is still installed
   if table.contains(getPackages(), "generic_mapper") then
@@ -3437,7 +3437,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>doSpeedWalk</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function doSpeedWalk()
   --if you are not allowed to speedwalk, just return
   if not wotmudmapper.configs.speedwalk then
@@ -3463,7 +3463,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:show_zone_door_info</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:show_zone_door_info()
 
   --note room exits that lead to unknown rooms (as they may be DTs)
@@ -3512,7 +3512,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:offline_move</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:offline_move(direction)
   if table.size(self.currentID) == 1 then
     local exits = getRoomExits(self.currentID[1])
@@ -3557,7 +3557,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper map info</name>
-			<packageName></packageName>
+			<packageName />
 			<script>registerMapInfo("Zone info", function(roomId, selectionSize, areaId, displayedArea)
   return "Zone: "..getRoomUserData(roomId,"zone")
 end)
@@ -3576,7 +3576,7 @@ end)</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper zone urls</name>
-			<packageName></packageName>
+			<packageName />
 			<script>wotmudmapper.zone_urls = {
 
 ["Inner Caemlyn"] = "Inner_Caemlyn",
@@ -3821,7 +3821,7 @@ end)</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:set_player_location</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:set_player_location(event, room)
   self.currentID={room}
 end
@@ -3831,7 +3831,7 @@ registerAnonymousEventHandler("sysManualLocationSetEvent", "wotmudmapper:set_pla
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper waygates</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:is_waygate(id)
   --hardcoded list of mudlet room ids for waygates
   --{tv, ef, spine, blight, tanchico, jafar, seandar}
@@ -3858,7 +3858,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotmudmapper:update_room</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotmudmapper:update_room()
   if table.is_empty(self.currentID) then
     self:echo("\nNo matches found.",false,true)
@@ -3875,68 +3875,68 @@ end</script>
 	<KeyPackage>
 		<KeyGroup isActive="no" isFolder="yes">
 			<name>Offline Map</name>
-			<packageName></packageName>
-			<script></script>
-			<command></command>
+			<packageName />
+			<script />
+			<command />
 			<keyCode>-1</keyCode>
 			<keyModifier>0</keyModifier>
 			<Key isActive="yes" isFolder="no">
 				<name>North</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
 wotmudmapper:offline_move("n")</script>
-				<command></command>
+				<command />
 				<keyCode>56</keyCode>
 				<keyModifier>536870912</keyModifier>
 			</Key>
 			<Key isActive="yes" isFolder="no">
 				<name>East</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
 wotmudmapper:offline_move("e")</script>
-				<command></command>
+				<command />
 				<keyCode>54</keyCode>
 				<keyModifier>536870912</keyModifier>
 			</Key>
 			<Key isActive="yes" isFolder="no">
 				<name>South</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
 wotmudmapper:offline_move("s")</script>
-				<command></command>
+				<command />
 				<keyCode>50</keyCode>
 				<keyModifier>536870912</keyModifier>
 			</Key>
 			<Key isActive="yes" isFolder="no">
 				<name>West</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
 wotmudmapper:offline_move("w")</script>
-				<command></command>
+				<command />
 				<keyCode>52</keyCode>
 				<keyModifier>536870912</keyModifier>
 			</Key>
 			<Key isActive="yes" isFolder="no">
 				<name>Up</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
 wotmudmapper:offline_move("u")</script>
-				<command></command>
+				<command />
 				<keyCode>57</keyCode>
 				<keyModifier>536870912</keyModifier>
 			</Key>
 			<Key isActive="yes" isFolder="no">
 				<name>Down</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--centers the map on the room in the direction (if a valid room is in that direction)
 wotmudmapper:offline_move("d")</script>
-				<command></command>
+				<command />
 				<keyCode>51</keyCode>
 				<keyModifier>536870912</keyModifier>
 			</Key>
 		</KeyGroup>
 	</KeyPackage>
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

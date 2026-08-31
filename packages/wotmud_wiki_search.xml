@@ -7,8 +7,8 @@
 		<Alias isActive="yes" isFolder="no">
 			<name>Wiki Search</name>
 			<script>openUrl(f"https://wotmud.fandom.com/wiki/Special:Search?query={matches[2]}")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wiki (.+)$</regex>
 		</Alias>
 	</AliasPackage>
@@ -16,6 +16,6 @@
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

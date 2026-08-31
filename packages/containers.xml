@@ -18,8 +18,8 @@ elseif container.first then
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^setcontainer( (\S+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -30,8 +30,8 @@ container = container or {}
 
 container.first = nil
 cecho("&lt;red&gt;Container deleted!\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^delcontainer$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -48,8 +48,8 @@ elseif drink.first then
 else
   cecho("&lt;red&gt;Drink not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^setdrink( (\S+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -60,8 +60,8 @@ drink = drink or {}
 
 drink.first = nil
 cecho("&lt;red&gt;Drink deleted!\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^deldrink$</regex>
 		</Alias>
 	</AliasPackage>
@@ -69,6 +69,6 @@ cecho("&lt;red&gt;Drink deleted!\n")</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

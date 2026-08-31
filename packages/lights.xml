@@ -20,8 +20,8 @@ if container.first then
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^glp$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -36,8 +36,8 @@ else
   cecho("&lt;red&gt;Light not set!\n")
 end
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^hl$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -52,8 +52,8 @@ else
   cecho("&lt;red&gt;Light not set!\n")
 end
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^el$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -68,8 +68,8 @@ else
   cecho("&lt;red&gt;Light not set!\n")
 end
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rl$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -88,8 +88,8 @@ if container.first then
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^plp$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -106,8 +106,8 @@ elseif light.first then
 else
   cecho("&lt;red&gt;Light not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^setlight( (\S+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -118,8 +118,8 @@ light = light or {}
 
 light.first = nil
 cecho("&lt;red&gt;Light deleted!\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dellight$</regex>
 		</Alias>
 	</AliasPackage>
@@ -127,6 +127,6 @@ cecho("&lt;red&gt;Light deleted!\n")</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

@@ -8,11 +8,11 @@
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -51,11 +51,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -99,11 +99,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -121,11 +121,11 @@ disableTrigger("Rents_disable_item_name")</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -148,11 +148,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -193,11 +193,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -215,8 +215,8 @@ end</script>
 			<script>rents:show()
 
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rents show$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -236,8 +236,8 @@ if table.is_empty(storage) then
 else
   rents:display_items(storage)
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rents show name (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -264,8 +264,8 @@ if table.is_empty(storage) then
 else
   rents:display_items(storage)
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rents show item (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -286,30 +286,30 @@ if table.is_empty(storage) then
 else
   rents:display_items(storage)
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rents show zone (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Rents help</name>
 			<script>cecho(rents.help)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rents help$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Rents version</name>
 			<script>rents:echo(f'version {rents.version}\n')</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rents version$</regex>
 		</Alias>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Deleting rent storage information</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Rents delete</name>
 				<script>--deletes the ENTIRE rents database
@@ -317,8 +317,8 @@ end</script>
 local rents_db = db:get_database("rents")
 db:delete(rents_db.storage, true)
 rents:echo("The entire rents database has been deleted.\n")</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^rents delete$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -329,8 +329,8 @@ local rents_db = db:get_database("rents")
 
 db:delete(rents_db.storage, db:like(rents_db.storage.name, name))
 rents:echo("All items for character \""..name.."\" have been removed from the rent database.\n")</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^rents delete name (.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -345,8 +345,8 @@ local rents_db = db:get_database("rents")
 
 db:delete(rents_db.storage, db:eq(rents_db.storage.room, room))
 rents:echo(f"All items for room \"{getRoomName(room)}\" have been removed from the rent database.\n")</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^rents delete room( \d+)?$</regex>
 			</Alias>
 		</AliasGroup>
@@ -355,7 +355,7 @@ rents:echo(f"All items for room \"{getRoomName(room)}\" have been removed from t
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>rents initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>db:create(
   "rents",
   {
@@ -404,7 +404,7 @@ rents.help =
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>rents:echo</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function rents:echo(what, debug, err)
   --colored tags for message echo
   local main_tag = "&lt;lawn_green&gt;(&lt;green&gt;rents&lt;lawn_green&gt;): &lt;white&gt;"
@@ -428,7 +428,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>rents:sys_disconnection</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function rents:sys_disconnection(event)
   rents.name = nil
   rents.clear_room = true
@@ -440,7 +440,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>rents rare items</name>
-			<packageName></packageName>
+			<packageName />
 			<script>rents.rares = rents.rares or {
   "a heron-marked longsword",
   "a heron-mark blade",
@@ -479,7 +479,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>rents angreal</name>
-			<packageName></packageName>
+			<packageName />
 			<script>rents.angreal = rents.angreal or {
   "a disc of moonstone",
   "a greenish, translucent sphere",
@@ -502,12 +502,12 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "rents:sys_disconnection"
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Building UI</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>rents:fit_to_width</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:fit_to_width(s, width)
   local res
   if s:len() &gt; width then
@@ -523,7 +523,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:get_centered_coordinates</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:get_centered_coordinates()
   local w, h = getMainWindowSize()
   
@@ -541,7 +541,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:create_dropdown</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:create_dropdown(cfg)
   local parent = cfg.parent or self.window
   local optionH = 20 --height for the options labels
@@ -650,7 +650,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:close_open_dropdown</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:close_open_dropdown()
   if self.open_dropdown then
     self.open_dropdown.list:hide()
@@ -664,7 +664,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:rebuild_location_dropdown</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:rebuild_location_dropdown(name)
   if self.select_location then
     self.select_location:delete()
@@ -685,7 +685,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:build</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:build()
   if self.window then
     self.window:delete()
@@ -743,7 +743,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:build_filters</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:build_filters()
   local lbl_style   = [[
     color: rgb(160,160,180);
@@ -899,7 +899,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:update_buttons</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:update_button_rare()
   if self.search_rare then
     self.button_rare:setStyleSheet([[
@@ -977,7 +977,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:build_display</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:build_display()
   self.display_container = Geyser.Container:new({
     name = "rents.display_container",
@@ -1019,7 +1019,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:get_column_widths_percentages</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:get_column_widths_percentages()
   local function get_max(arr)
     local max = arr[1]
@@ -1101,7 +1101,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:get_column_widths_characters</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:get_column_widths_characters()  
   local res = {}
   
@@ -1137,7 +1137,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:build_column_headers</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:build_column_headers()
   local widths = self:get_column_widths_percentages()
   local columns = {
@@ -1179,7 +1179,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:render_headers</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:render_headers()
   local style = [[
     background-color: rgb(45, 45, 60);
@@ -1217,7 +1217,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:rebuild</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:rebuild()
   if self.window then
     self.window:delete()
@@ -1231,7 +1231,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:resize</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:resize(event, container_name, width, height, x, y)
   --if the Adjustable.Container is not the rent window, return
   if container_name ~= "rents.window" then
@@ -1245,7 +1245,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "rents:resi
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:refresh</name>
-				<packageName></packageName>
+				<packageName />
 				<script>-- ============================================================
 -- RENDERING HELPERS
 -- ============================================================
@@ -1444,7 +1444,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:start_live_timer</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:start_live_timer()
   self.last_item_text = self.input_item:getText()
   self.last_all_text = self.input_all:getText()
@@ -1469,12 +1469,12 @@ end
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Records</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>rents:parse_cost</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:str_to_coppers(cost)
   local COPPERS_PER_CROWN = 20
   
@@ -1499,7 +1499,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:fetch_records</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:fetch_records()
   local rents_db = db:get_database("rents")
   local records = db:fetch(rents_db.storage)
@@ -1522,7 +1522,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:filter_records</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:get_active_filters()
   return {
     all = self.input_all:getText():lower(),
@@ -1587,7 +1587,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:get_unique_values</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--return the unique values within the records for the given field
 function rents:get_unique_values(field)
   local res = {}
@@ -1605,7 +1605,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:get_zones_for_name</name>
-				<packageName></packageName>
+				<packageName />
 				<script>--return all the zones within the records for the given name
 function rents:get_zones_for_name(name)
   local res = {}
@@ -1624,7 +1624,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:get_summary_groups</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:get_summary_groups(records)
   local groups = {}
 
@@ -1654,7 +1654,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>rents:sort_records</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function rents:sort_records(records)
   local sort_by = self.sort_by
   local ascending = self.sort_ascending
@@ -1720,7 +1720,7 @@ end
 		</ScriptGroup>
 		<Script isActive="yes" isFolder="no">
 			<name>rents:reset</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function rents:reset()
   self.input_all:print("")
   self.select_name:echo("All")
@@ -1741,7 +1741,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>rents:show_hide</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function rents:show()
   self.records = self:fetch_records()
 
@@ -1769,7 +1769,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>rents:display_items</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function rents:display_items(storage)
   cecho(string.format("%-10s&lt;ansi_cyan&gt;%-40s&lt;reset&gt;%s&lt;green&gt;%-40s&lt;gold&gt;%-10s\n", "Name", "Room", "", "Item", "Cost"))
   
@@ -1809,6 +1809,6 @@ end</script>
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

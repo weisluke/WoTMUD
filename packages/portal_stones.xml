@@ -33,8 +33,8 @@ if patterns[location] then
 else
   cecho("Unknown location. Locations are:\nSH, THR, IJ, MIRK, ALTARA, TREMALKING, PASSGATE, MAREDO, EVILBRAEM, IOMM, BAERLON, JIMMY\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^portal (.+)$</regex>
 		</Alias>
 	</AliasPackage>
@@ -42,6 +42,6 @@ end</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

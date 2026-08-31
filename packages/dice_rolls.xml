@@ -12,11 +12,11 @@ dice_rolls:add(name, d1 + d2)</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -32,31 +32,31 @@ dice_rolls:add(name, d1 + d2)</script>
 		<Alias isActive="yes" isFolder="no">
 			<name>Dice help</name>
 			<script>dice_rolls:echo(dice_rolls.help)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dice help$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Dice version</name>
 			<script>dice_rolls:echo(f'version {dice_rolls.version}\n')</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dice version$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Clear dice</name>
 			<script>--syntax: dice clear
 dice_rolls:clear()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dice clear$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Show dice</name>
 			<script>--syntax: dice show
 dice_rolls:show()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dice show$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -67,8 +67,8 @@ local name = matches[2]
 local value = tonumber(matches[3])
 
 dice_rolls:add(name, value)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dice add (\S+) (\d+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -76,8 +76,8 @@ dice_rolls:add(name, value)</script>
 			<script>local name = matches[2]
 
 dice_rolls:remove(name)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dice remove (\S+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -85,23 +85,23 @@ dice_rolls:remove(name)</script>
 			<script>local name = matches[2]
 
 dice_rolls:pop(name)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dice pop (\S+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Dice say winners</name>
 			<script>send(f'say win order: {dice_rolls:winners()}')</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dice say winners$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Dice snakeeyes</name>
 			<script>dice_rolls.snakeeyes = not dice_rolls.snakeeyes
 dice_rolls:echo("snakeeyes is: " .. (dice_rolls.snakeeyes and "&lt;green&gt;high&lt;reset&gt;.\n" or "&lt;red&gt;low&lt;reset&gt;.\n"))</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^dice snakeeyes$</regex>
 		</Alias>
 	</AliasPackage>
@@ -109,7 +109,7 @@ dice_rolls:echo("snakeeyes is: " .. (dice_rolls.snakeeyes and "&lt;green&gt;high
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>Dice rolls</name>
-			<packageName></packageName>
+			<packageName />
 			<script>dice_rolls = dice_rolls or {data={}}
 dice_rolls.snakeeyes = dice_rolls.snakeeyes or true
 dice_rolls.version = "1.1"
@@ -148,7 +148,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>Dice add</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function dice_rolls:add(name, value)
   if table.contains(self.data, name) then
     table.insert(self.data[name], value)
@@ -163,7 +163,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>Dice remove</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function dice_rolls:remove(name)
   if table.contains(self.data, name) then
     self.data[name] = nil
@@ -188,7 +188,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>Dice clear</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function dice_rolls:clear()
   self.data = {}
   self:echo("All data removed!\n")
@@ -199,7 +199,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>Dice sort</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function dice_rolls.sort(t, a, b)
   local self = dice_rolls
   --the two values in the table for the given keys (names)
@@ -240,7 +240,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>Dice winners</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function dice_rolls:winners()  
   local result = {}
   for name, _ in spairs(self.data, self.sort) do
@@ -254,7 +254,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>Dice show</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function dice_rolls:show()
   if table.is_empty(self.data) then
     self:echo("No dice data stored!\n")
@@ -279,6 +279,6 @@ end
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

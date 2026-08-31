@@ -4,15 +4,15 @@
 	<TriggerPackage>
 		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Character Information Captures</name>
-			<script></script>
+			<script />
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList />
@@ -27,11 +27,11 @@ eq_trainer:update_displays()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -53,11 +53,11 @@ eq_trainer:update_displays()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -82,11 +82,11 @@ eq_trainer:update_displays()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -105,11 +105,11 @@ eq_trainer:update_displays()</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -129,11 +129,11 @@ eq_trainer:update_displays()</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -159,11 +159,11 @@ eq_trainer:update_displays()</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -180,8 +180,8 @@ eq_trainer:update_displays()</script>
 			<name>Show Equipment Trainer</name>
 			<script>eq_trainer.container:show()
 eq_trainer.container:raiseAll()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^etrainer$</regex>
 		</Alias>
 	</AliasPackage>
@@ -189,7 +189,7 @@ eq_trainer.container:raiseAll()</script>
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>eq_trainer = eq_trainer or {configs = {}}
 eq_trainer.container =
   eq_trainer.container or
@@ -263,7 +263,7 @@ eq_trainer.stats = eq_trainer.stats or
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer:echo</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function eq_trainer:echo(what, debug, err)
   --colored tags for message echo
   local main_tag = "&lt;gray&gt;(&lt;white&gt;eq_trainer&lt;gray&gt;): &lt;white&gt;"
@@ -287,7 +287,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer database creation</name>
-			<packageName></packageName>
+			<packageName />
 			<script>db:create(
   "equipment",
   {
@@ -329,7 +329,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer style sheets</name>
-			<packageName></packageName>
+			<packageName />
 			<script>eq_trainer.style_sheets = eq_trainer.style_sheets or {}
 
 eq_trainer.style_sheets.plus = [[
@@ -375,12 +375,12 @@ eq_trainer.style_sheets.child = [[
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Button creation functions</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:container_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:container_params(name, x, y, w, h)
   return {
     name = name,
@@ -394,7 +394,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:label_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:label_params(name, x, y, w, h, msg)
   return {
     name = name,
@@ -411,7 +411,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:parent_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:parent_params(name, x, y, w, h, msg)
   return {
     name = name,
@@ -429,7 +429,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:child_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:child_params(name, w, h, msg)
   return {
     name = name,
@@ -447,7 +447,7 @@ end</script>
 		</ScriptGroup>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer wearable slots</name>
-			<packageName></packageName>
+			<packageName />
 			<script>eq_trainer.eq = eq_trainer.eq or {}
 
 eq_trainer.eq.nothing = {
@@ -486,7 +486,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer get equipment</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function eq_trainer:get_eq_setups()
 
   local armor = {}
@@ -609,7 +609,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer preset kits</name>
-			<packageName></packageName>
+			<packageName />
 			<script>eq_trainer.presets = eq_trainer.presets or {}
 
 eq_trainer.presets.abs = 
@@ -724,7 +724,7 @@ eq_trainer.presets.trinkets = {
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer main containers</name>
-			<packageName></packageName>
+			<packageName />
 			<script>eq_trainer.char.container =
   eq_trainer.char.container or
   Geyser.Container:new(
@@ -756,12 +756,12 @@ eq_trainer.presets.container =
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Update Provided Information</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update stats</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:stat_stipulations()
   local wpn = self:get_eq_in_slot("wielded")
   
@@ -813,7 +813,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update sex</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:sex_stipulations()
   if
     self.char.sex == "male" and
@@ -856,7 +856,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update race</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:race_stipulations(dir)
   if self.char.race == "fade" then
     self.char.class = "fade"
@@ -926,7 +926,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update class</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:class_stipulations(dir)
   if self.char.race == "fade" then
     self.char.class = "fade"
@@ -990,7 +990,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update level</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:add_level()
   self.char.level = math.min(51, self.char.level + 1)
   self:update_displays()
@@ -1012,7 +1012,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update mood</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:add_mood()
   local tab = {"wimpy", "normal", "brave", "berserk"}
   local index = table.index_of(tab, self.char.mood) - 1
@@ -1038,7 +1038,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update rank</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:rank_stipulations()
   if self.char.race == "fade" or self.char.race == "dreadlord" or self.char.race == "grayman" then
     if self.char.rank &lt; 1 then self.char.rank = 1 end
@@ -1076,7 +1076,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update posture</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:posture_stipulations(dir)
   if self.char.race == "fade" or self.char.race == "dreadlord" or self.char.race == "grayman" then
     if self.char.posture == "none" then
@@ -1128,7 +1128,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update weapon_hh</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:add_weapon_hh()
   local tab = {"none", "honed", "hardened"}
   local index = table.index_of(tab, self.char.weapon_hh) - 1
@@ -1154,7 +1154,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update extra_weight</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:add_extra_weight()
   self.char.extra_weight = self.char.extra_weight + 1
   self:update_displays()
@@ -1210,7 +1210,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update practice</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:add_prac(skill)
   self.char[skill] = math.min(99, self.char[skill]+1)
   self:update_displays()
@@ -1232,7 +1232,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update ride</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:add_ride()
   if self.char.race == "trolloc" then return end
   self.char.ride = math.min(7, self.char.ride+1)
@@ -1256,7 +1256,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update position</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:add_position()
   local tab = {"standing", "sitting", "resting", "sleeping"}
   local index = table.index_of(tab, self.char.position) - 1
@@ -1282,7 +1282,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update equipment</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:set_eq(slot, item)
   if self.eq.slots[slot] == "wielded" then
     if self.char.str &lt; 17 and item.weight &gt; self.char.str then
@@ -1335,7 +1335,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update armor/warder bond</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:armor_scroll(event)
   self.char.armor = not self.char.armor
   self:update_displays()
@@ -1350,7 +1350,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer update chill/blind/darkness/contagion</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:blind_scroll(event)
   if self.char.race == "fade" then 
     self.char.blind = false
@@ -1387,12 +1387,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Displays</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer stats displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>for k, stat in pairs({"str", "int", "wil", "dex", "con"}) do
   local label_name = ""
   local w = 4
@@ -1447,7 +1447,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer sex/race/class/level/mood displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>for k, field in pairs({"sex", "race", "class", "level", "mood"}) do
   local label_name = ""
   local w = 13
@@ -1499,7 +1499,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer rank/posture/weapon_hh displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>for k, field in pairs({"rank", "posture", "weapon_hh"}) do
   local label_name = ""
   local w = 13
@@ -1550,7 +1550,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer extra_weight displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>local field = "extra_weight"
 local label_name = f"{field}_label"
 local w = 13
@@ -1628,7 +1628,7 @@ setLabelWheelCallback(f"eq_trainer.char.{label_name}", f"eq_trainer:add_{field}_
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer pracs displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>for k, prac in pairs({"weapon", "dodge", "shield"}) do
   local label_name = ""
   local w = 10
@@ -1726,7 +1726,7 @@ eq_trainer.char[label_name]:setClickCallback("eq_trainer:add_ride")</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer position display</name>
-				<packageName></packageName>
+				<packageName />
 				<script>local label_name = "position_label"
 local w = 13
 local h = 20
@@ -1768,7 +1768,7 @@ eq_trainer.char[label_name]:setClickCallback("eq_trainer:add_position")</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer status items displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>for k, field in pairs({"armor", "warder_bond"}) do
   local label_name = ""
   local w = 13
@@ -1831,7 +1831,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer equipment slot displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:equipment_slot_displays()
 
   for k, slot in pairs(eq_trainer.eq.slots) do
@@ -1945,7 +1945,7 @@ registerAnonymousEventHandler("equip_db:sys_connection_event", "eq_trainer:equip
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer set equipment to nothing display</name>
-				<packageName></packageName>
+				<packageName />
 				<script>local label_name = "reset_eq_label"
 local w = 50
 local h = 4
@@ -1972,7 +1972,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer calculated character information displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>for k, stat in pairs({"ob", "def", "abs", "mean_dmg", "std_dev_dmg"}) do
   local label_name = ""
   local w = 20
@@ -2056,7 +2056,7 @@ eq_trainer.stats[label_name]:setStyleSheet(eq_trainer.style_sheets.child)</scrip
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer preset kits displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>for k, setup in pairs({"abs", "combo", "dodge", "trinkets"}) do
   local label_name = ""
   local w = 20
@@ -2105,7 +2105,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>anydice button</name>
-				<packageName></packageName>
+				<packageName />
 				<script>if true then return end
 
 local label_name = "anydice_label"
@@ -2178,12 +2178,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Update calculated information</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:get_char_ob</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:get_char_ob()
   
   local level = math.min(self.char.level, 30)
@@ -2241,7 +2241,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:get_char_db</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:get_char_db()
   
   local level = math.min(self.char.level, 30)
@@ -2294,7 +2294,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:get_char_pb</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:get_char_pb()
   
   local level = math.min(self.char.level, 30)
@@ -2348,7 +2348,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:get_char_abs</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:get_char_abs()
   
   local abs = 0
@@ -2370,7 +2370,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:get_char_weights</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:get_char_weights()
   
   local max_weight = 8.5 * self.char.str + 3.5 * self.char.con
@@ -2389,7 +2389,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:get_char_dmg</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:get_char_dmg()
   
   local level = math.min(self.char.level, 30)
@@ -2534,7 +2534,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:get_char_mvs</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:get_char_mvs()
 
   local eq_mvs = 0
@@ -2554,7 +2554,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:get_char_mvs_regen</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:get_char_mvs_regen()
   
   local positions_mvs = {standing=1, sitting=1.1, resting=1.25, sleeping=1.5}
@@ -2578,7 +2578,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer:get_char_stats</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer:get_char_stats()
 
   self.stats.ob = self:get_char_ob()
@@ -2604,7 +2604,7 @@ end</script>
 		</ScriptGroup>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer:update_displays</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function eq_trainer:update_stats_display()
   for _, stat in pairs({"str", "int", "wil", "dex", "con"}) do
     self.char[f"{stat}_val_label"]:echo(f"&lt;center&gt;{self.char[stat]}")
@@ -2686,7 +2686,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>eq_trainer show melee and skills calculator</name>
-			<packageName></packageName>
+			<packageName />
 			<script>local label_name = "show_melee_skills_calculator"
 local w = 75
 local h = 10
@@ -2711,12 +2711,12 @@ eq_trainer.stats[label_name]:setClickCallback(
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Melee and Skills Calculators</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer.melee_skills initializations</name>
-				<packageName></packageName>
+				<packageName />
 				<script>eq_trainer.melee_skills = eq_trainer.melee_skills or {}
 
 eq_trainer.melee_skills.container = eq_trainer.melee_skills.container or 
@@ -2749,12 +2749,12 @@ eq_trainer.melee_skills.container = eq_trainer.melee_skills.container or
 			</Script>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Opponent</name>
-				<packageName></packageName>
-				<script></script>
+				<packageName />
+				<script />
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.opponent initializations</name>
-					<packageName></packageName>
+					<packageName />
 					<script>eq_trainer.opponent = eq_trainer.opponent or
   { ob = 190,
     db = 140,
@@ -2784,7 +2784,7 @@ eq_trainer.opponent.label =
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.opponent stats</name>
-					<packageName></packageName>
+					<packageName />
 					<script>for i, field in pairs({"ob", "db", "pb", "wpn_weight"}) do
   local label_name = ""
   local w = 20
@@ -2921,12 +2921,12 @@ end</script>
 				</Script>
 				<ScriptGroup isActive="yes" isFolder="yes">
 					<name>Update opponent info</name>
-					<packageName></packageName>
-					<script></script>
+					<packageName />
+					<script />
 					<eventHandlerList />
 					<Script isActive="yes" isFolder="no">
 						<name>eq_trainer.opponent:ob_scroll</name>
-						<packageName></packageName>
+						<packageName />
 						<script>function eq_trainer.opponent:add_ob()
   self.ob = self.ob + 1
   self:update_displays()
@@ -2950,7 +2950,7 @@ end</script>
 					</Script>
 					<Script isActive="yes" isFolder="no">
 						<name>eq_trainer.opponent:db_scroll</name>
-						<packageName></packageName>
+						<packageName />
 						<script>function eq_trainer.opponent:add_db()
   self.db = self.db + 1
   self:update_displays()
@@ -2974,7 +2974,7 @@ end</script>
 					</Script>
 					<Script isActive="yes" isFolder="no">
 						<name>eq_trainer.opponent:pb_scroll</name>
-						<packageName></packageName>
+						<packageName />
 						<script>function eq_trainer.opponent:add_pb()
   self.pb = self.pb + 1
   self:update_displays()
@@ -2998,7 +2998,7 @@ end</script>
 					</Script>
 					<Script isActive="yes" isFolder="no">
 						<name>eq_trainer.opponent:wpn_weight_scroll</name>
-						<packageName></packageName>
+						<packageName />
 						<script>function eq_trainer.opponent:add_wpn_weight()
   self.wpn_weight = self.wpn_weight + 0.1
   self:update_displays()
@@ -3020,7 +3020,7 @@ end</script>
 					</Script>
 					<Script isActive="yes" isFolder="no">
 						<name>eq_trainer.opponent:level_scroll</name>
-						<packageName></packageName>
+						<packageName />
 						<script>function eq_trainer.opponent:add_level()
   if self.level &lt; 51 then
     self.level = self.level + 1
@@ -3046,7 +3046,7 @@ end</script>
 					</Script>
 					<Script isActive="yes" isFolder="no">
 						<name>eq_trainer.opponent:notice_scroll</name>
-						<packageName></packageName>
+						<packageName />
 						<script>function eq_trainer.opponent:add_notice()
   if self.notice &lt; 99 then
     self.notice = self.notice + 1
@@ -3072,7 +3072,7 @@ end</script>
 					</Script>
 					<Script isActive="yes" isFolder="no">
 						<name>eq_trainer.opponent:bashed_scroll</name>
-						<packageName></packageName>
+						<packageName />
 						<script>function eq_trainer.opponent:bashed_scroll(event)
   self.bashed = not self.bashed
   if eq_trainer.opponent.bashed then
@@ -3089,7 +3089,7 @@ end</script>
 				</ScriptGroup>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.opponent:update_displays</name>
-					<packageName></packageName>
+					<packageName />
 					<script>function eq_trainer.opponent:update_displays()
   for _, field in pairs({"ob", "level"}) do
     self[f"{field}_val_label"]:echo(f"&lt;center&gt;{self[field]}")
@@ -3111,12 +3111,12 @@ end</script>
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Bash</name>
-				<packageName></packageName>
-				<script></script>
+				<packageName />
+				<script />
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.bash initializations</name>
-					<packageName></packageName>
+					<packageName />
 					<script>eq_trainer.bash = eq_trainer.bash or { bash = 99 }
   
 eq_trainer.bash.container = 
@@ -3138,7 +3138,7 @@ eq_trainer.bash.label =
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.bash bash percent labels</name>
-					<packageName></packageName>
+					<packageName />
 					<script>local field = "bash"
 local w = 40
 local h = 10
@@ -3191,7 +3191,7 @@ eq_trainer.bash[label_name]:setClickCallback(f"eq_trainer.bash:add_{field}")</sc
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.bash:bash_scroll</name>
-					<packageName></packageName>
+					<packageName />
 					<script>function eq_trainer.bash:add_bash()
   if self.bash &lt; 99 then
     self.bash = self.bash + 1
@@ -3217,7 +3217,7 @@ end</script>
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.bash:update_displays</name>
-					<packageName></packageName>
+					<packageName />
 					<script>function eq_trainer.bash:update_displays()
   self["bash_val_label"]:echo(f"&lt;center&gt;{self.bash}%")
   
@@ -3227,7 +3227,7 @@ end</script>
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.bash:get_char_bash_rate</name>
-					<packageName></packageName>
+					<packageName />
 					<script>function eq_trainer.bash:get_char_bash_rate()
 
   local wpn = eq_trainer:get_eq_in_slot("wielded")
@@ -3272,7 +3272,7 @@ end</script>
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.bash:get_opp_bash_rate</name>
-					<packageName></packageName>
+					<packageName />
 					<script>function eq_trainer.bash:get_opp_bash_rate()
 
   local wpn_weight = eq_trainer.opponent.wpn_weight
@@ -3311,7 +3311,7 @@ end</script>
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.bash bash percent label</name>
-					<packageName></packageName>
+					<packageName />
 					<script>local label_name = "bash_rate_label"
 local w = 90
 local h = 30
@@ -3330,12 +3330,12 @@ eq_trainer.bash[label_name]:echo("&lt;center&gt;You bash opponent: 0%&lt;br&gt;O
 			</ScriptGroup>
 			<ScriptGroup isActive="yes" isFolder="yes">
 				<name>Melee</name>
-				<packageName></packageName>
-				<script></script>
+				<packageName />
+				<script />
 				<eventHandlerList />
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.melee initializations</name>
-					<packageName></packageName>
+					<packageName />
 					<script>eq_trainer.melee = eq_trainer.melee or {}
 
 eq_trainer.melee.container = 
@@ -3357,7 +3357,7 @@ eq_trainer.melee.label =
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.melee hit landing rates</name>
-					<packageName></packageName>
+					<packageName />
 					<script>local label_name = "you_hit_opponent_label"
 local w = 90
 local h = 20
@@ -3383,7 +3383,7 @@ eq_trainer.melee[label_name] =
 				</Script>
 				<Script isActive="yes" isFolder="no">
 					<name>eq_trainer.melee:get_hit_rates</name>
-					<packageName></packageName>
+					<packageName />
 					<script>function eq_trainer.melee:get_hit_rates(offense, defense)
   local hits = 0
   local db = defense.db
@@ -3410,7 +3410,7 @@ end</script>
 			</ScriptGroup>
 			<Script isActive="yes" isFolder="no">
 				<name>eq_trainer.melee_skills:update_displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function eq_trainer.melee_skills:update_displays()
   local you_hit_opp = eq_trainer.melee:get_hit_rates(eq_trainer.stats, eq_trainer.opponent) * 100
   local opp_hits_you = eq_trainer.melee:get_hit_rates(eq_trainer.opponent, eq_trainer.stats) * 100
@@ -3428,6 +3428,6 @@ end</script>
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

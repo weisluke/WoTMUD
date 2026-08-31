@@ -17,11 +17,11 @@ cecho(
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -40,8 +40,8 @@ cecho(
 local saveto = f"{getMudletHomeDir()}/player_numbers.json"
 downloadFile(saveto, url)
 send("who",false)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^who?$</regex>
 		</Alias>
 	</AliasPackage>
@@ -49,7 +49,7 @@ send("who",false)</script>
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>playerNumbers</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function playerNumbers(event, filename)
   local dir = getMudletHomeDir() .. "/player_numbers.json"
   -- is the file that downloaded ours?
@@ -68,6 +68,6 @@ end</script>
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

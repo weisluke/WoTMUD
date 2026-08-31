@@ -14,11 +14,11 @@ weave_trainer:update_displays()</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -38,11 +38,11 @@ weave_trainer:update_displays()</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -64,11 +64,11 @@ weave_trainer:update_displays()</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -92,11 +92,11 @@ weave_trainer:update_displays()</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -113,8 +113,8 @@ weave_trainer:update_displays()</script>
 			<name>Show Practice Trainer</name>
 			<script>weave_trainer.container:show()
 weave_trainer.container:raiseAll()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wtrainer$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -128,8 +128,8 @@ else
     send(f"practice {item}")
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^prac weaves$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -140,15 +140,15 @@ for fname in lfs.dir(f"{getMudletHomeDir()}/weave_trainer") do
     cecho(fname:sub(1,-5).."\n")
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wtrainer setups$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Show help</name>
 			<script>weave_trainer:show_help()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wtrainer help$</regex>
 		</Alias>
 	</AliasPackage>
@@ -156,7 +156,7 @@ end</script>
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>weave_trainer initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>weave_trainer = weave_trainer or {configs={}}
 weave_trainer.container =
   weave_trainer.container or
@@ -188,7 +188,7 @@ weave_trainer.char = weave_trainer.char or {int = 19, rank = 0}</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>weave_trainer:echo</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function weave_trainer:echo(what, debug, err)
   --colored tags for message echo
   local main_tag = "&lt;white&gt;(&lt;gray&gt;weave_trainer&lt;white&gt;): &lt;white&gt;"
@@ -212,7 +212,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>weave_trainer style sheets</name>
-			<packageName></packageName>
+			<packageName />
 			<script>weave_trainer.style_sheets = weave_trainer.style_sheets or {}
 
 weave_trainer.style_sheets.plus = [[
@@ -258,12 +258,12 @@ weave_trainer.style_sheets.clanned = [[
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Button creation functions</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer:container_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:container_params(name, x, y, w, h)
   
   return {
@@ -280,7 +280,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer:label_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:label_params(name, x, y, w, h, msg, fg, bg)
   msg = msg or ""
   fg = fg or "black"
@@ -303,7 +303,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer:command_line_params</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:command_line_params(name, x, y, w, h)
 
   return {
@@ -322,7 +322,7 @@ end
 		</ScriptGroup>
 		<Script isActive="yes" isFolder="no">
 			<name>weave_trainer practices</name>
-			<packageName></packageName>
+			<packageName />
 			<script>weave_trainer.pracs = weave_trainer.pracs or {}
 weave_trainer.pracs.rates =
   {
@@ -489,7 +489,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>weave_trainer practice queue</name>
-			<packageName></packageName>
+			<packageName />
 			<script>weave_trainer.pracs.queue = weave_trainer.pracs.queue or {}
 
 function weave_trainer:push_queue(skill)
@@ -513,7 +513,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>weave_trainer info label</name>
-			<packageName></packageName>
+			<packageName />
 			<script>local label_name = "info_label"
 local w = 32
 local h = 30
@@ -545,7 +545,7 @@ weave_trainer[label_name]:echo(
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>weave_trainer:reset_pracs</name>
-			<packageName></packageName>
+			<packageName />
 			<script>local label_name = "reset_pracs_label"
 local w = 10
 local h = 5
@@ -577,12 +577,12 @@ end</script>
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Save and Load File</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer save and load file</name>
-				<packageName></packageName>
+				<packageName />
 				<script>weave_trainer.file = weave_trainer.file or {}
 
 local label_name = "save_label"
@@ -646,7 +646,7 @@ weave_trainer.file[label_name]:setAction(
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer save and load functions</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:save_pracs(fname)
   if not io.exists(f"{getMudletHomeDir()}/weave_trainer") then
     lfs.mkdir(f"{getMudletHomeDir()}/weave_trainer")
@@ -698,12 +698,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Update Information</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer update practice</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:add_practice(skill)
   if skill == "sword of flame" and self.char.sex == "female" then return end
   
@@ -752,7 +752,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer update element</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:add_element(element)
   if self.elements.pracs[element] &lt; 7 then
     self.elements.pracs[element] = self.elements.pracs[element] + 1
@@ -791,7 +791,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer update int</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:add_int()
   if self.char.int &lt; 19 then
     self.char.int = self.char.int + 1
@@ -817,7 +817,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer update rank</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:add_rank()
   if self.char.rank &lt; 9 then
     self.char.rank = self.char.rank + 1
@@ -844,12 +844,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Convert Information</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer practice to percent</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:is_element(skill)
   if table.contains({"air", "earth", "fire", "spirit", "water"}, skill) then
     return true
@@ -945,7 +945,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer practice to level</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function weave_trainer:get_total_element_pracs()
   local element_totals = {air = 0, earth = 0, fire = 0, spirit = 0, water = 0}
   for _, element in pairs(self.pracs.elements) do
@@ -990,12 +990,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Displays</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer weave practice displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>for k = 1, 3, 1 do
   local label_name = f"container{k}"
   local w = 32
@@ -1085,7 +1085,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer weave element displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>weave_trainer.elements.container =
   weave_trainer.elements.container or
   Geyser.Container:new(
@@ -1149,7 +1149,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer character stats displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>weave_trainer.char.container =
   weave_trainer.char.container or
   Geyser.Container:new(
@@ -1213,7 +1213,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>weave_trainer total practice and level displays</name>
-				<packageName></packageName>
+				<packageName />
 				<script>local w = 26
 local h = 100
 local x = 40
@@ -1239,7 +1239,7 @@ weave_trainer.char["level_label"] =
 		</ScriptGroup>
 		<Script isActive="yes" isFolder="no">
 			<name>weave_trainer:update_displays</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function weave_trainer:update_int_rank_display()
   self.char["int_val_label"]:echo(f"&lt;center&gt;{self.char.int}")
   self.char["rank_val_label"]:echo(f"&lt;center&gt;{self.char.rank}")
@@ -1278,7 +1278,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>weave_trainer:show_help</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function weave_trainer:show_help()
   local help =
   [[
@@ -1305,6 +1305,6 @@ end</script>
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

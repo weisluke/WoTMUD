@@ -13,11 +13,11 @@ communications:append("Narrates")</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -42,11 +42,11 @@ communications:append("Chats")</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -71,11 +71,11 @@ communications:append("Tells")</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -116,11 +116,11 @@ communications:append("Says")</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -181,11 +181,11 @@ communications:append("Yells")</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -210,11 +210,11 @@ communications:append("Misc")</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -281,11 +281,11 @@ end</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>transparent</mFgColor>
 			<mBgColor>transparent</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -330,16 +330,16 @@ end</script>
 communications:echo("Communications configurations reset to default values.\n")
 communications:save_configs()
 communications:show_comms()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^comms configs reset$</regex>
 		</Alias>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Communications Window</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Communications Window Border Color</name>
 				<script>local key = matches[2]
@@ -355,8 +355,8 @@ communications:echo(f"Communications window ({key}) updated from (&lt;{old_color
 communications.configs.window[key] = color
 communications:save_configs()
 communications:show_comms()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^comms window (border|background|foreground|tabs) (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -373,8 +373,8 @@ communications:echo(f"Communications window (fontsize) updated from ({old_fontsi
 communications.configs.window.fontsize = fontsize
 communications:save_configs()
 communications:show_comms()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^comms window fontsize (\d+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -400,8 +400,8 @@ values[key] = f'{val}%'
 container:resize(values.w, values.h)
 container:move(values.x, values.y)
 communications:show_comms()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^comms window (w|h|x|y) (\-?\d+\.?\d*)$</regex>
 			</Alias>
 		</AliasGroup>
@@ -411,8 +411,8 @@ communications:show_comms()</script>
 wotmudmapper:echo("Communications will now " .. (communications.configs.window.widget and "use" or "not use") .. " a more flexible UserWindow.\n")
 communications:save_configs()
 communications:rebuild()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^comms widget$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -421,8 +421,8 @@ communications:rebuild()</script>
 communications:echo("Communications will now be " .. (communications.configs.window.visible and "shown.\n" or "hidden.\n"))
 communications:save_configs()
 communications:show_comms()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^comms show$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -431,8 +431,8 @@ communications:show_comms()</script>
 communications:echo("Communications will now be " .. (communications.configs.window.dock and "docked.\n" or "floating.\n"))
 communications:save_configs()
 communications:show_comms()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^comms dock$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -451,15 +451,15 @@ if communications.configs.colors[key] ~= nil then
 else
   communications:echo(f"Communications window key ({key}) not known.\n", false, true)
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^comms color (\S+) (\S+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Comms Help Alias</name>
 			<script>communications:show_help(matches[3])</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^comms help( (.*))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -469,15 +469,15 @@ end</script>
 communications.configs.debug = not communications.configs.debug
 communications:echo("Communications debug set to: " .. (communications.configs.debug and "&lt;green&gt;on&lt;reset&gt;.\n" or "&lt;red&gt;off&lt;reset&gt;.\n"))
 communications:save_configs()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^comms debug$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Comms version</name>
 			<script>communications:echo(f'version {communications.version}\n')</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^comms version$</regex>
 		</Alias>
 	</AliasPackage>
@@ -485,7 +485,7 @@ communications:save_configs()</script>
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>communications initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>communications = communications or {}
 communications.version = "1.0"
 
@@ -518,7 +518,7 @@ communications.default_configs = {
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:echo</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:echo(what, debug, err)
   --colored tags for message echo
   local main_tag = "&lt;dark_khaki&gt;(&lt;sienna&gt;communications&lt;dark_khaki&gt;): &lt;white&gt;"
@@ -542,7 +542,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:save_configs</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:save_configs()
   local home = getMudletHomeDir()
   local configs_path = f"{home}/communications.configs.lua"
@@ -552,7 +552,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:set_configs</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:set_configs()
   local home = getMudletHomeDir()
   local configs_path = f"{home}/communications.configs.lua"
@@ -577,7 +577,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:sys_connection</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:sys_connection(event)
   self:set_configs()
   self:show_comms()
@@ -589,7 +589,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "communications:sys_connecti
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:sys_disconnection</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:sys_disconnection(event)  
   self:echo("Saving communications configurations.\n", true)
   communications:save_configs()
@@ -608,7 +608,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "communications:sys_disco
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications.click</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications.click(tab)
   local self = communications
   self[self.current_tab]:hide()
@@ -620,7 +620,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:color_tabs</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:color_tabs()
   local style = [[
     background-color: %s;
@@ -646,7 +646,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:build</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:build()
   local configs = self.configs.window
   
@@ -746,7 +746,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:rebuild</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:rebuild()
   local configs = self.configs.window
   
@@ -768,7 +768,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:show_comms</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:show_comms()
   if not self.container then
     self:build()
@@ -839,7 +839,7 @@ end
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:append</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:append(tab)
   selectCaptureGroup(1)
   copy()
@@ -856,7 +856,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:show_help</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:show_help(cmd)
   if cmd then
     cmd = cmd:gsub(" ","_")
@@ -970,7 +970,7 @@ communications.help.window =
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:reposition_comms</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:reposition_comms(event, containerName, width, height, x, y)
   if containerName ~= "communications.container" then
     return
@@ -983,7 +983,7 @@ registerAnonymousEventHandler("AdjustableContainerRepositionFinish", "communicat
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>communications:comms_installer_success</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function communications:comms_installer_success(event, name)
   --if installed file is not the desired one
   if name ~= "communications" then return end
@@ -997,6 +997,6 @@ registerAnonymousEventHandler("sysInstallPackage", "communications:comms_install
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

@@ -16,8 +16,8 @@ elseif friend then
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^sf( (\w+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -29,8 +29,8 @@ if friend then
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^tf (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -42,8 +42,8 @@ if friend then
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^af$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -55,8 +55,8 @@ if friend then
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^gf$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -68,8 +68,8 @@ if friend then
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^df$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -81,8 +81,8 @@ if friend then
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^lf$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -94,16 +94,16 @@ if friend then
 else
   cecho("&lt;red&gt;Friend not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rf$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Delete Friend</name>
 			<script>friend = nil
 cecho("Friend removed.\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^delf$</regex>
 		</Alias>
 	</AliasPackage>
@@ -111,6 +111,6 @@ cecho("Friend removed.\n")</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

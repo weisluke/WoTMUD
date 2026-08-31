@@ -4,15 +4,15 @@
 	<TriggerPackage>
 		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
 			<name>Equipment Database</name>
-			<script></script>
+			<script />
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList />
@@ -33,11 +33,11 @@ equip_db:reset_eq_info()
 				<triggerType>0</triggerType>
 				<conditonLineDelta>3</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -76,11 +76,11 @@ equip_db:reset_eq_info()
 				<triggerType>0</triggerType>
 				<conditonLineDelta>3</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -120,11 +120,11 @@ equip_db:reset_eq_info()
 				<triggerType>0</triggerType>
 				<conditonLineDelta>3</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -165,11 +165,11 @@ equip_db:reset_eq_info()
 				<triggerType>0</triggerType>
 				<conditonLineDelta>4</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -214,11 +214,11 @@ equip_db:reset_eq_info()
 				<triggerType>0</triggerType>
 				<conditonLineDelta>5</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -267,11 +267,11 @@ equip_db:reset_eq_info()
 				<triggerType>0</triggerType>
 				<conditonLineDelta>5</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -314,11 +314,11 @@ equip_db:reset_eq_info()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -341,11 +341,11 @@ equip_db:reset_eq_info()</script>
 				<triggerType>0</triggerType>
 				<conditonLineDelta>0</conditonLineDelta>
 				<mStayOpen>0</mStayOpen>
-				<mCommand></mCommand>
-				<packageName></packageName>
+				<mCommand />
+				<packageName />
 				<mFgColor>#ff0000</mFgColor>
 				<mBgColor>#ffff00</mBgColor>
-				<mSoundFile></mSoundFile>
+				<mSoundFile />
 				<colorTriggerFgColor>#000000</colorTriggerFgColor>
 				<colorTriggerBgColor>#000000</colorTriggerBgColor>
 				<regexCodeList>
@@ -364,8 +364,8 @@ equip_db:reset_eq_info()</script>
 		<Alias isActive="yes" isFolder="no">
 			<name>Show help</name>
 			<script>equip_db:show_help()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^edb help$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -378,15 +378,15 @@ equip_db:echo("Downloading updated database...\n")
 local url = "https://raw.githubusercontent.com/weisluke/WoTMUD/master/Database_equipment.db"
 local saveto = f"{getMudletHomeDir()}/Database_equipment.db"
 downloadFile(saveto, url)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^edb update$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Reset database</name>
 			<script>equip_db:create_db()</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^edb reset$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -398,116 +398,116 @@ else
   enableTrigger("Equipment Database")
   equip_db:echo("Triggers activated.\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^edb triggers$</regex>
 		</Alias>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Show items</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Show all items</name>
 				<script>equip_db:show_weapons()
 equip_db:show_armor()
 equip_db:show_trinkets()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb show$</regex>
 			</Alias>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Weapons</name>
-				<script></script>
-				<command></command>
-				<packageName></packageName>
-				<regex></regex>
+				<script />
+				<command />
+				<packageName />
+				<regex />
 				<Alias isActive="yes" isFolder="no">
 					<name>Show weapons</name>
 					<script>equip_db:show_weapons()</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^edb show weapons$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Show weapons name</name>
 					<script>equip_db:show_weapons(matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^edb show weapons name (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Show weapons type</name>
 					<script>equip_db:show_weapons(nil, nil, matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^edb show weapons type (.+)$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Armor</name>
-				<script></script>
-				<command></command>
-				<packageName></packageName>
-				<regex></regex>
+				<script />
+				<command />
+				<packageName />
+				<regex />
 				<Alias isActive="yes" isFolder="no">
 					<name>Show armor</name>
 					<script>equip_db:show_armor()</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^edb show armor$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Show armor name</name>
 					<script>equip_db:show_armor(matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^edb show armor name (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Show armor slot</name>
 					<script>equip_db:show_armor(nil, nil, matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^edb show armor slot (.+)$</regex>
 				</Alias>
 			</AliasGroup>
 			<AliasGroup isActive="yes" isFolder="yes">
 				<name>Trinkets</name>
-				<script></script>
-				<command></command>
-				<packageName></packageName>
-				<regex></regex>
+				<script />
+				<command />
+				<packageName />
+				<regex />
 				<Alias isActive="yes" isFolder="no">
 					<name>Show trinkets</name>
 					<script>equip_db:show_trinkets()</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^edb show trinkets$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Show trinkets name</name>
 					<script>equip_db:show_trinkets(matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^edb show trinkets name (.+)$</regex>
 				</Alias>
 				<Alias isActive="yes" isFolder="no">
 					<name>Show trinkets slot</name>
 					<script>equip_db:show_trinkets(nil, nil, matches[2])</script>
-					<command></command>
-					<packageName></packageName>
+					<command />
+					<packageName />
 					<regex>^edb show trinkets slot (.+)$</regex>
 				</Alias>
 			</AliasGroup>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Update items</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Update hands</name>
 				<script>local eq_type = matches[2]
@@ -515,8 +515,8 @@ local name = matches[3]
 local hands = tonumber(matches[4])
 
 equip_db:update_item(eq_type, {name=name, hands=hands})</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb (weapons) hands (.+) (0|1|1.5|2)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -526,8 +526,8 @@ local name = matches[3]
 local weapon_type = matches[4]
 
 equip_db:update_item(eq_type, {name=name, weapon_type=weapon_type})</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb (weapons) weapon_type (.+) \\(.+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -537,8 +537,8 @@ local name = matches[3]
 local dmg_type = matches[4]
 
 equip_db:update_item(eq_type, {name=name, dmg_type=dmg_type})</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb (weapons) dmg_type (.+) (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -548,8 +548,8 @@ local name = matches[3]
 local eq_slot = matches[4]
 
 equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb (armor) eq_slot (.+) (head|body|arms|hands|legs|feet|shield|)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -559,8 +559,8 @@ local name = matches[3]
 local eq_slot = matches[4]
 
 equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot})</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath|)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -570,8 +570,8 @@ local name = matches[3]
 local eq_slot = matches[4]
 
 equip_db:update_item(eq_type, {name=name, eq_slot=eq_slot}, true)</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb force (trinkets) eq_slot (.+) (finger|neck|wrist|cloak|belt|sheath)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -581,8 +581,8 @@ local name = matches[3]
 local setup = matches[4]
 
 equip_db:update_item(eq_type, {name=name, setup=setup})</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb (armor|trinkets) setup (.+) ((\S+)|)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -592,17 +592,17 @@ local name = matches[3]
 local setup = matches[4]
 
 equip_db:update_item(eq_type, {name=name, setup=setup}, true)</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb force (armor|trinkets) setup (.+) ((\S+)|)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Deleting equipment database information</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>edb delete</name>
 				<script>--deletes the ENTIRE equipment database
@@ -613,8 +613,8 @@ for _, field in pairs(table.keys(equip_db.eq_fields)) do
 end
 equip_db:echo("The entire equipment database has been deleted.\n")
 equip_db:create_db()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb delete$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -627,8 +627,8 @@ local equipment = db:get_database("equipment")
 db:delete(equipment[field], true)
 equip_db:echo(f"The equipment database for ({field}) has been deleted.\n")
 equip_db:create_db()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb delete (weapons|armor|trinkets)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -642,8 +642,8 @@ local equipment = db:get_database("equipment")
 db:delete(equipment[field], db:like(equipment[field].name, f"%{name}%"))
 equip_db:echo(f"The equipment database ({field}) entry for ({name}) has been deleted.\n")
 equip_db:create_db()</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^edb delete (weapons|armor|trinkets) name (.+)$</regex>
 			</Alias>
 		</AliasGroup>
@@ -673,8 +673,8 @@ else
   db:add(equipment[sheet2], item)
   equip_db:echo(f"Item ({item.name}) moved from ({sheet1}) to ({sheet2}).\n")  
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^edb move (armor|trinkets) name (.+) (armor|trinkets)$</regex>
 		</Alias>
 	</AliasPackage>
@@ -682,7 +682,7 @@ end</script>
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>equip_db initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>equip_db = equip_db or {configs = {}, eq_info = {}}
 
 </script>
@@ -690,7 +690,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>equip_db:echo</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function equip_db:echo(what, debug, err)
   --colored tags for message echo
   local main_tag = "&lt;gray&gt;(&lt;white&gt;equip_db&lt;gray&gt;): &lt;white&gt;"
@@ -714,7 +714,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>equip_db:create_db</name>
-			<packageName></packageName>
+			<packageName />
 			<script>equip_db.eq_fields = {
     weapons = {"name", "hands", "weapon_type", "ob", "pb", "dmg", "weight", "dmg_type"},
     armor = {"name", "eq_slot", "db", "pb", "mvs", "abs", "weight", "setup"},
@@ -768,7 +768,7 @@ equip_db:create_db()
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>equip_db:show_help</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function equip_db:show_help()
   local help =
   [[
@@ -822,7 +822,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>equip_db:reset_eq_info</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function equip_db:reset_eq_info()
   self.eq_info = {}
 end</script>
@@ -830,7 +830,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>equip_db:update_item</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function equip_db:update_item(eq_type, info, exact_name)
   
   if not info.name then
@@ -893,7 +893,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>equip_db:db_update</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function equip_db:db_update(event, filename)
   --if the file that downloaded is not the database, return
   if not filename:find("Database_equipment.db", 1, true) then
@@ -908,12 +908,12 @@ registerAnonymousEventHandler("sysDownloadDone", "equip_db:db_update")</script>
 		</Script>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Get items</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>equip_db:get_weapons</name>
-				<packageName></packageName>
+				<packageName />
 				<script>local function sort_weapons(e1, e2)
   --sort first by weapon type, then hands, then ob, then pb, then dmg
 
@@ -1023,7 +1023,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>equip_db:get_armor</name>
-				<packageName></packageName>
+				<packageName />
 				<script>local function sort_armor(e1, e2)
   --sort first by setup, then eq slot, then abs, then db, then pb, then mvs
   
@@ -1132,7 +1132,7 @@ end
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>equip_db:get_trinkets</name>
-				<packageName></packageName>
+				<packageName />
 				<script>local function sort_trinkets(e1, e2)
   --sort first by setup, then eq slot, then db, then pb, then mvs
   
@@ -1234,12 +1234,12 @@ end</script>
 		</ScriptGroup>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>Show database items</name>
-			<packageName></packageName>
-			<script></script>
+			<packageName />
+			<script />
 			<eventHandlerList />
 			<Script isActive="yes" isFolder="no">
 				<name>equip_db:show_weapons</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function equip_db:show_weapons(name, name_exact, weapon_type, weapon_type_exact)
   
   local weapons = self:get_weapons(name, name_exact, weapon_type, weapon_type_exact)
@@ -1279,7 +1279,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>equip_db:show_armor</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function equip_db:show_armor(name, name_exact, eq_slot, eq_slot_exact)
   local armor = self:get_armor(name, name_exact, eq_slot, eq_slot_exact)
   
@@ -1318,7 +1318,7 @@ end</script>
 			</Script>
 			<Script isActive="yes" isFolder="no">
 				<name>equip_db:show_trinkets</name>
-				<packageName></packageName>
+				<packageName />
 				<script>function equip_db:show_trinkets(name, name_exact, eq_slot, eq_slot_exact)
   local trinkets = self:get_trinkets(name, name_exact, eq_slot, eq_slot_exact)
   
@@ -1357,7 +1357,7 @@ end</script>
 		</ScriptGroup>
 		<Script isActive="yes" isFolder="no">
 			<name>equip_db sysConnectionEvent</name>
-			<packageName></packageName>
+			<packageName />
 			<script>raiseEvent("equip_db:sys_connection_event")
 </script>
 			<eventHandlerList />
@@ -1365,6 +1365,6 @@ end</script>
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

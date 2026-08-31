@@ -8,7 +8,7 @@
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>Toggle Logging</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function toggle_logging(event)
   if event == "sysConnectionEvent" then
     local success, message, filename, code = startLogging(true)
@@ -31,6 +31,6 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "toggle_logging")</script
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

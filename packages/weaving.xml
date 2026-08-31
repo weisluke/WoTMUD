@@ -9,11 +9,11 @@ weaving.sex = matches[3]</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -30,11 +30,11 @@ weaving.name = matches[2]</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -61,8 +61,8 @@ else
   weaving.longweave = longweaves[1]
 end
 cecho(f"Long weave set to: {weaving.longweave}\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^lw$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -79,15 +79,15 @@ else
   weaving.shortweave = shortweaves[1]
 end
 cecho(f"Short weave set to: {weaving.shortweave}\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^sw$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Locate object</name>
 			<script>send(f"channel 'locate object' {matches[2]}")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^locobj (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -114,8 +114,8 @@ if target then
 else
   cecho("&lt;red&gt;Target not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^j$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -142,15 +142,15 @@ if target then
 else
   cecho("&lt;red&gt;Target not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^h$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Refresh</name>
 			<script>send("channel 'refresh'")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^fresh$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -162,15 +162,15 @@ if weaving.name then
 else
   cecho("&lt;red&gt;Unable to weave armor on self. Type \"score\" to capture character name.\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^armor$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Armor another</name>
 			<script>send(f"channel 'armor' {matches[2]}")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^armor (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -182,8 +182,8 @@ if weaving.name then
 else
   cecho("&lt;red&gt;Unable to weave WvD on self. Type \"score\" to capture character name.\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wvd$</regex>
 		</Alias>
 	</AliasPackage>
@@ -191,6 +191,6 @@ end</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

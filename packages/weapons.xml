@@ -15,15 +15,15 @@ if weapon.first then
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^ss$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Draw Dagger</name>
 			<script>--syntax: dd</script>
 			<command>draw dagger</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^dd$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -32,8 +32,8 @@ end</script>
 for i=1,matches[2]:len(),1 do
   send(f"scalp {i}.corpse")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^sc(c+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -41,22 +41,22 @@ end</script>
 			<script>for i=1,tonumber(matches[2]),1 do
   send(f"scalp {i}.corpse")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^scalp(\d+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Scalp specific corpse</name>
 			<script>send(f"scalp {matches[2]}.corpse")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^sc(\d+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Sheath Dagger</name>
 			<script>--syntax: sd</script>
 			<command>sheath dagger</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^sd$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -70,8 +70,8 @@ if weapon.first then
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^ds$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -85,8 +85,8 @@ if weapon.first then
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rs$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -100,8 +100,8 @@ if weapon.first then
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^ws$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -118,8 +118,8 @@ elseif weapon.first then
 else
   cecho("&lt;red&gt;Weapon not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^setweapon( (\S+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -130,8 +130,8 @@ weapon = weapon or {}
 
 weapon.first = nil
 cecho("&lt;red&gt;Weapon deleted!\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^delweapon$</regex>
 		</Alias>
 	</AliasPackage>
@@ -139,6 +139,6 @@ cecho("&lt;red&gt;Weapon deleted!\n")</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

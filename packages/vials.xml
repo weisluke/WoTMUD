@@ -15,8 +15,8 @@ if container.first then
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^gyp$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -30,8 +30,8 @@ if container.first then
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^grp$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -45,8 +45,8 @@ if container.first then
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^gdp$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -60,8 +60,8 @@ if container.first then
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^gsp$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -75,8 +75,8 @@ if container.first then
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^gtp$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -90,36 +90,36 @@ if container.first then
 else
   cecho("&lt;red&gt;Container not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^gcp$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Quaff Vial</name>
 			<script>--syntax: qv</script>
 			<command>quaff vial</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^qv$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Quaff Draught</name>
 			<script>--syntax: qd</script>
 			<command>quaff draught</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^qd$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Quaff Cup</name>
 			<script>--syntax: qc</script>
 			<command>quaff cup</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^qc$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Quaff Potion</name>
-			<script></script>
+			<script />
 			<command>quaff potion</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^qp$</regex>
 		</Alias>
 	</AliasPackage>
@@ -127,6 +127,6 @@ end</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

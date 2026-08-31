@@ -16,8 +16,8 @@ elseif horse.first then
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^sethorse( (\S+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -42,29 +42,29 @@ end
 
 
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>(^rh$)|(^ride (\S+)$)</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Dismount</name>
 			<script>--syntax: dm</script>
 			<command>dism</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^dm$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Lead Horse</name>
 			<script>--syntax: lh</script>
 			<command>lead</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^lh$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Give Stable Stablehand</name>
 			<script>--syntax: gss</script>
 			<command>give stable stablehand</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^gss$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -78,8 +78,8 @@ if horse.first then
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^ehh$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -93,15 +93,15 @@ if horse.first then
 else
   cecho("&lt;red&gt;Horse not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^rhh$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Diagnose Horse</name>
 			<script>--syntax: dh</script>
 			<command>diagnose mount</command>
-			<packageName></packageName>
+			<packageName />
 			<regex>^dh$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -112,22 +112,22 @@ horse = horse or {}
 
 horse.first = nil
 cecho("&lt;red&gt;Horse deleted!\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^delhorse$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Ride number.horse</name>
 			<script>send(f"ride {matches[2]}.horse")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^r(\d+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>Lead number.horse</name>
 			<script>send(f"lead {matches[2]}.horse")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^l(\d+)$</regex>
 		</Alias>
 	</AliasPackage>
@@ -135,6 +135,6 @@ cecho("&lt;red&gt;Horse deleted!\n")</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

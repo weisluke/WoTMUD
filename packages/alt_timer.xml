@@ -8,7 +8,7 @@
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>alt_timer initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>alt_timer = alt_timer or {}
 alt_timer.version = "1.0"
 alt_timer.t_sameside = 5 * 60 --sameside is 5 minutes
@@ -113,7 +113,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>alt_timer:sys_disconnection</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function alt_timer:sys_disconnection(event)
   cecho("&lt;green&gt;Starting timer for alting.\n")
   local time = getTime(true, "yyyy.MM.dd - HH:mm:ss")
@@ -144,7 +144,7 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "alt_timer:sys_disconnect
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>alt_timer:sys_connection</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function alt_timer:sys_connection(event)
   if self.sameside_timer then
     killTimer(self.sameside_timer)
@@ -167,6 +167,6 @@ registerAnonymousEventHandler("sysConnectionEvent", "alt_timer:sys_connection")<
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

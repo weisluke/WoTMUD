@@ -14,8 +14,8 @@ local color = targeting.colors[target] or "white"
 
 targeting[index] = target
 cecho(f"Target {index} set to: &lt;{color}&gt;{target}\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^t(\d+) (\S+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -33,8 +33,8 @@ if target then
 else
   cecho(f"&lt;red&gt;Target {index} not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^t(\d+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -59,8 +59,8 @@ for i, tgt in ipairs(targeting) do
   local color = targeting.colors[tgt] or "white"
   cecho(f"Target {i} = &lt;{color}&gt;{tgt}\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^tgts$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -73,8 +73,8 @@ end
 targeting.currtgt = nil
 cecho("Targets cleared.\n")
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^clear tgts$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -87,8 +87,8 @@ local color = targeting.colors[target] or "white"
 targeting.currtgt = target
 cecho(f"Current target set to: &lt;{color}&gt;{target}\n")
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^tgt (\S+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -103,8 +103,8 @@ if target then
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^tgt$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -120,9 +120,8 @@ if index then
 else
   targeting.pkmode = pkmodes[1]
 end
-cecho(f"PK method set to: {targeting.pkmode}\n")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^pkmode$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -136,8 +135,8 @@ if target then
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^p$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -151,8 +150,8 @@ if target then
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^o$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -179,8 +178,8 @@ if target then
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^q$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -194,8 +193,8 @@ if target then
 else
   cecho("&lt;red&gt;Current target not set!\n")
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^a$</regex>
 		</Alias>
 	</AliasPackage>
@@ -203,7 +202,7 @@ end</script>
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>targeting initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>targeting = targeting or {pkmode = "bash"}
 
 targeting.colors = {
@@ -226,6 +225,6 @@ targeting.colors = {
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

@@ -23,8 +23,8 @@ for herb, num in pairs(potions[potion]) do
     send(f"get {herb} {container}")
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^get (fear|poison|moves|strength|blind|tinful|forkroot) herbs (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -47,8 +47,8 @@ for herb, num in pairs(potions[potion]) do
   end
 end
 send(f"mix {container}")</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^mix (fear|poison|moves|strength|blind|tinful|forkroot) (.+)$</regex>
 		</Alias>
 	</AliasPackage>
@@ -56,6 +56,6 @@ send(f"mix {container}")</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

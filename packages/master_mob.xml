@@ -9,11 +9,11 @@ mob.leader = matches[2]</script>
 			<triggerType>0</triggerType>
 			<conditonLineDelta>0</conditonLineDelta>
 			<mStayOpen>0</mStayOpen>
-			<mCommand></mCommand>
-			<packageName></packageName>
+			<mCommand />
+			<packageName />
 			<mFgColor>#ff0000</mFgColor>
 			<mBgColor>#ffff00</mBgColor>
-			<mSoundFile></mSoundFile>
+			<mSoundFile />
 			<colorTriggerFgColor>#000000</colorTriggerFgColor>
 			<colorTriggerBgColor>#000000</colorTriggerBgColor>
 			<regexCodeList>
@@ -28,10 +28,10 @@ mob.leader = matches[2]</script>
 	<AliasPackage>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>First Mob</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Display Mob</name>
 				<script>--syntax: setmob
@@ -43,8 +43,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^setmob$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -56,8 +56,8 @@ mob = mob or {}
 mob.first = matches[2]
 cecho(f"Mob is set as: &lt;gold&gt;{mob.first}\n")
 </script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^setmob (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -71,8 +71,8 @@ if mob.target then
 else
   cecho("&lt;red&gt;No target specified!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^mobtgt$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -84,8 +84,8 @@ mob = mob or {}
 mob.target = matches[2]
 cecho(f"Mob target is set as: &lt;gold&gt;{mob.target}\n")
 </script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^mobtgt (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -103,8 +103,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omk$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -118,8 +118,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omk (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -133,8 +133,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omb$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -148,8 +148,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omb (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -167,8 +167,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^oma$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -182,8 +182,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^oma (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -201,8 +201,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omr$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -216,8 +216,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omr (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -231,8 +231,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^oms$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -250,8 +250,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omf$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -265,8 +265,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omd$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -280,8 +280,8 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omff$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -295,17 +295,17 @@ if mob.first then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^om (.+)$</regex>
 			</Alias>
 		</AliasGroup>
 		<AliasGroup isActive="yes" isFolder="yes">
 			<name>Second Mob</name>
-			<script></script>
-			<command></command>
-			<packageName></packageName>
-			<regex></regex>
+			<script />
+			<command />
+			<packageName />
+			<regex />
 			<Alias isActive="yes" isFolder="no">
 				<name>Display Mob</name>
 				<script>--syntax: setmobs
@@ -317,8 +317,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^setmobs$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -330,8 +330,8 @@ mob = mob or {}
 mob.second = matches[2]
 cecho(f"Mob is set as: &lt;gold&gt;{mob.second}\n")
 </script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^setmobs (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -345,8 +345,8 @@ if mob.targets then
 else
   cecho("&lt;red&gt;No target specified!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^mobtgts$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -358,8 +358,8 @@ mob = mob or {}
 mob.targets = matches[2]
 cecho(f"Mob target is set as: &lt;gold&gt;{mob.targets}\n")
 </script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^mobtgts (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -377,8 +377,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^ommk$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -392,8 +392,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^ommk (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -407,8 +407,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^ommb$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -422,8 +422,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^ommb (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -441,8 +441,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omma$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -456,8 +456,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omma (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -475,8 +475,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^ommr$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -490,8 +490,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^ommr (\S+)$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -505,8 +505,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omms$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -524,8 +524,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^ommf$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -539,8 +539,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^ommd$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -554,8 +554,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^ommff$</regex>
 			</Alias>
 			<Alias isActive="yes" isFolder="no">
@@ -569,8 +569,8 @@ if mob.second then
 else
   cecho("&lt;red&gt;Mob not set!\n")
 end</script>
-				<command></command>
-				<packageName></packageName>
+				<command />
+				<packageName />
 				<regex>^omm (.+)$</regex>
 			</Alias>
 		</AliasGroup>
@@ -579,6 +579,6 @@ end</script>
 	<ScriptPackage />
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

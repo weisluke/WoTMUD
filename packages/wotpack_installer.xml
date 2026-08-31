@@ -7,8 +7,8 @@
 		<Alias isActive="yes" isFolder="no">
 			<name>Install help</name>
 			<script>cecho(wotpack_installer.help)</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack help$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -41,8 +41,8 @@ for i=1,n_rows,1 do
 end
 cecho("----------------------------------------------------------------------------------------------------\n")
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack view files$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -51,8 +51,8 @@ cecho("-------------------------------------------------------------------------
 
 wotpack_installer:download("wotpack_installer")
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack update$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -63,8 +63,8 @@ for _, package in pairs(wotpack_installer.packages) do
   wotpack_installer:download(package)
 end
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack install all$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -78,8 +78,8 @@ for _, package in pairs(wotpack_installer.packages) do
     wotpack_installer:echo(f"{package} package uninstalled.\n")
   end
 end</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack uninstall all$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -101,8 +101,8 @@ if package ~= "all" then
   end
 end
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack install (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -130,8 +130,8 @@ if package ~= "all" then
   end
 end
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack uninstall (.+)$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -145,8 +145,8 @@ else
   wotpack_installer:echo(f"user ({wotpack_installer.user})\n")
 end
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack user( (.+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
@@ -160,15 +160,15 @@ else
   wotpack_installer:echo(f"branch ({wotpack_installer.branch})\n")
 end
 </script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack branch( (.+))?$</regex>
 		</Alias>
 		<Alias isActive="yes" isFolder="no">
 			<name>wotpack version</name>
 			<script>wotpack_installer:echo(f'version {wotpack_installer.version}\n')</script>
-			<command></command>
-			<packageName></packageName>
+			<command />
+			<packageName />
 			<regex>^wotpack version$</regex>
 		</Alias>
 	</AliasPackage>
@@ -176,7 +176,7 @@ end
 	<ScriptPackage>
 		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer initializations</name>
-			<packageName></packageName>
+			<packageName />
 			<script>wotpack_installer = wotpack_installer or {}
 wotpack_installer.configs = wotpack_installer.configs or {}
 wotpack_installer.version = "2.1"
@@ -260,7 +260,7 @@ wotpack_installer.help = [[
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer:echo</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotpack_installer:echo(what, debug, err)
   --colored tags for message echo
   local main_tag = "&lt;lawn_green&gt;(&lt;forest_green&gt;wotpack_installer&lt;lawn_green&gt;): &lt;white&gt;"
@@ -284,7 +284,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer:download</name>
-			<packageName></packageName>
+			<packageName />
 			<script>--assumes package is lowercase and has had any spaces replaced with underscores
 function wotpack_installer:download(package)
   local saveto = f"{getMudletHomeDir()}/wotpack_installer_downloads/"
@@ -303,7 +303,7 @@ end</script>
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer:download_error</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotpack_installer:download_error(event,what)
   local _,package = what:match("(.+)/(.+).xml")
   if not package then
@@ -323,7 +323,7 @@ registerAnonymousEventHandler("sysDownloadError", "wotpack_installer:download_er
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer:download_complete</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotpack_installer:download_complete(event, filename)
   local _,package = filename:match("(.+)/(.+).xml")
   if not package then
@@ -352,7 +352,7 @@ registerAnonymousEventHandler("sysDownloadDone", "wotpack_installer:download_com
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer.install</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotpack_installer.install()
   local self = wotpack_installer
   
@@ -412,7 +412,7 @@ wotpack_installer.is_installing = wotpack_installer.is_installing or false
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer:sys_connection</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotpack_installer:sys_connection(event)
   self.user = "weisluke"
   self.branch = "main"
@@ -424,7 +424,7 @@ registerAnonymousEventHandler("sysConnectionEvent", "wotpack_installer:sys_conne
 		</Script>
 		<Script isActive="yes" isFolder="no">
 			<name>wotpack_installer:sys_disconnection</name>
-			<packageName></packageName>
+			<packageName />
 			<script>function wotpack_installer:sys_disconnection(event)
   self.user = "weisluke"
   self.branch = "main"
@@ -437,6 +437,6 @@ registerAnonymousEventHandler("sysDisconnectionEvent", "wotpack_installer:sys_di
 	</ScriptPackage>
 	<KeyPackage />
 	<HelpPackage>
-		<helpURL></helpURL>
+		<helpURL />
 	</HelpPackage>
 </MudletPackage>

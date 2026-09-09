@@ -10,7 +10,7 @@
 			<name>alt_timer initializations</name>
 			<packageName />
 			<script>alt_timer = alt_timer or {}
-alt_timer.version = "1.0"
+alt_timer.version = "1.1 "
 alt_timer.t_sameside = 5 * 60 --sameside is 5 minutes
 alt_timer.t_crossrace = 10 * 60 --crossrace is 10 minutes
 alt_timer.t_immortal = 15 * 60 --immortal is 15 minutes
@@ -115,6 +115,19 @@ end</script>
 			<name>alt_timer:sys_disconnection</name>
 			<packageName />
 			<script>function alt_timer:sys_disconnection(event)
+  if self.sameside_timer then
+    killTimer(self.sameside_timer)
+  end
+  if self.crossrace_timer then
+    killTimer(self.crossrace_timer)
+  end
+  if self.immortal_timer then
+    killTimer(self.immortal_timer)
+  end
+  if self.elapsed_timer then
+    killTimer(self.elapsed_timer)
+  end
+  
   cecho("&lt;green&gt;Starting timer for alting.\n")
   local time = getTime(true, "yyyy.MM.dd - HH:mm:ss")
   cecho(f"&lt;green&gt;Date - Time: {time}\n")

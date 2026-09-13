@@ -27,9 +27,6 @@ container = container or {}
 
 if patterns[location] then
   sendAll("get disc column", f"touch {patterns[location]}")
-  if container.first then
-    send(f"put disc {container.first}")
-  end
 else
   cecho("Unknown location. Locations are:\nSH, THR, IJ, MIRK, ALTARA, TREMALKING, PASSGATE, MAREDO, EVILBRAEM, IOMM, BAERLON, JIMMY\n")
 end</script>

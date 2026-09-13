@@ -1220,6 +1220,7 @@ end</script>
 					<string>A (.+) lamplighter lights a streetlamp\.$</string>
 					<string>A (.+) lamplighter exclaims 'Finally\.\. Time to relax and have a beer!'$</string>
 					<string>A (.+) lamplighter extinguishes a streetlamp\.$</string>
+					<string>Someone runs off, mumbling about some low-paying job.</string>
 					<string>Someone lights something.</string>
 					<string>The (.+) alarm sounds loudly in the distance\.$</string>
 					<string>The steady toll of a gong calls defenders to the stone.</string>
@@ -1263,6 +1264,7 @@ end</script>
 					<integer>1</integer>
 					<integer>1</integer>
 					<integer>1</integer>
+					<integer>3</integer>
 					<integer>3</integer>
 					<integer>1</integer>
 					<integer>3</integer>

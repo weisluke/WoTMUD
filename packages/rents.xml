@@ -213,7 +213,6 @@ end</script>
 		<Alias isActive="yes" isFolder="no">
 			<name>Show all rents</name>
 			<script>rents:show()
-
 </script>
 			<command />
 			<packageName />
@@ -224,6 +223,9 @@ end</script>
 			<script>local name = matches[2]:trim():lower()
 
 rents.records = rents:fetch_records()
+if not rents.window then
+  rents:build()
+end
 rents:reset()
 
 local filters = rents:get_active_filters()
@@ -245,6 +247,9 @@ end</script>
 			<script>local item = matches[2]:trim():lower()
 
 rents.records = rents:fetch_records()
+if not rents.window then
+  rents:build()
+end
 rents:reset()
 
 local filters = rents:get_active_filters()
@@ -273,6 +278,9 @@ end</script>
 			<script>local zone = matches[2]:trim():lower()
 
 rents.records = rents:fetch_records()
+if not rents.window then
+  rents:build()
+end
 rents:reset()
 
 local filters = rents:get_active_filters()
